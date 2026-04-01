@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java Arithmetic Operators and Math Class Methods — Lesson, Assignments, and MCQ</title>
 
-  <title>Java Arithmetic Operators & Math Class — Lesson</title>
-
-  <!-- Speak JS -->
   <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
 
   <meta name="theme-color" content="#d97706" />
+  <meta
+    name="description"
+    content="A complete Java lesson on arithmetic operators and Math class methods with assignments, examples, and interactive MCQ questions implemented using JavaScript."
+  />
 
   <style>
     :root{
@@ -20,231 +22,867 @@
       --brand:#d97706;
       --brand-2:#f59e0b;
       --line:#ead7b0;
-      --soft:#fff1cc;
+      --soft:#fff4d6;
+      --soft-2:#fff9ec;
       --code:#111827;
       --code-text:#f9fafb;
       --ok:#166534;
+      --bad:#991b1b;
+      --info:#1d4ed8;
+      --shadow:0 16px 32px rgba(217,119,6,0.10);
+      --radius:18px;
     }
 
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
     body{
       margin:0;
-      font-family:system-ui;
-      background:var(--bg);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(245,158,11,0.14), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(217,119,6,0.10), transparent 25%),
+        var(--bg);
       color:var(--ink);
-      line-height:1.6;
+      line-height:1.65;
     }
 
     header{
       background:linear-gradient(135deg,var(--brand),var(--brand-2));
-      color:white;
-      padding:24px;
+      color:#fff;
+      padding:34px 20px;
       text-align:center;
+      box-shadow:0 10px 25px rgba(0,0,0,0.10);
+    }
+
+    header h1{
+      margin:0 0 10px;
+      font-size:clamp(1.9rem,4vw,3rem);
+      line-height:1.15;
+    }
+
+    header p{
+      margin:0;
+      font-size:1.02rem;
+      opacity:0.95;
     }
 
     .container{
-      max-width:1000px;
-      margin:auto;
-      padding:20px;
+      max-width:1100px;
+      margin:0 auto;
+      padding:22px;
     }
 
     .card{
       background:var(--card);
-      padding:20px;
-      margin-bottom:20px;
-      border-radius:12px;
       border:1px solid var(--line);
-      box-shadow:0 10px 20px rgba(0,0,0,0.05);
+      border-radius:var(--radius);
+      padding:22px;
+      margin-bottom:22px;
+      box-shadow:var(--shadow);
     }
 
-    h2{color:var(--brand)}
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.3fr .9fr;
+      gap:18px;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .mini{
+      background:var(--soft-2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+    }
+
+    h2{
+      margin-top:0;
+      color:var(--brand);
+      font-size:1.55rem;
+    }
+
+    h3{
+      color:#9a5a05;
+      margin-bottom:8px;
+    }
+
+    p, li{
+      font-size:1rem;
+    }
+
+    .muted{
+      color:var(--muted);
+    }
+
+    ul, ol{
+      padding-left:22px;
+    }
+
+    code{
+      background:#fff2cf;
+      padding:2px 6px;
+      border-radius:6px;
+      border:1px solid #f1d18a;
+    }
 
     pre{
       background:var(--code);
       color:var(--code-text);
-      padding:15px;
-      border-radius:8px;
+      padding:16px;
+      border-radius:14px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,0.08);
+      line-height:1.55;
+      font-size:0.96rem;
+    }
+
+    .table-wrap{
       overflow:auto;
     }
 
-    .mcq{
-      margin-bottom:15px;
-      padding:10px;
-      border-left:4px solid var(--brand);
-      background:var(--soft);
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:#fffdfa;
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
     }
 
-    .answer{
-      color:var(--ok);
-      font-weight:bold;
+    th, td{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#fff1cc;
+      color:#8a5206;
+    }
+
+    .quiz-toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+      padding:14px;
+      background:var(--soft-2);
+      border:1px solid var(--line);
+      border-radius:14px;
+    }
+
+    .quiz-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
     }
 
     button{
-      background:var(--brand);
-      color:white;
       border:none;
-      padding:10px 15px;
-      border-radius:6px;
+      background:var(--brand);
+      color:#fff;
+      padding:11px 16px;
+      border-radius:12px;
+      font-weight:700;
       cursor:pointer;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+      box-shadow:0 8px 20px rgba(217,119,6,0.20);
     }
 
     button:hover{
       background:var(--brand-2);
+      transform:translateY(-1px);
+    }
+
+    button.secondary{
+      background:#fff;
+      color:var(--brand);
+      border:1px solid var(--line);
+      box-shadow:none;
+    }
+
+    button.secondary:hover{
+      background:#fff7e8;
+    }
+
+    .question-card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      margin-bottom:16px;
+      background:#fffdfa;
+    }
+
+    .question-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      margin-bottom:10px;
+    }
+
+    .question-number{
+      font-weight:800;
+      color:var(--brand);
+    }
+
+    .topic-tag{
+      font-size:0.83rem;
+      padding:6px 10px;
+      background:#fff2cf;
+      border:1px solid #efd393;
+      border-radius:999px;
+      color:#8a5206;
+      white-space:nowrap;
+    }
+
+    .question-text{
+      margin:0 0 14px;
+      font-size:1.05rem;
+      font-weight:600;
+    }
+
+    .options{
+      display:grid;
+      gap:10px;
+    }
+
+    .option{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      cursor:pointer;
+      transition:border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+
+    .option:hover{
+      border-color:#e9ba56;
+      background:#fff9ec;
+      transform:translateY(-1px);
+    }
+
+    .option input{
+      margin-top:4px;
+      accent-color:var(--brand);
+      transform:scale(1.1);
+    }
+
+    .option.correct{
+      border-color:#86d4a1;
+      background:#ecfdf3;
+    }
+
+    .option.incorrect{
+      border-color:#e6a8a8;
+      background:#fef2f2;
+    }
+
+    .feedback{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:12px;
+      font-weight:600;
+      display:none;
+    }
+
+    .feedback.show{
+      display:block;
+    }
+
+    .feedback.correct{
+      background:#ecfdf3;
+      color:var(--ok);
+      border:1px solid #a7e2bb;
+    }
+
+    .feedback.incorrect{
+      background:#fef2f2;
+      color:var(--bad);
+      border:1px solid #efb2b2;
+    }
+
+    .result-box{
+      margin-top:18px;
+      padding:18px;
+      border-radius:16px;
+      background:#fff7e8;
+      border:1px solid var(--line);
+      display:none;
+    }
+
+    .result-box.show{
+      display:block;
+    }
+
+    .score-big{
+      font-size:2rem;
+      font-weight:800;
+      color:var(--brand);
+      margin:0 0 8px;
+    }
+
+    .result-note{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .assignment{
+      padding:14px;
+      border-radius:14px;
+      background:var(--soft-2);
+      border:1px solid var(--line);
+      margin-bottom:12px;
+    }
+
+    .footer-note{
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+      padding-bottom:24px;
+    }
+
+    @media (max-width: 860px){
+      .hero-grid{
+        grid-template-columns:1fr;
+      }
+      .question-head{
+        flex-direction:column;
+      }
+      .quiz-toolbar{
+        align-items:flex-start;
+      }
     }
   </style>
 </head>
-
 <body>
 
-<header>
-  <h1 id="speak0">Java Arithmetic Operators and Math Class</h1>
-  <p>Programmer’s Picnic Lesson</p>
-</header>
+  <header>
+    <h1 id="speak0">Java Arithmetic Operators and Math Class Methods</h1>
+    <p id="speak1">A complete lesson with examples, assignments, and interactive MCQ questions implemented using JavaScript.</p>
+  </header>
 
-<div class="container">
+  <main class="container">
 
-  <!-- INTRO -->
-  <div class="card">
-    <p id="speak1">
-      In this lesson, we will learn how Java performs calculations using arithmetic operators and powerful Math class methods.
-    </p>
-  </div>
+    <section class="card hero-grid">
+      <div>
+        <h2 id="speak2">What you will learn</h2>
+        <p id="speak3">
+          In this lesson, you will learn how Java performs basic mathematical calculations using arithmetic operators such as addition, subtraction, multiplication, division, and modulus. You will also learn how to use the <code>Math</code> class to perform common mathematical tasks such as finding the maximum value, square root, power, absolute value, and random number generation.
+        </p>
+        <p id="speak4">
+          After reading the lesson, you can solve the assignments and then attempt the interactive quiz. The quiz checks your answers using JavaScript and gives instant feedback.
+        </p>
+      </div>
 
-  <!-- ARITHMETIC OPERATORS -->
-  <div class="card">
-    <h2 id="speak2">Arithmetic Operators</h2>
+      <div class="mini-grid">
+        <div class="mini">
+          <strong id="speak5">Part 1</strong>
+          <p class="muted" id="speak6">Arithmetic operators in Java</p>
+        </div>
+        <div class="mini">
+          <strong id="speak7">Part 2</strong>
+          <p class="muted" id="speak8">Math class methods</p>
+        </div>
+        <div class="mini">
+          <strong id="speak9">Part 3</strong>
+          <p class="muted" id="speak10">Assignments for practice</p>
+        </div>
+        <div class="mini">
+          <strong id="speak11">Part 4</strong>
+          <p class="muted" id="speak12">Interactive MCQ quiz</p>
+        </div>
+      </div>
+    </section>
 
-    <p id="speak3">
-      Arithmetic operators are used to perform basic mathematical operations like addition, subtraction, multiplication, division, and modulus.
-    </p>
+    <section class="card">
+      <h2 id="speak13">Arithmetic Operators in Java</h2>
+      <p id="speak14">
+        Arithmetic operators are symbols used to perform mathematical operations on variables and values. These are some of the first operators every Java learner uses.
+      </p>
 
-    <ul>
-      <li id="speak4">+ : Addition</li>
-      <li id="speak5">- : Subtraction</li>
-      <li id="speak6">* : Multiplication</li>
-      <li id="speak7">/ : Division</li>
-      <li id="speak8">% : Modulus (remainder)</li>
-    </ul>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th id="speak15">Operator</th>
+              <th id="speak16">Meaning</th>
+              <th id="speak17">Example</th>
+              <th id="speak18">Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>+</td>
+              <td id="speak19">Addition</td>
+              <td><code>10 + 5</code></td>
+              <td>15</td>
+            </tr>
+            <tr>
+              <td>-</td>
+              <td id="speak20">Subtraction</td>
+              <td><code>10 - 5</code></td>
+              <td>5</td>
+            </tr>
+            <tr>
+              <td>*</td>
+              <td id="speak21">Multiplication</td>
+              <td><code>10 * 5</code></td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <td>/</td>
+              <td id="speak22">Division</td>
+              <td><code>10 / 5</code></td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>%</td>
+              <td id="speak23">Modulus or remainder</td>
+              <td><code>10 % 3</code></td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-<pre id="speak9">
-int a = 10;
-int b = 3;
+      <h3 id="speak24">Example program</h3>
+      <pre id="speak25">public class Main {
+    public static void main(String[] args) {
+        int a = 12;
+        int b = 5;
 
-System.out.println(a + b); // 13
-System.out.println(a - b); // 7
-System.out.println(a * b); // 30
-System.out.println(a / b); // 3
-System.out.println(a % b); // 1
-</pre>
+        System.out.println("Addition: " + (a + b));
+        System.out.println("Subtraction: " + (a - b));
+        System.out.println("Multiplication: " + (a * b));
+        System.out.println("Division: " + (a / b));
+        System.out.println("Remainder: " + (a % b));
+    }
+}</pre>
 
-    <p id="speak10">
-      Note that division between integers removes decimals. This is called integer division.
-    </p>
-  </div>
+      <p id="speak26">
+        Notice the division result. Since both <code>a</code> and <code>b</code> are integers, Java performs integer division. That means the decimal part is removed. So <code>12 / 5</code> becomes <code>2</code>, not <code>2.4</code>.
+      </p>
 
-  <!-- INCREMENT -->
-  <div class="card">
-    <h2 id="speak11">Increment and Decrement</h2>
+      <pre id="speak27">double x = 12;
+double y = 5;
+System.out.println(x / y); // 2.4</pre>
+    </section>
 
-    <p id="speak12">
-      Java also provides shortcut operators to increase or decrease values.
-    </p>
+    <section class="card">
+      <h2 id="speak28">Increment and Decrement</h2>
+      <p id="speak29">
+        Java also provides shortcut operators to increase or decrease a value by one.
+      </p>
 
-<pre id="speak13">
-int x = 5;
+      <pre id="speak30">int count = 7;
 
-x++; // x becomes 6
-x--; // x becomes 5
-</pre>
-  </div>
+count++; // count becomes 8
+count--; // count becomes 7 again
 
-  <!-- MATH CLASS -->
-  <div class="card">
-    <h2 id="speak14">Math Class Methods</h2>
+System.out.println(count);</pre>
 
-    <p id="speak15">
-      Java provides the Math class which contains many useful mathematical functions.
-    </p>
+      <p id="speak31">
+        The increment operator <code>++</code> adds one. The decrement operator <code>--</code> subtracts one.
+      </p>
+    </section>
 
-<pre id="speak16">
-System.out.println(Math.max(10, 20)); // 20
-System.out.println(Math.min(10, 20)); // 10
-System.out.println(Math.sqrt(16));    // 4.0
-System.out.println(Math.pow(2, 3));   // 8.0
-System.out.println(Math.abs(-5));     // 5
-System.out.println(Math.random());    // Random number between 0 and 1
-</pre>
+    <section class="card">
+      <h2 id="speak32">Math Class Methods in Java</h2>
+      <p id="speak33">
+        The <code>Math</code> class in Java contains many useful built-in methods. These methods help you perform mathematical operations quickly without writing your own logic for every task.
+      </p>
 
-    <p id="speak17">
-      These methods help us perform complex calculations easily without writing long logic.
-    </p>
-  </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th id="speak34">Method</th>
+              <th id="speak35">Purpose</th>
+              <th id="speak36">Example</th>
+              <th id="speak37">Output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Math.max(a, b)</code></td>
+              <td id="speak38">Returns the larger value</td>
+              <td><code>Math.max(7, 11)</code></td>
+              <td>11</td>
+            </tr>
+            <tr>
+              <td><code>Math.min(a, b)</code></td>
+              <td id="speak39">Returns the smaller value</td>
+              <td><code>Math.min(7, 11)</code></td>
+              <td>7</td>
+            </tr>
+            <tr>
+              <td><code>Math.sqrt(x)</code></td>
+              <td id="speak40">Returns square root</td>
+              <td><code>Math.sqrt(81)</code></td>
+              <td>9.0</td>
+            </tr>
+            <tr>
+              <td><code>Math.pow(a, b)</code></td>
+              <td id="speak41">Returns a raised to power b</td>
+              <td><code>Math.pow(2, 4)</code></td>
+              <td>16.0</td>
+            </tr>
+            <tr>
+              <td><code>Math.abs(x)</code></td>
+              <td id="speak42">Returns absolute value</td>
+              <td><code>Math.abs(-14)</code></td>
+              <td>14</td>
+            </tr>
+            <tr>
+              <td><code>Math.random()</code></td>
+              <td id="speak43">Returns random decimal from 0.0 to less than 1.0</td>
+              <td><code>Math.random()</code></td>
+              <td>Example: 0.738...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <!-- ASSIGNMENTS -->
-  <div class="card">
-    <h2 id="speak18">Assignments</h2>
+      <h3 id="speak44">Example program using Math methods</h3>
+      <pre id="speak45">public class Main {
+    public static void main(String[] args) {
+        System.out.println(Math.max(15, 22));
+        System.out.println(Math.min(15, 22));
+        System.out.println(Math.sqrt(64));
+        System.out.println(Math.pow(3, 4));
+        System.out.println(Math.abs(-90));
+        System.out.println(Math.random());
+    }
+}</pre>
 
-    <ol>
-      <li id="speak19">Write a Java program to calculate area of a rectangle.</li>
-      <li id="speak20">Find the square root of a number using Math class.</li>
-      <li id="speak21">Generate a random number between 1 and 100.</li>
-      <li id="speak22">Write a program to check if a number is even using modulus.</li>
-      <li id="speak23">Calculate power of a number using Math.pow().</li>
-    </ol>
-  </div>
+      <p id="speak46">
+        To generate a random integer from 1 to 100, you can write:
+      </p>
 
-  <!-- MCQ -->
-  <div class="card">
-    <h2 id="speak24">MCQ Questions</h2>
+      <pre id="speak47">int randomNumber = (int)(Math.random() * 100) + 1;
+System.out.println(randomNumber);</pre>
+    </section>
 
-    <div class="mcq" id="speak25">
-      1. What is the result of 10 % 3?<br>
-      a) 3<br>
-      b) 1<br>
-      c) 0<br>
-      d) 10<br>
-      <div class="answer">Answer: b) 1</div>
-    </div>
+    <section class="card">
+      <h2 id="speak48">Assignments</h2>
 
-    <div class="mcq" id="speak26">
-      2. Which method returns the square root?<br>
-      a) Math.pow()<br>
-      b) Math.sqrt()<br>
-      c) Math.random()<br>
-      d) Math.abs()<br>
-      <div class="answer">Answer: b) Math.sqrt()</div>
-    </div>
+      <div class="assignment" id="speak49">
+        <strong>Assignment 1:</strong> Write a Java program that takes two numbers and prints their addition, subtraction, multiplication, division, and remainder.
+      </div>
 
-    <div class="mcq" id="speak27">
-      3. What does Math.abs(-10) return?<br>
-      a) -10<br>
-      b) 10<br>
-      c) 0<br>
-      d) Error<br>
-      <div class="answer">Answer: b) 10</div>
-    </div>
+      <div class="assignment" id="speak50">
+        <strong>Assignment 2:</strong> Write a Java program to calculate the area and perimeter of a rectangle using arithmetic operators.
+      </div>
 
-    <div class="mcq" id="speak28">
-      4. What is Math.pow(2,3)?<br>
-      a) 6<br>
-      b) 8<br>
-      c) 9<br>
-      d) 5<br>
-      <div class="answer">Answer: b) 8</div>
-    </div>
+      <div class="assignment" id="speak51">
+        <strong>Assignment 3:</strong> Write a Java program to check whether a number is even or odd using the modulus operator.
+      </div>
 
-    <div class="mcq" id="speak29">
-      5. Math.random() returns?<br>
-      a) Integer<br>
-      b) Boolean<br>
-      c) Double between 0 and 1<br>
-      d) String<br>
-      <div class="answer">Answer: c) Double between 0 and 1</div>
-    </div>
+      <div class="assignment" id="speak52">
+        <strong>Assignment 4:</strong> Write a Java program that finds the maximum and minimum of two given numbers using <code>Math.max()</code> and <code>Math.min()</code>.
+      </div>
 
-  </div>
+      <div class="assignment" id="speak53">
+        <strong>Assignment 5:</strong> Write a Java program to calculate the square root of a given number using <code>Math.sqrt()</code>.
+      </div>
 
-</div>
+      <div class="assignment" id="speak54">
+        <strong>Assignment 6:</strong> Write a Java program to calculate a number raised to a power using <code>Math.pow()</code>.
+      </div>
 
+      <div class="assignment" id="speak55">
+        <strong>Assignment 7:</strong> Write a Java program to convert a negative number to a positive number using <code>Math.abs()</code>.
+      </div>
+
+      <div class="assignment" id="speak56">
+        <strong>Assignment 8:</strong> Write a Java program to generate a random number from 1 to 50.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak57">Interactive MCQ Quiz</h2>
+      <p id="speak58">
+        Select one answer for each question and click <strong>Check Answers</strong>. The quiz is implemented using JavaScript and shows your score instantly.
+      </p>
+
+      <div class="quiz-toolbar">
+        <div id="speak59"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
+        <div class="quiz-actions">
+          <button id="checkBtn" type="button">Check Answers</button>
+          <button id="resetBtn" type="button" class="secondary">Reset Quiz</button>
+        </div>
+      </div>
+
+      <div id="quizContainer"></div>
+
+      <div id="resultBox" class="result-box" aria-live="polite">
+        <p class="score-big" id="scoreText">0 / 0</p>
+        <p class="result-note" id="resultNote">Your result will appear here.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak60">Quick Revision</h2>
+      <ul>
+        <li id="speak61">Use <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, and <code>%</code> for arithmetic operations.</li>
+        <li id="speak62">Use <code>%</code> when you need the remainder.</li>
+        <li id="speak63">Integer division removes the decimal part.</li>
+        <li id="speak64">Use <code>Math.max()</code> and <code>Math.min()</code> to compare values.</li>
+        <li id="speak65">Use <code>Math.sqrt()</code> for square root and <code>Math.pow()</code> for powers.</li>
+        <li id="speak66">Use <code>Math.abs()</code> to get the positive distance from zero.</li>
+        <li id="speak67">Use <code>Math.random()</code> for random decimal values.</li>
+      </ul>
+    </section>
+
+    <p class="footer-note" id="speak68">Programmer’s Picnic Java lesson page with interactive quiz and speak tags.</p>
+  </main>
+
+  <script>
+    const quizData = [
+      {
+        topic: "Arithmetic Operators",
+        question: "What is the value of 15 % 4 in Java?",
+        options: ["3", "4", "2", "1"],
+        answer: 3,
+        explanation: "The modulus operator returns the remainder. 15 divided by 4 leaves remainder 3."
+      },
+      {
+        topic: "Arithmetic Operators",
+        question: "What will be the output of 9 / 2 if both numbers are int in Java?",
+        options: ["4", "4.5", "5", "Compiler error"],
+        answer: 0,
+        explanation: "Integer division removes the decimal part, so 9 / 2 becomes 4."
+      },
+      {
+        topic: "Arithmetic Operators",
+        question: "Which operator is used for multiplication in Java?",
+        options: ["x", "#", "*", "%"],
+        answer: 2,
+        explanation: "The multiplication operator in Java is *."
+      },
+      {
+        topic: "Arithmetic Operators",
+        question: "Which operator gives the remainder after division?",
+        options: ["*", "/", "%", "+"],
+        answer: 2,
+        explanation: "The % operator gives the remainder."
+      },
+      {
+        topic: "Arithmetic Operators",
+        question: "If int a = 7; a++; what is the new value of a?",
+        options: ["6", "7", "8", "9"],
+        answer: 2,
+        explanation: "The increment operator ++ increases the value by 1."
+      },
+      {
+        topic: "Arithmetic Operators",
+        question: "If int a = 10; int b = 3; what is the value of a / b?",
+        options: ["3", "3.33", "4", "1"],
+        answer: 0,
+        explanation: "Because both values are integers, Java performs integer division."
+      },
+      {
+        topic: "Math Class",
+        question: "Which method returns the square root of a number?",
+        options: ["Math.root()", "Math.sqrt()", "Math.square()", "Math.pow()"],
+        answer: 1,
+        explanation: "Math.sqrt() returns the square root of a number."
+      },
+      {
+        topic: "Math Class",
+        question: "What is the output of Math.pow(2, 5)?",
+        options: ["7", "10", "25", "32"],
+        answer: 3,
+        explanation: "Math.pow(2, 5) means 2 raised to the power 5, which is 32."
+      },
+      {
+        topic: "Math Class",
+        question: "What does Math.abs(-18) return?",
+        options: ["-18", "18", "0", "1"],
+        answer: 1,
+        explanation: "Math.abs() returns the absolute value, so Math.abs(-18) is 18."
+      },
+      {
+        topic: "Math Class",
+        question: "Which method returns the larger of two values?",
+        options: ["Math.big()", "Math.max()", "Math.large()", "Math.high()"],
+        answer: 1,
+        explanation: "Math.max() returns the larger value."
+      },
+      {
+        topic: "Math Class",
+        question: "Which method returns the smaller of two values?",
+        options: ["Math.low()", "Math.small()", "Math.min()", "Math.less()"],
+        answer: 2,
+        explanation: "Math.min() returns the smaller value."
+      },
+      {
+        topic: "Math Class",
+        question: "What is the range of Math.random()?",
+        options: ["0 to 1 inclusive", "1 to 100", "0.0 to less than 1.0", "-1 to 1"],
+        answer: 2,
+        explanation: "Math.random() returns a double from 0.0 up to but not including 1.0."
+      },
+      {
+        topic: "Mixed",
+        question: "How can you generate a random integer from 1 to 10?",
+        options: [
+          "(int)(Math.random() * 10)",
+          "(int)(Math.random() * 10) + 1",
+          "Math.random(1,10)",
+          "Math.intRandom(10)"
+        ],
+        answer: 1,
+        explanation: "Multiplying by 10 gives values from 0 to less than 10. Adding 1 shifts the range to 1 through 10."
+      },
+      {
+        topic: "Mixed",
+        question: "What is the result of Math.max(4, Math.min(9, 6))?",
+        options: ["9", "6", "4", "10"],
+        answer: 1,
+        explanation: "Math.min(9, 6) is 6, then Math.max(4, 6) is 6."
+      },
+      {
+        topic: "Mixed",
+        question: "What will be printed by System.out.println(5 + 2 * 3); ?",
+        options: ["21", "11", "15", "13"],
+        answer: 1,
+        explanation: "Multiplication happens before addition, so 2 * 3 = 6, then 5 + 6 = 11."
+      },
+      {
+        topic: "Mixed",
+        question: "Which of the following expressions checks if a number n is even?",
+        options: ["n / 2 == 0", "n % 2 == 0", "n * 2 == 0", "n + 2 == 0"],
+        answer: 1,
+        explanation: "If n % 2 equals 0, the number is even."
+      }
+    ];
+
+    const quizContainer = document.getElementById("quizContainer");
+    const totalQuestions = document.getElementById("totalQuestions");
+    const resultBox = document.getElementById("resultBox");
+    const scoreText = document.getElementById("scoreText");
+    const resultNote = document.getElementById("resultNote");
+    const checkBtn = document.getElementById("checkBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function createQuiz() {
+      quizContainer.innerHTML = "";
+      totalQuestions.textContent = quizData.length;
+
+      quizData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.dataset.answer = item.answer;
+
+        const optionsHtml = item.options.map((option, optionIndex) => {
+          return `
+            <label class="option" data-option-index="${optionIndex}">
+              <input type="radio" name="question-${index}" value="${optionIndex}">
+              <span>${option}</span>
+            </label>
+          `;
+        }).join("");
+
+        card.innerHTML = `
+          <div class="question-head">
+            <div class="question-number">Question ${index + 1}</div>
+            <div class="topic-tag">${item.topic}</div>
+          </div>
+          <p class="question-text">${item.question}</p>
+          <div class="options">${optionsHtml}</div>
+          <div class="feedback" id="feedback-${index}"></div>
+        `;
+
+        quizContainer.appendChild(card);
+      });
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      const cards = quizContainer.querySelectorAll(".question-card");
+
+      cards.forEach((card, index) => {
+        const selected = card.querySelector(`input[name="question-${index}"]:checked`);
+        const correctIndex = Number(card.dataset.answer);
+        const feedback = card.querySelector(".feedback");
+        const optionLabels = card.querySelectorAll(".option");
+
+        optionLabels.forEach(label => {
+          label.classList.remove("correct", "incorrect");
+        });
+
+        if (selected) {
+          const selectedIndex = Number(selected.value);
+
+          if (selectedIndex === correctIndex) {
+            score++;
+            optionLabels[selectedIndex].classList.add("correct");
+            feedback.className = "feedback show correct";
+            feedback.textContent = "Correct. " + quizData[index].explanation;
+          } else {
+            optionLabels[selectedIndex].classList.add("incorrect");
+            optionLabels[correctIndex].classList.add("correct");
+            feedback.className = "feedback show incorrect";
+            feedback.textContent = "Incorrect. " + quizData[index].explanation;
+          }
+        } else {
+          optionLabels[correctIndex].classList.add("correct");
+          feedback.className = "feedback show incorrect";
+          feedback.textContent = "No answer selected. " + quizData[index].explanation;
+        }
+      });
+
+      scoreText.textContent = `${score} / ${quizData.length}`;
+      resultNote.textContent = getResultMessage(score, quizData.length);
+      resultBox.classList.add("show");
+      resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function getResultMessage(score, total) {
+      const percent = (score / total) * 100;
+
+      if (percent === 100) {
+        return "Excellent work. You answered every question correctly.";
+      }
+      if (percent >= 80) {
+        return "Very good. You have a strong understanding of arithmetic operators and Math methods.";
+      }
+      if (percent >= 60) {
+        return "Good effort. Revise a few concepts and try again.";
+      }
+      if (percent >= 40) {
+        return "You understand some basics, but more revision will help a lot.";
+      }
+      return "Please review the lesson carefully and try the quiz again.";
+    }
+
+    function resetQuiz() {
+      createQuiz();
+      resultBox.classList.remove("show");
+      scoreText.textContent = "0 / 0";
+      resultNote.textContent = "Your result will appear here.";
+      window.scrollTo({ top: quizContainer.offsetTop - 20, behavior: "smooth" });
+    }
+
+    checkBtn.addEventListener("click", checkAnswers);
+    resetBtn.addEventListener("click", resetQuiz);
+
+    createQuiz();
+  </script>
 </body>
 </html>
