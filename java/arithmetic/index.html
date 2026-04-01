@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Java Arithmetic Operators & Math Class — Lesson</title>
+
+  <!-- Speak JS -->
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+
+  <meta name="theme-color" content="#d97706" />
+
+  <style>
+    :root{
+      --bg:#fff8eb;
+      --card:#ffffff;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --brand:#d97706;
+      --brand-2:#f59e0b;
+      --line:#ead7b0;
+      --soft:#fff1cc;
+      --code:#111827;
+      --code-text:#f9fafb;
+      --ok:#166534;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.6;
+    }
+
+    header{
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:white;
+      padding:24px;
+      text-align:center;
+    }
+
+    .container{
+      max-width:1000px;
+      margin:auto;
+      padding:20px;
+    }
+
+    .card{
+      background:var(--card);
+      padding:20px;
+      margin-bottom:20px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      box-shadow:0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    h2{color:var(--brand)}
+
+    pre{
+      background:var(--code);
+      color:var(--code-text);
+      padding:15px;
+      border-radius:8px;
+      overflow:auto;
+    }
+
+    .mcq{
+      margin-bottom:15px;
+      padding:10px;
+      border-left:4px solid var(--brand);
+      background:var(--soft);
+    }
+
+    .answer{
+      color:var(--ok);
+      font-weight:bold;
+    }
+
+    button{
+      background:var(--brand);
+      color:white;
+      border:none;
+      padding:10px 15px;
+      border-radius:6px;
+      cursor:pointer;
+    }
+
+    button:hover{
+      background:var(--brand-2);
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1 id="speak0">Java Arithmetic Operators and Math Class</h1>
+  <p>Programmer’s Picnic Lesson</p>
+</header>
+
+<div class="container">
+
+  <!-- INTRO -->
+  <div class="card">
+    <p id="speak1">
+      In this lesson, we will learn how Java performs calculations using arithmetic operators and powerful Math class methods.
+    </p>
+  </div>
+
+  <!-- ARITHMETIC OPERATORS -->
+  <div class="card">
+    <h2 id="speak2">Arithmetic Operators</h2>
+
+    <p id="speak3">
+      Arithmetic operators are used to perform basic mathematical operations like addition, subtraction, multiplication, division, and modulus.
+    </p>
+
+    <ul>
+      <li id="speak4">+ : Addition</li>
+      <li id="speak5">- : Subtraction</li>
+      <li id="speak6">* : Multiplication</li>
+      <li id="speak7">/ : Division</li>
+      <li id="speak8">% : Modulus (remainder)</li>
+    </ul>
+
+<pre id="speak9">
+int a = 10;
+int b = 3;
+
+System.out.println(a + b); // 13
+System.out.println(a - b); // 7
+System.out.println(a * b); // 30
+System.out.println(a / b); // 3
+System.out.println(a % b); // 1
+</pre>
+
+    <p id="speak10">
+      Note that division between integers removes decimals. This is called integer division.
+    </p>
+  </div>
+
+  <!-- INCREMENT -->
+  <div class="card">
+    <h2 id="speak11">Increment and Decrement</h2>
+
+    <p id="speak12">
+      Java also provides shortcut operators to increase or decrease values.
+    </p>
+
+<pre id="speak13">
+int x = 5;
+
+x++; // x becomes 6
+x--; // x becomes 5
+</pre>
+  </div>
+
+  <!-- MATH CLASS -->
+  <div class="card">
+    <h2 id="speak14">Math Class Methods</h2>
+
+    <p id="speak15">
+      Java provides the Math class which contains many useful mathematical functions.
+    </p>
+
+<pre id="speak16">
+System.out.println(Math.max(10, 20)); // 20
+System.out.println(Math.min(10, 20)); // 10
+System.out.println(Math.sqrt(16));    // 4.0
+System.out.println(Math.pow(2, 3));   // 8.0
+System.out.println(Math.abs(-5));     // 5
+System.out.println(Math.random());    // Random number between 0 and 1
+</pre>
+
+    <p id="speak17">
+      These methods help us perform complex calculations easily without writing long logic.
+    </p>
+  </div>
+
+  <!-- ASSIGNMENTS -->
+  <div class="card">
+    <h2 id="speak18">Assignments</h2>
+
+    <ol>
+      <li id="speak19">Write a Java program to calculate area of a rectangle.</li>
+      <li id="speak20">Find the square root of a number using Math class.</li>
+      <li id="speak21">Generate a random number between 1 and 100.</li>
+      <li id="speak22">Write a program to check if a number is even using modulus.</li>
+      <li id="speak23">Calculate power of a number using Math.pow().</li>
+    </ol>
+  </div>
+
+  <!-- MCQ -->
+  <div class="card">
+    <h2 id="speak24">MCQ Questions</h2>
+
+    <div class="mcq" id="speak25">
+      1. What is the result of 10 % 3?<br>
+      a) 3<br>
+      b) 1<br>
+      c) 0<br>
+      d) 10<br>
+      <div class="answer">Answer: b) 1</div>
+    </div>
+
+    <div class="mcq" id="speak26">
+      2. Which method returns the square root?<br>
+      a) Math.pow()<br>
+      b) Math.sqrt()<br>
+      c) Math.random()<br>
+      d) Math.abs()<br>
+      <div class="answer">Answer: b) Math.sqrt()</div>
+    </div>
+
+    <div class="mcq" id="speak27">
+      3. What does Math.abs(-10) return?<br>
+      a) -10<br>
+      b) 10<br>
+      c) 0<br>
+      d) Error<br>
+      <div class="answer">Answer: b) 10</div>
+    </div>
+
+    <div class="mcq" id="speak28">
+      4. What is Math.pow(2,3)?<br>
+      a) 6<br>
+      b) 8<br>
+      c) 9<br>
+      d) 5<br>
+      <div class="answer">Answer: b) 8</div>
+    </div>
+
+    <div class="mcq" id="speak29">
+      5. Math.random() returns?<br>
+      a) Integer<br>
+      b) Boolean<br>
+      c) Double between 0 and 1<br>
+      d) String<br>
+      <div class="answer">Answer: c) Double between 0 and 1</div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
