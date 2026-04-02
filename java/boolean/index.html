@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java Lesson — Boolean, Relational Operators, and Logical Operators</title>
+  <meta
+    name="description"
+    content="A complete beginner-friendly Java lesson on boolean values, relational operators, and logical operators with examples, assignments, and interactive MCQ quiz."
+  />
+  <meta name="theme-color" content="#d97706" />
+
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+
+  <style>
+    :root{
+      --bg:#fff8eb;
+      --card:#ffffff;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --brand:#d97706;
+      --brand2:#f59e0b;
+      --line:#ead7b0;
+      --soft:#fff4d6;
+      --soft2:#fffaf0;
+      --ok:#166534;
+      --bad:#991b1b;
+      --code:#111827;
+      --codeText:#f9fafb;
+      --shadow:0 16px 40px rgba(217,119,6,0.10);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(245,158,11,0.16), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(217,119,6,0.10), transparent 26%),
+        var(--bg);
+      color:var(--ink);
+      line-height:1.65;
+    }
+
+    header{
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#fff;
+      padding:34px 20px;
+      text-align:center;
+      box-shadow:0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    header h1{
+      margin:0 0 10px;
+      font-size:clamp(1.9rem,4vw,3rem);
+      line-height:1.1;
+    }
+
+    header p{
+      margin:0;
+      opacity:.95;
+      font-size:1.03rem;
+    }
+
+    .container{
+      max-width:1120px;
+      margin:0 auto;
+      padding:22px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:22px;
+      margin-bottom:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.3fr .95fr;
+      gap:18px;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+      gap:12px;
+    }
+
+    .mini{
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+    }
+
+    h2{
+      margin-top:0;
+      color:var(--brand);
+      font-size:1.55rem;
+    }
+
+    h3{
+      color:#9a5a05;
+      margin:14px 0 8px;
+    }
+
+    p, li{
+      font-size:1rem;
+    }
+
+    .muted{color:var(--muted)}
+
+    ul, ol{
+      padding-left:22px;
+    }
+
+    code{
+      background:#fff1cc;
+      padding:2px 6px;
+      border:1px solid #efd393;
+      border-radius:6px;
+      font-size:.96em;
+    }
+
+    pre{
+      background:var(--code);
+      color:var(--codeText);
+      padding:16px;
+      border-radius:14px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,0.08);
+      line-height:1.55;
+      font-size:.96rem;
+    }
+
+    .table-wrap{overflow:auto}
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:#fffdfa;
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
+    }
+
+    th, td{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#fff1cc;
+      color:#8a5206;
+    }
+
+    .assignment{
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      margin-bottom:12px;
+    }
+
+    .quiz-toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+      padding:14px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
+    }
+
+    .quiz-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    button{
+      border:none;
+      background:var(--brand);
+      color:#fff;
+      padding:11px 16px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .18s ease, background .18s ease, box-shadow .18s ease;
+      box-shadow:0 10px 24px rgba(217,119,6,.18);
+    }
+
+    button:hover{
+      background:var(--brand2);
+      transform:translateY(-1px);
+    }
+
+    button.secondary{
+      background:#fff;
+      color:var(--brand);
+      border:1px solid var(--line);
+      box-shadow:none;
+    }
+
+    button.secondary:hover{
+      background:#fff7e8;
+    }
+
+    .question-card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      margin-bottom:16px;
+      background:#fffdfa;
+    }
+
+    .question-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      margin-bottom:10px;
+    }
+
+    .question-number{
+      font-weight:800;
+      color:var(--brand);
+    }
+
+    .topic-tag{
+      font-size:.83rem;
+      padding:6px 10px;
+      background:#fff2cf;
+      border:1px solid #efd393;
+      border-radius:999px;
+      color:#8a5206;
+      white-space:nowrap;
+    }
+
+    .question-text{
+      margin:0 0 14px;
+      font-size:1.05rem;
+      font-weight:600;
+    }
+
+    .options{
+      display:grid;
+      gap:10px;
+    }
+
+    .option{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      cursor:pointer;
+      transition:border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+
+    .option:hover{
+      border-color:#e9ba56;
+      background:#fff9ec;
+      transform:translateY(-1px);
+    }
+
+    .option input{
+      margin-top:4px;
+      accent-color:var(--brand);
+      transform:scale(1.08);
+    }
+
+    .option.correct{
+      border-color:#98d5ad;
+      background:#ecfdf3;
+    }
+
+    .option.incorrect{
+      border-color:#eab0b0;
+      background:#fef2f2;
+    }
+
+    .feedback{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:12px;
+      font-weight:600;
+      display:none;
+    }
+
+    .feedback.show{display:block}
+    .feedback.correct{
+      background:#ecfdf3;
+      color:var(--ok);
+      border:1px solid #a7e2bb;
+    }
+    .feedback.incorrect{
+      background:#fef2f2;
+      color:var(--bad);
+      border:1px solid #efb2b2;
+    }
+
+    .result-box{
+      margin-top:18px;
+      padding:18px;
+      border-radius:16px;
+      background:#fff7e8;
+      border:1px solid var(--line);
+      display:none;
+    }
+
+    .result-box.show{display:block}
+
+    .score-big{
+      font-size:2rem;
+      font-weight:800;
+      color:var(--brand);
+      margin:0 0 8px;
+    }
+
+    .footer-note{
+      text-align:center;
+      color:var(--muted);
+      font-size:.95rem;
+      padding-bottom:24px;
+    }
+
+    @media (max-width: 860px){
+      .hero-grid{grid-template-columns:1fr}
+      .question-head{flex-direction:column}
+      .quiz-toolbar{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="speak0">Java Lesson — Boolean, Relational Operators, and Logical Operators</h1>
+    <p id="speak1">Learn how Java makes decisions using true, false, comparisons, and logical conditions.</p>
+  </header>
+
+  <main class="container">
+    <section class="card hero-grid">
+      <div>
+        <h2 id="speak2">What this lesson covers</h2>
+        <p id="speak3">
+          In this lesson, you will learn what a boolean value is in Java, how relational operators compare values, and how logical operators combine multiple conditions. These ideas are extremely important because they are used in <code>if</code> statements, loops, input validation, and decision making.
+        </p>
+        <p id="speak4">
+          Once you understand booleans and operators like <code>&gt;</code>, <code>&lt;</code>, <code>==</code>, <code>&amp;&amp;</code>, <code>||</code>, and <code>!</code>, you can start writing real programs that react to user input and make smart choices.
+        </p>
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini">
+          <strong id="speak5">Boolean</strong>
+          <p class="muted" id="speak6">A value that is either true or false</p>
+        </div>
+        <div class="mini">
+          <strong id="speak7">Relational Operators</strong>
+          <p class="muted" id="speak8">Used to compare two values</p>
+        </div>
+        <div class="mini">
+          <strong id="speak9">Logical Operators</strong>
+          <p class="muted" id="speak10">Used to combine or reverse conditions</p>
+        </div>
+        <div class="mini">
+          <strong id="speak11">Decision Making</strong>
+          <p class="muted" id="speak12">Used in if statements and loops</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak13">What is a boolean?</h2>
+      <p id="speak14">
+        A boolean in Java is a data type that stores only one of two possible values:
+        <code>true</code> or <code>false</code>.
+      </p>
+
+      <pre id="speak15">boolean isJavaFun = true;
+boolean isFishFlying = false;
+
+System.out.println(isJavaFun);
+System.out.println(isFishFlying);</pre>
+
+      <p id="speak16">
+        Boolean values are very useful when you want to test a condition, such as whether a student passed, whether a number is even, or whether a user is allowed to log in.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak17">Relational Operators</h2>
+      <p id="speak18">
+        Relational operators compare two values and produce a boolean result. That means the answer will always be either <code>true</code> or <code>false</code>.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th id="speak19">Operator</th>
+              <th id="speak20">Meaning</th>
+              <th id="speak21">Example</th>
+              <th id="speak22">Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>==</code></td>
+              <td id="speak23">Equal to</td>
+              <td><code>5 == 5</code></td>
+              <td>true</td>
+            </tr>
+            <tr>
+              <td><code>!=</code></td>
+              <td id="speak24">Not equal to</td>
+              <td><code>5 != 3</code></td>
+              <td>true</td>
+            </tr>
+            <tr>
+              <td><code>&gt;</code></td>
+              <td id="speak25">Greater than</td>
+              <td><code>7 &gt; 2</code></td>
+              <td>true</td>
+            </tr>
+            <tr>
+              <td><code>&lt;</code></td>
+              <td id="speak26">Less than</td>
+              <td><code>4 &lt; 9</code></td>
+              <td>true</td>
+            </tr>
+            <tr>
+              <td><code>&gt;=</code></td>
+              <td id="speak27">Greater than or equal to</td>
+              <td><code>6 &gt;= 6</code></td>
+              <td>true</td>
+            </tr>
+            <tr>
+              <td><code>&lt;=</code></td>
+              <td id="speak28">Less than or equal to</td>
+              <td><code>3 &lt;= 5</code></td>
+              <td>true</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="speak29">Examples</h3>
+      <pre id="speak30">int a = 10;
+int b = 20;
+
+System.out.println(a == b); // false
+System.out.println(a != b); // true
+System.out.println(a < b);  // true
+System.out.println(a > b);  // false
+System.out.println(a <= 10); // true
+System.out.println(b >= 15); // true</pre>
+
+      <p id="speak31">
+        These operators do not change the values. They only compare them and return a boolean result.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak32">Logical Operators</h2>
+      <p id="speak33">
+        Logical operators are used when you want to combine two or more boolean conditions, or when you want to reverse a condition.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th id="speak34">Operator</th>
+              <th id="speak35">Meaning</th>
+              <th id="speak36">Example</th>
+              <th id="speak37">Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>&amp;&amp;</code></td>
+              <td id="speak38">Logical AND</td>
+              <td><code>(5 &gt; 2) &amp;&amp; (8 &gt; 4)</code></td>
+              <td>true</td>
+            </tr>
+            <tr>
+              <td><code>||</code></td>
+              <td id="speak39">Logical OR</td>
+              <td><code>(5 &lt; 2) || (8 &gt; 4)</code></td>
+              <td>true</td>
+            </tr>
+            <tr>
+              <td><code>!</code></td>
+              <td id="speak40">Logical NOT</td>
+              <td><code>!(5 &gt; 2)</code></td>
+              <td>false</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="speak41">How AND works</h3>
+      <p id="speak42">
+        The <code>&amp;&amp;</code> operator returns <code>true</code> only when both conditions are true.
+      </p>
+
+      <pre id="speak43">int age = 20;
+boolean hasIdCard = true;
+
+System.out.println(age >= 18 && hasIdCard); // true</pre>
+
+      <h3 id="speak44">How OR works</h3>
+      <p id="speak45">
+        The <code>||</code> operator returns <code>true</code> if at least one condition is true.
+      </p>
+
+      <pre id="speak46">boolean isHoliday = false;
+boolean isSunday = true;
+
+System.out.println(isHoliday || isSunday); // true</pre>
+
+      <h3 id="speak47">How NOT works</h3>
+      <p id="speak48">
+        The <code>!</code> operator reverses the boolean value. It changes <code>true</code> to <code>false</code> and <code>false</code> to <code>true</code>.
+      </p>
+
+      <pre id="speak49">boolean isRaining = false;
+
+System.out.println(!isRaining); // true</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak50">Using booleans and operators in if statements</h2>
+      <p id="speak51">
+        These operators become very useful when you write decision-making code.
+      </p>
+
+      <pre id="speak52">int marks = 75;
+
+if (marks >= 40) {
+    System.out.println("Pass");
+} else {
+    System.out.println("Fail");
+}</pre>
+
+      <pre id="speak53">int age = 22;
+boolean hasTicket = true;
+
+if (age >= 18 && hasTicket) {
+    System.out.println("You may enter.");
+} else {
+    System.out.println("Entry not allowed.");
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak54">Important beginner note: = versus ==</h2>
+      <p id="speak55">
+        Many beginners confuse <code>=</code> and <code>==</code>.
+      </p>
+
+      <ul>
+        <li id="speak56"><code>=</code> means assignment. It stores a value in a variable.</li>
+        <li id="speak57"><code>==</code> means comparison. It checks whether two values are equal.</li>
+      </ul>
+
+      <pre id="speak58">int x = 5;      // assignment
+System.out.println(x == 5); // comparison, result is true</pre>
+
+      <p id="speak59">
+        This difference is extremely important in Java programming.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak60">Complete example</h2>
+      <pre id="speak61">public class Main {
+    public static void main(String[] args) {
+        int age = 19;
+        int marks = 68;
+        boolean hasAdmitCard = true;
+
+        System.out.println("age >= 18: " + (age >= 18));
+        System.out.println("marks >= 40: " + (marks >= 40));
+        System.out.println("hasAdmitCard: " + hasAdmitCard);
+
+        if (marks >= 40 && hasAdmitCard) {
+            System.out.println("Student can appear in the next step.");
+        } else {
+            System.out.println("Student cannot appear in the next step.");
+        }
+
+        if (age < 18 || marks > 60) {
+            System.out.println("At least one special condition is true.");
+        }
+
+        System.out.println("Not having admit card: " + !hasAdmitCard);
+    }
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak62">Assignments</h2>
+
+      <div class="assignment" id="speak63">
+        <strong>Assignment 1:</strong> Create boolean variables for <code>isPassed</code> and <code>isPresent</code>. Print both values.
+      </div>
+
+      <div class="assignment" id="speak64">
+        <strong>Assignment 2:</strong> Compare two integers using all six relational operators and print the results.
+      </div>
+
+      <div class="assignment" id="speak65">
+        <strong>Assignment 3:</strong> Write a program that checks whether a number is positive using <code>&gt;</code>.
+      </div>
+
+      <div class="assignment" id="speak66">
+        <strong>Assignment 4:</strong> Write a program that checks whether a student's marks are greater than or equal to 40. Print pass or fail.
+      </div>
+
+      <div class="assignment" id="speak67">
+        <strong>Assignment 5:</strong> Create two boolean variables and use <code>&amp;&amp;</code>, <code>||</code>, and <code>!</code> on them.
+      </div>
+
+      <div class="assignment" id="speak68">
+        <strong>Assignment 6:</strong> Write a program that checks whether a person can vote. The condition is age greater than or equal to 18.
+      </div>
+
+      <div class="assignment" id="speak69">
+        <strong>Assignment 7:</strong> Write a program that allows entry only if age is at least 18 and the person has an ID card.
+      </div>
+
+      <div class="assignment" id="speak70">
+        <strong>Assignment 8:</strong> Write a program that checks whether a day is a weekend using OR logic for Saturday or Sunday.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak71">Interactive MCQ Quiz</h2>
+      <p id="speak72">
+        Choose one answer for each question and click <strong>Check Answers</strong>.
+      </p>
+
+      <div class="quiz-toolbar">
+        <div id="speak73"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
+        <div class="quiz-actions">
+          <button id="checkBtn" type="button">Check Answers</button>
+          <button id="resetBtn" type="button" class="secondary">Reset Quiz</button>
+        </div>
+      </div>
+
+      <div id="quizContainer"></div>
+
+      <div id="resultBox" class="result-box" aria-live="polite">
+        <p class="score-big" id="scoreText">0 / 0</p>
+        <p id="resultNote">Your result will appear here.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak74">Quick revision</h2>
+      <ul>
+        <li id="speak75">A boolean stores only <code>true</code> or <code>false</code>.</li>
+        <li id="speak76">Relational operators compare values and return boolean results.</li>
+        <li id="speak77"><code>==</code> checks equality, while <code>=</code> assigns a value.</li>
+        <li id="speak78"><code>&amp;&amp;</code> means both conditions must be true.</li>
+        <li id="speak79"><code>||</code> means at least one condition must be true.</li>
+        <li id="speak80"><code>!</code> reverses a boolean value.</li>
+        <li id="speak81">These operators are heavily used in <code>if</code> statements and loops.</li>
+      </ul>
+    </section>
+
+    <p class="footer-note" id="speak82">Programmer’s Picnic Java lesson page — Boolean, relational operators, and logical operators.</p>
+  </main>
+
+  <script>
+    const quizData = [
+      {
+        topic: "Boolean",
+        question: "Which data type stores only true or false in Java?",
+        options: ["int", "String", "boolean", "double"],
+        answer: 2,
+        explanation: "The boolean data type stores only true or false."
+      },
+      {
+        topic: "Boolean",
+        question: "What is the value of the expression 7 > 3?",
+        options: ["true", "false", "7", "3"],
+        answer: 0,
+        explanation: "Since 7 is greater than 3, the result is true."
+      },
+      {
+        topic: "Relational Operators",
+        question: "Which operator checks whether two values are equal?",
+        options: ["=", "==", "!=", ">="],
+        answer: 1,
+        explanation: "The == operator checks equality."
+      },
+      {
+        topic: "Relational Operators",
+        question: "Which operator means not equal to?",
+        options: ["<>", "!==", "!=", "==!"],
+        answer: 2,
+        explanation: "In Java, != means not equal to."
+      },
+      {
+        topic: "Relational Operators",
+        question: "What is the result of 10 <= 10?",
+        options: ["true", "false", "error", "10"],
+        answer: 0,
+        explanation: "10 is equal to 10, so 10 <= 10 is true."
+      },
+      {
+        topic: "Logical Operators",
+        question: "Which logical operator means AND in Java?",
+        options: ["&", "&&", "||", "!"],
+        answer: 1,
+        explanation: "The logical AND operator is &&."
+      },
+      {
+        topic: "Logical Operators",
+        question: "Which logical operator means OR in Java?",
+        options: ["||", "&&", "!", "^^"],
+        answer: 0,
+        explanation: "The logical OR operator is ||."
+      },
+      {
+        topic: "Logical Operators",
+        question: "Which logical operator reverses a boolean value?",
+        options: ["&&", "||", "!!", "!"],
+        answer: 3,
+        explanation: "The ! operator changes true to false and false to true."
+      },
+      {
+        topic: "Logical Operators",
+        question: "What is the result of (5 > 2) && (8 < 3)?",
+        options: ["true", "false", "5", "8"],
+        answer: 1,
+        explanation: "The first condition is true, but the second is false. AND needs both to be true, so the result is false."
+      },
+      {
+        topic: "Logical Operators",
+        question: "What is the result of (5 > 2) || (8 < 3)?",
+        options: ["true", "false", "error", "0"],
+        answer: 0,
+        explanation: "At least one condition is true, so OR returns true."
+      },
+      {
+        topic: "Mixed",
+        question: "Which statement is correct about = and == ?",
+        options: [
+          "= compares values and == assigns values",
+          "= and == mean the same thing",
+          "= assigns values and == compares values",
+          "== is used only for strings"
+        ],
+        answer: 2,
+        explanation: "= is assignment, while == is comparison."
+      },
+      {
+        topic: "Mixed",
+        question: "If boolean hasTicket = false;, what is the value of !hasTicket?",
+        options: ["false", "true", "0", "null"],
+        answer: 1,
+        explanation: "The NOT operator reverses false to true."
+      },
+      {
+        topic: "Mixed",
+        question: "Which expression checks whether age is at least 18?",
+        options: ["age > 18", "age < 18", "age >= 18", "age == 18 only"],
+        answer: 2,
+        explanation: "age >= 18 means age is 18 or more."
+      },
+      {
+        topic: "Mixed",
+        question: "What is the result of 6 != 6?",
+        options: ["true", "false", "6", "error"],
+        answer: 1,
+        explanation: "Since both values are equal, 6 != 6 is false."
+      }
+    ];
+
+    const quizContainer = document.getElementById("quizContainer");
+    const totalQuestions = document.getElementById("totalQuestions");
+    const resultBox = document.getElementById("resultBox");
+    const scoreText = document.getElementById("scoreText");
+    const resultNote = document.getElementById("resultNote");
+    const checkBtn = document.getElementById("checkBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function createQuiz() {
+      quizContainer.innerHTML = "";
+      totalQuestions.textContent = quizData.length;
+
+      quizData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.dataset.answer = item.answer;
+
+        const optionsHtml = item.options.map((option, optionIndex) => `
+          <label class="option" data-option-index="${optionIndex}">
+            <input type="radio" name="question-${index}" value="${optionIndex}">
+            <span>${option}</span>
+          </label>
+        `).join("");
+
+        card.innerHTML = `
+          <div class="question-head">
+            <div class="question-number">Question ${index + 1}</div>
+            <div class="topic-tag">${item.topic}</div>
+          </div>
+          <p class="question-text">${item.question}</p>
+          <div class="options">${optionsHtml}</div>
+          <div class="feedback" id="feedback-${index}"></div>
+        `;
+
+        quizContainer.appendChild(card);
+      });
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      const cards = quizContainer.querySelectorAll(".question-card");
+
+      cards.forEach((card, index) => {
+        const selected = card.querySelector(`input[name="question-${index}"]:checked`);
+        const correctIndex = Number(card.dataset.answer);
+        const feedback = card.querySelector(".feedback");
+        const optionLabels = card.querySelectorAll(".option");
+
+        optionLabels.forEach(label => {
+          label.classList.remove("correct", "incorrect");
+        });
+
+        if (selected) {
+          const selectedIndex = Number(selected.value);
+
+          if (selectedIndex === correctIndex) {
+            score++;
+            optionLabels[selectedIndex].classList.add("correct");
+            feedback.className = "feedback show correct";
+            feedback.textContent = "Correct. " + quizData[index].explanation;
+          } else {
+            optionLabels[selectedIndex].classList.add("incorrect");
+            optionLabels[correctIndex].classList.add("correct");
+            feedback.className = "feedback show incorrect";
+            feedback.textContent = "Incorrect. " + quizData[index].explanation;
+          }
+        } else {
+          optionLabels[correctIndex].classList.add("correct");
+          feedback.className = "feedback show incorrect";
+          feedback.textContent = "No answer selected. " + quizData[index].explanation;
+        }
+      });
+
+      scoreText.textContent = `${score} / ${quizData.length}`;
+      resultNote.textContent = getResultMessage(score, quizData.length);
+      resultBox.classList.add("show");
+      resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function getResultMessage(score, total) {
+      const percent = (score / total) * 100;
+
+      if (percent === 100) return "Excellent. You understood boolean values and operators very well.";
+      if (percent >= 80) return "Very good. Your understanding is strong.";
+      if (percent >= 60) return "Good effort. Revise a few concepts and try once more.";
+      if (percent >= 40) return "You know some basics, but more practice will help.";
+      return "Please revise the lesson carefully and try the quiz again.";
+    }
+
+    function resetQuiz() {
+      createQuiz();
+      resultBox.classList.remove("show");
+      scoreText.textContent = "0 / 0";
+      resultNote.textContent = "Your result will appear here.";
+      window.scrollTo({ top: quizContainer.offsetTop - 20, behavior: "smooth" });
+    }
+
+    checkBtn.addEventListener("click", checkAnswers);
+    resetBtn.addEventListener("click", resetQuiz);
+
+    createQuiz();
+  </script>
+</body>
+</html>
