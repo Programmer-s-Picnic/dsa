@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java Lesson — Scanner, stdin, stdout, and stderr</title>
+  <meta
+    name="description"
+    content="A complete beginner-friendly Java lesson on Scanner, standard input, standard output, and standard error with examples, assignments, and interactive MCQ quiz."
+  />
+  <meta name="theme-color" content="#d97706" />
+
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+
+  <style>
+    :root{
+      --bg:#fff8eb;
+      --card:#ffffff;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --brand:#d97706;
+      --brand2:#f59e0b;
+      --line:#ead7b0;
+      --soft:#fff4d6;
+      --soft2:#fffaf0;
+      --ok:#166534;
+      --bad:#991b1b;
+      --info:#1d4ed8;
+      --code:#111827;
+      --codeText:#f9fafb;
+      --shadow:0 16px 40px rgba(217,119,6,0.10);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(245,158,11,0.16), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(217,119,6,0.10), transparent 26%),
+        var(--bg);
+      color:var(--ink);
+      line-height:1.65;
+    }
+
+    header{
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#fff;
+      padding:34px 20px;
+      text-align:center;
+      box-shadow:0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    header h1{
+      margin:0 0 10px;
+      font-size:clamp(1.9rem,4vw,3rem);
+      line-height:1.1;
+    }
+
+    header p{
+      margin:0;
+      opacity:.95;
+      font-size:1.03rem;
+    }
+
+    .container{
+      max-width:1120px;
+      margin:0 auto;
+      padding:22px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:22px;
+      margin-bottom:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.3fr .95fr;
+      gap:18px;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+      gap:12px;
+    }
+
+    .mini{
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+    }
+
+    h2{
+      margin-top:0;
+      color:var(--brand);
+      font-size:1.55rem;
+    }
+
+    h3{
+      color:#9a5a05;
+      margin:14px 0 8px;
+    }
+
+    p, li{
+      font-size:1rem;
+    }
+
+    .muted{color:var(--muted)}
+
+    ul, ol{
+      padding-left:22px;
+    }
+
+    code{
+      background:#fff1cc;
+      padding:2px 6px;
+      border:1px solid #efd393;
+      border-radius:6px;
+      font-size:.96em;
+    }
+
+    pre{
+      background:var(--code);
+      color:var(--codeText);
+      padding:16px;
+      border-radius:14px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,0.08);
+      line-height:1.55;
+      font-size:.96rem;
+    }
+
+    .table-wrap{overflow:auto}
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:#fffdfa;
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
+    }
+
+    th, td{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#fff1cc;
+      color:#8a5206;
+    }
+
+    .assignment{
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      margin-bottom:12px;
+    }
+
+    .quiz-toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+      padding:14px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
+    }
+
+    .quiz-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    button{
+      border:none;
+      background:var(--brand);
+      color:#fff;
+      padding:11px 16px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .18s ease, background .18s ease, box-shadow .18s ease;
+      box-shadow:0 10px 24px rgba(217,119,6,.18);
+    }
+
+    button:hover{
+      background:var(--brand2);
+      transform:translateY(-1px);
+    }
+
+    button.secondary{
+      background:#fff;
+      color:var(--brand);
+      border:1px solid var(--line);
+      box-shadow:none;
+    }
+
+    button.secondary:hover{
+      background:#fff7e8;
+    }
+
+    .question-card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      margin-bottom:16px;
+      background:#fffdfa;
+    }
+
+    .question-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      margin-bottom:10px;
+    }
+
+    .question-number{
+      font-weight:800;
+      color:var(--brand);
+    }
+
+    .topic-tag{
+      font-size:.83rem;
+      padding:6px 10px;
+      background:#fff2cf;
+      border:1px solid #efd393;
+      border-radius:999px;
+      color:#8a5206;
+      white-space:nowrap;
+    }
+
+    .question-text{
+      margin:0 0 14px;
+      font-size:1.05rem;
+      font-weight:600;
+    }
+
+    .options{
+      display:grid;
+      gap:10px;
+    }
+
+    .option{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      cursor:pointer;
+      transition:border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+
+    .option:hover{
+      border-color:#e9ba56;
+      background:#fff9ec;
+      transform:translateY(-1px);
+    }
+
+    .option input{
+      margin-top:4px;
+      accent-color:var(--brand);
+      transform:scale(1.08);
+    }
+
+    .option.correct{
+      border-color:#98d5ad;
+      background:#ecfdf3;
+    }
+
+    .option.incorrect{
+      border-color:#eab0b0;
+      background:#fef2f2;
+    }
+
+    .feedback{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:12px;
+      font-weight:600;
+      display:none;
+    }
+
+    .feedback.show{display:block}
+    .feedback.correct{
+      background:#ecfdf3;
+      color:var(--ok);
+      border:1px solid #a7e2bb;
+    }
+    .feedback.incorrect{
+      background:#fef2f2;
+      color:var(--bad);
+      border:1px solid #efb2b2;
+    }
+
+    .result-box{
+      margin-top:18px;
+      padding:18px;
+      border-radius:16px;
+      background:#fff7e8;
+      border:1px solid var(--line);
+      display:none;
+    }
+
+    .result-box.show{display:block}
+
+    .score-big{
+      font-size:2rem;
+      font-weight:800;
+      color:var(--brand);
+      margin:0 0 8px;
+    }
+
+    .footer-note{
+      text-align:center;
+      color:var(--muted);
+      font-size:.95rem;
+      padding-bottom:24px;
+    }
+
+    @media (max-width: 860px){
+      .hero-grid{grid-template-columns:1fr}
+      .question-head{flex-direction:column}
+      .quiz-toolbar{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="speak0">Java Lesson — Scanner, stdin, stdout, and stderr</h1>
+    <p id="speak1">Learn how Java reads input, prints normal output, and prints error output.</p>
+  </header>
+
+  <main class="container">
+    <section class="card hero-grid">
+      <div>
+        <h2 id="speak2">What this lesson covers</h2>
+        <p id="speak3">
+          In this lesson, you will learn how a Java program reads data from the user using
+          <code>Scanner</code>, how it prints normal output using <code>System.out</code>,
+          and how it prints error messages using <code>System.err</code>. You will also
+          learn the idea of <code>stdin</code>, <code>stdout</code>, and <code>stderr</code>.
+        </p>
+        <p id="speak4">
+          These ideas are very important because almost every console Java program uses them.
+          If you understand this lesson well, you will be able to make interactive Java programs
+          that ask the user for values and then respond with useful output.
+        </p>
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini">
+          <strong id="speak5">stdin</strong>
+          <p class="muted" id="speak6">Standard input, usually the keyboard</p>
+        </div>
+        <div class="mini">
+          <strong id="speak7">stdout</strong>
+          <p class="muted" id="speak8">Standard output, normal program output</p>
+        </div>
+        <div class="mini">
+          <strong id="speak9">stderr</strong>
+          <p class="muted" id="speak10">Standard error, error messages</p>
+        </div>
+        <div class="mini">
+          <strong id="speak11">Scanner</strong>
+          <p class="muted" id="speak12">Java class used to read input</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak13">What are stdin, stdout, and stderr?</h2>
+      <p id="speak14">
+        Many programming languages use three standard streams for communication.
+        Java also uses them.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th id="speak15">Name</th>
+              <th id="speak16">Full form</th>
+              <th id="speak17">Meaning</th>
+              <th id="speak18">Java form</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>stdin</td>
+              <td id="speak19">Standard input</td>
+              <td id="speak20">Data coming into the program, usually from keyboard</td>
+              <td><code>System.in</code></td>
+            </tr>
+            <tr>
+              <td>stdout</td>
+              <td id="speak21">Standard output</td>
+              <td id="speak22">Normal output shown by the program</td>
+              <td><code>System.out</code></td>
+            </tr>
+            <tr>
+              <td>stderr</td>
+              <td id="speak23">Standard error</td>
+              <td id="speak24">Error output shown separately from normal output</td>
+              <td><code>System.err</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p id="speak25">
+        In simple classroom programs, stdout and stderr may both appear on the same console,
+        but they are conceptually different streams.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak26">Using Scanner with System.in</h2>
+      <p id="speak27">
+        To read input from the keyboard in Java, we usually use the <code>Scanner</code> class.
+        The scanner reads from <code>System.in</code>, which represents standard input.
+      </p>
+
+      <h3 id="speak28">Import Scanner</h3>
+      <pre id="speak29">import java.util.Scanner;</pre>
+
+      <h3 id="speak30">Basic example</h3>
+      <pre id="speak31">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter your name: ");
+        String name = sc.nextLine();
+
+        System.out.println("Hello, " + name + "!");
+
+        sc.close();
+    }
+}</pre>
+
+      <p id="speak32">
+        In this example, the program asks for a name, reads the full line using
+        <code>nextLine()</code>, and then prints a greeting.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak33">Common Scanner methods</h2>
+      <p id="speak34">
+        Scanner provides different methods for different kinds of input.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th id="speak35">Method</th>
+              <th id="speak36">Reads</th>
+              <th id="speak37">Example input</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>next()</code></td>
+              <td id="speak38">One word</td>
+              <td>Java</td>
+            </tr>
+            <tr>
+              <td><code>nextLine()</code></td>
+              <td id="speak39">Full line</td>
+              <td>Hello Java World</td>
+            </tr>
+            <tr>
+              <td><code>nextInt()</code></td>
+              <td id="speak40">Integer</td>
+              <td>25</td>
+            </tr>
+            <tr>
+              <td><code>nextDouble()</code></td>
+              <td id="speak41">Decimal number</td>
+              <td>78.5</td>
+            </tr>
+            <tr>
+              <td><code>nextBoolean()</code></td>
+              <td id="speak42">Boolean value</td>
+              <td>true</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="speak43">Reading numbers</h3>
+      <pre id="speak44">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter first number: ");
+        int a = sc.nextInt();
+
+        System.out.print("Enter second number: ");
+        int b = sc.nextInt();
+
+        int sum = a + b;
+
+        System.out.println("Sum = " + sum);
+
+        sc.close();
+    }
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak45">stdout with System.out</h2>
+      <p id="speak46">
+        <code>System.out</code> is used for normal output. It sends output to the standard output stream.
+        Two very common methods are <code>print()</code> and <code>println()</code>.
+      </p>
+
+      <pre id="speak47">System.out.print("Hello ");
+System.out.println("World");</pre>
+
+      <p id="speak48">
+        <code>print()</code> keeps the cursor on the same line.
+        <code>println()</code> prints and then moves to the next line.
+      </p>
+
+      <h3 id="speak49">Formatted output</h3>
+      <pre id="speak50">String name = "Aman";
+int marks = 92;
+
+System.out.printf("Student: %s, Marks: %d%n", name, marks);</pre>
+
+      <p id="speak51">
+        <code>printf()</code> is useful when you want cleaner formatted output.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak52">stderr with System.err</h2>
+      <p id="speak53">
+        <code>System.err</code> is used for error messages. It sends output to the standard error stream.
+        This is helpful when you want to separate normal program output from warnings or errors.
+      </p>
+
+      <pre id="speak54">System.err.println("Invalid input. Please enter a positive number.");</pre>
+
+      <p id="speak55">
+        In some IDEs and terminals, error output may appear in a different color or may be handled separately.
+      </p>
+
+      <h3 id="speak56">Example using stdout and stderr together</h3>
+      <pre id="speak57">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter age: ");
+        int age = sc.nextInt();
+
+        if (age < 0) {
+            System.err.println("Error: age cannot be negative.");
+        } else {
+            System.out.println("Your age is " + age);
+        }
+
+        sc.close();
+    }
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak58">Important note about nextInt() and nextLine()</h2>
+      <p id="speak59">
+        One common beginner problem happens when we use <code>nextInt()</code> and then immediately
+        use <code>nextLine()</code>. After reading the integer, the newline character is still left
+        in the input buffer.
+      </p>
+
+      <pre id="speak60">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter age: ");
+        int age = sc.nextInt();
+
+        sc.nextLine(); // consume leftover newline
+
+        System.out.print("Enter full name: ");
+        String name = sc.nextLine();
+
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+
+        sc.close();
+    }
+}</pre>
+
+      <p id="speak61">
+        That extra <code>sc.nextLine()</code> is used to consume the leftover newline before reading the actual text line.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak62">Complete example</h2>
+      <pre id="speak63">import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("=== Student Information Form ===");
+
+        System.out.print("Enter your full name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter your age: ");
+        int age = sc.nextInt();
+
+        System.out.print("Enter your marks: ");
+        double marks = sc.nextDouble();
+
+        if (age < 0) {
+            System.err.println("Error: age cannot be negative.");
+        } else {
+            System.out.println();
+            System.out.println("=== Output ===");
+            System.out.println("Name  : " + name);
+            System.out.println("Age   : " + age);
+            System.out.println("Marks : " + marks);
+        }
+
+        sc.close();
+    }
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak64">Assignments</h2>
+
+      <div class="assignment" id="speak65">
+        <strong>Assignment 1:</strong> Write a program that reads a student's name and prints
+        <code>Hello, &lt;name&gt;</code>.
+      </div>
+
+      <div class="assignment" id="speak66">
+        <strong>Assignment 2:</strong> Write a program that reads two integers using Scanner
+        and prints their sum using <code>System.out.println()</code>.
+      </div>
+
+      <div class="assignment" id="speak67">
+        <strong>Assignment 3:</strong> Write a program that reads an age. If the age is negative,
+        print an error message using <code>System.err.println()</code>.
+      </div>
+
+      <div class="assignment" id="speak68">
+        <strong>Assignment 4:</strong> Write a program that reads a full name using
+        <code>nextLine()</code> and a city using <code>nextLine()</code>, then prints both values.
+      </div>
+
+      <div class="assignment" id="speak69">
+        <strong>Assignment 5:</strong> Write a program that reads an integer and a decimal number
+        and prints them using <code>printf()</code>.
+      </div>
+
+      <div class="assignment" id="speak70">
+        <strong>Assignment 6:</strong> Write a program that first reads an integer and then a full
+        line of text. Handle the leftover newline correctly.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak71">Interactive MCQ Quiz</h2>
+      <p id="speak72">
+        Choose one answer for each question and click <strong>Check Answers</strong>.
+      </p>
+
+      <div class="quiz-toolbar">
+        <div id="speak73"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
+        <div class="quiz-actions">
+          <button id="checkBtn" type="button">Check Answers</button>
+          <button id="resetBtn" type="button" class="secondary">Reset Quiz</button>
+        </div>
+      </div>
+
+      <div id="quizContainer"></div>
+
+      <div id="resultBox" class="result-box" aria-live="polite">
+        <p class="score-big" id="scoreText">0 / 0</p>
+        <p id="resultNote">Your result will appear here.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak74">Quick revision</h2>
+      <ul>
+        <li id="speak75"><code>System.in</code> is standard input.</li>
+        <li id="speak76"><code>Scanner</code> is commonly used to read input from <code>System.in</code>.</li>
+        <li id="speak77"><code>System.out</code> is used for normal output.</li>
+        <li id="speak78"><code>System.err</code> is used for error messages.</li>
+        <li id="speak79"><code>nextLine()</code> reads a full line.</li>
+        <li id="speak80"><code>nextInt()</code> reads an integer.</li>
+        <li id="speak81">After <code>nextInt()</code>, you may need an extra <code>nextLine()</code> before reading text.</li>
+      </ul>
+    </section>
+
+    <p class="footer-note" id="speak82">Programmer’s Picnic Java lesson page — Scanner, stdin, stdout, and stderr.</p>
+  </main>
+
+  <script>
+    const quizData = [
+      {
+        topic: "Scanner",
+        question: "Which package must be imported to use Scanner in Java?",
+        options: [
+          "java.io.Scanner",
+          "java.util.Scanner",
+          "java.lang.Scanner",
+          "java.text.Scanner"
+        ],
+        answer: 1,
+        explanation: "Scanner belongs to the java.util package."
+      },
+      {
+        topic: "stdin",
+        question: "Which Java object represents standard input?",
+        options: [
+          "System.out",
+          "System.err",
+          "System.in",
+          "Input.system"
+        ],
+        answer: 2,
+        explanation: "System.in represents standard input."
+      },
+      {
+        topic: "stdout",
+        question: "Which Java object is commonly used for normal console output?",
+        options: [
+          "System.out",
+          "System.err",
+          "System.in",
+          "Console.out"
+        ],
+        answer: 0,
+        explanation: "System.out is the standard output stream."
+      },
+      {
+        topic: "stderr",
+        question: "Which Java object is commonly used for error messages?",
+        options: [
+          "System.out",
+          "System.err",
+          "System.in",
+          "Error.out"
+        ],
+        answer: 1,
+        explanation: "System.err is the standard error stream."
+      },
+      {
+        topic: "Scanner",
+        question: "Which Scanner method reads a full line of text?",
+        options: [
+          "next()",
+          "nextText()",
+          "nextLine()",
+          "readLine()"
+        ],
+        answer: 2,
+        explanation: "nextLine() reads the entire line including spaces."
+      },
+      {
+        topic: "Scanner",
+        question: "Which Scanner method reads an integer?",
+        options: [
+          "nextNumber()",
+          "nextInt()",
+          "getInt()",
+          "readInt()"
+        ],
+        answer: 1,
+        explanation: "nextInt() reads an int value."
+      },
+      {
+        topic: "Scanner",
+        question: "What does next() usually read?",
+        options: [
+          "A full paragraph",
+          "A full line",
+          "A single word up to whitespace",
+          "An integer only"
+        ],
+        answer: 2,
+        explanation: "next() reads one token, usually a word until whitespace."
+      },
+      {
+        topic: "Output",
+        question: "What is the difference between print() and println()?",
+        options: [
+          "There is no difference",
+          "println() moves to the next line after printing",
+          "print() can print only numbers",
+          "println() can print only strings"
+        ],
+        answer: 1,
+        explanation: "println() prints and then moves the cursor to the next line."
+      },
+      {
+        topic: "Error Stream",
+        question: "Why might System.err be useful?",
+        options: [
+          "To read input",
+          "To store variables",
+          "To separate error messages from normal output",
+          "To stop the compiler"
+        ],
+        answer: 2,
+        explanation: "System.err is useful for sending error messages separately."
+      },
+      {
+        topic: "Scanner",
+        question: "After using nextInt(), why might nextLine() return an empty string?",
+        options: [
+          "Because nextLine() is broken",
+          "Because Scanner closes automatically",
+          "Because a leftover newline remains in the input buffer",
+          "Because nextInt() reads full lines"
+        ],
+        answer: 2,
+        explanation: "The newline after the integer is still in the buffer and gets consumed by the nextLine() call."
+      },
+      {
+        topic: "Formatting",
+        question: "Which method is useful for formatted output in Java?",
+        options: [
+          "System.out.printf()",
+          "System.out.input()",
+          "System.out.scan()",
+          "System.out.errorf()"
+        ],
+        answer: 0,
+        explanation: "printf() is used for formatted output."
+      },
+      {
+        topic: "Streams",
+        question: "stdin stands for:",
+        options: [
+          "System terminal input data",
+          "Standard input",
+          "Stored input",
+          "Static input"
+        ],
+        answer: 1,
+        explanation: "stdin means standard input."
+      }
+    ];
+
+    const quizContainer = document.getElementById("quizContainer");
+    const totalQuestions = document.getElementById("totalQuestions");
+    const resultBox = document.getElementById("resultBox");
+    const scoreText = document.getElementById("scoreText");
+    const resultNote = document.getElementById("resultNote");
+    const checkBtn = document.getElementById("checkBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function createQuiz() {
+      quizContainer.innerHTML = "";
+      totalQuestions.textContent = quizData.length;
+
+      quizData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.dataset.answer = item.answer;
+
+        const optionsHtml = item.options.map((option, optionIndex) => `
+          <label class="option" data-option-index="${optionIndex}">
+            <input type="radio" name="question-${index}" value="${optionIndex}">
+            <span>${option}</span>
+          </label>
+        `).join("");
+
+        card.innerHTML = `
+          <div class="question-head">
+            <div class="question-number">Question ${index + 1}</div>
+            <div class="topic-tag">${item.topic}</div>
+          </div>
+          <p class="question-text">${item.question}</p>
+          <div class="options">${optionsHtml}</div>
+          <div class="feedback" id="feedback-${index}"></div>
+        `;
+
+        quizContainer.appendChild(card);
+      });
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      const cards = quizContainer.querySelectorAll(".question-card");
+
+      cards.forEach((card, index) => {
+        const selected = card.querySelector(`input[name="question-${index}"]:checked`);
+        const correctIndex = Number(card.dataset.answer);
+        const feedback = card.querySelector(".feedback");
+        const optionLabels = card.querySelectorAll(".option");
+
+        optionLabels.forEach(label => {
+          label.classList.remove("correct", "incorrect");
+        });
+
+        if (selected) {
+          const selectedIndex = Number(selected.value);
+
+          if (selectedIndex === correctIndex) {
+            score++;
+            optionLabels[selectedIndex].classList.add("correct");
+            feedback.className = "feedback show correct";
+            feedback.textContent = "Correct. " + quizData[index].explanation;
+          } else {
+            optionLabels[selectedIndex].classList.add("incorrect");
+            optionLabels[correctIndex].classList.add("correct");
+            feedback.className = "feedback show incorrect";
+            feedback.textContent = "Incorrect. " + quizData[index].explanation;
+          }
+        } else {
+          optionLabels[correctIndex].classList.add("correct");
+          feedback.className = "feedback show incorrect";
+          feedback.textContent = "No answer selected. " + quizData[index].explanation;
+        }
+      });
+
+      scoreText.textContent = `${score} / ${quizData.length}`;
+      resultNote.textContent = getResultMessage(score, quizData.length);
+      resultBox.classList.add("show");
+      resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function getResultMessage(score, total) {
+      const percent = (score / total) * 100;
+
+      if (percent === 100) return "Excellent. You understood Scanner and Java streams very well.";
+      if (percent >= 80) return "Very good. Your understanding is strong.";
+      if (percent >= 60) return "Good effort. Revise a few concepts and try once more.";
+      if (percent >= 40) return "You know some basics, but more practice will help.";
+      return "Please revise the lesson carefully and try the quiz again.";
+    }
+
+    function resetQuiz() {
+      createQuiz();
+      resultBox.classList.remove("show");
+      scoreText.textContent = "0 / 0";
+      resultNote.textContent = "Your result will appear here.";
+      window.scrollTo({ top: quizContainer.offsetTop - 20, behavior: "smooth" });
+    }
+
+    checkBtn.addEventListener("click", checkAnswers);
+    resetBtn.addEventListener("click", resetQuiz);
+
+    createQuiz();
+  </script>
+</body>
+</html>
