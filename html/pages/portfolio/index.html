@@ -1,0 +1,1835 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Build a Portfolio Website — Complete Frontend Lesson</title>
+  <meta
+    name="description"
+    content="A complete beginner-friendly lesson that teaches students how to build a portfolio website from point zero using HTML, CSS, and JavaScript."
+  />
+  <style>
+    :root{
+      --bg:#fff8ef;
+      --panel:#ffffff;
+      --panel-2:#fff3df;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --brand:#d97706;
+      --brand-2:#f59e0b;
+      --line:#ead7c4;
+      --ok:#166534;
+      --ok-bg:#ecfdf3;
+      --code:#111827;
+      --code-ink:#f9fafb;
+      --shadow:0 12px 35px rgba(0,0,0,.08);
+      --radius:22px;
+      --radius-sm:14px;
+      --max:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      line-height:1.65;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(245,158,11,.10), transparent 24rem),
+        linear-gradient(180deg, #fff9f1 0%, var(--bg) 100%);
+    }
+
+    a{color:inherit}
+    img{max-width:100%;display:block}
+    code, pre{font-family:Consolas, Monaco, "Courier New", monospace}
+
+    .container{
+      width:min(var(--max), calc(100% - 28px));
+      margin:0 auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter:blur(10px);
+      background:rgba(255,248,239,.88);
+      border-bottom:1px solid var(--line);
+    }
+
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      min-height:68px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      text-decoration:none;
+      color:var(--brand);
+    }
+
+    .brand-badge{
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#fff;
+      box-shadow:var(--shadow);
+      font-size:1.1rem;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .nav a{
+      text-decoration:none;
+      padding:10px 12px;
+      border-radius:999px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .nav a:hover{
+      background:#fff;
+      color:var(--brand);
+    }
+
+    .hero{
+      padding:40px 0 24px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:22px;
+      align-items:stretch;
+    }
+
+    .hero-card,
+    .side-card,
+    .lesson-card,
+    .project-preview,
+    .check-card,
+    .tip-card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .hero-card{
+      padding:28px;
+    }
+
+    .hero h1{
+      margin:0 0 10px;
+      line-height:1.1;
+      font-size:clamp(2rem,5vw,3.6rem);
+    }
+
+    .eyebrow{
+      margin:0 0 8px;
+      color:var(--brand);
+      font-weight:800;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      font-size:.85rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      margin:0;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .btn{
+      border:none;
+      border-radius:14px;
+      padding:12px 16px;
+      font-weight:800;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#fff;
+      box-shadow:0 10px 24px rgba(217,119,6,.24);
+    }
+    .btn-secondary{
+      background:#fff;
+      color:var(--brand);
+      border:1px solid var(--line);
+    }
+
+    .side-card{
+      padding:24px;
+      background:
+        linear-gradient(180deg, rgba(255,243,223,.8), rgba(255,255,255,.95)),
+        var(--panel);
+    }
+
+    .mini-list{
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .mini-item{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px 14px;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 320px;
+      gap:22px;
+      margin:14px auto 36px;
+    }
+
+    .toc{
+      position:sticky;
+      top:88px;
+      align-self:start;
+      padding:18px;
+    }
+
+    .toc h3{
+      margin:0 0 12px;
+      font-size:1rem;
+    }
+
+    .toc a{
+      display:block;
+      text-decoration:none;
+      padding:10px 12px;
+      border-radius:12px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .toc a:hover{
+      background:var(--panel-2);
+      color:var(--brand);
+    }
+
+    .lesson-card{
+      padding:24px;
+      margin-bottom:20px;
+    }
+
+    .lesson-card h2{
+      margin:0 0 8px;
+      font-size:clamp(1.4rem,3vw,2rem);
+    }
+
+    .lesson-card h3{
+      margin-top:24px;
+      margin-bottom:8px;
+    }
+
+    .muted{color:var(--muted)}
+
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .pill{
+      background:var(--panel-2);
+      border:1px solid var(--line);
+      color:var(--brand);
+      border-radius:999px;
+      padding:8px 12px;
+      font-weight:800;
+      font-size:.92rem;
+    }
+
+    .step-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:8px;
+    }
+
+    .step-no{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:44px;
+      height:44px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#fff;
+      font-weight:900;
+      box-shadow:0 8px 20px rgba(217,119,6,.22);
+    }
+
+    .explain,
+    .check-card,
+    .tip-card{
+      padding:16px 18px;
+      margin-top:14px;
+    }
+
+    .explain{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#fffdf9;
+    }
+
+    .check-card{
+      background:var(--ok-bg);
+      border:1px solid #b7ebcb;
+    }
+
+    .check-card h4,
+    .tip-card h4{
+      margin:0 0 8px;
+    }
+
+    .tip-card{
+      background:#fff8e8;
+      border:1px solid #f6dfb0;
+    }
+
+    .code-wrap{
+      margin-top:14px;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid #1f2937;
+      box-shadow:var(--shadow);
+    }
+
+    .code-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 14px;
+      background:#0f172a;
+      color:#e5e7eb;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .code-title{
+      font-weight:800;
+      font-size:.95rem;
+    }
+
+    .copy-btn{
+      border:none;
+      border-radius:10px;
+      padding:9px 12px;
+      background:#1f2937;
+      color:#fff;
+      cursor:pointer;
+      font-weight:800;
+    }
+
+    .copy-btn:hover{
+      background:#374151;
+    }
+
+    pre{
+      margin:0;
+      padding:18px;
+      overflow:auto;
+      background:var(--code);
+      color:var(--code-ink);
+      font-size:.94rem;
+      line-height:1.6;
+      tab-size:2;
+    }
+
+    .project-preview{
+      padding:20px;
+      background:linear-gradient(180deg,#fff,#fff8ef);
+    }
+
+    .preview-frame{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+    }
+
+    .preview-site{
+      border:1px solid #eee2ce;
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 10px 24px rgba(0,0,0,.05);
+    }
+
+    .preview-nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 16px;
+      background:#fffaf2;
+      border-bottom:1px solid #f3e3c7;
+    }
+
+    .preview-logo{
+      color:var(--brand);
+      font-weight:900;
+    }
+
+    .preview-links{
+      display:flex;
+      gap:10px;
+      color:var(--muted);
+      font-size:.94rem;
+      flex-wrap:wrap;
+    }
+
+    .preview-hero{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      padding:20px;
+      align-items:center;
+      background:
+        radial-gradient(circle at top right, rgba(245,158,11,.12), transparent 12rem),
+        #fff;
+    }
+
+    .preview-photo{
+      min-height:230px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#fde7c0,#fff1dd);
+      border:1px solid #f2ddbb;
+      display:grid;
+      place-items:center;
+      color:#b45309;
+      font-weight:800;
+      text-align:center;
+      padding:20px;
+    }
+
+    .preview-cards{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      padding:0 20px 20px;
+    }
+
+    .preview-card{
+      border:1px solid #f1e0c4;
+      border-radius:16px;
+      padding:14px;
+      background:#fffdf8;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .inline-code{
+      background:#fff2dd;
+      border:1px solid #f0d6aa;
+      padding:.1rem .4rem;
+      border-radius:8px;
+      font-family:Consolas, Monaco, monospace;
+      font-size:.95em;
+    }
+
+    ul.clean, ol.clean{
+      padding-left:20px;
+      margin:10px 0 0;
+    }
+
+    .footer{
+      padding:28px 0 60px;
+      text-align:center;
+      color:var(--muted);
+    }
+
+    @media (max-width: 980px){
+      .hero-grid,
+      .main-grid,
+      .preview-hero,
+      .two-col{
+        grid-template-columns:1fr;
+      }
+      .toc{
+        position:relative;
+        top:0;
+        order:-1;
+      }
+      .preview-cards{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 700px){
+      .nav{display:none}
+      .lesson-card,
+      .hero-card,
+      .side-card{padding:18px}
+      pre{font-size:.88rem}
+      .preview-links{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top">
+        <span class="brand-badge">PP</span>
+        <span>Portfolio Build Lesson</span>
+      </a>
+      <nav class="nav">
+        <a href="#goal">Goal</a>
+        <a href="#step0">Step 0</a>
+        <a href="#step1">Step 1</a>
+        <a href="#step2">Step 2</a>
+        <a href="#step3">Step 3</a>
+        <a href="#step4">Step 4</a>
+        <a href="#step5">Step 5</a>
+        <a href="#step6">Step 6</a>
+        <a href="#final-build">Final Build</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="hero-card">
+        <p class="eyebrow">Frontend Lesson • HTML + CSS + JavaScript</p>
+        <h1>Build a Portfolio Website <br />from Point 0</h1>
+        <p>
+          This page teaches students how to build a complete portfolio website step by step.
+          Each step adds one useful feature. Every step includes code, explanation, a check,
+          and a copy button.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#step0">Start Lesson</a>
+          <a class="btn btn-secondary" href="#final-build">Jump to Final Code</a>
+        </div>
+        <div class="pill-row">
+          <span class="pill">Beginner Friendly</span>
+          <span class="pill">Semantic HTML</span>
+          <span class="pill">Responsive CSS</span>
+          <span class="pill">Interactive JS</span>
+        </div>
+      </div>
+
+      <aside class="side-card">
+        <h3 style="margin-top:0;">What students will build</h3>
+        <div class="mini-list">
+          <div class="mini-item"><strong>Header</strong><br /><span class="muted">Logo and navigation links</span></div>
+          <div class="mini-item"><strong>Hero Section</strong><br /><span class="muted">Introduction and action buttons</span></div>
+          <div class="mini-item"><strong>About + Skills</strong><br /><span class="muted">Profile and skill bars</span></div>
+          <div class="mini-item"><strong>Projects</strong><br /><span class="muted">Cards that showcase work</span></div>
+          <div class="mini-item"><strong>Contact Form</strong><br /><span class="muted">Simple frontend validation</span></div>
+          <div class="mini-item"><strong>Theme Toggle</strong><br /><span class="muted">Dark/light mode with localStorage</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="container main-grid">
+    <main>
+      <section class="lesson-card" id="goal">
+        <h2>Lesson Goal</h2>
+        <p class="muted">
+          A portfolio website is a personal website that presents who you are, what you can do,
+          and what you have built. It is one of the best beginner frontend projects because it
+          combines page structure, styling, responsiveness, and interactivity.
+        </p>
+
+        <div class="two-col">
+          <div class="tip-card">
+            <h4>What students should learn</h4>
+            <ul class="clean">
+              <li>How to structure a page with semantic HTML</li>
+              <li>How CSS turns plain content into a polished layout</li>
+              <li>How JavaScript adds interaction</li>
+              <li>How to build a project in small steps</li>
+            </ul>
+          </div>
+
+          <div class="check-card">
+            <h4>Before starting</h4>
+            <ul class="clean">
+              <li>Create a file named <span class="inline-code">index.html</span></li>
+              <li>Open it in a browser</li>
+              <li>Edit it in VS Code or any code editor</li>
+              <li>After each step, save and refresh the page</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step0">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">0</span>
+            <div>
+              <h2 style="margin:0;">Step 0 — Create the basic HTML page</h2>
+              <p class="muted" style="margin:4px 0 0;">We begin with the smallest valid page.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain">
+          <strong>Explanation:</strong>
+          Every website starts with a basic HTML skeleton. This includes
+          <span class="inline-code">&lt;!doctype html&gt;</span>,
+          <span class="inline-code">&lt;html&gt;</span>,
+          <span class="inline-code">&lt;head&gt;</span>,
+          and <span class="inline-code">&lt;body&gt;</span>.
+          The browser uses this structure to understand and display your page.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Step 0 Code — Basic HTML Page</span>
+            <button class="copy-btn" data-copy-target="code-step0">Copy</button>
+          </div>
+          <pre id="code-step0"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
+  &lt;title&gt;My Portfolio&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;My Portfolio&lt;/h1&gt;
+  &lt;p&gt;This is the beginning of my website.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <div class="check-card">
+          <h4>Check</h4>
+          <p style="margin:0;">
+            After saving and refreshing, you should see a heading that says
+            <strong>My Portfolio</strong> and a short paragraph below it.
+          </p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step1">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">1</span>
+            <div>
+              <h2 style="margin:0;">Step 1 — Add page sections</h2>
+              <p class="muted" style="margin:4px 0 0;">Now we organize the page into meaningful parts.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain">
+          <strong>Explanation:</strong>
+          A portfolio is easier to build and maintain when it is divided into sections.
+          We use semantic tags like
+          <span class="inline-code">&lt;header&gt;</span>,
+          <span class="inline-code">&lt;main&gt;</span>,
+          <span class="inline-code">&lt;section&gt;</span>,
+          and <span class="inline-code">&lt;footer&gt;</span>.
+          These make the page more readable for both humans and browsers.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Step 1 Code — Add Header, Main Sections, and Footer</span>
+            <button class="copy-btn" data-copy-target="code-step1">Copy</button>
+          </div>
+          <pre id="code-step1"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
+  &lt;title&gt;My Portfolio&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;My Portfolio&lt;/h1&gt;
+    &lt;p&gt;Frontend Student&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section&gt;
+      &lt;h2&gt;About Me&lt;/h2&gt;
+      &lt;p&gt;I am learning HTML, CSS, and JavaScript.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+      &lt;h2&gt;Skills&lt;/h2&gt;
+      &lt;ul&gt;
+        &lt;li&gt;HTML&lt;/li&gt;
+        &lt;li&gt;CSS&lt;/li&gt;
+        &lt;li&gt;JavaScript&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+      &lt;h2&gt;Projects&lt;/h2&gt;
+      &lt;p&gt;My projects will go here.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+      &lt;h2&gt;Contact&lt;/h2&gt;
+      &lt;p&gt;Email: student@example.com&lt;/p&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;© 2026 My Portfolio&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <div class="check-card">
+          <h4>Check</h4>
+          <p style="margin:0;">
+            Your page should now have 4 content areas:
+            <strong>About Me, Skills, Projects, and Contact</strong>.
+          </p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step2">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">2</span>
+            <div>
+              <h2 style="margin:0;">Step 2 — Add navigation links</h2>
+              <p class="muted" style="margin:4px 0 0;">This makes the portfolio easier to move around.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain">
+          <strong>Explanation:</strong>
+          Navigation links point to section IDs on the same page. For example,
+          a link with <span class="inline-code">href="#about"</span> jumps to the element
+          with <span class="inline-code">id="about"</span>.
+          This is a clean way to create a one-page portfolio.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Step 2 Code — Add a Navigation Menu</span>
+            <button class="copy-btn" data-copy-target="code-step2">Copy</button>
+          </div>
+          <pre id="code-step2"><code>&lt;header&gt;
+  &lt;h1&gt;My Portfolio&lt;/h1&gt;
+  &lt;p&gt;Frontend Student&lt;/p&gt;
+
+  &lt;nav&gt;
+    &lt;a href="#about"&gt;About&lt;/a&gt;
+    &lt;a href="#skills"&gt;Skills&lt;/a&gt;
+    &lt;a href="#projects"&gt;Projects&lt;/a&gt;
+    &lt;a href="#contact"&gt;Contact&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;section id="about"&gt;
+    &lt;h2&gt;About Me&lt;/h2&gt;
+    &lt;p&gt;I am learning HTML, CSS, and JavaScript.&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section id="skills"&gt;
+    &lt;h2&gt;Skills&lt;/h2&gt;
+    &lt;ul&gt;
+      &lt;li&gt;HTML&lt;/li&gt;
+      &lt;li&gt;CSS&lt;/li&gt;
+      &lt;li&gt;JavaScript&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/section&gt;
+
+  &lt;section id="projects"&gt;
+    &lt;h2&gt;Projects&lt;/h2&gt;
+    &lt;p&gt;My projects will go here.&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section id="contact"&gt;
+    &lt;h2&gt;Contact&lt;/h2&gt;
+    &lt;p&gt;Email: student@example.com&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+        </div>
+
+        <div class="check-card">
+          <h4>Check</h4>
+          <p style="margin:0;">
+            Clicking each navigation link should move you to the matching section.
+          </p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step3">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">3</span>
+            <div>
+              <h2 style="margin:0;">Step 3 — Add CSS to make it look like a real site</h2>
+              <p class="muted" style="margin:4px 0 0;">Now we style the structure we built.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain">
+          <strong>Explanation:</strong>
+          HTML gives us the structure. CSS gives us layout, color, spacing, and polish.
+          In this step, we add a warm light theme, section cards, spacing, and button styles.
+          This is the moment where the page starts to feel professional.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Step 3 Code — CSS Starter Styling</span>
+            <button class="copy-btn" data-copy-target="code-step3">Copy</button>
+          </div>
+          <pre id="code-step3"><code>&lt;style&gt;
+  :root{
+    --bg:#fff8ef;
+    --panel:#ffffff;
+    --ink:#1f2937;
+    --muted:#6b7280;
+    --brand:#d97706;
+    --line:#ead7c4;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+  }
+
+  .container{
+    width:min(1000px, calc(100% - 32px));
+    margin:0 auto;
+  }
+
+  header{
+    background:#fff;
+    border-bottom:1px solid var(--line);
+    padding:20px 0;
+  }
+
+  nav a{
+    margin-right:14px;
+    text-decoration:none;
+    color:var(--brand);
+    font-weight:bold;
+  }
+
+  section{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:24px;
+    margin:24px 0;
+  }
+
+  h1,h2,h3{
+    margin-top:0;
+  }
+
+  .btn{
+    display:inline-block;
+    background:var(--brand);
+    color:#fff;
+    text-decoration:none;
+    padding:12px 16px;
+    border-radius:12px;
+    font-weight:bold;
+  }
+
+  footer{
+    text-align:center;
+    padding:24px 0 40px;
+    color:var(--muted);
+  }
+&lt;/style&gt;</code></pre>
+        </div>
+
+        <div class="tip-card">
+          <h4>How to use this CSS</h4>
+          <p style="margin:0;">
+            Put this inside the <span class="inline-code">&lt;head&gt;</span> section of your page,
+            and wrap your content inside a <span class="inline-code">div</span> with class
+            <span class="inline-code">container</span>.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <h4>Check</h4>
+          <p style="margin:0;">
+            Your page should now have padding, section cards, soft colors, and a cleaner layout.
+          </p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step4">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">4</span>
+            <div>
+              <h2 style="margin:0;">Step 4 — Add a hero section and project cards</h2>
+              <p class="muted" style="margin:4px 0 0;">This makes the portfolio feel complete and modern.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain">
+          <strong>Explanation:</strong>
+          The hero section is the first thing visitors see. It should quickly tell them who you are.
+          The projects area should show what you have built. Cards are a simple and effective way
+          to present project information.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Step 4 Code — Hero Section and Projects Grid</span>
+            <button class="copy-btn" data-copy-target="code-step4">Copy</button>
+          </div>
+          <pre id="code-step4"><code>&lt;section id="home"&gt;
+  &lt;h2&gt;Hello, I am Your Name&lt;/h2&gt;
+  &lt;p&gt;I build beginner-friendly frontend projects using HTML, CSS, and JavaScript.&lt;/p&gt;
+  &lt;a class="btn" href="#projects"&gt;View My Projects&lt;/a&gt;
+&lt;/section&gt;
+
+&lt;section id="projects"&gt;
+  &lt;h2&gt;Projects&lt;/h2&gt;
+
+  &lt;div class="projects-grid"&gt;
+    &lt;article class="project-card"&gt;
+      &lt;h3&gt;Portfolio Website&lt;/h3&gt;
+      &lt;p&gt;A personal website to showcase my profile and work.&lt;/p&gt;
+    &lt;/article&gt;
+
+    &lt;article class="project-card"&gt;
+      &lt;h3&gt;Quiz App&lt;/h3&gt;
+      &lt;p&gt;A multiple-choice quiz app built with JavaScript.&lt;/p&gt;
+    &lt;/article&gt;
+
+    &lt;article class="project-card"&gt;
+      &lt;h3&gt;Mini Shop UI&lt;/h3&gt;
+      &lt;p&gt;A frontend shopping page with product cards and cart ideas.&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Extra CSS for Step 4</span>
+            <button class="copy-btn" data-copy-target="code-step4b">Copy</button>
+          </div>
+          <pre id="code-step4b"><code>#home{
+  text-align:left;
+}
+
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:16px;
+}
+
+.project-card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
+  background:#fffdf9;
+}
+
+@media (max-width: 800px){
+  .projects-grid{
+    grid-template-columns:1fr;
+  }
+}</code></pre>
+        </div>
+
+        <div class="check-card">
+          <h4>Check</h4>
+          <p style="margin:0;">
+            You should now see a top introduction area and three project cards arranged in a grid.
+          </p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step5">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">5</span>
+            <div>
+              <h2 style="margin:0;">Step 5 — Add a contact form</h2>
+              <p class="muted" style="margin:4px 0 0;">A portfolio should make it easy for people to reach you.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain">
+          <strong>Explanation:</strong>
+          Forms are an important part of web development. In a portfolio,
+          a contact form gives visitors a clear way to send a message.
+          Even if the form does not send data to a server yet, it is still useful for learning layout and validation.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Step 5 Code — Contact Form HTML</span>
+            <button class="copy-btn" data-copy-target="code-step5">Copy</button>
+          </div>
+          <pre id="code-step5"><code>&lt;section id="contact"&gt;
+  &lt;h2&gt;Contact Me&lt;/h2&gt;
+
+  &lt;form id="contactForm"&gt;
+    &lt;p&gt;
+      &lt;label for="name"&gt;Name&lt;/label&gt;&lt;br /&gt;
+      &lt;input id="name" type="text" placeholder="Enter your name" /&gt;
+    &lt;/p&gt;
+
+    &lt;p&gt;
+      &lt;label for="email"&gt;Email&lt;/label&gt;&lt;br /&gt;
+      &lt;input id="email" type="email" placeholder="Enter your email" /&gt;
+    &lt;/p&gt;
+
+    &lt;p&gt;
+      &lt;label for="message"&gt;Message&lt;/label&gt;&lt;br /&gt;
+      &lt;textarea id="message" rows="5" placeholder="Write your message"&gt;&lt;/textarea&gt;
+    &lt;/p&gt;
+
+    &lt;button class="btn" type="submit"&gt;Send Message&lt;/button&gt;
+    &lt;p id="formMessage"&gt;&lt;/p&gt;
+  &lt;/form&gt;
+&lt;/section&gt;</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Extra CSS for Step 5</span>
+            <button class="copy-btn" data-copy-target="code-step5b">Copy</button>
+          </div>
+          <pre id="code-step5b"><code>input, textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  font:inherit;
+}
+
+label{
+  font-weight:bold;
+}
+
+#formMessage{
+  color:green;
+  font-weight:bold;
+}</code></pre>
+        </div>
+
+        <div class="check-card">
+          <h4>Check</h4>
+          <p style="margin:0;">
+            Your contact section should now contain inputs for name, email, and message.
+          </p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step6">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">6</span>
+            <div>
+              <h2 style="margin:0;">Step 6 — Add JavaScript interaction</h2>
+              <p class="muted" style="margin:4px 0 0;">Now the page starts reacting to user actions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain">
+          <strong>Explanation:</strong>
+          JavaScript can validate forms, toggle themes, show messages, and save preferences.
+          In this step, we add:
+        </div>
+
+        <ul class="clean">
+          <li>form validation</li>
+          <li>a success message</li>
+          <li>a theme toggle button</li>
+          <li>theme saving with localStorage</li>
+        </ul>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Step 6 Code — Theme Toggle Button HTML</span>
+            <button class="copy-btn" data-copy-target="code-step6a">Copy</button>
+          </div>
+          <pre id="code-step6a"><code>&lt;button id="themeToggle" class="btn" type="button"&gt;Toggle Theme&lt;/button&gt;</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Extra CSS for Dark Theme</span>
+            <button class="copy-btn" data-copy-target="code-step6b">Copy</button>
+          </div>
+          <pre id="code-step6b"><code>body.dark{
+  --bg:#111827;
+  --panel:#1f2937;
+  --ink:#f9fafb;
+  --muted:#d1d5db;
+  --brand:#f59e0b;
+  --line:#374151;
+}</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Step 6 Code — JavaScript</span>
+            <button class="copy-btn" data-copy-target="code-step6c">Copy</button>
+          </div>
+          <pre id="code-step6c"><code>&lt;script&gt;
+  const contactForm = document.getElementById("contactForm");
+  const formMessage = document.getElementById("formMessage");
+  const themeToggle = document.getElementById("themeToggle");
+
+  function applyTheme(theme) {
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }
+
+  const savedTheme = localStorage.getItem("portfolio-theme") || "light";
+  applyTheme(savedTheme);
+
+  themeToggle.addEventListener("click", function () {
+    const isDark = document.body.classList.contains("dark");
+    const nextTheme = isDark ? "light" : "dark";
+    localStorage.setItem("portfolio-theme", nextTheme);
+    applyTheme(nextTheme);
+  });
+
+  contactForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!name || !email || !message) {
+      formMessage.textContent = "Please fill in all fields.";
+      return;
+    }
+
+    if (!email.includes("@") || !email.includes(".")) {
+      formMessage.textContent = "Please enter a valid email address.";
+      return;
+    }
+
+    formMessage.textContent = "Your message has been saved on the frontend.";
+    contactForm.reset();
+  });
+&lt;/script&gt;</code></pre>
+        </div>
+
+        <div class="check-card">
+          <h4>Check</h4>
+          <ul class="clean">
+            <li>Click the theme button and the page colors should change.</li>
+            <li>Refresh the page and the theme should stay saved.</li>
+            <li>Submit an empty form and you should see a warning.</li>
+            <li>Submit a filled form and you should see a success message.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="final-build">
+        <h2>Final Build — Complete Single HTML Page</h2>
+        <p class="muted">
+          This is the complete finished lesson result. It includes HTML, CSS, and JavaScript in one file.
+          Students can copy this into <span class="inline-code">index.html</span>, save it, and run it directly.
+        </p>
+
+        <div class="project-preview">
+          <strong>What the final site contains:</strong>
+          <div class="preview-frame">
+            <div class="preview-site">
+              <div class="preview-nav">
+                <div class="preview-logo">MyPortfolio</div>
+                <div class="preview-links">
+                  <span>Home</span><span>About</span><span>Skills</span><span>Projects</span><span>Contact</span>
+                </div>
+              </div>
+              <div class="preview-hero">
+                <div>
+                  <p class="eyebrow">Student Portfolio</p>
+                  <h3 style="margin:0 0 8px;">Hello, I am Your Name</h3>
+                  <p class="muted" style="margin:0;">I build websites using HTML, CSS, and JavaScript.</p>
+                </div>
+                <div class="preview-photo">Profile Image Placeholder</div>
+              </div>
+              <div class="preview-cards">
+                <div class="preview-card"><strong>About</strong><br /><span class="muted">Who you are</span></div>
+                <div class="preview-card"><strong>Skills</strong><br /><span class="muted">What you know</span></div>
+                <div class="preview-card"><strong>Projects</strong><br /><span class="muted">What you built</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-wrap" style="margin-top:18px;">
+          <div class="code-top">
+            <span class="code-title">Final Complete Code — index.html</span>
+            <button class="copy-btn" data-copy-target="code-final">Copy</button>
+          </div>
+          <pre id="code-final"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
+  &lt;title&gt;Student Portfolio&lt;/title&gt;
+  &lt;meta name="description" content="A beginner portfolio website built with HTML, CSS, and JavaScript." /&gt;
+
+  &lt;style&gt;
+    :root{
+      --bg:#fff8ef;
+      --panel:#ffffff;
+      --soft:#fff2df;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --brand:#d97706;
+      --brand-dark:#b45309;
+      --line:#ead7c4;
+      --shadow:0 10px 28px rgba(0,0,0,.08);
+    }
+
+    body.dark{
+      --bg:#111827;
+      --panel:#1f2937;
+      --soft:#172033;
+      --ink:#f9fafb;
+      --muted:#d1d5db;
+      --brand:#f59e0b;
+      --brand-dark:#d97706;
+      --line:#374151;
+      --shadow:0 10px 28px rgba(0,0,0,.28);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.6;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+      border-radius:20px;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      width:min(1100px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,248,239,.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+
+    body.dark .site-header{
+      background:rgba(17,24,39,.92);
+    }
+
+    .nav-wrap{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      min-height:72px;
+    }
+
+    .logo{
+      color:var(--brand);
+      font-size:1.35rem;
+      font-weight:800;
+    }
+
+    .nav{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .nav a{
+      font-weight:700;
+      color:var(--muted);
+    }
+
+    .nav a:hover{
+      color:var(--brand);
+    }
+
+    .menu-btn{
+      display:none;
+      border:none;
+      background:var(--panel);
+      color:var(--ink);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+      font-size:1.2rem;
+    }
+
+    .btn{
+      border:none;
+      background:var(--brand);
+      color:#fff;
+      padding:12px 16px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:800;
+      transition:transform .2s ease, background .2s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      background:var(--brand-dark);
+    }
+
+    .btn-outline{
+      background:transparent;
+      color:var(--brand);
+      border:2px solid var(--brand);
+    }
+
+    .btn-outline:hover{
+      color:#fff;
+    }
+
+    .section{
+      padding:72px 0;
+    }
+
+    .section-soft{
+      background:var(--soft);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:24px;
+      align-items:center;
+    }
+
+    .hero h1{
+      margin:0 0 10px;
+      font-size:clamp(2rem,5vw,3.5rem);
+      line-height:1.12;
+    }
+
+    .eyebrow{
+      color:var(--brand);
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    .accent{
+      color:var(--brand);
+    }
+
+    .hero-desc,
+    .section-text{
+      color:var(--muted);
+      max-width:720px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:20px;
+    }
+
+    .hero-card,
+    .skill-card,
+    .project-card,
+    .contact-form{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-card{
+      padding:18px;
+      min-height:320px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      background:
+        linear-gradient(135deg, rgba(245,158,11,.10), rgba(255,255,255,.55)),
+        var(--panel);
+    }
+
+    .skills-grid,
+    .projects-grid{
+      display:grid;
+      gap:20px;
+    }
+
+    .skills-grid{
+      grid-template-columns:repeat(2,1fr);
+    }
+
+    .projects-grid{
+      grid-template-columns:repeat(3,1fr);
+    }
+
+    .skill-card,
+    .project-card{
+      padding:20px;
+    }
+
+    .bar{
+      height:12px;
+      background:#e5e7eb;
+      border-radius:999px;
+      overflow:hidden;
+      margin-top:10px;
+    }
+
+    .bar span{
+      display:block;
+      height:100%;
+      background:linear-gradient(90deg,var(--brand),#fbbf24);
+      border-radius:999px;
+    }
+
+    .project-card p{
+      color:var(--muted);
+    }
+
+    .project-link{
+      display:inline-block;
+      margin-top:10px;
+      color:var(--brand);
+      font-weight:800;
+    }
+
+    .contact-form{
+      padding:24px;
+      max-width:760px;
+    }
+
+    .form-row{
+      display:grid;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    label{
+      font-weight:800;
+    }
+
+    input,
+    textarea{
+      width:100%;
+      padding:14px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:transparent;
+      color:var(--ink);
+      font:inherit;
+    }
+
+    input:focus,
+    textarea:focus{
+      outline:2px solid rgba(217,119,6,.18);
+      border-color:var(--brand);
+    }
+
+    .form-message{
+      margin-top:14px;
+      font-weight:800;
+      color:var(--brand);
+    }
+
+    .site-footer{
+      border-top:1px solid var(--line);
+      padding:22px 0;
+      text-align:center;
+      color:var(--muted);
+    }
+
+    @media (max-width: 860px){
+      .hero-grid,
+      .skills-grid,
+      .projects-grid{
+        grid-template-columns:1fr;
+      }
+
+      .menu-btn{
+        display:inline-block;
+      }
+
+      .nav{
+        position:absolute;
+        top:72px;
+        left:16px;
+        right:16px;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        background:var(--panel);
+        border:1px solid var(--line);
+        padding:16px;
+        border-radius:18px;
+        box-shadow:var(--shadow);
+      }
+
+      .nav.show{
+        display:flex;
+      }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class="site-header"&gt;
+    &lt;div class="container nav-wrap"&gt;
+      &lt;a href="#" class="logo"&gt;MyPortfolio&lt;/a&gt;
+
+      &lt;button class="menu-btn" id="menuBtn" aria-label="Open navigation"&gt;☰&lt;/button&gt;
+
+      &lt;nav class="nav" id="nav"&gt;
+        &lt;a href="#home"&gt;Home&lt;/a&gt;
+        &lt;a href="#about"&gt;About&lt;/a&gt;
+        &lt;a href="#skills"&gt;Skills&lt;/a&gt;
+        &lt;a href="#projects"&gt;Projects&lt;/a&gt;
+        &lt;a href="#contact"&gt;Contact&lt;/a&gt;
+        &lt;button id="themeToggle" class="btn" type="button"&gt;🌙 Theme&lt;/button&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section class="section hero" id="home"&gt;
+      &lt;div class="container hero-grid"&gt;
+        &lt;div&gt;
+          &lt;p class="eyebrow"&gt;Student Portfolio&lt;/p&gt;
+          &lt;h1&gt;Hello, I am &lt;span class="accent"&gt;Your Name&lt;/span&gt;&lt;/h1&gt;
+          &lt;p class="hero-desc"&gt;
+            I am learning frontend development and building websites using HTML, CSS, and JavaScript.
+          &lt;/p&gt;
+
+          &lt;div class="hero-actions"&gt;
+            &lt;a href="#projects" class="btn"&gt;View Projects&lt;/a&gt;
+            &lt;a href="#contact" class="btn btn-outline"&gt;Contact Me&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="hero-card"&gt;
+          &lt;div&gt;
+            &lt;img src="https://via.placeholder.com/420x320.png?text=Your+Photo" alt="Student placeholder image" /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="section" id="about"&gt;
+      &lt;div class="container"&gt;
+        &lt;h2&gt;About Me&lt;/h2&gt;
+        &lt;p class="section-text"&gt;
+          I enjoy creating websites, solving problems, and learning modern frontend development.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="section section-soft" id="skills"&gt;
+      &lt;div class="container"&gt;
+        &lt;h2&gt;My Skills&lt;/h2&gt;
+
+        &lt;div class="skills-grid"&gt;
+          &lt;div class="skill-card"&gt;
+            &lt;h3&gt;HTML&lt;/h3&gt;
+            &lt;div class="bar"&gt;&lt;span style="width:90%"&gt;&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class="skill-card"&gt;
+            &lt;h3&gt;CSS&lt;/h3&gt;
+            &lt;div class="bar"&gt;&lt;span style="width:82%"&gt;&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class="skill-card"&gt;
+            &lt;h3&gt;JavaScript&lt;/h3&gt;
+            &lt;div class="bar"&gt;&lt;span style="width:72%"&gt;&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class="skill-card"&gt;
+            &lt;h3&gt;Problem Solving&lt;/h3&gt;
+            &lt;div class="bar"&gt;&lt;span style="width:85%"&gt;&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="section" id="projects"&gt;
+      &lt;div class="container"&gt;
+        &lt;h2&gt;My Projects&lt;/h2&gt;
+
+        &lt;div class="projects-grid"&gt;
+          &lt;article class="project-card"&gt;
+            &lt;h3&gt;Portfolio Website&lt;/h3&gt;
+            &lt;p&gt;A personal website to present my profile, skills, and work.&lt;/p&gt;
+            &lt;a href="#" class="project-link"&gt;View Project&lt;/a&gt;
+          &lt;/article&gt;
+
+          &lt;article class="project-card"&gt;
+            &lt;h3&gt;Quiz App&lt;/h3&gt;
+            &lt;p&gt;An interactive quiz project built with JavaScript.&lt;/p&gt;
+            &lt;a href="#" class="project-link"&gt;View Project&lt;/a&gt;
+          &lt;/article&gt;
+
+          &lt;article class="project-card"&gt;
+            &lt;h3&gt;Mini Shop UI&lt;/h3&gt;
+            &lt;p&gt;A product listing page with cards and frontend interactions.&lt;/p&gt;
+            &lt;a href="#" class="project-link"&gt;View Project&lt;/a&gt;
+          &lt;/article&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="section section-soft" id="contact"&gt;
+      &lt;div class="container"&gt;
+        &lt;h2&gt;Contact Me&lt;/h2&gt;
+
+        &lt;form class="contact-form" id="contactForm"&gt;
+          &lt;div class="form-row"&gt;
+            &lt;label for="name"&gt;Name&lt;/label&gt;
+            &lt;input id="name" type="text" placeholder="Enter your name" /&gt;
+          &lt;/div&gt;
+
+          &lt;div class="form-row"&gt;
+            &lt;label for="email"&gt;Email&lt;/label&gt;
+            &lt;input id="email" type="email" placeholder="Enter your email" /&gt;
+          &lt;/div&gt;
+
+          &lt;div class="form-row"&gt;
+            &lt;label for="message"&gt;Message&lt;/label&gt;
+            &lt;textarea id="message" rows="5" placeholder="Write your message"&gt;&lt;/textarea&gt;
+          &lt;/div&gt;
+
+          &lt;button class="btn" type="submit"&gt;Send Message&lt;/button&gt;
+          &lt;p class="form-message" id="formMessage"&gt;&lt;/p&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer class="site-footer"&gt;
+    &lt;div class="container"&gt;
+      &lt;p&gt;© 2026 Your Name | Student Portfolio&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/footer&gt;
+
+  &lt;script&gt;
+    const menuBtn = document.getElementById("menuBtn");
+    const nav = document.getElementById("nav");
+    const themeToggle = document.getElementById("themeToggle");
+    const contactForm = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+
+    menuBtn.addEventListener("click", () =&gt; {
+      nav.classList.toggle("show");
+    });
+
+    document.querySelectorAll(".nav a").forEach((link) =&gt; {
+      link.addEventListener("click", () =&gt; {
+        nav.classList.remove("show");
+      });
+    });
+
+    function applyTheme(theme) {
+      if (theme === "dark") {
+        document.body.classList.add("dark");
+        themeToggle.textContent = "☀️ Light";
+      } else {
+        document.body.classList.remove("dark");
+        themeToggle.textContent = "🌙 Theme";
+      }
+    }
+
+    const savedTheme = localStorage.getItem("portfolio-theme") || "light";
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener("click", () =&gt; {
+      const isDark = document.body.classList.contains("dark");
+      const nextTheme = isDark ? "light" : "dark";
+      localStorage.setItem("portfolio-theme", nextTheme);
+      applyTheme(nextTheme);
+    });
+
+    contactForm.addEventListener("submit", (event) =&gt; {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!name || !email || !message) {
+        formMessage.textContent = "Please fill in all fields.";
+        return;
+      }
+
+      if (!email.includes("@") || !email.includes(".")) {
+        formMessage.textContent = "Please enter a valid email address.";
+        return;
+      }
+
+      formMessage.textContent = "Thank you. Your message has been recorded on the frontend.";
+      contactForm.reset();
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <div class="check-card">
+          <h4>Final Check</h4>
+          <ul class="clean">
+            <li>The page has a header, hero, about, skills, projects, contact, and footer.</li>
+            <li>The site is responsive on mobile screens.</li>
+            <li>The theme toggle works and stays saved after refresh.</li>
+            <li>The contact form validates user input.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="lesson-card">
+        <h2>Practice Tasks for Students</h2>
+        <div class="two-col">
+          <div class="tip-card">
+            <h4>Basic tasks</h4>
+            <ul class="clean">
+              <li>Replace placeholder name and text</li>
+              <li>Add a real profile image</li>
+              <li>Add one more project card</li>
+              <li>Add social links</li>
+            </ul>
+          </div>
+
+          <div class="tip-card">
+            <h4>Upgrade tasks</h4>
+            <ul class="clean">
+              <li>Add a certificates section</li>
+              <li>Add hover animation on cards</li>
+              <li>Add a download CV button</li>
+              <li>Add a skills progress animation</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="lesson-card toc">
+      <h3>Lesson Navigation</h3>
+      <a href="#goal">Lesson Goal</a>
+      <a href="#step0">Step 0 — Basic page</a>
+      <a href="#step1">Step 1 — Sections</a>
+      <a href="#step2">Step 2 — Navigation</a>
+      <a href="#step3">Step 3 — CSS</a>
+      <a href="#step4">Step 4 — Hero + Projects</a>
+      <a href="#step5">Step 5 — Contact Form</a>
+      <a href="#step6">Step 6 — JavaScript</a>
+      <a href="#final-build">Final Build</a>
+    </aside>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      Build slowly, test after every step, and let each step add one useful improvement.
+    </div>
+  </footer>
+
+  <script>
+    function copyTextFromTarget(targetId, button) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+
+      const text = el.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const old = button.textContent;
+        button.textContent = "Copied";
+        setTimeout(() => {
+          button.textContent = old;
+        }, 1200);
+      }).catch(() => {
+        const old = button.textContent;
+        button.textContent = "Copy failed";
+        setTimeout(() => {
+          button.textContent = old;
+        }, 1400);
+      });
+    }
+
+    document.querySelectorAll(".copy-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        copyTextFromTarget(btn.dataset.copyTarget, btn);
+      });
+    });
+  </script>
+</body>
+</html>
