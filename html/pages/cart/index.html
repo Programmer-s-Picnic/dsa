@@ -4,6 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Build a Shopping Cart — Complete Frontend Lesson</title>
+
+  <script
+    async
+    crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
+  ></script>
+
   <meta
     name="description"
     content="A complete beginner-friendly lesson that teaches students how to build a shopping cart from ground level using HTML, CSS, and JavaScript."
@@ -42,6 +49,7 @@
     }
 
     a{color:inherit}
+    img{max-width:100%;display:block}
     code, pre{font-family:Consolas, Monaco, "Courier New", monospace}
 
     .container{
@@ -171,6 +179,7 @@
       text-decoration:none;
       display:inline-flex;
       align-items:center;
+      justify-content:center;
       gap:8px;
       transition:transform .2s ease, box-shadow .2s ease;
     }
@@ -240,6 +249,11 @@
     .lesson-card h2{
       margin:0 0 8px;
       font-size:clamp(1.4rem,3vw,2rem);
+    }
+
+    .lesson-card h3{
+      margin-top:24px;
+      margin-bottom:8px;
     }
 
     .muted{color:var(--muted)}
@@ -358,6 +372,46 @@
       font-size:.94rem;
       line-height:1.6;
       tab-size:2;
+    }
+
+    .editor-shell{
+      margin:18px 0 0;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .editor-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 18px;
+      background:linear-gradient(90deg,#fff6e8,#fffdf7);
+      border-bottom:1px solid var(--line);
+      flex-wrap:wrap;
+    }
+
+    .editor-head h2{
+      margin:0;
+      font-size:1.1rem;
+      color:var(--brand);
+    }
+
+    .editor-note{
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .editor-frame{
+      width:100%;
+      height:100vh;
+      min-height:720px;
+      border:0;
+      display:block;
+      background:#fff;
     }
 
     .project-preview{
@@ -493,6 +547,10 @@
         top:0;
         order:-1;
       }
+      .editor-frame{
+        height:82vh;
+        min-height:560px;
+      }
     }
 
     @media (max-width: 760px){
@@ -502,10 +560,26 @@
       }
       .hero-card,.side-card,.lesson-card{padding:18px}
       pre{font-size:.88rem}
+      .editor-frame{
+        height:78vh;
+        min-height:480px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="code-wrap" style="margin:0; border-radius:0; border-left:0; border-right:0;">
+    <iframe
+      style="width:100%; height:100vh;"
+      allow="clipboard-read; clipboard-write; fullscreen"
+      allowfullscreen
+      id="editorFrame"
+      loading="lazy"
+      src="https://editor.learnwithchampak.live/samples/html/preview/"
+      title="Embedded editor"
+    ></iframe>
+  </div>
+
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="#top">
@@ -514,6 +588,7 @@
       </a>
       <nav class="nav">
         <a href="#goal">Goal</a>
+        <a href="#editor-playground">Editor</a>
         <a href="#step0">Step 0</a>
         <a href="#step1">Step 1</a>
         <a href="#step2">Step 2</a>
@@ -536,8 +611,8 @@
           Each step adds one feature. Every step includes code, explanation, a check, and a copy button.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#step0">Start Lesson</a>
-          <a class="btn btn-secondary" href="#final-build">Jump to Final Code</a>
+          <a class="btn btn-primary" href="#editor-playground">Open Live Editor</a>
+          <a class="btn btn-secondary" href="#step0">Start Lesson</a>
         </div>
         <div class="pill-row">
           <span class="pill">Beginner Friendly</span>
@@ -588,10 +663,51 @@
             <ul class="clean">
               <li>Create a file named <span class="inline-code">index.html</span></li>
               <li>Open it in a browser</li>
-              <li>Edit it in VS Code or another editor</li>
+              <li>Open the live editor below</li>
               <li>Save and refresh after every step</li>
             </ul>
           </div>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="editor-playground">
+        <h2>Live HTML Preview Editor</h2>
+        <p class="muted">
+          Students can paste the code from any step into this editor and preview it immediately.
+          This is useful for experimenting, testing changes, and comparing step-by-step progress.
+        </p>
+
+        <div class="editor-shell">
+          <div class="editor-head">
+            <div>
+              <h2>Embedded HTML Preview Editor</h2>
+              <div class="editor-note">Paste code here, run it, and inspect the result live.</div>
+            </div>
+            <a
+              class="btn btn-secondary"
+              href="https://editor.learnwithchampak.live/samples/html/preview/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Open in New Tab</a>
+          </div>
+          <iframe
+            class="editor-frame"
+            allow="clipboard-read; clipboard-write; fullscreen"
+            allowfullscreen
+            loading="lazy"
+            src="https://editor.learnwithchampak.live/samples/html/preview/"
+            title="Embedded editor for shopping cart lesson"
+          ></iframe>
+        </div>
+
+        <div class="tip-card">
+          <h4>How to use it</h4>
+          <ul class="clean">
+            <li>Copy the code from a lesson step.</li>
+            <li>Paste it into the embedded editor.</li>
+            <li>Run or preview the page.</li>
+            <li>Change text, styles, and JavaScript to experiment safely.</li>
+          </ul>
         </div>
       </section>
 
@@ -1579,6 +1695,7 @@
     <aside class="lesson-card toc">
       <h3>Lesson Navigation</h3>
       <a href="#goal">Lesson Goal</a>
+      <a href="#editor-playground">Live Editor</a>
       <a href="#step0">Step 0 — Basic page</a>
       <a href="#step1">Step 1 — Structure</a>
       <a href="#step2">Step 2 — CSS</a>
@@ -1596,6 +1713,7 @@
     </div>
   </footer>
 
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
   <script>
     function copyTextFromTarget(targetId, button) {
       const el = document.getElementById(targetId);
