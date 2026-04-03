@@ -4,15 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Build a Portfolio Website — Complete Frontend Lesson</title>
-  
 
- <script
-      async=""
-      crossorigin="anonymous"
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
-    ></script>
-
-
+  <script
+    async=""
+    crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
+  ></script>
 
   <meta
     name="description"
@@ -382,6 +379,46 @@
       tab-size:2;
     }
 
+    .editor-shell{
+      margin:18px 0 0;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .editor-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 18px;
+      background:linear-gradient(90deg,#fff6e8,#fffdf7);
+      border-bottom:1px solid var(--line);
+      flex-wrap:wrap;
+    }
+
+    .editor-head h2{
+      margin:0;
+      font-size:1.1rem;
+      color:var(--brand);
+    }
+
+    .editor-note{
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .editor-frame{
+      width:100%;
+      height:100vh;
+      min-height:720px;
+      border:0;
+      display:block;
+      background:#fff;
+    }
+
     .project-preview{
       padding:20px;
       background:linear-gradient(180deg,#fff,#fff8ef);
@@ -503,6 +540,10 @@
       .preview-cards{
         grid-template-columns:1fr;
       }
+      .editor-frame{
+        height:82vh;
+        min-height:560px;
+      }
     }
 
     @media (max-width: 700px){
@@ -512,20 +553,14 @@
       .side-card{padding:18px}
       pre{font-size:.88rem}
       .preview-links{display:none}
+      .editor-frame{
+        height:78vh;
+        min-height:480px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="code-wrap">
-    <iframe style="width: 100%;height: 100vh;"
-                        allow="clipboard-read; clipboard-write; fullscreen"
-                        allowfullscreen=""
-                        id="editorFrame"
-                        loading="lazy"
-                        src="https://editor.learnwithchampak.live/samples/html/preview/"
-                        title="Embedded editor"
-                      ></iframe>
-                      </div>
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="#top">
@@ -534,6 +569,7 @@
       </a>
       <nav class="nav">
         <a href="#goal">Goal</a>
+        <a href="#editor-playground">Editor</a>
         <a href="#step0">Step 0</a>
         <a href="#step1">Step 1</a>
         <a href="#step2">Step 2</a>
@@ -557,8 +593,8 @@
           and a copy button.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#step0">Start Lesson</a>
-          <a class="btn btn-secondary" href="#final-build">Jump to Final Code</a>
+          <a class="btn btn-primary" href="#editor-playground">Open Live Editor</a>
+          <a class="btn btn-secondary" href="#step0">Start Lesson</a>
         </div>
         <div class="pill-row">
           <span class="pill">Beginner Friendly</span>
@@ -608,10 +644,52 @@
             <ul class="clean">
               <li>Create a file named <span class="inline-code">index.html</span></li>
               <li>Open it in a browser</li>
-              <li>Edit it in VS Code or any code editor</li>
+              <li>Open the live editor below</li>
               <li>After each step, save and refresh the page</li>
             </ul>
           </div>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="editor-playground">
+        <h2>Live HTML Preview Editor</h2>
+        <p class="muted">
+          Students can paste the code from any lesson step into this editor and preview it immediately.
+          This is useful for testing layout, experimenting with styles, and understanding how the page changes as each step is added.
+        </p>
+
+        <div class="editor-shell">
+          <div class="editor-head">
+            <div>
+              <h2>Embedded HTML Preview Editor</h2>
+              <div class="editor-note">Paste HTML, CSS, and JavaScript here and test your portfolio live.</div>
+            </div>
+            <a
+              class="btn btn-secondary"
+              href="https://editor.learnwithchampak.live/samples/html/preview/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Open in New Tab</a>
+          </div>
+          <iframe
+            class="editor-frame"
+            allow="clipboard-read; clipboard-write; fullscreen"
+            allowfullscreen
+            id="editorFrame"
+            loading="lazy"
+            src="https://editor.learnwithchampak.live/samples/html/preview/"
+            title="Embedded editor"
+          ></iframe>
+        </div>
+
+        <div class="tip-card">
+          <h4>How to use it</h4>
+          <ul class="clean">
+            <li>Copy code from any step below.</li>
+            <li>Paste it into the embedded editor.</li>
+            <li>Run or preview the result.</li>
+            <li>Make changes and compare how the output improves step by step.</li>
+          </ul>
         </div>
       </section>
 
@@ -1807,6 +1885,7 @@ label{
     <aside class="lesson-card toc">
       <h3>Lesson Navigation</h3>
       <a href="#goal">Lesson Goal</a>
+      <a href="#editor-playground">Live Editor</a>
       <a href="#step0">Step 0 — Basic page</a>
       <a href="#step1">Step 1 — Sections</a>
       <a href="#step2">Step 2 — Navigation</a>
@@ -1823,6 +1902,7 @@ label{
       Build slowly, test after every step, and let each step add one useful improvement.
     </div>
   </footer>
+
   <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
   <script>
     function copyTextFromTarget(targetId, button) {
