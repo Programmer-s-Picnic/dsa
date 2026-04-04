@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programmer's Picnic — Talking</title>
+    <meta name="theme-color" content="#d97706" />
+    <style>
+      :root {
+        --bg: #fff8ef;
+        --panel: #ffffff;
+        --panel2: #fff4e4;
+        --ink: #1f2937;
+        --muted: #6b7280;
+        --brand: #d97706;
+        --brand2: #f59e0b;
+        --line: #ead7c4;
+        --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+        background:
+          radial-gradient(
+            circle at top right,
+            rgba(245, 158, 11, 0.14),
+            transparent 24%
+          ),
+          linear-gradient(180deg, #fff8ef 0%, #fffaf5 100%);
+        color: var(--ink);
+      }
+
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .hero {
+        background: linear-gradient(
+          135deg,
+          rgba(217, 119, 6, 0.1),
+          rgba(245, 158, 11, 0.08)
+        );
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+      }
+
+      .kicker {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: #fff;
+        border: 1px solid rgba(217, 119, 6, 0.18);
+        color: #b45309;
+        font-weight: 800;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 14px 0 10px;
+        font-size: clamp(28px, 4vw, 48px);
+        line-height: 1.08;
+      }
+
+      .lead {
+        margin: 0;
+        max-width: 720px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.7;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 24px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 20px;
+        box-shadow: var(--shadow);
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 22px;
+      }
+
+      .card p {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .speak-block {
+        margin: 14px 0;
+        padding: 16px 18px;
+        background: var(--panel2);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        transition: all 0.25s ease;
+      }
+
+      .pp-speaking-active {
+        outline: 3px solid rgba(217, 119, 6, 0.25);
+        background: rgba(245, 158, 11, 0.14);
+        box-shadow: 0 14px 30px rgba(217, 119, 6, 0.12);
+        transform: translateY(-1px);
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      button {
+        border: none;
+        border-radius: 14px;
+        padding: 12px 14px;
+        font-weight: 800;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        color: #fff;
+        box-shadow: 0 12px 24px rgba(217, 119, 6, 0.22);
+      }
+
+      .btn-secondary {
+        background: #fff;
+        color: #b45309;
+        border: 1px solid rgba(217, 119, 6, 0.18);
+      }
+
+      .status {
+        margin-top: 14px;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: #fff;
+        border: 1px solid var(--line);
+        color: #4b5563;
+        font-weight: 700;
+      }
+
+      .avatar-shell {
+        position: sticky;
+        top: 20px;
+      }
+
+      .avatar-card {
+        position: relative;
+        overflow: hidden;
+        min-height: 460px;
+        background: radial-gradient(
+          circle at 50% 18%,
+          rgba(255, 255, 255, 0.92),
+          rgba(255, 244, 228, 0.96) 55%,
+          rgba(255, 236, 205, 0.98) 100%
+        );
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        padding: 22px;
+      }
+
+      .avatar-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .avatar-top h3 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .avatar-top p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .live-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        background: #d1d5db;
+        box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.25);
+        transition: all 0.25s ease;
+        flex: 0 0 auto;
+      }
+
+      .live-dot.speaking {
+        background: #f59e0b;
+        animation: dotPulse 1s ease-in-out infinite;
+      }
+
+      @keyframes dotPulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.35);
+        }
+        70% {
+          box-shadow: 0 0 0 12px rgba(245, 158, 11, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+        }
+      }
+
+      .avatar-stage {
+        position: relative;
+        height: 320px;
+        margin-top: 12px;
+        display: grid;
+        place-items: center;
+      }
+
+      .avatar-glow {
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(245, 158, 11, 0.24),
+          rgba(245, 158, 11, 0.06) 55%,
+          transparent 72%
+        );
+        filter: blur(8px);
+        opacity: 0.65;
+        transition: all 0.3s ease;
+      }
+
+      .avatar-card.is-speaking .avatar-glow {
+        opacity: 1;
+        transform: scale(1.08);
+        animation: glowPulse 1.1s ease-in-out infinite;
+      }
+
+      @keyframes glowPulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.08);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .avatar {
+        position: relative;
+        width: 220px;
+        height: 240px;
+        animation: floaty 4s ease-in-out infinite;
+      }
+
+      @keyframes floaty {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      .head {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 220px;
+        height: 220px;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: linear-gradient(180deg, #ffd29f, #f4b575);
+        border: 6px solid rgba(255, 255, 255, 0.9);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
+        overflow: hidden;
+        z-index: 2;
+      }
+
+      .hair {
+        position: absolute;
+        inset: 16px 18px auto 18px;
+        height: 88px;
+        background: linear-gradient(180deg, #27272a, #3f3f46);
+        border-radius: 90px 90px 38px 38px;
+      }
+
+      .face {
+        position: absolute;
+        inset: 42px 30px 24px 30px;
+        border-radius: 90px 90px 100px 100px;
+        background: linear-gradient(180deg, #ffd7ae, #f3ba84);
+        overflow: hidden;
+      }
+
+      .brow {
+        position: absolute;
+        top: 54px;
+        width: 34px;
+        height: 6px;
+        border-radius: 999px;
+        background: #8a4b17;
+        opacity: 0.85;
+      }
+
+      .brow.left {
+        left: 34px;
+        transform: rotate(-8deg);
+      }
+      .brow.right {
+        right: 34px;
+        transform: rotate(8deg);
+      }
+
+      .eye {
+        position: absolute;
+        top: 70px;
+        width: 24px;
+        height: 14px;
+        background: #1f2937;
+        border-radius: 0 0 18px 18px;
+        animation: blink 5s infinite;
+        transform-origin: center center;
+      }
+
+      .eye.left {
+        left: 38px;
+      }
+      .eye.right {
+        right: 38px;
+      }
+
+      @keyframes blink {
+        0%,
+        45%,
+        47%,
+        100% {
+          transform: scaleY(1);
+        }
+        46% {
+          transform: scaleY(0.08);
+        }
+      }
+
+      .nose {
+        position: absolute;
+        top: 92px;
+        left: 50%;
+        width: 12px;
+        height: 28px;
+        transform: translateX(-50%);
+        border-radius: 12px;
+        background: rgba(201, 118, 52, 0.22);
+      }
+
+      .smile {
+        position: absolute;
+        left: 50%;
+        top: 132px;
+        width: 72px;
+        height: 26px;
+        transform: translateX(-50%);
+        border-bottom: 4px solid #8b4513;
+        border-radius: 0 0 60px 60px;
+        opacity: 0.45;
+      }
+
+      .mouth {
+        position: absolute;
+        left: 50%;
+        top: 136px;
+        width: 54px;
+        height: 10px;
+        transform: translateX(-50%);
+        background: #7c2d12;
+        border-radius: 0 0 30px 30px;
+        overflow: hidden;
+        transition:
+          height 0.15s ease,
+          border-radius 0.15s ease,
+          top 0.15s ease;
+        box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.08);
+        z-index: 3;
+      }
+
+      .mouth::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -2px;
+        width: 30px;
+        height: 12px;
+        transform: translateX(-50%);
+        background: #ef9aa8;
+        border-radius: 20px 20px 0 0;
+        opacity: 0.88;
+      }
+
+      .avatar-card.is-speaking .mouth {
+        animation: talkMouth 0.16s ease-in-out infinite alternate;
+      }
+
+      .avatar-card.is-paused .mouth {
+        animation: none;
+        height: 8px;
+        top: 138px;
+      }
+
+      @keyframes talkMouth {
+        0% {
+          height: 10px;
+          top: 136px;
+          border-radius: 0 0 24px 24px;
+        }
+        100% {
+          height: 28px;
+          top: 126px;
+          border-radius: 0 0 28px 28px;
+        }
+      }
+
+      .neck {
+        position: absolute;
+        left: 50%;
+        top: 198px;
+        width: 42px;
+        height: 26px;
+        transform: translateX(-50%);
+        background: #ecb27c;
+        border-radius: 0 0 18px 18px;
+        z-index: 1;
+      }
+
+      .shoulders {
+        position: absolute;
+        left: 50%;
+        top: 208px;
+        width: 190px;
+        height: 82px;
+        transform: translateX(-50%);
+        background: linear-gradient(180deg, #d97706, #b45309);
+        border-radius: 90px 90px 24px 24px;
+        box-shadow: inset 0 10px 20px rgba(255, 255, 255, 0.1);
+        z-index: 0;
+      }
+
+      .avatar-caption {
+        margin-top: 14px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--line);
+        color: #4b5563;
+        line-height: 1.5;
+        min-height: 78px;
+      }
+
+      .avatar-caption strong {
+        display: block;
+        color: #1f2937;
+        margin-bottom: 4px;
+      }
+
+      .wave {
+        display: flex;
+        align-items: flex-end;
+        gap: 5px;
+        height: 36px;
+        margin-top: 12px;
+      }
+
+      .wave span {
+        display: block;
+        width: 8px;
+        height: 10px;
+        background: linear-gradient(180deg, var(--brand2), var(--brand));
+        border-radius: 999px;
+        opacity: 0.45;
+        transform-origin: bottom center;
+      }
+
+      .avatar-card.is-speaking .wave span {
+        opacity: 1;
+        animation: waveBounce 1s ease-in-out infinite;
+      }
+
+      .avatar-card.is-speaking .wave span:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .avatar-card.is-speaking .wave span:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .avatar-card.is-speaking .wave span:nth-child(4) {
+        animation-delay: 0.3s;
+      }
+      .avatar-card.is-speaking .wave span:nth-child(5) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes waveBounce {
+        0%,
+        100% {
+          transform: scaleY(0.5);
+        }
+        50% {
+          transform: scaleY(2.4);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .avatar-shell {
+          position: relative;
+          top: auto;
+        }
+        .controls {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .controls {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <section class="hero">
+        <span class="kicker">Programmer's Picnic</span>
+        <h1>Talking Avatar Demo</h1>
+        <p class="lead">
+          This version fixes the hidden mouth and makes the animation clearly
+          visible on mobile too.
+        </p>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <h2>Speaker Paragraphs</h2>
+
+          <div class="speak-block" id="speak0">
+            Welcome to Programmer's Picnic. This is the introduction paragraph.
+            In this demo, the avatar will start speaking, the mouth will
+            animate, and the active paragraph will be highlighted.
+          </div>
+
+          <div class="speak-block" id="speak1">
+            The main idea is simple. We use browser speech synthesis for
+            narration, and while the narration runs, the avatar enters speaking
+            mode. This gives a lively teaching experience.
+          </div>
+
+          <div class="speak-block" id="speak2">
+            Later, we will replace this demo face with our own photo based
+            avatar, or even build a more advanced version that looks like a real
+            speaking presenter.
+          </div>
+
+          <div class="controls">
+            <button class="btn-primary" id="startBtn">Start</button>
+            <button class="btn-secondary" id="pauseBtn">Pause</button>
+            <button class="btn-secondary" id="nextBtn">Next</button>
+            <button class="btn-secondary" id="stopBtn">Stop</button>
+          </div>
+
+          <div class="status" id="statusBox">Ready.</div>
+        </div>
+
+        <div class="avatar-shell">
+          <div class="avatar-card" id="avatarCard">
+            <div class="avatar-top">
+              <div>
+                <h3>Speaking Avatar</h3>
+                <p>Demo floating narrator</p>
+              </div>
+              <div class="live-dot" id="liveDot"></div>
+            </div>
+
+            <div class="avatar-stage">
+              <div class="avatar-glow"></div>
+
+              <div class="avatar">
+                <div class="head">
+                  <div class="hair"></div>
+                  <div class="face">
+                    <div class="brow left"></div>
+                    <div class="brow right"></div>
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                    <div class="nose"></div>
+                    <div class="smile"></div>
+                    <div class="mouth"></div>
+                  </div>
+                </div>
+                <div class="neck"></div>
+                <div class="shoulders"></div>
+              </div>
+            </div>
+
+            <div class="avatar-caption" id="avatarCaption">
+              <strong>Status</strong>
+              Waiting to start narration.
+            </div>
+
+            <div class="wave" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      (() => {
+        "use strict";
+
+        const blocks = Array.from(document.querySelectorAll('[id^="speak"]'));
+        const avatarCard = document.getElementById("avatarCard");
+        const liveDot = document.getElementById("liveDot");
+        const statusBox = document.getElementById("statusBox");
+        const avatarCaption = document.getElementById("avatarCaption");
+        const pauseBtn = document.getElementById("pauseBtn");
+
+        let currentIndex = 0;
+        let running = false;
+        let paused = false;
+        let activeUtterance = null;
+
+        function setStatus(text) {
+          statusBox.textContent = text;
+        }
+
+        function setAvatarText(title, text) {
+          avatarCaption.innerHTML =
+            "<strong>" + escapeHtml(title) + "</strong>" + escapeHtml(text);
+        }
+
+        function escapeHtml(str) {
+          return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+        }
+
+        function clearActive() {
+          blocks.forEach((el) => el.classList.remove("pp-speaking-active"));
+        }
+
+        function activateAvatarSpeaking() {
+          avatarCard.classList.add("is-speaking");
+          avatarCard.classList.remove("is-paused");
+          liveDot.classList.add("speaking");
+        }
+
+        function activateAvatarPaused() {
+          avatarCard.classList.remove("is-speaking");
+          avatarCard.classList.add("is-paused");
+          liveDot.classList.remove("speaking");
+        }
+
+        function activateAvatarIdle() {
+          avatarCard.classList.remove("is-speaking", "is-paused");
+          liveDot.classList.remove("speaking");
+        }
+
+        function speakIndex(index) {
+          if (!("speechSynthesis" in window)) {
+            setStatus("Speech synthesis is not supported in this browser.");
+            setAvatarText(
+              "Status",
+              "Speech synthesis is not supported in this browser.",
+            );
+            return;
+          }
+
+          if (index < 0 || index >= blocks.length) {
+            running = false;
+            paused = false;
+            activeUtterance = null;
+            activateAvatarIdle();
+            setStatus("Completed.");
+            setAvatarText("Completed", "Narration finished.");
+            pauseBtn.textContent = "Pause";
+            return;
+          }
+
+          currentIndex = index;
+          const el = blocks[currentIndex];
+          const text = (el.textContent || "").trim();
+
+          clearActive();
+          el.classList.add("pp-speaking-active");
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.rate = 1;
+          utterance.pitch = 1;
+          activeUtterance = utterance;
+
+          setStatus("Speaking " + el.id + "...");
+          setAvatarText(el.id, text);
+          activateAvatarSpeaking();
+
+          utterance.onend = () => {
+            if (!running || paused) return;
+            speakIndex(currentIndex + 1);
+          };
+
+          utterance.onerror = () => {
+            if (!running) return;
+            speakIndex(currentIndex + 1);
+          };
+
+          window.speechSynthesis.cancel();
+
+          setTimeout(() => {
+            if (!running) return;
+            window.speechSynthesis.speak(utterance);
+          }, 80);
+        }
+
+        document.getElementById("startBtn").addEventListener("click", () => {
+          running = true;
+          paused = false;
+          pauseBtn.textContent = "Pause";
+          speakIndex(currentIndex);
+        });
+
+        pauseBtn.addEventListener("click", () => {
+          if (!running) return;
+
+          if (!paused) {
+            paused = true;
+            window.speechSynthesis.pause();
+            setStatus("Paused.");
+            setAvatarText("Paused", "Narration is paused.");
+            activateAvatarPaused();
+            pauseBtn.textContent = "Resume";
+          } else {
+            paused = false;
+            window.speechSynthesis.resume();
+            setStatus("Resumed.");
+            setAvatarText("Resumed", "Narration has resumed.");
+            activateAvatarSpeaking();
+            pauseBtn.textContent = "Pause";
+          }
+        });
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          if (!blocks.length) return;
+          running = true;
+          paused = false;
+          pauseBtn.textContent = "Pause";
+          window.speechSynthesis.cancel();
+          currentIndex = Math.min(currentIndex + 1, blocks.length - 1);
+          speakIndex(currentIndex);
+        });
+
+        document.getElementById("stopBtn").addEventListener("click", () => {
+          running = false;
+          paused = false;
+          activeUtterance = null;
+          window.speechSynthesis.cancel();
+          clearActive();
+          activateAvatarIdle();
+          setStatus("Stopped.");
+          setAvatarText("Status", "Waiting to start narration.");
+          pauseBtn.textContent = "Pause";
+        });
+
+        setAvatarText("Status", "Waiting to start narration.");
+      })();
+    </script>
+  </body>
+</html>
