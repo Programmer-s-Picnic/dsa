@@ -1,0 +1,1369 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Champak Roy • Programmer's Picnic • V5 Photo-Like SVG</title>
+    <meta
+      name="description"
+      content="A photo-like animated SVG hero for Champak Roy and Programmer's Picnic, inspired by the latest reference image."
+    />
+    <style>
+      :root {
+        --bg: #f6f2ec;
+        --panel: #fffaf4;
+        --ink: #1f2937;
+        --muted: #6b7280;
+        --brand: #d97706;
+        --brand2: #f59e0b;
+        --line: #e8ddd0;
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+        --radius: 28px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(255, 255, 255, 0.72),
+            transparent 26%
+          ),
+          linear-gradient(135deg, #faf7f2, #efe7dc);
+        min-height: 100vh;
+      }
+
+      .wrap {
+        width: min(1320px, calc(100% - 28px));
+        margin: 0 auto;
+        padding: 24px 0 36px;
+      }
+
+      .hero {
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .hero-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 22px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(
+          90deg,
+          rgba(217, 119, 6, 0.1),
+          rgba(245, 158, 11, 0.05)
+        );
+        flex-wrap: wrap;
+      }
+
+      .brand {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+      }
+
+      .brand-badge {
+        width: 54px;
+        height: 54px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+        font-size: 24px;
+        letter-spacing: 0.5px;
+        box-shadow: 0 12px 28px rgba(217, 119, 6, 0.28);
+        flex: none;
+      }
+
+      .hero-top h1 {
+        margin: 0;
+        line-height: 1.08;
+        font-size: clamp(1.35rem, 2vw, 2rem);
+      }
+
+      .hero-top p {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      button {
+        border: 0;
+        border-radius: 999px;
+        padding: 11px 16px;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+      }
+
+      .primary {
+        background: linear-gradient(90deg, var(--brand), var(--brand2));
+        color: #fff;
+        box-shadow: 0 10px 24px rgba(217, 119, 6, 0.24);
+      }
+
+      .secondary {
+        background: #fff;
+        color: var(--ink);
+        border: 1px solid var(--line);
+      }
+
+      .stage {
+        padding: 18px;
+      }
+
+      .svg-shell {
+        background: #f7f4ef;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      }
+
+      svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .bottom {
+        padding: 14px 22px 20px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      code {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 2px 8px;
+        font-size: 0.9em;
+      }
+
+      @media (max-width: 720px) {
+        .hero-top {
+          padding: 16px;
+        }
+        .stage {
+          padding: 10px;
+        }
+        .bottom {
+          padding: 10px 16px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <section class="hero">
+        <div class="hero-top">
+          <div class="brand">
+            <div class="brand-badge">PP</div>
+            <div>
+              <h1>Champak Roy • Programmer's Picnic • V5</h1>
+              <p>
+                Photo-like animated SVG based on the latest seated laptop
+                portrait.
+              </p>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button id="toggleBtn" class="primary">Pause Animation</button>
+            <button id="downloadBtn" class="secondary">Download SVG</button>
+          </div>
+        </div>
+
+        <div class="stage">
+          <div class="svg-shell">
+            <svg
+              id="ppSvg"
+              viewBox="0 0 1400 900"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="Photo-like animated SVG for Champak Roy Programmer's Picnic"
+            >
+              <defs>
+                <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f0efee" />
+                  <stop offset="100%" stop-color="#d7d4d1" />
+                </linearGradient>
+
+                <radialGradient id="roomLight" cx="78%" cy="18%" r="48%">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity=".9" />
+                  <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </radialGradient>
+
+                <linearGradient id="floorGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#2b2625" />
+                  <stop offset="100%" stop-color="#131111" />
+                </linearGradient>
+
+                <linearGradient id="curtainLight" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#d6d6d9" />
+                  <stop offset="100%" stop-color="#8d8d94" />
+                </linearGradient>
+
+                <linearGradient id="curtainDark" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#777882" />
+                  <stop offset="100%" stop-color="#474852" />
+                </linearGradient>
+
+                <linearGradient id="chairGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#262830" />
+                  <stop offset="100%" stop-color="#0f1116" />
+                </linearGradient>
+
+                <linearGradient
+                  id="chairPatternLight"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+                  <stop offset="0%" stop-color="#b7bcc7" />
+                  <stop offset="100%" stop-color="#7e8696" />
+                </linearGradient>
+
+                <pattern
+                  id="seatPattern"
+                  width="120"
+                  height="120"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <rect width="120" height="120" fill="transparent" />
+                  <rect
+                    x="0"
+                    y="0"
+                    width="22"
+                    height="120"
+                    fill="rgba(190,196,210,.52)"
+                  />
+                  <rect
+                    x="58"
+                    y="0"
+                    width="22"
+                    height="120"
+                    fill="rgba(190,196,210,.28)"
+                  />
+                  <path
+                    d="M86 14 L112 28 L86 42 L60 28 Z"
+                    fill="rgba(223,226,233,.52)"
+                  />
+                  <path
+                    d="M86 54 L112 68 L86 82 L60 68 Z"
+                    fill="rgba(223,226,233,.40)"
+                  />
+                  <path
+                    d="M86 94 L112 108 L86 122 L60 108 Z"
+                    fill="rgba(223,226,233,.34)"
+                  />
+                  <path
+                    d="M22 24 q18 -16 36 0 q-18 16 -36 0Z"
+                    fill="rgba(255,255,255,.20)"
+                  />
+                  <path
+                    d="M22 72 q18 -16 36 0 q-18 16 -36 0Z"
+                    fill="rgba(255,255,255,.15)"
+                  />
+                </pattern>
+
+                <linearGradient id="shirtGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#29254a" />
+                  <stop offset="100%" stop-color="#131128" />
+                </linearGradient>
+
+                <pattern
+                  id="shirtLines"
+                  width="10"
+                  height="10"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <rect width="10" height="10" fill="transparent" />
+                  <rect
+                    y="3"
+                    width="10"
+                    height="1.5"
+                    fill="#7d6ac5"
+                    opacity=".35"
+                  />
+                </pattern>
+
+                <linearGradient id="skinGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#bb8867" />
+                  <stop offset="55%" stop-color="#9f7156" />
+                  <stop offset="100%" stop-color="#805743" />
+                </linearGradient>
+
+                <radialGradient id="skinHighlight" cx="36%" cy="24%" r="60%">
+                  <stop offset="0%" stop-color="#e2b99f" stop-opacity=".48" />
+                  <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </radialGradient>
+
+                <linearGradient id="hairGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#13161c" />
+                  <stop offset="100%" stop-color="#050608" />
+                </linearGradient>
+
+                <linearGradient id="laptopBody" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#2f333a" />
+                  <stop offset="100%" stop-color="#0c0e12" />
+                </linearGradient>
+
+                <linearGradient id="screenGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#fbfeff" />
+                  <stop offset="100%" stop-color="#dff7ff" />
+                </linearGradient>
+
+                <radialGradient id="screenGlow" cx="45%" cy="48%" r="60%">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity=".96" />
+                  <stop offset="32%" stop-color="#88efff" stop-opacity=".78" />
+                  <stop offset="100%" stop-color="#88efff" stop-opacity="0" />
+                </radialGradient>
+
+                <filter
+                  id="shadow"
+                  x="-40%"
+                  y="-40%"
+                  width="180%"
+                  height="180%"
+                >
+                  <feDropShadow
+                    dx="0"
+                    dy="16"
+                    stdDeviation="16"
+                    flood-color="#000"
+                    flood-opacity=".28"
+                  />
+                </filter>
+
+                <filter
+                  id="softShadow"
+                  x="-40%"
+                  y="-40%"
+                  width="180%"
+                  height="180%"
+                >
+                  <feDropShadow
+                    dx="0"
+                    dy="8"
+                    stdDeviation="10"
+                    flood-color="#000"
+                    flood-opacity=".18"
+                  />
+                </filter>
+
+                <filter
+                  id="softGlow"
+                  x="-100%"
+                  y="-100%"
+                  width="300%"
+                  height="300%"
+                >
+                  <feGaussianBlur stdDeviation="8" result="b" />
+                  <feMerge>
+                    <feMergeNode in="b" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+
+                <filter
+                  id="strongGlow"
+                  x="-120%"
+                  y="-120%"
+                  width="340%"
+                  height="340%"
+                >
+                  <feGaussianBlur stdDeviation="18" result="b1" />
+                  <feGaussianBlur stdDeviation="34" result="b2" />
+                  <feMerge>
+                    <feMergeNode in="b2" />
+                    <feMergeNode in="b1" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+
+                <style>
+                  .brandText {
+                    font-family: "Segoe UI", Arial, sans-serif;
+                    font-weight: 900;
+                    letter-spacing: 1.5px;
+                  }
+
+                  .helloText {
+                    font-family: "Segoe UI", Arial, sans-serif;
+                    font-weight: 900;
+                    letter-spacing: 3px;
+                  }
+
+                  .codeText {
+                    font-family: Consolas, Monaco, monospace;
+                    font-weight: 700;
+                  }
+
+                  .screenFlicker {
+                    animation: screenFlicker 3s ease-in-out infinite;
+                  }
+                  .pulseGlow {
+                    animation: pulseGlow 2.8s ease-in-out infinite;
+                    transform-origin: center;
+                  }
+                  .typingHand {
+                    animation: typingHand 1.2s ease-in-out infinite;
+                    transform-origin: 860px 670px;
+                  }
+                  .floatA {
+                    animation: floatA 5.1s ease-in-out infinite;
+                    transform-origin: center;
+                  }
+                  .floatB {
+                    animation: floatB 5.9s ease-in-out infinite;
+                    transform-origin: center;
+                  }
+                  .floatC {
+                    animation: floatC 6.6s ease-in-out infinite;
+                    transform-origin: center;
+                  }
+                  .spark1 {
+                    animation: spark1 3.6s linear infinite;
+                  }
+                  .spark2 {
+                    animation: spark2 4.2s linear infinite;
+                  }
+                  .blink {
+                    animation: blink 1s steps(1) infinite;
+                  }
+                  .paused * {
+                    animation-play-state: paused !important;
+                  }
+
+                  @keyframes screenFlicker {
+                    0%,
+                    100% {
+                      opacity: 1;
+                    }
+                    22% {
+                      opacity: 0.97;
+                    }
+                    54% {
+                      opacity: 1;
+                    }
+                    76% {
+                      opacity: 0.94;
+                    }
+                  }
+
+                  @keyframes pulseGlow {
+                    0%,
+                    100% {
+                      transform: scale(1);
+                      opacity: 0.8;
+                    }
+                    50% {
+                      transform: scale(1.08);
+                      opacity: 1;
+                    }
+                  }
+
+                  @keyframes typingHand {
+                    0%,
+                    100% {
+                      transform: translateY(0px);
+                    }
+                    50% {
+                      transform: translateY(7px);
+                    }
+                  }
+
+                  @keyframes floatA {
+                    0% {
+                      transform: translate(0, 0) scale(0.92);
+                      opacity: 0;
+                    }
+                    14% {
+                      opacity: 1;
+                    }
+                    58% {
+                      transform: translate(-18px, -92px) scale(1.04);
+                      opacity: 1;
+                    }
+                    100% {
+                      transform: translate(-34px, -170px) scale(1.1);
+                      opacity: 0;
+                    }
+                  }
+
+                  @keyframes floatB {
+                    0% {
+                      transform: translate(0, 0) scale(0.92);
+                      opacity: 0;
+                    }
+                    16% {
+                      opacity: 1;
+                    }
+                    60% {
+                      transform: translate(22px, -108px) scale(1.06);
+                      opacity: 1;
+                    }
+                    100% {
+                      transform: translate(52px, -186px) scale(1.12);
+                      opacity: 0;
+                    }
+                  }
+
+                  @keyframes floatC {
+                    0% {
+                      transform: translate(0, 0) scale(0.9);
+                      opacity: 0;
+                    }
+                    18% {
+                      opacity: 1;
+                    }
+                    54% {
+                      transform: translate(0, -96px) scale(1.03);
+                      opacity: 1;
+                    }
+                    100% {
+                      transform: translate(-10px, -172px) scale(1.12);
+                      opacity: 0;
+                    }
+                  }
+
+                  @keyframes spark1 {
+                    0% {
+                      transform: translate(0, 0) scale(0.7);
+                      opacity: 0;
+                    }
+                    16% {
+                      opacity: 1;
+                    }
+                    100% {
+                      transform: translate(-22px, -138px) scale(1.32);
+                      opacity: 0;
+                    }
+                  }
+
+                  @keyframes spark2 {
+                    0% {
+                      transform: translate(0, 0) scale(0.75);
+                      opacity: 0;
+                    }
+                    18% {
+                      opacity: 1;
+                    }
+                    100% {
+                      transform: translate(30px, -154px) scale(1.36);
+                      opacity: 0;
+                    }
+                  }
+
+                  @keyframes blink {
+                    0%,
+                    48% {
+                      opacity: 1;
+                    }
+                    49%,
+                    100% {
+                      opacity: 0;
+                    }
+                  }
+                </style>
+              </defs>
+
+              <!-- room -->
+              <rect width="1400" height="900" fill="url(#wallGrad)" />
+              <rect
+                width="1400"
+                height="900"
+                fill="url(#roomLight)"
+                opacity=".88"
+              />
+              <rect y="734" width="1400" height="166" fill="url(#floorGrad)" />
+
+              <!-- left curtains -->
+              <g filter="url(#softShadow)">
+                <rect
+                  x="44"
+                  y="34"
+                  width="120"
+                  height="272"
+                  rx="10"
+                  fill="url(#curtainDark)"
+                />
+                <rect
+                  x="164"
+                  y="34"
+                  width="74"
+                  height="272"
+                  rx="10"
+                  fill="url(#curtainLight)"
+                />
+                <rect
+                  x="238"
+                  y="34"
+                  width="128"
+                  height="272"
+                  rx="10"
+                  fill="url(#curtainDark)"
+                />
+                <g opacity=".46">
+                  <rect x="165" y="40" width="68" height="264" fill="#ffffff" />
+                  <circle cx="274" cy="84" r="24" fill="#d9d9df" />
+                  <circle cx="278" cy="208" r="24" fill="#d9d9df" />
+                  <circle cx="114" cy="160" r="24" fill="#d9d9df" />
+                  <rect
+                    x="248"
+                    y="46"
+                    width="108"
+                    height="76"
+                    fill="#efeff4"
+                    opacity=".55"
+                  />
+                  <rect
+                    x="50"
+                    y="126"
+                    width="108"
+                    height="76"
+                    fill="#efeff4"
+                    opacity=".42"
+                  />
+                </g>
+              </g>
+
+              <!-- right curtains and window -->
+              <g filter="url(#softShadow)">
+                <rect
+                  x="1036"
+                  y="36"
+                  width="106"
+                  height="302"
+                  rx="10"
+                  fill="url(#curtainDark)"
+                />
+                <rect
+                  x="1142"
+                  y="36"
+                  width="44"
+                  height="302"
+                  rx="10"
+                  fill="url(#curtainLight)"
+                />
+                <rect
+                  x="1188"
+                  y="36"
+                  width="98"
+                  height="302"
+                  rx="10"
+                  fill="url(#curtainDark)"
+                />
+                <rect
+                  x="1244"
+                  y="48"
+                  width="126"
+                  height="310"
+                  rx="8"
+                  fill="#f5f6f8"
+                />
+                <rect
+                  x="1252"
+                  y="56"
+                  width="110"
+                  height="294"
+                  rx="6"
+                  fill="#ffffff"
+                />
+              </g>
+
+              <!-- switchboard -->
+              <g filter="url(#softShadow)">
+                <rect
+                  x="785"
+                  y="178"
+                  width="88"
+                  height="58"
+                  rx="6"
+                  fill="#dbdad8"
+                />
+                <rect
+                  x="806"
+                  y="194"
+                  width="44"
+                  height="24"
+                  rx="4"
+                  fill="#9b9ca0"
+                />
+                <circle cx="795" cy="188" r="2" fill="#777" />
+                <circle cx="863" cy="188" r="2" fill="#777" />
+                <circle cx="795" cy="226" r="2" fill="#777" />
+                <circle cx="863" cy="226" r="2" fill="#777" />
+              </g>
+
+              <!-- sofa/chair -->
+              <g filter="url(#shadow)">
+                <rect
+                  x="74"
+                  y="238"
+                  width="620"
+                  height="454"
+                  rx="34"
+                  fill="url(#chairGrad)"
+                />
+                <rect
+                  x="96"
+                  y="254"
+                  width="574"
+                  height="426"
+                  rx="22"
+                  fill="#191c22"
+                />
+                <rect
+                  x="96"
+                  y="254"
+                  width="574"
+                  height="426"
+                  rx="22"
+                  fill="url(#seatPattern)"
+                  opacity=".82"
+                />
+
+                <g opacity=".72">
+                  <rect
+                    x="120"
+                    y="254"
+                    width="62"
+                    height="426"
+                    fill="url(#chairPatternLight)"
+                  />
+                  <rect
+                    x="248"
+                    y="254"
+                    width="62"
+                    height="426"
+                    fill="url(#chairPatternLight)"
+                  />
+                  <rect
+                    x="378"
+                    y="254"
+                    width="62"
+                    height="426"
+                    fill="url(#chairPatternLight)"
+                  />
+                  <rect
+                    x="508"
+                    y="254"
+                    width="62"
+                    height="426"
+                    fill="url(#chairPatternLight)"
+                  />
+                </g>
+              </g>
+
+              <!-- programmer -->
+              <g filter="url(#shadow)">
+                <!-- torso -->
+                <path
+                  d="M352 680
+                       Q330 548 404 460
+                       Q476 374 610 382
+                       Q720 390 790 486
+                       Q842 558 850 708
+                       L438 742
+                       Q374 726 352 680Z"
+                  fill="url(#shirtGrad)"
+                />
+                <path
+                  d="M352 680
+                       Q330 548 404 460
+                       Q476 374 610 382
+                       Q720 390 790 486
+                       Q842 558 850 708
+                       L438 742
+                       Q374 726 352 680Z"
+                  fill="url(#shirtLines)"
+                />
+
+                <!-- collar -->
+                <path d="M522 412 L602 412 L566 466 Z" fill="#111324" />
+                <path d="M602 412 L654 430 L612 474 Z" fill="#232845" />
+                <path d="M522 412 L470 432 L524 474 Z" fill="#232845" />
+
+                <!-- neck -->
+                <rect
+                  x="536"
+                  y="336"
+                  width="62"
+                  height="74"
+                  rx="18"
+                  fill="url(#skinGrad)"
+                />
+
+                <!-- head -->
+                <ellipse
+                  cx="570"
+                  cy="272"
+                  rx="94"
+                  ry="112"
+                  fill="url(#skinGrad)"
+                />
+                <ellipse
+                  cx="542"
+                  cy="232"
+                  rx="76"
+                  ry="62"
+                  fill="url(#skinHighlight)"
+                  opacity=".48"
+                />
+
+                <!-- ear -->
+                <ellipse cx="494" cy="294" rx="16" ry="24" fill="#a7745a" />
+
+                <!-- hair -->
+                <path
+                  d="M478 266
+                       Q470 158 570 150
+                       Q654 152 678 220
+                       Q648 202 618 196
+                       Q578 176 530 182
+                       Q494 190 478 266Z"
+                  fill="url(#hairGrad)"
+                />
+                <path
+                  d="M494 186 q28 -14 78 -8"
+                  fill="none"
+                  stroke="#3d4048"
+                  stroke-width="4"
+                  opacity=".24"
+                />
+                <path
+                  d="M578 164 q24 6 38 18"
+                  fill="none"
+                  stroke="#2a2d33"
+                  stroke-width="4"
+                  opacity=".24"
+                />
+
+                <!-- glasses -->
+                <g>
+                  <rect
+                    x="512"
+                    y="256"
+                    width="58"
+                    height="36"
+                    rx="6"
+                    fill="none"
+                    stroke="#111419"
+                    stroke-width="5"
+                  />
+                  <rect
+                    x="574"
+                    y="256"
+                    width="58"
+                    height="36"
+                    rx="6"
+                    fill="none"
+                    stroke="#111419"
+                    stroke-width="5"
+                  />
+                  <line
+                    x1="570"
+                    y1="274"
+                    x2="574"
+                    y2="274"
+                    stroke="#111419"
+                    stroke-width="5"
+                  />
+                  <rect
+                    x="518"
+                    y="262"
+                    width="46"
+                    height="22"
+                    rx="4"
+                    fill="#cfe9ff"
+                    opacity=".18"
+                  />
+                  <rect
+                    x="580"
+                    y="262"
+                    width="46"
+                    height="22"
+                    rx="4"
+                    fill="#cfe9ff"
+                    opacity=".18"
+                  />
+                </g>
+
+                <!-- face details -->
+                <path
+                  d="M566 296 q8 20 -8 34"
+                  fill="none"
+                  stroke="#764f3d"
+                  stroke-width="3"
+                  opacity=".5"
+                />
+                <path
+                  d="M538 338 q30 10 60 0"
+                  fill="none"
+                  stroke="#714b3b"
+                  stroke-width="3"
+                  opacity=".42"
+                />
+                <path
+                  d="M520 236 q16 -8 34 -2"
+                  fill="none"
+                  stroke="#664336"
+                  stroke-width="3"
+                  opacity=".22"
+                />
+                <path
+                  d="M586 236 q18 -8 34 -1"
+                  fill="none"
+                  stroke="#664336"
+                  stroke-width="3"
+                  opacity=".22"
+                />
+                <ellipse
+                  cx="542"
+                  cy="276"
+                  rx="8"
+                  ry="4"
+                  fill="#2d201b"
+                  opacity=".22"
+                />
+                <ellipse
+                  cx="604"
+                  cy="276"
+                  rx="8"
+                  ry="4"
+                  fill="#2d201b"
+                  opacity=".22"
+                />
+
+                <!-- left upper arm -->
+                <path
+                  d="M404 594
+                       Q420 526 454 494
+                       Q498 456 546 500
+                       Q532 550 498 628
+                       Q470 688 420 694
+                       Q394 668 404 594Z"
+                  fill="url(#skinGrad)"
+                />
+
+                <!-- right arm -->
+                <path
+                  d="M734 494
+                       Q788 500 824 538
+                       Q874 592 854 688
+                       Q804 708 770 666
+                       Q768 580 734 494Z"
+                  fill="url(#skinGrad)"
+                />
+
+                <!-- forearm over lap -->
+                <path
+                  d="M596 610
+                       Q698 618 796 652
+                       Q804 684 788 702
+                       Q712 706 616 682
+                       Q586 654 596 610Z"
+                  fill="url(#skinGrad)"
+                />
+
+                <!-- typing hand -->
+                <g class="typingHand">
+                  <ellipse
+                    cx="856"
+                    cy="668"
+                    rx="42"
+                    ry="24"
+                    fill="url(#skinGrad)"
+                  />
+                  <ellipse
+                    cx="844"
+                    cy="660"
+                    rx="24"
+                    ry="10"
+                    fill="#d5a183"
+                    opacity=".34"
+                  />
+                </g>
+              </g>
+
+              <!-- laptop -->
+              <g transform="translate(824 458) rotate(7)" filter="url(#shadow)">
+                <path
+                  d="M-18 232
+                       L318 232
+                       Q356 232 384 254
+                       L418 286
+                       Q430 298 412 306
+                       L8 306
+                       Q-20 306 -36 294
+                       L-72 264
+                       Q-88 250 -66 240 Z"
+                  fill="url(#laptopBody)"
+                />
+
+                <rect
+                  x="8"
+                  y="34"
+                  width="314"
+                  height="204"
+                  rx="16"
+                  fill="#252a31"
+                />
+                <rect
+                  x="40"
+                  y="-154"
+                  width="250"
+                  height="188"
+                  rx="12"
+                  fill="#171b20"
+                />
+                <rect
+                  x="56"
+                  y="-132"
+                  width="218"
+                  height="148"
+                  rx="8"
+                  fill="url(#screenGrad)"
+                  class="screenFlicker"
+                />
+
+                <text
+                  x="136"
+                  y="-24"
+                  font-family="Segoe UI,Arial,sans-serif"
+                  font-size="32"
+                  font-weight="700"
+                  fill="#ffffff"
+                  opacity=".82"
+                >
+                  lenovo
+                </text>
+
+                <ellipse
+                  cx="164"
+                  cy="-60"
+                  rx="116"
+                  ry="56"
+                  fill="url(#screenGlow)"
+                  class="pulseGlow"
+                />
+
+                <g opacity=".96">
+                  <rect
+                    x="84"
+                    y="-98"
+                    width="150"
+                    height="10"
+                    rx="5"
+                    fill="#08bfd3"
+                  />
+                  <rect
+                    x="90"
+                    y="-78"
+                    width="112"
+                    height="7"
+                    rx="3.5"
+                    fill="#ddebf4"
+                  />
+                  <rect
+                    x="90"
+                    y="-62"
+                    width="138"
+                    height="7"
+                    rx="3.5"
+                    fill="#ddebf4"
+                    opacity=".84"
+                  />
+                </g>
+
+                <!-- keyboard -->
+                <g fill="#11161a">
+                  <rect x="36" y="78" width="24" height="17" rx="3" />
+                  <rect x="64" y="78" width="24" height="17" rx="3" />
+                  <rect x="92" y="78" width="24" height="17" rx="3" />
+                  <rect x="120" y="78" width="24" height="17" rx="3" />
+                  <rect x="148" y="78" width="24" height="17" rx="3" />
+                  <rect x="176" y="78" width="24" height="17" rx="3" />
+                  <rect x="204" y="78" width="24" height="17" rx="3" />
+                  <rect x="232" y="78" width="24" height="17" rx="3" />
+                  <rect x="260" y="78" width="24" height="17" rx="3" />
+
+                  <rect x="44" y="102" width="24" height="17" rx="3" />
+                  <rect x="72" y="102" width="24" height="17" rx="3" />
+                  <rect x="100" y="102" width="24" height="17" rx="3" />
+                  <rect x="128" y="102" width="24" height="17" rx="3" />
+                  <rect x="156" y="102" width="24" height="17" rx="3" />
+                  <rect x="184" y="102" width="24" height="17" rx="3" />
+                  <rect x="212" y="102" width="24" height="17" rx="3" />
+                  <rect x="240" y="102" width="24" height="17" rx="3" />
+
+                  <rect x="54" y="126" width="24" height="17" rx="3" />
+                  <rect x="82" y="126" width="24" height="17" rx="3" />
+                  <rect x="110" y="126" width="24" height="17" rx="3" />
+                  <rect x="138" y="126" width="24" height="17" rx="3" />
+                  <rect x="166" y="126" width="24" height="17" rx="3" />
+                  <rect x="194" y="126" width="24" height="17" rx="3" />
+                  <rect x="222" y="126" width="60" height="17" rx="3" />
+                </g>
+
+                <rect
+                  x="126"
+                  y="164"
+                  width="80"
+                  height="38"
+                  rx="8"
+                  fill="#1c2127"
+                />
+              </g>
+
+              <!-- beam -->
+              <g filter="url(#strongGlow)">
+                <ellipse
+                  cx="1070"
+                  cy="368"
+                  rx="160"
+                  ry="58"
+                  fill="#7cecff"
+                  opacity=".48"
+                  class="pulseGlow"
+                />
+                <ellipse
+                  cx="1070"
+                  cy="368"
+                  rx="96"
+                  ry="30"
+                  fill="#ffffff"
+                  opacity=".84"
+                  class="pulseGlow"
+                />
+              </g>
+
+              <!-- floating text -->
+              <g>
+                <g class="floatA">
+                  <text
+                    x="954"
+                    y="378"
+                    class="helloText"
+                    font-size="60"
+                    fill="#00d9ff"
+                    filter="url(#softGlow)"
+                  >
+                    HELLO
+                  </text>
+                </g>
+                <g class="floatB">
+                  <text
+                    x="1078"
+                    y="336"
+                    class="helloText"
+                    font-size="62"
+                    fill="#ffffff"
+                    filter="url(#softGlow)"
+                  >
+                    WORLD
+                  </text>
+                </g>
+                <g class="floatC">
+                  <text
+                    x="936"
+                    y="284"
+                    class="helloText"
+                    font-size="34"
+                    fill="#bbfbff"
+                    filter="url(#softGlow)"
+                  >
+                    PROGRAMMER'S PICNIC
+                  </text>
+                </g>
+                <g class="floatA" style="animation-delay: -2s">
+                  <text
+                    x="964"
+                    y="242"
+                    class="codeText"
+                    font-size="23"
+                    fill="#c8ffff"
+                    filter="url(#softGlow)"
+                  >
+                    print("Hello World")
+                  </text>
+                </g>
+              </g>
+
+              <!-- particles -->
+              <g
+                class="codeText"
+                font-size="24"
+                fill="#e6fdff"
+                filter="url(#softGlow)"
+              >
+                <text x="1012" y="404" class="spark1">&lt;/&gt;</text>
+                <text x="1114" y="392" class="spark2">{ }</text>
+                <text
+                  x="1076"
+                  y="352"
+                  class="spark1"
+                  style="animation-delay: -1.2s"
+                >
+                  0101
+                </text>
+                <text
+                  x="1180"
+                  y="342"
+                  class="spark2"
+                  style="animation-delay: -2.1s"
+                >
+                  JS
+                </text>
+              </g>
+
+              <!-- plaque -->
+              <g filter="url(#softShadow)">
+                <rect
+                  x="908"
+                  y="72"
+                  width="386"
+                  height="98"
+                  rx="24"
+                  fill="rgba(255,248,239,.66)"
+                  stroke="rgba(255,255,255,.8)"
+                />
+                <text
+                  x="1101"
+                  y="112"
+                  text-anchor="middle"
+                  class="brandText"
+                  font-size="34"
+                  fill="#d97706"
+                >
+                  Champak Roy
+                </text>
+                <text
+                  x="1101"
+                  y="142"
+                  text-anchor="middle"
+                  class="brandText"
+                  font-size="22"
+                  fill="#7b5b2f"
+                >
+                  Programmer's Picnic
+                </text>
+              </g>
+
+              <!-- cursor -->
+              <rect
+                x="1264"
+                y="248"
+                width="8"
+                height="34"
+                fill="#ffffff"
+                class="blink"
+              />
+
+              <!-- footer -->
+              <text
+                x="700"
+                y="850"
+                text-anchor="middle"
+                font-family="Segoe UI,Arial,sans-serif"
+                font-size="30"
+                font-weight="800"
+                fill="#fff8ef"
+              >
+                Code comes alive here
+              </text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="bottom">
+          This V5 makes the programmer and room much closer to the latest photo.
+          You can also swap the floating text with lesson names, course titles,
+          or your site slogan inside the inline
+          <code>&lt;text&gt;</code> elements.
+        </div>
+      </section>
+    </div>
+
+    <script>
+      (function () {
+        const svg = document.getElementById("ppSvg");
+        const toggleBtn = document.getElementById("toggleBtn");
+        const downloadBtn = document.getElementById("downloadBtn");
+        let paused = false;
+
+        toggleBtn.addEventListener("click", function () {
+          paused = !paused;
+          if (paused) {
+            svg.classList.add("paused");
+            toggleBtn.textContent = "Play Animation";
+          } else {
+            svg.classList.remove("paused");
+            toggleBtn.textContent = "Pause Animation";
+          }
+        });
+
+        downloadBtn.addEventListener("click", function () {
+          const copy = svg.cloneNode(true);
+          copy.removeAttribute("id");
+          copy.removeAttribute("class");
+
+          const serializer = new XMLSerializer();
+          const svgString = serializer.serializeToString(copy);
+          const blob = new Blob([svgString], {
+            type: "image/svg+xml;charset=utf-8",
+          });
+          const url = URL.createObjectURL(blob);
+
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "champak-roy-programmers-picnic-v5.svg";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+
+          setTimeout(function () {
+            URL.revokeObjectURL(url);
+          }, 1200);
+        });
+      })();
+    </script>
+  </body>
+</html>
