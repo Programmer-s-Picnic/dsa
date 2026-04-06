@@ -1,0 +1,1964 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Animation Lab   — Learn CSS Animation from Level 0 to Expert</title>
+
+    <script
+      async
+      crossorigin="anonymous"
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
+    ></script>
+
+    <meta
+      name="description"
+      content="A complete interactive animation lab that teaches CSS animation from level 0 to expert with speak tags, demos, controls, an embedded HTML preview editor, copy buttons, and practice tasks."
+    />
+    <meta name="theme-color" content="#d97706" />
+
+    <style>
+      :root {
+        --bg: #fff8ef;
+        --panel: #ffffff;
+        --panel-2: #fff3df;
+        --ink: #1f2937;
+        --muted: #6b7280;
+        --brand: #d97706;
+        --brand-2: #f59e0b;
+        --line: #ead7c4;
+        --soft: #fff8e8;
+        --ok: #166534;
+        --ok-bg: #ecfdf3;
+        --code: #111827;
+        --code-ink: #f9fafb;
+        --shadow: 0 14px 38px rgba(0, 0, 0, 0.08);
+        --radius: 22px;
+        --radius-sm: 14px;
+        --max: 1200px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.7;
+        color: var(--ink);
+        background:
+          radial-gradient(
+            circle at top right,
+            rgba(245, 158, 11, 0.12),
+            transparent 24rem
+          ),
+          linear-gradient(180deg, #fffaf3 0%, var(--bg) 100%);
+      }
+
+      a {
+        color: inherit;
+      }
+      code,
+      pre,
+      textarea {
+        font-family: Consolas, Monaco, "Courier New", monospace;
+      }
+
+      .container {
+        width: min(var(--max), calc(100% - 28px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 248, 239, 0.93);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar-inner {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--brand);
+        font-weight: 900;
+      }
+
+      .brand-badge {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        background: linear-gradient(135deg, var(--brand), var(--brand-2));
+        box-shadow: var(--shadow);
+        font-size: 1rem;
+        flex: 0 0 auto;
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .nav a {
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 999px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .nav a:hover {
+        background: #fff;
+        color: var(--brand);
+      }
+
+      .nav-toggle {
+        display: none;
+        border: none;
+        background: #fff;
+        color: var(--brand);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 10px 12px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .hero {
+        padding: 38px 0 24px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 22px;
+        align-items: stretch;
+      }
+
+      .hero-card,
+      .side-card,
+      .lesson-card,
+      .tip-card,
+      .check-card,
+      .lab-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card,
+      .side-card,
+      .lesson-card {
+        padding: 24px;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--brand);
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+      }
+
+      .hero h1 {
+        margin: 0 0 12px;
+        line-height: 1.08;
+        font-size: clamp(2rem, 5vw, 3.4rem);
+      }
+
+      .hero p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+
+      .btn {
+        border: none;
+        border-radius: 14px;
+        padding: 12px 16px;
+        font-weight: 800;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--brand), var(--brand-2));
+        color: #fff;
+        box-shadow: 0 10px 24px rgba(217, 119, 6, 0.24);
+      }
+
+      .btn-secondary {
+        background: #fff;
+        color: var(--brand);
+        border: 1px solid var(--line);
+      }
+
+      .pill-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+
+      .pill {
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        color: var(--brand);
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-weight: 800;
+        font-size: 0.92rem;
+      }
+
+      .mini-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .mini-item {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+
+      .main-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 22px;
+        margin: 14px auto 38px;
+      }
+
+      .toc {
+        position: sticky;
+        top: 90px;
+        align-self: start;
+        padding: 18px;
+      }
+
+      .toc h3 {
+        margin: 0 0 12px;
+        font-size: 1rem;
+      }
+
+      .toc a {
+        display: block;
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 12px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .toc a:hover {
+        background: var(--panel-2);
+        color: var(--brand);
+      }
+
+      .lesson-card {
+        margin-bottom: 20px;
+        scroll-margin-top: 92px;
+      }
+
+      .lesson-card h2 {
+        margin: 0 0 8px;
+        font-size: clamp(1.45rem, 3vw, 2rem);
+      }
+
+      .lesson-card h3 {
+        margin: 24px 0 8px;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .three-col {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .tip-card,
+      .check-card,
+      .lab-card {
+        padding: 16px 18px;
+        margin-top: 14px;
+      }
+
+      .tip-card {
+        background: var(--soft);
+        border: 1px solid #f1deb7;
+      }
+
+      .check-card {
+        background: var(--ok-bg);
+        border: 1px solid #b7ebcb;
+      }
+
+      .tip-card h4,
+      .check-card h4,
+      .lab-card h4 {
+        margin: 0 0 8px;
+      }
+
+      .explain {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #fffdf9;
+        padding: 16px 18px;
+        margin-top: 14px;
+      }
+
+      .code-wrap {
+        margin-top: 14px;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid #1f2937;
+        box-shadow: var(--shadow);
+      }
+
+      .code-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 14px;
+        background: #0f172a;
+        color: #e5e7eb;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .code-title {
+        font-weight: 800;
+        font-size: 0.95rem;
+      }
+
+      .copy-btn {
+        border: none;
+        border-radius: 10px;
+        padding: 9px 12px;
+        background: #1f2937;
+        color: #fff;
+        cursor: pointer;
+        font-weight: 800;
+      }
+
+      .copy-btn:hover {
+        background: #374151;
+      }
+
+      pre {
+        margin: 0;
+        padding: 18px;
+        overflow: auto;
+        background: var(--code);
+        color: var(--code-ink);
+        font-size: 0.94rem;
+        line-height: 1.6;
+        tab-size: 2;
+      }
+
+      .inline-code {
+        background: #fff2dd;
+        border: 1px solid #f0d6aa;
+        padding: 0.1rem 0.4rem;
+        border-radius: 8px;
+        font-size: 0.95em;
+      }
+
+      ul.clean,
+      ol.clean {
+        padding-left: 20px;
+        margin: 10px 0 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        overflow: hidden;
+        border-radius: 16px;
+      }
+
+      th,
+      td {
+        border: 1px solid var(--line);
+        padding: 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: #fff5e8;
+        color: var(--brand);
+      }
+
+      .demo-panel {
+        margin-top: 16px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .demo-head {
+        padding: 12px 16px;
+        background: #fff7ea;
+        border-bottom: 1px solid var(--line);
+        font-weight: 800;
+        color: var(--brand);
+      }
+
+      .demo-body {
+        padding: 16px;
+      }
+
+      .demo-note {
+        margin: 0 0 14px;
+        color: var(--muted);
+      }
+
+      .demo-row {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .stage {
+        min-height: 220px;
+        border: 1px dashed #e8cda3;
+        border-radius: 18px;
+        background: linear-gradient(180deg, #fffdf8, #fff8ef);
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .anim-box,
+      .project-box {
+        width: 84px;
+        height: 84px;
+        border-radius: 18px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-weight: 900;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        box-shadow: 0 16px 24px rgba(217, 119, 6, 0.25);
+        user-select: none;
+      }
+
+      .shape-circle {
+        border-radius: 999px;
+      }
+
+      .anim-btn {
+        border: none;
+        border-radius: 10px;
+        padding: 10px 12px;
+        background: #fff3df;
+        color: #7c2d12;
+        cursor: pointer;
+        font-weight: 800;
+        border: 1px solid #edd2aa;
+      }
+
+      .controls-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 12px;
+      }
+
+      .control {
+        background: #fffdf9;
+        border: 1px solid #efdebf;
+        border-radius: 14px;
+        padding: 12px;
+      }
+
+      .control label {
+        display: block;
+        font-size: 0.92rem;
+        font-weight: 800;
+        margin-bottom: 8px;
+        color: #92400e;
+      }
+
+      .control input,
+      .control select,
+      .control textarea {
+        width: 100%;
+        border: 1px solid #e6cfac;
+        border-radius: 10px;
+        padding: 10px 12px;
+        font: inherit;
+        background: #fff;
+        color: var(--ink);
+      }
+
+      .control textarea {
+        min-height: 180px;
+        resize: vertical;
+      }
+
+      .value-badge {
+        display: inline-block;
+        margin-top: 8px;
+        font-size: 0.86rem;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .lab-preview {
+        margin-top: 14px;
+        padding: 16px;
+        border: 1px solid #efddbc;
+        border-radius: 16px;
+        background: #fffdf8;
+      }
+
+      .anim-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-top: 14px;
+      }
+
+      .anim-card {
+        border: 1px solid #edd8b8;
+        border-radius: 16px;
+        padding: 14px;
+        background: #fffdf8;
+      }
+
+      .anim-card .mini-stage {
+        height: 130px;
+        border-radius: 14px;
+        border: 1px dashed #e6c899;
+        background: #fff;
+        display: grid;
+        place-items: center;
+        margin-top: 10px;
+        overflow: hidden;
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-top: 14px;
+      }
+
+      .project-card {
+        border: 1px solid #edd8b8;
+        border-radius: 16px;
+        padding: 14px;
+        background: #fffdf8;
+      }
+
+      .project-stage {
+        min-height: 170px;
+        border-radius: 16px;
+        border: 1px dashed #e6c899;
+        background: #fff;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        position: relative;
+        margin-top: 10px;
+      }
+
+      .loader-ring {
+        width: 80px;
+        height: 80px;
+        border-radius: 999px;
+        border: 8px solid #fde7c0;
+        border-top-color: #d97706;
+        animation: spin 1s linear infinite;
+      }
+
+      .floating-chip {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 900;
+        background: #fff3df;
+        color: #92400e;
+        border: 1px solid #edd2aa;
+        animation: floatY 2.2s ease-in-out infinite;
+      }
+
+      .hero-dot {
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #fbbf24, #d97706);
+        box-shadow: 0 0 0 rgba(217, 119, 6, 0.5);
+        animation: pulseShadow 1.8s ease-in-out infinite;
+      }
+
+      .bar {
+        width: 18px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #fbbf24, #d97706);
+        animation: equalizer 1s ease-in-out infinite;
+        transform-origin: bottom center;
+      }
+
+      .eq {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        height: 86px;
+      }
+
+      .bar:nth-child(1) {
+        height: 34px;
+        animation-delay: 0s;
+      }
+      .bar:nth-child(2) {
+        height: 60px;
+        animation-delay: 0.12s;
+      }
+      .bar:nth-child(3) {
+        height: 44px;
+        animation-delay: 0.24s;
+      }
+      .bar:nth-child(4) {
+        height: 76px;
+        animation-delay: 0.36s;
+      }
+      .bar:nth-child(5) {
+        height: 52px;
+        animation-delay: 0.48s;
+      }
+
+      .editor-shell {
+        margin-top: 18px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .editor-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 18px;
+        background: linear-gradient(90deg, #fff6e8, #fffdf7);
+        border-bottom: 1px solid var(--line);
+        flex-wrap: wrap;
+      }
+
+      .editor-head h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: var(--brand);
+      }
+
+      .editor-note {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin-top: 4px;
+      }
+
+      .editor-frame {
+        width: 100%;
+        height: 100vh;
+        min-height: 760px;
+        border: 0;
+        display: block;
+        background: #fff;
+      }
+
+      .footer {
+        padding: 28px 0 60px;
+        text-align: center;
+        color: var(--muted);
+      }
+
+      [id^="speak"] {
+        scroll-margin-top: 100px;
+      }
+
+      .hover-grow {
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .hover-grow:hover {
+        transform: scale(1.18);
+        box-shadow: 0 20px 28px rgba(217, 119, 6, 0.32);
+      }
+
+      @keyframes moveX {
+        from {
+          transform: translateX(-120px);
+        }
+        to {
+          transform: translateX(120px);
+        }
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes bounceY {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-70px);
+        }
+      }
+
+      @keyframes pulseScale {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.18);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes floatY {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-18px);
+        }
+      }
+
+      @keyframes shakeX {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-12px);
+        }
+        40% {
+          transform: translateX(12px);
+        }
+        60% {
+          transform: translateX(-8px);
+        }
+        80% {
+          transform: translateX(8px);
+        }
+      }
+
+      @keyframes fadeSlide {
+        0% {
+          opacity: 0.2;
+          transform: translateY(22px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulseShadow {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.42);
+        }
+        70% {
+          transform: scale(1.08);
+          box-shadow: 0 0 0 22px rgba(217, 119, 6, 0);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
+        }
+      }
+
+      @keyframes equalizer {
+        0%,
+        100% {
+          transform: scaleY(0.45);
+        }
+        50% {
+          transform: scaleY(1.05);
+        }
+      }
+
+      .anim-move {
+        animation: moveX 1.8s ease-in-out infinite alternate;
+      }
+      .anim-spin {
+        animation: spin 1.8s linear infinite;
+      }
+      .anim-bounce {
+        animation: bounceY 1s ease-in-out infinite;
+      }
+      .anim-pulse {
+        animation: pulseScale 1.5s ease-in-out infinite;
+      }
+      .anim-float {
+        animation: floatY 2s ease-in-out infinite;
+      }
+      .anim-shake {
+        animation: shakeX 0.7s ease-in-out infinite;
+      }
+      .anim-fade-slide {
+        animation: fadeSlide 1s ease forwards;
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .main-grid,
+        .two-col,
+        .three-col {
+          grid-template-columns: 1fr;
+        }
+
+        .toc {
+          position: relative;
+          top: 0;
+          order: -1;
+        }
+
+        .controls-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .editor-frame {
+          height: 84vh;
+          min-height: 620px;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .nav {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          padding: 10px 0 2px;
+        }
+
+        .nav.open {
+          display: flex;
+        }
+
+        .nav a {
+          background: #fff;
+          border: 1px solid var(--line);
+        }
+
+        .nav-toggle {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .topbar-inner {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 12px 0;
+        }
+
+        .topbar-row {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+        }
+
+        .hero-card,
+        .side-card,
+        .lesson-card {
+          padding: 18px;
+        }
+        pre {
+          font-size: 0.88rem;
+        }
+
+        .controls-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .editor-frame {
+          height: 78vh;
+          min-height: 520px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="topbar-row">
+          <a class="brand" href="#top">
+            <span class="brand-badge">AL</span>
+            <span>Animation Lab  </span>
+          </a>
+          <button
+            class="nav-toggle"
+            id="navToggle"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+          >
+            Menu
+          </button>
+        </div>
+
+        <nav class="nav" id="mainNav">
+          <a href="#goal">Goal</a>
+          <a href="#editor-playground">Editor</a>
+          <a href="#level0">Level 0</a>
+          <a href="#core">Core Ideas</a>
+          <a href="#gallery">Demo Gallery</a>
+          <a href="#lab">Animation Lab</a>
+          <a href="#custom">Custom Keyframes</a>
+          <a href="#projects">Mini Projects</a>
+          <a href="#expert">Expert</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <p class="eyebrow" id="speak0" data-pp-speak-title="true">
+            Frontend Lesson • CSS Animation + Interactive Lab
+          </p>
+          <h1 id="speak1">Learn Animation <br />from Level 0 to Expert</h1>
+          <p id="speak2">
+            This   lab teaches animation in a practical way. You will learn
+            transitions, keyframes, timing functions, transforms, iteration,
+            direction, animation states, and how to think like a professional
+            motion designer for web interfaces.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#level0">Start the Lesson</a>
+            <a class="btn btn-secondary" href="#editor-playground"
+              >Open HTML Preview Editor</a
+            >
+          </div>
+
+          <div class="pill-row">
+            <span class="pill">Level 0 to Expert</span>
+            <span class="pill">Interactive Controls</span>
+            <span class="pill">Keyframes</span>
+            <span class="pill">Timing Functions</span>
+            <span class="pill">Mini Projects</span>
+          </div>
+        </div>
+
+        <aside class="side-card">
+          <h3 id="speak3" style="margin-top: 0">What students will build</h3>
+          <div class="mini-list">
+            <div class="mini-item" id="speak4">
+              <strong>Hover Motion</strong><br /><span class="muted"
+                >Smooth transitions on interaction</span
+              >
+            </div>
+            <div class="mini-item" id="speak5">
+              <strong>Looped Motion</strong><br /><span class="muted"
+                >Keyframes for repeated movement</span
+              >
+            </div>
+            <div class="mini-item" id="speak6">
+              <strong>Animation Lab</strong><br /><span class="muted"
+                >Live controls for duration and easing</span
+              >
+            </div>
+            <div class="mini-item" id="speak7">
+              <strong>Custom Keyframes</strong><br /><span class="muted"
+                >Write and preview your own motion</span
+              >
+            </div>
+            <div class="mini-item" id="speak8">
+              <strong>UI Motion Ideas</strong><br /><span class="muted"
+                >Loader, hero pulse, floating badge</span
+              >
+            </div>
+            <div class="mini-item" id="speak9">
+              <strong>Expert Thinking</strong><br /><span class="muted"
+                >Use motion to guide attention</span
+              >
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="container main-grid">
+      <main>
+        <section class="lesson-card" id="goal">
+          <h2 id="speak10">Lesson Goal</h2>
+          <p class="muted" id="speak11">
+            Animation is the controlled change of visual properties over time.
+            It can change position, scale, opacity, rotation, color, and more.
+            In web interfaces, animation can make a page feel alive, explain
+            change, guide attention, and improve feedback.
+          </p>
+
+          <div class="two-col">
+            <div class="tip-card">
+              <h4 id="speak12">Core memory trick</h4>
+              <p id="speak13" style="margin: 0">
+                <strong>Transitions react. Keyframes perform.</strong>
+              </p>
+            </div>
+
+            <div class="check-card">
+              <h4 id="speak14">By the end of this lesson</h4>
+              <ul class="clean" id="speak15">
+                <li>You will know when to use transitions.</li>
+                <li>You will know when to use keyframes.</li>
+                <li>
+                  You will control duration, delay, easing, iteration, and
+                  direction.
+                </li>
+                <li>You will build practical UI animation pieces.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="editor-playground">
+          <h2 id="speak16">Embedded HTML Preview Editor</h2>
+          <p class="muted" id="speak17">
+            Use this editor to paste animation examples from this lesson, change
+            the code, and preview the result live. It is useful for experiments,
+            student exercises, and custom motion practice.
+          </p>
+
+          <div class="editor-shell">
+            <div class="editor-head">
+              <div>
+                <h3>Programmer's Picnic HTML Preview Editor</h3>
+                <div class="editor-note">
+                  Paste HTML, CSS, and JavaScript here and preview animation
+                  changes instantly.
+                </div>
+              </div>
+              <a
+                class="btn btn-secondary"
+                href="https://www.learnwithchampak.live/2026/01/programmers-picnic-html-preview.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Open in New Tab</a
+              >
+            </div>
+
+            <iframe
+              class="editor-frame"
+              allow="clipboard-read; clipboard-write; fullscreen"
+              allowfullscreen
+              loading="lazy"
+              src="https://www.learnwithchampak.live/2026/01/programmers-picnic-html-preview.html"
+              title="Embedded HTML preview editor"
+            ></iframe>
+          </div>
+
+          <div class="tip-card">
+            <h4 id="speak18">Suggested student workflow</h4>
+            <ul class="clean" id="speak19">
+              <li>Copy a code example from a lesson section.</li>
+              <li>Paste it into the editor.</li>
+              <li>Run the preview.</li>
+              <li>
+                Change duration, easing, keyframes, or direction and compare the
+                result.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level0">
+          <h2 id="speak20">Level 0 — What Animation Really Is</h2>
+          <p class="muted" id="speak21">
+            Animation means changing something smoothly over time.
+          </p>
+
+          <div class="explain" id="speak22">
+            If a box moves from left to right, that is animation. If a button
+            gently grows when hovered, that is animation. If a loader spins
+            while content is loading, that is animation too.
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>What can happen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>transform</td>
+                <td>Move, rotate, scale, skew</td>
+              </tr>
+              <tr>
+                <td>opacity</td>
+                <td>Fade in and fade out</td>
+              </tr>
+              <tr>
+                <td>background</td>
+                <td>Color change</td>
+              </tr>
+              <tr>
+                <td>box-shadow</td>
+                <td>Glow and highlight effects</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="lesson-card" id="core">
+          <h2 id="speak23">Core Ideas — Transition vs Keyframes</h2>
+
+          <div class="two-col">
+            <div class="lab-card">
+              <h4 id="speak24">Transitions</h4>
+              <p id="speak25" style="margin: 0">
+                A transition is great when an element changes because of an
+                event like hover, focus, click, or class change.
+              </p>
+            </div>
+
+            <div class="lab-card">
+              <h4 id="speak26">Keyframes</h4>
+              <p id="speak27" style="margin: 0">
+                Keyframes are great when you want motion that runs through
+                defined steps, often without waiting for hover.
+              </p>
+            </div>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top">
+              <span class="code-title">Transition Example</span>
+              <button class="copy-btn" data-copy-target="code-transition">
+                Copy
+              </button>
+            </div>
+            <pre id="code-transition"><code>.box{
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.box:hover{
+  transform: scale(1.15);
+}</code></pre>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top">
+              <span class="code-title">Keyframes Example</span>
+              <button class="copy-btn" data-copy-target="code-keyframes">
+                Copy
+              </button>
+            </div>
+            <pre id="code-keyframes"><code>@keyframes bounceY{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-70px)}
+}
+
+.box{
+  animation: bounceY 1s ease-in-out infinite;
+}</code></pre>
+          </div>
+
+          <div class="check-card">
+            <h4 id="speak28">Simple difference</h4>
+            <p id="speak29" style="margin: 0">
+              Use transitions for reactions. Use keyframes for designed motion
+              sequences.
+            </p>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="gallery">
+          <h2 id="speak30">Animation Demo Gallery</h2>
+          <p class="muted" id="speak31">
+            These are some of the most useful beginner-to-intermediate animation
+            patterns.
+          </p>
+
+          <div class="anim-grid">
+            <div class="anim-card">
+              <strong id="speak32">Hover Grow</strong>
+              <div class="mini-stage">
+                <div class="anim-box hover-grow">Hover</div>
+              </div>
+            </div>
+
+            <div class="anim-card">
+              <strong id="speak33">Move</strong>
+              <div class="mini-stage">
+                <div class="anim-box anim-move">Move</div>
+              </div>
+            </div>
+
+            <div class="anim-card">
+              <strong id="speak34">Spin</strong>
+              <div class="mini-stage">
+                <div class="anim-box shape-circle anim-spin">Spin</div>
+              </div>
+            </div>
+
+            <div class="anim-card">
+              <strong id="speak35">Bounce</strong>
+              <div class="mini-stage">
+                <div class="anim-box anim-bounce">Bounce</div>
+              </div>
+            </div>
+
+            <div class="anim-card">
+              <strong id="speak36">Pulse</strong>
+              <div class="mini-stage">
+                <div class="anim-box anim-pulse">Pulse</div>
+              </div>
+            </div>
+
+            <div class="anim-card">
+              <strong id="speak37">Float</strong>
+              <div class="mini-stage">
+                <div class="anim-box anim-float">Float</div>
+              </div>
+            </div>
+
+            <div class="anim-card">
+              <strong id="speak38">Shake</strong>
+              <div class="mini-stage">
+                <div class="anim-box anim-shake">Shake</div>
+              </div>
+            </div>
+
+            <div class="anim-card">
+              <strong id="speak39">Fade Slide In</strong>
+              <div class="mini-stage">
+                <div class="anim-box anim-fade-slide">Enter</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tip-card">
+            <h4 id="speak40">What to observe</h4>
+            <ul class="clean" id="speak41">
+              <li>Move uses translation.</li>
+              <li>Spin uses rotation.</li>
+              <li>Bounce uses repeated vertical translation.</li>
+              <li>Pulse uses scale.</li>
+              <li>Fade slide uses opacity plus movement together.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="lab">
+          <h2 id="speak42">Interactive Animation Lab</h2>
+          <p class="muted" id="speak43">
+            Change the controls and watch the animation update live.
+          </p>
+
+          <div class="demo-panel">
+            <div class="demo-head">Live animation stage</div>
+            <div class="demo-body">
+              <p class="demo-note" id="speak44">
+                Pick an animation type, change duration and timing, then restart
+                the animation.
+              </p>
+
+              <div class="stage">
+                <div id="labBox" class="anim-box">LAB</div>
+              </div>
+
+              <div class="controls-grid">
+                <div class="control">
+                  <label for="animType">Animation Type</label>
+                  <select id="animType">
+                    <option value="moveX">Move</option>
+                    <option value="spin">Spin</option>
+                    <option value="bounceY">Bounce</option>
+                    <option value="pulseScale">Pulse</option>
+                    <option value="floatY">Float</option>
+                    <option value="shakeX">Shake</option>
+                    <option value="fadeSlide">Fade Slide</option>
+                  </select>
+                </div>
+
+                <div class="control">
+                  <label for="duration">Duration (seconds)</label>
+                  <input
+                    id="duration"
+                    type="range"
+                    min="0.2"
+                    max="6"
+                    step="0.1"
+                    value="1.8"
+                  />
+                  <span class="value-badge" id="durationValue">1.8s</span>
+                </div>
+
+                <div class="control">
+                  <label for="delay">Delay (seconds)</label>
+                  <input
+                    id="delay"
+                    type="range"
+                    min="0"
+                    max="3"
+                    step="0.1"
+                    value="0"
+                  />
+                  <span class="value-badge" id="delayValue">0s</span>
+                </div>
+
+                <div class="control">
+                  <label for="iteration">Iteration Count</label>
+                  <select id="iteration">
+                    <option value="infinite">infinite</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+
+                <div class="control">
+                  <label for="direction">Direction</label>
+                  <select id="direction">
+                    <option value="normal">normal</option>
+                    <option value="alternate" selected>alternate</option>
+                    <option value="reverse">reverse</option>
+                    <option value="alternate-reverse">alternate-reverse</option>
+                  </select>
+                </div>
+
+                <div class="control">
+                  <label for="timing">Timing Function</label>
+                  <select id="timing">
+                    <option value="ease">ease</option>
+                    <option value="linear">linear</option>
+                    <option value="ease-in">ease-in</option>
+                    <option value="ease-out">ease-out</option>
+                    <option value="ease-in-out" selected>ease-in-out</option>
+                  </select>
+                </div>
+
+                <div class="control">
+                  <label for="fillMode">Fill Mode</label>
+                  <select id="fillMode">
+                    <option value="none">none</option>
+                    <option value="forwards" selected>forwards</option>
+                    <option value="backwards">backwards</option>
+                    <option value="both">both</option>
+                  </select>
+                </div>
+
+                <div class="control">
+                  <label for="playState">Play State</label>
+                  <select id="playState">
+                    <option value="running" selected>running</option>
+                    <option value="paused">paused</option>
+                  </select>
+                </div>
+
+                <div class="control">
+                  <label>Actions</label>
+                  <div class="demo-row">
+                    <button class="anim-btn" id="restartBtn" type="button">
+                      Restart
+                    </button>
+                    <button class="anim-btn" id="toggleShapeBtn" type="button">
+                      Toggle Circle
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lab-preview">
+                <strong>Generated CSS</strong>
+                <pre
+                  id="generatedCss"
+                  style="
+                    margin-top: 10px;
+                    white-space: pre-wrap;
+                    background: #111827;
+                    color: #f9fafb;
+                    padding: 16px;
+                    border-radius: 14px;
+                  "
+                >
+#labBox{
+  animation: moveX 1.8s ease-in-out 0s infinite alternate forwards;
+  animation-play-state: running;
+}</pre
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="custom">
+          <h2 id="speak45">Custom Keyframe Lab</h2>
+          <p class="muted" id="speak46">
+            Write your own keyframes and preview them on the box below.
+          </p>
+
+          <div class="two-col">
+            <div class="control">
+              <label for="customKeyframes">Custom @keyframes</label>
+              <textarea id="customKeyframes">
+@keyframes customWave {
+  0%   { transform: translateX(-90px) rotate(0deg) scale(1); }
+  25%  { transform: translateX(-30px) rotate(10deg) scale(1.08); }
+  50%  { transform: translateX(0px) rotate(0deg) scale(1.15); }
+  75%  { transform: translateX(40px) rotate(-10deg) scale(1.08); }
+  100% { transform: translateX(90px) rotate(0deg) scale(1); }
+}</textarea
+              >
+            </div>
+
+            <div class="control">
+              <label for="customAnimName">Animation Name</label>
+              <input id="customAnimName" type="text" value="customWave" />
+              <label for="customAnimShorthand" style="margin-top: 14px"
+                >Animation Shorthand</label
+              >
+              <input
+                id="customAnimShorthand"
+                type="text"
+                value="customWave 2.2s ease-in-out infinite alternate"
+              />
+              <div class="demo-row" style="margin-top: 14px">
+                <button class="anim-btn" id="applyCustomBtn" type="button">
+                  Apply Custom Animation
+                </button>
+                <button class="anim-btn" id="resetCustomBtn" type="button">
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-panel">
+            <div class="demo-head">Custom preview stage</div>
+            <div class="demo-body">
+              <div class="stage">
+                <div id="customBox" class="anim-box">CUSTOM</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tip-card">
+            <h4 id="speak47">How this helps</h4>
+            <p id="speak48" style="margin: 0">
+              This is where students stop copying and start designing motion
+              themselves.
+            </p>
+          </div>
+        </section>
+
+        <section class="lesson-card">
+          <h2 id="speak49">Important Animation Properties</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="inline-code">animation-name</span></td>
+                <td>Which keyframes to run</td>
+              </tr>
+              <tr>
+                <td><span class="inline-code">animation-duration</span></td>
+                <td>How long one cycle takes</td>
+              </tr>
+              <tr>
+                <td><span class="inline-code">animation-delay</span></td>
+                <td>How long to wait before starting</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="inline-code">animation-iteration-count</span>
+                </td>
+                <td>How many times it runs</td>
+              </tr>
+              <tr>
+                <td><span class="inline-code">animation-direction</span></td>
+                <td>Whether it reverses between cycles</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="inline-code">animation-timing-function</span>
+                </td>
+                <td>Speed curve of the motion</td>
+              </tr>
+              <tr>
+                <td><span class="inline-code">animation-fill-mode</span></td>
+                <td>How styles behave before and after the animation</td>
+              </tr>
+              <tr>
+                <td><span class="inline-code">animation-play-state</span></td>
+                <td>Run or pause the animation</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="lesson-card">
+          <h2 id="speak50">CSS Animation vs JavaScript Animation</h2>
+
+          <div class="two-col">
+            <div class="lab-card">
+              <h4 id="speak51">CSS Animation</h4>
+              <ul class="clean" id="speak52">
+                <li>Great for UI motion</li>
+                <li>Simple and readable</li>
+                <li>Best for hover, loaders, cards, entrances</li>
+                <li>Very easy to maintain</li>
+              </ul>
+            </div>
+
+            <div class="lab-card">
+              <h4 id="speak53">JavaScript Animation</h4>
+              <ul class="clean" id="speak54">
+                <li>Best when animation depends on logic or physics</li>
+                <li>Useful for canvas, games, complex sequencing</li>
+                <li>Can react to data and runtime conditions</li>
+                <li>
+                  Often uses
+                  <span class="inline-code">requestAnimationFrame</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top">
+              <span class="code-title">Simple JavaScript Animation Idea</span>
+              <button class="copy-btn" data-copy-target="code-js-anim">
+                Copy
+              </button>
+            </div>
+            <pre id="code-js-anim"><code>let x = 0;
+const box = document.getElementById("box");
+
+function animate() {
+  x += 2;
+  box.style.transform = `translateX(${x}px)`;
+
+  if (x < 200) {
+    requestAnimationFrame(animate);
+  }
+}
+
+animate();</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="projects">
+          <h2 id="speak55">Mini Projects</h2>
+          <p class="muted" id="speak56">
+            These mini pieces show how animation appears in real web products.
+          </p>
+
+          <div class="project-grid">
+            <div class="project-card">
+              <strong id="speak57">Loader Spinner</strong>
+              <div class="project-stage">
+                <div class="loader-ring"></div>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <strong id="speak58">Floating Notification</strong>
+              <div class="project-stage">
+                <div class="project-box">APP</div>
+                <div class="floating-chip">New</div>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <strong id="speak59">Hero Pulse Dot</strong>
+              <div class="project-stage">
+                <div class="hero-dot"></div>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <strong id="speak60">Equalizer Bars</strong>
+              <div class="project-stage">
+                <div class="eq">
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="check-card">
+            <h4 id="speak61">Project lesson</h4>
+            <p id="speak62" style="margin: 0">
+              Animation becomes powerful when it supports purpose: loading,
+              alerting, highlighting, and guiding attention.
+            </p>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="expert">
+          <h2 id="speak63">Expert-Level Thinking</h2>
+          <p class="muted" id="speak64">
+            Expert animation is not about making everything move. It is about
+            making the right thing move at the right time.
+          </p>
+
+          <div class="three-col">
+            <div class="tip-card">
+              <h4 id="speak65">Use motion for feedback</h4>
+              <p id="speak66" style="margin: 0">
+                Buttons, cards, and form states should feel responsive, not
+                noisy.
+              </p>
+            </div>
+
+            <div class="tip-card">
+              <h4 id="speak67">Guide the eye</h4>
+              <p id="speak68" style="margin: 0">
+                Entrance animations and pulses can tell the user where to look.
+              </p>
+            </div>
+
+            <div class="tip-card">
+              <h4 id="speak69">Respect comfort</h4>
+              <p id="speak70" style="margin: 0">
+                Strong motion should be used carefully and never everywhere at
+                once.
+              </p>
+            </div>
+          </div>
+
+          <div class="explain" id="speak71">
+            Great animation is clear, smooth, meaningful, and controlled. Weak
+            animation is random, distracting, repetitive, or too aggressive.
+          </div>
+
+          <div class="tip-card">
+            <h4 id="speak72">Professional checklist</h4>
+            <ul class="clean" id="speak73">
+              <li>Prefer transforms and opacity for smooth motion.</li>
+              <li>Use easing that matches the feeling you want.</li>
+              <li>Keep hover motion short and responsive.</li>
+              <li>
+                Reserve infinite loops for specific jobs like loaders and
+                ambient motion.
+              </li>
+              <li>Combine animation with purpose, not decoration alone.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="lesson-card">
+          <h2 id="speak74">Practice Tasks</h2>
+          <div class="two-col">
+            <div class="tip-card">
+              <h4 id="speak75">Beginner tasks</h4>
+              <ul class="clean" id="speak76">
+                <li>Make a button grow slightly on hover.</li>
+                <li>Create a spinning loader.</li>
+                <li>Create a bouncing ball.</li>
+                <li>Make a box fade in from below.</li>
+              </ul>
+            </div>
+
+            <div class="tip-card">
+              <h4 id="speak77">Advanced tasks</h4>
+              <ul class="clean" id="speak78">
+                <li>Create a hero section with floating badges.</li>
+                <li>Make an animated card hover system.</li>
+                <li>Design a custom keyframe sequence of your own.</li>
+                <li>
+                  Build a small dashboard with subtle motion only where needed.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="lesson-card">
+          <h2 id="speak79">Final Summary</h2>
+          <div class="check-card">
+            <ul class="clean" id="speak80">
+              <li>Transitions are for reactions.</li>
+              <li>Keyframes are for motion sequences.</li>
+              <li>Timing and easing matter as much as the movement itself.</li>
+              <li>Animation should help the interface communicate.</li>
+              <li>Expert animation is purposeful, not excessive.</li>
+            </ul>
+          </div>
+        </section>
+      </main>
+
+      <aside class="lesson-card toc">
+        <h3>Lesson Navigation</h3>
+        <a href="#goal">Lesson Goal</a>
+        <a href="#editor-playground">HTML Preview Editor</a>
+        <a href="#level0">Level 0</a>
+        <a href="#core">Transition vs Keyframes</a>
+        <a href="#gallery">Demo Gallery</a>
+        <a href="#lab">Animation Lab</a>
+        <a href="#custom">Custom Keyframe Lab</a>
+        <a href="#projects">Mini Projects</a>
+        <a href="#expert">Expert Thinking</a>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      <div class="container" id="speak81">
+        Learn the basics clearly, practice the controls, design your own
+        keyframes, and use motion with purpose.
+      </div>
+    </footer>
+
+    <style id="customAnimationStyle"></style>
+
+    <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+    <script>
+      function copyTextFromTarget(targetId, button) {
+        const el = document.getElementById(targetId);
+        if (!el) return;
+
+        const text = el.textContent || "";
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            const old = button.textContent;
+            button.textContent = "Copied";
+            setTimeout(() => {
+              button.textContent = old;
+            }, 1200);
+          })
+          .catch(() => {
+            const old = button.textContent;
+            button.textContent = "Copy failed";
+            setTimeout(() => {
+              button.textContent = old;
+            }, 1400);
+          });
+      }
+
+      document.querySelectorAll(".copy-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          copyTextFromTarget(btn.dataset.copyTarget, btn);
+        });
+      });
+
+      const navToggle = document.getElementById("navToggle");
+      const mainNav = document.getElementById("mainNav");
+
+      if (navToggle && mainNav) {
+        navToggle.addEventListener("click", () => {
+          const open = mainNav.classList.toggle("open");
+          navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+          navToggle.textContent = open ? "Close" : "Menu";
+        });
+
+        mainNav.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mainNav.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+            navToggle.textContent = "Menu";
+          });
+        });
+      }
+
+      const labBox = document.getElementById("labBox");
+      const animType = document.getElementById("animType");
+      const duration = document.getElementById("duration");
+      const delay = document.getElementById("delay");
+      const iteration = document.getElementById("iteration");
+      const direction = document.getElementById("direction");
+      const timing = document.getElementById("timing");
+      const fillMode = document.getElementById("fillMode");
+      const playState = document.getElementById("playState");
+      const durationValue = document.getElementById("durationValue");
+      const delayValue = document.getElementById("delayValue");
+      const generatedCss = document.getElementById("generatedCss");
+      const restartBtn = document.getElementById("restartBtn");
+      const toggleShapeBtn = document.getElementById("toggleShapeBtn");
+
+      function applyLabAnimation() {
+        const animationName = animType.value;
+        const durationVal = duration.value + "s";
+        const delayVal = delay.value + "s";
+        const iterationVal = iteration.value;
+        const directionVal = direction.value;
+        const timingVal = timing.value;
+        const fillModeVal = fillMode.value;
+        const playStateVal = playState.value;
+
+        durationValue.textContent = durationVal;
+        delayValue.textContent = delayVal;
+
+        labBox.style.animation = "none";
+        void labBox.offsetWidth;
+        labBox.style.animation = `${animationName} ${durationVal} ${timingVal} ${delayVal} ${iterationVal} ${directionVal} ${fillModeVal}`;
+        labBox.style.animationPlayState = playStateVal;
+
+        generatedCss.textContent = `#labBox{
+  animation: ${animationName} ${durationVal} ${timingVal} ${delayVal} ${iterationVal} ${directionVal} ${fillModeVal};
+  animation-play-state: ${playStateVal};
+}`;
+      }
+
+      [
+        animType,
+        duration,
+        delay,
+        iteration,
+        direction,
+        timing,
+        fillMode,
+        playState,
+      ].forEach((el) => {
+        el.addEventListener("input", applyLabAnimation);
+        el.addEventListener("change", applyLabAnimation);
+      });
+
+      restartBtn.addEventListener("click", applyLabAnimation);
+
+      toggleShapeBtn.addEventListener("click", () => {
+        labBox.classList.toggle("shape-circle");
+      });
+
+      applyLabAnimation();
+
+      const customKeyframes = document.getElementById("customKeyframes");
+      const customAnimName = document.getElementById("customAnimName");
+      const customAnimShorthand = document.getElementById(
+        "customAnimShorthand",
+      );
+      const applyCustomBtn = document.getElementById("applyCustomBtn");
+      const resetCustomBtn = document.getElementById("resetCustomBtn");
+      const customBox = document.getElementById("customBox");
+      const customAnimationStyle = document.getElementById(
+        "customAnimationStyle",
+      );
+
+      function applyCustomAnimation() {
+        const keyframesText = customKeyframes.value.trim();
+        const animName = customAnimName.value.trim();
+        const shorthand = customAnimShorthand.value.trim();
+
+        customAnimationStyle.textContent = keyframesText;
+        customBox.style.animation = "none";
+        void customBox.offsetWidth;
+        customBox.style.animation =
+          shorthand || `${animName} 2s ease-in-out infinite alternate`;
+      }
+
+      applyCustomBtn.addEventListener("click", applyCustomAnimation);
+
+      resetCustomBtn.addEventListener("click", () => {
+        customKeyframes.value = `@keyframes customWave {
+  0%   { transform: translateX(-90px) rotate(0deg) scale(1); }
+  25%  { transform: translateX(-30px) rotate(10deg) scale(1.08); }
+  50%  { transform: translateX(0px) rotate(0deg) scale(1.15); }
+  75%  { transform: translateX(40px) rotate(-10deg) scale(1.08); }
+  100% { transform: translateX(90px) rotate(0deg) scale(1); }
+}`;
+        customAnimName.value = "customWave";
+        customAnimShorthand.value =
+          "customWave 2.2s ease-in-out infinite alternate";
+        applyCustomAnimation();
+      });
+
+      applyCustomAnimation();
+
+      if (window.PPSpeakV3 && typeof window.PPSpeakV3.init === "function") {
+        window.PPSpeakV3.init({
+          selector: '[id^="speak"]',
+          titleSelector: "[data-pp-speak-title]",
+          activeClass: "pp-speaking-active",
+          addTitleButton: true,
+          autoCreateControls: true,
+          readSpeak0First: true,
+          skipHiddenScroll: true,
+        });
+      }
+    </script>
+  </body>
+</html>
