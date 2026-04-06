@@ -1,0 +1,1254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java Lesson — if, else, ternary operator, and switch</title>
+  <meta
+    name="description"
+    content="A complete Programmer's Picnic Java lesson from beginner to advanced on if, else, else if, nested conditions, ternary operator, and switch with examples, assignments, and interactive MCQ quiz."
+  />
+  <meta name="theme-color" content="#d97706" />
+
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+
+  <style>
+    :root{
+      --bg:#fff8eb;
+      --card:#ffffff;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --brand:#d97706;
+      --brand2:#f59e0b;
+      --line:#ead7b0;
+      --soft:#fff4d6;
+      --soft2:#fffaf0;
+      --ok:#166534;
+      --bad:#991b1b;
+      --info:#1d4ed8;
+      --code:#111827;
+      --codeText:#f9fafb;
+      --shadow:0 16px 40px rgba(217,119,6,0.10);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(245,158,11,0.16), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(217,119,6,0.10), transparent 26%),
+        var(--bg);
+      color:var(--ink);
+      line-height:1.68;
+    }
+
+    header{
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#fff;
+      padding:36px 20px;
+      text-align:center;
+      box-shadow:0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    header h1{
+      margin:0 0 10px;
+      font-size:clamp(2rem,4vw,3.2rem);
+      line-height:1.1;
+    }
+
+    header p{
+      margin:0;
+      opacity:.96;
+      font-size:1.04rem;
+    }
+
+    .container{
+      max-width:1140px;
+      margin:0 auto;
+      padding:22px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:22px;
+      margin-bottom:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.25fr .95fr;
+      gap:18px;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:12px;
+    }
+
+    .mini{
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+    }
+
+    h2{
+      margin-top:0;
+      color:var(--brand);
+      font-size:1.6rem;
+    }
+
+    h3{
+      color:#9a5a05;
+      margin:16px 0 8px;
+    }
+
+    p, li{
+      font-size:1rem;
+    }
+
+    .muted{color:var(--muted)}
+
+    ul, ol{
+      padding-left:22px;
+    }
+
+    code{
+      background:#fff1cc;
+      padding:2px 6px;
+      border:1px solid #efd393;
+      border-radius:6px;
+      font-size:.96em;
+    }
+
+    pre{
+      background:var(--code);
+      color:var(--codeText);
+      padding:16px;
+      border-radius:14px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,0.08);
+      line-height:1.55;
+      font-size:.96rem;
+    }
+
+    .table-wrap{overflow:auto}
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:#fffdfa;
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
+    }
+
+    th, td{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#fff1cc;
+      color:#8a5206;
+    }
+
+    .assignment{
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      margin-bottom:12px;
+    }
+
+    .quiz-toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+      padding:14px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
+    }
+
+    .quiz-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    button{
+      border:none;
+      background:var(--brand);
+      color:#fff;
+      padding:11px 16px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .18s ease, background .18s ease, box-shadow .18s ease;
+      box-shadow:0 10px 24px rgba(217,119,6,.18);
+    }
+
+    button:hover{
+      background:var(--brand2);
+      transform:translateY(-1px);
+    }
+
+    button.secondary{
+      background:#fff;
+      color:var(--brand);
+      border:1px solid var(--line);
+      box-shadow:none;
+    }
+
+    button.secondary:hover{
+      background:#fff7e8;
+    }
+
+    .question-card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      margin-bottom:16px;
+      background:#fffdfa;
+    }
+
+    .question-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      margin-bottom:10px;
+    }
+
+    .question-number{
+      font-weight:800;
+      color:var(--brand);
+    }
+
+    .topic-tag{
+      font-size:.83rem;
+      padding:6px 10px;
+      background:#fff2cf;
+      border:1px solid #efd393;
+      border-radius:999px;
+      color:#8a5206;
+      white-space:nowrap;
+    }
+
+    .question-text{
+      margin:0 0 14px;
+      font-size:1.05rem;
+      font-weight:600;
+    }
+
+    .options{
+      display:grid;
+      gap:10px;
+    }
+
+    .option{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      cursor:pointer;
+      transition:border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+
+    .option:hover{
+      border-color:#e9ba56;
+      background:#fff9ec;
+      transform:translateY(-1px);
+    }
+
+    .option input{
+      margin-top:4px;
+      accent-color:var(--brand);
+      transform:scale(1.08);
+    }
+
+    .option.correct{
+      border-color:#98d5ad;
+      background:#ecfdf3;
+    }
+
+    .option.incorrect{
+      border-color:#eab0b0;
+      background:#fef2f2;
+    }
+
+    .feedback{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:12px;
+      font-weight:600;
+      display:none;
+    }
+
+    .feedback.show{display:block}
+    .feedback.correct{
+      background:#ecfdf3;
+      color:var(--ok);
+      border:1px solid #a7e2bb;
+    }
+    .feedback.incorrect{
+      background:#fef2f2;
+      color:var(--bad);
+      border:1px solid #efb2b2;
+    }
+
+    .result-box{
+      margin-top:18px;
+      padding:18px;
+      border-radius:16px;
+      background:#fff7e8;
+      border:1px solid var(--line);
+      display:none;
+    }
+
+    .result-box.show{display:block}
+
+    .score-big{
+      font-size:2rem;
+      font-weight:800;
+      color:var(--brand);
+      margin:0 0 8px;
+    }
+
+    .footer-note{
+      text-align:center;
+      color:var(--muted);
+      font-size:.95rem;
+      padding-bottom:24px;
+    }
+
+    @media (max-width: 860px){
+      .hero-grid{grid-template-columns:1fr}
+      .question-head{flex-direction:column}
+      .quiz-toolbar{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="speak0">Java Lesson — if, else, ternary operator, and switch</h1>
+    <p id="speak1">A complete lesson from ground level to advanced use of decision making in Java.</p>
+  </header>
+
+  <main class="container">
+    <section class="card hero-grid">
+      <div>
+        <h2 id="speak2">What this lesson covers</h2>
+        <p id="speak3">
+          In this lesson, you will learn how Java makes decisions using <code>if</code>, <code>else</code>, <code>else if</code>, the ternary operator, and <code>switch</code>. These are some of the most important tools in programming because they allow your program to choose different actions depending on the situation.
+        </p>
+        <p id="speak4">
+          We will start at level zero, where you simply check one condition, and then move toward more advanced patterns such as nested conditions, switch expressions, choosing between if and switch, and writing cleaner, more readable decision-making logic.
+        </p>
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini">
+          <strong id="speak5">if</strong>
+          <p class="muted" id="speak6">Run code only when a condition is true</p>
+        </div>
+        <div class="mini">
+          <strong id="speak7">else</strong>
+          <p class="muted" id="speak8">Run alternate code when condition is false</p>
+        </div>
+        <div class="mini">
+          <strong id="speak9">ternary</strong>
+          <p class="muted" id="speak10">Short form for simple if-else logic</p>
+        </div>
+        <div class="mini">
+          <strong id="speak11">switch</strong>
+          <p class="muted" id="speak12">Choose one block from many possible cases</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak13">Why decision making matters</h2>
+      <p id="speak14">
+        Real programs do not just run line by line without thinking. They must make decisions.
+        For example:
+      </p>
+      <ul>
+        <li id="speak15">If marks are above 40, print pass.</li>
+        <li id="speak16">If age is less than 18, do not allow voting.</li>
+        <li id="speak17">If the day is Monday, print the Monday schedule.</li>
+        <li id="speak18">If the password is correct, allow login.</li>
+      </ul>
+      <p id="speak19">
+        Decision statements make your programs intelligent and responsive.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak20">Level 0 — The if statement</h2>
+      <p id="speak21">
+        The simplest decision statement in Java is <code>if</code>. It checks a condition.
+        If the condition is true, the code inside the block runs.
+      </p>
+
+      <pre id="speak22">if (condition) {
+    // code to run if condition is true
+}</pre>
+
+      <h3 id="speak23">Example</h3>
+      <pre id="speak24">int age = 20;
+
+if (age >= 18) {
+    System.out.println("You are an adult.");
+}</pre>
+
+      <p id="speak25">
+        Since <code>age >= 18</code> is true, the message is printed.
+      </p>
+
+      <h3 id="speak26">Another example</h3>
+      <pre id="speak27">int marks = 75;
+
+if (marks >= 40) {
+    System.out.println("Pass");
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak28">Level 1 — The if-else statement</h2>
+      <p id="speak29">
+        Sometimes you want one action when the condition is true and another action when it is false. That is where <code>else</code> is used.
+      </p>
+
+      <pre id="speak30">if (condition) {
+    // code if true
+} else {
+    // code if false
+}</pre>
+
+      <h3 id="speak31">Example</h3>
+      <pre id="speak32">int marks = 32;
+
+if (marks >= 40) {
+    System.out.println("Pass");
+} else {
+    System.out.println("Fail");
+}</pre>
+
+      <p id="speak33">
+        Since the condition is false here, the program prints <code>Fail</code>.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak34">Level 2 — The else if ladder</h2>
+      <p id="speak35">
+        When there are many possible conditions, you can use <code>else if</code>.
+        Java checks each condition from top to bottom. As soon as one condition is true, that block runs and the rest are skipped.
+      </p>
+
+      <pre id="speak36">if (condition1) {
+    // block 1
+} else if (condition2) {
+    // block 2
+} else if (condition3) {
+    // block 3
+} else {
+    // default block
+}</pre>
+
+      <h3 id="speak37">Example with grades</h3>
+      <pre id="speak38">int marks = 84;
+
+if (marks >= 90) {
+    System.out.println("Grade A+");
+} else if (marks >= 75) {
+    System.out.println("Grade A");
+} else if (marks >= 60) {
+    System.out.println("Grade B");
+} else if (marks >= 40) {
+    System.out.println("Grade C");
+} else {
+    System.out.println("Fail");
+}</pre>
+
+      <p id="speak39">
+        Because 84 is not greater than or equal to 90 but is greater than or equal to 75, the program prints <code>Grade A</code>.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak40">Level 3 — Nested if statements</h2>
+      <p id="speak41">
+        A nested if statement means an <code>if</code> inside another <code>if</code>. Use this when a second decision depends on the first one.
+      </p>
+
+      <pre id="speak42">int age = 20;
+boolean hasId = true;
+
+if (age >= 18) {
+    if (hasId) {
+        System.out.println("Entry allowed.");
+    } else {
+        System.out.println("Bring your ID.");
+    }
+} else {
+    System.out.println("You are underage.");
+}</pre>
+
+      <p id="speak43">
+        Nested logic is powerful, but too much nesting can make code hard to read. Later in this lesson, we will see how to keep such code clean.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak44">Conditions must be boolean</h2>
+      <p id="speak45">
+        In Java, the condition inside <code>if</code> must be a boolean expression.
+        That means it must evaluate to either <code>true</code> or <code>false</code>.
+      </p>
+
+      <pre id="speak46">int x = 10;
+
+if (x > 5) {
+    System.out.println("x is greater than 5");
+}</pre>
+
+      <p id="speak47">
+        This is correct because <code>x > 5</code> is a boolean expression.
+      </p>
+
+      <pre id="speak48">int x = 10;
+
+// This is wrong in Java
+// if (x) {
+//     System.out.println("Hello");
+// }</pre>
+
+      <p id="speak49">
+        Unlike some other languages, Java does not allow plain numbers as conditions.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak50">Using relational and logical operators in if statements</h2>
+      <p id="speak51">
+        Decision making becomes more useful when combined with relational operators like <code>&gt;</code>, <code>&lt;</code>, <code>==</code>, and logical operators like <code>&amp;&amp;</code>, <code>||</code>, and <code>!</code>.
+      </p>
+
+      <pre id="speak52">int age = 22;
+boolean hasTicket = true;
+
+if (age >= 18 && hasTicket) {
+    System.out.println("You may enter.");
+} else {
+    System.out.println("Entry not allowed.");
+}</pre>
+
+      <pre id="speak53">boolean isHoliday = false;
+boolean isSunday = true;
+
+if (isHoliday || isSunday) {
+    System.out.println("No school today.");
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak54">Common mistakes in if and else</h2>
+      <ul>
+        <li id="speak55">Using <code>=</code> instead of <code>==</code> for comparison.</li>
+        <li id="speak56">Forgetting curly braces when multiple statements belong to the block.</li>
+        <li id="speak57">Writing overlapping conditions in the wrong order.</li>
+        <li id="speak58">Creating very deep nested code that becomes hard to understand.</li>
+      </ul>
+
+      <h3 id="speak59">Wrong order example</h3>
+      <pre id="speak60">int marks = 95;
+
+if (marks >= 40) {
+    System.out.println("Pass");
+} else if (marks >= 90) {
+    System.out.println("Excellent");
+}</pre>
+
+      <p id="speak61">
+        This is wrong because any value above 90 is also above 40, so the first block runs and the second block is never reached.
+      </p>
+
+      <h3 id="speak62">Correct order example</h3>
+      <pre id="speak63">int marks = 95;
+
+if (marks >= 90) {
+    System.out.println("Excellent");
+} else if (marks >= 40) {
+    System.out.println("Pass");
+} else {
+    System.out.println("Fail");
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak64">The ternary operator</h2>
+      <p id="speak65">
+        The ternary operator is a short form of <code>if-else</code>. It is useful when you want to choose one of two values quickly.
+      </p>
+
+      <pre id="speak66">condition ? valueIfTrue : valueIfFalse</pre>
+
+      <h3 id="speak67">Simple example</h3>
+      <pre id="speak68">int age = 17;
+
+String result = (age >= 18) ? "Adult" : "Minor";
+System.out.println(result);</pre>
+
+      <p id="speak69">
+        This means: if <code>age >= 18</code> is true, use <code>"Adult"</code>. Otherwise, use <code>"Minor"</code>.
+      </p>
+
+      <h3 id="speak70">Equivalent if-else code</h3>
+      <pre id="speak71">String result;
+
+if (age >= 18) {
+    result = "Adult";
+} else {
+    result = "Minor";
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak72">When to use ternary and when not to use it</h2>
+      <p id="speak73">
+        Use the ternary operator when the logic is short and simple. Avoid it when the expression becomes long or confusing.
+      </p>
+
+      <h3 id="speak74">Good ternary use</h3>
+      <pre id="speak75">int num = 8;
+String type = (num % 2 == 0) ? "Even" : "Odd";
+System.out.println(type);</pre>
+
+      <h3 id="speak76">Poor ternary use</h3>
+      <pre id="speak77">String result = (marks >= 90) ? "A+" :
+                (marks >= 75) ? "A" :
+                (marks >= 60) ? "B" :
+                (marks >= 40) ? "C" : "Fail";</pre>
+
+      <p id="speak78">
+        This works, but it is harder to read. In such cases, an <code>else if</code> ladder is usually better.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak79">The switch statement</h2>
+      <p id="speak80">
+        Use <code>switch</code> when one variable or expression can have several fixed values, and you want different code for each value.
+      </p>
+
+      <pre id="speak81">switch (expression) {
+    case value1:
+        // code
+        break;
+    case value2:
+        // code
+        break;
+    default:
+        // code
+}</pre>
+
+      <h3 id="speak82">Example with day number</h3>
+      <pre id="speak83">int day = 3;
+
+switch (day) {
+    case 1:
+        System.out.println("Monday");
+        break;
+    case 2:
+        System.out.println("Tuesday");
+        break;
+    case 3:
+        System.out.println("Wednesday");
+        break;
+    case 4:
+        System.out.println("Thursday");
+        break;
+    case 5:
+        System.out.println("Friday");
+        break;
+    case 6:
+        System.out.println("Saturday");
+        break;
+    case 7:
+        System.out.println("Sunday");
+        break;
+    default:
+        System.out.println("Invalid day");
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak84">What break does in switch</h2>
+      <p id="speak85">
+        The <code>break</code> statement stops the switch once a matching case has run. Without <code>break</code>, execution continues into the next cases. This is called fall-through.
+      </p>
+
+      <h3 id="speak86">Example without break</h3>
+      <pre id="speak87">int day = 2;
+
+switch (day) {
+    case 1:
+        System.out.println("Monday");
+    case 2:
+        System.out.println("Tuesday");
+    case 3:
+        System.out.println("Wednesday");
+    default:
+        System.out.println("Done");
+}</pre>
+
+      <p id="speak88">
+        Here, if <code>day</code> is 2, Java prints Tuesday, then Wednesday, then Done, because there are no breaks.
+      </p>
+
+      <h3 id="speak89">Intentional fall-through example</h3>
+      <pre id="speak90">char grade = 'B';
+
+switch (grade) {
+    case 'A':
+    case 'B':
+    case 'C':
+        System.out.println("Pass");
+        break;
+    case 'D':
+    case 'F':
+        System.out.println("Needs improvement");
+        break;
+    default:
+        System.out.println("Unknown grade");
+}</pre>
+
+      <p id="speak91">
+        Here, fall-through is used on purpose to group cases together.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 id="speak92">switch with strings</h2>
+      <p id="speak93">
+        Java can also use strings in a switch statement.
+      </p>
+
+      <pre id="speak94">String role = "admin";
+
+switch (role) {
+    case "admin":
+        System.out.println("Full access");
+        break;
+    case "teacher":
+        System.out.println("Teaching access");
+        break;
+    case "student":
+        System.out.println("Learning access");
+        break;
+    default:
+        System.out.println("Unknown role");
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak95">Modern switch expression</h2>
+      <p id="speak96">
+        Modern Java also supports a cleaner switch style using arrows. This style is shorter and avoids many break-related mistakes.
+      </p>
+
+      <pre id="speak97">int day = 5;
+
+switch (day) {
+    case 1 -> System.out.println("Monday");
+    case 2 -> System.out.println("Tuesday");
+    case 3 -> System.out.println("Wednesday");
+    case 4 -> System.out.println("Thursday");
+    case 5 -> System.out.println("Friday");
+    case 6 -> System.out.println("Saturday");
+    case 7 -> System.out.println("Sunday");
+    default -> System.out.println("Invalid day");
+}</pre>
+
+      <h3 id="speak98">Switch expression returning a value</h3>
+      <pre id="speak99">int day = 6;
+
+String type = switch (day) {
+    case 1, 2, 3, 4, 5 -> "Weekday";
+    case 6, 7 -> "Weekend";
+    default -> "Invalid";
+};
+
+System.out.println(type);</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak100">if-else versus switch</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th id="speak101">Use case</th>
+              <th id="speak102">Better choice</th>
+              <th id="speak103">Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Checking ranges like marks >= 40</td>
+              <td>if-else</td>
+              <td id="speak104">Switch is not designed for range comparisons like this.</td>
+            </tr>
+            <tr>
+              <td>Checking one variable against many fixed values</td>
+              <td>switch</td>
+              <td id="speak105">It is cleaner and easier to read.</td>
+            </tr>
+            <tr>
+              <td>Short two-way choice</td>
+              <td>ternary</td>
+              <td id="speak106">It is concise and useful for assignments.</td>
+            </tr>
+            <tr>
+              <td>Complex boolean conditions</td>
+              <td>if-else</td>
+              <td id="speak107">Logical operators fit naturally here.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak108">Expert tips for cleaner decision-making code</h2>
+      <ul>
+        <li id="speak109">Put more specific conditions before more general ones.</li>
+        <li id="speak110">Avoid deeply nested code when a clearer structure is possible.</li>
+        <li id="speak111">Use ternary only for simple value selection.</li>
+        <li id="speak112">Use switch when testing one value against many fixed options.</li>
+        <li id="speak113">Name boolean variables clearly, like <code>isLoggedIn</code> or <code>hasTicket</code>.</li>
+        <li id="speak114">Keep blocks short and readable.</li>
+        <li id="speak115">When logic becomes complex, consider moving it into a separate method.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2 id="speak116">Complete beginner-to-advanced example</h2>
+      <pre id="speak117">public class Main {
+    public static void main(String[] args) {
+        int marks = 82;
+        int day = 6;
+        boolean hasProject = true;
+
+        // if-else-if ladder
+        if (marks >= 90) {
+            System.out.println("Grade A+");
+        } else if (marks >= 75) {
+            System.out.println("Grade A");
+        } else if (marks >= 60) {
+            System.out.println("Grade B");
+        } else if (marks >= 40) {
+            System.out.println("Grade C");
+        } else {
+            System.out.println("Fail");
+        }
+
+        // ternary operator
+        String projectStatus = hasProject ? "Project submitted" : "Project missing";
+        System.out.println(projectStatus);
+
+        // switch expression
+        String dayType = switch (day) {
+            case 1, 2, 3, 4, 5 -> "Weekday";
+            case 6, 7 -> "Weekend";
+            default -> "Invalid";
+        };
+
+        System.out.println(dayType);
+
+        // nested if
+        if (marks >= 40) {
+            if (hasProject) {
+                System.out.println("Student passed and completed project.");
+            } else {
+                System.out.println("Student passed but project is missing.");
+            }
+        } else {
+            System.out.println("Student failed.");
+        }
+    }
+}</pre>
+    </section>
+
+    <section class="card">
+      <h2 id="speak118">Assignments</h2>
+
+      <div class="assignment" id="speak119">
+        <strong>Assignment 1:</strong> Write a program that checks whether a number is positive using a simple <code>if</code>.
+      </div>
+
+      <div class="assignment" id="speak120">
+        <strong>Assignment 2:</strong> Write a program that checks whether a number is even or odd using <code>if-else</code>.
+      </div>
+
+      <div class="assignment" id="speak121">
+        <strong>Assignment 3:</strong> Write a program that prints pass or fail using <code>if-else</code>.
+      </div>
+
+      <div class="assignment" id="speak122">
+        <strong>Assignment 4:</strong> Write a program that prints grades A, B, C, or Fail using an <code>else if</code> ladder.
+      </div>
+
+      <div class="assignment" id="speak123">
+        <strong>Assignment 5:</strong> Write a nested <code>if</code> program to allow entry only when age is at least 18 and the user has an ID card.
+      </div>
+
+      <div class="assignment" id="speak124">
+        <strong>Assignment 6:</strong> Rewrite a simple pass-fail program using the ternary operator.
+      </div>
+
+      <div class="assignment" id="speak125">
+        <strong>Assignment 7:</strong> Use <code>switch</code> to print the day name for numbers 1 to 7.
+      </div>
+
+      <div class="assignment" id="speak126">
+        <strong>Assignment 8:</strong> Use <code>switch</code> with string values like <code>"admin"</code>, <code>"teacher"</code>, and <code>"student"</code>.
+      </div>
+
+      <div class="assignment" id="speak127">
+        <strong>Assignment 9:</strong> Use a modern switch expression to decide whether a day is a weekday or weekend.
+      </div>
+
+      <div class="assignment" id="speak128">
+        <strong>Assignment 10:</strong> Write one program that uses all of these: <code>if</code>, <code>else if</code>, ternary operator, and <code>switch</code>.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak129">Interactive MCQ Quiz</h2>
+      <p id="speak130">
+        Choose one answer for each question and click <strong>Check Answers</strong>.
+      </p>
+
+      <div class="quiz-toolbar">
+        <div id="speak131"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
+        <div class="quiz-actions">
+          <button id="checkBtn" type="button">Check Answers</button>
+          <button id="resetBtn" type="button" class="secondary">Reset Quiz</button>
+        </div>
+      </div>
+
+      <div id="quizContainer"></div>
+
+      <div id="resultBox" class="result-box" aria-live="polite">
+        <p class="score-big" id="scoreText">0 / 0</p>
+        <p id="resultNote">Your result will appear here.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="speak132">Quick revision</h2>
+      <ul>
+        <li id="speak133"><code>if</code> runs code only when the condition is true.</li>
+        <li id="speak134"><code>if-else</code> lets you choose between two paths.</li>
+        <li id="speak135"><code>else if</code> is used for multiple conditions.</li>
+        <li id="speak136">Ternary is a short form of simple <code>if-else</code>.</li>
+        <li id="speak137"><code>switch</code> is best when checking one value against many fixed cases.</li>
+        <li id="speak138"><code>break</code> prevents unwanted fall-through in traditional switch.</li>
+        <li id="speak139">Modern switch with arrows is cleaner and safer.</li>
+      </ul>
+    </section>
+
+    <p class="footer-note" id="speak140">Programmer’s Picnic Java lesson page — if, else, ternary operator, and switch.</p>
+  </main>
+
+  <script>
+    const quizData = [
+      {
+        topic: "if",
+        question: "What does an if statement do in Java?",
+        options: [
+          "Repeats code forever",
+          "Runs code only when a condition is true",
+          "Stores values in memory",
+          "Declares a class"
+        ],
+        answer: 1,
+        explanation: "An if statement checks a condition and runs its block only if the condition is true."
+      },
+      {
+        topic: "if-else",
+        question: "When is the else block executed?",
+        options: [
+          "Always",
+          "Only when the condition in if is false",
+          "Only when the condition in if is true",
+          "Only inside loops"
+        ],
+        answer: 1,
+        explanation: "The else block runs when the if condition is false."
+      },
+      {
+        topic: "else if",
+        question: "Why do we use else if?",
+        options: [
+          "To repeat the same block many times",
+          "To test multiple conditions in order",
+          "To create arrays",
+          "To end the program"
+        ],
+        answer: 1,
+        explanation: "else if lets Java check several conditions one after another."
+      },
+      {
+        topic: "conditions",
+        question: "What kind of value must an if condition produce in Java?",
+        options: [
+          "An int",
+          "A String",
+          "A boolean",
+          "A char"
+        ],
+        answer: 2,
+        explanation: "The condition must evaluate to true or false, which means it must be boolean."
+      },
+      {
+        topic: "comparison",
+        question: "Which operator checks equality?",
+        options: ["=", "==", "!=", ">="],
+        answer: 1,
+        explanation: "== compares two values to check whether they are equal."
+      },
+      {
+        topic: "ternary",
+        question: "What is the general form of the ternary operator?",
+        options: [
+          "condition : trueValue ? falseValue",
+          "condition ? trueValue : falseValue",
+          "condition -> trueValue : falseValue",
+          "condition ? :"
+        ],
+        answer: 1,
+        explanation: "The ternary operator has the form condition ? valueIfTrue : valueIfFalse."
+      },
+      {
+        topic: "ternary",
+        question: "Which statement about the ternary operator is true?",
+        options: [
+          "It is best for long and complicated logic",
+          "It is a short form of simple if-else logic",
+          "It replaces all switch statements",
+          "It works only with numbers"
+        ],
+        answer: 1,
+        explanation: "The ternary operator is mainly a compact form of simple if-else selection."
+      },
+      {
+        topic: "switch",
+        question: "When is switch usually a better choice than if-else?",
+        options: [
+          "When checking range conditions like marks >= 40",
+          "When checking one value against many fixed choices",
+          "When writing loops",
+          "When declaring variables"
+        ],
+        answer: 1,
+        explanation: "switch is great when one expression can match several fixed values."
+      },
+      {
+        topic: "switch",
+        question: "What is the purpose of break in a traditional switch statement?",
+        options: [
+          "To repeat the case again",
+          "To stop the switch after a matching case runs",
+          "To create the default case",
+          "To print the result"
+        ],
+        answer: 1,
+        explanation: "break exits the switch so execution does not continue into the next case."
+      },
+      {
+        topic: "switch",
+        question: "What happens if break is missing in a traditional switch case?",
+        options: [
+          "The program crashes immediately",
+          "Java ignores that case",
+          "Execution may continue into the next cases",
+          "The default case disappears"
+        ],
+        answer: 2,
+        explanation: "Without break, switch may fall through into later cases."
+      },
+      {
+        topic: "switch",
+        question: "Which keyword is used for the fallback block in switch?",
+        options: [
+          "else",
+          "fallback",
+          "other",
+          "default"
+        ],
+        answer: 3,
+        explanation: "default is the block that runs when no case matches."
+      },
+      {
+        topic: "nested if",
+        question: "What is a nested if statement?",
+        options: [
+          "An if inside another if",
+          "An if inside a loop only",
+          "An if without braces",
+          "A switch inside a method"
+        ],
+        answer: 0,
+        explanation: "A nested if is simply one if statement placed inside another."
+      },
+      {
+        topic: "best practice",
+        question: "Which is a good rule when writing else-if ladders?",
+        options: [
+          "Put general conditions before specific ones",
+          "Put specific conditions before general ones",
+          "Always avoid else",
+          "Never use boolean expressions"
+        ],
+        answer: 1,
+        explanation: "More specific conditions should usually come first, or general ones may block them."
+      },
+      {
+        topic: "modern switch",
+        question: "What is an advantage of the modern switch arrow syntax?",
+        options: [
+          "It needs more break statements",
+          "It is cleaner and avoids many break-related mistakes",
+          "It works only with strings",
+          "It cannot return values"
+        ],
+        answer: 1,
+        explanation: "Arrow syntax makes switch shorter and reduces common errors."
+      }
+    ];
+
+    const quizContainer = document.getElementById("quizContainer");
+    const totalQuestions = document.getElementById("totalQuestions");
+    const resultBox = document.getElementById("resultBox");
+    const scoreText = document.getElementById("scoreText");
+    const resultNote = document.getElementById("resultNote");
+    const checkBtn = document.getElementById("checkBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function createQuiz() {
+      quizContainer.innerHTML = "";
+      totalQuestions.textContent = quizData.length;
+
+      quizData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.dataset.answer = item.answer;
+
+        const optionsHtml = item.options.map((option, optionIndex) => `
+          <label class="option" data-option-index="${optionIndex}">
+            <input type="radio" name="question-${index}" value="${optionIndex}">
+            <span>${option}</span>
+          </label>
+        `).join("");
+
+        card.innerHTML = `
+          <div class="question-head">
+            <div class="question-number">Question ${index + 1}</div>
+            <div class="topic-tag">${item.topic}</div>
+          </div>
+          <p class="question-text">${item.question}</p>
+          <div class="options">${optionsHtml}</div>
+          <div class="feedback" id="feedback-${index}"></div>
+        `;
+
+        quizContainer.appendChild(card);
+      });
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      const cards = quizContainer.querySelectorAll(".question-card");
+
+      cards.forEach((card, index) => {
+        const selected = card.querySelector(`input[name="question-${index}"]:checked`);
+        const correctIndex = Number(card.dataset.answer);
+        const feedback = card.querySelector(".feedback");
+        const optionLabels = card.querySelectorAll(".option");
+
+        optionLabels.forEach(label => {
+          label.classList.remove("correct", "incorrect");
+        });
+
+        if (selected) {
+          const selectedIndex = Number(selected.value);
+
+          if (selectedIndex === correctIndex) {
+            score++;
+            optionLabels[selectedIndex].classList.add("correct");
+            feedback.className = "feedback show correct";
+            feedback.textContent = "Correct. " + quizData[index].explanation;
+          } else {
+            optionLabels[selectedIndex].classList.add("incorrect");
+            optionLabels[correctIndex].classList.add("correct");
+            feedback.className = "feedback show incorrect";
+            feedback.textContent = "Incorrect. " + quizData[index].explanation;
+          }
+        } else {
+          optionLabels[correctIndex].classList.add("correct");
+          feedback.className = "feedback show incorrect";
+          feedback.textContent = "No answer selected. " + quizData[index].explanation;
+        }
+      });
+
+      scoreText.textContent = `${score} / ${quizData.length}`;
+      resultNote.textContent = getResultMessage(score, quizData.length);
+      resultBox.classList.add("show");
+      resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function getResultMessage(score, total) {
+      const percent = (score / total) * 100;
+
+      if (percent === 100) return "Excellent. You understood Java decision making very well.";
+      if (percent >= 80) return "Very good. Your understanding is strong.";
+      if (percent >= 60) return "Good effort. Revise a few concepts and try again.";
+      if (percent >= 40) return "You know the basics, but more practice will help a lot.";
+      return "Please revise the lesson carefully and try the quiz again.";
+    }
+
+    function resetQuiz() {
+      createQuiz();
+      resultBox.classList.remove("show");
+      scoreText.textContent = "0 / 0";
+      resultNote.textContent = "Your result will appear here.";
+      window.scrollTo({ top: quizContainer.offsetTop - 20, behavior: "smooth" });
+    }
+
+    checkBtn.addEventListener("click", checkAnswers);
+    resetBtn.addEventListener("click", resetQuiz);
+
+    createQuiz();
+  </script>
+</body>
+</html>
