@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="button" onclick="add()" value="Add" />
+    <div id="d"></div>
+    <select id="s"></select>
+    <script>
+        let count=0;
+      const d = document.querySelector("#d");
+      const s = document.querySelector("#s");
+      function add() {
+        console.log(1);
+        let v = document.createElement("option");
+        v.value = "Hi";
+        v.textContent = `${count++}`;
+        s.appendChild(v);
+        console.log(v);
+         v=document.createElement("label");
+         v.textContent = `${count}`;
+        d.appendChild(v);
+      }
+    </script>
+  </body>
+</html>
