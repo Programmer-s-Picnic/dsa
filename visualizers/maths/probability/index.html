@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Probability Visualizer V1 Premium</title>
+  <meta name="description" content="Interactive probability visualizer with coin toss, dice, cards, spinner, bag draws, simulations, theoretical probability, and beginner-friendly explanations." />
+  <meta name="theme-color" content="#d97706" />
+  <style>
+    :root{
+      --bg:#fffaf0;
+      --bg2:#fff3d7;
+      --card:#ffffff;
+      --ink:#3b2a1a;
+      --muted:#7b664b;
+      --line:#edc87e;
+      --brand:#d97706;
+      --brand2:#f59e0b;
+      --brand3:#fbbf24;
+      --good:#166534;
+      --bad:#b91c1c;
+      --blue:#2563eb;
+      --shadow:0 10px 30px rgba(171, 112, 20, .12);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:radial-gradient(circle at top,#fff0c2 0%,#fff7e7 34%,#fffdf9 100%);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    body{line-height:1.5}
+    .wrap{max-width:1240px;margin:0 auto;padding:18px}
+    .hero{
+      background:linear-gradient(135deg,rgba(255,248,225,.95),rgba(255,255,255,.9));
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:22px;
+      display:grid;
+      grid-template-columns:120px 1fr;
+      gap:18px;
+      align-items:center;
+    }
+    .hero-avatar{
+      width:110px;height:110px;border-radius:50%;display:grid;place-items:center;
+      background:radial-gradient(circle at 35% 35%, #fff4cf 0%, #ffd175 46%, #f2a41a 100%);
+      border:4px solid rgba(217,119,6,.2);
+      box-shadow:0 8px 20px rgba(217,119,6,.16), inset 0 2px 10px rgba(255,255,255,.45);
+      font-size:54px;
+    }
+    h1,h2,h3{margin:0 0 10px}
+    h1{font-size:clamp(1.8rem,4vw,3rem)}
+    p{margin:0 0 10px}
+    .muted{color:var(--muted)}
+    .pill-row,.stats,.tabs{display:flex;flex-wrap:wrap;gap:10px}
+    .pill,.stat,.chip{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+      border:1px solid #ecc57b;background:#fff7df;color:#714c0e;font-weight:700;font-size:.92rem;
+    }
+    .layout{display:grid;grid-template-columns:290px 1fr;gap:18px;margin-top:18px}
+    .panel,.card{background:rgba(255,255,255,.92);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius)}
+    .panel{padding:16px;position:sticky;top:14px;height:max-content}
+    .card{padding:18px}
+    .stack{display:grid;gap:18px}
+    .tabs{margin-top:14px}
+    .tab-btn{
+      border:none;cursor:pointer;padding:10px 15px;border-radius:999px;background:#fff0cd;color:#6b4606;
+      font-weight:800;box-shadow:0 2px 0 rgba(217,119,6,.08) inset, 0 3px 8px rgba(217,119,6,.08);
+      transition:transform .16s ease, background .16s ease, box-shadow .16s ease;
+    }
+    .tab-btn:hover{transform:translateY(-1px)}
+    .tab-btn.active{background:linear-gradient(135deg,var(--brand2),var(--brand));color:white;box-shadow:0 10px 18px rgba(217,119,6,.2)}
+    .tab-content{display:none}
+    .tab-content.active{display:block}
+    .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:14px 0}
+    .control{display:flex;flex-direction:column;gap:6px}
+    label{font-size:.88rem;font-weight:700;color:#7a5b24}
+    input,select,button,textarea{
+      font:inherit
+    }
+    input,select,textarea{
+      width:100%;padding:11px 12px;border-radius:14px;border:1px solid #e5bc67;background:#fffdf8;color:var(--ink);
+      outline:none;transition:border-color .16s ease, box-shadow .16s ease;
+    }
+    input:focus,select:focus,textarea:focus{border-color:var(--brand2);box-shadow:0 0 0 4px rgba(245,158,11,.14)}
+    .btn-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .btn{
+      border:none;cursor:pointer;padding:12px 16px;border-radius:16px;font-weight:800;
+      background:linear-gradient(135deg,var(--brand2),var(--brand));color:white;box-shadow:0 10px 18px rgba(217,119,6,.16)
+    }
+    .btn.secondary{background:#fff0cd;color:#7a510a;border:1px solid #ebc06f;box-shadow:none}
+    .btn.blue{background:linear-gradient(135deg,#60a5fa,#2563eb)}
+    .btn.green{background:linear-gradient(135deg,#4ade80,#15803d)}
+    .result{
+      margin-top:14px;padding:16px;border-radius:18px;background:linear-gradient(180deg,#fffdf8,#fff5df);border:1px dashed #eabf72
+    }
+    .big{font-size:1.1rem;font-weight:800}
+    .formula{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#fff7df;border:1px solid #efca87;padding:10px 12px;border-radius:14px;display:block;white-space:pre-wrap}
+    .visual-box{border:1px dashed #ebc06f;background:#fffdfa;border-radius:18px;padding:14px;margin-top:12px;overflow:auto}
+    .coin, .die-face, .card-tile, .ball, .spinner-slice, .sample-chip{
+      display:inline-flex;align-items:center;justify-content:center;font-weight:900;
+    }
+    .coin{
+      width:64px;height:64px;border-radius:50%;margin:6px;border:3px solid #b8790b;
+      background:radial-gradient(circle at 30% 30%,#fff8d9 0%,#ffd87f 45%,#d78a06 100%);
+      color:#6f4304;box-shadow:inset 0 4px 10px rgba(255,255,255,.45),0 8px 18px rgba(217,119,6,.15)
+    }
+    .die-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:10px}
+    .die-face{height:60px;border-radius:16px;background:white;border:2px solid #e5be77;box-shadow:var(--shadow);font-size:1.2rem}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:10px}
+    .card-tile{height:118px;border-radius:18px;background:white;border:2px solid #efca87;box-shadow:var(--shadow);font-size:1.15rem;flex-direction:column;padding:8px}
+    .red{color:#c81e1e}.black{color:#1f2937}
+    .ball{width:54px;height:54px;border-radius:50%;margin:6px;color:white;box-shadow:0 8px 18px rgba(0,0,0,.12)}
+    .ball.red{background:#ef4444}.ball.blue{background:#2563eb}.ball.green{background:#16a34a}.ball.yellow{background:#eab308;color:#4a3400}.ball.purple{background:#9333ea}
+    .hist{display:grid;gap:8px;margin-top:12px}
+    .bar-row{display:grid;grid-template-columns:76px 1fr 72px;gap:10px;align-items:center}
+    .bar{height:18px;border-radius:999px;background:linear-gradient(90deg,var(--brand3),var(--brand));min-width:2px}
+    .sample-space{display:flex;flex-wrap:wrap;gap:8px}
+    .sample-chip{padding:8px 10px;border-radius:12px;background:#fff0cf;border:1px solid #ebc06f;color:#744f10}
+    .section-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:8px}
+    .grid-two{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+    .spinner-wrap{display:grid;place-items:center;padding:10px}
+    .spinner{
+      width:250px;height:250px;border-radius:50%;position:relative;border:8px solid #fffaf2;box-shadow:var(--shadow), inset 0 0 0 2px rgba(255,255,255,.6);
+      overflow:hidden;background:#fff6df
+    }
+    .spinner::after{content:"";position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:#fff;border:4px solid #d88a0b;z-index:3}
+    .pointer{width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-top:28px solid var(--bad);margin-bottom:10px;filter:drop-shadow(0 6px 8px rgba(0,0,0,.1))}
+    .spinner-label{position:absolute;left:50%;top:50%;transform-origin:0 0;font-size:.9rem;font-weight:900;color:#5b3b05}
+    .callout{padding:12px 14px;border-radius:16px;background:#fff7df;border:1px solid #eabf72}
+    details{border:1px solid #ebc06f;border-radius:16px;background:#fffdf7;padding:10px 12px}
+    summary{cursor:pointer;font-weight:800;color:#7b4f09}
+    .foot{margin:22px 0 6px;text-align:center;color:var(--muted);font-size:.92rem}
+
+    .speak-panel{
+      position:fixed;right:14px;bottom:14px;z-index:50;width:min(360px,calc(100vw - 20px));
+      background:rgba(255,255,255,.96);backdrop-filter:blur(10px);
+      border:1px solid var(--line);box-shadow:0 18px 40px rgba(171,112,20,.18);border-radius:24px;
+      padding:14px;
+    }
+    .speak-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+    .speak-title{font-weight:900;color:#6b4606}
+    .speak-mini{font-size:.84rem;color:var(--muted)}
+    .speak-row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+    .speak-btn{
+      border:none;cursor:pointer;padding:10px 12px;border-radius:14px;font-weight:800;
+      background:#fff0cd;color:#7a510a;border:1px solid #ebc06f
+    }
+    .speak-btn.primary{background:linear-gradient(135deg,var(--brand2),var(--brand));color:#fff;border:none}
+    .speak-panel select,.speak-panel input[type="range"]{padding:9px 10px;border-radius:12px}
+    .speak-status{padding:10px 12px;border-radius:14px;background:#fff8e7;border:1px dashed #ebc06f;font-size:.9rem}
+    .speak-highlight{
+      outline:3px solid rgba(245,158,11,.34);
+      background:linear-gradient(180deg,#fff7da,#fff0bf) !important;
+      scroll-margin-top:90px;
+    }
+    .speak-collapse{display:none}
+    .speak-panel.minimized{padding:10px 12px;border-radius:999px;width:auto}
+    .speak-panel.minimized .speak-collapse{display:flex;gap:8px;align-items:center}
+    .speak-panel.minimized .speak-full{display:none}
+    .bayes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+    .bayes-box{padding:12px;border-radius:16px;background:#fffaf1;border:1px solid #ebc06f}
+
+    @media (max-width: 980px){.layout,.grid-two,.hero{grid-template-columns:1fr}.panel{position:static}.hero-avatar{margin:auto}.speak-panel{right:10px;left:10px;width:auto}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero card">
+      <div class="hero-avatar" aria-hidden="true">🎲</div>
+      <div>
+        <h1 id="speak0">Probability Visualizer V1 Premium</h1>
+        <p id="speak1" class="muted">Learn probability from the ground up using coins, dice, playing cards, spinners, and colored balls in a bag. Each section shows sample space, favorable outcomes, theoretical probability, and simulation results.</p>
+        <div class="pill-row">
+          <span class="pill">🪙 Coins</span>
+          <span class="pill">🎲 Dice</span>
+          <span class="pill">🂡 Cards</span>
+          <span class="pill">🎡 Spinner</span>
+          <span class="pill">🔴 Bag Draws</span>
+          <span class="pill">📈 Simulation</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <aside class="panel">
+        <h2 id="speak2">Probability basics</h2>
+        <p class="muted" id="speak3">The simplest formula is:</p>
+        <span class="formula" id="speak4">Probability = favorable outcomes / total outcomes</span>
+        <div class="stack" style="margin-top:14px">
+          <div class="callout" id="speak5"><strong>Certain event</strong><br />Probability = 1</div>
+          <div class="callout" id="speak6"><strong>Impossible event</strong><br />Probability = 0</div>
+          <div class="callout" id="speak7"><strong>Random event</strong><br />Probability is between 0 and 1</div>
+        </div>
+        <h3 style="margin-top:16px" id="speak8">What this page can do</h3>
+        <ul class="muted" style="padding-left:18px;margin:8px 0 0">
+          <li id="speak9">Show sample spaces clearly</li>
+          <li id="speak10">Calculate exact theoretical probabilities</li>
+          <li id="speak11">Run random simulations many times</li>
+          <li id="speak12">Compare theory with experiment</li>
+          <li id="speak13">Teach beginner and intermediate ideas visually</li>
+        </ul>
+      </aside>
+
+      <main class="stack">
+        <section class="card">
+          <div class="section-head">
+            <div>
+              <h2 id="speak14">Interactive probability lab</h2>
+              <p class="muted" id="speak15">Open a section, choose an event, and compare the exact answer with simulation.</p>
+            </div>
+            <div class="stats">
+              <span class="stat">Theory + Simulation</span>
+              <span class="stat">Friendly examples</span>
+            </div>
+          </div>
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="coin">🪙 Coin toss</button>
+            <button class="tab-btn" data-tab="dice">🎲 Dice</button>
+            <button class="tab-btn" data-tab="cards">🂡 Cards</button>
+            <button class="tab-btn" data-tab="spinner">🎡 Spinner</button>
+            <button class="tab-btn" data-tab="bag">🔴 Bag draw</button>
+            <button class="tab-btn" data-tab="advanced">🧠 More ideas</button>
+          </div>
+        </section>
+
+        <section class="card tab-content active" id="tab-coin">
+          <div class="section-head">
+            <div>
+              <h2 id="speak16">Coin toss visualizer</h2>
+              <p class="muted" id="speak17">Start with one or two fair coins. Then ask events like exactly one head, at least one tail, or both same.</p>
+            </div>
+            <span class="chip">Sample space is small and perfect for beginners</span>
+          </div>
+          <div class="controls">
+            <div class="control"><label for="coin-count">Number of coins</label><select id="coin-count"><option value="1">1 coin</option><option value="2" selected>2 coins</option></select></div>
+            <div class="control"><label for="coin-event">Event</label><select id="coin-event"></select></div>
+            <div class="control"><label for="coin-runs">Simulation runs</label><input id="coin-runs" type="number" min="1" max="50000" value="2000" /></div>
+          </div>
+          <div class="btn-row"><button class="btn" id="coin-calc">Show probability</button><button class="btn blue" id="coin-sim">Run simulation</button></div>
+          <div class="grid-two" style="margin-top:14px">
+            <div>
+              <div class="visual-box">
+                <div class="sample-space" id="coin-space"></div>
+              </div>
+            </div>
+            <div>
+              <div class="result" id="coin-result"></div>
+              <div class="hist" id="coin-hist"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card tab-content" id="tab-dice">
+          <div class="section-head">
+            <div>
+              <h2 id="speak18">Dice visualizer</h2>
+              <p class="muted" id="speak19">Study one die or two dice. Explore even numbers, prime faces, sums, doubles, and more.</p>
+            </div>
+            <span class="chip">Great for events with many outcomes</span>
+          </div>
+          <div class="controls">
+            <div class="control"><label for="dice-count">Dice</label><select id="dice-count"><option value="1">1 die</option><option value="2" selected>2 dice</option></select></div>
+            <div class="control"><label for="dice-event">Event</label><select id="dice-event"></select></div>
+            <div class="control"><label for="dice-runs">Simulation runs</label><input id="dice-runs" type="number" min="1" max="50000" value="5000" /></div>
+          </div>
+          <div class="btn-row"><button class="btn" id="dice-calc">Show probability</button><button class="btn blue" id="dice-sim">Run simulation</button></div>
+          <div class="grid-two" style="margin-top:14px">
+            <div>
+              <div class="visual-box">
+                <div id="dice-space"></div>
+              </div>
+            </div>
+            <div>
+              <div class="result" id="dice-result"></div>
+              <div class="hist" id="dice-hist"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card tab-content" id="tab-cards">
+          <div class="section-head">
+            <div>
+              <h2 id="speak20">Playing cards visualizer</h2>
+              <p class="muted" id="speak21">Draw one card from a standard 52-card deck. Explore red, black, face cards, suits, aces, hearts, spades, and more.</p>
+            </div>
+            <span class="chip">Classical probability with 52 equally likely outcomes</span>
+          </div>
+          <div class="controls">
+            <div class="control"><label for="card-event">Event</label><select id="card-event"></select></div>
+            <div class="control"><label for="card-runs">Simulation runs</label><input id="card-runs" type="number" min="1" max="50000" value="5000" /></div>
+          </div>
+          <div class="btn-row"><button class="btn" id="card-calc">Show probability</button><button class="btn blue" id="card-sim">Run simulation</button></div>
+          <div class="grid-two" style="margin-top:14px">
+            <div>
+              <div class="visual-box">
+                <div class="card-grid" id="card-space"></div>
+              </div>
+            </div>
+            <div>
+              <div class="result" id="card-result"></div>
+              <div class="hist" id="card-hist"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card tab-content" id="tab-spinner">
+          <div class="section-head">
+            <div>
+              <h2 id="speak22">Spinner probability</h2>
+              <p class="muted" id="speak23">A spinner helps explain probability through sectors. Larger sectors mean larger probability.</p>
+            </div>
+            <span class="chip">Area-based intuition</span>
+          </div>
+          <div class="controls">
+            <div class="control"><label for="spinner-segments">Number of equal sectors</label><select id="spinner-segments"><option value="4">4</option><option value="6" selected>6</option><option value="8">8</option></select></div>
+            <div class="control"><label for="spinner-fav">Favorable sectors</label><input id="spinner-fav" type="number" min="0" max="8" value="2" /></div>
+            <div class="control"><label for="spinner-runs">Simulation runs</label><input id="spinner-runs" type="number" min="1" max="50000" value="4000" /></div>
+          </div>
+          <div class="btn-row"><button class="btn" id="spinner-calc">Show probability</button><button class="btn green" id="spinner-spin">Spin once</button><button class="btn blue" id="spinner-sim">Run simulation</button></div>
+          <div class="grid-two" style="margin-top:14px">
+            <div class="spinner-wrap">
+              <div class="pointer"></div>
+              <div class="spinner" id="spinner"></div>
+            </div>
+            <div>
+              <div class="result" id="spinner-result"></div>
+              <div class="hist" id="spinner-hist"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card tab-content" id="tab-bag">
+          <div class="section-head">
+            <div>
+              <h2 id="speak24">Colored balls in a bag</h2>
+              <p class="muted" id="speak25">This is a powerful model for probability. You can change the bag composition and study single-draw probability.</p>
+            </div>
+            <span class="chip">Flexible and highly visual</span>
+          </div>
+          <div class="controls">
+            <div class="control"><label for="bag-red">Red balls</label><input id="bag-red" type="number" min="0" max="20" value="3" /></div>
+            <div class="control"><label for="bag-blue">Blue balls</label><input id="bag-blue" type="number" min="0" max="20" value="2" /></div>
+            <div class="control"><label for="bag-green">Green balls</label><input id="bag-green" type="number" min="0" max="20" value="1" /></div>
+            <div class="control"><label for="bag-event">Event</label><select id="bag-event"><option value="red">Draw a red ball</option><option value="blue">Draw a blue ball</option><option value="green">Draw a green ball</option><option value="not-red">Draw a non-red ball</option></select></div>
+            <div class="control"><label for="bag-runs">Simulation runs</label><input id="bag-runs" type="number" min="1" max="50000" value="5000" /></div>
+          </div>
+          <div class="btn-row"><button class="btn" id="bag-calc">Show probability</button><button class="btn blue" id="bag-sim">Run simulation</button></div>
+          <div class="grid-two" style="margin-top:14px">
+            <div>
+              <div class="visual-box" id="bag-space"></div>
+            </div>
+            <div>
+              <div class="result" id="bag-result"></div>
+              <div class="hist" id="bag-hist"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card tab-content" id="tab-advanced">
+          <div class="section-head">
+            <div>
+              <h2 id="speak26">More probability ideas</h2>
+              <p class="muted" id="speak27">These extra examples make the visualizer richer and more useful.</p>
+            </div>
+            <span class="chip">Beyond the basics</span>
+          </div>
+          <div class="stack">
+            <details open>
+              <summary id="speak28">1. Complement rule</summary>
+              <p class="muted" id="speak29">Sometimes it is easier to calculate the probability that an event does not happen.</p>
+              <span class="formula" id="speak30">P(not A) = 1 - P(A)</span>
+              <p id="speak31">Example: with one die, probability of getting a number greater than 4 is 2/6 = 1/3. So probability of not getting a number greater than 4 is 1 - 1/3 = 2/3.</p>
+            </details>
+            <details open>
+              <summary id="speak32">2. Experimental probability</summary>
+              <p id="speak33">The simulation buttons on this page estimate probability by actually performing many random trials.</p>
+              <span class="formula" id="speak34">Experimental probability = number of successes / number of trials</span>
+            </details>
+            <details open>
+              <summary id="speak35">3. Independent events</summary>
+              <p id="speak36">If two events do not affect each other, multiply their probabilities.</p>
+              <span class="formula" id="speak37">P(A and B) = P(A) × P(B)</span>
+              <p id="speak38">Example: probability of head on a coin and 6 on a die = 1/2 × 1/6 = 1/12.</p>
+            </details>
+            <details open>
+              <summary id="speak39">4. Conditional probability idea</summary>
+              <p id="speak40">When information changes the sample space, probability changes too.</p>
+              <span class="formula" id="speak41">P(A | B) = P(A and B) / P(B)</span>
+              <p id="speak42">Example: from a deck of cards, probability of drawing a king given the card is face card = 4/12 = 1/3.</p>
+            </details>
+            <details open>
+              <summary id="speak43">5. Expected value intuition</summary>
+              <p id="speak44">Expected value is the long-run average outcome of a random experiment.</p>
+              <span class="formula" id="speak45">For one fair die: (1+2+3+4+5+6)/6 = 3.5</span>
+            </details>
+            <details open>
+              <summary id="speak46">6. Bayes visualizer</summary>
+              <p id="speak47">Bayes' theorem updates probability when new evidence appears. It answers questions like: if a test is positive, what is the chance the person actually has the condition?</p>
+              <span class="formula" id="speak48">P(A | B) = [P(B | A) × P(A)] / P(B)</span>
+              <div class="controls" style="margin-top:12px">
+                <div class="control"><label for="bayes-prior">Prior probability P(A)</label><input id="bayes-prior" type="number" min="0" max="1" step="0.001" value="0.01" /></div>
+                <div class="control"><label for="bayes-true-pos">Likelihood P(B | A)</label><input id="bayes-true-pos" type="number" min="0" max="1" step="0.001" value="0.95" /></div>
+                <div class="control"><label for="bayes-false-pos">False positive P(B | not A)</label><input id="bayes-false-pos" type="number" min="0" max="1" step="0.001" value="0.05" /></div>
+                <div class="control"><label for="bayes-pop">Population size for visualization</label><input id="bayes-pop" type="number" min="100" max="100000" step="100" value="10000" /></div>
+              </div>
+              <div class="btn-row">
+                <button class="btn" id="bayes-calc">Show Bayes result</button>
+              </div>
+              <div class="bayes-grid" style="margin-top:12px">
+                <div class="bayes-box" id="bayes-result"></div>
+                <div class="bayes-box" id="bayes-breakdown"></div>
+              </div>
+              <div class="visual-box" id="bayes-visual"></div>
+            </details>
+
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <p class="foot">Built in a single HTML file with a light saffron learning-friendly theme.</p>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabIds = ['coin','dice','cards','spinner','bag','advanced'];
+
+    function setTab(name){
+      tabButtons.forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
+      tabIds.forEach(id => $('tab-'+id).classList.toggle('active', id===name));
+      localStorage.setItem('probability_visualizer_tab', name);
+    }
+    tabButtons.forEach(btn=>btn.addEventListener('click',()=>setTab(btn.dataset.tab)));
+    setTab(localStorage.getItem('probability_visualizer_tab') || 'coin');
+
+    function gcd(a,b){ while(b){ [a,b]=[b,a%b]; } return Math.abs(a); }
+    function simplify(n,d){ if(d===0) return `${n}/${d}`; const g=gcd(n,d)||1; return `${n/g}/${d/g}`; }
+    function pct(n,d){ return d ? ((n/d)*100).toFixed(2)+'%' : '—'; }
+    function randInt(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+    function renderHistogram(node, rows){
+      node.innerHTML = '';
+      const max = Math.max(1, ...rows.map(r=>r.value));
+      rows.forEach(r=>{
+        const row = document.createElement('div'); row.className='bar-row';
+        row.innerHTML = `<div class="muted">${r.label}</div><div class="bar" style="width:${(r.value/max)*100}%"></div><div class="muted">${r.text || r.value}</div>`;
+        node.appendChild(row);
+      });
+    }
+
+    // Coin
+    function coinOutcomes(count){
+      if(count===1) return ['H','T'];
+      return ['HH','HT','TH','TT'];
+    }
+    function coinEventList(count){
+      if(count===1){
+        return [
+          {value:'head', label:'Get a head', test:o=>o==='H'},
+          {value:'tail', label:'Get a tail', test:o=>o==='T'},
+        ];
+      }
+      return [
+        {value:'exact1h', label:'Exactly one head', test:o=>o.split('').filter(x=>x==='H').length===1},
+        {value:'2h', label:'Two heads', test:o=>o==='HH'},
+        {value:'atleast1t', label:'At least one tail', test:o=>o.includes('T')},
+        {value:'same', label:'Both same', test:o=>o==='HH'||o==='TT'},
+        {value:'different', label:'Both different', test:o=>o==='HT'||o==='TH'},
+      ];
+    }
+    function fillCoinEvents(){
+      const count = +$('coin-count').value;
+      const sel = $('coin-event');
+      const items = coinEventList(count);
+      sel.innerHTML = items.map(x=>`<option value="${x.value}">${x.label}</option>`).join('');
+    }
+    function showCoin(){
+      const count = +$('coin-count').value;
+      const outcomes = coinOutcomes(count);
+      const event = coinEventList(count).find(x=>x.value===$('coin-event').value) || coinEventList(count)[0];
+      $('coin-space').innerHTML='';
+      outcomes.forEach(o=>{
+        const ok = event.test(o);
+        const chip = document.createElement('div'); chip.className='sample-chip';
+        chip.style.background = ok ? '#ffe4a8' : '#fff8e6';
+        chip.style.borderColor = ok ? '#f3b33f' : '#ebc06f';
+        chip.innerHTML = o.split('').map(c=>`<span class="coin">${c}</span>`).join('');
+        $('coin-space').appendChild(chip);
+      });
+      const fav = outcomes.filter(event.test).length;
+      $('coin-result').innerHTML = `<div class="big">${event.label}</div>
+      <p>Total outcomes = ${outcomes.length}</p>
+      <p>Favorable outcomes = ${fav}</p>
+      <p><strong>Theoretical probability = ${fav}/${outcomes.length} = ${simplify(fav,outcomes.length)} = ${pct(fav,outcomes.length)}</strong></p>`;
+      renderHistogram($('coin-hist'), [{label:'Favorable', value:fav},{label:'Not favorable', value:outcomes.length-fav}]);
+    }
+    function simCoin(){
+      const count = +$('coin-count').value, runs = Math.max(1,+$('coin-runs').value||1);
+      const event = coinEventList(count).find(x=>x.value===$('coin-event').value) || coinEventList(count)[0];
+      let hit=0;
+      for(let i=0;i<runs;i++){
+        const o = count===1 ? (Math.random()<0.5?'H':'T') : Array.from({length:2},()=>Math.random()<0.5?'H':'T').join('');
+        if(event.test(o)) hit++;
+      }
+      const miss = runs-hit;
+      $('coin-result').innerHTML += `<hr /><p><strong>Simulation:</strong> successes = ${hit}, failures = ${miss}</p><p><strong>Experimental probability = ${hit}/${runs} = ${pct(hit,runs)}</strong></p>`;
+      renderHistogram($('coin-hist'), [{label:'Success', value:hit},{label:'Failure', value:miss}]);
+    }
+
+    // Dice
+    function diceEventList(count){
+      if(count===1){
+        return [
+          {value:'even', label:'Even number', test:o=>o%2===0},
+          {value:'prime', label:'Prime number', test:o=>[2,3,5].includes(o)},
+          {value:'gt4', label:'Greater than 4', test:o=>o>4},
+          {value:'six', label:'Exactly 6', test:o=>o===6},
+        ];
+      }
+      return [
+        {value:'sum7', label:'Sum is 7', test:o=>o[0]+o[1]===7},
+        {value:'sum8', label:'Sum is 8', test:o=>o[0]+o[1]===8},
+        {value:'doubles', label:'Doubles', test:o=>o[0]===o[1]},
+        {value:'atleastOne6', label:'At least one 6', test:o=>o.includes(6)},
+        {value:'sumGt9', label:'Sum greater than 9', test:o=>o[0]+o[1]>9},
+      ];
+    }
+    function fillDiceEvents(){
+      const count = +$('dice-count').value;
+      $('dice-event').innerHTML = diceEventList(count).map(x=>`<option value="${x.value}">${x.label}</option>`).join('');
+    }
+    function showDice(){
+      const count = +$('dice-count').value;
+      const events = diceEventList(count);
+      const event = events.find(x=>x.value===$('dice-event').value) || events[0];
+      const outcomes = [];
+      if(count===1){ for(let i=1;i<=6;i++) outcomes.push(i); }
+      else { for(let a=1;a<=6;a++) for(let b=1;b<=6;b++) outcomes.push([a,b]); }
+      const fav = outcomes.filter(event.test).length;
+      const total = outcomes.length;
+      const box = $('dice-space'); box.innerHTML='';
+      if(count===1){
+        const grid = document.createElement('div'); grid.className='die-grid';
+        outcomes.forEach(o=>{ const d=document.createElement('div'); d.className='die-face'; d.style.background = event.test(o)?'#ffe8ba':'white'; d.textContent=o; grid.appendChild(d); });
+        box.appendChild(grid);
+      }else{
+        const sample = document.createElement('div'); sample.className='sample-space';
+        outcomes.forEach(o=>{ const d=document.createElement('div'); d.className='sample-chip'; d.style.background = event.test(o)?'#ffe8ba':'#fff8e6'; d.textContent=`(${o[0]}, ${o[1]})`; sample.appendChild(d); });
+        box.appendChild(sample);
+      }
+      $('dice-result').innerHTML = `<div class="big">${event.label}</div>
+      <p>Total outcomes = ${total}</p>
+      <p>Favorable outcomes = ${fav}</p>
+      <p><strong>Theoretical probability = ${fav}/${total} = ${simplify(fav,total)} = ${pct(fav,total)}</strong></p>`;
+      renderHistogram($('dice-hist'), [{label:'Favorable', value:fav},{label:'Not favorable', value:total-fav}]);
+    }
+    function simDice(){
+      const count = +$('dice-count').value, runs = Math.max(1,+$('dice-runs').value||1);
+      const event = diceEventList(count).find(x=>x.value===$('dice-event').value) || diceEventList(count)[0];
+      let hit=0;
+      for(let i=0;i<runs;i++){
+        const outcome = count===1 ? randInt(1,6) : [randInt(1,6), randInt(1,6)];
+        if(event.test(outcome)) hit++;
+      }
+      $('dice-result').innerHTML += `<hr /><p><strong>Simulation:</strong> successes = ${hit}, failures = ${runs-hit}</p><p><strong>Experimental probability = ${hit}/${runs} = ${pct(hit,runs)}</strong></p>`;
+      renderHistogram($('dice-hist'), [{label:'Success', value:hit},{label:'Failure', value:runs-hit}]);
+    }
+
+    // Cards
+    const suits = [
+      {name:'Spades', short:'♠', color:'black'},
+      {name:'Hearts', short:'♥', color:'red'},
+      {name:'Diamonds', short:'♦', color:'red'},
+      {name:'Clubs', short:'♣', color:'black'},
+    ];
+    const ranks = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+    const deck = suits.flatMap(s=>ranks.map(r=>({rank:r,suit:s.name,symbol:s.short,color:s.color, face:['J','Q','K'].includes(r), ace:r==='A'})));
+    const cardEvents = [
+      {value:'red', label:'Red card', test:c=>c.color==='red'},
+      {value:'black', label:'Black card', test:c=>c.color==='black'},
+      {value:'heart', label:'Heart', test:c=>c.suit==='Hearts'},
+      {value:'spade', label:'Spade', test:c=>c.suit==='Spades'},
+      {value:'face', label:'Face card', test:c=>c.face},
+      {value:'ace', label:'Ace', test:c=>c.ace},
+      {value:'redFace', label:'Red face card', test:c=>c.color==='red' && c.face},
+      {value:'notFace', label:'Not a face card', test:c=>!c.face},
+    ];
+    function fillCardEvents(){ $('card-event').innerHTML = cardEvents.map(x=>`<option value="${x.value}">${x.label}</option>`).join(''); }
+    function showCards(){
+      const event = cardEvents.find(x=>x.value===$('card-event').value) || cardEvents[0];
+      const fav = deck.filter(event.test).length;
+      const grid = $('card-space'); grid.innerHTML='';
+      deck.forEach(c=>{
+        const el=document.createElement('div'); el.className=`card-tile ${c.color}`; el.style.background = event.test(c)?'#ffe8ba':'white';
+        el.innerHTML = `<div>${c.rank}${c.symbol}</div><div style="font-size:.74rem">${c.suit}</div>`;
+        grid.appendChild(el);
+      });
+      $('card-result').innerHTML = `<div class="big">${event.label}</div>
+      <p>Total cards = 52</p>
+      <p>Favorable cards = ${fav}</p>
+      <p><strong>Theoretical probability = ${fav}/52 = ${simplify(fav,52)} = ${pct(fav,52)}</strong></p>`;
+      renderHistogram($('card-hist'), [{label:'Favorable', value:fav},{label:'Not favorable', value:52-fav}]);
+    }
+    function simCards(){
+      const runs = Math.max(1,+$('card-runs').value||1);
+      const event = cardEvents.find(x=>x.value===$('card-event').value) || cardEvents[0];
+      let hit=0;
+      for(let i=0;i<runs;i++) if(event.test(deck[randInt(0,51)])) hit++;
+      $('card-result').innerHTML += `<hr /><p><strong>Simulation:</strong> successes = ${hit}, failures = ${runs-hit}</p><p><strong>Experimental probability = ${hit}/${runs} = ${pct(hit,runs)}</strong></p>`;
+      renderHistogram($('card-hist'), [{label:'Success', value:hit},{label:'Failure', value:runs-hit}]);
+    }
+
+    // Spinner
+    function renderSpinner(){
+      const n = +$('spinner-segments').value;
+      let fav = Math.max(0, Math.min(n, +$('spinner-fav').value||0));
+      $('spinner-fav').max = n;
+      $('spinner-fav').value = fav;
+      const colors = ['#fde68a','#fbbf24','#fdba74','#fca5a5','#93c5fd','#86efac','#c4b5fd','#f9a8d4'];
+      const spinner = $('spinner'); spinner.innerHTML='';
+      let gradient = [];
+      for(let i=0;i<n;i++){
+        const start = (i/n)*360, end = ((i+1)/n)*360;
+        gradient.push(`${i<fav?colors[i%colors.length]:'#f3f4f6'} ${start}deg ${end}deg`);
+        const label = document.createElement('div');
+        label.className='spinner-label';
+        const angle = start + (360/n)/2;
+        label.style.transform = `rotate(${angle}deg) translate(78px) rotate(${90}deg)`;
+        label.textContent = i+1;
+        spinner.appendChild(label);
+      }
+      spinner.style.background = `conic-gradient(${gradient.join(',')})`;
+      return {n,fav};
+    }
+    function showSpinner(){
+      const {n,fav} = renderSpinner();
+      $('spinner-result').innerHTML = `<div class="big">Spinner event: land on a highlighted sector</div>
+      <p>Total sectors = ${n}</p>
+      <p>Favorable sectors = ${fav}</p>
+      <p><strong>Theoretical probability = ${fav}/${n} = ${simplify(fav,n)} = ${pct(fav,n)}</strong></p>`;
+      renderHistogram($('spinner-hist'), [{label:'Favorable', value:fav},{label:'Not favorable', value:n-fav}]);
+    }
+    function spinOnce(){
+      const {n,fav} = renderSpinner();
+      const outcome = randInt(1,n);
+      const ok = outcome<=fav;
+      $('spinner-result').innerHTML += `<hr /><p><strong>One spin result:</strong> sector ${outcome} → ${ok ? 'favorable' : 'not favorable'}</p>`;
+    }
+    function simSpinner(){
+      const {n,fav} = renderSpinner();
+      const runs = Math.max(1,+$('spinner-runs').value||1);
+      let hit=0;
+      for(let i=0;i<runs;i++) if(randInt(1,n)<=fav) hit++;
+      $('spinner-result').innerHTML += `<hr /><p><strong>Simulation:</strong> successes = ${hit}, failures = ${runs-hit}</p><p><strong>Experimental probability = ${hit}/${runs} = ${pct(hit,runs)}</strong></p>`;
+      renderHistogram($('spinner-hist'), [{label:'Success', value:hit},{label:'Failure', value:runs-hit}]);
+    }
+
+    // Bag
+    function bagData(){
+      return {red:Math.max(0,+$('bag-red').value||0), blue:Math.max(0,+$('bag-blue').value||0), green:Math.max(0,+$('bag-green').value||0)};
+    }
+    function showBag(){
+      const bag = bagData();
+      const total = bag.red + bag.blue + bag.green;
+      const area = $('bag-space'); area.innerHTML='';
+      Object.entries(bag).forEach(([color,count])=>{
+        for(let i=0;i<count;i++){
+          const b=document.createElement('div'); b.className=`ball ${color}`; b.textContent=color[0].toUpperCase(); area.appendChild(b);
+        }
+      });
+      const event = $('bag-event').value;
+      let fav = 0, label='';
+      if(event==='red'){ fav=bag.red; label='Draw a red ball'; }
+      if(event==='blue'){ fav=bag.blue; label='Draw a blue ball'; }
+      if(event==='green'){ fav=bag.green; label='Draw a green ball'; }
+      if(event==='not-red'){ fav=bag.blue+bag.green; label='Draw a non-red ball'; }
+      $('bag-result').innerHTML = total ? `<div class="big">${label}</div>
+        <p>Total balls = ${total}</p>
+        <p>Favorable balls = ${fav}</p>
+        <p><strong>Theoretical probability = ${fav}/${total} = ${simplify(fav,total)} = ${pct(fav,total)}</strong></p>`
+        : `<div class="big">Bag is empty</div><p>Add at least one ball to compute probability.</p>`;
+      renderHistogram($('bag-hist'), total ? [{label:'Favorable', value:fav},{label:'Not favorable', value:total-fav}] : [{label:'No balls', value:1}]);
+    }
+    function simBag(){
+      const bag = bagData();
+      const total = bag.red + bag.blue + bag.green;
+      if(!total){ showBag(); return; }
+      const runs = Math.max(1,+$('bag-runs').value||1);
+      const pool = [...Array(bag.red).fill('red'), ...Array(bag.blue).fill('blue'), ...Array(bag.green).fill('green')];
+      const event = $('bag-event').value;
+      let hit=0;
+      for(let i=0;i<runs;i++){
+        const item = pool[randInt(0,pool.length-1)];
+        if((event==='red' && item==='red') || (event==='blue' && item==='blue') || (event==='green' && item==='green') || (event==='not-red' && item!=='red')) hit++;
+      }
+      $('bag-result').innerHTML += `<hr /><p><strong>Simulation:</strong> successes = ${hit}, failures = ${runs-hit}</p><p><strong>Experimental probability = ${hit}/${runs} = ${pct(hit,runs)}</strong></p>`;
+      renderHistogram($('bag-hist'), [{label:'Success', value:hit},{label:'Failure', value:runs-hit}]);
+    }
+
+
+    // Bayes visualizer
+    function clamp01(x){ x = Number(x); return Number.isFinite(x) ? Math.min(1, Math.max(0, x)) : 0; }
+    function showBayes(){
+      const prior = clamp01($('bayes-prior').value);
+      const truePos = clamp01($('bayes-true-pos').value);
+      const falsePos = clamp01($('bayes-false-pos').value);
+      const pop = Math.max(100, +$('bayes-pop').value || 10000);
+
+      const pEvidence = truePos * prior + falsePos * (1 - prior);
+      const posterior = pEvidence ? (truePos * prior) / pEvidence : 0;
+
+      const haveA = Math.round(pop * prior);
+      const notA = pop - haveA;
+      const truePosCount = Math.round(haveA * truePos);
+      const falsePosCount = Math.round(notA * falsePos);
+      const positiveCount = truePosCount + falsePosCount;
+
+      $('bayes-result').innerHTML = `
+        <div class="big">Posterior probability</div>
+        <p><strong>P(A | positive) = ${posterior.toFixed(4)} = ${(posterior*100).toFixed(2)}%</strong></p>
+        <p class="muted">This is the chance A is true after seeing the evidence.</p>
+        <span class="formula">P(A | B) = [P(B | A) × P(A)] / P(B)
+P(B) = P(B | A)×P(A) + P(B | not A)×P(not A)</span>
+      `;
+      $('bayes-breakdown').innerHTML = `
+        <div class="big">Population view</div>
+        <p>Out of ${pop.toLocaleString()} people:</p>
+        <p>Have A: <strong>${haveA.toLocaleString()}</strong></p>
+        <p>True positives: <strong>${truePosCount.toLocaleString()}</strong></p>
+        <p>False positives: <strong>${falsePosCount.toLocaleString()}</strong></p>
+        <p>Total positives: <strong>${positiveCount.toLocaleString()}</strong></p>
+      `;
+      renderHistogram($('bayes-visual'), [
+        {label:'Have A', value:haveA, text:haveA.toLocaleString()},
+        {label:'True +', value:truePosCount, text:truePosCount.toLocaleString()},
+        {label:'False +', value:falsePosCount, text:falsePosCount.toLocaleString()},
+        {label:'All +', value:positiveCount, text:positiveCount.toLocaleString()},
+      ]);
+    }
+
+    // Speak controls
+    const Speak = {
+      items: [],
+      current: 0,
+      utterance: null,
+      running: false,
+      voices: [],
+      init(){
+        this.items = Array.from(document.querySelectorAll('[id^="speak"]')).sort((a,b)=>{
+          const na = +(a.id.match(/\d+/)?.[0] || 0);
+          const nb = +(b.id.match(/\d+/)?.[0] || 0);
+          return na - nb;
+        });
+        this.bind();
+        this.loadVoices();
+        window.speechSynthesis.onvoiceschanged = () => this.loadVoices();
+        const mini = localStorage.getItem('prob_speak_min') === '1';
+        $('speak-panel').classList.toggle('minimized', mini);
+      },
+      bind(){
+        $('speak-start').addEventListener('click', ()=>this.start(this.current || 0));
+        $('speak-pause').addEventListener('click', ()=>this.pauseResume());
+        $('speak-stop').addEventListener('click', ()=>this.stop());
+        $('speak-prev').addEventListener('click', ()=>this.prev());
+        $('speak-next').addEventListener('click', ()=>this.next());
+        $('speak-mini-play').addEventListener('click', ()=>this.start(this.current || 0));
+        $('speak-mini-next').addEventListener('click', ()=>this.next());
+        $('speak-minimize').addEventListener('click', ()=>{
+          $('speak-panel').classList.add('minimized');
+          localStorage.setItem('prob_speak_min','1');
+        });
+        $('speak-expand').addEventListener('click', ()=>{
+          $('speak-panel').classList.remove('minimized');
+          localStorage.setItem('prob_speak_min','0');
+        });
+      },
+      loadVoices(){
+        this.voices = window.speechSynthesis.getVoices();
+        const sel = $('speak-voice');
+        const current = localStorage.getItem('prob_speak_voice') || '';
+        sel.innerHTML = '<option value="">Default voice</option>' + this.voices.map(v=>`<option value="${v.name}">${v.name}</option>`).join('');
+        sel.value = current;
+        sel.onchange = ()=>localStorage.setItem('prob_speak_voice', sel.value);
+      },
+      textFor(el){
+        return (el.innerText || el.textContent || '').replace(/\s+/g,' ').trim();
+      },
+      highlight(idx){
+        this.items.forEach(i=>i.classList.remove('speak-highlight'));
+        const el = this.items[idx];
+        if(!el) return;
+        el.classList.add('speak-highlight');
+        el.scrollIntoView({behavior:'smooth', block:'center'});
+        this.current = idx;
+        $('speak-status').textContent = `Reading ${el.id}: ${this.textFor(el).slice(0,100)}${this.textFor(el).length>100?'…':''}`;
+      },
+      speakCurrent(){
+        if(!this.items.length) return;
+        const el = this.items[this.current];
+        const text = this.textFor(el);
+        if(!text) return this.next();
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        const vname = $('speak-voice').value;
+        const voice = this.voices.find(v=>v.name===vname);
+        if(voice) u.voice = voice;
+        u.rate = +$('speak-rate').value;
+        u.pitch = +$('speak-pitch').value;
+        u.onend = ()=>{ if(this.running) this.next(true); };
+        this.utterance = u;
+        this.highlight(this.current);
+        window.speechSynthesis.speak(u);
+      },
+      start(idx=0){
+        this.running = true;
+        this.current = Math.max(0, Math.min(idx, this.items.length - 1));
+        this.speakCurrent();
+      },
+      pauseResume(){
+        if(window.speechSynthesis.speaking && !window.speechSynthesis.paused){
+          window.speechSynthesis.pause();
+          $('speak-status').textContent = 'Paused.';
+        } else if(window.speechSynthesis.paused){
+          window.speechSynthesis.resume();
+          $('speak-status').textContent = 'Resumed.';
+        }
+      },
+      stop(){
+        this.running = false;
+        window.speechSynthesis.cancel();
+        this.items.forEach(i=>i.classList.remove('speak-highlight'));
+        $('speak-status').textContent = 'Stopped.';
+      },
+      prev(){
+        this.running = true;
+        this.current = Math.max(0, this.current - 1);
+        this.speakCurrent();
+      },
+      next(fromAuto=false){
+        this.running = true;
+        if(!fromAuto) window.speechSynthesis.cancel();
+        this.current += 1;
+        if(this.current >= this.items.length){
+          this.running = false;
+          this.current = this.items.length - 1;
+          $('speak-status').textContent = 'Finished reading all speak sections.';
+          return;
+        }
+        this.speakCurrent();
+      }
+    };
+
+    // bindings
+    $('coin-count').addEventListener('change', ()=>{ fillCoinEvents(); showCoin(); });
+    $('coin-event').addEventListener('change', showCoin);
+    $('coin-calc').addEventListener('click', showCoin);
+    $('coin-sim').addEventListener('click', ()=>{ showCoin(); simCoin(); });
+
+    $('dice-count').addEventListener('change', ()=>{ fillDiceEvents(); showDice(); });
+    $('dice-event').addEventListener('change', showDice);
+    $('dice-calc').addEventListener('click', showDice);
+    $('dice-sim').addEventListener('click', ()=>{ showDice(); simDice(); });
+
+    $('card-event').addEventListener('change', showCards);
+    $('card-calc').addEventListener('click', showCards);
+    $('card-sim').addEventListener('click', ()=>{ showCards(); simCards(); });
+
+    $('spinner-segments').addEventListener('change', showSpinner);
+    $('spinner-fav').addEventListener('input', showSpinner);
+    $('spinner-calc').addEventListener('click', showSpinner);
+    $('spinner-spin').addEventListener('click', ()=>{ showSpinner(); spinOnce(); });
+    $('spinner-sim').addEventListener('click', ()=>{ showSpinner(); simSpinner(); });
+
+    ['bag-red','bag-blue','bag-green','bag-event'].forEach(id => $(id).addEventListener('input', showBag));
+    $('bag-event').addEventListener('change', showBag);
+    $('bag-calc').addEventListener('click', showBag);
+    $('bag-sim').addEventListener('click', ()=>{ showBag(); simBag(); });
+
+    fillCoinEvents(); showCoin();
+    fillDiceEvents(); showDice();
+    fillCardEvents(); showCards();
+    showSpinner();
+    showBag();
+    showBayes();
+    $('bayes-calc').addEventListener('click', showBayes);
+    ['bayes-prior','bayes-true-pos','bayes-false-pos','bayes-pop'].forEach(id => $(id).addEventListener('input', showBayes));
+    Speak.init();
+  </script>
+
+  <div class="speak-panel" id="speak-panel">
+    <div class="speak-collapse">
+      <button class="speak-btn primary" id="speak-mini-play">▶</button>
+      <button class="speak-btn" id="speak-mini-next">⏭</button>
+      <button class="speak-btn" id="speak-expand">☰</button>
+    </div>
+    <div class="speak-full">
+      <div class="speak-top">
+        <div>
+          <div class="speak-title">Speak controls</div>
+          <div class="speak-mini">Reads all elements with speak ids</div>
+        </div>
+        <button class="speak-btn" id="speak-minimize">—</button>
+      </div>
+      <div class="speak-row">
+        <button class="speak-btn primary" id="speak-start">Start</button>
+        <button class="speak-btn" id="speak-pause">Pause</button>
+        <button class="speak-btn" id="speak-stop">Stop</button>
+        <button class="speak-btn" id="speak-prev">Prev</button>
+        <button class="speak-btn" id="speak-next">Next</button>
+      </div>
+      <div class="controls" style="margin:8px 0 10px">
+        <div class="control"><label for="speak-voice">Voice</label><select id="speak-voice"></select></div>
+        <div class="control"><label for="speak-rate">Rate</label><input id="speak-rate" type="range" min="0.7" max="1.4" step="0.05" value="1" /></div>
+        <div class="control"><label for="speak-pitch">Pitch</label><input id="speak-pitch" type="range" min="0.7" max="1.4" step="0.05" value="1" /></div>
+      </div>
+      <div class="speak-status" id="speak-status">Ready to read this lesson.</div>
+    </div>
+  </div>
+
+</body>
+</html>
