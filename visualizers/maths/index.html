@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>  Math Visualizer     – Saffron Edition</title>
-  <meta name="description" content="A   interactive math visualizer for arithmetic, factorials, permutations, combinations, repeated elements, and powers using  s." />
+  <title>Pebble Math Visualizer     – Saffron Edition</title>
+  <meta name="description" content="A   interactive math visualizer for arithmetic, factorials, permutations, combinations, repeated elements, and powers using pebbles." />
   <meta name="theme-color" content="#f4a623" />
 
   <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
@@ -23,12 +23,12 @@
       --line-strong: #e6b452;
       --shadow: 0 10px 28px rgba(104, 64, 12, 0.10);
 
-      -- -a: #f9d38b;
-      -- -b: #ffe2ab;
-      -- -result: #ffb347;
-      -- -muted: #e0e0e0;
-      -- -negative: #ef6b6b;
-      -- -remainder: #b8b8b8;
+      --pebble-a: #f9d38b;
+      --pebble-b: #ffe2ab;
+      --pebble-result: #ffb347;
+      --pebble-muted: #e0e0e0;
+      --pebble-negative: #ef6b6b;
+      --pebble-remainder: #b8b8b8;
       --good: #1f7a3d;
       --warn: #9a5b00;
       --bad: #9f2d2d;
@@ -470,11 +470,11 @@
       align-items: center;
     }
 
-    .  {
+    .pebble {
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: var(-- -a);
+      background: var(--pebble-a);
       border: 1px solid #c58a27;
       box-shadow: 0 1px 2px rgba(0,0,0,.18);
       transform-origin: center bottom;
@@ -488,27 +488,27 @@
       user-select: none;
     }
 
-    . -b { background: var(-- -b); }
-    . -result { background: var(-- -result); }
-    . -muted {
-      background: var(-- -muted);
+    .pebble-b { background: var(--pebble-b); }
+    .pebble-result { background: var(--pebble-result); }
+    .pebble-muted {
+      background: var(--pebble-muted);
       border-color: #b0b0b0;
       box-shadow: none;
       color: #888;
     }
-    . -negative {
-      background: var(-- -negative);
+    .pebble-negative {
+      background: var(--pebble-negative);
       color: white;
       border-color: #be4343;
     }
-    . -remainder {
-      background: var(-- -remainder);
+    .pebble-remainder {
+      background: var(--pebble-remainder);
       color: white;
       border-color: #8c8c8c;
       box-shadow: none;
     }
 
-    . :hover { transform: translateY(-1px) scale(1.05); }
+    .pebble:hover { transform: translateY(-1px) scale(1.05); }
 
     .explanation,
     .teaching-note,
@@ -728,7 +728,7 @@
       }
     }
 
-    @keyframes pop  {
+    @keyframes popPebble {
       0% { transform: scale(.2) translateY(10px); opacity: 0; }
       60% { transform: scale(1.08) translateY(0); opacity: 1; }
       100% { transform: scale(1); opacity: 1; }
@@ -760,7 +760,7 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    .animate-pop { animation: pop  .35s ease-out forwards; }
+    .animate-pop { animation: popPebble .35s ease-out forwards; }
     .animate-pulse-once { animation: pulseHighlight .7s ease-out 1; }
   </style>
 </head>
@@ -772,8 +772,8 @@
         <img alt="Champak Roy / Brand" src="https://programmer-s-picnic.github.io/json-images/mee.jpg" class="avatar" />
       </div>
       <div>
-        <h1 data-pp-speak-title id="speak0">🪨   Math Visualizer        </h1>
-        <p id="speak1">A stronger teaching version of the   model. This edition improves clarity, mobile usability, instructional depth, and conceptual honesty. It now distinguishes physical intuition from formal mathematics, adds better summaries, supports step-by-step views, and keeps your last-opened tab.</p>
+        <h1 data-pp-speak-title id="speak0">🪨 Pebble Math Visualizer        </h1>
+        <p id="speak1">A stronger teaching version of the pebble model. This edition improves clarity, mobile usability, instructional depth, and conceptual honesty. It now distinguishes physical intuition from formal mathematics, adds better summaries, supports step-by-step views, and keeps your last-opened tab.</p>
         <div class="hero-badges">
           <span class="badge">Interactive learning</span>
           <span class="badge">Concept-first explanations</span>
@@ -783,7 +783,7 @@
       </div>
     </section>
 
-    <main class="card" aria-label="  math visualizer">
+    <main class="card" aria-label="Pebble math visualizer">
       <div class="top-toolbar">
         <div class="toolbar-group">
           <label class="toggle-pill" for="stepModeToggle">
@@ -802,11 +802,11 @@
       </div>
 
       <div class="legend" aria-label="Legend">
-        <span class="legend-item"><span class=" " style="width:14px;height:14px;"></span> normal  </span>
-        <span class="legend-item"><span class="   -result" style="width:14px;height:14px;"></span> highlighted / selected</span>
-        <span class="legend-item"><span class="   -muted" style="width:14px;height:14px;"></span> empty slot / removed</span>
-        <span class="legend-item"><span class="   -negative" style="width:14px;height:14px;">−</span> negative  </span>
-        <span class="legend-item"><span class="   -remainder" style="width:14px;height:14px;">R</span> remainder</span>
+        <span class="legend-item"><span class="pebble" style="width:14px;height:14px;"></span> normal pebble</span>
+        <span class="legend-item"><span class="pebble pebble-result" style="width:14px;height:14px;"></span> highlighted / selected</span>
+        <span class="legend-item"><span class="pebble pebble-muted" style="width:14px;height:14px;"></span> empty slot / removed</span>
+        <span class="legend-item"><span class="pebble pebble-negative" style="width:14px;height:14px;">−</span> negative pebble</span>
+        <span class="legend-item"><span class="pebble pebble-remainder" style="width:14px;height:14px;">R</span> remainder</span>
       </div>
 
       <div class="tabs" role="tablist" aria-label="Math topics">
@@ -826,7 +826,7 @@
           <div class="section-head">
             <div>
               <h2 id="speak10">Addition as joining piles</h2>
-              <p id="speak11">Addition is the most concrete   action: take one pile, add another pile, and count the total.     can also show the merge in stages.</p>
+              <p id="speak11">Addition is the most concrete pebble action: take one pile, add another pile, and count the total.     can also show the merge in stages.</p>
             </div>
           </div>
 
@@ -853,8 +853,8 @@
         <div class="panel-shell">
           <div class="section-head">
             <div>
-              <h2 id="speak20">Subtraction as removing  s</h2>
-              <p id="speak21">This section now separates two learning modes: +ve only, where the visual model stops at zero, and +ve and -ve, where extra removal is shown using negative  s.</p>
+              <h2 id="speak20">Subtraction as removing pebbles</h2>
+              <p id="speak21">This section now separates two learning modes: +ve only, where the visual model stops at zero, and +ve and -ve, where extra removal is shown using negative pebbles.</p>
             </div>
           </div>
 
@@ -888,7 +888,7 @@
 
           <div class="controls">
             <div class="control-group">
-              <label for="mul-a">a ( s per row)</label>
+              <label for="mul-a">a (pebbles per row)</label>
               <input type="number" id="mul-a" min="0" max="18" value="4" />
             </div>
             <div class="control-group">
@@ -924,11 +924,11 @@
 
           <div class="controls">
             <div class="control-group">
-              <label for="div-a">a (total  s)</label>
+              <label for="div-a">a (total pebbles)</label>
               <input type="number" id="div-a" min="0" max="72" value="14" />
             </div>
             <div class="control-group">
-              <label for="div-b">b ( s per group)</label>
+              <label for="div-b">b (pebbles per group)</label>
               <input type="number" id="div-b" min="0" max="20" value="3" />
             </div>
             <button class="btn-primary" id="btn-div">Visualize ÷</button>
@@ -946,13 +946,13 @@
           <div class="section-head">
             <div>
               <h2 id="speak50">Factorial as growing arrangements</h2>
-              <p id="speak51">This builds 1!, 2!, 3!, and 4! by inserting the new   into every slot. Each stage now includes clearer summaries.</p>
+              <p id="speak51">This builds 1!, 2!, 3!, and 4! by inserting the new pebble into every slot. Each stage now includes clearer summaries.</p>
             </div>
           </div>
 
           <div class="controls">
             <div class="control-group">
-              <label for="fact-n">n (distinct  s)</label>
+              <label for="fact-n">n (distinct pebbles)</label>
               <input type="number" id="fact-n" min="0" max="8" value="4" />
             </div>
             <button class="btn-primary" id="btn-fact">Build factorial stages</button>
@@ -976,7 +976,7 @@
 
           <div class="controls">
             <div class="control-group">
-              <label for="perm-n">n (distinct  s)</label>
+              <label for="perm-n">n (distinct pebbles)</label>
               <input type="number" id="perm-n" min="0" max="8" value="3" />
             </div>
             <div class="control-group" style="min-width:220px;">
@@ -1006,11 +1006,11 @@
 
           <div class="controls">
             <div class="control-group">
-              <label for="comb-n">n (total  s)</label>
+              <label for="comb-n">n (total pebbles)</label>
               <input type="number" id="comb-n" min="0" max="15" value="5" />
             </div>
             <div class="control-group">
-              <label for="comb-k">k (selected  s)</label>
+              <label for="comb-k">k (selected pebbles)</label>
               <input type="number" id="comb-k" min="0" max="15" value="3" />
             </div>
             <div class="control-group" style="min-width:220px;">
@@ -1067,9 +1067,9 @@
         COMB_MAX_SAMPLE: 10,
         POW_SEQ_LIMIT_FULL: 40,
         POW_SEQ_SAMPLE_LIMIT: 12,
-        lastTabKey: "pp_ _math_last_tab_ _ ",
-        stepModeKey: "pp_ _math_step_mode_ _ ",
-        subModeKey: "pp_ _math_sub_mode_ _ "
+        lastTabKey: "pp_pebble_math_last_tab_ _ ",
+        stepModeKey: "pp_pebble_math_step_mode_ _ ",
+        subModeKey: "pp_pebble_math_sub_mode_ _ "
       };
 
       const MathEngine = {
@@ -1216,9 +1216,9 @@
           while (node.firstChild) node.removeChild(node.firstChild);
         },
 
-        create (className = "", labelText = "") {
+        createPebble(className = "", labelText = "") {
           const p = document.createElement("div");
-          p.className = " " + (className ? " " + className : "");
+          p.className = "pebble" + (className ? " " + className : "");
           p.textContent = labelText ?? "";
           return p;
         },
@@ -1267,14 +1267,14 @@
           return strip;
         },
 
-        animate s(container) {
+        animatePebbles(container) {
           container.classList.remove("visual-flash");
           void container.offsetWidth;
           container.classList.add("visual-flash");
           setTimeout(() => container.classList.remove("visual-flash"), 300);
 
-          const  s = container.querySelectorAll(". ");
-           s.forEach((p, i) => {
+          const pebbles = container.querySelectorAll(".pebble");
+          pebbles.forEach((p, i) => {
             p.classList.remove("animate-pop", "animate-pulse-once");
             void p.offsetWidth;
             p.style.animationDelay = (i * 20) + "ms";
@@ -1330,7 +1330,7 @@
         }
 
         if (parsed.mode === "distinct") {
-          box.innerHTML = `<strong>Distinct mode:</strong> using ${fallbackN} distinct  ${fallbackN === 1 ? "" : "s"} from 1 to ${fallbackN || 0}.`;
+          box.innerHTML = `<strong>Distinct mode:</strong> using ${fallbackN} distinct pebble${fallbackN === 1 ? "" : "s"} from 1 to ${fallbackN || 0}.`;
           return;
         }
 
@@ -1414,33 +1414,33 @@
 
           if (AppState.stepMode) {
             const step1 = Renderer.createRow("step 1: start with a");
-            for (let i = 0; i < a; i++) step1.pile.appendChild(Renderer.create ("", "A"));
+            for (let i = 0; i < a; i++) step1.pile.appendChild(Renderer.createPebble("", "A"));
             container.appendChild(step1.row);
 
             const step2 = Renderer.createRow("step 2: bring in b");
-            for (let i = 0; i < a; i++) step2.pile.appendChild(Renderer.create ("", "A"));
-            for (let i = 0; i < b; i++) step2.pile.appendChild(Renderer.create (" -b", "B"));
+            for (let i = 0; i < a; i++) step2.pile.appendChild(Renderer.createPebble("", "A"));
+            for (let i = 0; i < b; i++) step2.pile.appendChild(Renderer.createPebble("pebble-b", "B"));
             container.appendChild(step2.row);
 
             const step3 = Renderer.createRow("step 3: count total");
             for (let i = 0; i < a + b; i++) {
-              step3.pile.appendChild(Renderer.create (" -result highlight", i < a ? "A" : "B"));
+              step3.pile.appendChild(Renderer.createPebble("pebble-result highlight", i < a ? "A" : "B"));
             }
             container.appendChild(step3.row);
           } else {
             const rowA = Renderer.createRow("a pile");
-            for (let i = 0; i < a; i++) rowA.pile.appendChild(Renderer.create ("", "A"));
+            for (let i = 0; i < a; i++) rowA.pile.appendChild(Renderer.createPebble("", "A"));
             container.appendChild(rowA.row);
 
             const rowB = Renderer.createRow("b pile");
-            for (let i = 0; i < b; i++) rowB.pile.appendChild(Renderer.create (" -b", "B"));
+            for (let i = 0; i < b; i++) rowB.pile.appendChild(Renderer.createPebble("pebble-b", "B"));
             container.appendChild(rowB.row);
 
             Renderer.addSeparator(container);
 
             const rowTotal = Renderer.createRow("a + b");
             for (let i = 0; i < a + b; i++) {
-              rowTotal.pile.appendChild(Renderer.create (" -result highlight", i < a ? "A" : "B"));
+              rowTotal.pile.appendChild(Renderer.createPebble("pebble-result highlight", i < a ? "A" : "B"));
             }
             container.appendChild(rowTotal.row);
           }
@@ -1449,7 +1449,7 @@
             container,
             "speak101",
             "explanation",
-            `We start with ${a}  s, then add ${b} more. Total = ${a + b}. Addition means joining quantities into one larger pile.`
+            `We start with ${a} pebbles, then add ${b} more. Total = ${a + b}. Addition means joining quantities into one larger pile.`
           );
 
           Renderer.addSpeakBlock(
@@ -1459,7 +1459,7 @@
             `Teaching note: addition scales naturally to zero as well. If either input is 0, the total is just the other pile.`
           );
 
-          Renderer.animate s(container);
+          Renderer.animatePebbles(container);
         },
 
         sub() {
@@ -1476,32 +1476,32 @@
           ]);
 
           const startRow = Renderer.createRow("start with a");
-          for (let i = 0; i < a; i++) startRow.pile.appendChild(Renderer.create ("", "A"));
+          for (let i = 0; i < a; i++) startRow.pile.appendChild(Renderer.createPebble("", "A"));
           container.appendChild(startRow.row);
 
           const afterRow = Renderer.createRow("after removing b");
           if (b <= a) {
             const remaining = a - b;
             for (let i = 0; i < a; i++) {
-              if (i < remaining) afterRow.pile.appendChild(Renderer.create (" -result highlight", "A"));
-              else afterRow.pile.appendChild(Renderer.create (" -muted", ""));
+              if (i < remaining) afterRow.pile.appendChild(Renderer.createPebble("pebble-result highlight", "A"));
+              else afterRow.pile.appendChild(Renderer.createPebble("pebble-muted", ""));
             }
           } else if (AppState.subMode === "positive-only") {
-            for (let i = 0; i < a; i++) afterRow.pile.appendChild(Renderer.create (" -muted", ""));
+            for (let i = 0; i < a; i++) afterRow.pile.appendChild(Renderer.createPebble("pebble-muted", ""));
           } else {
-            for (let i = 0; i < a; i++) afterRow.pile.appendChild(Renderer.create (" -muted", ""));
-            for (let i = 0; i < b - a; i++) afterRow.pile.appendChild(Renderer.create (" -negative highlight", "−"));
+            for (let i = 0; i < a; i++) afterRow.pile.appendChild(Renderer.createPebble("pebble-muted", ""));
+            for (let i = 0; i < b - a; i++) afterRow.pile.appendChild(Renderer.createPebble("pebble-negative highlight", "−"));
           }
           container.appendChild(afterRow.row);
 
           if (AppState.stepMode) {
             const actionRow = Renderer.createRow("what happened");
             for (let i = 0; i < Math.min(a, b); i++) {
-              actionRow.pile.appendChild(Renderer.create (" -muted", "✕"));
+              actionRow.pile.appendChild(Renderer.createPebble("pebble-muted", "✕"));
             }
             if (b > a && AppState.subMode === "extended") {
               for (let i = 0; i < b - a; i++) {
-                actionRow.pile.appendChild(Renderer.create (" -negative", "−"));
+                actionRow.pile.appendChild(Renderer.createPebble("pebble-negative", "−"));
               }
             }
             container.appendChild(actionRow.row);
@@ -1512,14 +1512,14 @@
               container,
               "speak201",
               "explanation",
-              `We remove ${b}  s from a pile of ${a}. Remaining  s = ${a - b}.`
+              `We remove ${b} pebbles from a pile of ${a}. Remaining pebbles = ${a - b}.`
             );
           } else if (AppState.subMode === "positive-only") {
             Renderer.addSpeakBlock(
               container,
               "speak202",
               "explanation",
-              `+ve only mode: you tried to remove ${b}  s, but only ${a} existed. So the visual model stops at zero. This is useful for concrete intuition.`
+              `+ve only mode: you tried to remove ${b} pebbles, but only ${a} existed. So the visual model stops at zero. This is useful for concrete intuition.`
             );
             Renderer.addSpeakBlock(
               container,
@@ -1532,11 +1532,11 @@
               container,
               "speak204",
               "explanation",
-              `+ve and -ve mode: after removing all ${a} real  s, we still need to remove ${b - a} more. Those extra removals are shown as negative  s, so ${a} − ${b} = ${a - b}.`
+              `+ve and -ve mode: after removing all ${a} real pebbles, we still need to remove ${b - a} more. Those extra removals are shown as negative pebbles, so ${a} − ${b} = ${a - b}.`
             );
           }
 
-          Renderer.animate s(container);
+          Renderer.animatePebbles(container);
         },
 
         mul() {
@@ -1555,12 +1555,12 @@
           if (view === "rows" || view === "both") {
             const title = document.createElement("div");
             title.className = "formula-box";
-            title.textContent = `Row model: ${b} rows of ${a}  s each.`;
+            title.textContent = `Row model: ${b} rows of ${a} pebbles each.`;
             container.appendChild(title);
 
             for (let r = 0; r < b; r++) {
               const row = Renderer.createRow(`row ${r + 1}`);
-              for (let c = 0; c < a; c++) row.pile.appendChild(Renderer.create ("", ""));
+              for (let c = 0; c < a; c++) row.pile.appendChild(Renderer.createPebble("", ""));
               container.appendChild(row.row);
             }
           }
@@ -1575,7 +1575,7 @@
 
             for (let i = 0; i < b; i++) {
               const row = Renderer.createRow(`add ${a}`);
-              for (let j = 0; j < a; j++) row.pile.appendChild(Renderer.create (i === b - 1 ? " -result highlight" : "", ""));
+              for (let j = 0; j < a; j++) row.pile.appendChild(Renderer.createPebble(i === b - 1 ? "pebble-result highlight" : "", ""));
               container.appendChild(row.row);
             }
           }
@@ -1594,7 +1594,7 @@
             `Teaching note: the row model prepares students for arrays, area, matrices, and later grid-based reasoning.`
           );
 
-          Renderer.animate s(container);
+          Renderer.animatePebbles(container);
         },
 
         div() {
@@ -1603,8 +1603,8 @@
           const container = document.getElementById("vis-div");
           Renderer.clearNode(container);
 
-          const rowAll = Renderer.createRow("all a  s");
-          for (let i = 1; i <= a; i++) rowAll.pile.appendChild(Renderer.create ("", i));
+          const rowAll = Renderer.createRow("all a pebbles");
+          for (let i = 1; i <= a; i++) rowAll.pile.appendChild(Renderer.createPebble("", i));
           container.appendChild(rowAll.row);
 
           if (b === 0) {
@@ -1614,7 +1614,7 @@
               "explanation",
               "Division by zero is undefined. Equal groups need a non-zero group size."
             );
-            Renderer.animate s(container);
+            Renderer.animatePebbles(container);
             return;
           }
 
@@ -1634,7 +1634,7 @@
               groupBox.className = "div-group-box";
               for (let j = 0; j < b; j++) {
                 const idx = g * b + j + 1;
-                groupBox.appendChild(Renderer.create ("", idx));
+                groupBox.appendChild(Renderer.createPebble("", idx));
               }
               groupsRow.pile.appendChild(groupBox);
             }
@@ -1642,18 +1642,18 @@
           }
 
           const qRow = Renderer.createRow("quotient q");
-          for (let i = 0; i < q; i++) qRow.pile.appendChild(Renderer.create (" -result highlight", "Q"));
+          for (let i = 0; i < q; i++) qRow.pile.appendChild(Renderer.createPebble("pebble-result highlight", "Q"));
           container.appendChild(qRow.row);
 
           const rRow = Renderer.createRow("remainder r");
-          for (let i = q * b + 1; i <= a; i++) rRow.pile.appendChild(Renderer.create (" -remainder", i));
+          for (let i = q * b + 1; i <= a; i++) rRow.pile.appendChild(Renderer.createPebble("pebble-remainder", i));
           container.appendChild(rRow.row);
 
           Renderer.addSpeakBlock(
             container,
             "speak402",
             "explanation",
-            `${a} ÷ ${b} = ${q} remainder ${r}. We pack  s into full groups of size ${b}. Anything left over becomes the remainder.`
+            `${a} ÷ ${b} = ${q} remainder ${r}. We pack pebbles into full groups of size ${b}. Anything left over becomes the remainder.`
           );
 
           Renderer.addSpeakBlock(
@@ -1663,7 +1663,7 @@
             `Inverse link: if division gives quotient ${q}, then multiplication checks it: ${b} × ${q} + ${r} = ${a}.`
           );
 
-          Renderer.animate s(container);
+          Renderer.animatePebbles(container);
         },
 
         fact() {
@@ -1683,7 +1683,7 @@
               "explanation",
               "For n = 0, by definition 0! = 1. There is one empty arrangement."
             );
-            Renderer.animate s(container);
+            Renderer.animatePebbles(container);
             return;
           }
 
@@ -1691,12 +1691,12 @@
 
           const title = document.createElement("div");
           title.className = "formula-box";
-          title.textContent = "Build rule: k! = (k − 1)! × k by inserting the new   into every available slot.";
+          title.textContent = "Build rule: k! = (k − 1)! × k by inserting the new pebble into every available slot.";
           container.appendChild(title);
 
           let stagePerms = [[1]];
           const st1 = Renderer.createRow("stage 1");
-          st1.pile.appendChild(Renderer.create (" -result highlight", 1));
+          st1.pile.appendChild(Renderer.createPebble("pebble-result highlight", 1));
           container.appendChild(st1.row);
           Renderer.addSpeakBlock(container, "speak502", "teaching-note", "1! = 1 because one object can be arranged in exactly one way.");
 
@@ -1717,9 +1717,9 @@
               const header = document.createElement("div");
               header.className = "collapsible-header";
 
-              const toggle  = Renderer.create (" -muted", "");
-              toggle .style.width = "16px";
-              toggle .style.height = "16px";
+              const togglePebble = Renderer.createPebble("pebble-muted", "");
+              togglePebble.style.width = "16px";
+              togglePebble.style.height = "16px";
 
               const headerText = document.createElement("div");
               headerText.className = "header-text";
@@ -1727,18 +1727,18 @@
 
               const miniPile = document.createElement("div");
               miniPile.className = "mini-pile";
-              perm.forEach(v => miniPile.appendChild(Renderer.create ("", v)));
+              perm.forEach(v => miniPile.appendChild(Renderer.createPebble("", v)));
 
-              header.append(toggle , headerText, miniPile);
+              header.append(togglePebble, headerText, miniPile);
 
               const content = document.createElement("div");
               content.className = "collapsible-content";
 
               const slotRow = Renderer.createRow("slots");
-              slotRow.pile.appendChild(Renderer.create (" -muted", ""));
+              slotRow.pile.appendChild(Renderer.createPebble("pebble-muted", ""));
               for (let i = 0; i < perm.length; i++) {
-                slotRow.pile.appendChild(Renderer.create ("", perm[i]));
-                slotRow.pile.appendChild(Renderer.create (" -muted", ""));
+                slotRow.pile.appendChild(Renderer.createPebble("", perm[i]));
+                slotRow.pile.appendChild(Renderer.createPebble("pebble-muted", ""));
               }
               content.appendChild(slotRow.row);
 
@@ -1747,7 +1747,7 @@
                 newPerms.push(newArr);
 
                 const row = Renderer.createRow(`place ${k}`);
-                newArr.forEach(v => row.pile.appendChild(Renderer.create (v === k ? " -result highlight" : "", v)));
+                newArr.forEach(v => row.pile.appendChild(Renderer.createPebble(v === k ? "pebble-result highlight" : "", v)));
                 content.appendChild(row.row);
               }
 
@@ -1757,8 +1757,8 @@
               header.addEventListener("click", () => {
                 const isOpen = content.style.display === "block";
                 content.style.display = isOpen ? "none" : "block";
-                toggle .classList.toggle(" -muted", isOpen);
-                toggle .classList.toggle(" -result", !isOpen);
+                togglePebble.classList.toggle("pebble-muted", isOpen);
+                togglePebble.classList.toggle("pebble-result", !isOpen);
               });
             });
 
@@ -1779,7 +1779,7 @@
             `For n = ${n}, the total number of ordered arrangements is ${n}! = ${MathEngine.factorial(n)}. Real-world meaning: this is the number of ways to arrange ${n} distinct people in a line.`
           );
 
-          Renderer.animate s(container);
+          Renderer.animatePebbles(container);
         },
 
         perm() {
@@ -1819,7 +1819,7 @@
 
           if (items.length === 0) {
             Renderer.addSpeakBlock(container, "speak602", "explanation", "For 0 elements, there is exactly one empty permutation.");
-            Renderer.animate s(container);
+            Renderer.animatePebbles(container);
             return;
           }
 
@@ -1828,7 +1828,7 @@
             const freqText = Array.from(freq.entries()).map(([k, c]) => `${k}×${c}`).join(", ");
             const freqRow = Renderer.createRow("multiset counts");
             Array.from(freq.entries()).forEach(([token, count]) => {
-              freqRow.pile.appendChild(Renderer.create (" -b", `${token}×${count}`));
+              freqRow.pile.appendChild(Renderer.createPebble("pebble-b", `${token}×${count}`));
             });
             container.appendChild(freqRow.row);
 
@@ -1836,17 +1836,17 @@
               container,
               "speak602b",
               "math-note",
-              `Repeated-elements mode ignores the distinct identity of matching copies. For example, the two A  s in ${items.join("")} are treated as identical, so swapping A with A does not create a new permutation.`
+              `Repeated-elements mode ignores the distinct identity of matching copies. For example, the two A pebbles in ${items.join("")} are treated as identical, so swapping A with A does not create a new permutation.`
             );
           }
 
           const sourceRow = Renderer.createRow(usingRepeated ? "given multiset" : "given set");
-          items.forEach(v => sourceRow.pile.appendChild(Renderer.create ("", v)));
+          items.forEach(v => sourceRow.pile.appendChild(Renderer.createPebble("", v)));
           container.appendChild(sourceRow.row);
 
           perms.forEach((perm, idx) => {
             const row = Renderer.createRow(`#${idx + 1}`);
-            perm.forEach(v => row.pile.appendChild(Renderer.create (" -result highlight", v)));
+            perm.forEach(v => row.pile.appendChild(Renderer.createPebble("pebble-result highlight", v)));
             container.appendChild(row.row);
           });
 
@@ -1888,7 +1888,7 @@
               : "Difference from combinations: permutations care about order, combinations do not."
           );
 
-          Renderer.animate s(container);
+          Renderer.animatePebbles(container);
         },
 
         comb() {
@@ -1908,13 +1908,13 @@
 
           const usingRepeated = parsed.mode === "repeated";
 
-          const rowAll = Renderer.createRow(usingRepeated ? "available items" : "all n  s");
-          items.forEach(v => rowAll.pile.appendChild(Renderer.create ("", v)));
+          const rowAll = Renderer.createRow(usingRepeated ? "available items" : "all n pebbles");
+          items.forEach(v => rowAll.pile.appendChild(Renderer.createPebble("", v)));
           container.appendChild(rowAll.row);
 
           if (k > items.length) {
             Renderer.addSpeakBlock(container, "speak701", "explanation", `We cannot choose ${k} items from only ${items.length}.`);
-            Renderer.animate s(container);
+            Renderer.animatePebbles(container);
             return;
           }
 
@@ -1980,7 +1980,7 @@
           intro.className = "math-note";
           intro.textContent = usingRepeated
             ? `Each row below is one unique size-${k} selection from the multiset. Example: in AABC, choosing A and B is the same as choosing B and A.`
-            : `Each row below marks one selection of ${k}  s from ${n}. Selected  s are highlighted.`;
+            : `Each row below marks one selection of ${k} pebbles from ${n}. Selected pebbles are highlighted.`;
           container.appendChild(intro);
 
           const listWrapper = document.createElement("div");
@@ -1996,19 +1996,19 @@
             idxLabel.textContent = `${idx + 1}.`;
             cRow.appendChild(idxLabel);
 
-            const  sWrap = document.createElement("div");
-             sWrap.className = "pile";
+            const pebblesWrap = document.createElement("div");
+            pebblesWrap.className = "pile";
 
             if (usingRepeated) {
-              comb.forEach(v =>  sWrap.appendChild(Renderer.create (" -result highlight", v)));
+              comb.forEach(v => pebblesWrap.appendChild(Renderer.createPebble("pebble-result highlight", v)));
             } else {
               for (let i = 1; i <= n; i++) {
-                if (comb.includes(String(i)))  sWrap.appendChild(Renderer.create (" -result highlight", i));
-                else  sWrap.appendChild(Renderer.create ("", ""));
+                if (comb.includes(String(i))) pebblesWrap.appendChild(Renderer.createPebble("pebble-result highlight", i));
+                else pebblesWrap.appendChild(Renderer.createPebble("", ""));
               }
             }
 
-            cRow.appendChild( sWrap);
+            cRow.appendChild(pebblesWrap);
             listWrapper.appendChild(cRow);
           });
 
@@ -2028,7 +2028,7 @@
               : `Total combinations = C(${n}, ${k}) = ${count}. Unlike permutations, combinations treat the same selected group as one result even if the order changes.`
           );
 
-          Renderer.animate s(container);
+          Renderer.animatePebbles(container);
         },
 
         pow() {
@@ -2081,7 +2081,7 @@
 
             const pile = document.createElement("div");
             pile.className = "pile";
-            for (let i = 0; i < a; i++) pile.appendChild(Renderer.create ("", i + 1));
+            for (let i = 0; i < a; i++) pile.appendChild(Renderer.createPebble("", i + 1));
             box.appendChild(pile);
             positionsWrapper.appendChild(box);
           }
@@ -2113,7 +2113,7 @@
               if (position === b) {
                 count++;
                 const seqRow = Renderer.createRow(`#${count}`);
-                seq.forEach(v => seqRow.pile.appendChild(Renderer.create (" -result highlight", v)));
+                seq.forEach(v => seqRow.pile.appendChild(Renderer.createPebble("pebble-result highlight", v)));
                 seqWrapper.appendChild(seqRow.row);
                 return;
               }
@@ -2151,7 +2151,7 @@
             start.appendChild(sLabel);
             const sNodes = document.createElement("div");
             sNodes.className = "power-tree-nodes";
-            sNodes.appendChild(Renderer.create (" -muted", ""));
+            sNodes.appendChild(Renderer.createPebble("pebble-muted", ""));
             start.appendChild(sNodes);
             levels.appendChild(start);
 
@@ -2167,15 +2167,15 @@
               nodes.className = level === 2 ? "power-tree-columns" : "power-tree-nodes";
 
               if (level === 1) {
-                for (let c = 1; c <= a; c++) nodes.appendChild(Renderer.create (" -result", c));
+                for (let c = 1; c <= a; c++) nodes.appendChild(Renderer.createPebble("pebble-result", c));
               } else {
                 for (let first = 1; first <= a; first++) {
                   const col = document.createElement("div");
                   col.className = "power-tree-column";
-                  col.appendChild(Renderer.create (" -result", first));
+                  col.appendChild(Renderer.createPebble("pebble-result", first));
                   const childRow = document.createElement("div");
                   childRow.className = "pile";
-                  for (let second = 1; second <= a; second++) childRow.appendChild(Renderer.create ("", second));
+                  for (let second = 1; second <= a; second++) childRow.appendChild(Renderer.createPebble("", second));
                   col.appendChild(childRow);
                   const label = document.createElement("div");
                   label.className = "power-tree-column-label";
@@ -2204,7 +2204,7 @@
           }
 
           Renderer.addSpeakBlock(container, "speak803", "explanation", explanation);
-          Renderer.animate s(container);
+          Renderer.animatePebbles(container);
         }
       };
 
