@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Probability Visualizer V1 Premium</title>
+  <title>Probability Visualizer V2 Ultra</title>
   <meta name="description" content="Interactive probability visualizer with coin toss, dice, cards, spinner, bag draws, simulations, theoretical probability, and beginner-friendly explanations." />
   <meta name="theme-color" content="#d97706" />
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
   <style>
     :root{
       --bg:#fffaf0;
@@ -128,37 +129,7 @@
     details{border:1px solid #ebc06f;border-radius:16px;background:#fffdf7;padding:10px 12px}
     summary{cursor:pointer;font-weight:800;color:#7b4f09}
     .foot{margin:22px 0 6px;text-align:center;color:var(--muted);font-size:.92rem}
-
-    .speak-panel{
-      position:fixed;right:14px;bottom:14px;z-index:50;width:min(360px,calc(100vw - 20px));
-      background:rgba(255,255,255,.96);backdrop-filter:blur(10px);
-      border:1px solid var(--line);box-shadow:0 18px 40px rgba(171,112,20,.18);border-radius:24px;
-      padding:14px;
-    }
-    .speak-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
-    .speak-title{font-weight:900;color:#6b4606}
-    .speak-mini{font-size:.84rem;color:var(--muted)}
-    .speak-row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-    .speak-btn{
-      border:none;cursor:pointer;padding:10px 12px;border-radius:14px;font-weight:800;
-      background:#fff0cd;color:#7a510a;border:1px solid #ebc06f
-    }
-    .speak-btn.primary{background:linear-gradient(135deg,var(--brand2),var(--brand));color:#fff;border:none}
-    .speak-panel select,.speak-panel input[type="range"]{padding:9px 10px;border-radius:12px}
-    .speak-status{padding:10px 12px;border-radius:14px;background:#fff8e7;border:1px dashed #ebc06f;font-size:.9rem}
-    .speak-highlight{
-      outline:3px solid rgba(245,158,11,.34);
-      background:linear-gradient(180deg,#fff7da,#fff0bf) !important;
-      scroll-margin-top:90px;
-    }
-    .speak-collapse{display:none}
-    .speak-panel.minimized{padding:10px 12px;border-radius:999px;width:auto}
-    .speak-panel.minimized .speak-collapse{display:flex;gap:8px;align-items:center}
-    .speak-panel.minimized .speak-full{display:none}
-    .bayes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-    .bayes-box{padding:12px;border-radius:16px;background:#fffaf1;border:1px solid #ebc06f}
-
-    @media (max-width: 980px){.layout,.grid-two,.hero{grid-template-columns:1fr}.panel{position:static}.hero-avatar{margin:auto}.speak-panel{right:10px;left:10px;width:auto}}
+    @media (max-width: 980px){.layout,.grid-two,.hero{grid-template-columns:1fr}.panel{position:static}.hero-avatar{margin:auto}}
   </style>
 </head>
 <body>
@@ -166,7 +137,7 @@
     <section class="hero card">
       <div class="hero-avatar" aria-hidden="true">🎲</div>
       <div>
-        <h1 id="speak0">Probability Visualizer V1 Premium</h1>
+        <h1 id="speak0">Probability Visualizer V2 Ultra</h1>
         <p id="speak1" class="muted">Learn probability from the ground up using coins, dice, playing cards, spinners, and colored balls in a bag. Each section shows sample space, favorable outcomes, theoretical probability, and simulation results.</p>
         <div class="pill-row">
           <span class="pill">🪙 Coins</span>
@@ -218,6 +189,7 @@
             <button class="tab-btn" data-tab="spinner">🎡 Spinner</button>
             <button class="tab-btn" data-tab="bag">🔴 Bag draw</button>
             <button class="tab-btn" data-tab="advanced">🧠 More ideas</button>
+            <button class="tab-btn" data-tab="bayes">🧩 Bayes visualizer</button>
           </div>
         </section>
 
@@ -391,28 +363,39 @@
               <p id="speak44">Expected value is the long-run average outcome of a random experiment.</p>
               <span class="formula" id="speak45">For one fair die: (1+2+3+4+5+6)/6 = 3.5</span>
             </details>
-            <details open>
-              <summary id="speak46">6. Bayes visualizer</summary>
-              <p id="speak47">Bayes' theorem updates probability when new evidence appears. It answers questions like: if a test is positive, what is the chance the person actually has the condition?</p>
-              <span class="formula" id="speak48">P(A | B) = [P(B | A) × P(A)] / P(B)</span>
-              <div class="controls" style="margin-top:12px">
-                <div class="control"><label for="bayes-prior">Prior probability P(A)</label><input id="bayes-prior" type="number" min="0" max="1" step="0.001" value="0.01" /></div>
-                <div class="control"><label for="bayes-true-pos">Likelihood P(B | A)</label><input id="bayes-true-pos" type="number" min="0" max="1" step="0.001" value="0.95" /></div>
-                <div class="control"><label for="bayes-false-pos">False positive P(B | not A)</label><input id="bayes-false-pos" type="number" min="0" max="1" step="0.001" value="0.05" /></div>
-                <div class="control"><label for="bayes-pop">Population size for visualization</label><input id="bayes-pop" type="number" min="100" max="100000" step="100" value="10000" /></div>
-              </div>
-              <div class="btn-row">
-                <button class="btn" id="bayes-calc">Show Bayes result</button>
-              </div>
-              <div class="bayes-grid" style="margin-top:12px">
-                <div class="bayes-box" id="bayes-result"></div>
-                <div class="bayes-box" id="bayes-breakdown"></div>
-              </div>
-              <div class="visual-box" id="bayes-visual"></div>
-            </details>
-
           </div>
         </section>
+
+        <section class="card tab-content" id="tab-bayes">
+          <div class="section-head">
+            <div>
+              <h2 id="speak46">Bayes visualizer</h2>
+              <p class="muted" id="speak47">Bayes' theorem updates probability after new evidence arrives. This is useful in medical tests, spam detection, fraud checks, and machine learning.</p>
+            </div>
+            <span class="chip">Prior → evidence → posterior</span>
+          </div>
+          <div class="controls">
+            <div class="control"><label for="bayes-prior">P(A) prior probability</label><input id="bayes-prior" type="number" min="0" max="1" step="0.01" value="0.01" /></div>
+            <div class="control"><label for="bayes-like">P(B | A) evidence if A is true</label><input id="bayes-like" type="number" min="0" max="1" step="0.01" value="0.95" /></div>
+            <div class="control"><label for="bayes-false">P(B | not A) false positive / background rate</label><input id="bayes-false" type="number" min="0" max="1" step="0.01" value="0.05" /></div>
+            <div class="control"><label for="bayes-pop">Population size for visual model</label><input id="bayes-pop" type="number" min="100" max="100000" step="100" value="10000" /></div>
+          </div>
+          <div class="btn-row"><button class="btn" id="bayes-calc">Update probability</button></div>
+          <div class="grid-two" style="margin-top:14px">
+            <div>
+              <div class="visual-box">
+                <div class="formula" id="speak48">Bayes theorem: P(A | B) = P(B | A) × P(A) / P(B)</div>
+                <p id="speak49" class="muted" style="margin-top:10px">Think of A as a hidden condition and B as observed evidence. Example: A = person has a disease, B = test is positive.</p>
+                <div id="bayes-grid" class="sample-space" style="margin-top:10px"></div>
+              </div>
+            </div>
+            <div>
+              <div class="result" id="bayes-result"></div>
+              <div class="hist" id="bayes-hist"></div>
+            </div>
+          </div>
+        </section>
+
       </main>
     </div>
 
@@ -422,7 +405,7 @@
   <script>
     const $ = (id) => document.getElementById(id);
     const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabIds = ['coin','dice','cards','spinner','bag','advanced'];
+    const tabIds = ['coin','dice','cards','spinner','bag','advanced','bayes'];
 
     function setTab(name){
       tabButtons.forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
@@ -696,157 +679,54 @@
     }
 
 
-    // Bayes visualizer
-    function clamp01(x){ x = Number(x); return Number.isFinite(x) ? Math.min(1, Math.max(0, x)) : 0; }
+    // Bayes
+    function clamp01(x){ x = +x; if(Number.isNaN(x)) return 0; return Math.min(1, Math.max(0, x)); }
     function showBayes(){
       const prior = clamp01($('bayes-prior').value);
-      const truePos = clamp01($('bayes-true-pos').value);
-      const falsePos = clamp01($('bayes-false-pos').value);
+      const like = clamp01($('bayes-like').value);
+      const falseRate = clamp01($('bayes-false').value);
       const pop = Math.max(100, +$('bayes-pop').value || 10000);
 
-      const pEvidence = truePos * prior + falsePos * (1 - prior);
-      const posterior = pEvidence ? (truePos * prior) / pEvidence : 0;
+      const aCount = Math.round(pop * prior);
+      const notACount = pop - aCount;
+      const truePos = Math.round(aCount * like);
+      const falsePos = Math.round(notACount * falseRate);
+      const posTotal = truePos + falsePos;
+      const posterior = posTotal ? truePos / posTotal : 0;
+      const pB = prior * like + (1 - prior) * falseRate;
 
-      const haveA = Math.round(pop * prior);
-      const notA = pop - haveA;
-      const truePosCount = Math.round(haveA * truePos);
-      const falsePosCount = Math.round(notA * falsePos);
-      const positiveCount = truePosCount + falsePosCount;
+      $('bayes-result').innerHTML = `<div class="big" id="speak50">Posterior probability after evidence</div>
+        <p id="speak51">Prior probability P(A) = ${prior.toFixed(4)} = ${(prior*100).toFixed(2)}%</p>
+        <p id="speak52">Likelihood P(B | A) = ${like.toFixed(4)} = ${(like*100).toFixed(2)}%</p>
+        <p id="speak53">Background / false-positive rate P(B | not A) = ${falseRate.toFixed(4)} = ${(falseRate*100).toFixed(2)}%</p>
+        <p id="speak54">Overall evidence probability P(B) = P(B|A)P(A) + P(B|not A)P(not A) = ${pB.toFixed(6)}</p>
+        <p id="speak55"><strong>Posterior probability P(A | B) = ${(posterior*100).toFixed(2)}%</strong></p>
+        <span class="formula" id="speak56">P(A | B) = (${like.toFixed(4)} × ${prior.toFixed(4)}) / ${pB.toFixed(6)} = ${posterior.toFixed(6)}</span>
+        <p id="speak57" style="margin-top:10px">In a population of ${pop.toLocaleString()}, about ${aCount.toLocaleString()} truly have A. Of those, about ${truePos.toLocaleString()} produce the evidence. But about ${falsePos.toLocaleString()} without A also produce the same evidence. So among all positive-evidence cases (${posTotal.toLocaleString()}), only ${truePos.toLocaleString()} are true A cases.</p>`;
 
-      $('bayes-result').innerHTML = `
-        <div class="big">Posterior probability</div>
-        <p><strong>P(A | positive) = ${posterior.toFixed(4)} = ${(posterior*100).toFixed(2)}%</strong></p>
-        <p class="muted">This is the chance A is true after seeing the evidence.</p>
-        <span class="formula">P(A | B) = [P(B | A) × P(A)] / P(B)
-P(B) = P(B | A)×P(A) + P(B | not A)×P(not A)</span>
-      `;
-      $('bayes-breakdown').innerHTML = `
-        <div class="big">Population view</div>
-        <p>Out of ${pop.toLocaleString()} people:</p>
-        <p>Have A: <strong>${haveA.toLocaleString()}</strong></p>
-        <p>True positives: <strong>${truePosCount.toLocaleString()}</strong></p>
-        <p>False positives: <strong>${falsePosCount.toLocaleString()}</strong></p>
-        <p>Total positives: <strong>${positiveCount.toLocaleString()}</strong></p>
-      `;
-      renderHistogram($('bayes-visual'), [
-        {label:'Have A', value:haveA, text:haveA.toLocaleString()},
-        {label:'True +', value:truePosCount, text:truePosCount.toLocaleString()},
-        {label:'False +', value:falsePosCount, text:falsePosCount.toLocaleString()},
-        {label:'All +', value:positiveCount, text:positiveCount.toLocaleString()},
+      const grid = $('bayes-grid');
+      grid.innerHTML = '';
+      const chips = [
+        {label:`True positives ${truePos.toLocaleString()}`, bg:'#ffe4a8', border:'#f3b33f'},
+        {label:`False positives ${falsePos.toLocaleString()}`, bg:'#ffd7d7', border:'#ef8a8a'},
+        {label:`A but no evidence ${(aCount-truePos).toLocaleString()}`, bg:'#eef7ff', border:'#93c5fd'},
+        {label:`Not A and no evidence ${(notACount-falsePos).toLocaleString()}`, bg:'#f4f4f5', border:'#d4d4d8'}
+      ];
+      chips.forEach(c=>{
+        const el=document.createElement('div');
+        el.className='sample-chip';
+        el.style.background=c.bg;
+        el.style.borderColor=c.border;
+        el.textContent=c.label;
+        grid.appendChild(el);
+      });
+
+      renderHistogram($('bayes-hist'), [
+        {label:'True positive', value:truePos, text:truePos.toLocaleString()},
+        {label:'False positive', value:falsePos, text:falsePos.toLocaleString()},
+        {label:'Posterior %', value:posterior*100, text:(posterior*100).toFixed(2)+'%'}
       ]);
     }
-
-    // Speak controls
-    const Speak = {
-      items: [],
-      current: 0,
-      utterance: null,
-      running: false,
-      voices: [],
-      init(){
-        this.items = Array.from(document.querySelectorAll('[id^="speak"]')).sort((a,b)=>{
-          const na = +(a.id.match(/\d+/)?.[0] || 0);
-          const nb = +(b.id.match(/\d+/)?.[0] || 0);
-          return na - nb;
-        });
-        this.bind();
-        this.loadVoices();
-        window.speechSynthesis.onvoiceschanged = () => this.loadVoices();
-        const mini = localStorage.getItem('prob_speak_min') === '1';
-        $('speak-panel').classList.toggle('minimized', mini);
-      },
-      bind(){
-        $('speak-start').addEventListener('click', ()=>this.start(this.current || 0));
-        $('speak-pause').addEventListener('click', ()=>this.pauseResume());
-        $('speak-stop').addEventListener('click', ()=>this.stop());
-        $('speak-prev').addEventListener('click', ()=>this.prev());
-        $('speak-next').addEventListener('click', ()=>this.next());
-        $('speak-mini-play').addEventListener('click', ()=>this.start(this.current || 0));
-        $('speak-mini-next').addEventListener('click', ()=>this.next());
-        $('speak-minimize').addEventListener('click', ()=>{
-          $('speak-panel').classList.add('minimized');
-          localStorage.setItem('prob_speak_min','1');
-        });
-        $('speak-expand').addEventListener('click', ()=>{
-          $('speak-panel').classList.remove('minimized');
-          localStorage.setItem('prob_speak_min','0');
-        });
-      },
-      loadVoices(){
-        this.voices = window.speechSynthesis.getVoices();
-        const sel = $('speak-voice');
-        const current = localStorage.getItem('prob_speak_voice') || '';
-        sel.innerHTML = '<option value="">Default voice</option>' + this.voices.map(v=>`<option value="${v.name}">${v.name}</option>`).join('');
-        sel.value = current;
-        sel.onchange = ()=>localStorage.setItem('prob_speak_voice', sel.value);
-      },
-      textFor(el){
-        return (el.innerText || el.textContent || '').replace(/\s+/g,' ').trim();
-      },
-      highlight(idx){
-        this.items.forEach(i=>i.classList.remove('speak-highlight'));
-        const el = this.items[idx];
-        if(!el) return;
-        el.classList.add('speak-highlight');
-        el.scrollIntoView({behavior:'smooth', block:'center'});
-        this.current = idx;
-        $('speak-status').textContent = `Reading ${el.id}: ${this.textFor(el).slice(0,100)}${this.textFor(el).length>100?'…':''}`;
-      },
-      speakCurrent(){
-        if(!this.items.length) return;
-        const el = this.items[this.current];
-        const text = this.textFor(el);
-        if(!text) return this.next();
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        const vname = $('speak-voice').value;
-        const voice = this.voices.find(v=>v.name===vname);
-        if(voice) u.voice = voice;
-        u.rate = +$('speak-rate').value;
-        u.pitch = +$('speak-pitch').value;
-        u.onend = ()=>{ if(this.running) this.next(true); };
-        this.utterance = u;
-        this.highlight(this.current);
-        window.speechSynthesis.speak(u);
-      },
-      start(idx=0){
-        this.running = true;
-        this.current = Math.max(0, Math.min(idx, this.items.length - 1));
-        this.speakCurrent();
-      },
-      pauseResume(){
-        if(window.speechSynthesis.speaking && !window.speechSynthesis.paused){
-          window.speechSynthesis.pause();
-          $('speak-status').textContent = 'Paused.';
-        } else if(window.speechSynthesis.paused){
-          window.speechSynthesis.resume();
-          $('speak-status').textContent = 'Resumed.';
-        }
-      },
-      stop(){
-        this.running = false;
-        window.speechSynthesis.cancel();
-        this.items.forEach(i=>i.classList.remove('speak-highlight'));
-        $('speak-status').textContent = 'Stopped.';
-      },
-      prev(){
-        this.running = true;
-        this.current = Math.max(0, this.current - 1);
-        this.speakCurrent();
-      },
-      next(fromAuto=false){
-        this.running = true;
-        if(!fromAuto) window.speechSynthesis.cancel();
-        this.current += 1;
-        if(this.current >= this.items.length){
-          this.running = false;
-          this.current = this.items.length - 1;
-          $('speak-status').textContent = 'Finished reading all speak sections.';
-          return;
-        }
-        this.speakCurrent();
-      }
-    };
 
     // bindings
     $('coin-count').addEventListener('change', ()=>{ fillCoinEvents(); showCoin(); });
@@ -874,46 +754,15 @@ P(B) = P(B | A)×P(A) + P(B | not A)×P(not A)</span>
     $('bag-calc').addEventListener('click', showBag);
     $('bag-sim').addEventListener('click', ()=>{ showBag(); simBag(); });
 
+    ['bayes-prior','bayes-like','bayes-false','bayes-pop'].forEach(id => $(id).addEventListener('input', showBayes));
+    $('bayes-calc').addEventListener('click', showBayes);
+
     fillCoinEvents(); showCoin();
     fillDiceEvents(); showDice();
     fillCardEvents(); showCards();
     showSpinner();
     showBag();
     showBayes();
-    $('bayes-calc').addEventListener('click', showBayes);
-    ['bayes-prior','bayes-true-pos','bayes-false-pos','bayes-pop'].forEach(id => $(id).addEventListener('input', showBayes));
-    Speak.init();
   </script>
-
-  <div class="speak-panel" id="speak-panel">
-    <div class="speak-collapse">
-      <button class="speak-btn primary" id="speak-mini-play">▶</button>
-      <button class="speak-btn" id="speak-mini-next">⏭</button>
-      <button class="speak-btn" id="speak-expand">☰</button>
-    </div>
-    <div class="speak-full">
-      <div class="speak-top">
-        <div>
-          <div class="speak-title">Speak controls</div>
-          <div class="speak-mini">Reads all elements with speak ids</div>
-        </div>
-        <button class="speak-btn" id="speak-minimize">—</button>
-      </div>
-      <div class="speak-row">
-        <button class="speak-btn primary" id="speak-start">Start</button>
-        <button class="speak-btn" id="speak-pause">Pause</button>
-        <button class="speak-btn" id="speak-stop">Stop</button>
-        <button class="speak-btn" id="speak-prev">Prev</button>
-        <button class="speak-btn" id="speak-next">Next</button>
-      </div>
-      <div class="controls" style="margin:8px 0 10px">
-        <div class="control"><label for="speak-voice">Voice</label><select id="speak-voice"></select></div>
-        <div class="control"><label for="speak-rate">Rate</label><input id="speak-rate" type="range" min="0.7" max="1.4" step="0.05" value="1" /></div>
-        <div class="control"><label for="speak-pitch">Pitch</label><input id="speak-pitch" type="range" min="0.7" max="1.4" step="0.05" value="1" /></div>
-      </div>
-      <div class="speak-status" id="speak-status">Ready to read this lesson.</div>
-    </div>
-  </div>
-
 </body>
 </html>
