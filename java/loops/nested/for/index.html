@@ -1,0 +1,1286 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java Lesson — Nested Loops in Detail</title>
+    <meta
+      name="description"
+      content="A complete beginner-to-advanced Java lesson on nested loops with syntax, flow, tables, patterns, arrays, break, continue, assignments, and interactive MCQ quiz."
+    />
+    <meta name="theme-color" content="#d97706" />
+
+    <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+
+    <style>
+      :root {
+        --bg: #fff8eb;
+        --card: #ffffff;
+        --ink: #1f2937;
+        --muted: #6b7280;
+        --brand: #d97706;
+        --brand2: #f59e0b;
+        --line: #ead7b0;
+        --soft: #fff4d6;
+        --soft2: #fffaf0;
+        --ok: #166534;
+        --bad: #991b1b;
+        --code: #111827;
+        --codeText: #f9fafb;
+        --shadow: 0 16px 40px rgba(217, 119, 6, 0.1);
+        --radius: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+        background:
+          radial-gradient(
+            circle at top right,
+            rgba(245, 158, 11, 0.16),
+            transparent 24%
+          ),
+          radial-gradient(
+            circle at bottom left,
+            rgba(217, 119, 6, 0.1),
+            transparent 26%
+          ),
+          var(--bg);
+        color: var(--ink);
+        line-height: 1.68;
+      }
+
+      header {
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        color: #fff;
+        padding: 36px 20px;
+        text-align: center;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      }
+
+      header h1 {
+        margin: 0 0 10px;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 1.1;
+      }
+
+      header p {
+        margin: 0;
+        opacity: 0.96;
+        font-size: 1.04rem;
+      }
+
+      .container {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 22px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 22px;
+        margin-bottom: 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 0.95fr;
+        gap: 18px;
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+      }
+
+      .mini {
+        background: var(--soft2);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+      }
+
+      h2 {
+        margin-top: 0;
+        color: var(--brand);
+        font-size: 1.6rem;
+      }
+
+      h3 {
+        color: #9a5a05;
+        margin: 16px 0 8px;
+      }
+
+      p,
+      li {
+        font-size: 1rem;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      ul,
+      ol {
+        padding-left: 22px;
+      }
+
+      code {
+        background: #fff1cc;
+        padding: 2px 6px;
+        border: 1px solid #efd393;
+        border-radius: 6px;
+        font-size: 0.96em;
+      }
+
+      pre {
+        background: var(--code);
+        color: var(--codeText);
+        padding: 16px;
+        border-radius: 14px;
+        overflow: auto;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        line-height: 1.55;
+        font-size: 0.96rem;
+      }
+
+      .table-wrap {
+        overflow: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fffdfa;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      th,
+      td {
+        padding: 12px 10px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: #fff1cc;
+        color: #8a5206;
+      }
+
+      .assignment {
+        background: var(--soft2);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+        margin-bottom: 12px;
+      }
+
+      .quiz-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        padding: 14px;
+        background: var(--soft2);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+      }
+
+      .quiz-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button {
+        border: none;
+        background: var(--brand);
+        color: #fff;
+        padding: 11px 16px;
+        border-radius: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.18s ease,
+          background 0.18s ease,
+          box-shadow 0.18s ease;
+        box-shadow: 0 10px 24px rgba(217, 119, 6, 0.18);
+      }
+
+      button:hover {
+        background: var(--brand2);
+        transform: translateY(-1px);
+      }
+
+      button.secondary {
+        background: #fff;
+        color: var(--brand);
+        border: 1px solid var(--line);
+        box-shadow: none;
+      }
+
+      button.secondary:hover {
+        background: #fff7e8;
+      }
+
+      .question-card {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px;
+        margin-bottom: 16px;
+        background: #fffdfa;
+      }
+
+      .question-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 10px;
+      }
+
+      .question-number {
+        font-weight: 800;
+        color: var(--brand);
+      }
+
+      .topic-tag {
+        font-size: 0.83rem;
+        padding: 6px 10px;
+        background: #fff2cf;
+        border: 1px solid #efd393;
+        border-radius: 999px;
+        color: #8a5206;
+        white-space: nowrap;
+      }
+
+      .question-text {
+        margin: 0 0 14px;
+        font-size: 1.05rem;
+        font-weight: 600;
+      }
+
+      .options {
+        display: grid;
+        gap: 10px;
+      }
+
+      .option {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fff;
+        cursor: pointer;
+        transition:
+          border-color 0.18s ease,
+          background 0.18s ease,
+          transform 0.18s ease;
+      }
+
+      .option:hover {
+        border-color: #e9ba56;
+        background: #fff9ec;
+        transform: translateY(-1px);
+      }
+
+      .option input {
+        margin-top: 4px;
+        accent-color: var(--brand);
+        transform: scale(1.08);
+      }
+
+      .option.correct {
+        border-color: #98d5ad;
+        background: #ecfdf3;
+      }
+
+      .option.incorrect {
+        border-color: #eab0b0;
+        background: #fef2f2;
+      }
+
+      .feedback {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        font-weight: 600;
+        display: none;
+      }
+
+      .feedback.show {
+        display: block;
+      }
+      .feedback.correct {
+        background: #ecfdf3;
+        color: var(--ok);
+        border: 1px solid #a7e2bb;
+      }
+      .feedback.incorrect {
+        background: #fef2f2;
+        color: var(--bad);
+        border: 1px solid #efb2b2;
+      }
+
+      .result-box {
+        margin-top: 18px;
+        padding: 18px;
+        border-radius: 16px;
+        background: #fff7e8;
+        border: 1px solid var(--line);
+        display: none;
+      }
+
+      .result-box.show {
+        display: block;
+      }
+
+      .score-big {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--brand);
+        margin: 0 0 8px;
+      }
+
+      .footer-note {
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.95rem;
+        padding-bottom: 24px;
+      }
+
+      @media (max-width: 860px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .question-head {
+          flex-direction: column;
+        }
+        .quiz-toolbar {
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 id="speak0">Java Lesson — Nested Loops in Detail</h1>
+      <p id="speak1">
+        A complete lesson on loops inside loops, from level zero to advanced
+        pattern building.
+      </p>
+    </header>
+
+    <main class="container">
+      <section class="card hero-grid">
+        <div>
+          <h2 id="speak2">What this lesson covers</h2>
+          <p id="speak3">
+            In this lesson, you will learn what a nested loop is, how the outer
+            loop and inner loop work together, how to trace nested loop
+            execution, and how nested loops are used for tables, patterns,
+            grids, arrays, and matrix-like logic.
+          </p>
+          <p id="speak4">
+            We will begin with the simple idea of one loop inside another, then
+            move to pattern printing, rectangular grids, multiplication tables,
+            searching combinations, break and continue in nested loops, and best
+            practices for writing clean nested loop code.
+          </p>
+        </div>
+
+        <div class="mini-grid">
+          <div class="mini">
+            <strong id="speak5">Outer Loop</strong>
+            <p class="muted" id="speak6">Controls rows or major repetitions</p>
+          </div>
+          <div class="mini">
+            <strong id="speak7">Inner Loop</strong>
+            <p class="muted" id="speak8">Runs fully for each outer step</p>
+          </div>
+          <div class="mini">
+            <strong id="speak9">Patterns</strong>
+            <p class="muted" id="speak10">Stars, numbers, grids, shapes</p>
+          </div>
+          <div class="mini">
+            <strong id="speak11">Tables</strong>
+            <p class="muted" id="speak12">
+              Useful for multiplication and 2D work
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 id="speak13">What is a nested loop?</h2>
+        <p id="speak14">
+          A nested loop means one loop written inside another loop. The outer
+          loop runs one time, and for each of its iterations, the inner loop
+          runs completely.
+        </p>
+
+        <pre id="speak15">
+for (int i = 1; i <= 3; i++) {
+    for (int j = 1; j <= 2; j++) {
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre
+        >
+
+        <p id="speak16">
+          Here, the outer loop uses <code>i</code> and the inner loop uses
+          <code>j</code>. For each value of <code>i</code>, the inner loop
+          starts again from its beginning.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak17">How nested loops execute</h2>
+        <p id="speak18">Let us trace this code carefully:</p>
+
+        <pre id="speak19">
+for (int i = 1; i <= 2; i++) {
+    for (int j = 1; j <= 3; j++) {
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre
+        >
+
+        <ol>
+          <li id="speak20">The outer loop starts with <code>i = 1</code>.</li>
+          <li id="speak21">
+            Then the inner loop runs with <code>j = 1</code>,
+            <code>j = 2</code>, and <code>j = 3</code>.
+          </li>
+          <li id="speak22">
+            After the inner loop finishes, the outer loop changes
+            <code>i</code> to 2.
+          </li>
+          <li id="speak23">
+            Then the inner loop starts again from <code>j = 1</code>.
+          </li>
+          <li id="speak24">
+            This continues until the outer loop condition becomes false.
+          </li>
+        </ol>
+
+        <p id="speak25">
+          So the inner loop does not continue from its old value. It starts
+          fresh every time the outer loop repeats.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak26">Output of a basic nested loop</h2>
+        <pre id="speak27">
+for (int i = 1; i <= 2; i++) {
+    for (int j = 1; j <= 3; j++) {
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre
+        >
+
+        <pre id="speak28">
+i = 1, j = 1
+i = 1, j = 2
+i = 1, j = 3
+i = 2, j = 1
+i = 2, j = 2
+i = 2, j = 3</pre
+        >
+
+        <p id="speak29">
+          Notice that for every outer loop value, the inner loop runs all of its
+          values.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak30">Rows and columns thinking</h2>
+        <p id="speak31">
+          Nested loops are often understood in terms of rows and columns.
+        </p>
+
+        <ul>
+          <li id="speak32">The outer loop often controls the row.</li>
+          <li id="speak33">The inner loop often controls the column.</li>
+        </ul>
+
+        <pre id="speak34">
+for (int row = 1; row <= 3; row++) {
+    for (int col = 1; col <= 4; col++) {
+        System.out.print("* ");
+    }
+    System.out.println();
+}</pre
+        >
+
+        <p id="speak35">
+          This prints 3 rows, and in each row it prints 4 stars.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak36">Printing a rectangle</h2>
+        <pre id="speak37">
+for (int row = 1; row <= 3; row++) {
+    for (int col = 1; col <= 5; col++) {
+        System.out.print("* ");
+    }
+    System.out.println();
+}</pre
+        >
+
+        <pre id="speak38">
+* * * * *
+* * * * *
+* * * * *</pre
+        >
+
+        <p id="speak39">
+          The outer loop controls the number of lines. The inner loop controls
+          how many symbols appear in each line.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak40">Printing a square</h2>
+        <pre id="speak41">
+for (int row = 1; row <= 4; row++) {
+    for (int col = 1; col <= 4; col++) {
+        System.out.print("# ");
+    }
+    System.out.println();
+}</pre
+        >
+
+        <p id="speak42">
+          When rows and columns are equal, you get a square shape.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak43">Printing a right triangle</h2>
+        <p id="speak44">
+          In this pattern, the number of columns depends on the current row.
+        </p>
+
+        <pre id="speak45">
+for (int row = 1; row <= 5; row++) {
+    for (int col = 1; col <= row; col++) {
+        System.out.print("* ");
+    }
+    System.out.println();
+}</pre
+        >
+
+        <pre id="speak46">
+*
+* *
+* * *
+* * * *
+* * * * *</pre
+        >
+
+        <p id="speak47">
+          Here, the inner loop limit is not a fixed number. It depends on
+          <code>row</code>.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak48">Printing an inverted triangle</h2>
+        <pre id="speak49">
+for (int row = 5; row >= 1; row--) {
+    for (int col = 1; col <= row; col++) {
+        System.out.print("* ");
+    }
+    System.out.println();
+}</pre
+        >
+
+        <pre id="speak50">
+* * * * *
+* * * *
+* * *
+* *
+*</pre
+        >
+      </section>
+
+      <section class="card">
+        <h2 id="speak51">Number patterns with nested loops</h2>
+
+        <h3 id="speak52">Pattern 1</h3>
+        <pre id="speak53">
+for (int row = 1; row <= 5; row++) {
+    for (int col = 1; col <= row; col++) {
+        System.out.print(col + " ");
+    }
+    System.out.println();
+}</pre
+        >
+
+        <pre id="speak54">
+1
+1 2
+1 2 3
+1 2 3 4
+1 2 3 4 5</pre
+        >
+
+        <h3 id="speak55">Pattern 2</h3>
+        <pre id="speak56">
+for (int row = 1; row <= 5; row++) {
+    for (int col = 1; col <= row; col++) {
+        System.out.print(row + " ");
+    }
+    System.out.println();
+}</pre
+        >
+
+        <pre id="speak57">
+1
+2 2
+3 3 3
+4 4 4 4
+5 5 5 5 5</pre
+        >
+      </section>
+
+      <section class="card">
+        <h2 id="speak58">Multiplication table grid</h2>
+        <p id="speak59">
+          Nested loops are very useful for multiplication tables.
+        </p>
+
+        <pre id="speak60">
+for (int i = 1; i <= 5; i++) {
+    for (int j = 1; j <= 5; j++) {
+        System.out.print((i * j) + "\t");
+    }
+    System.out.println();
+}</pre
+        >
+
+        <p id="speak61">This creates a 5 by 5 multiplication grid.</p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak62">Nested loops with arrays</h2>
+        <p id="speak63">
+          Nested loops are very common when working with 2D arrays or
+          matrix-like data.
+        </p>
+
+        <pre id="speak64">
+int[][] matrix = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+for (int row = 0; row < matrix.length; row++) {
+    for (int col = 0; col < matrix[row].length; col++) {
+        System.out.print(matrix[row][col] + " ");
+    }
+    System.out.println();
+}</pre
+        >
+
+        <p id="speak65">
+          The outer loop moves through rows, and the inner loop moves through
+          the elements inside one row.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak66">Searching pairs with nested loops</h2>
+        <p id="speak67">
+          Sometimes you want to check all possible pairs of values. Nested loops
+          are perfect for that.
+        </p>
+
+        <pre id="speak68">
+int[] arr = {2, 4, 6, 8};
+
+for (int i = 0; i < arr.length; i++) {
+    for (int j = i + 1; j < arr.length; j++) {
+        System.out.println(arr[i] + " " + arr[j]);
+    }
+}</pre
+        >
+
+        <p id="speak69">This prints every unique pair from the array.</p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak70">break inside nested loops</h2>
+        <p id="speak71">
+          A <code>break</code> only stops the loop in which it appears.
+        </p>
+
+        <pre id="speak72">
+for (int i = 1; i <= 3; i++) {
+    for (int j = 1; j <= 5; j++) {
+        if (j == 3) {
+            break;
+        }
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre
+        >
+
+        <p id="speak73">
+          Here, the inner loop stops when <code>j == 3</code>, but the outer
+          loop continues.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak74">continue inside nested loops</h2>
+        <p id="speak75">
+          A <code>continue</code> skips the current iteration of the loop in
+          which it appears.
+        </p>
+
+        <pre id="speak76">
+for (int i = 1; i <= 3; i++) {
+    for (int j = 1; j <= 4; j++) {
+        if (j == 2) {
+            continue;
+        }
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre
+        >
+
+        <p id="speak77">
+          This skips the inner loop step whenever <code>j == 2</code>.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak78">Using labels with break</h2>
+        <p id="speak79">
+          Java also supports labeled breaks, which can stop an outer loop from
+          inside an inner loop.
+        </p>
+
+        <pre id="speak80">
+outerLoop:
+for (int i = 1; i <= 3; i++) {
+    for (int j = 1; j <= 4; j++) {
+        if (i == 2 && j == 3) {
+            break outerLoop;
+        }
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre
+        >
+
+        <p id="speak81">
+          This breaks out of both loops together. It is powerful, but should be
+          used carefully.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak82">Common mistakes in nested loops</h2>
+        <ul>
+          <li id="speak83">Using the same variable name in both loops.</li>
+          <li id="speak84">
+            Forgetting that the inner loop restarts every time the outer loop
+            repeats.
+          </li>
+          <li id="speak85">
+            Using the wrong loop limits, causing extra output or missing output.
+          </li>
+          <li id="speak86">
+            Forgetting <code>System.out.println()</code> after each row in
+            pattern problems.
+          </li>
+          <li id="speak87">Confusing row logic with column logic.</li>
+        </ul>
+
+        <h3 id="speak88">Wrong pattern example</h3>
+        <pre id="speak89">
+for (int row = 1; row <= 3; row++) {
+    for (int col = 1; col <= 4; col++) {
+        System.out.print("* ");
+    }
+}</pre
+        >
+
+        <p id="speak90">
+          This prints all stars in one long line because there is no
+          <code>System.out.println()</code> after the inner loop.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak91">Time complexity idea</h2>
+        <p id="speak92">
+          A single loop may run <code>n</code> times. A nested loop may run
+          about <code>n × n</code> times in many cases. That is why nested loops
+          can be much more expensive than a single loop.
+        </p>
+
+        <pre id="speak93">
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+        // work
+    }
+}</pre
+        >
+
+        <p id="speak94">
+          This kind of pattern is often called <code>O(n²)</code> time.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 id="speak95">Complete example</h2>
+        <pre id="speak96">
+public class Main {
+    public static void main(String[] args) {
+        // Rectangle
+        for (int row = 1; row <= 3; row++) {
+            for (int col = 1; col <= 5; col++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+
+        // Triangle
+        for (int row = 1; row <= 4; row++) {
+            for (int col = 1; col <= row; col++) {
+                System.out.print(row + " ");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+
+        // Multiplication grid
+        for (int i = 1; i <= 4; i++) {
+            for (int j = 1; j <= 4; j++) {
+                System.out.print((i * j) + "\t");
+            }
+            System.out.println();
+        }
+    }
+}</pre
+        >
+      </section>
+
+      <section class="card">
+        <h2 id="speak97">Assignments</h2>
+
+        <div class="assignment" id="speak98">
+          <strong>Assignment 1:</strong> Print a rectangle of stars with 4 rows
+          and 6 columns.
+        </div>
+
+        <div class="assignment" id="speak99">
+          <strong>Assignment 2:</strong> Print a square pattern of size 5 using
+          nested loops.
+        </div>
+
+        <div class="assignment" id="speak100">
+          <strong>Assignment 3:</strong> Print a right triangle of stars with 5
+          rows.
+        </div>
+
+        <div class="assignment" id="speak101">
+          <strong>Assignment 4:</strong> Print an inverted right triangle of
+          stars.
+        </div>
+
+        <div class="assignment" id="speak102">
+          <strong>Assignment 5:</strong> Print the pattern 1, then 1 2, then 1 2
+          3, and so on up to 5 rows.
+        </div>
+
+        <div class="assignment" id="speak103">
+          <strong>Assignment 6:</strong> Print a 10 by 10 multiplication grid.
+        </div>
+
+        <div class="assignment" id="speak104">
+          <strong>Assignment 7:</strong> Take a 2D array and print all elements
+          row by row.
+        </div>
+
+        <div class="assignment" id="speak105">
+          <strong>Assignment 8:</strong> Print all unique pairs from an array of
+          numbers.
+        </div>
+
+        <div class="assignment" id="speak106">
+          <strong>Assignment 9:</strong> Use break inside the inner loop and
+          observe what happens.
+        </div>
+
+        <div class="assignment" id="speak107">
+          <strong>Assignment 10:</strong> Use a labeled break to stop both loops
+          together.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 id="speak108">Interactive MCQ Quiz</h2>
+        <p id="speak109">
+          Choose one answer for each question and click
+          <strong>Check Answers</strong>.
+        </p>
+
+        <div class="quiz-toolbar">
+          <div id="speak110">
+            <strong>Total Questions:</strong> <span id="totalQuestions">0</span>
+          </div>
+          <div class="quiz-actions">
+            <button id="checkBtn" type="button">Check Answers</button>
+            <button id="resetBtn" type="button" class="secondary">
+              Reset Quiz
+            </button>
+          </div>
+        </div>
+
+        <div id="quizContainer"></div>
+
+        <div id="resultBox" class="result-box" aria-live="polite">
+          <p class="score-big" id="scoreText">0 / 0</p>
+          <p id="resultNote">Your result will appear here.</p>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 id="speak111">Quick revision</h2>
+        <ul>
+          <li id="speak112">A nested loop is a loop inside another loop.</li>
+          <li id="speak113">
+            The inner loop runs fully for each outer loop iteration.
+          </li>
+          <li id="speak114">
+            Outer loops often control rows and inner loops control columns.
+          </li>
+          <li id="speak115">
+            Nested loops are heavily used in patterns and 2D arrays.
+          </li>
+          <li id="speak116">
+            A normal break stops only the loop where it appears.
+          </li>
+          <li id="speak117">A labeled break can stop an outer loop too.</li>
+          <li id="speak118">
+            Nested loops can be powerful but may be expensive for large input
+            sizes.
+          </li>
+        </ul>
+      </section>
+
+      <p class="footer-note" id="speak119">
+        Programmer’s Picnic Java lesson page — Nested loops in detail.
+      </p>
+    </main>
+
+    <script>
+      const quizData = [
+        {
+          topic: "Basics",
+          question: "What is a nested loop?",
+          options: [
+            "A loop without braces",
+            "A loop inside another loop",
+            "A loop with no condition",
+            "A loop that runs only once",
+          ],
+          answer: 1,
+          explanation:
+            "A nested loop means one loop is written inside another loop.",
+        },
+        {
+          topic: "Execution",
+          question:
+            "What happens to the inner loop for each new outer loop iteration?",
+          options: [
+            "It continues from its old value",
+            "It does not run again",
+            "It starts again from its beginning",
+            "It becomes infinite",
+          ],
+          answer: 2,
+          explanation:
+            "The inner loop starts fresh every time the outer loop repeats.",
+        },
+        {
+          topic: "Rows and columns",
+          question:
+            "In pattern problems, what does the outer loop often control?",
+          options: [
+            "Columns",
+            "Rows",
+            "Only printing spaces",
+            "Variable declarations only",
+          ],
+          answer: 1,
+          explanation:
+            "In many pattern programs, the outer loop controls rows.",
+        },
+        {
+          topic: "Rows and columns",
+          question:
+            "In pattern problems, what does the inner loop often control?",
+          options: [
+            "Rows",
+            "Columns or items in one row",
+            "Main method",
+            "Scanner input only",
+          ],
+          answer: 1,
+          explanation:
+            "The inner loop often controls how many items are printed in each row.",
+        },
+        {
+          topic: "Patterns",
+          question:
+            "Which loop condition is suitable for printing a triangle where the number of columns equals the row number?",
+          options: [
+            "for (int col = 1; col <= row; col++)",
+            "for (int col = row; col <= 1; col++)",
+            "for (int col = 1; col <= 10; col++)",
+            "for (int col = 0; col < 0; col++)",
+          ],
+          answer: 0,
+          explanation:
+            "In a triangle, the number of columns often depends on the current row.",
+        },
+        {
+          topic: "break",
+          question:
+            "What does break do inside the inner loop of a nested loop?",
+          options: [
+            "Stops both loops automatically",
+            "Stops only the inner loop",
+            "Restarts the outer loop",
+            "Skips the whole program",
+          ],
+          answer: 1,
+          explanation:
+            "A normal break stops only the loop in which it appears.",
+        },
+        {
+          topic: "continue",
+          question: "What does continue do inside the inner loop?",
+          options: [
+            "Stops the outer loop",
+            "Stops both loops",
+            "Skips the current inner iteration",
+            "Ends the method",
+          ],
+          answer: 2,
+          explanation:
+            "continue skips the current iteration of the loop where it appears.",
+        },
+        {
+          topic: "2D arrays",
+          question: "Why are nested loops commonly used with 2D arrays?",
+          options: [
+            "Because 2D arrays cannot be printed",
+            "Because one loop handles rows and the other handles columns",
+            "Because Java requires three loops for arrays",
+            "Because 2D arrays work only with strings",
+          ],
+          answer: 1,
+          explanation:
+            "Nested loops are natural for 2D arrays because they have rows and columns.",
+        },
+        {
+          topic: "Output",
+          question:
+            "Why do many pattern programs place System.out.println() after the inner loop?",
+          options: [
+            "To move to the next line after completing one row",
+            "To stop the outer loop",
+            "To restart the program",
+            "To create a variable",
+          ],
+          answer: 0,
+          explanation:
+            "After one row is printed by the inner loop, println moves output to the next line.",
+        },
+        {
+          topic: "Advanced",
+          question: "What is a labeled break useful for?",
+          options: [
+            "Breaking out of an outer loop from inside an inner loop",
+            "Skipping one column",
+            "Making the loop faster",
+            "Printing labels in output",
+          ],
+          answer: 0,
+          explanation:
+            "A labeled break can exit an outer loop from inside a nested loop.",
+        },
+        {
+          topic: "Performance",
+          question:
+            "A double loop that runs n times inside n times is often thought of as:",
+          options: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+          answer: 3,
+          explanation:
+            "If one loop runs n times inside another n times, the total work is often O(n²).",
+        },
+        {
+          topic: "Tracing",
+          question:
+            "How many total times does the inner loop body run here? outer 3 times, inner 4 times each.",
+          options: ["7", "12", "3", "4"],
+          answer: 1,
+          explanation: "The total is 3 × 4 = 12.",
+        },
+      ];
+
+      const quizContainer = document.getElementById("quizContainer");
+      const totalQuestions = document.getElementById("totalQuestions");
+      const resultBox = document.getElementById("resultBox");
+      const scoreText = document.getElementById("scoreText");
+      const resultNote = document.getElementById("resultNote");
+      const checkBtn = document.getElementById("checkBtn");
+      const resetBtn = document.getElementById("resetBtn");
+
+      function createQuiz() {
+        quizContainer.innerHTML = "";
+        totalQuestions.textContent = quizData.length;
+
+        quizData.forEach((item, index) => {
+          const card = document.createElement("div");
+          card.className = "question-card";
+          card.dataset.answer = item.answer;
+
+          const optionsHtml = item.options
+            .map(
+              (option, optionIndex) => `
+          <label class="option" data-option-index="${optionIndex}">
+            <input type="radio" name="question-${index}" value="${optionIndex}">
+            <span>${option}</span>
+          </label>
+        `,
+            )
+            .join("");
+
+          card.innerHTML = `
+          <div class="question-head">
+            <div class="question-number">Question ${index + 1}</div>
+            <div class="topic-tag">${item.topic}</div>
+          </div>
+          <p class="question-text">${item.question}</p>
+          <div class="options">${optionsHtml}</div>
+          <div class="feedback" id="feedback-${index}"></div>
+        `;
+
+          quizContainer.appendChild(card);
+        });
+      }
+
+      function checkAnswers() {
+        let score = 0;
+        const cards = quizContainer.querySelectorAll(".question-card");
+
+        cards.forEach((card, index) => {
+          const selected = card.querySelector(
+            `input[name="question-${index}"]:checked`,
+          );
+          const correctIndex = Number(card.dataset.answer);
+          const feedback = card.querySelector(".feedback");
+          const optionLabels = card.querySelectorAll(".option");
+
+          optionLabels.forEach((label) => {
+            label.classList.remove("correct", "incorrect");
+          });
+
+          if (selected) {
+            const selectedIndex = Number(selected.value);
+
+            if (selectedIndex === correctIndex) {
+              score++;
+              optionLabels[selectedIndex].classList.add("correct");
+              feedback.className = "feedback show correct";
+              feedback.textContent = "Correct. " + quizData[index].explanation;
+            } else {
+              optionLabels[selectedIndex].classList.add("incorrect");
+              optionLabels[correctIndex].classList.add("correct");
+              feedback.className = "feedback show incorrect";
+              feedback.textContent =
+                "Incorrect. " + quizData[index].explanation;
+            }
+          } else {
+            optionLabels[correctIndex].classList.add("correct");
+            feedback.className = "feedback show incorrect";
+            feedback.textContent =
+              "No answer selected. " + quizData[index].explanation;
+          }
+        });
+
+        scoreText.textContent = `${score} / ${quizData.length}`;
+        resultNote.textContent = getResultMessage(score, quizData.length);
+        resultBox.classList.add("show");
+        resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function getResultMessage(score, total) {
+        const percent = (score / total) * 100;
+
+        if (percent === 100)
+          return "Excellent. You understood nested loops very well.";
+        if (percent >= 80) return "Very good. Your understanding is strong.";
+        if (percent >= 60)
+          return "Good effort. Revise a few points and try again.";
+        if (percent >= 40)
+          return "You know the basics, but more practice will help.";
+        return "Please revise the lesson carefully and try the quiz again.";
+      }
+
+      function resetQuiz() {
+        createQuiz();
+        resultBox.classList.remove("show");
+        scoreText.textContent = "0 / 0";
+        resultNote.textContent = "Your result will appear here.";
+        window.scrollTo({
+          top: quizContainer.offsetTop - 20,
+          behavior: "smooth",
+        });
+      }
+
+      checkBtn.addEventListener("click", checkAnswers);
+      resetBtn.addEventListener("click", resetQuiz);
+
+      createQuiz();
+    </script>
+  </body>
+</html>
