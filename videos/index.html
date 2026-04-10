@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Programmer's Picnic | Learn to Build, Create, and Grow</title>
+  <meta
+    name="description"
+    content="Programmer's Picnic is a practical learning platform for coding, web development, Java, Spring Boot, AI/ML, Docker, and real projects built step by step."
+  />
+  <meta name="theme-color" content="#f59e0b" />
+
+  <style>
+    :root{
+      --bg: #fffaf0;
+      --bg-soft: #fff5dd;
+      --panel: #ffffff;
+      --panel-2: #fff0c2;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #ead7a4;
+      --brand: #d97706;
+      --brand-2: #f59e0b;
+      --brand-3: #fbbf24;
+      --good: #166534;
+      --shadow: 0 16px 40px rgba(217,119,6,.12);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --maxw: 1220px;
+    }
+
+    *{ box-sizing:border-box; }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(251,191,36,.18), transparent 24%),
+        radial-gradient(circle at left center, rgba(245,158,11,.12), transparent 26%),
+        linear-gradient(180deg, #fffdf7 0%, #fff7e8 100%);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    .container{
+      width:min(var(--maxw), calc(100% - 32px));
+      margin-inline:auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter: blur(14px);
+      background:rgba(255,250,240,.88);
+      border-bottom:1px solid rgba(234,215,164,.8);
+    }
+
+    .nav{
+      min-height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
+    }
+
+    .brand-badge{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      background:
+        linear-gradient(135deg, var(--brand-3), var(--brand));
+      color:#fff;
+      display:grid;
+      place-items:center;
+      font-size:1.35rem;
+      font-weight:800;
+      box-shadow: var(--shadow);
+      flex:0 0 auto;
+    }
+
+    .brand-text{
+      min-width:0;
+    }
+
+    .brand-text h1{
+      margin:0;
+      font-size:1.1rem;
+      line-height:1.15;
+      letter-spacing:.2px;
+    }
+
+    .brand-text p{
+      margin:2px 0 0;
+      color:var(--muted);
+      font-size:.93rem;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-links a{
+      padding:10px 14px;
+      border-radius:999px;
+      color:var(--muted);
+      font-weight:600;
+      font-size:.95rem;
+      transition:.2s ease;
+    }
+
+    .nav-links a:hover{
+      background:var(--panel-2);
+      color:var(--brand);
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:none;
+      border-radius:999px;
+      padding:13px 20px;
+      font-weight:800;
+      cursor:pointer;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .btn-primary{
+      color:#fff;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow:0 16px 30px rgba(217,119,6,.22);
+    }
+
+    .btn-secondary{
+      background:#fff;
+      color:var(--brand);
+      border:1px solid var(--line);
+    }
+
+    .hero{
+      padding:52px 0 28px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .hero-copy{
+      padding:14px 0;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(251,191,36,.18);
+      color:#9a5800;
+      font-weight:800;
+      font-size:.9rem;
+      margin-bottom:18px;
+      border:1px solid rgba(245,158,11,.18);
+    }
+
+    .hero h2{
+      font-size:clamp(2.2rem, 5vw, 4.4rem);
+      line-height:1.04;
+      margin:0 0 16px;
+      letter-spacing:-1.2px;
+    }
+
+    .hero h2 .accent{
+      color:var(--brand);
+    }
+
+    .hero p{
+      margin:0;
+      color:#4b5563;
+      font-size:1.1rem;
+      max-width:760px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:26px;
+    }
+
+    .hero-points{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:14px;
+      margin-top:28px;
+    }
+
+    .hero-point{
+      background:rgba(255,255,255,.76);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.04);
+    }
+
+    .hero-point strong{
+      display:block;
+      font-size:1.25rem;
+      color:var(--brand);
+      margin-bottom:4px;
+    }
+
+    .hero-card{
+      position:relative;
+      background:linear-gradient(180deg, #fffaf0, #fff2cf);
+      border:1px solid var(--line);
+      border-radius:32px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:auto -40px -55px auto;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(245,158,11,.22), transparent 70%);
+    }
+
+    .mock-window{
+      border-radius:22px;
+      background:#fff;
+      border:1px solid #f0dfb0;
+      overflow:hidden;
+      box-shadow:0 22px 40px rgba(0,0,0,.08);
+    }
+
+    .mock-top{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 14px;
+      border-bottom:1px solid #f3e5bd;
+      background:#fff9ec;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#f59e0b;
+      opacity:.65;
+    }
+
+    .mock-body{
+      padding:18px;
+      display:grid;
+      gap:16px;
+      background:linear-gradient(180deg, #ffffff 0%, #fffdf6 100%);
+    }
+
+    .code-card{
+      border:1px solid #f3e5bd;
+      border-radius:16px;
+      padding:16px;
+      background:#1f2937;
+      color:#f9fafb;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:.92rem;
+      overflow:auto;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .mini-box{
+      border-radius:16px;
+      padding:16px;
+      border:1px solid #f1e0ad;
+      background:#fff8df;
+    }
+
+    .mini-box h3{
+      margin:0 0 6px;
+      font-size:1rem;
+    }
+
+    .mini-box p{
+      margin:0;
+      font-size:.95rem;
+      color:var(--muted);
+    }
+
+    .section{
+      padding:34px 0;
+    }
+
+    .section-header{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+
+    .section-header h3{
+      margin:0;
+      font-size:clamp(1.6rem, 3vw, 2.4rem);
+      line-height:1.1;
+      letter-spacing:-.5px;
+    }
+
+    .section-header p{
+      margin:10px 0 0;
+      color:var(--muted);
+      max-width:760px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card{
+      background:rgba(255,255,255,.88);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:22px;
+      box-shadow:0 12px 28px rgba(0,0,0,.05);
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 34px rgba(0,0,0,.08);
+      border-color:#e5bf5f;
+    }
+
+    .icon{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      font-size:1.35rem;
+      background:linear-gradient(135deg, rgba(245,158,11,.18), rgba(251,191,36,.28));
+      color:#9a5800;
+      margin-bottom:16px;
+    }
+
+    .card h4{
+      margin:0 0 8px;
+      font-size:1.16rem;
+    }
+
+    .card p{
+      margin:0 0 14px;
+      color:var(--muted);
+    }
+
+    .chip-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      background:#fff5d6;
+      border:1px solid #f3dfaa;
+      color:#8a5a00;
+      font-weight:700;
+      font-size:.82rem;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap:22px;
+      align-items:stretch;
+    }
+
+    .feature-panel,
+    .highlight-panel{
+      background:rgba(255,255,255,.88);
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:24px;
+      box-shadow:0 12px 28px rgba(0,0,0,.05);
+    }
+
+    .feature-list{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .feature-item{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      padding:14px;
+      border:1px solid #f2e2b7;
+      border-radius:18px;
+      background:#fffaf0;
+    }
+
+    .feature-item .tick{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      background:rgba(34,197,94,.12);
+      color:var(--good);
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+      font-weight:900;
+    }
+
+    .feature-item h5{
+      margin:0 0 4px;
+      font-size:1rem;
+    }
+
+    .feature-item p{
+      margin:0;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .highlight-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .stat{
+      background:#fff8df;
+      border:1px solid #f0dfaf;
+      border-radius:18px;
+      padding:18px;
+    }
+
+    .stat strong{
+      display:block;
+      font-size:1.8rem;
+      color:var(--brand);
+      line-height:1;
+      margin-bottom:8px;
+    }
+
+    .stat span{
+      color:var(--muted);
+      font-weight:600;
+      font-size:.95rem;
+    }
+
+    .cta{
+      padding:30px 0 54px;
+    }
+
+    .cta-box{
+      background:linear-gradient(135deg, #fff2c7, #fff9e8 45%, #ffffff 100%);
+      border:1px solid var(--line);
+      border-radius:34px;
+      padding:30px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:24px;
+      align-items:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      font-size:clamp(1.8rem, 4vw, 3rem);
+      line-height:1.08;
+      letter-spacing:-.7px;
+    }
+
+    .cta-box p{
+      margin:0;
+      color:#4b5563;
+      max-width:760px;
+      font-size:1.05rem;
+    }
+
+    .cta-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:flex-start;
+      margin-top:22px;
+    }
+
+    .cta-note{
+      background:#fff;
+      border:1px solid #f0dfaf;
+      border-radius:24px;
+      padding:22px;
+    }
+
+    .cta-note h4{
+      margin:0 0 10px;
+      font-size:1.1rem;
+    }
+
+    .cta-note ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+
+    .cta-note li + li{
+      margin-top:8px;
+    }
+
+    footer{
+      border-top:1px solid rgba(234,215,164,.8);
+      background:rgba(255,250,240,.85);
+    }
+
+    .footer-wrap{
+      padding:22px 0 32px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .footer-wrap p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .footer-links{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links a{
+      padding:10px 14px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    @media (max-width: 1080px){
+      .hero-grid,
+      .split,
+      .cta-box{
+        grid-template-columns:1fr;
+      }
+
+      .cards{
+        grid-template-columns:repeat(2, minmax(0,1fr));
+      }
+    }
+
+    @media (max-width: 720px){
+      .container{
+        width:min(var(--maxw), calc(100% - 20px));
+      }
+
+      .nav{
+        padding:10px 0;
+        align-items:flex-start;
+      }
+
+      .nav-links{
+        width:100%;
+        justify-content:flex-start;
+      }
+
+      .hero{
+        padding-top:28px;
+      }
+
+      .hero-points,
+      .cards,
+      .highlight-grid,
+      .mini-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero h2{
+        letter-spacing:-.7px;
+      }
+
+      .card,
+      .feature-panel,
+      .highlight-panel,
+      .cta-box{
+        padding:20px;
+      }
+
+      .brand-text h1{
+        font-size:1rem;
+      }
+
+      .brand-text p{
+        font-size:.88rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-badge">PP</div>
+        <div class="brand-text">
+          <h1>Programmer's Picnic</h1>
+          <p>Practical learning. Real projects. Clear teaching.</p>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#paths">Learning Paths</a>
+        <a href="#projects">Projects</a>
+        <a href="#why">Why Us</a>
+        <a href="#start">Start</a>
+        <a class="btn btn-primary" href="#start">Explore Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">🚀 Learn by building, not by memorizing</div>
+
+          <h2>
+            Welcome to <span class="accent">Programmer's Picnic</span><br />
+            where coding becomes practical, clear, and exciting.
+          </h2>
+
+          <p>
+            Learn web development, Java, Spring Boot, Docker, AI/ML, problem solving,
+            and project building through hands-on lessons designed for beginners as well
+            as serious learners who want depth.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#paths">Start Learning</a>
+            <a class="btn btn-secondary" href="#projects">See Projects</a>
+          </div>
+
+          <div class="hero-points">
+            <div class="hero-point">
+              <strong>Ground to advanced</strong>
+              <span>Concepts explained step by step without skipping foundations.</span>
+            </div>
+            <div class="hero-point">
+              <strong>Real output</strong>
+              <span>Build pages, tools, apps, APIs, and project-based solutions.</span>
+            </div>
+            <div class="hero-point">
+              <strong>Made to practice</strong>
+              <span>Lessons, examples, challenges, and guided implementation flow.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="mock-window">
+            <div class="mock-top">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+
+            <div class="mock-body">
+              <div class="code-card">
+&lt;h1&gt;Hello, Builder!&lt;/h1&gt;
+&lt;p&gt;Today we create, test, fix, and deploy.&lt;/p&gt;
+
+function grow(skill) {
+  return skill + " + practice + projects";
+}
+              </div>
+
+              <div class="mini-grid">
+                <div class="mini-box">
+                  <h3>Web Development</h3>
+                  <p>HTML, CSS, JavaScript, layout, UI design, forms, and browser tools.</p>
+                </div>
+                <div class="mini-box">
+                  <h3>Backend & Java</h3>
+                  <p>Java, Spring Boot, APIs, database integration, and deployment basics.</p>
+                </div>
+                <div class="mini-box">
+                  <h3>AI / ML</h3>
+                  <p>Statistics, Python ideas, models, regression, and applied thinking.</p>
+                </div>
+                <div class="mini-box">
+                  <h3>Projects</h3>
+                  <p>Learn through tools, mini apps, visual demos, and production-style pages.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="paths">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h3>Learning paths that actually lead somewhere</h3>
+            <p>
+              Each path is designed to move from the basics into practical implementation.
+              You do not just read. You build.
+            </p>
+          </div>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="icon">🌐</div>
+            <h4>Frontend Development</h4>
+            <p>
+              Learn HTML, CSS, JavaScript, responsive design, forms, layout systems,
+              animations, and browser-based tools from scratch.
+            </p>
+            <div class="chip-row">
+              <span class="chip">HTML</span>
+              <span class="chip">CSS</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">Responsive UI</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="icon">☕</div>
+            <h4>Java and Spring Boot</h4>
+            <p>
+              Understand Java fundamentals, OOP, controllers, templates, REST APIs,
+              validation, persistence, and full beginner-friendly backend flow.
+            </p>
+            <div class="chip-row">
+              <span class="chip">Java</span>
+              <span class="chip">Spring Boot</span>
+              <span class="chip">Thymeleaf</span>
+              <span class="chip">REST</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="icon">🤖</div>
+            <h4>AI / ML Foundations</h4>
+            <p>
+              Build strong foundations in data thinking, statistics, model intuition,
+              regression, and practical AI/ML learning pathways.
+            </p>
+            <div class="chip-row">
+              <span class="chip">Statistics</span>
+              <span class="chip">Regression</span>
+              <span class="chip">Python Ideas</span>
+              <span class="chip">ML Basics</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="icon">🐳</div>
+            <h4>Dev Tools and Deployment</h4>
+            <p>
+              Learn Docker, command line thinking, build workflows, hosting concepts,
+              and how to move from code on your machine to code online.
+            </p>
+            <div class="chip-row">
+              <span class="chip">Docker</span>
+              <span class="chip">CLI</span>
+              <span class="chip">GitHub Pages</span>
+              <span class="chip">Deployment</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="icon">🧠</div>
+            <h4>Problem Solving</h4>
+            <p>
+              Practice logic, algorithms, patterns, debugging, and the thinking habits
+              that make a programmer stronger over time.
+            </p>
+            <div class="chip-row">
+              <span class="chip">Logic</span>
+              <span class="chip">Algorithms</span>
+              <span class="chip">Debugging</span>
+              <span class="chip">Practice</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="icon">🛠️</div>
+            <h4>Project-Based Learning</h4>
+            <p>
+              Create real pages, utilities, interactive lessons, educational tools,
+              and production-style mini applications.
+            </p>
+            <div class="chip-row">
+              <span class="chip">Mini Apps</span>
+              <span class="chip">Interactive Tools</span>
+              <span class="chip">Lessons</span>
+              <span class="chip">Practice Builds</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container split">
+        <div class="feature-panel">
+          <div class="section-header" style="margin-bottom:0;">
+            <div>
+              <h3>What you can build here</h3>
+              <p>
+                The goal is not just to understand syntax. The goal is to create things
+                that feel real, useful, and deployable.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="tick">✓</div>
+              <div>
+                <h5>Landing pages and websites</h5>
+                <p>Design structured, responsive, attractive pages with clean sections and conversion-focused flow.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="tick">✓</div>
+              <div>
+                <h5>Interactive teaching tools</h5>
+                <p>Make editors, quizzes, demos, calculators, explainers, and guided learning interfaces.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="tick">✓</div>
+              <div>
+                <h5>Backend apps and APIs</h5>
+                <p>Process forms, save data, build routes, return JSON, and connect to databases.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="tick">✓</div>
+              <div>
+                <h5>Deployment-ready projects</h5>
+                <p>Move from local files to hosted experiences using practical workflows and repeatable steps.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight-panel">
+          <div class="section-header" style="margin-bottom:0;">
+            <div>
+              <h3>Why learners stay with Programmer's Picnic</h3>
+              <p>
+                The teaching style is direct, practical, and built around getting the learner to actually do the work.
+              </p>
+            </div>
+          </div>
+
+          <div class="highlight-grid">
+            <div class="stat">
+              <strong>Stepwise</strong>
+              <span>Built for learners who want concepts explained clearly from the ground up.</span>
+            </div>
+            <div class="stat">
+              <strong>Practical</strong>
+              <span>Examples are chosen for implementation, not just theory.</span>
+            </div>
+            <div class="stat">
+              <strong>Project-first</strong>
+              <span>Learning turns into pages, tools, code files, and deployable output.</span>
+            </div>
+            <div class="stat">
+              <strong>Beginner-safe</strong>
+              <span>Care is taken not to assume too much too early.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="why">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h3>Built for serious beginners and growing developers</h3>
+            <p>
+              Whether you are starting programming for the first time or expanding into
+              full-stack, Java, Docker, or AI/ML, this platform helps you move with clarity.
+            </p>
+          </div>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="icon">📘</div>
+            <h4>Clear explanations</h4>
+            <p>
+              Hard topics are broken into understandable steps so you can learn without feeling lost.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="icon">🧪</div>
+            <h4>Practice-centered lessons</h4>
+            <p>
+              Every concept becomes stronger when it is used, tested, fixed, and rebuilt.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="icon">📂</div>
+            <h4>Useful outputs</h4>
+            <p>
+              Pages, scripts, demos, apps, and real files give you something concrete after every effort.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="start">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h3>Start your next build with Programmer's Picnic</h3>
+            <p>
+              Learn carefully. Build confidently. Grow through real practice.
+              This is a place for coding lessons, real implementation, and a stronger programming journey.
+            </p>
+
+            <div class="cta-actions">
+              <a class="btn btn-primary" href="#">Enter the Site</a>
+              <a class="btn btn-secondary" href="#paths">Browse Learning Paths</a>
+            </div>
+          </div>
+
+          <aside class="cta-note">
+            <h4>Good front-page sections to link next</h4>
+            <ul>
+              <li>Courses and learning tracks</li>
+              <li>Latest lessons and blog posts</li>
+              <li>Projects and interactive tools</li>
+              <li>About the platform and instructor</li>
+              <li>Contact or join community</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-wrap">
+      <p>© 2026 Programmer's Picnic. Learn, build, and keep growing.</p>
+
+      <div class="footer-links">
+        <a href="#paths">Learning Paths</a>
+        <a href="#projects">Projects</a>
+        <a href="#start">Get Started</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
