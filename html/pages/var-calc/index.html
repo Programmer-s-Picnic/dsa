@@ -1,0 +1,1312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Using var() and calc() in CSS — Reverse Text Color from Background</title>
+
+  <script
+    async
+    crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
+  ></script>
+
+  <meta
+    name="description"
+    content="A complete beginner-friendly lesson on using var() and calc() in CSS, including how to derive a reverse text color from background color using CSS custom properties."
+  />
+  <meta name="theme-color" content="#d97706" />
+
+  <style>
+    :root{
+      --bg:#fff8ef;
+      --panel:#ffffff;
+      --panel-2:#fff3df;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --brand:#d97706;
+      --brand-2:#f59e0b;
+      --line:#ead7c4;
+      --ok:#166534;
+      --ok-bg:#ecfdf3;
+      --warn-bg:#fff8e8;
+      --shadow:0 12px 35px rgba(0,0,0,.08);
+      --radius:22px;
+      --max:1200px;
+      --code:#111827;
+      --code-ink:#f9fafb;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      line-height:1.65;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(245,158,11,.10), transparent 24rem),
+        linear-gradient(180deg, #fff9f1 0%, var(--bg) 100%);
+    }
+
+    a{color:inherit}
+    img{max-width:100%;display:block}
+    code, pre, textarea, input{font-family:Consolas, Monaco, "Courier New", monospace}
+
+    .container{
+      width:min(var(--max), calc(100% - 28px));
+      margin:0 auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter:blur(10px);
+      background:rgba(255,248,239,.92);
+      border-bottom:1px solid var(--line);
+    }
+
+    .topbar-inner{
+      min-height:68px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      text-decoration:none;
+      color:var(--brand);
+      font-weight:800;
+    }
+
+    .brand-badge{
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      box-shadow:var(--shadow);
+      font-size:1.1rem;
+      flex:0 0 auto;
+    }
+
+    .nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+
+    .nav a{
+      text-decoration:none;
+      padding:10px 12px;
+      border-radius:999px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .nav a:hover{
+      background:#fff;
+      color:var(--brand);
+    }
+
+    .nav-toggle{
+      display:none;
+      border:none;
+      background:#fff;
+      color:var(--brand);
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .hero{
+      padding:40px 0 24px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.12fr .88fr;
+      gap:22px;
+      align-items:stretch;
+    }
+
+    .hero-card,
+    .side-card,
+    .lesson-card,
+    .check-card,
+    .tip-card,
+    .project-preview{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .hero-card,
+    .side-card,
+    .lesson-card{
+      padding:24px;
+    }
+
+    .hero h1{
+      margin:0 0 10px;
+      line-height:1.1;
+      font-size:clamp(2rem,5vw,3.4rem);
+    }
+
+    .eyebrow{
+      margin:0 0 8px;
+      color:var(--brand);
+      font-weight:800;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      font-size:.85rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      margin:0;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .btn{
+      border:none;
+      border-radius:14px;
+      padding:12px 16px;
+      font-weight:800;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+
+    .btn:hover{transform:translateY(-2px)}
+
+    .btn-primary{
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#fff;
+      box-shadow:0 10px 24px rgba(217,119,6,.24);
+    }
+
+    .btn-secondary{
+      background:#fff;
+      color:var(--brand);
+      border:1px solid var(--line);
+    }
+
+    .pill-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .pill{
+      background:var(--panel-2);
+      border:1px solid var(--line);
+      color:var(--brand);
+      border-radius:999px;
+      padding:8px 12px;
+      font-weight:800;
+      font-size:.92rem;
+    }
+
+    .mini-list{
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .mini-item{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px 14px;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 320px;
+      gap:22px;
+      margin:14px auto 36px;
+    }
+
+    .toc{
+      position:sticky;
+      top:88px;
+      align-self:start;
+      padding:18px;
+    }
+
+    .toc h3{
+      margin:0 0 12px;
+      font-size:1rem;
+    }
+
+    .toc a{
+      display:block;
+      text-decoration:none;
+      padding:10px 12px;
+      border-radius:12px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .toc a:hover{
+      background:var(--panel-2);
+      color:var(--brand);
+    }
+
+    .lesson-card{
+      margin-bottom:20px;
+      scroll-margin-top:90px;
+    }
+
+    .lesson-card h2{
+      margin:0 0 8px;
+      font-size:clamp(1.4rem,3vw,2rem);
+    }
+
+    .lesson-card h3{
+      margin-top:24px;
+      margin-bottom:8px;
+    }
+
+    .muted{color:var(--muted)}
+
+    .step-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:8px;
+    }
+
+    .step-no{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:44px;
+      height:44px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      color:#fff;
+      font-weight:900;
+      box-shadow:0 8px 20px rgba(217,119,6,.22);
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .three-col{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .explain,
+    .check-card,
+    .tip-card{
+      padding:16px 18px;
+      margin-top:14px;
+    }
+
+    .explain{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#fffdf9;
+    }
+
+    .check-card{
+      background:var(--ok-bg);
+      border:1px solid #b7ebcb;
+    }
+
+    .check-card h4,
+    .tip-card h4{
+      margin:0 0 8px;
+    }
+
+    .tip-card{
+      background:var(--warn-bg);
+      border:1px solid #f6dfb0;
+    }
+
+    .code-wrap{
+      margin-top:14px;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid #1f2937;
+      box-shadow:var(--shadow);
+    }
+
+    .code-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 14px;
+      background:#0f172a;
+      color:#e5e7eb;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .code-title{
+      font-weight:800;
+      font-size:.95rem;
+    }
+
+    .copy-btn{
+      border:none;
+      border-radius:10px;
+      padding:9px 12px;
+      background:#1f2937;
+      color:#fff;
+      cursor:pointer;
+      font-weight:800;
+    }
+
+    .copy-btn:hover{
+      background:#374151;
+    }
+
+    pre{
+      margin:0;
+      padding:18px;
+      overflow:auto;
+      background:var(--code);
+      color:var(--code-ink);
+      font-size:.94rem;
+      line-height:1.6;
+      tab-size:2;
+    }
+
+    .inline-code{
+      background:#fff2dd;
+      border:1px solid #f0d6aa;
+      padding:.1rem .4rem;
+      border-radius:8px;
+      font-size:.95em;
+    }
+
+    ul.clean, ol.clean{
+      padding-left:20px;
+      margin:10px 0 0;
+    }
+
+    .demo-shell{
+      margin-top:18px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow:var(--shadow);
+    }
+
+    .demo-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 18px;
+      background:linear-gradient(90deg,#fff6e8,#fffdf7);
+      border-bottom:1px solid var(--line);
+      flex-wrap:wrap;
+    }
+
+    .demo-head h3{
+      margin:0;
+      color:var(--brand);
+      font-size:1.08rem;
+    }
+
+    .demo-note{
+      color:var(--muted);
+      font-size:.95rem;
+      margin-top:4px;
+    }
+
+    .play-area{
+      padding:18px;
+      background:#fffdf9;
+    }
+
+    .preview-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:16px;
+      margin-top:12px;
+    }
+
+    .reverse-card{
+      --bg-r: 34;
+      --bg-g: 120;
+      --bg-b: 200;
+      --reverse-r: calc(255 - var(--bg-r));
+      --reverse-g: calc(255 - var(--bg-g));
+      --reverse-b: calc(255 - var(--bg-b));
+      background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+      color: rgb(var(--reverse-r), var(--reverse-g), var(--reverse-b));
+      border-radius:18px;
+      min-height:140px;
+      padding:18px;
+      border:1px solid rgba(0,0,0,.08);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      box-shadow:var(--shadow);
+    }
+
+    .reverse-card strong{
+      font-size:1.05rem;
+      margin-bottom:6px;
+    }
+
+    .swatch-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .swatch{
+      border-radius:16px;
+      padding:14px;
+      min-height:110px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      font-weight:900;
+      border:1px solid rgba(0,0,0,.08);
+    }
+
+    .formula-box{
+      border:1px dashed #e7c995;
+      background:#fffdf8;
+      border-radius:18px;
+      padding:16px;
+      margin-top:14px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:14px;
+      overflow:hidden;
+      border-radius:14px;
+    }
+
+    th,td{
+      border:1px solid var(--line);
+      padding:12px;
+      text-align:left;
+      vertical-align:top;
+      background:#fff;
+    }
+
+    th{
+      background:#fff5e8;
+      color:var(--brand);
+    }
+
+    .lab-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      margin-top:16px;
+    }
+
+    .control-card{
+      background:#fffdf9;
+      border:1px solid #efdcb7;
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .control-card label{
+      display:block;
+      font-weight:800;
+      margin:0 0 8px;
+      color:#92400e;
+    }
+
+    .control-card input[type="range"]{
+      width:100%;
+    }
+
+    .value-row{
+      margin-top:8px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .lab-preview{
+      --bg-r: 40;
+      --bg-g: 120;
+      --bg-b: 210;
+      --reverse-r: calc(255 - var(--bg-r));
+      --reverse-g: calc(255 - var(--bg-g));
+      --reverse-b: calc(255 - var(--bg-b));
+      background: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+      color: rgb(var(--reverse-r), var(--reverse-g), var(--reverse-b));
+      border-radius:20px;
+      min-height:220px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:18px;
+      border:1px solid rgba(0,0,0,.08);
+      transition:background .2s ease, color .2s ease;
+    }
+
+    .lab-preview .inner{
+      max-width:380px;
+    }
+
+    .big-code{
+      font-size:1rem;
+      font-weight:900;
+      line-height:1.5;
+      word-break:break-word;
+    }
+
+    .project-preview{
+      padding:20px;
+      background:linear-gradient(180deg,#fff,#fff8ef);
+    }
+
+    .project-frame{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:20px;
+      padding:18px;
+      margin-top:14px;
+    }
+
+    .project-card-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+
+    .project-mini{
+      --bg-r: 70;
+      --bg-g: 80;
+      --bg-b: 200;
+      --reverse-r: calc(255 - var(--bg-r));
+      --reverse-g: calc(255 - var(--bg-g));
+      --reverse-b: calc(255 - var(--bg-b));
+      background:rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+      color:rgb(var(--reverse-r), var(--reverse-g), var(--reverse-b));
+      border-radius:16px;
+      padding:16px;
+      min-height:120px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      border:1px solid rgba(0,0,0,.08);
+      font-weight:800;
+    }
+
+    .footer{
+      padding:28px 0 60px;
+      text-align:center;
+      color:var(--muted);
+    }
+
+    [id^="speak"]{
+      scroll-margin-top:100px;
+    }
+
+    @media (max-width: 980px){
+      .hero-grid,
+      .main-grid,
+      .two-col,
+      .three-col,
+      .lab-grid,
+      .preview-grid,
+      .project-card-grid{
+        grid-template-columns:1fr;
+      }
+
+      .toc{
+        position:relative;
+        top:0;
+        order:-1;
+      }
+
+      .swatch-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media (max-width: 760px){
+      .nav{
+        display:none;
+        width:100%;
+        flex-direction:column;
+        align-items:stretch;
+        padding:10px 0 2px;
+      }
+
+      .nav.open{
+        display:flex;
+      }
+
+      .nav a{
+        background:#fff;
+        border:1px solid var(--line);
+      }
+
+      .nav-toggle{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+      }
+
+      .topbar-inner{
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .topbar-row{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+      }
+
+      .hero-card,.side-card,.lesson-card{padding:18px}
+      pre{font-size:.88rem}
+      .swatch-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="topbar-row">
+        <a class="brand" href="#top">
+          <span class="brand-badge">VC</span>
+          <span>var() and calc() Lesson</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+      </div>
+
+      <nav class="nav" id="mainNav">
+        <a href="#goal">Goal</a>
+        <a href="#step0">Step 0</a>
+        <a href="#step1">Step 1</a>
+        <a href="#step2">Step 2</a>
+        <a href="#step3">Step 3</a>
+        <a href="#step4">Step 4</a>
+        <a href="#lab">Lab</a>
+        <a href="#final-build">Final Build</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="hero-card">
+        <p class="eyebrow" id="speak0" data-pp-speak-title="true">CSS Lesson • Custom Properties + Math</p>
+        <h1 id="speak1">Using <span class="inline-code">var()</span> and <span class="inline-code">calc()</span> in CSS</h1>
+        <p id="speak2">
+          This lesson teaches what <span class="inline-code">var()</span> and <span class="inline-code">calc()</span> do,
+          why they are useful, and how to use them together to set text color as the reverse of the background color.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#step0">Start Lesson</a>
+          <a class="btn btn-secondary" href="#lab">Open Live Reverse Color Lab</a>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill">Beginner Friendly</span>
+          <span class="pill">CSS Variables</span>
+          <span class="pill">CSS Math</span>
+          <span class="pill">Reverse Color</span>
+          <span class="pill">Interactive Lab</span>
+        </div>
+      </div>
+
+      <aside class="side-card">
+        <h3 id="speak3" style="margin-top:0;">What students will learn</h3>
+        <div class="mini-list">
+          <div class="mini-item" id="speak4"><strong>What is var()</strong><br /><span class="muted">Read values from CSS variables</span></div>
+          <div class="mini-item" id="speak5"><strong>What is calc()</strong><br /><span class="muted">Do math directly in CSS</span></div>
+          <div class="mini-item" id="speak6"><strong>Store RGB values</strong><br /><span class="muted">Use separate red, green, blue variables</span></div>
+          <div class="mini-item" id="speak7"><strong>Reverse text color</strong><br /><span class="muted">Use 255 minus each channel</span></div>
+          <div class="mini-item" id="speak8"><strong>Build flexible UI</strong><br /><span class="muted">Reuse values across many elements</span></div>
+          <div class="mini-item" id="speak9"><strong>Avoid mistakes</strong><br /><span class="muted">Understand the limits of CSS color math</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="container main-grid">
+    <main>
+      <section class="lesson-card" id="goal">
+        <h2 id="speak10">Lesson Goal</h2>
+        <p class="muted" id="speak11">
+          CSS variables help us store reusable values. CSS math helps us calculate new values from existing ones.
+          In this lesson, we will use both to create a background color and then automatically derive a reversed text color.
+        </p>
+
+        <div class="two-col">
+          <div class="tip-card">
+            <h4 id="speak12">Memory trick</h4>
+            <p id="speak13" style="margin:0;">
+              <strong>Store with custom properties. Read with var(). Compute with calc().</strong>
+            </p>
+          </div>
+
+          <div class="check-card">
+            <h4 id="speak14">Main idea of reverse color</h4>
+            <p id="speak15" style="margin:0;">
+              If a channel is 40, its reverse is 255 minus 40, which is 215.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step0">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">0</span>
+            <div>
+              <h2 id="speak16" style="margin:0;">Step 0 — Understand <span class="inline-code">var()</span></h2>
+              <p class="muted" style="margin:4px 0 0;" id="speak17">We first learn how CSS variables work.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain" id="speak18">
+          A CSS custom property is a named value. You usually define it in <span class="inline-code">:root</span>.
+          Then you read it using <span class="inline-code">var()</span>.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Basic var() Example</span>
+            <button class="copy-btn" data-copy-target="code-step0">Copy</button>
+          </div>
+          <pre id="code-step0"><code>:root{
+  --brand: #d97706;
+}
+
+.button{
+  background: var(--brand);
+}</code></pre>
+        </div>
+
+        <div class="check-card">
+          <h4>Check</h4>
+          <p style="margin:0;" id="speak19">The variable stores the value. The var() function reads the value.</p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step1">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">1</span>
+            <div>
+              <h2 id="speak20" style="margin:0;">Step 1 — Understand <span class="inline-code">calc()</span></h2>
+              <p class="muted" style="margin:4px 0 0;" id="speak21">Now we learn CSS math.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain" id="speak22">
+          The <span class="inline-code">calc()</span> function lets CSS do calculations. It can add, subtract,
+          multiply, and divide values in valid CSS expressions.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Basic calc() Example</span>
+            <button class="copy-btn" data-copy-target="code-step1">Copy</button>
+          </div>
+          <pre id="code-step1"><code>.box{
+  width: calc(100% - 40px);
+}</code></pre>
+        </div>
+
+        <div class="tip-card">
+          <h4>Important rule</h4>
+          <p style="margin:0;" id="speak23">
+            Always keep spaces around operators inside <span class="inline-code">calc()</span>.
+            Write <span class="inline-code">calc(255 - 40)</span>, not <span class="inline-code">calc(255-40)</span>.
+          </p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step2">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">2</span>
+            <div>
+              <h2 id="speak24" style="margin:0;">Step 2 — Why we store RGB channels separately</h2>
+              <p class="muted" style="margin:4px 0 0;" id="speak25">This is the key to reversing color with CSS math.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain" id="speak26">
+          CSS cannot easily take a full hex color like <span class="inline-code">#2a78c8</span> and directly reverse it with
+          pure <span class="inline-code">calc()</span>. A much better method is to store the red, green, and blue channels separately.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Store RGB Channels as Variables</span>
+            <button class="copy-btn" data-copy-target="code-step2">Copy</button>
+          </div>
+          <pre id="code-step2"><code>:root{
+  --bg-r: 42;
+  --bg-g: 120;
+  --bg-b: 200;
+}</code></pre>
+        </div>
+
+        <div class="formula-box" id="speak27">
+          <strong>Why this works:</strong><br />
+          Reverse red = 255 - red<br />
+          Reverse green = 255 - green<br />
+          Reverse blue = 255 - blue
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step3">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">3</span>
+            <div>
+              <h2 id="speak28" style="margin:0;">Step 3 — Build the reverse text color</h2>
+              <p class="muted" style="margin:4px 0 0;" id="speak29">Now we use var() and calc() together.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain" id="speak30">
+          We define background channels, then create reverse channels using
+          <span class="inline-code">calc(255 - var(--bg-r))</span> and the same idea for green and blue.
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Reverse Color Formula</span>
+            <button class="copy-btn" data-copy-target="code-step3">Copy</button>
+          </div>
+          <pre id="code-step3"><code>:root{
+  --bg-r: 42;
+  --bg-g: 120;
+  --bg-b: 200;
+
+  --reverse-r: calc(255 - var(--bg-r));
+  --reverse-g: calc(255 - var(--bg-g));
+  --reverse-b: calc(255 - var(--bg-b));
+}</code></pre>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-top">
+            <span class="code-title">Use Background and Reversed Text Color</span>
+            <button class="copy-btn" data-copy-target="code-step3b">Copy</button>
+          </div>
+          <pre id="code-step3b"><code>.card{
+  background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+  color: rgb(var(--reverse-r), var(--reverse-g), var(--reverse-b));
+}</code></pre>
+        </div>
+
+        <div class="check-card">
+          <h4>Check</h4>
+          <p style="margin:0;" id="speak31">
+            Background and text are now mathematically linked. Change the background channels once, and the text color updates automatically.
+          </p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="step4">
+        <div class="step-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="step-no">4</span>
+            <div>
+              <h2 id="speak32" style="margin:0;">Step 4 — See multiple examples</h2>
+              <p class="muted" style="margin:4px 0 0;" id="speak33">Here are some cards using the same pattern.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-grid">
+          <div class="reverse-card" style="--bg-r:34; --bg-g:120; --bg-b:200;">
+            <strong>Blue Background</strong>
+            <span>Text color is computed as the reverse of the background.</span>
+          </div>
+
+          <div class="reverse-card" style="--bg-r:180; --bg-g:70; --bg-b:40;">
+            <strong>Rust Background</strong>
+            <span>Each text channel is 255 minus the background channel.</span>
+          </div>
+
+          <div class="reverse-card" style="--bg-r:20; --bg-g:160; --bg-b:90;">
+            <strong>Green Background</strong>
+            <span>Same formula, different values.</span>
+          </div>
+
+          <div class="reverse-card" style="--bg-r:140; --bg-g:90; --bg-b:180;">
+            <strong>Purple Background</strong>
+            <span>The whole pattern stays reusable.</span>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <h4 id="speak34">Important note</h4>
+          <p style="margin:0;" id="speak35">
+            This creates an inverted or reversed RGB color. It is not always the same as the best accessible contrast color,
+            but it is excellent for teaching <span class="inline-code">var()</span> and <span class="inline-code">calc()</span>.
+          </p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="lab">
+        <h2 id="speak36">Live Reverse Color Lab</h2>
+        <p class="muted" id="speak37">
+          Move the sliders to change the background. The text color will update automatically using CSS variables and CSS math.
+        </p>
+
+        <div class="demo-shell">
+          <div class="demo-head">
+            <div>
+              <h3>Interactive RGB Reverse Color Demo</h3>
+              <div class="demo-note">This preview uses exactly the formula taught above.</div>
+            </div>
+          </div>
+
+          <div class="play-area">
+            <div class="lab-grid">
+              <div class="control-card">
+                <label for="redRange">Red Channel</label>
+                <input id="redRange" type="range" min="0" max="255" value="40" />
+                <div class="value-row">Red = <span id="redValue">40</span></div>
+
+                <label for="greenRange" style="margin-top:16px;">Green Channel</label>
+                <input id="greenRange" type="range" min="0" max="255" value="120" />
+                <div class="value-row">Green = <span id="greenValue">120</span></div>
+
+                <label for="blueRange" style="margin-top:16px;">Blue Channel</label>
+                <input id="blueRange" type="range" min="0" max="255" value="210" />
+                <div class="value-row">Blue = <span id="blueValue">210</span></div>
+              </div>
+
+              <div>
+                <div id="labPreview" class="lab-preview">
+                  <div class="inner">
+                    <div class="big-code" id="previewText">Reverse Text Color Preview</div>
+                    <p style="margin:10px 0 0;">Change the sliders. The background and text colors are linked by CSS math.</p>
+                  </div>
+                </div>
+
+                <div class="code-wrap" style="margin-top:16px;">
+                  <div class="code-top">
+                    <span class="code-title">Generated CSS</span>
+                    <button class="copy-btn" data-copy-target="generatedCode">Copy</button>
+                  </div>
+                  <pre id="generatedCode"><code>:root{
+  --bg-r: 40;
+  --bg-g: 120;
+  --bg-b: 210;
+
+  --reverse-r: calc(255 - var(--bg-r));
+  --reverse-g: calc(255 - var(--bg-g));
+  --reverse-b: calc(255 - var(--bg-b));
+}
+
+.card{
+  background: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+  color: rgb(var(--reverse-r), var(--reverse-g), var(--reverse-b));
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <h4 id="speak38">What to observe</h4>
+          <ul class="clean" id="speak39">
+            <li>When red increases, reverse red decreases.</li>
+            <li>When green decreases, reverse green increases.</li>
+            <li>The text color is always computed from the background channels.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="final-build">
+        <h2 id="speak40">Final Build — Complete Single HTML Example</h2>
+        <p class="muted" id="speak41">
+          This is the complete final example students can copy into an HTML file and run directly.
+        </p>
+
+        <div class="project-preview">
+          <strong id="speak42">Preview idea:</strong>
+          <div class="project-frame">
+            <div class="project-card-grid">
+              <div class="project-mini" style="--bg-r:24; --bg-g:94; --bg-b:180;">Blue box<br />auto reverse text</div>
+              <div class="project-mini" style="--bg-r:170; --bg-g:60; --bg-b:48;">Rust box<br />auto reverse text</div>
+              <div class="project-mini" style="--bg-r:72; --bg-g:150; --bg-b:112;">Green box<br />auto reverse text</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code-wrap" style="margin-top:18px;">
+          <div class="code-top">
+            <span class="code-title">Final Complete Code — index.html</span>
+            <button class="copy-btn" data-copy-target="code-final">Copy</button>
+          </div>
+          <pre id="code-final"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
+  &lt;title&gt;Reverse Text Color with var() and calc()&lt;/title&gt;
+
+  &lt;style&gt;
+    :root{
+      --bg-r: 42;
+      --bg-g: 120;
+      --bg-b: 200;
+
+      --reverse-r: calc(255 - var(--bg-r));
+      --reverse-g: calc(255 - var(--bg-g));
+      --reverse-b: calc(255 - var(--bg-b));
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:#fff8ef;
+      color:#1f2937;
+      padding:24px;
+    }
+
+    .card{
+      max-width:700px;
+      margin:40px auto;
+      padding:24px;
+      border-radius:20px;
+      background:rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+      color:rgb(var(--reverse-r), var(--reverse-g), var(--reverse-b));
+      box-shadow:0 12px 30px rgba(0,0,0,.10);
+    }
+
+    h1{
+      margin-top:0;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="card"&gt;
+    &lt;h1&gt;Reverse Text Color Demo&lt;/h1&gt;
+    &lt;p&gt;
+      The background color is created from RGB variables.
+      The text color is computed using 255 minus each background channel.
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <div class="check-card">
+          <h4 id="speak43">Final Check</h4>
+          <ul class="clean" id="speak44">
+            <li>You defined RGB values as CSS variables.</li>
+            <li>You used var() to read those values.</li>
+            <li>You used calc() to compute reversed RGB values.</li>
+            <li>You built a background and text color relationship using only CSS.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="lesson-card">
+        <h2 id="speak45">Practice Tasks for Students</h2>
+        <div class="two-col">
+          <div class="tip-card">
+            <h4 id="speak46">Basic tasks</h4>
+            <ul class="clean" id="speak47">
+              <li>Create a card with your own RGB background values.</li>
+              <li>Compute reverse text color using the same formula.</li>
+              <li>Make 4 boxes with different backgrounds.</li>
+              <li>Change only the variables, not the card CSS.</li>
+            </ul>
+          </div>
+
+          <div class="tip-card">
+            <h4 id="speak48">Upgrade tasks</h4>
+            <ul class="clean" id="speak49">
+              <li>Use the same RGB variables to style borders and shadows.</li>
+              <li>Build a theme switcher using CSS variables.</li>
+              <li>Add sliders for RGB values and update preview live.</li>
+              <li>Compare reverse color with a manually chosen contrast color.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="lesson-card toc">
+      <h3>Lesson Navigation</h3>
+      <a href="#goal">Lesson Goal</a>
+      <a href="#step0">Step 0 — var()</a>
+      <a href="#step1">Step 1 — calc()</a>
+      <a href="#step2">Step 2 — Store RGB</a>
+      <a href="#step3">Step 3 — Reverse formula</a>
+      <a href="#step4">Step 4 — Examples</a>
+      <a href="#lab">Live Lab</a>
+      <a href="#final-build">Final Build</a>
+    </aside>
+  </div>
+
+  <footer class="footer">
+    <div class="container" id="speak50">
+      Store values with custom properties, read them with var(), compute with calc(), and build smarter CSS systems.
+    </div>
+  </footer>
+
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+  <script>
+    function copyTextFromTarget(targetId, button) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+
+      const text = el.textContent || "";
+      navigator.clipboard.writeText(text).then(() => {
+        const old = button.textContent;
+        button.textContent = "Copied";
+        setTimeout(() => {
+          button.textContent = old;
+        }, 1200);
+      }).catch(() => {
+        const old = button.textContent;
+        button.textContent = "Copy failed";
+        setTimeout(() => {
+          button.textContent = old;
+        }, 1400);
+      });
+    }
+
+    document.querySelectorAll(".copy-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        copyTextFromTarget(btn.dataset.copyTarget, btn);
+      });
+    });
+
+    const navToggle = document.getElementById("navToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    if (navToggle && mainNav) {
+      navToggle.addEventListener("click", () => {
+        const open = mainNav.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        navToggle.textContent = open ? "Close" : "Menu";
+      });
+
+      mainNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mainNav.classList.remove("open");
+          navToggle.setAttribute("aria-expanded", "false");
+          navToggle.textContent = "Menu";
+        });
+      });
+    }
+
+    const redRange = document.getElementById("redRange");
+    const greenRange = document.getElementById("greenRange");
+    const blueRange = document.getElementById("blueRange");
+
+    const redValue = document.getElementById("redValue");
+    const greenValue = document.getElementById("greenValue");
+    const blueValue = document.getElementById("blueValue");
+
+    const labPreview = document.getElementById("labPreview");
+    const generatedCode = document.getElementById("generatedCode");
+
+    function updateLab() {
+      const r = Number(redRange.value);
+      const g = Number(greenRange.value);
+      const b = Number(blueRange.value);
+
+      redValue.textContent = r;
+      greenValue.textContent = g;
+      blueValue.textContent = b;
+
+      labPreview.style.setProperty("--bg-r", r);
+      labPreview.style.setProperty("--bg-g", g);
+      labPreview.style.setProperty("--bg-b", b);
+
+      generatedCode.textContent = `:root{
+  --bg-r: ${r};
+  --bg-g: ${g};
+  --bg-b: ${b};
+
+  --reverse-r: calc(255 - var(--bg-r));
+  --reverse-g: calc(255 - var(--bg-g));
+  --reverse-b: calc(255 - var(--bg-b));
+}
+
+.card{
+  background: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+  color: rgb(var(--reverse-r), var(--reverse-g), var(--reverse-b));
+}`;
+    }
+
+    [redRange, greenRange, blueRange].forEach((input) => {
+      input.addEventListener("input", updateLab);
+    });
+
+    updateLab();
+
+    if (window.PPSpeakV3 && typeof window.PPSpeakV3.init === "function") {
+      window.PPSpeakV3.init({
+        selector: '[id^="speak"]',
+        titleSelector: '[data-pp-speak-title]',
+        activeClass: "pp-speaking-active",
+        addTitleButton: true,
+        autoCreateControls: true,
+        readSpeak0First: true,
+        skipHiddenScroll: true
+      });
+    }
+  </script>
+</body>
+</html>
