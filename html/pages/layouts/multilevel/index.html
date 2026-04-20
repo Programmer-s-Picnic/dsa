@@ -1,0 +1,1325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Learn Multi-Level Layouts by Building a Visit Varanasi Page</title>
+    <meta
+      name="description"
+      content="A complete lesson that teaches multi-level layouts using Flexbox and Grid by building a Visit Varanasi travel page."
+    />
+    <meta name="theme-color" content="#f59e0b" />
+
+    <style>
+      :root {
+        --bg: #fffaf0;
+        --bg2: #fff4d6;
+        --panel: #ffffff;
+        --panel-soft: #fff7ea;
+        --text: #2b2112;
+        --muted: #6b5a3d;
+        --line: #efdfb2;
+        --brand: #d97706;
+        --brand2: #f59e0b;
+        --brand3: #fbbf24;
+        --ok: #15803d;
+        --okbg: #ecfdf3;
+        --tipbg: #fff8e8;
+        --shadow: 0 18px 50px rgba(128, 81, 0, 0.12);
+        --radius: 22px;
+        --max: 1240px;
+        --code: #111827;
+        --codeInk: #f9fafb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.7;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top right,
+            rgba(245, 158, 11, 0.1),
+            transparent 24rem
+          ),
+          linear-gradient(180deg, #fff9f1 0%, var(--bg) 100%);
+      }
+
+      a {
+        color: inherit;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      code,
+      pre {
+        font-family: Consolas, Monaco, "Courier New", monospace;
+      }
+
+      .container {
+        width: min(var(--max), calc(100% - 28px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 250, 240, 0.92);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar-inner {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--brand);
+        font-weight: 900;
+      }
+
+      .brand-badge {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        box-shadow: var(--shadow);
+        font-size: 1.05rem;
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .nav a {
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 999px;
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+
+      .nav a:hover {
+        background: #fff;
+        color: var(--brand);
+      }
+
+      .hero {
+        padding: 38px 0 24px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 22px;
+        align-items: stretch;
+      }
+
+      .card,
+      .lesson-card,
+      .side-card,
+      .toc,
+      .mini-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card,
+      .side-card,
+      .lesson-card {
+        padding: 24px;
+      }
+
+      .hero h1 {
+        margin: 0 0 10px;
+        line-height: 1.08;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--brand);
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+
+      .btn {
+        border: none;
+        border-radius: 14px;
+        padding: 12px 16px;
+        font-weight: 800;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        color: #fff;
+        box-shadow: 0 10px 24px rgba(217, 119, 6, 0.24);
+      }
+
+      .btn-secondary {
+        background: #fff;
+        color: var(--brand);
+        border: 1px solid var(--line);
+      }
+
+      .pill-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+
+      .pill {
+        background: var(--bg2);
+        border: 1px solid var(--line);
+        color: var(--brand);
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-weight: 800;
+        font-size: 0.92rem;
+      }
+
+      .mini-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .mini-item {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+
+      .main-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 22px;
+        margin: 14px auto 36px;
+      }
+
+      .toc {
+        position: sticky;
+        top: 88px;
+        align-self: start;
+        padding: 18px;
+      }
+
+      .toc h3 {
+        margin: 0 0 12px;
+        font-size: 1rem;
+      }
+
+      .toc a {
+        display: block;
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 12px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .toc a:hover {
+        background: var(--bg2);
+        color: var(--brand);
+      }
+
+      .lesson-card {
+        margin-bottom: 20px;
+      }
+
+      .lesson-card h2 {
+        margin: 0 0 8px;
+        font-size: clamp(1.45rem, 3vw, 2rem);
+      }
+
+      .lesson-card h3 {
+        margin-top: 24px;
+        margin-bottom: 8px;
+      }
+
+      .level-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+
+      .level-no {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        color: #fff;
+        font-weight: 900;
+        box-shadow: 0 8px 20px rgba(217, 119, 6, 0.22);
+        font-size: 1rem;
+      }
+
+      .explain,
+      .check-card,
+      .tip-card {
+        padding: 16px 18px;
+        margin-top: 14px;
+        border-radius: 18px;
+      }
+
+      .explain {
+        border: 1px solid var(--line);
+        background: #fffdf9;
+      }
+
+      .check-card {
+        background: var(--okbg);
+        border: 1px solid #b7ebcb;
+      }
+
+      .tip-card {
+        background: var(--tipbg);
+        border: 1px solid #f6dfb0;
+      }
+
+      .check-card h4,
+      .tip-card h4 {
+        margin: 0 0 8px;
+      }
+
+      .two-col,
+      .compare-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .code-wrap {
+        margin-top: 14px;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid #1f2937;
+        box-shadow: var(--shadow);
+      }
+
+      .code-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 14px;
+        background: #0f172a;
+        color: #e5e7eb;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .code-title {
+        font-weight: 800;
+        font-size: 0.95rem;
+      }
+
+      .copy-btn {
+        border: none;
+        border-radius: 10px;
+        padding: 9px 12px;
+        background: #1f2937;
+        color: #fff;
+        cursor: pointer;
+        font-weight: 800;
+      }
+
+      .copy-btn:hover {
+        background: #374151;
+      }
+
+      pre {
+        margin: 0;
+        padding: 18px;
+        overflow: auto;
+        background: var(--code);
+        color: var(--codeInk);
+        font-size: 0.94rem;
+        line-height: 1.6;
+        tab-size: 2;
+      }
+
+      .demo {
+        margin-top: 14px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 16px;
+        background: #fffdf9;
+      }
+
+      .demo-title {
+        font-weight: 800;
+        color: var(--brand);
+        margin-bottom: 12px;
+      }
+
+      .stage {
+        border: 2px dashed #efcfa6;
+        background: #fff8ee;
+        border-radius: 18px;
+        padding: 14px;
+        margin-top: 10px;
+      }
+
+      .demo-box {
+        min-height: 54px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        font-weight: 800;
+        color: #7c2d12;
+        background: linear-gradient(135deg, #fde7c0, #fff1dd);
+        border: 1px solid #f0d6aa;
+        padding: 12px;
+        text-align: center;
+      }
+
+      .inline-code {
+        background: #fff2dd;
+        border: 1px solid #f0d6aa;
+        padding: 0.1rem 0.4rem;
+        border-radius: 8px;
+        font-family: Consolas, Monaco, monospace;
+        font-size: 0.95em;
+      }
+
+      .hero-layout-demo {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 12px;
+      }
+
+      .hero-left-stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .quick-info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .attractions-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .plan-layout {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 12px;
+      }
+
+      .plan-main {
+        display: grid;
+        gap: 12px;
+      }
+
+      .day-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .page-shell-demo {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 12px;
+      }
+
+      .visit-main {
+        display: grid;
+        gap: 12px;
+      }
+
+      .toolbar-demo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .toolbar-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+
+      .content-split {
+        display: grid;
+        grid-template-columns: 1.35fr 0.65fr;
+        gap: 12px;
+      }
+
+      .widget-stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .challenge {
+        margin-top: 14px;
+        padding: 16px 18px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #fffdf9;
+      }
+
+      details.answer {
+        margin-top: 10px;
+        border: 1px solid #f0d6aa;
+        border-radius: 14px;
+        padding: 12px 14px;
+        background: #fff7ea;
+      }
+
+      details.answer summary {
+        cursor: pointer;
+        font-weight: 800;
+        color: var(--brand);
+      }
+
+      ul.clean,
+      ol.clean {
+        padding-left: 20px;
+        margin: 10px 0 0;
+      }
+
+      .footer {
+        padding: 28px 0 60px;
+        text-align: center;
+        color: var(--muted);
+      }
+
+      @media (max-width: 1020px) {
+        .hero-grid,
+        .main-grid,
+        .two-col,
+        .compare-grid,
+        .page-shell-demo,
+        .plan-layout,
+        .content-split,
+        .hero-layout-demo {
+          grid-template-columns: 1fr;
+        }
+
+        .toc {
+          position: relative;
+          top: 0;
+          order: -1;
+        }
+
+        .quick-info-grid,
+        .summary-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .attractions-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .day-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .nav {
+          display: none;
+        }
+        .hero-card,
+        .side-card,
+        .lesson-card {
+          padding: 18px;
+        }
+        .quick-info-grid,
+        .summary-grid,
+        .attractions-grid {
+          grid-template-columns: 1fr;
+        }
+        pre {
+          font-size: 0.88rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="#top">
+          <span class="brand-badge">VS</span>
+          <span>Visit Varanasi Layout Lesson</span>
+        </a>
+
+        <nav class="nav">
+          <a href="#goal">Goal</a>
+          <a href="#level0">L0</a>
+          <a href="#level1">L1</a>
+          <a href="#level2">L2</a>
+          <a href="#level3">L3</a>
+          <a href="#level4">L4</a>
+          <a href="#challenge">Challenge</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="card hero-card">
+          <p class="eyebrow">Multi-Level Layout Lesson</p>
+          <h1>Learn Multi-Level Layouts by Building a Visit Varanasi Page</h1>
+          <p class="muted">
+            In this lesson, we will not learn layout in an abstract way only. We
+            will use a real topic: a travel page for Varanasi. Step by step, we
+            will build outer layout, nested hero layout, attraction cards,
+            travel planning sections, and a sidebar-based final travel page.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#goal">Start the Lesson</a>
+            <a class="btn btn-secondary" href="#level4">Jump to Final Layout</a>
+          </div>
+
+          <div class="pill-row">
+            <span class="pill">Grid + Flexbox</span>
+            <span class="pill">Nested Layouts</span>
+            <span class="pill">Travel Page</span>
+            <span class="pill">Varanasi Theme</span>
+            <span class="pill">Beginner Friendly</span>
+          </div>
+        </div>
+
+        <aside class="side-card">
+          <h3 style="margin-top: 0">What this lesson builds</h3>
+          <div class="mini-list">
+            <div class="mini-item">
+              <strong>Hero Section</strong><br />
+              <span class="muted">Big intro plus side travel card</span>
+            </div>
+            <div class="mini-item">
+              <strong>Attraction Grid</strong><br />
+              <span class="muted">Cards for places to visit</span>
+            </div>
+            <div class="mini-item">
+              <strong>Trip Planner</strong><br />
+              <span class="muted">Day plan plus quick info sidebar</span>
+            </div>
+            <div class="mini-item">
+              <strong>Final Shell</strong><br />
+              <span class="muted">Sidebar navigation + main content</span>
+            </div>
+            <div class="mini-item">
+              <strong>Lesson Style</strong><br />
+              <span class="muted">Explains why each layout choice is used</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="container main-grid">
+      <main>
+        <section class="lesson-card" id="goal">
+          <h2>Lesson Goal</h2>
+          <p class="muted">
+            A multi-level layout means a layout inside another layout. For
+            example:
+          </p>
+
+          <div class="check-card">
+            <h4>Main idea</h4>
+            <ul class="clean">
+              <li>The whole page may use Grid.</li>
+              <li>The hero inside it may also use Grid.</li>
+              <li>The toolbar inside a section may use Flexbox.</li>
+              <li>
+                The attraction cards inside the content may use Grid again.
+              </li>
+            </ul>
+          </div>
+
+          <div class="tip-card">
+            <h4>Travel page reason</h4>
+            <p style="margin: 0">
+              A travel page is a very good practice project because it naturally
+              has many layout levels: hero, highlights, attraction cards,
+              itinerary, travel notes, and sidebar information.
+            </p>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level0">
+          <div class="level-header">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span class="level-no">0</span>
+              <div>
+                <h2 style="margin: 0">
+                  Level 0 — Start with the page sections
+                </h2>
+                <p class="muted" style="margin: 4px 0 0">
+                  First think in page parts, not in tiny boxes.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="explain">
+            Before writing Grid or Flexbox, decide the main content blocks. Our
+            Visit Varanasi page will have: hero, highlights, attractions, trip
+            plan, and final travel dashboard.
+          </div>
+
+          <div class="demo">
+            <div class="demo-title">Main page blocks</div>
+            <div class="stage">
+              <div class="demo-box" style="margin-bottom: 10px">
+                Hero Section
+              </div>
+              <div class="demo-box" style="margin-bottom: 10px">
+                Quick Highlights
+              </div>
+              <div class="demo-box" style="margin-bottom: 10px">
+                Attractions Grid
+              </div>
+              <div class="demo-box" style="margin-bottom: 10px">Trip Plan</div>
+              <div class="demo-box">Final Visit Varanasi Page Shell</div>
+            </div>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top">
+              <span class="code-title">Basic HTML section structure</span>
+              <button class="copy-btn" data-copy-target="code-level0">
+                Copy
+              </button>
+            </div>
+            <pre id="code-level0"><code>&lt;main class="page"&gt;
+  &lt;section class="hero"&gt;&lt;/section&gt;
+  &lt;section class="highlights"&gt;&lt;/section&gt;
+  &lt;section class="attractions"&gt;&lt;/section&gt;
+  &lt;section class="trip-plan"&gt;&lt;/section&gt;
+  &lt;section class="visit-shell"&gt;&lt;/section&gt;
+&lt;/main&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level1">
+          <div class="level-header">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span class="level-no">1</span>
+              <div>
+                <h2 style="margin: 0">
+                  Level 1 — Build the hero using nested Grid
+                </h2>
+                <p class="muted" style="margin: 4px 0 0">
+                  The hero is our first multi-level layout.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="explain">
+            The outer hero section uses Grid with two columns: the left side for
+            title and text, and the right side for a travel summary card. Inside
+            the left side, we stack smaller pieces vertically.
+          </div>
+
+          <div class="demo">
+            <div class="demo-title">Visit Varanasi hero layout</div>
+            <div class="stage hero-layout-demo">
+              <div class="hero-left-stack">
+                <div class="demo-box" style="min-height: 70px">
+                  Small Eyebrow + Heading
+                </div>
+                <div class="demo-box" style="min-height: 80px">
+                  Short Intro Text
+                </div>
+                <div class="demo-box" style="min-height: 60px">Buttons Row</div>
+              </div>
+              <div class="demo-box" style="min-height: 240px">
+                Side Travel Card<br />
+                Best Time • Ghats • Temples • Food
+              </div>
+            </div>
+          </div>
+
+          <div class="tip-card">
+            <h4>Why Grid here?</h4>
+            <p style="margin: 0">
+              Because we want two main zones together: a big content area and a
+              side card. That is a two-dimensional section layout, so Grid fits
+              very well.
+            </p>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top">
+              <span class="code-title">Hero layout code</span>
+              <button class="copy-btn" data-copy-target="code-level1">
+                Copy
+              </button>
+            </div>
+            <pre id="code-level1"><code>.hero-layout{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:16px;
+}
+
+.hero-left{
+  display:grid;
+  gap:12px;
+}
+
+.hero-side{
+  padding:20px;
+  border-radius:18px;
+  background:#fff7ea;
+  border:1px solid #efdfb2;
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level2">
+          <div class="level-header">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span class="level-no">2</span>
+              <div>
+                <h2 style="margin: 0">
+                  Level 2 — Add quick highlights and attractions
+                </h2>
+                <p class="muted" style="margin: 4px 0 0">
+                  Now we create inner grids inside the page.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="explain">
+            A travel page usually has quick information like best time, major
+            experiences, and key places. These small information blocks are
+            perfect for a repeatable Grid layout.
+          </div>
+
+          <div class="compare-grid">
+            <div class="demo">
+              <div class="demo-title">Quick highlights grid</div>
+              <div class="stage quick-info-grid">
+                <div class="demo-box">Ganga Aarti</div>
+                <div class="demo-box">Kashi Vishwanath</div>
+                <div class="demo-box">Banarasi Food</div>
+              </div>
+            </div>
+
+            <div class="demo">
+              <div class="demo-title">Attractions cards grid</div>
+              <div class="stage attractions-grid">
+                <div class="demo-box">Dashashwamedh Ghat</div>
+                <div class="demo-box">Sarnath</div>
+                <div class="demo-box">Assi Ghat</div>
+                <div class="demo-box">Kashi Vishwanath Temple</div>
+                <div class="demo-box">Banaras Hindu University</div>
+                <div class="demo-box">Local Street Food</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="check-card">
+            <h4>Layout lesson</h4>
+            <p style="margin: 0">
+              A page can contain many different grids. One grid does not control
+              everything. Each section can get its own layout rules depending on
+              its purpose.
+            </p>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top">
+              <span class="code-title">Cards grid code</span>
+              <button class="copy-btn" data-copy-target="code-level2">
+                Copy
+              </button>
+            </div>
+            <pre id="code-level2"><code>.quick-info{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:16px;
+}
+
+.attractions-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:16px;
+}
+
+@media (max-width: 900px){
+  .quick-info,
+  .attractions-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media (max-width: 640px){
+  .quick-info,
+  .attractions-grid{
+    grid-template-columns:1fr;
+  }
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level3">
+          <div class="level-header">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span class="level-no">3</span>
+              <div>
+                <h2 style="margin: 0">
+                  Level 3 — Build a trip plan with main area + side info
+                </h2>
+                <p class="muted" style="margin: 4px 0 0">
+                  This section shows another layout inside the same page.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="explain">
+            The trip planner is a very natural two-column layout: the left side
+            can show day-wise itinerary, and the right side can show quick
+            travel notes, weather reminders, or transport tips.
+          </div>
+
+          <div class="demo">
+            <div class="demo-title">Trip planner layout</div>
+            <div class="stage plan-layout">
+              <div class="plan-main">
+                <div class="demo-box" style="min-height: 70px">
+                  Trip Planner Heading
+                </div>
+                <div class="day-grid">
+                  <div class="demo-box" style="min-height: 140px">
+                    Day 1 — Ghats + Temple
+                  </div>
+                  <div class="demo-box" style="min-height: 140px">
+                    Day 2 — Sarnath + BHU
+                  </div>
+                  <div class="demo-box" style="min-height: 140px">
+                    Day 3 — Food + Walks
+                  </div>
+                  <div class="demo-box" style="min-height: 140px">
+                    Day 4 — Shopping + Sunrise Boat Ride
+                  </div>
+                </div>
+              </div>
+              <div class="widget-stack">
+                <div class="demo-box" style="min-height: 100px">
+                  Travel Tips
+                </div>
+                <div class="demo-box" style="min-height: 100px">
+                  Best Time to Visit
+                </div>
+                <div class="demo-box" style="min-height: 100px">
+                  What to Carry
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tip-card">
+            <h4>Why not use one long column?</h4>
+            <p style="margin: 0">
+              Because the user can understand the travel plan faster when the
+              main content and supporting notes are visually separated.
+            </p>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top">
+              <span class="code-title">Trip planner layout code</span>
+              <button class="copy-btn" data-copy-target="code-level3">
+                Copy
+              </button>
+            </div>
+            <pre id="code-level3"><code>.trip-plan-layout{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:16px;
+}
+
+.trip-main{
+  display:grid;
+  gap:16px;
+}
+
+.day-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:16px;
+}
+
+.side-notes{
+  display:grid;
+  gap:16px;
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level4">
+          <div class="level-header">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span class="level-no">4</span>
+              <div>
+                <h2 style="margin: 0">
+                  Level 4 — Final multi-level Visit Varanasi page shell
+                </h2>
+                <p class="muted" style="margin: 4px 0 0">
+                  Now we combine everything into one final layout.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="explain">
+            This final design uses:
+            <span class="inline-code">Grid</span> for the outer page shell,
+            <span class="inline-code">Flexbox</span> for the toolbar, and more
+            <span class="inline-code">Grid</span> sections inside the main
+            content. This is exactly what multi-level layout means in real
+            projects.
+          </div>
+
+          <div class="demo">
+            <div class="demo-title">Final Visit Varanasi layout map</div>
+            <div class="stage page-shell-demo">
+              <div class="demo-box" style="min-height: 500px">
+                Left Sidebar<br />
+                Overview<br />
+                Places<br />
+                Itinerary<br />
+                Food<br />
+                Tips
+              </div>
+
+              <div class="visit-main">
+                <div class="stage toolbar-demo">
+                  <div class="toolbar-group">
+                    <div class="demo-box">Visit Varanasi</div>
+                    <div class="demo-box">4 Day Plan</div>
+                  </div>
+                  <div class="toolbar-group">
+                    <div class="demo-box">Search</div>
+                    <div class="demo-box">Map</div>
+                    <div class="demo-box">Book</div>
+                  </div>
+                </div>
+
+                <div class="summary-grid">
+                  <div class="demo-box" style="min-height: 100px">Temples</div>
+                  <div class="demo-box" style="min-height: 100px">Ghats</div>
+                  <div class="demo-box" style="min-height: 100px">
+                    Food Stops
+                  </div>
+                  <div class="demo-box" style="min-height: 100px">
+                    Heritage Walks
+                  </div>
+                </div>
+
+                <div class="content-split">
+                  <div class="demo-box" style="min-height: 220px">
+                    Main Attraction Story / Featured Place
+                  </div>
+                  <div class="widget-stack">
+                    <div class="demo-box" style="min-height: 100px">
+                      Sunrise Boat Ride
+                    </div>
+                    <div class="demo-box" style="min-height: 100px">
+                      Evening Aarti
+                    </div>
+                  </div>
+                </div>
+
+                <div class="attractions-grid">
+                  <div class="demo-box" style="min-height: 120px">
+                    Assi Ghat
+                  </div>
+                  <div class="demo-box" style="min-height: 120px">
+                    Dashashwamedh
+                  </div>
+                  <div class="demo-box" style="min-height: 120px">Sarnath</div>
+                  <div class="demo-box" style="min-height: 120px">
+                    Temple Corridor
+                  </div>
+                  <div class="demo-box" style="min-height: 120px">
+                    Street Food
+                  </div>
+                  <div class="demo-box" style="min-height: 120px">
+                    Banarasi Sarees
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="tip-card">
+              <h4>Use Grid for</h4>
+              <ul class="clean">
+                <li>whole page shell</li>
+                <li>hero columns</li>
+                <li>card collections</li>
+                <li>featured content sections</li>
+              </ul>
+            </div>
+
+            <div class="check-card">
+              <h4>Use Flexbox for</h4>
+              <ul class="clean">
+                <li>toolbar rows</li>
+                <li>button groups</li>
+                <li>small control groups</li>
+                <li>horizontal action sections</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top">
+              <span class="code-title">Final shell CSS</span>
+              <button class="copy-btn" data-copy-target="code-level4">
+                Copy
+              </button>
+            </div>
+            <pre id="code-level4"><code>.visit-page{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:16px;
+}
+
+.visit-main{
+  display:grid;
+  gap:16px;
+}
+
+.toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.toolbar-group{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:16px;
+}
+
+.content-split{
+  display:grid;
+  grid-template-columns:1.35fr .65fr;
+  gap:16px;
+}
+
+.side-widget-stack{
+  display:grid;
+  gap:16px;
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="challenge">
+          <h2>Practice Challenge</h2>
+          <p class="muted">Try improving this Visit Varanasi page yourself.</p>
+
+          <div class="challenge">
+            <strong>Challenge 1:</strong> Add a “Best Food in Varanasi” section
+            using a 3-card grid.
+            <details class="answer">
+              <summary>Show idea</summary>
+              <p>
+                Create a new section and use
+                <span class="inline-code">display:grid</span> with
+                <span class="inline-code"
+                  >grid-template-columns:repeat(3,1fr)</span
+                >.
+              </p>
+            </details>
+          </div>
+
+          <div class="challenge">
+            <strong>Challenge 2:</strong> Add a sidebar box for “Travel
+            Essentials”.
+            <details class="answer">
+              <summary>Show idea</summary>
+              <p>
+                Place a new card inside the sidebar widget stack so it aligns
+                with the other support cards.
+              </p>
+            </details>
+          </div>
+
+          <div class="challenge">
+            <strong>Challenge 3:</strong> Make the attraction cards responsive.
+            <details class="answer">
+              <summary>Show idea</summary>
+              <p>
+                Use media queries to reduce 3 columns to 2 columns and then 1
+                column on small screens.
+              </p>
+            </details>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="final">
+          <h2>Final Summary</h2>
+          <p class="muted">
+            You used a real “Visit Varanasi” page to understand multi-level
+            layouts.
+          </p>
+
+          <div class="check-card">
+            <h4>What you learned</h4>
+            <ol class="clean">
+              <li>Think in large page sections first.</li>
+              <li>Use Grid for outer and section-level structure.</li>
+              <li>Use Flexbox for smaller horizontal control rows.</li>
+              <li>Nest layouts inside layouts for real-world pages.</li>
+              <li>Travel pages are excellent practice for layout mastery.</li>
+            </ol>
+          </div>
+
+          <div class="tip-card">
+            <h4>Best next step</h4>
+            <p style="margin: 0">
+              Convert this lesson into a real tourism page with images, maps,
+              day-wise itinerary, local food guide, and booking/contact
+              sections.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="lesson-card toc">
+        <h3>Lesson Navigation</h3>
+        <a href="#goal">Lesson Goal</a>
+        <a href="#level0">Level 0 — Page Sections</a>
+        <a href="#level1">Level 1 — Hero Layout</a>
+        <a href="#level2">Level 2 — Highlights + Cards</a>
+        <a href="#level3">Level 3 — Trip Planner</a>
+        <a href="#level4">Level 4 — Final Page Shell</a>
+        <a href="#challenge">Challenge</a>
+        <a href="#final">Final Summary</a>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        Build section by section, nest layouts carefully, and let each part of
+        the page choose the layout system it truly needs.
+      </div>
+    </footer>
+
+    <script>
+      function copyTextFromTarget(targetId, button) {
+        const el = document.getElementById(targetId);
+        if (!el) return;
+
+        const text = el.innerText;
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            const old = button.textContent;
+            button.textContent = "Copied";
+            setTimeout(() => {
+              button.textContent = old;
+            }, 1200);
+          })
+          .catch(() => {
+            const old = button.textContent;
+            button.textContent = "Copy failed";
+            setTimeout(() => {
+              button.textContent = old;
+            }, 1400);
+          });
+      }
+
+      document.querySelectorAll(".copy-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          copyTextFromTarget(btn.dataset.copyTarget, btn);
+        });
+      });
+    </script>
+  </body>
+</html>
