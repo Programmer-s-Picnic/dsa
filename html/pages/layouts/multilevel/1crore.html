@@ -1,0 +1,1718 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>One Crore Data Processing System — Ground Zero to Full Explanation | Programmer's Picnic</title>
+
+  <meta
+    name="description"
+    content="A full HTML lesson from ground zero explaining the One Crore data processing system, actual Java code, algorithm flow, GitHub usage, GitHub link placeholder, and Google Colab running process."
+  />
+  <meta name="theme-color" content="#f59e0b" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+
+  <style>
+    :root{
+      --bg:#fffaf0;
+      --bg2:#fff4d6;
+      --card:#ffffff;
+      --card2:#fff8e8;
+      --text:#2b2112;
+      --muted:#6b5a3d;
+      --line:#efdfb2;
+      --brand:#d97706;
+      --brand2:#f59e0b;
+      --brand3:#fbbf24;
+      --ok:#15803d;
+      --bad:#b91c1c;
+      --blue:#2563eb;
+      --shadow:0 18px 50px rgba(133,77,14,.12);
+      --radius:22px;
+      --max:1240px;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(251,191,36,.22), transparent 26%),
+        radial-gradient(circle at left center, rgba(245,158,11,.12), transparent 28%),
+        linear-gradient(180deg,var(--bg),var(--bg2));
+      line-height:1.65;
+    }
+
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .topbar{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(14px);
+      background:rgba(255,250,240,.82);
+      border-bottom:1px solid rgba(239,223,178,.9);
+    }
+    .topbar-inner{
+      width:min(var(--max),calc(100% - 24px));
+      margin:auto;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:12px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; min-width:0;
+    }
+    .logo{
+      width:44px; height:44px; border-radius:14px;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#fff; font-weight:900; box-shadow:var(--shadow);
+      flex:0 0 auto;
+    }
+    .brand-text strong{
+      display:block;
+      font-size:1rem;
+      line-height:1.15;
+      font-family:"DM Sans",Inter,system-ui,sans-serif;
+    }
+    .brand-text span{
+      display:block;
+      color:var(--muted);
+      font-size:.86rem;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .top-actions{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .btn{
+      border:none; cursor:pointer; border-radius:14px; padding:11px 14px;
+      font-weight:800; font-size:.94rem;
+      transition:.2s transform ease,.2s box-shadow ease,.2s background ease;
+      text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+    }
+    .btn:hover{transform:translateY(-1px); text-decoration:none}
+    .btn-primary{
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#fff; box-shadow:var(--shadow);
+    }
+    .btn-soft{
+      background:#fff; color:var(--text); border:1px solid var(--line);
+    }
+
+    .hero{
+      width:min(var(--max),calc(100% - 24px));
+      margin:20px auto 0;
+      display:grid; grid-template-columns:1.15fr .85fr; gap:18px;
+      align-items:stretch;
+    }
+    .hero-card,.card{
+      background:linear-gradient(180deg,#fffdf8,#fff8ea);
+      border:1px solid rgba(239,223,178,.95);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .hero-main{padding:28px}
+    .eyebrow{
+      display:inline-flex; gap:8px; align-items:center;
+      background:#fff3cd; color:#8a5a00; border:1px solid #f5d589;
+      padding:8px 12px; border-radius:999px; font-weight:800; font-size:.84rem;
+    }
+    h1,h2,h3{
+      font-family:"DM Sans",Inter,system-ui,sans-serif;
+      line-height:1.15; margin:0 0 14px;
+    }
+    h1{
+      font-size:clamp(2rem,4.8vw,3.35rem);
+      letter-spacing:-.03em;
+      margin-top:14px;
+    }
+    .lead{
+      font-size:1.07rem; color:var(--muted); max-width:72ch;
+    }
+    .hero-stats{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
+      margin-top:18px;
+    }
+    .stat{
+      background:#fff; border:1px solid var(--line);
+      border-radius:18px; padding:14px;
+    }
+    .stat b{display:block; font-size:1.2rem}
+    .stat span{display:block; color:var(--muted); font-size:.92rem}
+
+    .hero-side{
+      padding:18px;
+      display:flex; flex-direction:column; gap:12px;
+      justify-content:center;
+    }
+    .mini{
+      background:#fff; border:1px solid var(--line);
+      border-radius:18px; padding:14px;
+    }
+    .mini h3{font-size:1.02rem; margin-bottom:8px}
+    .mini p{margin:0; color:var(--muted); font-size:.95rem}
+    .tagrow{display:flex; flex-wrap:wrap; gap:8px}
+    .tag{
+      padding:8px 10px; border-radius:999px; background:#fff4d6;
+      border:1px solid #f1d79a; color:#875900; font-weight:700; font-size:.82rem;
+    }
+
+    .layout{
+      width:min(var(--max),calc(100% - 24px));
+      margin:18px auto 42px;
+      display:grid; grid-template-columns:300px minmax(0,1fr); gap:18px;
+    }
+    .toc{
+      position:sticky; top:78px; align-self:start;
+      padding:18px;
+      background:rgba(255,255,255,.86);
+      backdrop-filter: blur(10px);
+      border:1px solid rgba(239,223,178,.95);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+    }
+    .toc h2{font-size:1.08rem; margin-bottom:12px}
+    .toc a{
+      display:block; padding:9px 10px; border-radius:12px;
+      color:var(--text); font-weight:700; font-size:.95rem;
+    }
+    .toc a:hover{background:#fff5da; text-decoration:none}
+    .toc .sub{padding-left:18px; font-weight:600; color:var(--muted)}
+
+    main{display:grid; gap:18px}
+    section.card{padding:22px}
+    .section-head{
+      display:flex; justify-content:space-between; gap:14px; align-items:flex-start; flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .section-kicker{
+      font-size:.82rem; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--brand); font-weight:900;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 11px; border-radius:999px;
+      border:1px solid var(--line); background:#fff;
+      color:var(--muted); font-size:.84rem; font-weight:700;
+    }
+
+    .grid-2,.grid-3{display:grid; gap:14px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+    .note,.callout,.box{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      color: teal !important;
+    }
+    .callout{
+      background:linear-gradient(180deg,#fff8e7,#fff);
+      border-left:5px solid var(--brand2);
+    }
+    .note.success{border-left:5px solid var(--ok)}
+    .note.warn{border-left:5px solid var(--bad)}
+    .box h3,.note h3,.callout h3{font-size:1.05rem; margin-bottom:8px}
+    .muted{color:var(--muted)}
+
+    .code, pre.codeblock{
+      font-family:var(--mono);
+      background:#1f2937; color:#f9fafb;
+      border-radius:18px;
+      padding:16px; overflow:auto;
+      font-size:.93rem; line-height:1.55;
+      border:1px solid rgba(255,255,255,.08);
+      margin:0;
+      white-space:pre-wrap;
+    }
+
+    .flow{
+      background:#fff;
+      border:1px dashed #e6c572;
+      border-radius:20px;
+      padding:16px;
+      overflow:auto;
+    }
+    .flow pre{
+      margin:0;
+      background:transparent;
+      color:#3b2a12;
+      border:none;
+      padding:0;
+      font-family:var(--mono);
+      font-size:.95rem;
+      line-height:1.5;
+      white-space:pre-wrap;
+    }
+
+    .diagram{
+      display:grid; gap:12px;
+      background:#fffdf8;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:16px;
+    }
+    .lane{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center;
+    }
+    .node{
+      min-width:160px;
+      text-align:center;
+      border:1px solid var(--line);
+      background:#fff;
+      padding:14px 12px;
+      border-radius:18px;
+      font-weight:800;
+      box-shadow:0 8px 22px rgba(133,77,14,.07);
+    }
+    .node.small{min-width:120px; font-weight:700}
+    .arrow{
+      font-size:1.3rem;
+      color:var(--brand);
+      font-weight:900;
+    }
+
+    .table-wrap{
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#fff;
+    }
+    table{
+      width:100%; border-collapse:collapse; min-width:820px;
+    }
+    th,td{
+      padding:12px 14px; border-bottom:1px solid var(--line);
+      text-align:left; vertical-align:top;
+    }
+    th{
+      background:#fff7e5; font-size:.92rem; color:#7a5310;
+      letter-spacing:.02em;
+    }
+    tr:last-child td{border-bottom:none}
+
+    .step-list{display:grid; gap:12px}
+    .step{
+      display:grid; grid-template-columns:52px 1fr; gap:14px;
+      align-items:start;
+      background:#fff; border:1px solid var(--line);
+      border-radius:18px; padding:14px;
+    }
+    .step-num{
+      width:52px; height:52px; border-radius:16px;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#fff; font-weight:900; font-size:1.05rem;
+      box-shadow:var(--shadow);
+    }
+
+    .code-caption{
+      font-size:.85rem;
+      font-weight:800;
+      color:#7a5310;
+      margin-bottom:8px;
+      letter-spacing:.02em;
+      margin-top:12px;
+    }
+    .code-pair{
+      display:grid; grid-template-columns:1fr 1fr; gap:14px;
+      align-items:start;
+      margin-top:12px;
+    }
+
+    .repo-card{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+      background:linear-gradient(180deg,#fff,#fff7e8);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .mcq{
+      display:grid; gap:12px;
+    }
+    .q{
+      background:#fff; border:1px solid var(--line);
+      border-radius:18px; padding:16px;
+    }
+    .q h3{font-size:1rem; margin-bottom:10px}
+    .q label{
+      display:block; margin:8px 0; padding:10px 12px; border-radius:12px;
+      border:1px solid #efe2ba; background:#fffaf0; cursor:pointer;
+    }
+    .q label:hover{background:#fff4d9}
+    .q input{margin-right:8px}
+    .mcq-actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .scorebox{
+      min-height:48px; display:flex; align-items:center;
+      font-weight:800; color:var(--text);
+    }
+
+    .footer{
+      width:min(var(--max),calc(100% - 24px));
+      margin:0 auto 34px;
+      color:var(--muted);
+      text-align:center;
+      font-size:.95rem;
+    }
+
+    .speak{scroll-margin-top:95px}
+
+    @media (max-width:1080px){
+      .code-pair{grid-template-columns:1fr}
+    }
+
+    @media (max-width:980px){
+      .hero,.layout,.grid-2,.grid-3{grid-template-columns:1fr}
+      .toc{position:relative; top:0}
+      .hero-stats{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo">PP</div>
+        <div class="brand-text">
+          <strong>Programmer’s Picnic</strong>
+          <span>One Crore Data Processing System — Ground Zero to Full Explanation</span>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="btn btn-soft" id="toggleCodeBtn" type="button">Hide code blocks</button>
+        <button class="btn btn-primary" id="checkMcqBtnTop" type="button">Check MCQs</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card hero-main">
+      <div class="eyebrow">Ground Zero to Full Explanation</div>
+      <h1 class="speak" id="speak0">One Crore Data Processing System</h1>
+      <p class="lead speak" id="speak1">
+        This lesson explains a Java project that works with very large numeric data. We begin from absolute
+        basics, then move into the active program, the backup recursive design, the actual Java code, dry runs,
+        GitHub usage, and how to run the project in Google Colab.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <b>Ground Zero Start</b>
+          <span>Built for a first clear understanding</span>
+        </div>
+        <div class="stat">
+          <b>Actual Java Code</b>
+          <span>Real snippets shown at the exact relevant points</span>
+        </div>
+        <div class="stat">
+          <b>Practical Workflow</b>
+          <span>GitHub + Colab process included</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="hero-card hero-side">
+      <div class="mini">
+        <h3>What this lesson covers</h3>
+        <p>System idea, classes, file scanning, recursive file partitioning, actual code, GitHub usage, Colab execution, and MCQs.</p>
+      </div>
+      <div class="mini">
+        <h3>Important idea</h3>
+        <p>When data is huge, we often process it file by file instead of trying to do everything at once in memory.</p>
+      </div>
+      <div class="mini">
+        <h3>Tags</h3>
+        <div class="tagrow">
+          <span class="tag">Java</span>
+          <span class="tag">Large Data</span>
+          <span class="tag">Files</span>
+          <span class="tag">Recursion</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Colab</span>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <div class="layout">
+    <nav class="toc">
+      <h2>Lesson Map</h2>
+      <a href="#sec-intro">1. Ground Zero Introduction</a>
+      <a href="#sec-big-picture">2. Big Picture</a>
+      <a href="#sec-active">3. Active Program</a>
+      <a class="sub" href="#sec-active-files">3.1 Get files</a>
+      <a class="sub" href="#sec-active-scan">3.2 Scan one file</a>
+      <a class="sub" href="#sec-active-array">3.3 Build FileData[]</a>
+      <a class="sub" href="#sec-active-total">3.4 Global min-max</a>
+      <a class="sub" href="#sec-active-main">3.5 main()</a>
+      <a href="#sec-classes">4. Supporting Classes</a>
+      <a href="#sec-backup">5. Backup Recursive System</a>
+      <a class="sub" href="#sec-backup-generate">5.1 Generate data</a>
+      <a class="sub" href="#sec-backup-meta">5.2 Filename metadata</a>
+      <a class="sub" href="#sec-backup-break">5.3 breakTheFile()</a>
+      <a class="sub" href="#sec-backup-main">5.4 backup main()</a>
+      <a href="#sec-counting">6. Counting Sort Demo</a>
+      <a href="#sec-github">7. GitHub Repository and Running Java on GitHub</a>
+      <a href="#sec-colab">8. Running Java on Colab</a>
+      <a href="#sec-complexity">9. Complexity and Critical View</a>
+      <a href="#sec-mcqs">10. MCQs</a>
+      <a href="#sec-summary">11. Final Summary</a>
+    </nav>
+
+    <main>
+      <section class="card" id="sec-intro">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 1</div>
+            <h2 class="speak" id="speak2">Ground Zero Introduction</h2>
+          </div>
+          <span class="pill">Start here</span>
+        </div>
+
+        <div class="callout speak" id="speak3">
+          <h3>What problem are we trying to solve?</h3>
+          <p>
+            Suppose we have a very large collection of integers. It might contain one crore numbers, which means
+            ten million values. If the data is very large, reading and sorting everything together may become
+            inconvenient. So this project explores file-based processing.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="note">
+            <h3>Simple meaning of file-based processing</h3>
+            <p class="muted">
+              Instead of asking the computer to hold everything at once, we divide the work by files or chunks,
+              process one piece at a time, and combine results later.
+            </p>
+          </div>
+          <div class="note">
+            <h3>Two designs inside this project</h3>
+            <p class="muted">
+              The active code computes local and global min-max across files. The backup code goes further and
+              recursively breaks a giant file into smaller range-based files.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="sec-big-picture">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 2</div>
+            <h2 class="speak" id="speak4">Big Picture of the Whole System</h2>
+          </div>
+          <span class="pill">Architecture first</span>
+        </div>
+
+        <div class="diagram">
+          <div class="lane">
+            <div class="node">Huge Numeric Data</div>
+            <div class="arrow">→</div>
+            <div class="node">Split or Store in Files</div>
+            <div class="arrow">→</div>
+            <div class="node">Process File by File</div>
+            <div class="arrow">→</div>
+            <div class="node">Combine Results</div>
+          </div>
+          <div class="lane">
+            <div class="node small">Local Min-Max</div>
+            <div class="node small">Range Partitioning</div>
+            <div class="node small">Recursive Splitting</div>
+            <div class="node small">Final Output</div>
+          </div>
+        </div>
+
+        <div class="flow">
+<pre>There are really two levels of thinking here:
+
+Level 1:
+Many files already exist
+→ scan each file
+→ find each file's min and max
+→ combine results
+
+Level 2:
+One giant file exists
+→ split by numeric midpoint
+→ create child files
+→ recurse until each child file is small enough</pre>
+        </div>
+      </section>
+
+      <section class="card" id="sec-active">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 3</div>
+            <h2 class="speak" id="speak5">The Active Program</h2>
+          </div>
+          <span class="pill">What currently runs</span>
+        </div>
+
+        <div class="callout">
+          <h3>Main truth about the active code</h3>
+          <p>
+            The current main program is not a full sorter. It reads many files, finds the min and max in each file,
+            and then computes the overall min and max across all files.
+          </p>
+        </div>
+
+        <div class="flow">
+<pre>Data folder
+  ↓
+Get all files
+  ↓
+For each file:
+    open file
+    read integers
+    compute local min-max
+    store FileData(file, mm)
+  ↓
+Compare all file summaries
+  ↓
+Print overall max and min</pre>
+        </div>
+      </section>
+
+      <section class="card" id="sec-active-files">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 3.1</div>
+            <h2 class="speak" id="speak6">Getting All Files from the Data Folder</h2>
+          </div>
+          <span class="pill">Relevant real code</span>
+        </div>
+
+        <div class="note">
+          <h3>Meaning</h3>
+          <p class="muted">
+            This method takes a folder path, creates a Java <code>File</code> object for that directory,
+            and returns the files inside it.
+          </p>
+        </div>
+
+        <div class="code-caption">Actual code from <code>BillionsAndBillions.java</code></div>
+        <pre class="codeblock live-code">public static File[] getAllFiles(String directory)
+{
+    try
+    {
+        File f=new File(directory);
+        return f.listFiles();
+    }
+    catch(Exception ex)
+    {
+        System.out.println(ex);
+        return null;
+    }
+}</pre>
+      </section>
+
+      <section class="card" id="sec-active-scan">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 3.2</div>
+            <h2 class="speak" id="speak7">Scanning One File and Finding Its Min and Max</h2>
+          </div>
+          <span class="pill">Core method</span>
+        </div>
+
+        <div class="step-list">
+          <article class="step">
+            <div class="step-num">1</div>
+            <div>
+              <h3>Open the file using <code>Scanner</code></h3>
+              <p class="muted">The file is read integer by integer.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div class="step-num">2</div>
+            <div>
+              <h3>Use the first number to initialize min and max</h3>
+              <p class="muted">That is why the boolean <code>b</code> exists.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div class="step-num">3</div>
+            <div>
+              <h3>Compare every later number</h3>
+              <p class="muted">Update max if larger; update min if smaller.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div class="step-num">4</div>
+            <div>
+              <h3>Return a <code>FileData</code> object</h3>
+              <p class="muted">This stores the file and its local result.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="code-caption">Actual code from <code>BillionsAndBillions.java</code></div>
+        <pre class="codeblock live-code">public static FileData getFileData(File file)
+{
+    try
+    {
+        MaxMin mm=new MaxMin();
+        boolean b=false;
+        Scanner s=new Scanner(file);
+        while(s.hasNextInt())
+        {
+            int n=s.nextInt();
+            if(!b)
+            {
+                mm.max=n;
+                mm.min=n;
+            }
+            else
+            {
+                if(n>mm.max)
+                    mm.max=n;
+                if(n<mm.min)
+                    mm.min=n;
+            }
+            b=true;
+        }
+        FileData fd=new FileData(file,mm);
+        return fd;
+    }
+    catch(Exception ex)
+    {
+        System.out.println(ex);
+        return null;
+    }
+}</pre>
+
+        <div class="code-pair">
+          <div class="box">
+            <div class="code-caption">Initialization part</div>
+            <pre class="codeblock live-code">if(!b)
+{
+    mm.max=n;
+    mm.min=n;
+}</pre>
+            <p class="muted">
+              The first number is used to set both min and max.
+            </p>
+          </div>
+
+          <div class="box">
+            <div class="code-caption">Comparison part</div>
+            <pre class="codeblock live-code">else
+{
+    if(n>mm.max)
+        mm.max=n;
+    if(n<mm.min)
+        mm.min=n;
+}</pre>
+            <p class="muted">
+              Every later number is checked against the current min and max.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h3>Dry run idea</h3>
+          <p>
+            If <code>0.txt</code> contains values from <code>0</code> to <code>9</code>, then the first value
+            sets both min and max to <code>0</code>, and after scanning all values, max becomes <code>9</code>
+            while min stays <code>0</code>.
+          </p>
+        </div>
+      </section>
+
+      <section class="card" id="sec-active-array">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 3.3</div>
+            <h2 class="speak" id="speak8">Building the Array of File Summaries</h2>
+          </div>
+          <span class="pill">Collect local results</span>
+        </div>
+
+        <div class="note">
+          <h3>Meaning</h3>
+          <p class="muted">
+            This method first gets all files, then scans each one, and stores the result in an array of
+            <code>FileData</code> objects.
+          </p>
+        </div>
+
+        <div class="code-caption">Actual code from <code>BillionsAndBillions.java</code></div>
+        <pre class="codeblock live-code">public static FileData[] getFilesData(String directory)
+{
+    File[] files=getAllFiles(directory);
+    FileData[] filedata=new FileData[files.length];
+    for(int i=0;i<=files.length-1;i++)
+    {
+        File f=files[i];
+        FileData fd=getFileData(f);
+        filedata[i]=fd;
+    }
+    return filedata;
+}</pre>
+
+        <div class="code">[
+  (0.txt, Max=9,  Min=0),
+  (1.txt, Max=19, Min=10),
+  (2.txt, Max=29, Min=20),
+  ...
+  (9.txt, Max=99, Min=90)
+]</div>
+      </section>
+
+      <section class="card" id="sec-active-total">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 3.4</div>
+            <h2 class="speak" id="speak9">Computing the Overall Min and Max</h2>
+          </div>
+          <span class="pill">Global combine step</span>
+        </div>
+
+        <div class="note">
+          <h3>Meaning</h3>
+          <p class="muted">
+            This method compares all the file-level summaries. It is correct, but it uses nested loops,
+            which means it does more repeated work than necessary.
+          </p>
+        </div>
+
+        <div class="code-caption">Actual code from <code>BillionsAndBillions.java</code></div>
+        <pre class="codeblock live-code">public static MaxMin getTotalMaxMin(FileData[] fd)
+{
+    boolean b=false;
+    int max=0;
+    int min=0;
+    for(int i=0;i<=fd.length-1;i++)
+    {
+        max=fd[i].mm.max;
+        min=fd[i].mm.min;
+        for(int j=0;j<=fd.length-1;j++)
+        {
+            if(fd[j].mm.max>max)
+                max=fd[j].mm.max;
+            if(fd[j].mm.min<min)
+                min=fd[j].mm.min;
+        }
+    }
+    MaxMin mm=new MaxMin();
+    mm.max=max;
+    mm.min=min;
+    return mm;
+}</pre>
+
+        <div class="code-pair">
+          <div class="box">
+            <div class="code-caption">Comparison logic</div>
+            <pre class="codeblock live-code">if(fd[j].mm.max>max)
+    max=fd[j].mm.max;
+if(fd[j].mm.min<min)
+    min=fd[j].mm.min;</pre>
+          </div>
+
+          <div class="box">
+            <div class="code-caption">Returned final object</div>
+            <pre class="codeblock live-code">MaxMin mm=new MaxMin();
+mm.max=max;
+mm.min=min;
+return mm;</pre>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h3>Result for the sample chunk files</h3>
+          <p>
+            If the files are <code>0.txt</code> through <code>9.txt</code> with ranges <code>0–9</code>,
+            <code>10–19</code>, and so on up to <code>90–99</code>, then the final result is:
+          </p>
+          <div class="code">Max=99 ,Min=0</div>
+        </div>
+      </section>
+
+      <section class="card" id="sec-active-main">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 3.5</div>
+            <h2 class="speak" id="speak10">The Active Program Entry Point: <code>main()</code></h2>
+          </div>
+          <span class="pill">How execution starts</span>
+        </div>
+
+        <div class="code-caption">Actual code from <code>BillionsAndBillions.java</code></div>
+        <pre class="codeblock live-code">public static void main(String[] args)
+{
+    FileData[] data=getFilesData("Data");
+    for(FileData datum : data)
+        System.out.println(datum);
+
+    MaxMin totalmaxmin=getTotalMaxMin(data);
+    System.out.println(totalmaxmin);
+}</pre>
+      </section>
+
+      <section class="card" id="sec-classes">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 4</div>
+            <h2 class="speak" id="speak11">Supporting Classes</h2>
+          </div>
+          <span class="pill">Data holders</span>
+        </div>
+
+        <div class="code-pair">
+          <div class="box">
+            <div class="code-caption">Actual code from <code>FileData.java</code></div>
+            <pre class="codeblock live-code">public class FileData
+{
+    public java.io.File file;
+    public MaxMin mm;
+
+    public FileData(java.io.File file,MaxMin mm)
+    {
+        this.file=file;
+        this.mm=mm;
+    }
+
+    public String toString()
+    {
+        return "" + file + " , " + mm;
+    }
+}</pre>
+            <p class="muted">
+              This stores the file and its corresponding <code>MaxMin</code> result.
+            </p>
+          </div>
+
+          <div class="box">
+            <div class="code-caption">Actual code from <code>MaxMin.java</code></div>
+            <pre class="codeblock live-code">public class MaxMin
+{
+    public int max,min;
+
+    public String toString()
+    {
+        return "Max=" + max + " ,Min=" + min;
+    }
+}</pre>
+            <p class="muted">
+              This stores only two values: <code>max</code> and <code>min</code>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="sec-backup">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 5</div>
+            <h2 class="speak" id="speak12">The Backup Recursive System</h2>
+          </div>
+          <span class="pill">The bigger design idea</span>
+        </div>
+
+        <div class="callout">
+          <h3>Main idea</h3>
+          <p>
+            The backup code is trying to solve a larger problem. Instead of just finding min and max in many files,
+            it starts with one very large file and recursively breaks it into smaller files according to numeric range.
+          </p>
+        </div>
+
+        <div class="flow">
+<pre>Generate huge file
+  ↓
+Read min, max, size from filename
+  ↓
+If size is already small enough → stop
+  ↓
+Else compute midpoint
+  ↓
+Split values into two child files
+  ↓
+Update child min, max, and size
+  ↓
+Delete parent file
+  ↓
+Rename child files with metadata
+  ↓
+Recurse on both child files</pre>
+        </div>
+      </section>
+
+      <section class="card" id="sec-backup-generate">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 5.1</div>
+            <h2 class="speak" id="speak13">Generating the Huge Random Data File</h2>
+          </div>
+          <span class="pill">Where the big file comes from</span>
+        </div>
+
+        <div class="code-caption">Actual code from <code>OneCroreBreakUp.java</code></div>
+        <pre class="codeblock live-code">public static int getRandom(int lowerlimit,int upperlimit)
+{
+    if(lowerlimit==upperlimit)
+        return lowerlimit;
+    if(lowerlimit>upperlimit)
+    {
+        int t=lowerlimit;
+        lowerlimit=upperlimit;
+        upperlimit=t;
+    }
+    int range=upperlimit-lowerlimit + 1;
+    int n=(int)(Math.random()*range);
+    return lowerlimit + n;
+}</pre>
+
+        <div class="code-caption">Actual file-writing method</div>
+        <pre class="codeblock live-code">public static void saveArray(String onlyfilename,int n,int min,int max) 
+{
+    try
+    {
+        String filename=getFileName(onlyfilename + "0",min,max,n);
+        PrintWriter pw=new PrintWriter("Data\\\\" + filename);
+        for(int i=1;i<=n;i++)
+        {
+            String str="" + getRandom(min,max);
+            pw.println(str);
+        }
+        pw.flush();
+        pw.close();
+    }
+    catch(Exception ex)
+    {
+        System.out.println(ex);
+    }
+}</pre>
+      </section>
+
+      <section class="card" id="sec-backup-meta">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 5.2</div>
+            <h2 class="speak" id="speak14">Metadata Stored Inside the File Name</h2>
+          </div>
+          <span class="pill">Important design trick</span>
+        </div>
+
+        <div class="code-pair">
+          <div class="box">
+            <div class="code-caption">Actual code that creates the metadata-rich file name</div>
+            <pre class="codeblock live-code">public static String getFileName(String filename,int min,int max,int size)
+{
+    return filename + "," + min + "," + max + "," + size;
+}</pre>
+            <p class="muted">
+              Example result: <code>Data0,-1000,1000,10000000</code>
+            </p>
+          </div>
+
+          <div class="box">
+            <div class="code-caption">Actual code that reads metadata back</div>
+            <pre class="codeblock live-code">public static FileData getDataFromFileName(String fullfilename)
+{
+    String[] strings=fullfilename.split(",");
+    String filename=strings[0];
+    int min=Integer.parseInt(strings[1]);
+    int max=Integer.parseInt(strings[2]);
+    int size=Integer.parseInt(strings[3]);
+    return new FileData(min,max,size,filename,fullfilename);
+}</pre>
+          </div>
+        </div>
+
+        <div class="code-caption">Actual backup <code>FileData.java</code></div>
+        <pre class="codeblock live-code">public class FileData
+{
+    public int min,max,size;
+    public String filename,fullfilename;
+
+    public FileData(int min,int max,int size,String filename,String fullfilename)
+    {
+        this.min=min;
+        this.max=max;
+        this.size=size;
+        this.filename=filename;
+        this.fullfilename=fullfilename;
+    }
+
+    public String toString()
+    {
+        return "Min = " + min + ", Max = " + max + ", Size = " + size + ", FileName = " + filename + ", FullFileName = " + fullfilename;
+    }
+}</pre>
+      </section>
+
+      <section class="card" id="sec-backup-break">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 5.3</div>
+            <h2 class="speak" id="speak15">The Heart of the Backup System: <code>breakTheFile()</code></h2>
+          </div>
+          <span class="pill">Recursive splitting logic</span>
+        </div>
+
+        <div class="note">
+          <h3>What this method does</h3>
+          <p class="muted">
+            It checks if a file is already small enough. If not, it computes the midpoint of the numeric range,
+            sends lower values into one child file and greater-or-equal values into another child file, updates
+            metadata while writing, deletes the old file, and then recurses on the two new files.
+          </p>
+        </div>
+
+        <div class="code-caption">Actual code from <code>OneCroreBreakUp.java</code></div>
+        <pre class="codeblock live-code">public static void breakTheFile(String filename,int maxsize)
+{
+    try
+    {
+        FileData fd=getDataFromFileName(filename);
+        if(fd.size<maxsize)
+            return;
+
+        int avg=(fd.min + fd.max)/2;
+        int n1=0,n2=0,min1=0,min2=0,max1=0,max2=0;
+        File f1=new File("Data\\\\t1");
+        File f2=new File("Data\\\\t2");
+        PrintWriter pw1=new PrintWriter(f1);
+        PrintWriter pw2=new PrintWriter(f2);
+        File currentfile=new File("Data\\\\" + filename);
+        Scanner s=new Scanner(currentfile);
+
+        while(s.hasNextInt())
+        {
+            int x=s.nextInt();
+            if(x<avg)
+            {
+                pw1.println("" + x);
+                if(n1==0)
+                {
+                    max1=x;
+                    min1=x;
+                }
+                else
+                {
+                    if(x>max1)
+                        max1=x;
+                    if(x<min1)
+                        min1=x;
+                }
+                n1++;
+            }
+            else
+            {
+                pw2.println("" + x);
+                if(n2==0)
+                {
+                    max2=x;
+                    min2=x;
+                }
+                else
+                {
+                    if(x>max2)
+                        max2=x;
+                    if(x<min2)
+                        min2=x;
+                }
+                n2++;
+            }
+        }
+
+        if(n1>0)
+        {
+            pw1.flush();
+            pw1.close();
+        }
+
+        if(n2>0)
+        {
+            pw2.flush();
+            pw2.close();
+        }
+
+        s.close();
+        currentfile.delete();
+
+        String filename1=getFileName("" + fileno++,min1,max1,n1);
+        String filename2=getFileName("" + fileno++,min2,max2,n2);
+
+        totalfiles++;
+        f1.renameTo(new File("Data\\\\" + filename1));
+        System.out.println("File " + totalfiles);
+
+        totalfiles++;
+        f2.renameTo(new File("Data\\\\" + filename2));
+        System.out.println("File " + totalfiles);
+
+        if(n1>0)
+            breakTheFile(filename1,maxsize);
+        if(n2>0)
+            breakTheFile(filename2,maxsize);
+    }
+    catch(Exception ex)
+    {
+        System.out.println(ex);
+        System.exit(0);
+    }
+}</pre>
+
+        <div class="code-pair">
+          <div class="box">
+            <div class="code-caption">Stopping rule and midpoint</div>
+            <pre class="codeblock live-code">FileData fd=getDataFromFileName(filename);
+if(fd.size<maxsize)
+    return;
+
+int avg=(fd.min + fd.max)/2;</pre>
+          </div>
+
+          <div class="box">
+            <div class="code-caption">The actual split condition</div>
+            <pre class="codeblock live-code">if(x<avg)
+{
+    pw1.println("" + x);
+    ...
+    n1++;
+}
+else
+{
+    pw2.println("" + x);
+    ...
+    n2++;
+}</pre>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h3>Simple dry run example</h3>
+          <p>
+            If the file range is <code>-1000</code> to <code>1000</code>, then <code>avg = 0</code>.
+            So values like <code>-700</code> and <code>-2</code> go left. Values like <code>0</code>,
+            <code>15</code>, and <code>999</code> go right.
+          </p>
+        </div>
+      </section>
+
+      <section class="card" id="sec-backup-main">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 5.4</div>
+            <h2 class="speak" id="speak16">The Backup Program Entry Point</h2>
+          </div>
+          <span class="pill">How recursion starts</span>
+        </div>
+
+        <div class="code-caption">Actual code from <code>OneCroreBreakUp.java</code></div>
+        <pre class="codeblock live-code">public static void main(String[] args)
+{
+    saveArray("Data",10000000,-1000,1000);
+    breakTheFile("Data0,-1000,1000,10000000",25000);
+}</pre>
+
+        <div class="grid-2">
+          <div class="note">
+            <h3>First line meaning</h3>
+            <p class="muted">
+              Create a file containing ten million random integers between <code>-1000</code> and <code>1000</code>.
+            </p>
+          </div>
+          <div class="note">
+            <h3>Second line meaning</h3>
+            <p class="muted">
+              Keep breaking that file until every resulting file has fewer than <code>25,000</code> numbers.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="sec-counting">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 6</div>
+            <h2 class="speak" id="speak17">Counting Sort Demo in the Backup Folder</h2>
+          </div>
+          <span class="pill">Separate sorting example</span>
+        </div>
+
+        <div class="note">
+          <h3>Why this file matters</h3>
+          <p class="muted">
+            This is not the active large-file engine, but it demonstrates counting sort on a normal in-memory array.
+          </p>
+        </div>
+
+        <div class="code-caption">Actual code from <code>Counting.java</code></div>
+        <pre class="codeblock live-code">class Counting
+{
+    public static void main(String[ ] args)
+    {
+        int max=0;
+        int b[ ];
+        int[] a={21,3,54,10,54,67,89,21};
+        for(int i=0;i<=a.length-1;i++)
+        {
+            if(max<a[i])
+                max=a[i];
+        }
+        countingsort(a,max);
+        for(int i=0;i<=a.length-1;i++)
+            System.out.println(a[i]);
+    }
+
+    public static void countingsort(int[ ] a,int max)
+    {
+        int[ ] f=new int[max+1];
+        for(int i=0;i<=a.length-1;i++)
+        {
+            int p=a[i];
+            f[p]++;
+        }
+        for(int i=1;i<=f.length-1;i++)
+            f[i]=f[i]+f[i-1];
+
+        int[] b=new int[a.length];
+        for(int i=a.length-1;i>=0;i--)
+        {
+            int value=a[i];
+            int pos=f[value];
+            f[value]--;
+            pos--;
+            b[pos]=value;
+        }
+        for(int i=0;i<=a.length-1;i++)
+            a[i]=b[i];
+    }
+}</pre>
+      </section>
+
+      <section class="card" id="sec-github">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 7</div>
+            <h2 class="speak" id="speak18">GitHub Repository and Running Java on GitHub</h2>
+          </div>
+          <span class="pill">Practical publishing workflow</span>
+        </div>
+
+        <div class="repo-card">
+          <div>
+            <h3 style="margin-bottom:8px">Placeholder GitHub Repository Link</h3>
+            <p class="muted" style="margin:0">
+              Replace this dummy link with your real repository later.
+            </p>
+          </div>
+          <a
+            class="btn btn-primary"
+            href="https://github.com/your-username/your-repository"
+            target="_blank"
+            rel="noopener"
+          >
+            Open GitHub Repository
+          </a>
+        </div>
+
+        <div class="grid-2" style="margin-top:14px">
+          <div class="note success">
+            <h3>What GitHub is good for here</h3>
+            <p class="muted">
+              Store the Java source code, version the project, publish docs and lesson pages, and use GitHub Actions
+              to compile and test the Java project automatically.
+            </p>
+          </div>
+          <div class="note warn">
+            <h3>Important limitation</h3>
+            <p class="muted">
+              GitHub Pages is for static content such as HTML, CSS, and JavaScript. It is a good place for your lesson page,
+              project explanation, screenshots, and download links, but not for hosting a live Java backend.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h3>Simple recommended setup</h3>
+          <p>
+            Put your Java project code in the GitHub repository. Put this HTML lesson in the same repository
+            or in a docs branch/folder. Use GitHub Pages for the lesson page, and GitHub Actions for Java build/test automation.
+          </p>
+        </div>
+
+        <div class="code-caption">Example GitHub Actions workflow for a simple Java compile</div>
+        <pre class="codeblock live-code">name: Java Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Compile Java files
+        run: javac *.java</pre>
+
+        <div class="code-caption">Dummy HTML block for a repository section</div>
+        <pre class="codeblock live-code">&lt;section class="card"&gt;
+  &lt;h2&gt;Project Repository&lt;/h2&gt;
+  &lt;p&gt;Replace this dummy link with your real GitHub repository.&lt;/p&gt;
+  &lt;a
+    href="https://github.com/your-username/your-repository"
+    target="_blank"
+    rel="noopener"
+    class="btn btn-primary"
+  &gt;
+    View Project on GitHub
+  &lt;/a&gt;
+&lt;/section&gt;</pre>
+      </section>
+
+      <section class="card" id="sec-colab">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 8</div>
+            <h2 class="speak" id="speak19">Running Java on Google Colab</h2>
+          </div>
+          <span class="pill">Notebook workflow</span>
+        </div>
+
+        <div class="callout">
+          <h3>Can Java run on Colab?</h3>
+          <p>
+            Yes. A Colab notebook is a Linux-based environment, so you can compile and run Java using shell commands.
+            The usual flow is: check Java → upload ZIP → unzip → compile → run.
+          </p>
+        </div>
+
+        <div class="step-list">
+          <article class="step">
+            <div class="step-num">1</div>
+            <div>
+              <h3>Check Java version</h3>
+              <pre class="codeblock live-code">!java -version</pre>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step-num">2</div>
+            <div>
+              <h3>Upload your ZIP file</h3>
+              <pre class="codeblock live-code">from google.colab import files
+files.upload()</pre>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step-num">3</div>
+            <div>
+              <h3>Unzip the project</h3>
+              <pre class="codeblock live-code">!unzip "One Crore Sorting.zip"</pre>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step-num">4</div>
+            <div>
+              <h3>Compile the Java files</h3>
+              <pre class="codeblock live-code">!javac *.java</pre>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="step-num">5</div>
+            <div>
+              <h3>Run the active program</h3>
+              <pre class="codeblock live-code">!java BillionsAndBillions</pre>
+            </div>
+          </article>
+        </div>
+
+        <div class="grid-2">
+          <div class="box">
+            <h3>Hello World test in Colab</h3>
+            <pre class="codeblock live-code">%%writefile HelloWorld.java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello from Java in Colab!");
+    }
+}
+
+!javac HelloWorld.java
+!java HelloWorld</pre>
+          </div>
+
+          <div class="box">
+            <h3>Custom project notes</h3>
+            <p class="muted">
+              If your ZIP contains multiple folders with duplicate class names, compile one target folder at a time.
+              Otherwise Java compilation may clash.
+            </p>
+          </div>
+        </div>
+
+        <div class="code-caption">Colab-ready project workflow block</div>
+        <pre class="codeblock live-code"># 1. Check Java
+!java -version
+
+# 2. Upload the zip
+from google.colab import files
+files.upload()
+
+# 3. Unzip project
+!unzip "One Crore Sorting.zip"
+
+# 4. Optional: see Java files
+!find . -name "*.java"
+
+# 5. Compile top-level Java files
+!javac *.java
+
+# 6. Run active main class
+!java BillionsAndBillions
+
+# 7. Optional backup runs
+# !java OneCroreBreakUp
+# !java Counting</pre>
+      </section>
+
+      <section class="card" id="sec-complexity">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 9</div>
+            <h2 class="speak" id="speak20">Complexity and Critical View</h2>
+          </div>
+          <span class="pill">Evaluate it properly</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="note success">
+            <h3>Active program complexity</h3>
+            <div class="code">Scanning all integers across files: O(N)
+Current combine step: O(F²)</div>
+            <p class="muted">
+              Here <code>N</code> is the total number of integers and <code>F</code> is the number of files.
+            </p>
+          </div>
+
+          <div class="note">
+            <h3>Backup recursive intuition</h3>
+            <div class="code">Rough intuition: O(N log R)</div>
+            <p class="muted">
+              Here <code>R</code> is the numeric range being split recursively.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="note success">
+            <h3>Strengths</h3>
+            <p class="muted">
+              Good large-data thinking, file-wise processing, clean local summaries, and a smart recursive range-based design in the backup folder.
+            </p>
+          </div>
+
+          <div class="note warn">
+            <h3>Limitations</h3>
+            <p class="muted">
+              The active code does not fully sort the whole dataset. The global combine method is more repetitive than needed,
+              and the backup design would still need a final production-ready sort/merge strategy if full ordering is desired.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="sec-mcqs">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 10</div>
+            <h2 class="speak" id="speak21">Practice MCQs</h2>
+          </div>
+          <span class="pill">Check understanding</span>
+        </div>
+
+        <div class="mcq" id="mcqWrap">
+          <div class="q" data-answer="b">
+            <h3>1. What does the active program mainly compute?</h3>
+            <label><input type="radio" name="q1" value="a"> Full recursive sorting of all files</label>
+            <label><input type="radio" name="q1" value="b"> Local min-max per file and then global min-max</label>
+            <label><input type="radio" name="q1" value="c"> Only random number generation</label>
+            <label><input type="radio" name="q1" value="d"> Network requests</label>
+          </div>
+
+          <div class="q" data-answer="c">
+            <h3>2. What is the role of boolean <code>b</code> in <code>getFileData()</code>?</h3>
+            <label><input type="radio" name="q2" value="a"> It checks whether the file is deleted</label>
+            <label><input type="radio" name="q2" value="b"> It stores the maximum value</label>
+            <label><input type="radio" name="q2" value="c"> It helps detect the first integer</label>
+            <label><input type="radio" name="q2" value="d"> It chooses the output folder</label>
+          </div>
+
+          <div class="q" data-answer="a">
+            <h3>3. In the backup system, how is the split point chosen?</h3>
+            <label><input type="radio" name="q3" value="a"> Using the midpoint of min and max</label>
+            <label><input type="radio" name="q3" value="b"> Using the file extension</label>
+            <label><input type="radio" name="q3" value="c"> By sorting the whole file first</label>
+            <label><input type="radio" name="q3" value="d"> By asking the user every time</label>
+          </div>
+
+          <div class="q" data-answer="d">
+            <h3>4. What is GitHub Pages best used for in this project?</h3>
+            <label><input type="radio" name="q4" value="a"> Hosting a live Java backend server</label>
+            <label><input type="radio" name="q4" value="b"> Running long Java services directly</label>
+            <label><input type="radio" name="q4" value="c"> Replacing javac completely</label>
+            <label><input type="radio" name="q4" value="d"> Publishing the HTML lesson and static project pages</label>
+          </div>
+
+          <div class="q" data-answer="b">
+            <h3>5. What is a practical Java workflow on Colab?</h3>
+            <label><input type="radio" name="q5" value="a"> Upload PDF, run CSS, export SQL</label>
+            <label><input type="radio" name="q5" value="b"> Upload ZIP, unzip, compile with javac, run with java</label>
+            <label><input type="radio" name="q5" value="c"> Use only browser bookmarks</label>
+            <label><input type="radio" name="q5" value="d"> It is impossible to run Java there</label>
+          </div>
+        </div>
+
+        <div class="mcq-actions" style="margin-top:14px">
+          <button class="btn btn-primary" id="checkMcqBtn" type="button">Check Answers</button>
+          <button class="btn btn-soft" id="resetMcqBtn" type="button">Reset</button>
+          <div class="scorebox" id="scoreBox" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="card" id="sec-summary">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Section 11</div>
+            <h2 class="speak" id="speak22">Final Summary</h2>
+          </div>
+          <span class="pill">Last takeaway</span>
+        </div>
+
+        <div class="callout">
+          <h3>One-line summary</h3>
+          <p>
+            This project shows how very large numeric data can be processed through files: the active code computes
+            local and global min-max values, while the backup design recursively partitions a giant file into smaller
+            range-based files.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="box">
+            <h3>Best project setup</h3>
+            <p class="muted">
+              Use GitHub for source control and GitHub Actions for Java build/test automation. Use GitHub Pages for this lesson.
+              Use Colab for quick demos, teaching, and simple compile-run workflows.
+            </p>
+          </div>
+
+          <div class="box">
+            <h3>Best next upgrade</h3>
+            <p class="muted">
+              Add a proper final sorting or merge stage so the backup design becomes a more complete external sorting system.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="footer">
+    Built in Programmer’s Picnic lesson style — now including actual Java code, GitHub usage, and Colab execution steps.
+  </div>
+
+  <script>
+    (function(){
+      const questions = Array.from(document.querySelectorAll('.q'));
+      const scoreBox = document.getElementById('scoreBox');
+      const checkBtns = [document.getElementById('checkMcqBtn'), document.getElementById('checkMcqBtnTop')].filter(Boolean);
+      const resetBtn = document.getElementById('resetMcqBtn');
+      const toggleCodeBtn = document.getElementById('toggleCodeBtn');
+      const codeBlocks = Array.from(document.querySelectorAll('.live-code'));
+
+      function markAnswers(){
+        let score = 0;
+        questions.forEach((q) => {
+          const correct = q.dataset.answer;
+          const picked = q.querySelector('input[type="radio"]:checked');
+
+          q.querySelectorAll('label').forEach(label => {
+            label.style.borderColor = '#efe2ba';
+            label.style.background = '#fffaf0';
+            label.style.color = '';
+            label.style.fontWeight = '600';
+          });
+
+          q.querySelectorAll('input[type="radio"]').forEach(inp => {
+            const label = inp.closest('label');
+            if(inp.value === correct){
+              label.style.borderColor = '#86d19b';
+              label.style.background = '#ecfdf3';
+              label.style.color = '#14532d';
+              label.style.fontWeight = '800';
+            }
+          });
+
+          if(picked){
+            if(picked.value === correct){
+              score++;
+            }else{
+              const wrongLabel = picked.closest('label');
+              wrongLabel.style.borderColor = '#ef9a9a';
+              wrongLabel.style.background = '#fff1f2';
+              wrongLabel.style.color = '#991b1b';
+              wrongLabel.style.fontWeight = '800';
+            }
+          }
+        });
+
+        scoreBox.textContent = "Score: " + score + " / " + questions.length;
+      }
+
+      function resetAnswers(){
+        questions.forEach(q => {
+          q.querySelectorAll('input[type="radio"]').forEach(inp => inp.checked = false);
+          q.querySelectorAll('label').forEach(label => {
+            label.style.borderColor = '#efe2ba';
+            label.style.background = '#fffaf0';
+            label.style.color = '';
+            label.style.fontWeight = '600';
+          });
+        });
+        scoreBox.textContent = "";
+      }
+
+      let codeHidden = false;
+      if(toggleCodeBtn){
+        toggleCodeBtn.addEventListener('click', () => {
+          codeHidden = !codeHidden;
+          codeBlocks.forEach(block => block.style.display = codeHidden ? 'none' : '');
+          document.querySelectorAll('.code-caption').forEach(cap => cap.style.display = codeHidden ? 'none' : '');
+          toggleCodeBtn.textContent = codeHidden ? 'Show code blocks' : 'Hide code blocks';
+        });
+      }
+
+      checkBtns.forEach(btn => btn.addEventListener('click', markAnswers));
+      if(resetBtn) resetBtn.addEventListener('click', resetAnswers);
+    })();
+  </script>
+  <script src="https://programmer-s-picnic.github.io/json-images/contact_champak.js"></script>
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+</body>
+</html>
