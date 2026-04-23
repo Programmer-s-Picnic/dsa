@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Website Skeleton Wizard</title>
+
+  <style>
+    :root{
+      --bg:#f7fafc;
+      --card:#ffffff;
+      --text:#1d2b3a;
+      --muted:#5b6b7a;
+      --brand:#2563eb;
+      --line:#e5eaf0;
+      --good:#16a34a;
+      --shadow:0 18px 40px rgba(0,0,0,.08);
+      --radius:18px;
+    }
+
+    body{
+      margin:0;
+      font-family:system-ui,Arial;
+      background:linear-gradient(180deg,#f8fbff,#eef5ff);
+      color:var(--text);
+    }
+
+    .wrap{
+      max-width:1000px;
+      margin:auto;
+      padding:20px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:28px;
+    }
+
+    p{color:var(--muted)}
+
+    .progress{
+      height:10px;
+      background:#e8eef6;
+      border-radius:999px;
+      overflow:hidden;
+      margin:15px 0;
+    }
+
+    .bar{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,var(--brand),#60a5fa);
+      transition:.3s;
+    }
+
+    .q-title{
+      font-size:22px;
+      margin:10px 0;
+    }
+
+    .options{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:15px;
+    }
+
+    .opt{
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      cursor:pointer;
+      background:#fff;
+      transition:.2s;
+    }
+
+    .opt:hover{
+      transform:translateY(-2px);
+      border-color:#bcd2ff;
+    }
+
+    .opt small{color:var(--muted)}
+
+    .btns{
+      display:flex;
+      justify-content:space-between;
+      margin-top:20px;
+      gap:10px;
+    }
+
+    button{
+      padding:10px 16px;
+      border:none;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+    }
+
+    .primary{background:var(--brand);color:#fff}
+    .ghost{background:#f1f5f9}
+
+    pre{
+      background:#0f172a;
+      color:#e2e8f0;
+      padding:16px;
+      border-radius:14px;
+      overflow:auto;
+      font-size:13px;
+    }
+
+    .result{
+      margin-top:20px;
+    }
+
+    @media(max-width:700px){
+      .options{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="card">
+
+    <h1>🌐 Website Skeleton Generator</h1>
+    <p>Answer a few questions and get a ready website structure (HTML skeleton).</p>
+
+    <div class="progress"><div class="bar" id="bar"></div></div>
+
+    <div id="wizard"></div>
+
+    <div class="btns">
+      <button class="ghost" onclick="back()">Back</button>
+      <button class="ghost" onclick="resetAll()">Restart</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const state = {
+  step: 0,
+  answers: {}
+};
+
+const steps = [
+  {
+    key:"type",
+    title:"What type of website do you want?",
+    options:[
+      ["portfolio","Portfolio Website"],
+      ["business","Business Website"],
+      ["education","Educational Platform"],
+      ["ecommerce","E-commerce Store"],
+      ["blog","Blog / Content Site"]
+    ]
+  },
+  {
+    key:"goal",
+    title:"What is the main goal?",
+    options:[
+      ["leads","Get leads / customers"],
+      ["info","Share information"],
+      ["sell","Sell products/services"],
+      ["teach","Teach / courses"],
+      ["brand","Build personal brand"]
+    ]
+  },
+  {
+    key:"sections",
+    title:"What sections do you need?",
+    options:[
+      ["basic","Home + About + Contact"],
+      ["standard","Home + Services + Contact + About"],
+      ["full","Home + Services + Blog + Contact + FAQ"],
+      ["advanced","Dashboard + Login + Blog + Payments"]
+    ]
+  },
+  {
+    key:"style",
+    title:"Design style preference?",
+    options:[
+      ["minimal","Minimal Clean"],
+      ["modern","Modern Gradient"],
+      ["corporate","Corporate Professional"],
+      ["creative","Creative Bold UI"]
+    ]
+  },
+  {
+    key:"features",
+    title:"Extra features needed?",
+    options:[
+      ["none","No extra features"],
+      ["form","Contact forms"],
+      ["chat","Live chat / WhatsApp"],
+      ["payment","Payments (Razorpay)"],
+      ["auth","Login system"]
+    ]
+  }
+];
+
+function render(){
+  const w = document.getElementById("wizard");
+  const step = steps[state.step];
+
+  document.getElementById("bar").style.width =
+    ((state.step)/steps.length)*100 + "%";
+
+  if(state.step >= steps.length){
+    w.innerHTML = generateCode();
+    document.getElementById("bar").style.width = "100%";
+    return;
+  }
+
+  w.innerHTML = `
+    <div class="q-title">${step.title}</div>
+    <div class="options">
+      ${step.options.map(o=>`
+        <div class="opt" onclick="selectOption('${step.key}','${o[0]}')">
+          <b>${o[1]}</b><br/>
+          <small>Select this option</small>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function selectOption(key,val){
+  state.answers[key]=val;
+  state.step++;
+  render();
+}
+
+function back(){
+  if(state.step>0){
+    state.step--;
+    render();
+  }
+}
+
+function resetAll(){
+  state.step=0;
+  state.answers={};
+  render();
+}
+
+/* 🔥 SKELETON GENERATOR */
+function generateCode(){
+
+const t = state.answers.type;
+const g = state.answers.goal;
+const s = state.answers.sections;
+const st = state.answers.style;
+const f = state.answers.features;
+
+return `
+<h2>✅ Generated Website Skeleton</h2>
+
+<pre>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;My Website&lt;/title&gt;
+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"/&gt;
+  &lt;style&gt;
+    body{font-family:Arial;margin:0}
+
+    header{
+      padding:20px;
+      background:#111827;
+      color:white;
+    }
+
+    section{
+      padding:40px;
+    }
+
+    footer{
+      padding:20px;
+      background:#f3f4f6;
+      text-align:center;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:auto;
+    }
+
+    .hero{
+      padding:60px;
+      background:#e0f2fe;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;header&gt;
+  &lt;div class="container"&gt;
+    &lt;h2&gt;My ${t} Website&lt;/h2&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+
+&lt;section class="hero"&gt;
+  &lt;div class="container"&gt;
+    &lt;h1&gt;Welcome&lt;/h1&gt;
+    &lt;p&gt;Goal: ${g}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+  &lt;div class="container"&gt;
+    &lt;h2&gt;Main Content Area&lt;/h2&gt;
+    &lt;p&gt;Sections: ${s}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;footer&gt;
+  &lt;p&gt;Footer Section&lt;/p&gt;
+&lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p><b>Style:</b> ${st}</p>
+<p><b>Features:</b> ${f}</p>
+
+<button onclick="resetAll()">Create Another Website</button>
+`;
+}
+
+render();
+</script>
+
+</body>
+</html>
