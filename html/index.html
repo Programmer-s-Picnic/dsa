@@ -83,7 +83,7 @@ a{color:inherit}
 
 .layout{
   display:grid;
-  grid-template-columns:430px 1fr;
+  grid-template-columns:1fr;
   gap:18px;
   align-items:start;
 }
@@ -408,7 +408,6 @@ iframe{
 }
 
 @media (max-width:1200px){
-  .layout{grid-template-columns:1fr}
   .preview-panel{grid-template-rows:auto 520px auto auto}
 }
 
@@ -439,7 +438,11 @@ iframe{
     <div class="panel-head">
       <h2>Wizard Controls</h2>
     </div>
-    <div class="panel-body" id="wizardBody"></div>
+    <div class="panel-body" id="wizardBody">
+      <div class="qtag">Loading wizard</div>
+      <h3 class="question">Preparing the first step...</h3>
+      <p class="help">If this text stays on screen, JavaScript is not running correctly.</p>
+    </div>
   </section>
 
   <section class="panel preview-panel">
