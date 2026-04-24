@@ -1,0 +1,353 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JSON + HTML UI Builder Wizard V1</title>
+  <style>
+    :root{
+      --bg:#fffaf0;
+      --card:#ffffff;
+      --line:#f0dcc2;
+      --text:#2b2112;
+      --muted:#766247;
+      --primary:#d97706;
+      --accent:#f59e0b;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .wrap{max-width:1200px;margin:24px auto;padding:16px}
+    .hero,.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 30px rgba(111,72,18,.08)}
+    .hero{padding:20px;margin-bottom:16px}
+    .hero h1{margin:0 0 8px;font-size:34px}
+    .hero p{margin:0;color:var(--muted);line-height:1.6}
+    .grid{display:grid;grid-template-columns:420px 1fr;gap:16px;align-items:start}
+    .head{padding:14px 16px;border-bottom:1px solid var(--line);background:#fff8ef}
+    .head h2{margin:0;font-size:20px}
+    .body{padding:16px}
+    .progress{height:10px;background:#f7e6c8;border-radius:999px;overflow:hidden;margin:10px 0 18px}
+    .progress span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .25s ease}
+    .question{font-size:25px;margin:0 0 8px;line-height:1.15}
+    .help{margin:0 0 14px;color:var(--muted);line-height:1.5}
+    .options{display:grid;gap:10px}
+    .option{width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px;cursor:pointer}
+    .option.active{background:#fff4e6;border:2px solid var(--primary)}
+    .option strong{display:block;margin-bottom:4px}.option span{display:block;color:var(--muted);font-size:13px}
+    input,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;font:inherit;background:white;color:var(--text)}
+    textarea{min-height:160px;resize:vertical}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+    button{border:0;background:var(--primary);color:#fff;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:bold}
+    button.secondary{background:#fff6e6;color:var(--text);border:1px solid var(--line)}
+    button.active{background:var(--accent)}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .output textarea{font-family:Consolas,monospace;font-size:13px;min-height:280px}
+    iframe{width:100%;height:420px;border:1px solid var(--line);border-radius:14px;background:white}
+    .small{font-size:13px;color:var(--muted)}
+    @media(max-width:1000px){.grid,.split{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>JSON + HTML UI Builder Wizard</h1>
+      <p>Create a JSON structure and an HTML UI for displaying it. Start simple, then we can grow it into a schema-driven builder.</p>
+    </section><section class="grid">
+  <section class="panel">
+    <div class="head"><h2>Wizard</h2></div>
+    <div class="body">
+      <div id="stepInfo" class="small"></div>
+      <div class="progress"><span id="progressBar"></span></div>
+      <h3 class="question" id="question"></h3>
+      <p class="help" id="help"></p>
+      <div id="stepArea"></div>
+      <div class="toolbar">
+        <button class="secondary" id="backBtn">Back</button>
+        <button id="nextBtn">Next</button>
+        <button class="secondary" id="resetBtn">Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="head"><h2>Generated Output</h2></div>
+    <div class="body output">
+      <div class="split">
+        <div>
+          <h3>JSON Text</h3>
+          <textarea id="jsonOut"></textarea>
+          <div class="toolbar">
+            <button id="copyJsonBtn">Copy JSON</button>
+            <button id="downloadJsonBtn">Download JSON</button>
+          </div>
+        </div>
+        <div>
+          <h3>HTML UI Code</h3>
+          <textarea id="htmlOut"></textarea>
+          <div class="toolbar">
+            <button id="copyHtmlBtn">Copy HTML</button>
+            <button id="downloadHtmlBtn">Download HTML</button>
+          </div>
+        </div>
+      </div>
+      <h3>Live UI Preview</h3>
+      <iframe id="preview"></iframe>
+    </div>
+  </section>
+</section>
+
+  </div>  <script>
+    const steps = [
+      {
+        key:'projectName',
+        type:'text',
+        question:'What is this JSON project called?',
+        help:'Example: Courses List, Doctors Directory, Temple Places, Books Catalog.'
+      },
+      {
+        key:'jsonType',
+        type:'options',
+        question:'What kind of JSON do you want to create?',
+        help:'Choose the nearest structure. We will generate sample JSON and a matching UI.',
+        options:[
+          ['cards','Cards / Directory','A list of cards: title, description, image, link.'],
+          ['faq','FAQ','Questions and answers displayed as FAQ cards.'],
+          ['gallery','Gallery','Images with captions and tags.'],
+          ['table','Table / Records','Rows and columns like books, students, doctors, products.'],
+          ['course','Course / Lessons','Course title with modules and lessons.']
+        ]
+      },
+      {
+        key:'itemCount',
+        type:'number',
+        question:'How many sample items should we generate?',
+        help:'Keep it small now. You can edit the JSON later.'
+      },
+      {
+        key:'theme',
+        type:'options',
+        question:'Choose UI theme style',
+        help:'This controls the generated HTML UI appearance.',
+        options:[
+          ['saffron','Saffron','Warm Programmer’s Picnic style.'],
+          ['blue','Blue','Professional blue style.'],
+          ['green','Green','Fresh and calm style.'],
+          ['dark','Dark','Dark UI style.']
+        ]
+      },
+      {
+        key:'fields',
+        type:'textarea',
+        question:'Optional: custom fields, comma separated',
+        help:'Example: name, specialization, phone, location. Leave blank to use default fields.'
+      }
+    ];
+
+    let state = {
+      step:0,
+      data:{
+        projectName:'My JSON UI',
+        jsonType:'cards',
+        itemCount:3,
+        theme:'saffron',
+        fields:''
+      }
+    };
+
+    function safe(s){
+      return String(s || '')
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#039;');
+    }
+
+    function render(){
+      const step = steps[state.step];
+      document.getElementById('stepInfo').innerText = 'Step ' + (state.step + 1) + ' of ' + steps.length;
+      document.getElementById('progressBar').style.width = ((state.step + 1) / steps.length * 100) + '%';
+      document.getElementById('question').innerText = step.question;
+      document.getElementById('help').innerText = step.help;
+
+      let html = '';
+      if(step.type === 'text'){
+        html = '<input id="stepInput" value="' + safe(state.data[step.key]) + '">';
+      }
+      if(step.type === 'number'){
+        html = '<input id="stepInput" type="number" min="1" max="20" value="' + safe(state.data[step.key]) + '">';
+      }
+      if(step.type === 'textarea'){
+        html = '<textarea id="stepInput">' + safe(state.data[step.key]) + '</textarea>';}
+  if(step.type === 'options'){
+    html = '<div class="options">';
+    step.options.forEach(opt => {
+      const active = state.data[step.key] === opt[0] ? 'active' : '';
+      html += '<button type="button" class="option ' + active + '" data-value="' + safe(opt[0]) + '"><strong>' + safe(opt[1]) + '</strong><span>' + safe(opt[2]) + '</span></button>';
+    });
+    html += '</div>';
+  }
+
+  document.getElementById('stepArea').innerHTML = html;
+
+  if(step.type === 'options'){
+    document.querySelectorAll('.option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.data[step.key] = btn.getAttribute('data-value');
+        render();
+      });
+    });
+  }
+
+  document.getElementById('backBtn').style.display = state.step === 0 ? 'none' : 'inline-block';
+  document.getElementById('nextBtn').innerText = state.step === steps.length - 1 ? 'Finish' : 'Next';
+  updateOutputs();
+}
+
+function saveInput(){
+  const step = steps[state.step];
+  const input = document.getElementById('stepInput');
+  if(input){
+    if(step.type === 'number') state.data[step.key] = Math.max(1, Number(input.value || 1));
+    else state.data[step.key] = input.value;
+  }
+}
+
+function next(){
+  saveInput();
+  if(state.step < steps.length - 1){
+    state.step++;
+    render();
+  } else {
+    updateOutputs();
+  }
+}
+
+function back(){
+  saveInput();
+  if(state.step > 0){
+    state.step--;
+    render();
+  }
+}
+
+function reset(){
+  state = {step:0,data:{projectName:'My JSON UI',jsonType:'cards',itemCount:3,theme:'saffron',fields:''}};
+  render();
+}
+
+function customFields(){
+  return state.data.fields.split(',').map(x => x.trim()).filter(Boolean);
+}
+
+function buildJSON(){
+  const count = Math.max(1, Number(state.data.itemCount || 1));
+  const fields = customFields();
+  const type = state.data.jsonType;
+  const obj = {
+    meta:{
+      title:state.data.projectName,
+      type:type,
+      generatedBy:'JSON UI Builder Wizard V1'
+    },
+    items:[]
+  };
+
+  for(let i=1;i<=count;i++){
+    let item = {};
+
+    if(fields.length){
+      fields.forEach(f => item[f] = f + ' ' + i);
+    } else if(type === 'faq'){
+      item = {question:'Question ' + i, answer:'Answer for question ' + i};
+    } else if(type === 'gallery'){
+      item = {title:'Image ' + i, image:'https://via.placeholder.com/600x400?text=Image+' + i, caption:'Caption for image ' + i, tags:['sample','gallery']};
+    } else if(type === 'table'){
+      item = {id:i, name:'Record ' + i, category:'Category ' + i, status:'Active'};
+    } else if(type === 'course'){
+      item = {module:'Module ' + i, title:'Lesson Group ' + i, lessons:['Lesson ' + i + '.1','Lesson ' + i + '.2','Lesson ' + i + '.3']};
+    } else {
+      item = {title:'Card ' + i, description:'Description for card ' + i, image:'https://via.placeholder.com/600x400?text=Card+' + i, link:'#'};
+    }
+    obj.items.push(item);
+  }
+  return obj;
+}
+
+function themeCSS(){
+  const t = state.data.theme;
+  if(t === 'blue') return {bg:'#eff6ff', card:'#ffffff', text:'#172554', muted:'#475569', primary:'#2563eb', line:'#bfdbfe'};
+  if(t === 'green') return {bg:'#f0fdf4', card:'#ffffff', text:'#14532d', muted:'#4b5563', primary:'#15803d', line:'#bbf7d0'};
+  if(t === 'dark') return {bg:'#0f172a', card:'#111827', text:'#f8fafc', muted:'#cbd5e1', primary:'#f59e0b', line:'#334155'};
+  return {bg:'#fffaf0', card:'#ffffff', text:'#2b2112', muted:'#766247', primary:'#d97706', line:'#f0dcc2'};
+}
+
+function buildHTMLUI(){
+  const data = buildJSON();
+  const t = themeCSS();
+  const jsonText = JSON.stringify(data, null, 2).replace(/<\/script>/g,'<\\/script>');
+  let html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + safe(data.meta.title) + '</title>';
+  html += '<style>';
+  html += 'body{margin:0;font-family:Arial;background:' + t.bg + ';color:' + t.text + ';line-height:1.6}';
+  html += '.wrap{max-width:1100px;margin:auto;padding:24px}';
+  html += '.top{background:' + t.card + ';border:1px solid ' + t.line + ';border-radius:18px;padding:20px;margin-bottom:18px}';
+  html += '.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}';
+  html += '.card{background:' + t.card + ';border:1px solid ' + t.line + ';border-radius:16px;padding:16px}';
+  html += '.card img{width:100%;border-radius:12px}';
+  html += '.muted{color:' + t.muted + '}';
+  html += 'button{background:' + t.primary + ';color:white;border:0;border-radius:10px;padding:10px 14px;font-weight:bold}';
+  html += 'table{width:100%;border-collapse:collapse;background:' + t.card + '}th,td{border:1px solid ' + t.line + ';padding:10px;text-align:left}';
+  html += 'details{background:' + t.card + ';border:1px solid ' + t.line + ';border-radius:14px;padding:12px;margin:10px 0}';
+  html += '@media(max-width:800px){.grid{grid-template-columns:1fr}}';
+  html += '</style></head><body><div class="wrap"><div class="top"><h1>' + safe(data.meta.title) + '</h1><p class="muted">Generated UI for JSON type: ' + safe(data.meta.type) + '</p></div><div id="app"></div></div>';
+  html += '<script id="jsonData" type="application/json">' + jsonText + '<\/script>';
+  html += '<script>';
+  html += 'const data=JSON.parse(document.getElementById("jsonData").textContent);const app=document.getElementById("app");function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}';
+  html += 'function render(){let type=data.meta.type;let html="";';
+  html += 'if(type==="faq"){data.items.forEach(x=>{html+=`<details><summary><b>${esc(x.question)}</b></summary><p>${esc(x.answer)}</p></details>`;});}';
+  html += 'else if(type==="gallery"){html+=`<div class="grid">`;data.items.forEach(x=>{html+=`<div class="card"><img src="${esc(x.image)}"><h3>${esc(x.title)}</h3><p class="muted">${esc(x.caption)}</p></div>`;});html+=`</div>`;}';
+  html += 'else if(type==="table"){let keys=Object.keys(data.items[0]||{});html+=`<table><thead><tr>`+keys.map(k=>`<th>${esc(k)}</th>`).join("")+`</tr></thead><tbody>`;data.items.forEach(row=>{html+=`<tr>`+keys.map(k=>`<td>${esc(row[k])}</td>`).join("")+`</tr>`;});html+=`</tbody></table>`;}';
+  html += 'else if(type==="course"){data.items.forEach(x=>{html+=`<div class="card"><h2>${esc(x.module)}</h2><h3>${esc(x.title)}</h3><ul>`+(x.lessons||[]).map(l=>`<li>${esc(l)}</li>`).join("")+`</ul></div>`;});}';
+  html += 'else{html+=`<div class="grid">`;data.items.forEach(x=>{html+=`<div class="card">${x.image?`<img src="${esc(x.image)}">`:""}<h3>${esc(x.title||x.name||"Item")}</h3><p class="muted">${esc(x.description||x.category||"")}</p>${x.link?`<p><button>Open</button></p>`:""}</div>`;});html+=`</div>`;}';
+  html += 'app.innerHTML=html;}render();';
+  html += '<\/script></body></html>';
+  return html;
+}
+
+function updateOutputs(){
+  const json = buildJSON();
+  const html = buildHTMLUI();
+  document.getElementById('jsonOut').value = JSON.stringify(json, null, 2);
+  document.getElementById('htmlOut').value = html;
+  document.getElementById('preview').srcdoc = html;
+}
+
+function copyText(id){
+  const el = document.getElementById(id);
+  el.focus();
+  el.select();
+  document.execCommand('copy');
+}
+
+function download(filename, text, type){
+  const blob = new Blob([text], {type:type});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 500);
+}
+
+document.getElementById('backBtn').addEventListener('click', back);
+document.getElementById('nextBtn').addEventListener('click', next);
+document.getElementById('resetBtn').addEventListener('click', reset);
+document.getElementById('copyJsonBtn').addEventListener('click', () => copyText('jsonOut'));
+document.getElementById('copyHtmlBtn').addEventListener('click', () => copyText('htmlOut'));
+document.getElementById('downloadJsonBtn').addEventListener('click', () => download('data.json', document.getElementById('jsonOut').value, 'application/json'));
+document.getElementById('downloadHtmlBtn').addEventListener('click', () => download('json-ui.html', document.getElementById('htmlOut').value, 'text/html'));
+
+render();
+
+  </script>
+</body>
+</html>
