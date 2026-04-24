@@ -1,1051 +1,206 @@
 <!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Website Builder Wizard — V2 Ultra</title>
-  <meta name="description" content="Programmer's Picnic style website builder wizard with live animated preview, JSON template engine, and AI-style content generation." />
-  <style>
-    :root{
-      --bg:#fff8ef;
-      --bg-2:#fff2d8;
-      --card:#ffffff;
-      --soft:#fff7eb;
-      --line:#f0dcc2;
-      --text:#2f2415;
-      --muted:#766247;
-      --brand:#d97706;
-      --brand-2:#f59e0b;
-      --brand-3:#fb923c;
-      --ok:#166534;
-      --shadow:0 18px 40px rgba(111,72,18,.10);
-      --radius:22px;
-      --radius-sm:16px;
-      --max:1500px;
-    }*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(245,158,11,.12), transparent 26%),
-    radial-gradient(circle at top right, rgba(251,146,60,.10), transparent 24%),
-    linear-gradient(180deg,var(--bg) 0%, var(--bg-2) 100%);
-}
-
-button,input,textarea,select{font:inherit}
-a{color:inherit}
-
-.wrap{
-  width:min(var(--max), calc(100% - 28px));
-  margin:20px auto 40px;
-}
-
-.hero{
-  background:rgba(255,255,255,.84);
-  border:1px solid rgba(240,220,194,.95);
-  box-shadow:var(--shadow);
-  backdrop-filter:blur(10px);
-  border-radius:28px;
-  padding:22px 24px;
-  margin-bottom:18px;
-}
-
-.eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 12px;
-  border-radius:999px;
-  background:#fff3df;
-  border:1px solid #f3d5a7;
-  color:#a85f00;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-}
-
-.hero h1{
-  margin:12px 0 10px;
-  font-size:clamp(28px,4.4vw,48px);
-  line-height:1.05;
-}
-
-.hero p{
-  margin:0;
-  max-width:78ch;
-  color:var(--muted);
-  font-size:16px;
-}
-
-.layout{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:18px;
-  align-items:start;
-}
-
-.panel{
-  background:rgba(255,255,255,.88);
-  border:1px solid rgba(240,220,194,.95);
-  border-radius:26px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  backdrop-filter:blur(10px);
-}
-
-.panel-head{
-  padding:18px 20px;
-  border-bottom:1px solid var(--line);
-  background:linear-gradient(180deg,#fffdf8 0%, #fff6e6 100%);
-}
-
-.panel-head h2{
-  margin:0;
-  font-size:20px;
-}
-
-.panel-body{
-  padding:18px;
-}
-
-.stepbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  font-size:14px;
-  color:var(--muted);
-  font-weight:700;
-  margin-bottom:10px;
-}
-
-.progress{
-  height:12px;
-  border-radius:999px;
-  background:#f9ead2;
-  border:1px solid #efd6af;
-  overflow:hidden;
-  margin-bottom:18px;
-}
-
-.progress > span{
-  display:block;
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,var(--brand),var(--brand-2),var(--brand-3));
-  transition:width .35s ease;
-}
-
-.summary-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:16px;
-}
-
-.summary-card{
-  background:#fffaf2;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:12px;
-}
-
-.summary-card .label{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.05em;
-  color:var(--muted);
-  font-weight:800;
-  margin-bottom:5px;
-}
-
-.summary-card .value{
-  font-size:14px;
-  font-weight:700;
-  line-height:1.35;
-  word-break:break-word;
-}
-
-.qtag{
-  display:inline-block;
-  background:#fff4df;
-  color:#ab6200;
-  border:1px solid #f1d3a3;
-  border-radius:999px;
-  padding:7px 11px;
-  font-size:12px;
-  font-weight:800;
-  margin-bottom:12px;
-}
-
-.question{
-  margin:0 0 10px;
-  font-size:30px;
-  line-height:1.12;
-}
-
-.help{
-  margin:0 0 16px;
-  color:var(--muted);
-}
-
-.input, .textarea{
-  width:100%;
-  background:#fff;
-  color:var(--text);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:14px 15px;
-  outline:none;
-  transition:border-color .2s ease, box-shadow .2s ease;
-}
-
-.textarea{min-height:130px; resize:vertical}
-
-.input:focus,.textarea:focus{
-  border-color:var(--brand-2);
-  box-shadow:0 0 0 4px rgba(245,158,11,.13);
-}
-
-.options{
-  display:grid;
-  gap:12px;
-}
-
-.option{
-  width:100%;
-  text-align:left;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:14px;
-  cursor:pointer;
-  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
-}
-
-.option:hover{
-  transform:translateY(-2px);
-  border-color:#efb45f;
-  box-shadow:0 14px 28px rgba(217,119,6,.10);
-}
-
-.option.active{
-  background:#fff5e5;
-  border:2px solid var(--brand);
-}
-
-.option-title{
-  display:block;
-  font-weight:800;
-  font-size:16px;
-  margin-bottom:5px;
-}
-
-.option-desc{
-  display:block;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.35;
-}
-
-.toolbar{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:18px;
-  padding-top:18px;
-  border-top:1px solid var(--line);
-}
-
-.btn{
-  appearance:none;
-  border:none;
-  border-radius:14px;
-  min-height:46px;
-  padding:0 16px;
-  cursor:pointer;
-  font-weight:800;
-  transition:transform .18s ease, opacity .18s ease;
-}
-
-.btn:hover{transform:translateY(-1px)}
-.btn:active{transform:translateY(0)}
-.btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff}
-.btn.soft{background:#fff6e6;color:var(--text);border:1px solid var(--line)}
-.btn.dark{background:#2f2415;color:#fff}
-.btn.green{background:#166534;color:#fff}
-
-.preview-panel{
-  display:grid;
-  grid-template-rows:auto 600px auto auto;
-}
-
-.preview-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:14px 16px;
-  border-bottom:1px solid var(--line);
-  background:linear-gradient(180deg,#fffdf8 0%, #fff7ea 100%);
-}
-
-.badges{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.badge{
-  padding:7px 10px;
-  border-radius:999px;
-  background:#fff4df;
-  border:1px solid #f1d3a3;
-  color:#9f5d00;
-  font-size:12px;
-  font-weight:800;
-}
-
-.view-switch{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.mini-btn{
-  padding:8px 10px;
-  border-radius:12px;
-  background:#fff;
-  border:1px solid var(--line);
-  cursor:pointer;
-  font-weight:700;
-}
-
-.mini-btn.active{
-  background:#fff3df;
-  border-color:#efb45f;
-}
-
-.frame-wrap{
-  position:relative;
-  background:#f4ead6;
-  overflow:auto;
-  padding:18px;
-}
-
-.device{
-  margin:0 auto;
-  background:#fff;
-  border:10px solid #2d2d2d;
-  border-radius:28px;
-  box-shadow:0 26px 60px rgba(65,44,11,.18);
-  overflow:hidden;
-  transition:width .35s ease, max-width .35s ease, transform .22s ease;
-  animation:fadeInUp .45s ease;
-}
-
-.device.desktop{width:100%; max-width:100%}
-.device.tablet{width:820px; max-width:100%}
-.device.mobile{width:390px; max-width:100%}
-
-iframe{
-  display:block;
-  width:100%;
-  height:560px;
-  border:none;
-  background:#fff;
-}
-
-.config-panel, .code-panel{
-  border-top:1px solid var(--line);
-  background:#fffdfa;
-  padding:16px;
-}
-
-.config-panel h3, .code-panel h3{
-  margin:0 0 10px;
-  font-size:16px;
-}
-
-.json-view, .code-view{
-  width:100%;
-  min-height:220px;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:12px;
-  background:#fff;
-  color:#2f2415;
-  font:13px/1.5 Consolas, Monaco, monospace;
-  resize:vertical;
-}
-
-.notice{
-  margin-top:12px;
-  background:#eefbf3;
-  border:1px solid #cbe7d4;
-  color:#166534;
-  padding:12px 13px;
-  border-radius:14px;
-  font-size:13px;
-}
-
-.fade-swap{
-  animation:fadeSwap .28s ease;
-}
-
-@keyframes fadeSwap{
-  from{opacity:.28; transform:translateY(8px)}
-  to{opacity:1; transform:none}
-}
-
-@keyframes fadeInUp{
-  from{opacity:0; transform:translateY(10px) scale(.995)}
-  to{opacity:1; transform:none}
-}
-
-@media (max-width:1200px){
-  .preview-panel{grid-template-rows:auto 520px auto auto}
-}
-
-@media (max-width:700px){
-  .wrap{width:min(100% - 16px, 100%)}
-  .hero, .panel{border-radius:20px}
-  .panel-body,.panel-head{padding:14px}
-  .summary-grid{grid-template-columns:1fr}
-  .question{font-size:26px}
-  .device.mobile,.device.tablet,.device.desktop{width:100%; max-width:100%}
-  iframe{height:500px}
-}
-
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <section class="hero">
-      <div class="eyebrow">Programmer's Picnic • V2 Ultra</div>
-      <h1>Website Builder Wizard with live animated preview, templates, JSON engine, and AI-style content generation.</h1>
-      <p>
-        Users answer guided questions and watch a skeleton website evolve in real time. This version includes
-        saffron UI, template switching, desktop/tablet/mobile preview modes, JSON export, HTML export, and
-        automatic placeholder copy generation based on the chosen website type and tone.
-      </p>
-    </section><section class="layout">
-  <section class="panel">
-    <div class="panel-head">
-      <h2>Wizard Controls</h2>
-    </div>
-    <div class="panel-body" id="wizardBody">
-      <div class="qtag">Loading wizard</div>
-      <h3 class="question">Preparing the first step...</h3>
-      <p class="help">If this text stays on screen, JavaScript is not running correctly.</p>
-    </div>
-  </section>
-
-  <section class="panel preview-panel">
-    <div class="preview-top">
-      <div class="badges">
-        <span class="badge" id="badgeType">Type: —</span>
-        <span class="badge" id="badgeTemplate">Template: —</span>
-        <span class="badge" id="badgeTheme">Theme: Saffron</span>
-      </div>
-      <div class="view-switch">
-        <button class="mini-btn active" data-view="desktop">Desktop</button>
-        <button class="mini-btn" data-view="tablet">Tablet</button>
-        <button class="mini-btn" data-view="mobile">Mobile</button>
-      </div>
-    </div>
-    <div class="frame-wrap">
-      <div class="device desktop fade-swap" id="deviceFrame">
-        <iframe id="previewFrame" title="Live Website Preview"></iframe>
-      </div>
-    </div>
-    <div class="config-panel">
-      <h3>Generated JSON Configuration</h3>
-      <textarea class="json-view" id="jsonView"></textarea>
-      <div class="toolbar">
-        <button class="btn soft" id="copyJsonBtn">Copy JSON</button>
-        <button class="btn green" id="downloadJsonBtn">Download JSON</button>
-      </div>
-    </div>
-    <div class="code-panel">
-      <h3>Generated HTML</h3>
-      <textarea class="code-view" id="htmlView"></textarea>
-      <div class="toolbar">
-        <button class="btn soft" id="copyHtmlBtn">Copy HTML</button>
-        <button class="btn green" id="downloadHtmlBtn">Download HTML</button>
-      </div>
-      <div class="notice">The preview updates at every step. The final HTML is still a skeleton, but it is structured, themed, responsive, and ready to extend.</div>
-    </div>
-  </section>
-</section>
-
-  </div>  <script>
-    const templateLibrary = {
-      business: {
-        heroTitle: "{{brand}} helps your business look trustworthy online.",
-        heroText: "Present your services clearly, build confidence quickly, and guide visitors to contact or enquire.",
-        aboutTitle: "About {{brand}}",
-        aboutText: "This starter business website is designed to explain your value, showcase services, and create a strong first impression.",
-        servicesTitle: "Our Services",
-        servicesItems: [
-          { title: "Consulting", text: "Explain one high-value service in one short line." },
-          { title: "Execution", text: "Describe how you help clients move from idea to result." },
-          { title: "Support", text: "Add trust by showing ongoing help and responsiveness." }
-        ]
-      },
-      portfolio: {
-        heroTitle: "{{brand}} — work, ideas, and creative highlights.",
-        heroText: "Use this portfolio skeleton to present projects, your approach, and a clear path for enquiries or collaboration.",
-        aboutTitle: "About the Creator",
-        aboutText: "This portfolio layout introduces your story, your style, and your best work in a clean, visual way.",
-        servicesTitle: "Featured Projects",
-        servicesItems: [
-          { title: "Project One", text: "Add a brief line about a standout project." },
-          { title: "Project Two", text: "Show a second project with a different skill focus." },
-          { title: "Project Three", text: "Use this area for your strongest proof of work." }
-        ]
-      },
-      blog: {
-        heroTitle: "{{brand}} shares ideas, guides, and thoughtful articles.",
-        heroText: "This blog starter focuses on readability, recent posts, and simple pathways for readers to explore more content.",
-        aboutTitle: "About This Blog",
-        aboutText: "Use this section to explain what you write about, who the content is for, and why readers should return.",
-        servicesTitle: "Recent Posts",
-        servicesItems: [
-          { title: "Featured Article", text: "Add a short summary to pull readers in." },
-          { title: "Guide or Tutorial", text: "Show another useful article topic here." },
-          { title: "Opinion or Insight", text: "Add a third post to create rhythm in the layout." }
-        ]
-      },
-      educational: {
-        heroTitle: "{{brand}} helps learners move from basics to confidence.",
-        heroText: "This educational website skeleton is suitable for coaching, classes, courses, training centres, and skill programs.",
-        aboutTitle: "About the Learning Program",
-        aboutText: "Use this section to explain your teaching approach, audience, course strengths, and why students should trust you.",
-        servicesTitle: "Programs and Modules",
-        servicesItems: [
-          { title: "Beginner Track", text: "Describe the first learning path in simple words." },
-          { title: "Intermediate Track", text: "Show what learners reach after the basics." },
-          { title: "Projects and Practice", text: "Explain how students gain confidence through doing." }
-        ]
-      },
-      healthcare: {
-        heroTitle: "{{brand}} offers calm, clear, and trustworthy care guidance.",
-        heroText: "This starter healthcare site is designed for clinics, care centres, therapists, counsellors, and wellness institutions.",
-        aboutTitle: "About the Care Centre",
-        aboutText: "Use this section to introduce your approach, team, values, and the reassurance visitors need before contacting you.",
-        servicesTitle: "Care Services",
-        servicesItems: [
-          { title: "Consultation", text: "Introduce one care pathway or appointment type." },
-          { title: "Support Programs", text: "Explain the structured care or therapy support available." },
-          { title: "Guided Follow-up", text: "Describe how continuity of care is maintained." }
-        ]
-      },
-      ecommerce: {
-        heroTitle: "{{brand}} presents products in a clean and convincing way.",
-        heroText: "This starter e-commerce style page is built to showcase products, offers, and simple buying journeys.",
-        aboutTitle: "About the Store",
-        aboutText: "Use this section to tell visitors what makes your products, quality, or shopping experience special.",
-        servicesTitle: "Featured Products",
-        servicesItems: [
-          { title: "Product One", text: "Show a key product or category here." },
-          { title: "Product Two", text: "Use this slot for another product highlight." },
-          { title: "Product Three", text: "Add a third card to complete the first row." }
-        ]
-      }
-    };
-
-    const steps = [
-      { key: "brandName", title: "What is the website or brand name?", help: "This appears immediately inside the preview.", type: "text", placeholder: "Example: Programmer's Picnic, Cure Centre, Sunrise Studio" },
-      { key: "siteType", title: "What type of website is this?", help: "This chooses the base content model and template logic.", type: "single", options: [
-        { value: "business", label: "Business", desc: "Service company, agency, brand, or organisation" },
-        { value: "portfolio", label: "Portfolio", desc: "Personal brand, creative work, project showcase" },
-        { value: "blog", label: "Blog", desc: "Articles, writing, publishing, knowledge" },
-        { value: "educational", label: "Educational", desc: "Coaching, classes, courses, school, training" },
-        { value: "healthcare", label: "Healthcare", desc: "Clinic, institution, care centre, therapy, wellness" },
-        { value: "ecommerce", label: "E-commerce", desc: "Storefront, products, online selling" }
-      ]},
-      { key: "template", title: "Which template should power the skeleton?", help: "This changes the section arrangement and visual rhythm.", type: "single", options: [
-        { value: "hero-grid", label: "Hero Grid", desc: "Modern hero with card grid sections" },
-        { value: "classic-stack", label: "Classic Stack", desc: "Straightforward, readable, traditional page flow" },
-        { value: "split-showcase", label: "Split Showcase", desc: "Two-column hero and stronger visual balance" },
-        { value: "landing-convert", label: "Landing Convert", desc: "Conversion-first, CTA-driven landing page style" }
-      ]},
-      { key: "tone", title: "What tone should the copy use?", help: "The AI-style content engine uses this to shape headlines and supporting text.", type: "single", options: [
-        { value: "professional", label: "Professional", desc: "Clear, structured, trustworthy" },
-        { value: "warm", label: "Warm", desc: "Friendly, human, welcoming" },
-        { value: "bold", label: "Bold", desc: "Confident, strong, action-oriented" },
-        { value: "calm", label: "Calm", desc: "Soft, reassuring, easy-going" }
-      ]},
-      { key: "theme", title: "Choose a saffron-based visual theme", help: "All options preserve the core saffron identity while adjusting mood.", type: "single", options: [
-        { value: "saffron-classic", label: "Saffron Classic", desc: "Balanced saffron, cream, and warm white" },
-        { value: "saffron-deep", label: "Saffron Deep", desc: "Richer orange-brown contrast" },
-        { value: "saffron-light", label: "Saffron Light", desc: "Softer and gentler cream-forward variant" },
-        { value: "saffron-royal", label: "Saffron Royal", desc: "Premium saffron with darker brown anchors" }
-      ]},
-      { key: "sections", title: "Which sections should the skeleton include?", help: "Multi-select. Toggle sections and watch them appear or disappear instantly.", type: "multi", options: [
-        { value: "hero", label: "Hero", desc: "Main message and CTA" },
-        { value: "about", label: "About", desc: "Introductory story section" },
-        { value: "services", label: "Services / Features", desc: "Offerings or highlights" },
-        { value: "gallery", label: "Gallery", desc: "Visual cards or image placeholders" },
-        { value: "testimonials", label: "Testimonials", desc: "Trust-building quotes" },
-        { value: "pricing", label: "Pricing", desc: "Plans, packages, or tiers" },
-        { value: "faq", label: "FAQ", desc: "Common questions" },
-        { value: "contact", label: "Contact", desc: "Reach-out block or enquiry form" }
-      ]},
-      { key: "cta", title: "What should the primary call to action be?", help: "This appears in the hero and contact areas.", type: "single", options: [
-        { value: "book", label: "Book Now", desc: "Appointment, consultation, booking" },
-        { value: "contact", label: "Contact Us", desc: "General enquiries" },
-        { value: "join", label: "Join Now", desc: "Enrollment, signup, membership" },
-        { value: "shop", label: "Shop Now", desc: "Product-focused action" }
-      ]},
-      { key: "contactMode", title: "How should visitors reach out?", help: "This changes the skeleton contact section.", type: "single", options: [
-        { value: "form", label: "Form", desc: "Simple name, email, message flow" },
-        { value: "whatsapp", label: "WhatsApp", desc: "Fast chat CTA" },
-        { value: "phone", label: "Phone", desc: "Click-to-call emphasis" },
-        { value: "all", label: "All", desc: "Form plus WhatsApp plus phone" }
-      ]},
-      { key: "notes", title: "Any extra notes for the generated skeleton?", help: "Optional. These notes are stored in JSON and shown in the AI config, so you can use them later.", type: "textarea", placeholder: "Example: Use for a psychiatric institution, keep it very calm and parent-friendly." }
-    ];
-
-    const state = {
-      step: 0,
-      viewMode: "desktop",
-      answers: {
-        brandName: "Your Brand",
-        siteType: "business",
-        template: "hero-grid",
-        tone: "professional",
-        theme: "saffron-classic",
-        sections: ["hero","about","services","contact"],
-        cta: "contact",
-        contactMode: "form",
-        notes: ""
-      }
-    };
-
-    function renderWizard(){
-      const step = steps[state.step];
-      const body = document.getElementById('wizardBody');
-      const progress = ((state.step + 1) / steps.length) * 100;
-      const answers = state.answers;
-
-      body.innerHTML = `
-        <div class="stepbar">
-          <span>Step ${state.step + 1} of ${steps.length}</span>
-          <span>Live preview on every change</span>
-        </div>
-        <div class="progress"><span style="width:${progress}%"></span></div>
-
-        <div class="summary-grid">
-          <div class="summary-card"><div class="label">Brand</div><div class="value">${escapeHtml(answers.brandName)}</div></div>
-          <div class="summary-card"><div class="label">Type</div><div class="value">${pretty(answers.siteType)}</div></div>
-          <div class="summary-card"><div class="label">Template</div><div class="value">${pretty(answers.template)}</div></div>
-          <div class="summary-card"><div class="label">Sections</div><div class="value">${answers.sections.map(pretty).join(', ')}</div></div>
-        </div>
-
-        <div class="qtag">${step.type === 'multi' ? 'Multi select' : step.type === 'text' || step.type === 'textarea' ? 'Text input' : 'Single choice'}</div>
-        <h3 class="question">${step.title}</h3>
-        <p class="help">${step.help}</p>
-        <div id="stepContent"></div>
-
-        <div class="toolbar">
-          <button class="btn soft" id="backBtn" ${state.step === 0 ? 'disabled' : ''}>Back</button>
-          <button class="btn primary" id="nextBtn">${state.step === steps.length - 1 ? 'Finish' : 'Next'}</button>
-          <button class="btn soft" id="skipBtn">Skip</button>
-          <button class="btn dark" id="restartBtn">Start Again</button>
-        </div>
-      `;
-
-      const stepContent = body.querySelector('#stepContent');
-      if(step.type === 'text'){
-        stepContent.innerHTML = `<input class="input" id="textInput" type="text" placeholder="${escapeHtml(step.placeholder || '')}" value="${escapeAttr(answers[step.key] || '')}">`;
-        stepContent.querySelector('#textInput').addEventListener('input', e => {
-          state.answers[step.key] = e.target.value.trim() || 'Your Brand';
-          syncAll();
-          renderWizard();
-        });
-      } else if(step.type === 'textarea'){
-        stepContent.innerHTML = `<textarea class="textarea" id="textareaInput" placeholder="${escapeHtml(step.placeholder || '')}">${escapeHtml(answers[step.key] || '')}</textarea>`;stepContent.querySelector('#textareaInput').addEventListener('input', e => {
-      state.answers[step.key] = e.target.value;
-      syncAll();
-    });
-  } else {
-    const current = answers[step.key];
-    stepContent.innerHTML = `<div class="options">${step.options.map(opt => {
-      const active = step.type === 'multi'
-        ? current.includes(opt.value)
-        : current === opt.value;
-      return `<button class="option ${active ? 'active' : ''}" data-value="${opt.value}">
-        <span class="option-title">${opt.label}</span>
-        <span class="option-desc">${opt.desc}</span>
-      </button>`;
-    }).join('')}</div>`;
-
-    stepContent.querySelectorAll('.option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const value = btn.getAttribute('data-value');
-        if(step.type === 'single'){
-          state.answers[step.key] = value;
-        } else {
-          const arr = state.answers[step.key];
-          const idx = arr.indexOf(value);
-          if(idx >= 0) arr.splice(idx,1); else arr.push(value);
-        }
-        syncAll();
-        renderWizard();
-      });
-    });
-  }
-
-  body.querySelector('#backBtn').addEventListener('click', () => {
-    if(state.step > 0){ state.step--; renderWizard(); }
-  });
-  body.querySelector('#nextBtn').addEventListener('click', () => {
-    if(state.step < steps.length - 1){ state.step++; renderWizard(); }
-  });
-  body.querySelector('#skipBtn').addEventListener('click', () => {
-    if(state.step < steps.length - 1){ state.step++; renderWizard(); }
-  });
-  body.querySelector('#restartBtn').addEventListener('click', restart);
-}
-
-function restart(){
-  state.step = 0;
-  state.answers = {
-    brandName: 'Your Brand',
-    siteType: 'business',
-    template: 'hero-grid',
-    tone: 'professional',
-    theme: 'saffron-classic',
-    sections: ['hero','about','services','contact'],
-    cta: 'contact',
-    contactMode: 'form',
-    notes: ''
-  };
-  syncAll();
-  renderWizard();
-}
-
-function pretty(v){
-  return String(v || '—').replace(/-/g,' ').replace(/\b\w/g, s => s.toUpperCase());
-}
-
-function getThemeVars(theme){
-  switch(theme){
-    case 'saffron-deep': return { primary:'#c2410c', secondary:'#ea580c', soft:'#ffedd5', bg:'#fff7ed', card:'#fffaf4', ink:'#321e10', muted:'#7c5a43' };
-    case 'saffron-light': return { primary:'#d97706', secondary:'#fbbf24', soft:'#fff7d6', bg:'#fffdf7', card:'#ffffff', ink:'#31261a', muted:'#7d6a55' };
-    case 'saffron-royal': return { primary:'#b45309', secondary:'#d97706', soft:'#fde7c7', bg:'#fff8ef', card:'#fffdf8', ink:'#2d1b0a', muted:'#72573f' };
-    default: return { primary:'#d97706', secondary:'#f59e0b', soft:'#ffedd5', bg:'#fffaf0', card:'#ffffff', ink:'#2f2415', muted:'#766247' };
-  }
-}
-
-function aiContentModel(){
-  const a = state.answers;
-  const lib = templateLibrary[a.siteType] || templateLibrary.business;
-  const toneMap = {
-    professional: {
-      suffix: 'with clarity and confidence.',
-      sub: 'This skeleton is structured to feel trustworthy, readable, and deployment-ready.'
-    },
-    warm: {
-      suffix: 'with warmth and approachability.',
-      sub: 'This skeleton is designed to feel welcoming, human, and easy to explore.'
-    },
-    bold: {
-      suffix: 'with energy and conviction.',
-      sub: 'This skeleton is designed to create momentum and push visitors toward action.'
-    },
-    calm: {
-      suffix: 'with calm and reassurance.',
-      sub: 'This skeleton is designed to feel gentle, clear, and low-pressure.'
-    }
-  };
-  const tone = toneMap[a.tone] || toneMap.professional;
-  const brand = a.brandName || 'Your Brand';
-  return {
-    heroTitle: lib.heroTitle.replace(/\{\{brand\}\}/g, brand),
-    heroText: `${lib.heroText} ${tone.sub}`,
-    aboutTitle: lib.aboutTitle.replace(/\{\{brand\}\}/g, brand),
-    aboutText: `${lib.aboutText} The overall presentation should communicate ${tone.suffix}`,
-    sectionTitle: lib.servicesTitle,
-    cards: lib.servicesItems,
-    testimonials: [
-      `${brand} made the message much easier to understand.`,
-      `The structure feels polished, calm, and ready to grow.`
-    ],
-    faq: [
-      { q:'What is this website about?', a:`This is a starter ${pretty(a.siteType).toLowerCase()} website skeleton for ${brand}.` },
-      { q:'Can this design be extended?', a:'Yes. It is structured so more sections, pages, and interactions can be added later.' },
-      { q:'Why does it already have text?', a:'The AI-style content engine creates placeholder copy so the skeleton feels realistic immediately.' }
-    ]
-  };
-}
-
-function buildConfig(){
-  const a = state.answers;
-  const model = aiContentModel();
-  return {
-    app: 'Website Builder Wizard V2 Ultra',
-    themeSystem: 'Programmer\'s Picnic Saffron',
-    generatedAt: new Date().toISOString(),
-    viewMode: state.viewMode,
-    site: {
-      brandName: a.brandName,
-      siteType: a.siteType,
-      template: a.template,
-      tone: a.tone,
-      theme: a.theme,
-      sections: a.sections,
-      cta: a.cta,
-      contactMode: a.contactMode,
-      notes: a.notes
-    },
-    contentModel: model
-  };
-}
-
-function contactBlockHTML(mode, ctaLabel){
-  if(mode === 'whatsapp'){
-    return `
-      <div class="contact-card">
-        <p>Let visitors reach out quickly through WhatsApp.</p>
-        <a href="#" class="btn btn-primary">Chat on WhatsApp</a>
-      </div>`;
-  }
-  if(mode === 'phone'){
-    return `
-      <div class="contact-card">
-        <p>Make calling the team the easiest next step.</p>
-        <a href="#" class="btn btn-primary">Call Now</a>
-      </div>`;
-  }
-  if(mode === 'all'){
-    return `
-      <div class="contact-card">
-        <p>Offer every major contact route in one place.</p>
-        <div class="mini-form-grid">
-          <input placeholder="Your name">
-          <input placeholder="Email address">
-        </div>
-        <textarea placeholder="Your message"></textarea>
-        <div class="cta-row">
-          <a href="#" class="btn btn-primary">${ctaLabel}</a>
-          <a href="#" class="btn btn-soft">WhatsApp</a>
-          <a href="#" class="btn btn-soft">Call</a>
-        </div>
-      </div>`;
-  }
-  return `
-    <div class="contact-card">
-      <p>Use a simple enquiry form for first contact.</p>
-      <div class="mini-form-grid">
-        <input placeholder="Your name">
-        <input placeholder="Email address">
-      </div>
-      <textarea placeholder="Write your message"></textarea>
-      <a href="#" class="btn btn-primary">${ctaLabel}</a>
-    </div>`;
-}
-
-function buildHTML(){
-  const cfg = buildConfig();
-  const a = cfg.site;
-  const m = cfg.contentModel;
-  const t = getThemeVars(a.theme);
-  const ctaLabel = a.cta === 'book' ? 'Book Now' : a.cta === 'join' ? 'Join Now' : a.cta === 'shop' ? 'Shop Now' : 'Contact Us';
-
-  const show = key => a.sections.includes(key);
-  const templateClass = a.template;
-
-  const heroAside = a.template === 'split-showcase' || a.template === 'landing-convert'
-    ? `<div class="hero-aside card reveal">
-        <h3>Quick Snapshot</h3>
-        <p>This box changes based on the wizard configuration.</p>
-        <ul>
-          <li><strong>Type:</strong> ${pretty(a.siteType)}</li>
-          <li><strong>Template:</strong> ${pretty(a.template)}</li>
-          <li><strong>Tone:</strong> ${pretty(a.tone)}</li>
-        </ul>
-      </div>`
-    : '';
-
-  const cardsHTML = m.cards.map(card => `
-    <article class="info-card reveal">
-      <h3>${escapeHtml(card.title)}</h3>
-      <p>${escapeHtml(card.text)}</p>
-    </article>`).join('');
-
-  const testimonialsHTML = m.testimonials.map(q => `
-    <blockquote class="quote reveal">“${escapeHtml(q)}”</blockquote>`).join('');
-
-  const faqHTML = m.faq.map(item => `
-    <div class="faq-item reveal">
-      <strong>${escapeHtml(item.q)}</strong>
-      <p>${escapeHtml(item.a)}</p>
-    </div>`).join('');
-
-  return `<!doctype html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${escapeHtml(a.brandName)} — ${pretty(a.siteType)}</title>
-<meta name="description" content="Skeleton website generated by Website Builder Wizard V2 Ultra.">
+<title>Website Builder V5</title>
+
 <style>
-  :root{
-    --primary:${t.primary};
-    --secondary:${t.secondary};
-    --soft:${t.soft};
-    --bg:${t.bg};
-    --card:${t.card};
-    --ink:${t.ink};
-    --muted:${t.muted};
-    --line:${t.soft};
-    --radius:22px;
-    --shadow:0 18px 40px rgba(111,72,18,.10);
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;font-family:Inter,Arial,sans-serif;background:linear-gradient(180deg,var(--bg) 0%, #fff 100%);color:var(--ink);line-height:1.6}
-  a{text-decoration:none;color:inherit}
-  .container{width:min(1180px, calc(100% - 28px));margin:auto}
-  header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:16px 0}
-  .brand{font-size:22px;font-weight:900;color:var(--primary)}
-  .links{display:flex;flex-wrap:wrap;gap:16px;color:var(--muted);font-weight:700}
-  section{padding:56px 0}
-  .hero{padding:72px 0 58px}
-  .hero-inner{display:grid;grid-template-columns:${a.template === 'split-showcase' || a.template === 'landing-convert' ? '1.15fr .85fr' : '1fr'};gap:24px;align-items:center}
-  .eyebrow{display:inline-block;padding:8px 12px;border-radius:999px;background:var(--soft);border:1px solid #f0c98c;color:var(--primary);font-size:12px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px}
-  h1{font-size:clamp(34px,5vw,58px);line-height:1.05;margin:0 0 14px}
-  h2{font-size:clamp(28px,4vw,40px);line-height:1.12;margin:0 0 14px}
-  h3{margin:0 0 8px}
-  p{margin:0 0 14px;color:var(--muted)}
-  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
-  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border-radius:14px;font-weight:900;border:1px solid transparent;transition:transform .18s ease, opacity .18s ease}
-  .btn:hover{transform:translateY(-1px)}
-  .btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
-  .btn-soft{background:#fff;border-color:var(--line);color:var(--ink)}
-  .card,.info-card,.quote,.faq-item,.contact-card,.hero-aside,.price-card,.gallery-box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-  .card,.hero-aside,.contact-card{padding:22px}
-  .grid{display:grid;gap:16px}
-  .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .info-card,.price-card,.faq-item{padding:18px}
-  .gallery-box{min-height:170px;display:grid;place-items:center;font-weight:700;color:var(--muted);background:linear-gradient(180deg,#fff, #fff9f0)}
-  .quote{padding:18px;font-weight:700}
-  .mini-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  input,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font:inherit}
-  textarea{min-height:120px;resize:vertical;margin-top:12px}
-  .reveal{opacity:0;transform:translateY(10px);animation:reveal .55s ease forwards}
-  .reveal:nth-child(2){animation-delay:.06s}.reveal:nth-child(3){animation-delay:.12s}.reveal:nth-child(4){animation-delay:.18s}
-  footer{padding:34px 0 42px;border-top:1px solid var(--line);color:var(--muted)}
-  @keyframes reveal{to{opacity:1;transform:none}}
-  @media (max-width:900px){.hero-inner,.grid.three,.grid.two,.mini-form-grid{grid-template-columns:1fr}}
+body{font-family:Arial;margin:0;background:#fffaf0;color:#2b2112}
+.box{max-width:1100px;margin:30px auto;padding:20px;border:1px solid #f0dcc2;border-radius:12px;background:#fff}
+
+button{padding:10px 14px;border:none;background:#d97706;color:#fff;border-radius:8px;cursor:pointer;margin:4px;font-weight:bold}
+button.secondary{background:#fff6e6;color:#2b2112;border:1px solid #f0dcc2}
+button.active{background:#f59e0b}
+
+.options{display:flex;flex-wrap:wrap;gap:8px}
+input{padding:10px;border:1px solid #f0dcc2;border-radius:8px;width:100%;max-width:400px}
+
+.progress{height:10px;background:#f7e6c8;border-radius:999px;overflow:hidden;margin:10px 0}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,#d97706,#f59e0b)}
+
+iframe{width:100%;height:420px;border:none;margin-top:15px;border-radius:10px}
 </style>
 </head>
+
 <body>
-<header>
-  <div class="container nav">
-    <div class="brand">${escapeHtml(a.brandName)}</div>
-    <nav class="links">
-      <a href="#about">About</a>
-      <a href="#services">Highlights</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
-<main class="container ${templateClass}">
-  ${show('hero') ? `<section class="hero"><div class="hero-inner"><div class="reveal"><span class="eyebrow">${pretty(a.siteType)} • ${pretty(a.tone)}</span><h1>${escapeHtml(m.heroTitle)}</h1><p>${escapeHtml(m.heroText)}</p><div class="cta-row"><a href="#contact" class="btn btn-primary">${ctaLabel}</a><a href="#about" class="btn btn-soft">Learn More</a></div></div>${heroAside}</div></section>` : ''}${show('about') ? <section id="about"><div class="card reveal"><h2>${escapeHtml(m.aboutTitle)}</h2><p>${escapeHtml(m.aboutText)}</p></div></section> : ''}
 
-${show('services') ? <section id="services"><h2>${escapeHtml(m.sectionTitle)}</h2><div class="grid three">${cardsHTML}</div></section> : ''}
+<div class="box">
 
-${show('gallery') ? <section><h2>Gallery</h2><div class="grid three"><div class="gallery-box reveal">Visual Placeholder</div><div class="gallery-box reveal">Visual Placeholder</div><div class="gallery-box reveal">Visual Placeholder</div></div></section> : ''}
+<h2 id="stepTitle"></h2>
+<div class="progress"><span id="progressBar"></span></div>
+<p id="question"></p>
 
-${show('testimonials') ? <section><h2>Testimonials</h2><div class="grid two">${testimonialsHTML}</div></section> : ''}
+<div id="stepArea"></div>
 
-${show('pricing') ? <section><h2>Pricing</h2><div class="grid three"><div class="price-card reveal"><h3>Starter</h3><p>Use this for the simplest plan or package.</p></div><div class="price-card reveal"><h3>Growth</h3><p>Use this for the middle plan with more value.</p></div><div class="price-card reveal"><h3>Premium</h3><p>Use this for the strongest or most complete offering.</p></div></div></section> : ''}
+<button class="secondary" onclick="back()">Back</button>
+<button onclick="next()">Next</button>
+<button class="secondary" onclick="reset()">Reset</button>
 
-${show('faq') ? <section><h2>Frequently Asked Questions</h2><div class="grid">${faqHTML}</div></section> : ''}
+<iframe id="preview"></iframe>
 
-${show('contact') ? <section id="contact"><h2>Contact</h2>${contactBlockHTML(a.contactMode, ctaLabel)}</section> : ''}
+<button onclick="download()">Download HTML</button>
 
-</main>
-<footer><div class="container">© 2026 ${escapeHtml(a.brandName)}. Generated by Website Builder Wizard V2 Ultra.</div></footer>
+</div>
+
+<script>
+
+const steps=[
+{key:"brand",q:"Brand name?",type:"text"},
+{key:"type",q:"Website type?",type:"options",opt:["Business","Healthcare","Education"]},
+{key:"template",q:"Choose template",type:"options",opt:["Classic","Split"]},
+{key:"sections",q:"Sections?",type:"multi",opt:["Hero","About","Services","Contact"]},
+{key:"whatsapp",q:"WhatsApp number?",type:"text"},
+{key:"payment",q:"Enable payment?",type:"options",opt:["Yes","No"]}
+];
+
+let state={
+step:0,
+data:{
+brand:"My Site",
+type:"Business",
+template:"Classic",
+sections:["Hero","About","Services","Contact"],
+whatsapp:"",
+payment:"No"
+}
+};
+
+function render(){
+let s=steps[state.step];
+
+stepTitle.innerText="Step "+(state.step+1)+" of "+steps.length;
+question.innerText=s.q;
+progressBar.style.width=((state.step+1)/steps.length*100)+"%";
+
+let html="";
+
+if(s.type==="text"){
+html=`<input id="inp" value="${state.data[s.key]||''}">`;
+}
+
+if(s.type==="options"){
+html='<div class="options">';
+s.opt.forEach(o=>{
+let a=state.data[s.key]===o?"active":"";
+html+=`<button class="${a}" onclick="setVal('${o}')">${o}</button>`;
+});
+html+='</div>';
+}
+
+if(s.type==="multi"){
+html='<div class="options">';
+s.opt.forEach(o=>{
+let a=state.data[s.key].includes(o)?"active":"";
+html+=`<button class="${a}" onclick="toggle('${o}')">${o}</button>`;
+});
+html+='</div>';
+}
+
+stepArea.innerHTML=html;
+update();
+}
+
+function next(){
+let s=steps[state.step];
+if(s.type==="text"){
+state.data[s.key]=document.getElementById("inp").value;
+}
+if(state.step<steps.length-1){
+state.step++;
+render();
+}
+}
+
+function back(){if(state.step>0){state.step--;render();}}
+
+function setVal(v){
+state.data[steps[state.step].key]=v;
+render();
+}
+
+function toggle(v){
+let arr=state.data.sections;
+let i=arr.indexOf(v);
+if(i>=0)arr.splice(i,1);else arr.push(v);
+render();
+}
+
+function reset(){
+state.step=0;
+render();
+}
+
+function build(){
+
+let a=state.data;
+
+let nav=`<header style="padding:15px;background:#d97706;color:#fff;display:flex;justify-content:space-between">
+<div>${a.brand}</div>
+<div>${a.sections.join(" | ")}</div>
+</header>`;
+
+let hero=a.sections.includes("Hero")?`
+<section style="padding:50px;text-align:center">
+<h1>${a.brand}</h1>
+<p>${a.type} website</p>
+</section>`:"";
+
+let about=a.sections.includes("About")?`
+<section><h2>About</h2><p>About your site</p></section>`:"";
+
+let services=a.sections.includes("Services")?`
+<section><h2>Services</h2><p>Your services</p></section>`:"";
+
+let contact=a.sections.includes("Contact")?`
+<section><h2>Contact</h2>`+
+(a.whatsapp?`<a href="https://wa.me/${a.whatsapp}">WhatsApp</a>`:"")+
+`</section>`:"";
+
+let payment=a.payment==="Yes"?`
+<section><button>Pay Now (Razorpay)</button></section>`:"";
+
+return `
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>${a.brand}</title>
+</head>
+<body style="margin:0;font-family:Arial;background:#fffaf0">
+
+${nav}
+${hero}
+${about}
+${services}
+${contact}
+${payment}
+
+<footer style="padding:20px;text-align:center;background:#fff4df">
+© ${a.brand}
+</footer>
+
 </body>
-</html>`;
-    }function syncAll(){
-  const cfg = buildConfig();
-  const html = buildHTML();
-  document.getElementById('previewFrame').srcdoc = html;
-  document.getElementById('jsonView').value = JSON.stringify(cfg, null, 2);
-  document.getElementById('htmlView').value = html;
-  document.getElementById('badgeType').textContent = `Type: ${pretty(state.answers.siteType)}`;
-  document.getElementById('badgeTemplate').textContent = `Template: ${pretty(state.answers.template)}`;
-  document.getElementById('badgeTheme').textContent = `Theme: ${pretty(state.answers.theme)}`;
-  const device = document.getElementById('deviceFrame');
-  device.className = `device ${state.viewMode} fade-swap`;
-  setTimeout(() => device.classList.remove('fade-swap'), 260);
+</html>
+`;
 }
 
-function escapeHtml(str){
-  return String(str)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#039;');
+function update(){
+preview.srcdoc=build();
 }
 
-function escapeAttr(str){
-  return escapeHtml(str).replace(/`/g,'&#096;');
+function download(){
+let blob=new Blob([build()],{type:"text/html"});
+let a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="website.html";
+a.click();
 }
 
-function downloadText(filename, text, type){
-  const blob = new Blob([text], { type });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(a.href), 500);
-}
+render();
 
-function copyText(id){
-  const el = document.getElementById(id);
-  el.select();
-  el.setSelectionRange(0, el.value.length);
-  document.execCommand('copy');
-}
+</script>
 
-document.querySelectorAll('.mini-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.mini-btn').forEach(x => x.classList.remove('active'));
-    btn.classList.add('active');
-    state.viewMode = btn.getAttribute('data-view');
-    syncAll();
-  });
-});
-
-document.getElementById('copyJsonBtn').addEventListener('click', () => copyText('jsonView'));
-document.getElementById('copyHtmlBtn').addEventListener('click', () => copyText('htmlView'));
-document.getElementById('downloadJsonBtn').addEventListener('click', () => {
-  const safe = (state.answers.brandName || 'website').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') || 'website';
-  downloadText(`${safe}.json`, document.getElementById('jsonView').value, 'application/json');
-});
-document.getElementById('downloadHtmlBtn').addEventListener('click', () => {
-  const safe = (state.answers.brandName || 'website').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') || 'website';
-  downloadText(`${safe}.html`, document.getElementById('htmlView').value, 'text/html');
-});
-
-renderWizard();
-syncAll();
-
-  </script>
 </body>
 </html>
