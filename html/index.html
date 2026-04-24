@@ -1,315 +1,500 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Website Builder V6</title>
-<style>
-body{margin:0;font-family:Arial;background:#fffaf0;color:#2b2112}
-.box{max-width:1150px;margin:24px auto;padding:20px;background:#fff;border:1px solid #f0dcc2;border-radius:16px}
-button{padding:10px 14px;border:0;border-radius:10px;background:#d97706;color:white;font-weight:bold;cursor:pointer;margin:4px}
-button.secondary{background:#fff6e6;color:#2b2112;border:1px solid #f0dcc2}
-button.active{background:#f59e0b}
-input,textarea{width:100%;max-width:440px;padding:10px;border:1px solid #f0dcc2;border-radius:10px}
-textarea{min-height:90px}
-.options{display:flex;flex-wrap:wrap;gap:8px}
-.progress{height:10px;background:#f7e6c8;border-radius:999px;overflow:hidden;margin:12px 0}
-.progress span{display:block;height:100%;background:linear-gradient(90deg,#d97706,#f59e0b)}
-iframe{width:100%;height:460px;border:1px solid #f0dcc2;border-radius:14px;margin-top:16px;background:white}
-pre{white-space:pre-wrap;background:#fff8ef;border:1px solid #f0dcc2;padding:12px;border-radius:12px}
-</style>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Website Builder | Champak</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial;
+        background: #fffaf0;
+        color: #2b2112;
+      }
+      .box {
+        max-width: 1150px;
+        margin: 24px auto;
+        padding: 20px;
+        background: #fff;
+        border: 1px solid #f0dcc2;
+        border-radius: 16px;
+      }
+      button,a {
+        padding: 10px 14px;
+        border: 0;
+        border-radius: 10px;
+        background: #d97706;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 10px;
+      }
+      button.secondary {
+        background: #fff6e6;
+        color: #2b2112;
+        border: 1px solid #f0dcc2;
+      }
+      button.active {
+        background: #f59e0b;
+      }
+      input,
+      textarea {
+        width: 100%;
+        max-width: 440px;
+        padding: 10px;
+        border: 1px solid #f0dcc2;
+        border-radius: 10px;
+      }
+      textarea {
+        min-height: 90px;
+      }
+      .options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .progress {
+        height: 10px;
+        background: #f7e6c8;
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 12px 0;
+      }
+      .progress span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, #d97706, #f59e0b);
+      }
+      iframe {
+        width: 100%;
+        height: 460px;
+        border: 1px solid #f0dcc2;
+        border-radius: 14px;
+        margin-top: 16px;
+        background: white;
+      }
+      pre {
+        white-space: pre-wrap;
+        background: #fff8ef;
+        border: 1px solid #f0dcc2;
+        padding: 12px;
+        border-radius: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <h1>Website Builder | Champak</h1>
+      <h2 id="stepTitle"></h2>
+      <div class="progress"><span id="progressBar"></span></div>
+      <p id="question"></p>
 
-<div class="box">
-  <h1>Website Builder V6</h1>
-  <h2 id="stepTitle"></h2>
-  <div class="progress"><span id="progressBar"></span></div>
-  <p id="question"></p>
+      <div id="stepArea"></div>
 
-  <div id="stepArea"></div>
+      <br />
+      <button class="secondary" onclick="back()">Back</button>
+      <button onclick="next()">Next</button>
+      <button class="secondary" onclick="resetBuilder()">Reset</button>
 
-  <br>
-  <button class="secondary" onclick="back()">Back</button>
-  <button onclick="next()">Next</button>
-  <button class="secondary" onclick="resetBuilder()">Reset</button>
+      <hr />
 
-  <hr>
+      <button onclick="saveProject()">Save Project</button>
+      <button onclick="loadProject()">Load Project</button>
+      <button onclick="downloadHTML()">Download HTML</button>
+      <a href="https://editor.learnwithchampak.live/samples/html/preview/#code=PCFkb2N0eXBlIGh0bWw-CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9InV0Zi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCxpbml0aWFsLXNjYWxlPTEiIC8-CiAgICA8dGl0bGU-TGVhcm4gd2l0aCBDaGFtcGFrPC90aXRsZT4KICAgIDxzdHlsZT4KICAgICAgYm9keSB7CiAgICAgICAgbWFyZ2luOiAwOwogICAgICAgIGZvbnQtZmFtaWx5OiBBcmlhbDsKICAgICAgICBiYWNrZ3JvdW5kOiAjZmZmZGY3OwogICAgICAgIGNvbG9yOiAjMmIyMTEyOwogICAgICAgIGxpbmUtaGVpZ2h0OiAxLjY7CiAgICAgIH0KICAgICAgaGVhZGVyIHsKICAgICAgICBwb3NpdGlvbjogc3RpY2t5OwogICAgICAgIHRvcDogMDsKICAgICAgICBiYWNrZ3JvdW5kOiB3aGl0ZTsKICAgICAgICBib3JkZXItYm90dG9tOiAxcHggc29saWQgI2YwZGNjMjsKICAgICAgICBwYWRkaW5nOiAxNnB4IDI0cHg7CiAgICAgICAgZGlzcGxheTogZmxleDsKICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47CiAgICAgICAgZ2FwOiAxNnB4OwogICAgICAgIGZsZXgtd3JhcDogd3JhcDsKICAgICAgfQogICAgICAuYnJhbmQgewogICAgICAgIGZvbnQtd2VpZ2h0OiA5MDA7CiAgICAgICAgY29sb3I6ICNmNTllMGI7CiAgICAgICAgZm9udC1zaXplOiAyMnB4OwogICAgICB9CiAgICAgIG5hdiB7CiAgICAgICAgZGlzcGxheTogZmxleDsKICAgICAgICBnYXA6IDE0cHg7CiAgICAgICAgZmxleC13cmFwOiB3cmFwOwogICAgICAgIGNvbG9yOiAjNzY2MjQ3OwogICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkOwogICAgICB9CiAgICAgIHNlY3Rpb24gewogICAgICAgIHBhZGRpbmc6IDU2cHggMjRweDsKICAgICAgICBtYXgtd2lkdGg6IDExMDBweDsKICAgICAgICBtYXJnaW46IGF1dG87CiAgICAgIH0KICAgICAgLmhlcm8gewogICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjsKICAgICAgICBkaXNwbGF5OiBncmlkOwogICAgICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogMWZyOwogICAgICAgIGdhcDogMjBweDsKICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyOwogICAgICB9CiAgICAgIC5wYW5lbCwKICAgICAgLmNhcmQgewogICAgICAgIGJhY2tncm91bmQ6IHdoaXRlOwogICAgICAgIGJvcmRlcjogMXB4IHNvbGlkICNmMGRjYzI7CiAgICAgICAgYm9yZGVyLXJhZGl1czogMThweDsKICAgICAgICBwYWRkaW5nOiAyMHB4OwogICAgICAgIGJveC1zaGFkb3c6IDAgMTBweCAyOHB4IHJnYmEoMCwgMCwgMCwgMC4wNik7CiAgICAgIH0KICAgICAgLmJ0biB7CiAgICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrOwogICAgICAgIGJhY2tncm91bmQ6ICNmNTllMGI7CiAgICAgICAgY29sb3I6IHdoaXRlOwogICAgICAgIHBhZGRpbmc6IDEycHggMThweDsKICAgICAgICBib3JkZXItcmFkaXVzOiAxMnB4OwogICAgICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTsKICAgICAgICBmb250LXdlaWdodDogYm9sZDsKICAgICAgICBtYXJnaW46IDZweDsKICAgICAgfQogICAgICAuZ3JpZCB7CiAgICAgICAgZGlzcGxheTogZ3JpZDsKICAgICAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgzLCAxZnIpOwogICAgICAgIGdhcDogMTRweDsKICAgICAgfQogICAgICAuZ2FsbGVyeSB7CiAgICAgICAgZGlzcGxheTogZ3JpZDsKICAgICAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgzLCAxZnIpOwogICAgICAgIGdhcDogMTJweDsKICAgICAgfQogICAgICAucGhvdG8gewogICAgICAgIGhlaWdodDogMTMwcHg7CiAgICAgICAgYmFja2dyb3VuZDogI2ZmZjRkZjsKICAgICAgICBib3JkZXItcmFkaXVzOiAxNHB4OwogICAgICAgIGRpc3BsYXk6IGdyaWQ7CiAgICAgICAgcGxhY2UtaXRlbXM6IGNlbnRlcjsKICAgICAgICBjb2xvcjogIzc2NjI0NzsKICAgICAgfQogICAgICBmb290ZXIgewogICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjsKICAgICAgICBwYWRkaW5nOiAyOHB4OwogICAgICAgIGJhY2tncm91bmQ6ICNmZmY0ZGY7CiAgICAgICAgY29sb3I6ICM3NjYyNDc7CiAgICAgIH0KICAgICAgQG1lZGlhIChtYXgtd2lkdGg6IDgwMHB4KSB7CiAgICAgICAgLmhlcm8sCiAgICAgICAgLmdyaWQsCiAgICAgICAgLmdhbGxlcnkgewogICAgICAgICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnI7CiAgICAgICAgfQogICAgICB9CiAgICA8L3N0eWxlPgogIDwvaGVhZD4KICA8Ym9keT4KICAgIDxoZWFkZXI-CiAgICAgIDxkaXYgY2xhc3M9ImJyYW5kIj5MZWFybiB3aXRoIENoYW1wYWs8L2Rpdj4KICAgICAgPG5hdj4KICAgICAgICA8YSBocmVmPSIjYWJvdXQiPkFib3V0PC9hPjxhIGhyZWY9IiNzZXJ2aWNlcyI-U2VydmljZXM8L2EKICAgICAgICA-PGEgaHJlZj0iI2NvbnRhY3QiPkNvbnRhY3Q8L2E-PGEgaHJlZj0iI2dhbGxlcnkiPkdhbGxlcnk8L2EKICAgICAgICA-PGEgaHJlZj0iI3Rlc3RpbW9uaWFscyI-VGVzdGltb25pYWxzPC9hPjxhIGhyZWY9IiNwYXltZW50Ij5QYXltZW50PC9hPgogICAgICA8L25hdj4KICAgIDwvaGVhZGVyPgogICAgPHNlY3Rpb24gY2xhc3M9Imhlcm8iPgogICAgICA8ZGl2PgogICAgICAgIDxoMT5MZWFybiB3aXRoIENoYW1wYWs8L2gxPgogICAgICAgIDxwPkVuam95IHlvdXIgUHJvZ3JhbW1pbmcgSm91cm5leTwvcD4KICAgICAgICA8YSBjbGFzcz0iYnRuIiBocmVmPSIjY29udGFjdCI-Q29udGFjdCBVczwvYT4KICAgICAgPC9kaXY-CiAgICAgIDxkaXYgY2xhc3M9InBhbmVsIj4KICAgICAgICA8aDM-RS1jb21tZXJjZSBXZWJzaXRlPC9oMz4KICAgICAgICA8cD5HZW5lcmF0ZWQgZnJvbSB5b3VyIHdpemFyZCBhbnN3ZXJzLjwvcD4KICAgICAgPC9kaXY-CiAgICA8L3NlY3Rpb24-CiAgICA8c2VjdGlvbiBpZD0iYWJvdXQiPgogICAgICA8aDI-QWJvdXQ8L2gyPgogICAgICA8cD4KICAgICAgICBUaGlzIGlzIGEgRS1jb21tZXJjZSB3ZWJzaXRlIGZvciBMZWFybiB3aXRoIENoYW1wYWsuIFJlcGxhY2UgdGhpcyB0ZXh0CiAgICAgICAgd2l0aCByZWFsIGNvbnRlbnQuCiAgICAgIDwvcD4KICAgIDwvc2VjdGlvbj4KICAgIDxzZWN0aW9uIGlkPSJzZXJ2aWNlcyI-CiAgICAgIDxoMj5TZXJ2aWNlczwvaDI-CiAgICAgIDxkaXYgY2xhc3M9ImdyaWQiPgogICAgICAgIDxkaXYgY2xhc3M9ImNhcmQiPgogICAgICAgICAgPGgzPlNlcnZpY2UgMTwvaDM-CiAgICAgICAgICA8cD5EZXNjcmliZSB5b3VyIGZpcnN0IHNlcnZpY2UuPC9wPgogICAgICAgIDwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9ImNhcmQiPgogICAgICAgICAgPGgzPlNlcnZpY2UgMjwvaDM-CiAgICAgICAgICA8cD5EZXNjcmliZSB5b3VyIHNlY29uZCBzZXJ2aWNlLjwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2IGNsYXNzPSJjYXJkIj4KICAgICAgICAgIDxoMz5TZXJ2aWNlIDM8L2gzPgogICAgICAgICAgPHA-RGVzY3JpYmUgeW91ciB0aGlyZCBzZXJ2aWNlLjwvcD4KICAgICAgICA8L2Rpdj4KICAgICAgPC9kaXY-CiAgICA8L3NlY3Rpb24-CiAgICA8c2VjdGlvbiBpZD0iZ2FsbGVyeSI-CiAgICAgIDxoMj5HYWxsZXJ5PC9oMj4KICAgICAgPGRpdiBjbGFzcz0iZ2FsbGVyeSI-CiAgICAgICAgPGRpdiBjbGFzcz0icGhvdG8iPkltYWdlPC9kaXY-CiAgICAgICAgPGRpdiBjbGFzcz0icGhvdG8iPkltYWdlPC9kaXY-CiAgICAgICAgPGRpdiBjbGFzcz0icGhvdG8iPkltYWdlPC9kaXY-CiAgICAgIDwvZGl2PgogICAgPC9zZWN0aW9uPgogICAgPHNlY3Rpb24gaWQ9InRlc3RpbW9uaWFscyI-CiAgICAgIDxoMj5UZXN0aW1vbmlhbHM8L2gyPgogICAgICA8ZGl2IGNsYXNzPSJwYW5lbCI-PHA-4oCcQSBoZWxwZnVsIHRlc3RpbW9uaWFsIGNhbiBhcHBlYXIgaGVyZS7igJ08L3A-PC9kaXY-CiAgICA8L3NlY3Rpb24-CiAgICA8c2VjdGlvbiBpZD0iY29udGFjdCI-CiAgICAgIDxoMj5Db250YWN0PC9oMj4KICAgICAgPGRpdiBjbGFzcz0icGFuZWwiPgogICAgICAgIDxwPkVtYWlsIC8gcGhvbmUgLyBlbnF1aXJ5IGZvcm0gY2FuIGJlIGFkZGVkIGhlcmUuPC9wPgogICAgICAgIDxhIGNsYXNzPSJidG4iIGhyZWY9Imh0dHBzOi8vd2EubWUvOTE5MzM1ODc0MzI2Ij5DaGF0IG9uIFdoYXRzQXBwPC9hPgogICAgICA8L2Rpdj4KICAgIDwvc2VjdGlvbj4KICAgIDxzZWN0aW9uIGlkPSJwYXltZW50Ij4KICAgICAgPGgyPlBheW1lbnQ8L2gyPgogICAgICA8ZGl2IGNsYXNzPSJwYW5lbCI-CiAgICAgICAgPGJ1dHRvbgogICAgICAgICAgc3R5bGU9IgogICAgICAgICAgICBiYWNrZ3JvdW5kOiAjZjU5ZTBiOwogICAgICAgICAgICBjb2xvcjogd2hpdGU7CiAgICAgICAgICAgIHBhZGRpbmc6IDEycHggMThweDsKICAgICAgICAgICAgYm9yZGVyOiAwOwogICAgICAgICAgICBib3JkZXItcmFkaXVzOiAxMnB4OwogICAgICAgICAgICBmb250LXdlaWdodDogYm9sZDsKICAgICAgICAgICIKICAgICAgICA-CiAgICAgICAgICBQYXkgTm93CiAgICAgICAgPC9idXR0b24-CiAgICAgICAgPHA-CiAgICAgICAgICBUaGlzIGlzIGEgUmF6b3JwYXkgcGxhY2Vob2xkZXIuIFJlcGxhY2Ugd2l0aCByZWFsIFJhem9ycGF5IENoZWNrb3V0CiAgICAgICAgICBpbnRlZ3JhdGlvbiBsYXRlci4KICAgICAgICA8L3A-CiAgICAgIDwvZGl2PgogICAgPC9zZWN0aW9uPgogICAgPGZvb3Rlcj7CqSBMZWFybiB3aXRoIENoYW1wYWs8L2Zvb3Rlcj4KICA8L2JvZHk-CjwvaHRtbD4K">Open in Editor</button>&nbsp;&nbsp;
+      <button onclick="downloadJSON()">Download JSON</button>
+      <button onclick="copyHTML()">Copy HTML</button>
 
-  <button onclick="saveProject()">Save Project</button>
-  <button onclick="loadProject()">Load Project</button>
-  <button onclick="downloadHTML()">Download HTML</button>
-  <button onclick="downloadJSON()">Download JSON</button>
-  <button onclick="copyHTML()">Copy HTML</button>
+      <iframe id="preview"></iframe>
 
-  <iframe id="preview"></iframe>
+      <h3>JSON Config</h3>
+      <pre id="jsonView"></pre>
+    </div>
 
-  <h3>JSON Config</h3>
-  <pre id="jsonView"></pre>
-</div>
+    <script>
+      const steps = [
+        { key: "brand", q: "Brand name?", type: "text" },
+        { key: "tagline", q: "Tagline?", type: "text" },
+        {
+          key: "type",
+          q: "Website type?",
+          type: "options",
+          opt: [
+            "Business",
+            "Healthcare",
+            "Education",
+            "Portfolio",
+            "E-commerce",
+          ],
+        },
+        {
+          key: "template",
+          q: "Choose template",
+          type: "options",
+          opt: ["Classic", "Split", "Cards"],
+        },
+        {
+          key: "theme",
+          q: "Choose theme",
+          type: "options",
+          opt: ["Classic", "Deep", "Light"],
+        },
+        {
+          key: "sections",
+          q: "Sections?",
+          type: "multi",
+          opt: [
+            "Hero",
+            "About",
+            "Services",
+            "Gallery",
+            "Testimonials",
+            "Contact",
+            "Payment",
+          ],
+        },
+        {
+          key: "whatsapp",
+          q: "WhatsApp number with country code?",
+          type: "text",
+        },
+        {
+          key: "razorpay",
+          q: "Razorpay Payment Button ID or placeholder text?",
+          type: "text",
+        },
+        { key: "notes", q: "Extra notes?", type: "textarea" },
+      ];
 
-<script>
-const steps=[
-  {key:"brand",q:"Brand name?",type:"text"},
-  {key:"tagline",q:"Tagline?",type:"text"},
-  {key:"type",q:"Website type?",type:"options",opt:["Business","Healthcare","Education","Portfolio","E-commerce"]},
-  {key:"template",q:"Choose template",type:"options",opt:["Classic","Split","Cards"]},
-  {key:"theme",q:"Choose theme",type:"options",opt:["Classic","Deep","Light"]},
-  {key:"sections",q:"Sections?",type:"multi",opt:["Hero","About","Services","Gallery","Testimonials","Contact","Payment"]},
-  {key:"whatsapp",q:"WhatsApp number with country code?",type:"text"},
-  {key:"razorpay",q:"Razorpay Payment Button ID or placeholder text?",type:"text"},
-  {key:"notes",q:"Extra notes?",type:"textarea"}
-];
+      let state = {
+        step: 0,
+        data: {
+          brand: "Learn with Champak",
+          tagline: "A beautiful website made with the wizard",
+          type: "Business",
+          template: "Classic",
+          theme: "Classic",
+          sections: ["Hero", "About", "Services", "Contact"],
+          whatsapp: "",
+          razorpay: "Pay Now",
+          notes: "",
+        },
+      };
 
-let state={
-  step:0,
-  data:{
-    brand:"My Site",
-    tagline:"A beautiful website made with the wizard",
-    type:"Business",
-    template:"Classic",
-    theme:"Classic",
-    sections:["Hero","About","Services","Contact"],
-    whatsapp:"",
-    razorpay:"Pay Now",
-    notes:""
-  }
-};
+      function safe(s) {
+        return String(s || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
 
-function safe(s){
-  return String(s||"")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
+      function render() {
+        const s = steps[state.step];
 
-function render(){
-  const s=steps[state.step];
+        stepTitle.innerText =
+          "Step " + (state.step + 1) + " of " + steps.length;
+        question.innerText = s.q;
+        progressBar.style.width = ((state.step + 1) / steps.length) * 100 + "%";
 
-  stepTitle.innerText="Step "+(state.step+1)+" of "+steps.length;
-  question.innerText=s.q;
-  progressBar.style.width=((state.step+1)/steps.length*100)+"%";
+        let html = "";
 
-  let html="";
+        if (s.type === "text") {
+          html = '<input id="inp" value="' + safe(state.data[s.key]) + '">';
+        }
 
-  if(s.type==="text"){
-    html='<input id="inp" value="'+safe(state.data[s.key])+'">';
-  }
+        if (s.type === "textarea") {
+          html =
+            '<textarea id="inp">' + safe(state.data[s.key]) + "</textarea>";
+        }
 
-  if(s.type==="textarea"){
-    html='<textarea id="inp">'+safe(state.data[s.key])+'</textarea>';
-  }
+        if (s.type === "options") {
+          html = '<div class="options">';
+          s.opt.forEach((o) => {
+            const active = state.data[s.key] === o ? "active" : "";
+            html +=
+              '<button class="' +
+              active +
+              '" onclick="setVal(\'' +
+              o +
+              "')\">" +
+              o +
+              "</button>";
+          });
+          html += "</div>";
+        }
 
-  if(s.type==="options"){
-    html='<div class="options">';
-    s.opt.forEach(o=>{
-      const active=state.data[s.key]===o?"active":"";
-      html+='<button class="'+active+'" onclick="setVal(\''+o+'\')">'+o+'</button>';
-    });
-    html+='</div>';
-  }
+        if (s.type === "multi") {
+          html = '<div class="options">';
+          s.opt.forEach((o) => {
+            const active = state.data.sections.includes(o) ? "active" : "";
+            html +=
+              '<button class="' +
+              active +
+              '" onclick="toggle(\'' +
+              o +
+              "')\">" +
+              o +
+              "</button>";
+          });
+          html += "</div>";
+        }
 
-  if(s.type==="multi"){
-    html='<div class="options">';
-    s.opt.forEach(o=>{
-      const active=state.data.sections.includes(o)?"active":"";
-      html+='<button class="'+active+'" onclick="toggle(\''+o+'\')">'+o+'</button>';
-    });
-    html+='</div>';
-  }
+        stepArea.innerHTML = html;
+        updatePreview();
+      }
 
-  stepArea.innerHTML=html;
-  updatePreview();
-}
+      function saveCurrentInput() {
+        const s = steps[state.step];
+        if (s.type === "text" || s.type === "textarea") {
+          const input = document.getElementById("inp");
+          if (input) state.data[s.key] = input.value;
+        }
+      }
 
-function saveCurrentInput(){
-  const s=steps[state.step];
-  if(s.type==="text" || s.type==="textarea"){
-    const input=document.getElementById("inp");
-    if(input) state.data[s.key]=input.value;
-  }
-}
+      function next() {
+        saveCurrentInput();
+        if (state.step < steps.length - 1) {
+          state.step++;
+          render();
+        }
+      }
 
-function next(){
-  saveCurrentInput();
-  if(state.step<steps.length-1){
-    state.step++;
-    render();
-  }
-}
+      function back() {
+        saveCurrentInput();
+        if (state.step > 0) {
+          state.step--;
+          render();
+        }
+      }
 
-function back(){
-  saveCurrentInput();
-  if(state.step>0){
-    state.step--;
-    render();
-  }
-}
+      function setVal(v) {
+        const key = steps[state.step].key;
+        state.data[key] = v;
+        render();
+      }
 
-function setVal(v){
-  const key=steps[state.step].key;
-  state.data[key]=v;
-  render();
-}
+      function toggle(v) {
+        const arr = state.data.sections;
+        const i = arr.indexOf(v);
+        if (i >= 0) arr.splice(i, 1);
+        else arr.push(v);
+        render();
+      }
 
-function toggle(v){
-  const arr=state.data.sections;
-  const i=arr.indexOf(v);
-  if(i>=0) arr.splice(i,1);
-  else arr.push(v);
-  render();
-}
+      function resetBuilder() {
+        state.step = 0;
+        state.data = {
+          brand: "My Site",
+          tagline: "A beautiful website made with the wizard",
+          type: "Business",
+          template: "Classic",
+          theme: "Classic",
+          sections: ["Hero", "About", "Services", "Contact"],
+          whatsapp: "",
+          razorpay: "Pay Now",
+          notes: "",
+        };
+        render();
+      }
 
-function resetBuilder(){
-  state.step=0;
-  state.data={
-    brand:"My Site",
-    tagline:"A beautiful website made with the wizard",
-    type:"Business",
-    template:"Classic",
-    theme:"Classic",
-    sections:["Hero","About","Services","Contact"],
-    whatsapp:"",
-    razorpay:"Pay Now",
-    notes:""
-  };
-  render();
-}
+      function colors() {
+        if (state.data.theme === "Deep")
+          return { bg: "#fff7ed", primary: "#c2410c", accent: "#ea580c" };
+        if (state.data.theme === "Light")
+          return { bg: "#fffdf7", primary: "#f59e0b", accent: "#fbbf24" };
+        return { bg: "#fffaf0", primary: "#d97706", accent: "#f59e0b" };
+      }
 
-function colors(){
-  if(state.data.theme==="Deep") return {bg:"#fff7ed",primary:"#c2410c",accent:"#ea580c"};
-  if(state.data.theme==="Light") return {bg:"#fffdf7",primary:"#f59e0b",accent:"#fbbf24"};
-  return {bg:"#fffaf0",primary:"#d97706",accent:"#f59e0b"};
-}
+      function buildHTML() {
+        const d = state.data;
+        const c = colors();
+        const split = d.template === "Split";
+        const cards = d.template === "Cards";
 
-function buildHTML(){
-  const d=state.data;
-  const c=colors();
-  const split=d.template==="Split";
-  const cards=d.template==="Cards";
+        let html =
+          '<!doctype html><html lang="en"><head><meta charset="utf-8">';
+        html +=
+          '<meta name="viewport" content="width=device-width,initial-scale=1">';
+        html += "<title>" + safe(d.brand) + "</title>";
+        html += "<style>";
+        html +=
+          "body{margin:0;font-family:Arial;background:" +
+          c.bg +
+          ";color:#2b2112;line-height:1.6}";
+        html +=
+          "header{position:sticky;top:0;background:white;border-bottom:1px solid #f0dcc2;padding:16px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}";
+        html +=
+          ".brand{font-weight:900;color:" + c.primary + ";font-size:22px}";
+        html +=
+          "nav{display:flex;gap:14px;flex-wrap:wrap;color:#766247;font-weight:bold}";
+        html += "section{padding:56px 24px;max-width:1100px;margin:auto}";
+        html +=
+          ".hero{text-align:" +
+          (split ? "left" : "center") +
+          ";display:grid;grid-template-columns:" +
+          (split ? "1.2fr .8fr" : "1fr") +
+          ";gap:20px;align-items:center}";
+        html +=
+          ".panel,.card{background:white;border:1px solid #f0dcc2;border-radius:18px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.06)}";
+        html +=
+          ".btn{display:inline-block;background:" +
+          c.primary +
+          ";color:white;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:bold;margin:6px}";
+        html +=
+          ".grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}";
+        html +=
+          ".gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.photo{height:130px;background:#fff4df;border-radius:14px;display:grid;place-items:center;color:#766247}";
+        html +=
+          "footer{text-align:center;padding:28px;background:#fff4df;color:#766247}";
+        html +=
+          "@media(max-width:800px){.hero,.grid,.gallery{grid-template-columns:1fr}}";
+        html += "</style></head><body>";
 
-  let html='<!doctype html><html lang="en"><head><meta charset="utf-8">';
-  html+='<meta name="viewport" content="width=device-width,initial-scale=1">';
-  html+='<title>'+safe(d.brand)+'</title>';
-  html+='<style>';
-  html+='body{margin:0;font-family:Arial;background:'+c.bg+';color:#2b2112;line-height:1.6}';
-  html+='header{position:sticky;top:0;background:white;border-bottom:1px solid #f0dcc2;padding:16px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}';
-  html+='.brand{font-weight:900;color:'+c.primary+';font-size:22px}';
-  html+='nav{display:flex;gap:14px;flex-wrap:wrap;color:#766247;font-weight:bold}';
-  html+='section{padding:56px 24px;max-width:1100px;margin:auto}';
-  html+='.hero{text-align:'+(split?'left':'center')+';display:grid;grid-template-columns:'+(split?'1.2fr .8fr':'1fr')+';gap:20px;align-items:center}';
-  html+='.panel,.card{background:white;border:1px solid #f0dcc2;border-radius:18px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.06)}';
-  html+='.btn{display:inline-block;background:'+c.primary+';color:white;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:bold;margin:6px}';
-  html+='.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}';
-  html+='.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.photo{height:130px;background:#fff4df;border-radius:14px;display:grid;place-items:center;color:#766247}';
-  html+='footer{text-align:center;padding:28px;background:#fff4df;color:#766247}';
-  html+='@media(max-width:800px){.hero,.grid,.gallery{grid-template-columns:1fr}}';
-  html+='</style></head><body>';
+        html += '<header><div class="brand">' + safe(d.brand) + "</div><nav>";
+        d.sections.forEach((sec) => {
+          if (sec !== "Hero")
+            html +=
+              '<a href="#' +
+              safe(sec.toLowerCase()) +
+              '">' +
+              safe(sec) +
+              "</a>";
+        });
+        html += "</nav></header>";
 
-  html+='<header><div class="brand">'+safe(d.brand)+'</div><nav>';
-  d.sections.forEach(sec=>{ if(sec!=="Hero") html+='<a href="#'+safe(sec.toLowerCase())+'">'+safe(sec)+'</a>'; });
-  html+='</nav></header>';
+        if (d.sections.includes("Hero")) {
+          html += '<section class="hero">';
+          html +=
+            "<div><h1>" +
+            safe(d.brand) +
+            "</h1><p>" +
+            safe(d.tagline) +
+            '</p><a class="btn" href="#contact">Contact Us</a></div>';
+          if (split || cards)
+            html +=
+              '<div class="panel"><h3>' +
+              safe(d.type) +
+              " Website</h3><p>Generated from your wizard answers.</p></div>";
+          html += "</section>";
+        }
 
-  if(d.sections.includes("Hero")){
-    html+='<section class="hero">';
-    html+='<div><h1>'+safe(d.brand)+'</h1><p>'+safe(d.tagline)+'</p><a class="btn" href="#contact">Contact Us</a></div>';
-    if(split || cards) html+='<div class="panel"><h3>'+safe(d.type)+' Website</h3><p>Generated from your wizard answers.</p></div>';
-    html+='</section>';
-  }
+        if (d.sections.includes("About")) {
+          html +=
+            '<section id="about"><h2>About</h2><p>This is a ' +
+            safe(d.type) +
+            " website for " +
+            safe(d.brand) +
+            ". Replace this text with real content.</p></section>";
+        }
 
-  if(d.sections.includes("About")){
-    html+='<section id="about"><h2>About</h2><p>This is a '+safe(d.type)+' website for '+safe(d.brand)+'. Replace this text with real content.</p></section>';
-  }
+        if (d.sections.includes("Services")) {
+          html += '<section id="services"><h2>Services</h2><div class="grid">';
+          html +=
+            '<div class="card"><h3>Service 1</h3><p>Describe your first service.</p></div>';
+          html +=
+            '<div class="card"><h3>Service 2</h3><p>Describe your second service.</p></div>';
+          html +=
+            '<div class="card"><h3>Service 3</h3><p>Describe your third service.</p></div>';
+          html += "</div></section>";
+        }
 
-  if(d.sections.includes("Services")){
-    html+='<section id="services"><h2>Services</h2><div class="grid">';
-    html+='<div class="card"><h3>Service 1</h3><p>Describe your first service.</p></div>';
-    html+='<div class="card"><h3>Service 2</h3><p>Describe your second service.</p></div>';
-    html+='<div class="card"><h3>Service 3</h3><p>Describe your third service.</p></div>';
-    html+='</div></section>';
-  }
+        if (d.sections.includes("Gallery")) {
+          html +=
+            '<section id="gallery"><h2>Gallery</h2><div class="gallery"><div class="photo">Image</div><div class="photo">Image</div><div class="photo">Image</div></div></section>';
+        }
 
-  if(d.sections.includes("Gallery")){
-    html+='<section id="gallery"><h2>Gallery</h2><div class="gallery"><div class="photo">Image</div><div class="photo">Image</div><div class="photo">Image</div></div></section>';
-  }
+        if (d.sections.includes("Testimonials")) {
+          html +=
+            '<section id="testimonials"><h2>Testimonials</h2><div class="panel"><p>“A helpful testimonial can appear here.”</p></div></section>';
+        }
 
-  if(d.sections.includes("Testimonials")){
-    html+='<section id="testimonials"><h2>Testimonials</h2><div class="panel"><p>“A helpful testimonial can appear here.”</p></div></section>';
-  }
+        if (d.sections.includes("Contact")) {
+          html += '<section id="contact"><h2>Contact</h2><div class="panel">';
+          html += "<p>Email / phone / enquiry form can be added here.</p>";
+          if (d.whatsapp) {
+            html +=
+              '<a class="btn" href="https://wa.me/' +
+              safe(d.whatsapp) +
+              '">Chat on WhatsApp</a>';
+          }
+          html += "</div></section>";
+        }
 
-  if(d.sections.includes("Contact")){
-    html+='<section id="contact"><h2>Contact</h2><div class="panel">';
-    html+='<p>Email / phone / enquiry form can be added here.</p>';
-    if(d.whatsapp){
-      html+='<a class="btn" href="https://wa.me/'+safe(d.whatsapp)+'">Chat on WhatsApp</a>';
-    }
-    html+='</div></section>';
-  }
+        if (d.sections.includes("Payment")) {
+          html += '<section id="payment"><h2>Payment</h2><div class="panel">';
+          html +=
+            '<button style="background:' +
+            c.primary +
+            ';color:white;padding:12px 18px;border:0;border-radius:12px;font-weight:bold">' +
+            safe(d.razorpay || "Pay Now") +
+            "</button>";
+          html +=
+            "<p>This is a Razorpay placeholder. Replace with real Razorpay Checkout integration later.</p>";
+          html += "</div></section>";
+        }
 
-  if(d.sections.includes("Payment")){
-    html+='<section id="payment"><h2>Payment</h2><div class="panel">';
-    html+='<button style="background:'+c.primary+';color:white;padding:12px 18px;border:0;border-radius:12px;font-weight:bold">'+safe(d.razorpay || "Pay Now")+'</button>';
-    html+='<p>This is a Razorpay placeholder. Replace with real Razorpay Checkout integration later.</p>';
-    html+='</div></section>';
-  }
+        html += "<footer>© " + safe(d.brand) + "</footer>";
+        html += "</body></html>";
 
-  html+='<footer>© '+safe(d.brand)+'</footer>';
-  html+='</body></html>';
+        return html;
+      }
 
-  return html;
-}
+      function updatePreview() {
+        const html = buildHTML();
+        preview.srcdoc = html;
+        jsonView.innerText = JSON.stringify(state.data, null, 2);
+      }
 
-function updatePreview(){
-  const html=buildHTML();
-  preview.srcdoc=html;
-  jsonView.innerText=JSON.stringify(state.data,null,2);
-}
+      function downloadHTML() {
+        saveCurrentInput();
+        const blob = new Blob([buildHTML()], { type: "text/html" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "website.html";
+        a.click();
+      }
 
-function downloadHTML(){
-  saveCurrentInput();
-  const blob=new Blob([buildHTML()],{type:"text/html"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download="website.html";
-  a.click();
-}
+      function downloadJSON() {
+        saveCurrentInput();
+        const blob = new Blob([JSON.stringify(state.data, null, 2)], {
+          type: "application/json",
+        });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "website-config.json";
+        a.click();
+      }
 
-function downloadJSON(){
-  saveCurrentInput();
-  const blob=new Blob([JSON.stringify(state.data,null,2)],{type:"application/json"});
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download="website-config.json";
-  a.click();
-}
+      function copyHTML() {
+        saveCurrentInput();
+        navigator.clipboard.writeText(buildHTML());
+        alert("HTML copied");
+      }
 
-function copyHTML(){
-  saveCurrentInput();
-  navigator.clipboard.writeText(buildHTML());
-  alert("HTML copied");
-}
+      function saveProject() {
+        saveCurrentInput();
+        localStorage.setItem(
+          "websiteBuilder |  Champak",
+          JSON.stringify(state.data),
+        );
+        alert("Project saved");
+      }
 
-function saveProject(){
-  saveCurrentInput();
-  localStorage.setItem("websiteBuilderV6",JSON.stringify(state.data));
-  alert("Project saved");
-}
+      function loadProject() {
+        const saved = localStorage.getItem("websiteBuilder |  Champak");
+        if (saved) {
+          state.data = JSON.parse(saved);
+          state.step = 0;
+          render();
+          alert("Project loaded");
+        } else {
+          alert("No saved project found");
+        }
+      }
 
-function loadProject(){
-  const saved=localStorage.getItem("websiteBuilderV6");
-  if(saved){
-    state.data=JSON.parse(saved);
-    state.step=0;
-    render();
-    alert("Project loaded");
-  }else{
-    alert("No saved project found");
-  }
-}
-
-render();
-</script>
-</body>
+      render();
+    </script>
+  </body>
 </html>

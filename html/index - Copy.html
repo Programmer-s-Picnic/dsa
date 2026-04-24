@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wizard V2 — Live Website Skeleton</title>
+  <style>
+    body{font-family:Arial;margin:0;background:#fffaf0;color:#2b2112}
+    .box{max-width:900px;margin:40px auto;padding:20px;border:1px solid #f0dcc2;border-radius:12px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+    button{padding:10px 14px;border:none;background:#d97706;color:#fff;border-radius:8px;cursor:pointer;font-weight:bold;margin:4px}
+    button.secondary{background:#fff6e6;color:#2b2112;border:1px solid #f0dcc2}
+    button.active{background:#f59e0b;color:#fff;box-shadow:0 0 0 2px #fcd9a2 inset}
+    input{padding:10px;border:1px solid #f0dcc2;border-radius:8px;width:100%;max-width:420px}
+    .options{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .progress{height:10px;background:#f7e6c8;border-radius:999px;overflow:hidden;margin:12px 0 20px;border:1px solid #ecd4a8}
+    .progress span{display:block;height:100%;background:linear-gradient(90deg,#d97706,#f59e0b);transition:width .25s ease}
+    .preview{margin-top:20px;padding:18px;border:1px dashed #d97706;border-radius:12px;background:#fff8ef}
+    .mini-site{border:1px solid #f0dcc2;border-radius:12px;overflow:hidden;background:#fff;margin-top:10px}
+    .mini-header{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;background:#fff4df;font-weight:bold;color:#d97706}
+    .mini-nav{display:flex;gap:10px;flex-wrap:wrap;color:#766247;font-size:13px}
+    .mini-hero{padding:28px 16px;text-align:center;background:linear-gradient(180deg,#fffaf0,#fff)}
+    .mini-hero h1{margin:0 0 8px;font-size:28px}
+    .mini-hero p{margin:0;color:#766247}
+    .mini-section{padding:18px 16px;border-top:1px solid #f0dcc2}
+    .mini-section h3{margin:0 0 8px;color:#2b2112}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+    .card{padding:12px;border:1px solid #f0dcc2;border-radius:10px;background:#fffaf3}
+    .muted{color:#766247}
+    @media(max-width:700px){.cards{grid-template-columns:1fr}.box{margin:12px}.mini-header{display:block}.mini-nav{margin-top:8px}}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2 id="stepTitle">Step</h2>
+    <div class="progress"><span id="progressBar"></span></div>
+    <p id="question">Question</p>
+
+    <div id="stepArea"></div>
+
+    <br>
+    <button class="secondary" onclick="backStep()" id="backBtn">Back</button>
+    <button onclick="nextStep()" id="nextBtn">Next</button>
+    <button class="secondary" onclick="restartWizard()">Start Again</button>
+
+    <div class="preview" id="previewBox"></div>
+    <div style="margin-top:20px">
+  <button onclick="copyHTML()">Copy HTML</button>
+  <button onclick="downloadHTML()">Download HTML</button>
+</div>
+  </div>
+
+  <script>
+    
+    const steps = [
+      {
+        key: 'brandName',
+        question: 'What is your website or brand name?',
+        type: 'text',
+        placeholder: 'Example: Cure Centre'
+      },
+      {
+        key: 'siteType',
+        question: 'What type of website do you want?',
+        type: 'options',
+        options: ['Business', 'Healthcare', 'Educational', 'Portfolio']
+      },
+      {
+        key: 'sections',
+        question: 'Which sections should the website include?',
+        type: 'multi',
+        options: ['Hero', 'About', 'Services', 'Gallery', 'Testimonials', 'Contact']
+      }
+    ];
+
+    let state = {
+      step: 0,
+      answers: {
+        brandName: 'My Website',
+        siteType: 'Business',
+        sections: ['Hero', 'About', 'Services', 'Contact']
+      }
+    };
+
+    function render(){
+      const stepObj = steps[state.step];
+      const stepTitle = document.getElementById('stepTitle');
+      const question = document.getElementById('question');
+      const stepArea = document.getElementById('stepArea');
+      const backBtn = document.getElementById('backBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const progressBar = document.getElementById('progressBar');
+
+      stepTitle.innerText = 'Step ' + (state.step + 1) + ' of ' + steps.length;
+      question.innerText = stepObj.question;
+      progressBar.style.width = (((state.step + 1) / steps.length) * 100) + '%';
+
+      backBtn.style.display = state.step === 0 ? 'none' : 'inline-block';
+      nextBtn.innerText = state.step === steps.length - 1 ? 'Finish' : 'Next';
+
+      if(stepObj.type === 'text'){
+        stepArea.innerHTML = '<input id="inputField" placeholder="' + stepObj.placeholder + '" value="' + safe(state.answers[stepObj.key] || '') + '" />';
+        document.getElementById('inputField').addEventListener('input', function(){
+          state.answers[stepObj.key] = this.value || 'My Website';
+          generatePreview();
+        });
+      }
+
+      if(stepObj.type === 'options'){
+        let html = '<div class="options">';
+        stepObj.options.forEach(function(opt){
+          const active = state.answers[stepObj.key] === opt ? 'active' : '';
+          html += '<button class="' + active + '" onclick="selectOption(\'' + opt + '\')">' + opt + '</button>';
+        });
+        html += '</div>';
+        stepArea.innerHTML = html;
+      }
+
+      if(stepObj.type === 'multi'){
+        let html = '<div class="options">';
+        stepObj.options.forEach(function(opt){
+          const active = state.answers[stepObj.key].includes(opt) ? 'active' : '';
+          html += '<button class="' + active + '" onclick="toggleMulti(\'' + opt + '\')">' + opt + '</button>';
+        });
+        html += '</div><p class="muted">Selected: ' + state.answers.sections.join(', ') + '</p>';
+        stepArea.innerHTML = html;
+      }
+
+      generatePreview();
+    }
+
+    function nextStep(){
+      const stepObj = steps[state.step];
+
+      if(stepObj.type === 'text'){
+        state.answers[stepObj.key] = document.getElementById('inputField').value || 'My Website';
+      }
+
+      if(state.step < steps.length - 1){
+        state.step++;
+        render();
+      } else {
+        generatePreview();
+        alert('Skeleton is ready. Next we will add HTML export.');
+      }
+    }
+
+    function backStep(){
+      if(state.step > 0){
+        state.step--;
+        render();
+      }
+    }
+
+    function selectOption(value){
+      const stepObj = steps[state.step];
+      state.answers[stepObj.key] = value;
+      render();
+    }
+
+    function toggleMulti(value){
+      const arr = state.answers.sections;
+      const index = arr.indexOf(value);
+      if(index >= 0){
+        arr.splice(index, 1);
+      } else {
+        arr.push(value);
+      }
+      render();
+    }
+
+    function restartWizard(){
+      state = {
+        step: 0,
+        answers: {
+          brandName: 'My Website',
+          siteType: 'Business',
+          sections: ['Hero', 'About', 'Services', 'Contact']
+        }
+      };
+      render();
+    }
+
+    function generatePreview(){
+      const a = state.answers;
+      const previewBox = document.getElementById('previewBox');
+      const sections = a.sections;
+
+      let html = '';
+      html += '<h3>Live Skeleton Preview</h3>';
+      html += '<p><b>Brand:</b> ' + safe(a.brandName) + '</p>';
+      html += '<p><b>Website Type:</b> ' + safe(a.siteType) + '</p>';
+      html += '<p><b>Sections:</b> ' + safe(sections.join(', ')) + '</p>';
+
+      html += '<div class="mini-site">';
+      html += '<div class="mini-header"><span>' + safe(a.brandName) + '</span><span class="mini-nav">';
+      sections.forEach(function(sec){
+        if(sec !== 'Hero') html += '<span>' + safe(sec) + '</span>';
+      });
+      html += '</span></div>';
+
+      if(sections.includes('Hero')){
+        html += '<div class="mini-hero"><h1>Welcome to ' + safe(a.brandName) + '</h1><p>A simple ' + safe(a.siteType) + ' website skeleton.</p></div>';
+      }
+
+      if(sections.includes('About')){
+        html += '<div class="mini-section"><h3>About</h3><p class="muted">Introduce your story, purpose, and trust points here.</p></div>';
+      }
+
+      if(sections.includes('Services')){
+        html += '<div class="mini-section"><h3>Services</h3><div class="cards"><div class="card">Service 1</div><div class="card">Service 2</div><div class="card">Service 3</div></div></div>';
+      }
+
+      if(sections.includes('Gallery')){
+        html += '<div class="mini-section"><h3>Gallery</h3><div class="cards"><div class="card">Image</div><div class="card">Image</div><div class="card">Image</div></div></div>';
+      }
+
+      if(sections.includes('Testimonials')){
+        html += '<div class="mini-section"><h3>Testimonials</h3><p class="muted">“A useful testimonial can appear here.”</p></div>';
+      }
+
+      if(sections.includes('Contact')){
+        html += '<div class="mini-section"><h3>Contact</h3><p class="muted">Name, email, phone, WhatsApp, or enquiry form.</p></div>';
+      }
+
+      html += '</div>';
+      previewBox.innerHTML = html;
+    }
+
+    function safe(str){
+      return String(str)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#039;');
+    }
+function buildFullHTML(){
+  const a = state.answers;
+
+  return `
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${a.brandName}</title>
+
+<style>
+body{
+  font-family:Arial;
+  margin:0;
+  background:#fffaf0;
+  color:#2b2112;
+}
+header{
+  background:#fff4df;
+  padding:16px;
+  font-weight:bold;
+  color:#d97706;
+  display:flex;
+  justify-content:space-between;
+}
+section{
+  padding:40px 20px;
+}
+.hero{
+  text-align:center;
+  background:linear-gradient(#fffaf0,#fff);
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.card{
+  padding:12px;
+  border:1px solid #f0dcc2;
+  border-radius:8px;
+}
+@media(max-width:700px){
+  .cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div>${a.brandName}</div>
+  <div>${a.sections.join(' | ')}</div>
+</header>
+
+${a.sections.includes('Hero') ? `
+<section class="hero">
+  <h1>Welcome to ${a.brandName}</h1>
+  <p>A ${a.siteType} website</p>
+</section>
+` : ''}
+
+${a.sections.includes('About') ? `
+<section>
+  <h2>About</h2>
+  <p>Write about your business here.</p>
+</section>
+` : ''}
+
+${a.sections.includes('Services') ? `
+<section>
+  <h2>Services</h2>
+  <div class="cards">
+    <div class="card">Service 1</div>
+    <div class="card">Service 2</div>
+    <div class="card">Service 3</div>
+  </div>
+</section>
+` : ''}
+
+${a.sections.includes('Contact') ? `
+<section>
+  <h2>Contact</h2>
+  <p>Email / Phone / WhatsApp</p>
+</section>
+` : ''}
+
+</body>
+</html>
+`;
+}
+    render();
+  </script>
+</body>
+</html>

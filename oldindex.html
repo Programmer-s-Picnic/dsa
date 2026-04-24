@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSA with Champak — Learn Data Structures and Algorithms</title>
+  <script
+      async=""
+      crossorigin="anonymous"
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
+    ></script>
+  <meta name="description" content="A clean, modern home page for dsa.learnwithchampak.live featuring DSA topics, learning paths, practice sections, and beginner-friendly calls to action." />
+  <meta name="theme-color" content="#d97706" />
+
+  <meta property="og:title" content="DSA with Champak — Learn Data Structures and Algorithms" />
+  <meta property="og:description" content="Start learning arrays, strings, linked lists, recursion, trees, graphs, dynamic programming, and problem solving in a structured way." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://dsa.learnwithchampak.live/og-image.jpg" />
+
+  <style>
+    :root{
+      --bg: #fff9ef;
+      --bg-soft: #fff3da;
+      --panel: #ffffff;
+      --panel-2: #fff8ea;
+      --line: #f3d6a2;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --brand: #d97706;
+      --brand-2: #f59e0b;
+      --brand-3: #b45309;
+      --ok: #166534;
+      --shadow: 0 10px 30px rgba(180, 83, 9, 0.10);
+      --radius: 22px;
+      --max: 1200px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(245,158,11,.16), transparent 24%),
+        radial-gradient(circle at right top, rgba(217,119,6,.10), transparent 20%),
+        linear-gradient(180deg, #fffaf1 0%, #fff7e8 100%);
+      line-height:1.6;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    .wrap{width:min(calc(100% - 32px), var(--max));margin:auto}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter: blur(14px);
+      background:rgba(255,249,239,.82);
+      border-bottom:1px solid rgba(217,119,6,.12);
+    }
+
+    .nav{
+      min-height:74px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+
+    .brand-mark{
+      width:44px;
+      height:44px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      font-weight:900;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow:0 12px 26px rgba(217,119,6,.24);
+    }
+
+    .brand small{
+      display:block;
+      color:var(--muted);
+      font-weight:600;
+      font-size:.78rem;
+      margin-top:1px;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:#374151;
+      font-weight:600;
+      font-size:.95rem;
+    }
+
+    .nav-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:11px 16px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#fff;
+      font-weight:800;
+      box-shadow:0 14px 28px rgba(217,119,6,.22);
+    }
+
+    .hero{
+      padding:72px 0 32px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:28px;
+      align-items:stretch;
+    }
+
+    .hero-copy,
+    .hero-card,
+    .section-card,
+    .feature,
+    .topic,
+    .path,
+    .testimonial,
+    .cta-panel,
+    .footer-card{
+      background:rgba(255,255,255,.86);
+      border:1px solid rgba(217,119,6,.12);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .hero-copy{
+      padding:38px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-copy::after{
+      content:"";
+      position:absolute;
+      right:-70px;
+      top:-70px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(245,158,11,.26), rgba(245,158,11,0));
+      pointer-events:none;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:var(--bg-soft);
+      color:var(--brand-3);
+      font-weight:800;
+      font-size:.86rem;
+      border:1px solid rgba(217,119,6,.12);
+    }
+
+    h1{
+      font-size:clamp(2.2rem, 4vw, 4.4rem);
+      line-height:1.06;
+      margin:18px 0 14px;
+      letter-spacing:-.04em;
+    }
+
+    .hero-copy p{
+      color:#4b5563;
+      font-size:1.06rem;
+      max-width:62ch;
+      margin:0;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin:28px 0 22px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:50px;
+      padding:12px 18px;
+      border-radius:14px;
+      font-weight:800;
+      border:1px solid transparent;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .btn:hover{transform:translateY(-2px)}
+
+    .btn-primary{
+      color:#fff;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow:0 14px 24px rgba(217,119,6,.22);
+    }
+
+    .btn-secondary{
+      color:var(--brand-3);
+      background:#fff7e8;
+      border-color:#f5d09a;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .stat{
+      background:var(--panel-2);
+      border:1px solid #f4d9ab;
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .stat b{
+      display:block;
+      font-size:1.5rem;
+      color:var(--brand-3);
+    }
+
+    .stat span{
+      color:var(--muted);
+      font-size:.95rem;
+      font-weight:600;
+    }
+
+    .hero-card{
+      padding:26px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      justify-content:space-between;
+      background:linear-gradient(180deg, rgba(255,255,255,.97), rgba(255,248,234,.96));
+    }
+
+    .code-window{
+      background:#111827;
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 16px 34px rgba(17,24,39,.28);
+    }
+
+    .code-head{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 14px;
+      background:#1f2937;
+    }
+
+    .dot{width:10px;height:10px;border-radius:50%;background:#f59e0b}
+    .dot:nth-child(2){background:#fbbf24}
+    .dot:nth-child(3){background:#fcd34d}
+
+    pre{
+      margin:0;
+      padding:18px;
+      overflow:auto;
+      color:#f9fafb;
+      font-size:.95rem;
+      line-height:1.65;
+    }
+
+    .mini-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .mini-item{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:12px 14px;
+      border-radius:16px;
+      background:#fff;
+      border:1px solid #f3d6a2;
+    }
+
+    .mini-icon{
+      min-width:36px;
+      width:36px;
+      height:36px;
+      display:grid;
+      place-items:center;
+      border-radius:12px;
+      background:#fff3da;
+      color:var(--brand-3);
+      font-weight:900;
+    }
+
+    section{
+      padding:26px 0;
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items:end;
+      margin-bottom:18px;
+    }
+
+    .section-head h2{
+      margin:0;
+      font-size:clamp(1.6rem, 2.8vw, 2.4rem);
+      line-height:1.15;
+    }
+
+    .section-head p{
+      margin:8px 0 0;
+      color:var(--muted);
+      max-width:62ch;
+    }
+
+    .features,
+    .topics,
+    .paths,
+    .testimonials,
+    .footer-grid{
+      display:grid;
+      gap:18px;
+    }
+
+    .features{grid-template-columns:repeat(3,1fr)}
+    .topics{grid-template-columns:repeat(4,1fr)}
+    .paths{grid-template-columns:repeat(3,1fr)}
+    .testimonials{grid-template-columns:repeat(3,1fr)}
+    .footer-grid{grid-template-columns:1.1fr .9fr}
+
+    .feature,
+    .topic,
+    .path,
+    .testimonial,
+    .cta-panel,
+    .footer-card{
+      padding:24px;
+    }
+
+    .feature h3,
+    .topic h3,
+    .path h3,
+    .testimonial h3,
+    .cta-panel h3,
+    .footer-card h3{
+      margin:0 0 10px;
+      font-size:1.15rem;
+    }
+
+    .feature p,
+    .topic p,
+    .path p,
+    .testimonial p,
+    .cta-panel p,
+    .footer-card p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .tag-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .tag{
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.84rem;
+      font-weight:700;
+      background:#fff3da;
+      color:var(--brand-3);
+      border:1px solid #f4d7a2;
+    }
+
+    .topic{
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+
+    .topic:hover,
+    .feature:hover,
+    .path:hover,
+    .testimonial:hover{
+      transform:translateY(-4px);
+      box-shadow:0 16px 34px rgba(180,83,9,.14);
+    }
+
+    .topic .level,
+    .path .level{
+      display:inline-block;
+      margin-bottom:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:.76rem;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      background:#fff3da;
+      color:var(--brand-3);
+      border:1px solid #f4d7a2;
+    }
+
+    .section-card{
+      padding:24px;
+    }
+
+    .journey{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+
+    .step{
+      padding:18px;
+      border-radius:18px;
+      background:#fffaf2;
+      border:1px solid #f3d6a2;
+    }
+
+    .step b{
+      display:inline-grid;
+      place-items:center;
+      width:36px;
+      height:36px;
+      border-radius:12px;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#fff;
+      margin-bottom:12px;
+    }
+
+    .newsletter{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .mail-box{
+      display:flex;
+      gap:10px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+
+    .mail-box input{
+      flex:1 1 280px;
+      min-height:52px;
+      padding:0 16px;
+      border-radius:14px;
+      border:1px solid #f2cf93;
+      background:#fffdf9;
+      font:inherit;
+      outline:none;
+    }
+
+    .mail-box input:focus{
+      border-color:var(--brand);
+      box-shadow:0 0 0 4px rgba(217,119,6,.12);
+    }
+
+    footer{
+      padding:20px 0 40px;
+    }
+
+    .foot-note{
+      padding-top:18px;
+      color:var(--muted);
+      font-size:.95rem;
+      text-align:center;
+    }
+
+    @media (max-width: 1080px){
+      .hero-grid,
+      .newsletter,
+      .footer-grid,
+      .features,
+      .topics,
+      .paths,
+      .testimonials,
+      .journey{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media (max-width: 760px){
+      .nav{
+        padding:12px 0;
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .nav-links{
+        width:100%;
+        justify-content:flex-start;
+      }
+
+      .hero{
+        padding-top:42px;
+      }
+
+      .hero-grid,
+      .newsletter,
+      .footer-grid,
+      .features,
+      .topics,
+      .paths,
+      .testimonials,
+      .journey,
+      .stats{
+        grid-template-columns:1fr;
+      }
+
+      .hero-copy,
+      .hero-card,
+      .feature,
+      .topic,
+      .path,
+      .testimonial,
+      .cta-panel,
+      .footer-card,
+      .section-card{
+        padding:20px;
+      }
+
+      h1{font-size:2.35rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#top">
+        <span class="brand-mark">DSA</span>
+        <span>
+          dsa.learnwithchampak.live
+          <small>Structured learning for problem solving</small>
+        </span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#topics">Topics</a>
+        <a href="#paths">Paths</a>
+        <a href="#practice">Practice</a>
+        <a href="#about">About</a>
+        <a class="nav-cta" href="#start">Start Learning</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Build strong DSA fundamentals</span>
+          <h1>Learn Data Structures and Algorithms with clarity, practice, and real progress.</h1>
+          <p>
+            Welcome to <strong>DSA with Champak</strong> — a focused learning space for arrays, strings,
+            linked lists, recursion, stacks, queues, trees, graphs, heaps, sorting, searching,
+            dynamic programming, and interview-style problem solving.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#start">Begin Your Journey</a>
+            <a class="btn btn-secondary" href="#topics">Explore Topics</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <b>Beginner to Advanced</b>
+              <span>Clear learning flow</span>
+            </div>
+            <div class="stat">
+              <b>Hands-on Practice</b>
+              <span>Problems and guided thinking</span>
+            </div>
+            <div class="stat">
+              <b>Interview Ready</b>
+              <span>Patterns and confidence building</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div class="code-window" aria-label="Sample code preview">
+            <div class="code-head">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+<pre><code>def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+
+    while left &lt;= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] &lt; target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return -1</code></pre>
+          </div>
+
+          <div class="mini-list">
+            <div class="mini-item">
+              <div class="mini-icon">1</div>
+              <div>
+                <strong>Concept-first teaching</strong>
+                <div>Understand the why before memorizing the how.</div>
+              </div>
+            </div>
+            <div class="mini-item">
+              <div class="mini-icon">2</div>
+              <div>
+                <strong>Pattern-based problem solving</strong>
+                <div>Recognize common approaches quickly and use them well.</div>
+              </div>
+            </div>
+            <div class="mini-item">
+              <div class="mini-icon">3</div>
+              <div>
+                <strong>Step-by-step growth</strong>
+                <div>Move from easy problems to challenging ones with confidence.</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>What you will build here</h2>
+            <p>Not just knowledge, but speed, accuracy, confidence, and a disciplined way of thinking about coding problems.</p>
+          </div>
+        </div>
+
+        <div class="features">
+          <article class="feature">
+            <h3>Foundation Lessons</h3>
+            <p>Start from zero and build strong understanding of core DSA ideas with simple explanations and clean examples.</p>
+            <div class="tag-row">
+              <span class="tag">Beginner friendly</span>
+              <span class="tag">Concept clarity</span>
+            </div>
+          </article>
+
+          <article class="feature">
+            <h3>Practice Tracks</h3>
+            <p>Work through topic-wise problems, warm-up sets, pattern sets, and revision rounds designed for real progress.</p>
+            <div class="tag-row">
+              <span class="tag">Daily practice</span>
+              <span class="tag">Topic-wise drills</span>
+            </div>
+          </article>
+
+          <article class="feature">
+            <h3>Interview Preparation</h3>
+            <p>Train for coding rounds with time complexity awareness, common tricks, and structured problem-solving methods.</p>
+            <div class="tag-row">
+              <span class="tag">Placement prep</span>
+              <span class="tag">Interview mindset</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="topics">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Core DSA topics</h2>
+            <p>Each section can grow into a complete topic page, lesson series, quiz bank, and coding practice collection.</p>
+          </div>
+        </div>
+
+        <div class="topics">
+          <article class="topic">
+            <span class="level">Foundation</span>
+            <h3>Arrays & Strings</h3>
+            <p>Traversal, prefix ideas, two pointers, sliding window, frequency logic, and practical coding patterns.</p>
+          </article>
+
+          <article class="topic">
+            <span class="level">Foundation</span>
+            <h3>Linked Lists</h3>
+            <p>Node manipulation, reversing, cycle detection, merging, and interview-friendly visualization of pointer logic.</p>
+          </article>
+
+          <article class="topic">
+            <span class="level">Core</span>
+            <h3>Stacks & Queues</h3>
+            <p>Monotonic stacks, expression handling, queue simulations, and many classic problem-solving applications.</p>
+          </article>
+
+          <article class="topic">
+            <span class="level">Core</span>
+            <h3>Recursion & Backtracking</h3>
+            <p>Think in choices, states, and base cases while solving subsets, permutations, N-Queens, and more.</p>
+          </article>
+
+          <article class="topic">
+            <span class="level">Intermediate</span>
+            <h3>Trees & BST</h3>
+            <p>Traversals, height, diameter, views, balancing ideas, and efficient search on structured data.</p>
+          </article>
+
+          <article class="topic">
+            <span class="level">Intermediate</span>
+            <h3>Heaps & Priority Queues</h3>
+            <p>Top-k problems, heap design, median patterns, and efficient repeated selection strategies.</p>
+          </article>
+
+          <article class="topic">
+            <span class="level">Advanced</span>
+            <h3>Graphs</h3>
+            <p>BFS, DFS, shortest paths, cycle detection, topological sorting, union-find, and graph intuition.</p>
+          </article>
+
+          <article class="topic">
+            <span class="level">Advanced</span>
+            <h3>Dynamic Programming</h3>
+            <p>State design, transitions, memoization, tabulation, and pattern recognition for hard problems.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="paths">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Choose your learning path</h2>
+            <p>Different learners need different routes. These cards help visitors immediately find the right entry point.</p>
+          </div>
+        </div>
+
+        <div class="paths">
+          <article class="path">
+            <span class="level">Path 1</span>
+            <h3>Absolute Beginner</h3>
+            <p>Start from basic problem solving, time complexity, arrays, strings, and easy coding exercises.</p>
+            <div class="tag-row">
+              <span class="tag">Start here</span>
+              <span class="tag">No prior depth needed</span>
+            </div>
+          </article>
+
+          <article class="path">
+            <span class="level">Path 2</span>
+            <h3>College Preparation</h3>
+            <p>Strengthen concepts for lab work, assignments, practical coding, and placement preparation.</p>
+            <div class="tag-row">
+              <span class="tag">College students</span>
+              <span class="tag">Placement focus</span>
+            </div>
+          </article>
+
+          <article class="path">
+            <span class="level">Path 3</span>
+            <h3>Interview Accelerator</h3>
+            <p>Revise fast, solve patterns, sharpen complexity analysis, and prepare for coding rounds and contests.</p>
+            <div class="tag-row">
+              <span class="tag">Fast revision</span>
+              <span class="tag">Interview focused</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="practice">
+      <div class="wrap">
+        <div class="section-card">
+          <div class="section-head">
+            <div>
+              <h2>How the learning journey can work</h2>
+              <p>This section gives your visitors a clear picture of the experience from lesson to mastery.</p>
+            </div>
+          </div>
+
+          <div class="journey">
+            <div class="step">
+              <b>1</b>
+              <h3>Learn</h3>
+              <p>Study the idea with visuals, examples, dry runs, and time complexity discussion.</p>
+            </div>
+            <div class="step">
+              <b>2</b>
+              <h3>Practice</h3>
+              <p>Solve guided problems, then independent problems, then timed sets.</p>
+            </div>
+            <div class="step">
+              <b>3</b>
+              <h3>Revise</h3>
+              <p>Review patterns, mistakes, edge cases, and shortcuts that matter in interviews.</p>
+            </div>
+            <div class="step">
+              <b>4</b>
+              <h3>Apply</h3>
+              <p>Use DSA thinking in contests, coding tests, project logic, and system-level reasoning.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Why learners will like this platform</h2>
+            <p>The homepage should feel welcoming, practical, and serious about helping learners improve.</p>
+          </div>
+        </div>
+
+        <div class="testimonials">
+          <article class="testimonial">
+            <h3>Simple explanations</h3>
+            <p>Complex topics become easier when broken into careful steps, strong examples, and repeated pattern recognition.</p>
+          </article>
+          <article class="testimonial">
+            <h3>Consistent practice</h3>
+            <p>Visitors can clearly see that this is a place to build daily coding discipline, not just read theory.</p>
+          </article>
+          <article class="testimonial">
+            <h3>Real outcomes</h3>
+            <p>The site communicates growth toward confidence in coding interviews, contests, and technical problem solving.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="start">
+      <div class="wrap newsletter">
+        <div class="cta-panel">
+          <h3>Start learning today</h3>
+          <p>
+            Build a home for structured DSA lessons, coding practice, mock tests, challenge sets,
+            and guided interview preparation.
+          </p>
+          <div class="mail-box">
+            <input type="email" placeholder="Enter your email for updates" aria-label="Email address" />
+            <a href="#" class="btn btn-primary">Join the Journey</a>
+          </div>
+          <div class="tag-row">
+            <span class="tag">Arrays</span>
+            <span class="tag">Trees</span>
+            <span class="tag">Graphs</span>
+            <span class="tag">DP</span>
+            <span class="tag">Practice Sets</span>
+          </div>
+        </div>
+
+        <div class="footer-card" id="about">
+          <h3>About this site</h3>
+          <p>
+            <strong>dsa.learnwithchampak.live</strong> can become a dedicated destination for learning data structures
+            and algorithms in a clear, motivating, and publication-ready format under the Learn with Champak brand.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Publication ready</span>
+            <span class="tag">Modern UI</span>
+            <span class="tag">Expandable structure</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div class="footer-card">
+        <h3>DSA with Champak</h3>
+        <p>Learn step by step. Practice regularly. Think clearly. Solve confidently.</p>
+      </div>
+      <div class="footer-card">
+        <h3>Suggested next sections</h3>
+        <p>Add topic pages, lesson pages, coding playground links, MCQ quizzes, challenge of the day, and interview sheets.</p>
+      </div>
+    </div>
+
+    <div class="wrap foot-note">
+      © 2026 Learn with Champak • Designed for dsa.learnwithchampak.live
+    </div>
+  </footer>
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+</body>
+</html>
