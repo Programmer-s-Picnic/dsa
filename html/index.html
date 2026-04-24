@@ -149,7 +149,7 @@
     html = '<div class="options">';
     s.opt.forEach((o) => {
       const active = state.data[s.key] === o ? "active" : "";
-      html += '<button class="' + active + '" onclick="setVal(' + JSON.stringify(o) + ')">' + safe(o) + '</button>';
+      html += '<button type="button" class="choice-btn ' + active + '" data-choice="' + safe(o) + '">' + safe(o) + '</button>';
     });
     html += '</div>';
   }
@@ -158,9 +158,10 @@
     html = '<div class="options">';
     s.opt.forEach((o) => {
       const active = state.data.sections.includes(o) ? "active" : "";
-      html += '<button class="' + active + '" onclick="toggle(' + JSON.stringify(o) + ')">' + safe(o) + '</button>';
+      html += '<button type="button" class="choice-btn ' + active + '" data-choice="' + safe(o) + '">' + safe(o) + '</button>';
     });
     html += '</div>';
+    html += '<p><b>Selected:</b> ' + safe(state.data.sections.join(', ')) + '</p>';
   }
 
   if (s.type === "theme") {
@@ -168,6 +169,23 @@
   }
 
   stepArea.innerHTML = html;
+
+  if (s.type === "options") {
+    document.querySelectorAll('.choice-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        setVal(btn.getAttribute('data-choice'));
+      });
+    });
+  }
+
+  if (s.type === "multi") {
+    document.querySelectorAll('.choice-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        toggle(btn.getAttribute('data-choice'));
+      });
+    });
+  }
+
   if(s.type === "theme") bindThemeDesigner();
   updatePreview();
 }
