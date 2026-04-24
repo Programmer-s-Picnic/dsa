@@ -38,6 +38,16 @@
     .mini-preview-card{padding:14px;border-radius:14px;margin-top:10px}
     .button-row{display:flex;flex-wrap:wrap;align-items:center;gap:2px}
     hr{border:none;border-top:1px solid var(--builder-line);margin:18px 0}
+    @keyframes ppFadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes ppGlow{0%,100%{box-shadow:0 14px 36px rgba(111,72,18,.08)}50%{box-shadow:0 18px 48px rgba(217,119,6,.18)}}
+    @keyframes ppProgressShine{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+    .box{animation:ppFadeUp .45s ease both}
+    #stepArea{animation:ppFadeUp .28s ease both}
+    iframe{animation:ppGlow 3.5s ease-in-out infinite}
+    .progress span{background-size:200% 100%;animation:ppProgressShine 1.7s linear infinite}
+    .choice-btn,.theme-grid,.mini-preview{animation:ppFadeUp .25s ease both}
+    .choice-btn:nth-child(2){animation-delay:.03s}.choice-btn:nth-child(3){animation-delay:.06s}.choice-btn:nth-child(4){animation-delay:.09s}.choice-btn:nth-child(5){animation-delay:.12s}.choice-btn:nth-child(6){animation-delay:.15s}.choice-btn:nth-child(7){animation-delay:.18s}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
     @media(max-width:800px){.theme-grid{grid-template-columns:1fr}.box{margin:12px}.button-row button,.button-row a{width:100%;margin:4px 0}}
   </style></head>
 <body>
@@ -359,6 +369,15 @@ function buildHTML() {
   html += '.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}';
   html += '.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.photo{height:130px;background:var(--card);border:1px solid var(--line);border-radius:14px;display:grid;place-items:center;color:var(--muted)}';
   html += 'footer{text-align:center;padding:28px;background:var(--card);border-top:1px solid var(--line);color:var(--muted)}';
+  html += '@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}';
+  html += '@keyframes softFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}';
+  html += 'section{animation:fadeUp .65s ease both}';
+  html += 'section:nth-of-type(2){animation-delay:.08s}section:nth-of-type(3){animation-delay:.16s}section:nth-of-type(4){animation-delay:.24s}section:nth-of-type(5){animation-delay:.32s}';
+  html += '.panel,.card,.photo{transition:transform .22s ease,box-shadow .22s ease}';
+  html += '.panel:hover,.card:hover,.photo:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(0,0,0,.10)}';
+  html += '.hero .panel{animation:softFloat 4s ease-in-out infinite}';
+  html += '.btn{transition:transform .18s ease,filter .18s ease}.btn:hover{transform:translateY(-2px);filter:brightness(1.04)}';
+  html += '@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}';
   html += '@media(max-width:800px){.hero,.grid,.gallery{grid-template-columns:1fr}}';
   html += '</style></head><body>';
 
