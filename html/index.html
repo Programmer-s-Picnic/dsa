@@ -3,204 +3,313 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Website Builder V5</title>
-
+<title>Website Builder V6</title>
 <style>
-body{font-family:Arial;margin:0;background:#fffaf0;color:#2b2112}
-.box{max-width:1100px;margin:30px auto;padding:20px;border:1px solid #f0dcc2;border-radius:12px;background:#fff}
-
-button{padding:10px 14px;border:none;background:#d97706;color:#fff;border-radius:8px;cursor:pointer;margin:4px;font-weight:bold}
+body{margin:0;font-family:Arial;background:#fffaf0;color:#2b2112}
+.box{max-width:1150px;margin:24px auto;padding:20px;background:#fff;border:1px solid #f0dcc2;border-radius:16px}
+button{padding:10px 14px;border:0;border-radius:10px;background:#d97706;color:white;font-weight:bold;cursor:pointer;margin:4px}
 button.secondary{background:#fff6e6;color:#2b2112;border:1px solid #f0dcc2}
 button.active{background:#f59e0b}
-
+input,textarea{width:100%;max-width:440px;padding:10px;border:1px solid #f0dcc2;border-radius:10px}
+textarea{min-height:90px}
 .options{display:flex;flex-wrap:wrap;gap:8px}
-input{padding:10px;border:1px solid #f0dcc2;border-radius:8px;width:100%;max-width:400px}
-
-.progress{height:10px;background:#f7e6c8;border-radius:999px;overflow:hidden;margin:10px 0}
+.progress{height:10px;background:#f7e6c8;border-radius:999px;overflow:hidden;margin:12px 0}
 .progress span{display:block;height:100%;background:linear-gradient(90deg,#d97706,#f59e0b)}
-
-iframe{width:100%;height:420px;border:none;margin-top:15px;border-radius:10px}
+iframe{width:100%;height:460px;border:1px solid #f0dcc2;border-radius:14px;margin-top:16px;background:white}
+pre{white-space:pre-wrap;background:#fff8ef;border:1px solid #f0dcc2;padding:12px;border-radius:12px}
 </style>
 </head>
-
 <body>
 
 <div class="box">
+  <h1>Website Builder V6</h1>
+  <h2 id="stepTitle"></h2>
+  <div class="progress"><span id="progressBar"></span></div>
+  <p id="question"></p>
 
-<h2 id="stepTitle"></h2>
-<div class="progress"><span id="progressBar"></span></div>
-<p id="question"></p>
+  <div id="stepArea"></div>
 
-<div id="stepArea"></div>
+  <br>
+  <button class="secondary" onclick="back()">Back</button>
+  <button onclick="next()">Next</button>
+  <button class="secondary" onclick="resetBuilder()">Reset</button>
 
-<button class="secondary" onclick="back()">Back</button>
-<button onclick="next()">Next</button>
-<button class="secondary" onclick="reset()">Reset</button>
+  <hr>
 
-<iframe id="preview"></iframe>
+  <button onclick="saveProject()">Save Project</button>
+  <button onclick="loadProject()">Load Project</button>
+  <button onclick="downloadHTML()">Download HTML</button>
+  <button onclick="downloadJSON()">Download JSON</button>
+  <button onclick="copyHTML()">Copy HTML</button>
 
-<button onclick="download()">Download HTML</button>
+  <iframe id="preview"></iframe>
 
+  <h3>JSON Config</h3>
+  <pre id="jsonView"></pre>
 </div>
 
 <script>
-
 const steps=[
-{key:"brand",q:"Brand name?",type:"text"},
-{key:"type",q:"Website type?",type:"options",opt:["Business","Healthcare","Education"]},
-{key:"template",q:"Choose template",type:"options",opt:["Classic","Split"]},
-{key:"sections",q:"Sections?",type:"multi",opt:["Hero","About","Services","Contact"]},
-{key:"whatsapp",q:"WhatsApp number?",type:"text"},
-{key:"payment",q:"Enable payment?",type:"options",opt:["Yes","No"]}
+  {key:"brand",q:"Brand name?",type:"text"},
+  {key:"tagline",q:"Tagline?",type:"text"},
+  {key:"type",q:"Website type?",type:"options",opt:["Business","Healthcare","Education","Portfolio","E-commerce"]},
+  {key:"template",q:"Choose template",type:"options",opt:["Classic","Split","Cards"]},
+  {key:"theme",q:"Choose theme",type:"options",opt:["Classic","Deep","Light"]},
+  {key:"sections",q:"Sections?",type:"multi",opt:["Hero","About","Services","Gallery","Testimonials","Contact","Payment"]},
+  {key:"whatsapp",q:"WhatsApp number with country code?",type:"text"},
+  {key:"razorpay",q:"Razorpay Payment Button ID or placeholder text?",type:"text"},
+  {key:"notes",q:"Extra notes?",type:"textarea"}
 ];
 
 let state={
-step:0,
-data:{
-brand:"My Site",
-type:"Business",
-template:"Classic",
-sections:["Hero","About","Services","Contact"],
-whatsapp:"",
-payment:"No"
-}
+  step:0,
+  data:{
+    brand:"My Site",
+    tagline:"A beautiful website made with the wizard",
+    type:"Business",
+    template:"Classic",
+    theme:"Classic",
+    sections:["Hero","About","Services","Contact"],
+    whatsapp:"",
+    razorpay:"Pay Now",
+    notes:""
+  }
 };
 
+function safe(s){
+  return String(s||"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
 function render(){
-let s=steps[state.step];
+  const s=steps[state.step];
 
-stepTitle.innerText="Step "+(state.step+1)+" of "+steps.length;
-question.innerText=s.q;
-progressBar.style.width=((state.step+1)/steps.length*100)+"%";
+  stepTitle.innerText="Step "+(state.step+1)+" of "+steps.length;
+  question.innerText=s.q;
+  progressBar.style.width=((state.step+1)/steps.length*100)+"%";
 
-let html="";
+  let html="";
 
-if(s.type==="text"){
-html=`<input id="inp" value="${state.data[s.key]||''}">`;
+  if(s.type==="text"){
+    html='<input id="inp" value="'+safe(state.data[s.key])+'">';
+  }
+
+  if(s.type==="textarea"){
+    html='<textarea id="inp">'+safe(state.data[s.key])+'</textarea>';
+  }
+
+  if(s.type==="options"){
+    html='<div class="options">';
+    s.opt.forEach(o=>{
+      const active=state.data[s.key]===o?"active":"";
+      html+='<button class="'+active+'" onclick="setVal(\''+o+'\')">'+o+'</button>';
+    });
+    html+='</div>';
+  }
+
+  if(s.type==="multi"){
+    html='<div class="options">';
+    s.opt.forEach(o=>{
+      const active=state.data.sections.includes(o)?"active":"";
+      html+='<button class="'+active+'" onclick="toggle(\''+o+'\')">'+o+'</button>';
+    });
+    html+='</div>';
+  }
+
+  stepArea.innerHTML=html;
+  updatePreview();
 }
 
-if(s.type==="options"){
-html='<div class="options">';
-s.opt.forEach(o=>{
-let a=state.data[s.key]===o?"active":"";
-html+=`<button class="${a}" onclick="setVal('${o}')">${o}</button>`;
-});
-html+='</div>';
-}
-
-if(s.type==="multi"){
-html='<div class="options">';
-s.opt.forEach(o=>{
-let a=state.data[s.key].includes(o)?"active":"";
-html+=`<button class="${a}" onclick="toggle('${o}')">${o}</button>`;
-});
-html+='</div>';
-}
-
-stepArea.innerHTML=html;
-update();
+function saveCurrentInput(){
+  const s=steps[state.step];
+  if(s.type==="text" || s.type==="textarea"){
+    const input=document.getElementById("inp");
+    if(input) state.data[s.key]=input.value;
+  }
 }
 
 function next(){
-let s=steps[state.step];
-if(s.type==="text"){
-state.data[s.key]=document.getElementById("inp").value;
-}
-if(state.step<steps.length-1){
-state.step++;
-render();
-}
+  saveCurrentInput();
+  if(state.step<steps.length-1){
+    state.step++;
+    render();
+  }
 }
 
-function back(){if(state.step>0){state.step--;render();}}
+function back(){
+  saveCurrentInput();
+  if(state.step>0){
+    state.step--;
+    render();
+  }
+}
 
 function setVal(v){
-state.data[steps[state.step].key]=v;
-render();
+  const key=steps[state.step].key;
+  state.data[key]=v;
+  render();
 }
 
 function toggle(v){
-let arr=state.data.sections;
-let i=arr.indexOf(v);
-if(i>=0)arr.splice(i,1);else arr.push(v);
+  const arr=state.data.sections;
+  const i=arr.indexOf(v);
+  if(i>=0) arr.splice(i,1);
+  else arr.push(v);
+  render();
+}
+
+function resetBuilder(){
+  state.step=0;
+  state.data={
+    brand:"My Site",
+    tagline:"A beautiful website made with the wizard",
+    type:"Business",
+    template:"Classic",
+    theme:"Classic",
+    sections:["Hero","About","Services","Contact"],
+    whatsapp:"",
+    razorpay:"Pay Now",
+    notes:""
+  };
+  render();
+}
+
+function colors(){
+  if(state.data.theme==="Deep") return {bg:"#fff7ed",primary:"#c2410c",accent:"#ea580c"};
+  if(state.data.theme==="Light") return {bg:"#fffdf7",primary:"#f59e0b",accent:"#fbbf24"};
+  return {bg:"#fffaf0",primary:"#d97706",accent:"#f59e0b"};
+}
+
+function buildHTML(){
+  const d=state.data;
+  const c=colors();
+  const split=d.template==="Split";
+  const cards=d.template==="Cards";
+
+  let html='<!doctype html><html lang="en"><head><meta charset="utf-8">';
+  html+='<meta name="viewport" content="width=device-width,initial-scale=1">';
+  html+='<title>'+safe(d.brand)+'</title>';
+  html+='<style>';
+  html+='body{margin:0;font-family:Arial;background:'+c.bg+';color:#2b2112;line-height:1.6}';
+  html+='header{position:sticky;top:0;background:white;border-bottom:1px solid #f0dcc2;padding:16px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}';
+  html+='.brand{font-weight:900;color:'+c.primary+';font-size:22px}';
+  html+='nav{display:flex;gap:14px;flex-wrap:wrap;color:#766247;font-weight:bold}';
+  html+='section{padding:56px 24px;max-width:1100px;margin:auto}';
+  html+='.hero{text-align:'+(split?'left':'center')+';display:grid;grid-template-columns:'+(split?'1.2fr .8fr':'1fr')+';gap:20px;align-items:center}';
+  html+='.panel,.card{background:white;border:1px solid #f0dcc2;border-radius:18px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.06)}';
+  html+='.btn{display:inline-block;background:'+c.primary+';color:white;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:bold;margin:6px}';
+  html+='.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}';
+  html+='.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.photo{height:130px;background:#fff4df;border-radius:14px;display:grid;place-items:center;color:#766247}';
+  html+='footer{text-align:center;padding:28px;background:#fff4df;color:#766247}';
+  html+='@media(max-width:800px){.hero,.grid,.gallery{grid-template-columns:1fr}}';
+  html+='</style></head><body>';
+
+  html+='<header><div class="brand">'+safe(d.brand)+'</div><nav>';
+  d.sections.forEach(sec=>{ if(sec!=="Hero") html+='<a href="#'+safe(sec.toLowerCase())+'">'+safe(sec)+'</a>'; });
+  html+='</nav></header>';
+
+  if(d.sections.includes("Hero")){
+    html+='<section class="hero">';
+    html+='<div><h1>'+safe(d.brand)+'</h1><p>'+safe(d.tagline)+'</p><a class="btn" href="#contact">Contact Us</a></div>';
+    if(split || cards) html+='<div class="panel"><h3>'+safe(d.type)+' Website</h3><p>Generated from your wizard answers.</p></div>';
+    html+='</section>';
+  }
+
+  if(d.sections.includes("About")){
+    html+='<section id="about"><h2>About</h2><p>This is a '+safe(d.type)+' website for '+safe(d.brand)+'. Replace this text with real content.</p></section>';
+  }
+
+  if(d.sections.includes("Services")){
+    html+='<section id="services"><h2>Services</h2><div class="grid">';
+    html+='<div class="card"><h3>Service 1</h3><p>Describe your first service.</p></div>';
+    html+='<div class="card"><h3>Service 2</h3><p>Describe your second service.</p></div>';
+    html+='<div class="card"><h3>Service 3</h3><p>Describe your third service.</p></div>';
+    html+='</div></section>';
+  }
+
+  if(d.sections.includes("Gallery")){
+    html+='<section id="gallery"><h2>Gallery</h2><div class="gallery"><div class="photo">Image</div><div class="photo">Image</div><div class="photo">Image</div></div></section>';
+  }
+
+  if(d.sections.includes("Testimonials")){
+    html+='<section id="testimonials"><h2>Testimonials</h2><div class="panel"><p>“A helpful testimonial can appear here.”</p></div></section>';
+  }
+
+  if(d.sections.includes("Contact")){
+    html+='<section id="contact"><h2>Contact</h2><div class="panel">';
+    html+='<p>Email / phone / enquiry form can be added here.</p>';
+    if(d.whatsapp){
+      html+='<a class="btn" href="https://wa.me/'+safe(d.whatsapp)+'">Chat on WhatsApp</a>';
+    }
+    html+='</div></section>';
+  }
+
+  if(d.sections.includes("Payment")){
+    html+='<section id="payment"><h2>Payment</h2><div class="panel">';
+    html+='<button style="background:'+c.primary+';color:white;padding:12px 18px;border:0;border-radius:12px;font-weight:bold">'+safe(d.razorpay || "Pay Now")+'</button>';
+    html+='<p>This is a Razorpay placeholder. Replace with real Razorpay Checkout integration later.</p>';
+    html+='</div></section>';
+  }
+
+  html+='<footer>© '+safe(d.brand)+'</footer>';
+  html+='</body></html>';
+
+  return html;
+}
+
+function updatePreview(){
+  const html=buildHTML();
+  preview.srcdoc=html;
+  jsonView.innerText=JSON.stringify(state.data,null,2);
+}
+
+function downloadHTML(){
+  saveCurrentInput();
+  const blob=new Blob([buildHTML()],{type:"text/html"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="website.html";
+  a.click();
+}
+
+function downloadJSON(){
+  saveCurrentInput();
+  const blob=new Blob([JSON.stringify(state.data,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="website-config.json";
+  a.click();
+}
+
+function copyHTML(){
+  saveCurrentInput();
+  navigator.clipboard.writeText(buildHTML());
+  alert("HTML copied");
+}
+
+function saveProject(){
+  saveCurrentInput();
+  localStorage.setItem("websiteBuilderV6",JSON.stringify(state.data));
+  alert("Project saved");
+}
+
+function loadProject(){
+  const saved=localStorage.getItem("websiteBuilderV6");
+  if(saved){
+    state.data=JSON.parse(saved);
+    state.step=0;
+    render();
+    alert("Project loaded");
+  }else{
+    alert("No saved project found");
+  }
+}
+
 render();
-}
-
-function reset(){
-state.step=0;
-render();
-}
-
-function build(){
-
-let a=state.data;
-
-let nav=`<header style="padding:15px;background:#d97706;color:#fff;display:flex;justify-content:space-between">
-<div>${a.brand}</div>
-<div>${a.sections.join(" | ")}</div>
-</header>`;
-
-let hero=a.sections.includes("Hero")?`
-<section style="padding:50px;text-align:center">
-<h1>${a.brand}</h1>
-<p>${a.type} website</p>
-</section>`:"";
-
-let about=a.sections.includes("About")?`
-<section><h2>About</h2><p>About your site</p></section>`:"";
-
-let services=a.sections.includes("Services")?`
-<section><h2>Services</h2><p>Your services</p></section>`:"";
-
-let contact=a.sections.includes("Contact")?`
-<section><h2>Contact</h2>`+
-(a.whatsapp?`<a href="https://wa.me/${a.whatsapp}">WhatsApp</a>`:"")+
-`</section>`:"";
-
-let payment=a.payment==="Yes"?`
-<section><button>Pay Now (Razorpay)</button></section>`:"";
-
-return `
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
-<title>${a.brand}</title>
-</head>
-<body style="margin:0;font-family:Arial;background:#fffaf0">
-
-${nav}
-${hero}
-${about}
-${services}
-${contact}
-${payment}
-
-<footer style="padding:20px;text-align:center;background:#fff4df">
-© ${a.brand}
-</footer>
-
-</body>
-</html>
-`;
-}
-
-function update(){
-preview.srcdoc=build();
-}
-
-function download(){
-let blob=new Blob([build()],{type:"text/html"});
-let a=document.createElement("a");
-a.href=URL.createObjectURL(blob);
-a.download="website.html";
-a.click();
-}
-
-render();
-
 </script>
-
 </body>
 </html>
