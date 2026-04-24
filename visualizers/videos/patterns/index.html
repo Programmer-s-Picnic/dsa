@@ -4,6 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Music Visualizer — Patterns Only</title>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
+      crossorigin="anonymous"
+    ></script>
     <style>
       select {
         color: teal !important;
@@ -235,6 +240,8 @@
             <option value="spiral">Spiral Bloom</option>
             <option value="bars">Radial Bars</option>
             <option value="particles">Particles</option>
+            <option value="rings">Rings</option>
+            <option value="all">All</option>
           </select>
 
           <div style="height: 10px"></div>
@@ -602,7 +609,14 @@
         else if (mode.value === "spiral") drawSpiral(m);
         else if (mode.value === "bars") drawBars(m);
         else if (mode.value === "particles") drawParticles(m);
-        else drawRings(m);
+        else if (mode.value === "rings") drawRings(m);
+        else {
+          drawWave(m);
+          drawSpiral(m);
+          drawBars(m);
+          drawParticles(m);
+          drawRings(m);
+        }
 
         raf = requestAnimationFrame(render);
       }
@@ -642,12 +656,12 @@
       });
 
       setTimeout(async () => {
-          document.body.classList.add('full');
+        document.body.classList.add("full");
         try {
           const el = document.documentElement;
           if (el.requestFullscreen) await el.requestFullscreen();
         } catch (e) {}
-      }, 10000);
+      }, 30000);
 
       resizeCanvas();
       initParticles();
