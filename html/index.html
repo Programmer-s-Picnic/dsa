@@ -1,508 +1,468 @@
 <!doctype html>
+
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Website Builder | Champak</title>
-     <script
-      async=""
-      crossorigin="anonymous"
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
-    ></script>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Website Builder | Champak — V8 Theme Designer</title>  <!-- Google Ads: keep this if needed; remove while testing locally if it causes console noise. -->  <script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>  <style>
+    :root{
+      --builder-bg:#fffaf0;
+      --builder-card:#ffffff;
+      --builder-line:#f0dcc2;
+      --builder-text:#2b2112;
+      --builder-muted:#766247;
+      --builder-primary:#d97706;
+      --builder-accent:#f59e0b;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial, sans-serif;background:var(--builder-bg);color:var(--builder-text)}
+    .box{max-width:1180px;margin:24px auto;padding:20px;background:var(--builder-card);border:1px solid var(--builder-line);border-radius:16px;box-shadow:0 14px 36px rgba(111,72,18,.08)}
+    button,a.btn-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:10px 14px;border:0;border-radius:10px;background:var(--builder-primary);color:white;font-weight:bold;cursor:pointer;margin:6px;min-height:42px}
+    button.secondary,a.secondary{background:#fff6e6;color:var(--builder-text);border:1px solid var(--builder-line)}
+    button.active{background:var(--builder-accent);color:white;box-shadow:0 0 0 2px #fcd9a2 inset}
+    input,textarea{width:100%;max-width:460px;padding:10px;border:1px solid var(--builder-line);border-radius:10px;background:white;color:var(--builder-text)}
+    textarea{min-height:95px}
+    label{display:block;font-weight:bold;margin:8px 0 6px}
+    .options{display:flex;flex-wrap:wrap;gap:8px}
+    .progress{height:10px;background:#f7e6c8;border-radius:999px;overflow:hidden;margin:12px 0}
+    .progress span{display:block;height:100%;background:linear-gradient(90deg,var(--builder-primary),var(--builder-accent));transition:width .25s ease}
+    iframe{width:100%;height:500px;border:1px solid var(--builder-line);border-radius:14px;margin-top:16px;background:white}
+    pre{white-space:pre-wrap;background:#fff8ef;border:1px solid var(--builder-line);padding:12px;border-radius:12px;overflow:auto}
+    .theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:760px}
+    .color-row{background:#fff8ef;border:1px solid var(--builder-line);border-radius:14px;padding:12px}
+    .color-row input[type="color"]{width:70px;height:42px;padding:2px;border-radius:10px;cursor:pointer;vertical-align:middle}
+    .color-row input[type="text"]{max-width:150px;margin-left:8px}
+    .mini-preview{margin-top:14px;border:1px solid var(--builder-line);border-radius:14px;overflow:hidden;max-width:760px}
+    .mini-preview-head{padding:12px 14px;font-weight:bold}
+    .mini-preview-body{padding:18px}
+    .mini-preview-card{padding:14px;border-radius:14px;margin-top:10px}
+    .button-row{display:flex;flex-wrap:wrap;align-items:center;gap:2px}
+    hr{border:none;border-top:1px solid var(--builder-line);margin:18px 0}
+    @media(max-width:800px){.theme-grid{grid-template-columns:1fr}.box{margin:12px}.button-row button,.button-row a{width:100%;margin:4px 0}}
+  </style></head>
+<body>
+  <div class="box">
+    <h1>Website Builder | Champak</h1>
+    <h2 id="stepTitle"></h2>
+    <div class="progress"><span id="progressBar"></span></div>
+    <p id="question"></p><div id="stepArea"></div>
 
-    <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+<br />
+<button class="secondary" onclick="back()">Back</button>
+<button onclick="next()">Next</button>
+<button class="secondary" onclick="resetBuilder()">Reset</button>
 
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial;
-        background: #fffaf0;
-        color: #2b2112;
-      }
-      .box {
-        max-width: 1150px;
-        margin: 24px auto;
-        padding: 20px;
-        background: #fff;
-        border: 1px solid #f0dcc2;
-        border-radius: 16px;
-      }
-      button,a {
-        padding: 10px 14px;
-        border: 0;
-        border-radius: 10px;
-        background: #d97706;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 10px;
-      }
-      button.secondary {
-        background: #fff6e6;
-        color: #2b2112;
-        border: 1px solid #f0dcc2;
-      }
-      button.active {
-        background: #f59e0b;
-      }
-      input,
-      textarea {
-        width: 100%;
-        max-width: 440px;
-        padding: 10px;
-        border: 1px solid #f0dcc2;
-        border-radius: 10px;
-      }
-      textarea {
-        min-height: 90px;
-      }
-      .options {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      .progress {
-        height: 10px;
-        background: #f7e6c8;
-        border-radius: 999px;
-        overflow: hidden;
-        margin: 12px 0;
-      }
-      .progress span {
-        display: block;
-        height: 100%;
-        background: linear-gradient(90deg, #d97706, #f59e0b);
-      }
-      iframe {
-        width: 100%;
-        height: 460px;
-        border: 1px solid #f0dcc2;
-        border-radius: 14px;
-        margin-top: 16px;
-        background: white;
-      }
-      pre {
-        white-space: pre-wrap;
-        background: #fff8ef;
-        border: 1px solid #f0dcc2;
-        padding: 12px;
-        border-radius: 12px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="box">
-      <h1>Website Builder | Champak</h1>
-      <h2 id="stepTitle"></h2>
-      <div class="progress"><span id="progressBar"></span></div>
-      <p id="question"></p>
+<hr />
 
-      <div id="stepArea"></div>
+<div class="button-row">
+  <button onclick="saveProject()">Save Project</button>
+  <button onclick="loadProject()">Load Project</button>
+  <button onclick="downloadHTML()">Download HTML</button>
+  <button onclick="downloadJSON()">Download JSON</button>
+  <button onclick="copyHTML()">Copy HTML</button>
+  <a class="btn-link secondary" id="openEditorLink" href="#" target="_blank" rel="noopener noreferrer">Open in Editor</a>
+</div>
 
-      <br />
-      <button class="secondary" onclick="back()">Back</button>
-      <button onclick="next()">Next</button>
-      <button class="secondary" onclick="resetBuilder()">Reset</button>
+<iframe id="preview"></iframe>
 
-      <hr />
+<h3>JSON Config</h3>
+<pre id="jsonView"></pre>
 
-      <button onclick="saveProject()">Save Project</button>
-      <button onclick="loadProject()">Load Project</button>
-      <button onclick="downloadHTML()">Download HTML</button>
-      <a href="https://editor.learnwithchampak.live/samples/html/preview/#code=PCFkb2N0eXBlIGh0bWw-PGh0bWwgbGFuZz0iZW4iPjxoZWFkPjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij48bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLGluaXRpYWwtc2NhbGU9MSI-PHRpdGxlPkxlYXJuIHdpdGggQ2hhbXBhazwvdGl0bGU-PHN0eWxlPmJvZHl7bWFyZ2luOjA7Zm9udC1mYW1pbHk6QXJpYWw7YmFja2dyb3VuZDojZmZmYWYwO2NvbG9yOiMyYjIxMTI7bGluZS1oZWlnaHQ6MS42fWhlYWRlcntwb3NpdGlvbjpzdGlja3k7dG9wOjA7YmFja2dyb3VuZDp3aGl0ZTtib3JkZXItYm90dG9tOjFweCBzb2xpZCAjZjBkY2MyO3BhZGRpbmc6MTZweCAyNHB4O2Rpc3BsYXk6ZmxleDtqdXN0aWZ5LWNvbnRlbnQ6c3BhY2UtYmV0d2VlbjtnYXA6MTZweDtmbGV4LXdyYXA6d3JhcH0uYnJhbmR7Zm9udC13ZWlnaHQ6OTAwO2NvbG9yOiNkOTc3MDY7Zm9udC1zaXplOjIycHh9bmF2e2Rpc3BsYXk6ZmxleDtnYXA6MTRweDtmbGV4LXdyYXA6d3JhcDtjb2xvcjojNzY2MjQ3O2ZvbnQtd2VpZ2h0OmJvbGR9c2VjdGlvbntwYWRkaW5nOjU2cHggMjRweDttYXgtd2lkdGg6MTEwMHB4O21hcmdpbjphdXRvfS5oZXJve3RleHQtYWxpZ246Y2VudGVyO2Rpc3BsYXk6Z3JpZDtncmlkLXRlbXBsYXRlLWNvbHVtbnM6MWZyO2dhcDoyMHB4O2FsaWduLWl0ZW1zOmNlbnRlcn0ucGFuZWwsLmNhcmR7YmFja2dyb3VuZDp3aGl0ZTtib3JkZXI6MXB4IHNvbGlkICNmMGRjYzI7Ym9yZGVyLXJhZGl1czoxOHB4O3BhZGRpbmc6MjBweDtib3gtc2hhZG93OjAgMTBweCAyOHB4IHJnYmEoMCwwLDAsLjA2KX0uYnRue2Rpc3BsYXk6aW5saW5lLWJsb2NrO2JhY2tncm91bmQ6I2Q5NzcwNjtjb2xvcjp3aGl0ZTtwYWRkaW5nOjEycHggMThweDtib3JkZXItcmFkaXVzOjEycHg7dGV4dC1kZWNvcmF0aW9uOm5vbmU7Zm9udC13ZWlnaHQ6Ym9sZDttYXJnaW46NnB4fS5ncmlke2Rpc3BsYXk6Z3JpZDtncmlkLXRlbXBsYXRlLWNvbHVtbnM6cmVwZWF0KDMsMWZyKTtnYXA6MTRweH0uZ2FsbGVyeXtkaXNwbGF5OmdyaWQ7Z3JpZC10ZW1wbGF0ZS1jb2x1bW5zOnJlcGVhdCgzLDFmcik7Z2FwOjEycHh9LnBob3Rve2hlaWdodDoxMzBweDtiYWNrZ3JvdW5kOiNmZmY0ZGY7Ym9yZGVyLXJhZGl1czoxNHB4O2Rpc3BsYXk6Z3JpZDtwbGFjZS1pdGVtczpjZW50ZXI7Y29sb3I6Izc2NjI0N31mb290ZXJ7dGV4dC1hbGlnbjpjZW50ZXI7cGFkZGluZzoyOHB4O2JhY2tncm91bmQ6I2ZmZjRkZjtjb2xvcjojNzY2MjQ3fUBtZWRpYShtYXgtd2lkdGg6ODAwcHgpey5oZXJvLC5ncmlkLC5nYWxsZXJ5e2dyaWQtdGVtcGxhdGUtY29sdW1uczoxZnJ9fTwvc3R5bGU-PC9oZWFkPjxib2R5PjxoZWFkZXI-PGRpdiBjbGFzcz0iYnJhbmQiPkxlYXJuIHdpdGggQ2hhbXBhazwvZGl2PjxuYXY-PGEgaHJlZj0iI2Fib3V0Ij5BYm91dDwvYT48YSBocmVmPSIjc2VydmljZXMiPlNlcnZpY2VzPC9hPjxhIGhyZWY9IiNjb250YWN0Ij5Db250YWN0PC9hPjxhIGhyZWY9IiN0ZXN0aW1vbmlhbHMiPlRlc3RpbW9uaWFsczwvYT48YSBocmVmPSIjZ2FsbGVyeSI-R2FsbGVyeTwvYT48YSBocmVmPSIjcGF5bWVudCI-UGF5bWVudDwvYT48L25hdj48L2hlYWRlcj48c2VjdGlvbiBjbGFzcz0iaGVybyI-PGRpdj48aDE-TGVhcm4gd2l0aCBDaGFtcGFrPC9oMT48cD5BIGJlYXV0aWZ1bCB3ZWJzaXRlIG1hZGUgd2l0aCB0aGUgd2l6YXJkPC9wPjxhIGNsYXNzPSJidG4iIGhyZWY9IiNjb250YWN0Ij5Db250YWN0IFVzPC9hPjwvZGl2PjxkaXYgY2xhc3M9InBhbmVsIj48aDM-RS1jb21tZXJjZSBXZWJzaXRlPC9oMz48cD5HZW5lcmF0ZWQgZnJvbSB5b3VyIHdpemFyZCBhbnN3ZXJzLjwvcD48L2Rpdj48L3NlY3Rpb24-PHNlY3Rpb24gaWQ9ImFib3V0Ij48aDI-QWJvdXQ8L2gyPjxwPlRoaXMgaXMgYSBFLWNvbW1lcmNlIHdlYnNpdGUgZm9yIExlYXJuIHdpdGggQ2hhbXBhay4gUmVwbGFjZSB0aGlzIHRleHQgd2l0aCByZWFsIGNvbnRlbnQuPC9wPjwvc2VjdGlvbj48c2VjdGlvbiBpZD0ic2VydmljZXMiPjxoMj5TZXJ2aWNlczwvaDI-PGRpdiBjbGFzcz0iZ3JpZCI-PGRpdiBjbGFzcz0iY2FyZCI-PGgzPlNlcnZpY2UgMTwvaDM-PHA-RGVzY3JpYmUgeW91ciBmaXJzdCBzZXJ2aWNlLjwvcD48L2Rpdj48ZGl2IGNsYXNzPSJjYXJkIj48aDM-U2VydmljZSAyPC9oMz48cD5EZXNjcmliZSB5b3VyIHNlY29uZCBzZXJ2aWNlLjwvcD48L2Rpdj48ZGl2IGNsYXNzPSJjYXJkIj48aDM-U2VydmljZSAzPC9oMz48cD5EZXNjcmliZSB5b3VyIHRoaXJkIHNlcnZpY2UuPC9wPjwvZGl2PjwvZGl2Pjwvc2VjdGlvbj48c2VjdGlvbiBpZD0iZ2FsbGVyeSI-PGgyPkdhbGxlcnk8L2gyPjxkaXYgY2xhc3M9ImdhbGxlcnkiPjxkaXYgY2xhc3M9InBob3RvIj5JbWFnZTwvZGl2PjxkaXYgY2xhc3M9InBob3RvIj5JbWFnZTwvZGl2PjxkaXYgY2xhc3M9InBob3RvIj5JbWFnZTwvZGl2PjwvZGl2Pjwvc2VjdGlvbj48c2VjdGlvbiBpZD0idGVzdGltb25pYWxzIj48aDI-VGVzdGltb25pYWxzPC9oMj48ZGl2IGNsYXNzPSJwYW5lbCI-PHA-4oCcQSBoZWxwZnVsIHRlc3RpbW9uaWFsIGNhbiBhcHBlYXIgaGVyZS7igJ08L3A-PC9kaXY-PC9zZWN0aW9uPjxzZWN0aW9uIGlkPSJjb250YWN0Ij48aDI-Q29udGFjdDwvaDI-PGRpdiBjbGFzcz0icGFuZWwiPjxwPkVtYWlsIC8gcGhvbmUgLyBlbnF1aXJ5IGZvcm0gY2FuIGJlIGFkZGVkIGhlcmUuPC9wPjwvZGl2Pjwvc2VjdGlvbj48c2VjdGlvbiBpZD0icGF5bWVudCI-PGgyPlBheW1lbnQ8L2gyPjxkaXYgY2xhc3M9InBhbmVsIj48YnV0dG9uIHN0eWxlPSJiYWNrZ3JvdW5kOiNkOTc3MDY7Y29sb3I6d2hpdGU7cGFkZGluZzoxMnB4IDE4cHg7Ym9yZGVyOjA7Ym9yZGVyLXJhZGl1czoxMnB4O2ZvbnQtd2VpZ2h0OmJvbGQiPlBheSBOb3c8L2J1dHRvbj48cD5UaGlzIGlzIGEgUmF6b3JwYXkgcGxhY2Vob2xkZXIuIFJlcGxhY2Ugd2l0aCByZWFsIFJhem9ycGF5IENoZWNrb3V0IGludGVncmF0aW9uIGxhdGVyLjwvcD48L2Rpdj48L3NlY3Rpb24-PGZvb3Rlcj7CqSBMZWFybiB3aXRoIENoYW1wYWs8L2Zvb3Rlcj48L2JvZHk-PC9odG1sPg">Open in Editor</button>&nbsp;&nbsp;
-      <button onclick="downloadJSON()">Download JSON</button>
-      <button onclick="copyHTML()">Copy HTML</button>
+  </div>  <script>
+    const steps = [
+      { key: "brand", q: "Brand name?", type: "text" },
+      { key: "tagline", q: "Tagline?", type: "text" },
+      { key: "type", q: "Website type?", type: "options", opt: ["Business", "Healthcare", "Education", "Portfolio", "E-commerce"] },
+      { key: "template", q: "Choose template", type: "options", opt: ["Classic", "Split", "Cards"] },
+      { key: "theme", q: "Choose starting theme", type: "options", opt: ["Classic", "Deep", "Light", "Custom"] },
+      { key: "themeDesigner", q: "Theme Designer: choose your website colors", type: "theme" },
+      { key: "sections", q: "Sections?", type: "multi", opt: ["Hero", "About", "Services", "Gallery", "Testimonials", "Contact", "Payment"] },
+      { key: "whatsapp", q: "WhatsApp number with country code?", type: "text" },
+      { key: "razorpay", q: "Razorpay Payment Button ID or placeholder text?", type: "text" },
+      { key: "notes", q: "Extra notes?", type: "textarea" }
+    ];
 
-      <iframe id="preview"></iframe>
-
-      <h3>JSON Config</h3>
-      <pre id="jsonView"></pre>
-    </div>
-
-    <script>
-      const steps = [
-        { key: "brand", q: "Brand name?", type: "text" },
-        { key: "tagline", q: "Tagline?", type: "text" },
-        {
-          key: "type",
-          q: "Website type?",
-          type: "options",
-          opt: [
-            "Business",
-            "Healthcare",
-            "Education",
-            "Portfolio",
-            "E-commerce",
-          ],
+    let state = {
+      step: 0,
+      data: {
+        brand: "Learn with Champak",
+        tagline: "A beautiful website made with the wizard",
+        type: "Business",
+        template: "Classic",
+        theme: "Classic",
+        themeColors: {
+          bg: "#fffaf0",
+          text: "#2b2112",
+          card: "#ffffff",
+          primary: "#d97706",
+          accent: "#f59e0b",
+          muted: "#766247",
+          line: "#f0dcc2"
         },
-        {
-          key: "template",
-          q: "Choose template",
-          type: "options",
-          opt: ["Classic", "Split", "Cards"],
-        },
-        {
-          key: "theme",
-          q: "Choose theme",
-          type: "options",
-          opt: ["Classic", "Deep", "Light"],
-        },
-        {
-          key: "sections",
-          q: "Sections?",
-          type: "multi",
-          opt: [
-            "Hero",
-            "About",
-            "Services",
-            "Gallery",
-            "Testimonials",
-            "Contact",
-            "Payment",
-          ],
-        },
-        {
-          key: "whatsapp",
-          q: "WhatsApp number with country code?",
-          type: "text",
-        },
-        {
-          key: "razorpay",
-          q: "Razorpay Payment Button ID or placeholder text?",
-          type: "text",
-        },
-        { key: "notes", q: "Extra notes?", type: "textarea" },
-      ];
+        sections: ["Hero", "About", "Services", "Contact"],
+        whatsapp: "",
+        razorpay: "Pay Now",
+        notes: ""
+      }
+    };
 
-      let state = {
-        step: 0,
-        data: {
-          brand: "Learn with Champak",
-          tagline: "A beautiful website made with the wizard",
-          type: "Business",
-          template: "Classic",
-          theme: "Classic",
-          sections: ["Hero", "About", "Services", "Contact"],
-          whatsapp: "",
-          razorpay: "Pay Now",
-          notes: "",
-        },
-      };
+    function safe(s) {
+      return String(s || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
-      function safe(s) {
-        return String(s || "")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#039;");
+    function encodeBase64Unicode(str){
+      return btoa(unescape(encodeURIComponent(str)));
+    }
+
+    function applyThemePreset(name){
+      if(name === "Deep"){
+        state.data.themeColors = { bg:"#fff7ed", text:"#321e10", card:"#ffffff", primary:"#c2410c", accent:"#ea580c", muted:"#7c5a43", line:"#fed7aa" };
+      } else if(name === "Light"){
+        state.data.themeColors = { bg:"#fffdf7", text:"#31261a", card:"#ffffff", primary:"#f59e0b", accent:"#fbbf24", muted:"#7d6a55", line:"#fde68a" };
+      } else if(name === "Classic"){
+        state.data.themeColors = { bg:"#fffaf0", text:"#2b2112", card:"#ffffff", primary:"#d97706", accent:"#f59e0b", muted:"#766247", line:"#f0dcc2" };
+      }
+    }
+
+    function render() {
+      const s = steps[state.step];
+
+      stepTitle.innerText = "Step " + (state.step + 1) + " of " + steps.length;
+      question.innerText = s.q;
+      progressBar.style.width = ((state.step + 1) / steps.length) * 100 + "%";
+
+      let html = "";
+
+      if (s.type === "text") {
+        html = '<input id="inp" value="' + safe(state.data[s.key]) + '">';
       }
 
-      function render() {
-        const s = steps[state.step];
+      if (s.type === "textarea") {
+        html = '<textarea id="inp">' + safe(state.data[s.key]) + '</textarea>';}
 
-        stepTitle.innerText =
-          "Step " + (state.step + 1) + " of " + steps.length;
-        question.innerText = s.q;
-        progressBar.style.width = ((state.step + 1) / steps.length) * 100 + "%";
+  if (s.type === "options") {
+    html = '<div class="options">';
+    s.opt.forEach((o) => {
+      const active = state.data[s.key] === o ? "active" : "";
+      html += '<button class="' + active + '" onclick="setVal(' + JSON.stringify(o) + ')">' + safe(o) + '</button>';
+    });
+    html += '</div>';
+  }
 
-        let html = "";
+  if (s.type === "multi") {
+    html = '<div class="options">';
+    s.opt.forEach((o) => {
+      const active = state.data.sections.includes(o) ? "active" : "";
+      html += '<button class="' + active + '" onclick="toggle(' + JSON.stringify(o) + ')">' + safe(o) + '</button>';
+    });
+    html += '</div>';
+  }
 
-        if (s.type === "text") {
-          html = '<input id="inp" value="' + safe(state.data[s.key]) + '">';
-        }
+  if (s.type === "theme") {
+    html = renderThemeDesigner();
+  }
 
-        if (s.type === "textarea") {
-          html =
-            '<textarea id="inp">' + safe(state.data[s.key]) + "</textarea>";
-        }
+  stepArea.innerHTML = html;
+  if(s.type === "theme") bindThemeDesigner();
+  updatePreview();
+}
 
-        if (s.type === "options") {
-          html = '<div class="options">';
-          s.opt.forEach((o) => {
-            const active = state.data[s.key] === o ? "active" : "";
-            html +=
-              '<button class="' +
-              active +
-              '" onclick="setVal(\'' +
-              o +
-              "')\">" +
-              o +
-              "</button>";
-          });
-          html += "</div>";
-        }
+function renderThemeDesigner(){
+  const c = state.data.themeColors;
+  const fields = [
+    ["bg", "Background"],
+    ["text", "Text"],
+    ["card", "Card / Panel"],
+    ["primary", "Primary Button"],
+    ["accent", "Accent"],
+    ["muted", "Muted Text"],
+    ["line", "Border / Line"]
+  ];
 
-        if (s.type === "multi") {
-          html = '<div class="options">';
-          s.opt.forEach((o) => {
-            const active = state.data.sections.includes(o) ? "active" : "";
-            html +=
-              '<button class="' +
-              active +
-              '" onclick="toggle(\'' +
-              o +
-              "')\">" +
-              o +
-              "</button>";
-          });
-          html += "</div>";
-        }
+  let html = '<div class="theme-grid">';
+  fields.forEach(([key,label]) => {
+    html += '<div class="color-row">';
+    html += '<label>' + label + '</label>';
+    html += '<input type="color" data-color-key="' + key + '" value="' + safe(c[key]) + '">';
+    html += '<input type="text" data-color-text="' + key + '" value="' + safe(c[key]) + '">';
+    html += '</div>';
+  });
+  html += '</div>';
 
-        stepArea.innerHTML = html;
+  html += '<div class="toolbar">';
+  html += '<button onclick="applyCustomThemePreset(' + JSON.stringify('Classic') + ')">Classic Preset</button>';
+  html += '<button onclick="applyCustomThemePreset(' + JSON.stringify('Deep') + ')">Deep Preset</button>';
+  html += '<button onclick="applyCustomThemePreset(' + JSON.stringify('Light') + ')">Light Preset</button>';
+  html += '</div>';
+
+  html += '<div class="mini-preview" id="themeMiniPreview"></div>';
+  return html;
+}
+
+function bindThemeDesigner(){
+  document.querySelectorAll('[data-color-key]').forEach(input => {
+    input.addEventListener('input', function(){
+      const key = this.getAttribute('data-color-key');
+      state.data.themeColors[key] = this.value;
+      const textInput = document.querySelector('[data-color-text="' + key + '"]');
+      if(textInput) textInput.value = this.value;
+      state.data.theme = "Custom";
+      updateThemeMiniPreview();
+      updatePreview();
+    });
+  });
+
+  document.querySelectorAll('[data-color-text]').forEach(input => {
+    input.addEventListener('input', function(){
+      const key = this.getAttribute('data-color-text');
+      if(/^#[0-9A-Fa-f]{6}$/.test(this.value)){
+        state.data.themeColors[key] = this.value;
+        const colorInput = document.querySelector('[data-color-key="' + key + '"]');
+        if(colorInput) colorInput.value = this.value;
+        state.data.theme = "Custom";
+        updateThemeMiniPreview();
         updatePreview();
       }
+    });
+  });
 
-      function saveCurrentInput() {
-        const s = steps[state.step];
-        if (s.type === "text" || s.type === "textarea") {
-          const input = document.getElementById("inp");
-          if (input) state.data[s.key] = input.value;
-        }
-      }
+  updateThemeMiniPreview();
+}
 
-      function next() {
-        saveCurrentInput();
-        if (state.step < steps.length - 1) {
-          state.step++;
-          render();
-        }
-      }
+function updateThemeMiniPreview(){
+  const box = document.getElementById('themeMiniPreview');
+  if(!box) return;
+  const c = state.data.themeColors;
+  box.innerHTML =
+    '<div class="mini-preview-head" style="background:' + safe(c.primary) + ';color:white">Theme Preview Header</div>' +
+    '<div class="mini-preview-body" style="background:' + safe(c.bg) + ';color:' + safe(c.text) + '">' +
+      '<h3 style="margin-top:0;color:' + safe(c.text) + '">Sample Heading</h3>' +
+      '<p style="color:' + safe(c.muted) + '">This shows background, text, muted text, card and button colors.</p>' +
+      '<button style="background:' + safe(c.primary) + ';color:white">Primary</button>' +
+      '<button style="background:' + safe(c.accent) + ';color:white">Accent</button>' +
+      '<div class="mini-preview-card" style="background:' + safe(c.card) + ';border:1px solid ' + safe(c.line) + '">Sample Card</div>' +
+    '</div>';
+}
 
-      function back() {
-        saveCurrentInput();
-        if (state.step > 0) {
-          state.step--;
-          render();
-        }
-      }
+function applyCustomThemePreset(name){
+  state.data.theme = name;
+  applyThemePreset(name);
+  render();
+}
 
-      function setVal(v) {
-        const key = steps[state.step].key;
-        state.data[key] = v;
-        render();
-      }
+function saveCurrentInput() {
+  const s = steps[state.step];
+  if (s.type === "text" || s.type === "textarea") {
+    const input = document.getElementById("inp");
+    if (input) state.data[s.key] = input.value;
+  }
+}
 
-      function toggle(v) {
-        const arr = state.data.sections;
-        const i = arr.indexOf(v);
-        if (i >= 0) arr.splice(i, 1);
-        else arr.push(v);
-        render();
-      }
+function next() {
+  saveCurrentInput();
+  if (state.step < steps.length - 1) {
+    state.step++;
+    render();
+  }
+}
 
-      function resetBuilder() {
-        state.step = 0;
-        state.data = {
-          brand: "My Site",
-          tagline: "A beautiful website made with the wizard",
-          type: "Business",
-          template: "Classic",
-          theme: "Classic",
-          sections: ["Hero", "About", "Services", "Contact"],
-          whatsapp: "",
-          razorpay: "Pay Now",
-          notes: "",
-        };
-        render();
-      }
+function back() {
+  saveCurrentInput();
+  if (state.step > 0) {
+    state.step--;
+    render();
+  }
+}
 
-      function colors() {
-        if (state.data.theme === "Deep")
-          return { bg: "#fff7ed", primary: "#c2410c", accent: "#ea580c" };
-        if (state.data.theme === "Light")
-          return { bg: "#fffdf7", primary: "#f59e0b", accent: "#fbbf24" };
-        return { bg: "#fffaf0", primary: "#d97706", accent: "#f59e0b" };
-      }
+function setVal(v) {
+  const key = steps[state.step].key;
+  state.data[key] = v;
+  if(key === "theme") applyThemePreset(v);
+  render();
+}
 
-      function buildHTML() {
-        const d = state.data;
-        const c = colors();
-        const split = d.template === "Split";
-        const cards = d.template === "Cards";
+function toggle(v) {
+  const arr = state.data.sections;
+  const i = arr.indexOf(v);
+  if (i >= 0) arr.splice(i, 1);
+  else arr.push(v);
+  render();
+}
 
-        let html =
-          '<!doctype html><html lang="en"><head><meta charset="utf-8">';
-        html +=
-          '<meta name="viewport" content="width=device-width,initial-scale=1">';
-        html += "<title>" + safe(d.brand) + "</title>";
-        html += "<style>";
-        html +=
-          "body{margin:0;font-family:Arial;background:" +
-          c.bg +
-          ";color:#2b2112;line-height:1.6}";
-        html +=
-          "header{position:sticky;top:0;background:white;border-bottom:1px solid #f0dcc2;padding:16px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}";
-        html +=
-          ".brand{font-weight:900;color:" + c.primary + ";font-size:22px}";
-        html +=
-          "nav{display:flex;gap:14px;flex-wrap:wrap;color:#766247;font-weight:bold}";
-        html += "section{padding:56px 24px;max-width:1100px;margin:auto}";
-        html +=
-          ".hero{text-align:" +
-          (split ? "left" : "center") +
-          ";display:grid;grid-template-columns:" +
-          (split ? "1.2fr .8fr" : "1fr") +
-          ";gap:20px;align-items:center}";
-        html +=
-          ".panel,.card{background:white;border:1px solid #f0dcc2;border-radius:18px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.06)}";
-        html +=
-          ".btn{display:inline-block;background:" +
-          c.primary +
-          ";color:white;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:bold;margin:6px}";
-        html +=
-          ".grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}";
-        html +=
-          ".gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.photo{height:130px;background:#fff4df;border-radius:14px;display:grid;place-items:center;color:#766247}";
-        html +=
-          "footer{text-align:center;padding:28px;background:#fff4df;color:#766247}";
-        html +=
-          "@media(max-width:800px){.hero,.grid,.gallery{grid-template-columns:1fr}}";
-        html += "</style></head><body>";
+function resetBuilder() {
+  state.step = 0;
+  state.data = {
+    brand: "Learn with Champak",
+    tagline: "A beautiful website made with the wizard",
+    type: "Business",
+    template: "Classic",
+    theme: "Classic",
+    themeColors: { bg:"#fffaf0", text:"#2b2112", card:"#ffffff", primary:"#d97706", accent:"#f59e0b", muted:"#766247", line:"#f0dcc2" },
+    sections: ["Hero", "About", "Services", "Contact"],
+    whatsapp: "",
+    razorpay: "Pay Now",
+    notes: ""
+  };
+  render();
+}
 
-        html += '<header><div class="brand">' + safe(d.brand) + "</div><nav>";
-        d.sections.forEach((sec) => {
-          if (sec !== "Hero")
-            html +=
-              '<a href="#' +
-              safe(sec.toLowerCase()) +
-              '">' +
-              safe(sec) +
-              "</a>";
-        });
-        html += "</nav></header>";
+function colors() {
+  return state.data.themeColors || { bg:"#fffaf0", text:"#2b2112", card:"#ffffff", primary:"#d97706", accent:"#f59e0b", muted:"#766247", line:"#f0dcc2" };
+}
 
-        if (d.sections.includes("Hero")) {
-          html += '<section class="hero">';
-          html +=
-            "<div><h1>" +
-            safe(d.brand) +
-            "</h1><p>" +
-            safe(d.tagline) +
-            '</p><a class="btn" href="#contact">Contact Us</a></div>';
-          if (split || cards)
-            html +=
-              '<div class="panel"><h3>' +
-              safe(d.type) +
-              " Website</h3><p>Generated from your wizard answers.</p></div>";
-          html += "</section>";
-        }
+function buildHTML() {
+  const d = state.data;
+  const c = colors();
+  const split = d.template === "Split";
+  const cards = d.template === "Cards";
 
-        if (d.sections.includes("About")) {
-          html +=
-            '<section id="about"><h2>About</h2><p>This is a ' +
-            safe(d.type) +
-            " website for " +
-            safe(d.brand) +
-            ". Replace this text with real content.</p></section>";
-        }
+  let html = '<!doctype html><html lang="en"><head><meta charset="utf-8">';
+  html += '<meta name="viewport" content="width=device-width,initial-scale=1">';
+  html += '<title>' + safe(d.brand) + '</title>';
+  html += '<meta name="description" content="' + safe(d.tagline) + '">';
+  html += '<style>';
+  html += ':root{--bg:' + c.bg + ';--text:' + c.text + ';--card:' + c.card + ';--primary:' + c.primary + ';--accent:' + c.accent + ';--muted:' + c.muted + ';--line:' + c.line + '}';
+  html += '*{box-sizing:border-box}';
+  html += 'body{margin:0;font-family:Arial;background:var(--bg);color:var(--text);line-height:1.6}';
+  html += 'a{text-decoration:none;color:inherit}';
+  html += 'header{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--line);padding:16px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;z-index:10}';
+  html += '.brand{font-weight:900;color:var(--primary);font-size:22px}';
+  html += 'nav{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-weight:bold}';
+  html += 'section{padding:56px 24px;max-width:1100px;margin:auto}';
+  html += '.hero{text-align:' + (split ? 'left' : 'center') + ';display:grid;grid-template-columns:' + (split ? '1.2fr .8fr' : '1fr') + ';gap:20px;align-items:center}';
+  html += '.panel,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.06)}';
+  html += '.btn{display:inline-block;background:var(--primary);color:white;padding:12px 18px;border-radius:12px;text-decoration:none;font-weight:bold;margin:6px}';
+  html += '.btn.alt{background:var(--accent)}';
+  html += '.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}';
+  html += '.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.photo{height:130px;background:var(--card);border:1px solid var(--line);border-radius:14px;display:grid;place-items:center;color:var(--muted)}';
+  html += 'footer{text-align:center;padding:28px;background:var(--card);border-top:1px solid var(--line);color:var(--muted)}';
+  html += '@media(max-width:800px){.hero,.grid,.gallery{grid-template-columns:1fr}}';
+  html += '</style></head><body>';
 
-        if (d.sections.includes("Services")) {
-          html += '<section id="services"><h2>Services</h2><div class="grid">';
-          html +=
-            '<div class="card"><h3>Service 1</h3><p>Describe your first service.</p></div>';
-          html +=
-            '<div class="card"><h3>Service 2</h3><p>Describe your second service.</p></div>';
-          html +=
-            '<div class="card"><h3>Service 3</h3><p>Describe your third service.</p></div>';
-          html += "</div></section>";
-        }
+  html += '<header><div class="brand">' + safe(d.brand) + '</div><nav>';
+  d.sections.forEach((sec) => {
+    if (sec !== "Hero") html += '<a href="#' + safe(sec.toLowerCase()) + '">' + safe(sec) + '</a>';
+  });
+  html += '</nav></header>';
 
-        if (d.sections.includes("Gallery")) {
-          html +=
-            '<section id="gallery"><h2>Gallery</h2><div class="gallery"><div class="photo">Image</div><div class="photo">Image</div><div class="photo">Image</div></div></section>';
-        }
+  if (d.sections.includes("Hero")) {
+    html += '<section class="hero">';
+    html += '<div><h1>' + safe(d.brand) + '</h1><p>' + safe(d.tagline) + '</p><a class="btn" href="#contact">Contact Us</a><a class="btn alt" href="#services">Explore</a></div>';
+    if (split || cards) html += '<div class="panel"><h3>' + safe(d.type) + ' Website</h3><p>Generated from your wizard answers.</p></div>';
+    html += '</section>';
+  }
 
-        if (d.sections.includes("Testimonials")) {
-          html +=
-            '<section id="testimonials"><h2>Testimonials</h2><div class="panel"><p>“A helpful testimonial can appear here.”</p></div></section>';
-        }
+  if (d.sections.includes("About")) {
+    html += '<section id="about"><h2>About</h2><p>This is a ' + safe(d.type) + ' website for ' + safe(d.brand) + '. Replace this text with real content.</p></section>';
+  }
 
-        if (d.sections.includes("Contact")) {
-          html += '<section id="contact"><h2>Contact</h2><div class="panel">';
-          html += "<p>Email / phone / enquiry form can be added here.</p>";
-          if (d.whatsapp) {
-            html +=
-              '<a class="btn" href="https://wa.me/' +
-              safe(d.whatsapp) +
-              '">Chat on WhatsApp</a>';
-          }
-          html += "</div></section>";
-        }
+  if (d.sections.includes("Services")) {
+    html += '<section id="services"><h2>Services</h2><div class="grid">';
+    html += '<div class="card"><h3>Service 1</h3><p>Describe your first service.</p></div>';
+    html += '<div class="card"><h3>Service 2</h3><p>Describe your second service.</p></div>';
+    html += '<div class="card"><h3>Service 3</h3><p>Describe your third service.</p></div>';
+    html += '</div></section>';
+  }
 
-        if (d.sections.includes("Payment")) {
-          html += '<section id="payment"><h2>Payment</h2><div class="panel">';
-          html +=
-            '<button style="background:' +
-            c.primary +
-            ';color:white;padding:12px 18px;border:0;border-radius:12px;font-weight:bold">' +
-            safe(d.razorpay || "Pay Now") +
-            "</button>";
-          html +=
-            "<p>This is a Razorpay placeholder. Replace with real Razorpay Checkout integration later.</p>";
-          html += "</div></section>";
-        }
+  if (d.sections.includes("Gallery")) {
+    html += '<section id="gallery"><h2>Gallery</h2><div class="gallery"><div class="photo">Image</div><div class="photo">Image</div><div class="photo">Image</div></div></section>';
+  }
 
-        html += "<footer>© " + safe(d.brand) + "</footer>";
-        html += "</body></html>";
+  if (d.sections.includes("Testimonials")) {
+    html += '<section id="testimonials"><h2>Testimonials</h2><div class="panel"><p>“A helpful testimonial can appear here.”</p></div></section>';
+  }
 
-        return html;
-      }
+  if (d.sections.includes("Contact")) {
+    html += '<section id="contact"><h2>Contact</h2><div class="panel">';
+    html += '<p>Email / phone / enquiry form can be added here.</p>';
+    if (d.whatsapp) html += '<a class="btn" href="https://wa.me/' + safe(d.whatsapp) + '">Chat on WhatsApp</a>';
+    html += '</div></section>';
+  }
 
-      function updatePreview() {
-        const html = buildHTML();
-        preview.srcdoc = html;
-        jsonView.innerText = JSON.stringify(state.data, null, 2);
-      }
+  if (d.sections.includes("Payment")) {
+    html += '<section id="payment"><h2>Payment</h2><div class="panel">';
+    html += '<button style="background:var(--primary);color:white;padding:12px 18px;border:0;border-radius:12px;font-weight:bold">' + safe(d.razorpay || "Pay Now") + '</button>';
+    html += '<p>This is a Razorpay placeholder. Replace with real Razorpay Checkout integration later.</p>';
+    html += '</div></section>';
+  }
 
-      function downloadHTML() {
-        saveCurrentInput();
-        const blob = new Blob([buildHTML()], { type: "text/html" });
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "website.html";
-        a.click();
-      }
+  html += '<footer>© ' + safe(d.brand) + '</footer>';
+  html += '</body></html>';
 
-      function downloadJSON() {
-        saveCurrentInput();
-        const blob = new Blob([JSON.stringify(state.data, null, 2)], {
-          type: "application/json",
-        });
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "website-config.json";
-        a.click();
-      }
+  return html;
+}
 
-      function copyHTML() {
-        saveCurrentInput();
-        navigator.clipboard.writeText(buildHTML());
-        alert("HTML copied");
-      }
+function updateEditorLink(){
+  const html = buildHTML();
+  const encoded = encodeBase64Unicode(html).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  const url = 'https://editor.learnwithchampak.live/samples/html/preview/#code=' + encoded;
+  document.getElementById('openEditorLink').href = url;
+}
 
-      function saveProject() {
-        saveCurrentInput();
-        localStorage.setItem(
-          "websiteBuilder |  Champak",
-          JSON.stringify(state.data),
-        );
-        alert("Project saved");
-      }
+function updatePreview() {
+  saveCurrentInputIfAvailable();
+  const html = buildHTML();
+  preview.srcdoc = html;
+  jsonView.innerText = JSON.stringify(state.data, null, 2);
+  updateEditorLink();
+}
 
-      function loadProject() {
-        const saved = localStorage.getItem("websiteBuilder |  Champak");
-        if (saved) {
-          state.data = JSON.parse(saved);
-          state.step = 0;
-          render();
-          alert("Project loaded");
-        } else {
-          alert("No saved project found");
-        }
-      }
+function saveCurrentInputIfAvailable(){
+  const s = steps[state.step];
+  const input = document.getElementById("inp");
+  if(input && (s.type === "text" || s.type === "textarea")) state.data[s.key] = input.value;
+}
 
-      render();
-    </script>
-  </body>
+function downloadHTML() {
+  saveCurrentInput();
+  const blob = new Blob([buildHTML()], { type: "text/html" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "website.html";
+  a.click();
+}
+
+function downloadJSON() {
+  saveCurrentInput();
+  const blob = new Blob([JSON.stringify(state.data, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "website-config.json";
+  a.click();
+}
+
+function copyHTML() {
+  saveCurrentInput();
+  navigator.clipboard.writeText(buildHTML());
+  alert("HTML copied");
+}
+
+function saveProject() {
+  saveCurrentInput();
+  localStorage.setItem("websiteBuilderChampak", JSON.stringify(state.data));
+  alert("Project saved");
+}
+
+function loadProject() {
+  const saved = localStorage.getItem("websiteBuilderChampak");
+  if (saved) {
+    state.data = JSON.parse(saved);
+    if(!state.data.themeColors) applyThemePreset(state.data.theme || "Classic");
+    state.step = 0;
+    render();
+    alert("Project loaded");
+  } else {
+    alert("No saved project found");
+  }
+}
+
+render();
+
+  </script>
+</body>
 </html>
