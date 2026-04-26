@@ -1,320 +1,732 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Sorting Variations Lab | Programmer's Picnic</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sorting Variations Identifier | Programmer's Picnic</title>
+
+<script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
 
 <style>
-body{margin:0;font-family:Arial;background:#fffaf0;color:#2b2112}
-.wrap{max-width:1100px;margin:auto;padding:20px}
-
+:root{
+  --bg:#fffaf0;
+  --bg2:#fff4d6;
+  --card:#ffffff;
+  --text:#2b2112;
+  --muted:#725b36;
+  --brand:#f59e0b;
+  --brand2:#d97706;
+  --border:#f1d7a8;
+  --good:#16a34a;
+  --bad:#dc2626;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,var(--bg),var(--bg2));
+  color:var(--text);
+}
+.wrap{
+  max-width:1200px;
+  margin:auto;
+  padding:22px;
+}
+.hero{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:26px;
+  padding:24px;
+  box-shadow:0 18px 45px rgba(217,119,6,.14);
+}
+h1{margin:0 0 8px;font-size:34px}
+.subtitle{color:var(--muted);line-height:1.6}
 textarea{
   width:100%;
-  height:180px;
-  padding:12px;
-  border-radius:10px;
-  border:1px solid #f1d7a8
+  min-height:210px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+  font-size:16px;
+  outline:none;
 }
-
-button{
-  margin:8px 5px 0 0;
-  padding:10px 16px;
-  border-radius:999px;
+button,select{
   border:0;
-  background:#f59e0b;
-  color:#fff;
-  font-weight:bold;
-  cursor:pointer
+  border-radius:999px;
+  padding:11px 16px;
+  font-weight:800;
+  cursor:pointer;
 }
-
+button{
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  color:#fff;
+}
+button.secondary,select{
+  background:#fff3d0;
+  color:#7c4a00;
+  border:1px solid var(--border);
+}
+.controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:14px 0;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;
+}
 .card{
-  margin-top:15px;
-  padding:15px;
-  background:#fff;
-  border-radius:12px;
-  border:1px solid #f1d7a8
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:18px;
+  margin-top:16px;
 }
-
-.result{font-size:28px;font-weight:900;color:#d97706}
-
-.barrow{display:flex;gap:6px}
+.result{
+  font-size:32px;
+  font-weight:900;
+  color:var(--brand2);
+}
+.badge{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:999px;
+  background:#fff3d0;
+  color:#92400e;
+  font-size:13px;
+  font-weight:800;
+  margin:4px 4px 0 0;
+}
+.score-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  border-bottom:1px dashed #edd3a0;
+  padding:8px 0;
+}
+.good{color:var(--good);font-weight:900}
+.bad{color:var(--bad);font-weight:900}
+.barrow{
+  display:flex;
+  gap:8px;
+  align-items:end;
+  padding:14px;
+  background:#fff8e8;
+  border-radius:18px;
+  min-height:175px;
+  overflow:auto;
+}
 .bar{
-  min-width:40px;
-  background:#f59e0b;
-  color:#fff;
+  min-width:42px;
+  background:linear-gradient(#fbbf24,#d97706);
+  color:white;
+  border-radius:12px 12px 7px 7px;
   display:flex;
   justify-content:center;
   align-items:flex-end;
-  border-radius:6px
+  padding-bottom:8px;
+  font-weight:900;
 }
-
-.correct{outline:3px solid green}
-.wrong{outline:3px solid red}
-
-.good{color:green;font-weight:bold}
-.bad{color:red;font-weight:bold}
+.pass-card{
+  border-radius:18px;
+  padding:8px;
+  margin:10px 0;
+}
+.correct{outline:4px solid rgba(22,163,74,.35)}
+.wrong{outline:4px solid rgba(220,38,38,.35)}
+.active{outline:4px solid rgba(245,158,11,.45)}
+.example-box{
+  background:#fffaf0;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:14px;
+  margin:10px 0;
+}
+pre{
+  white-space:pre-wrap;
+  background:#2b2112;
+  color:#fff7e6;
+  padding:14px;
+  border-radius:16px;
+  overflow:auto;
+}
+details{
+  background:#fffaf0;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:14px;
+  margin:10px 0;
+}
+summary{font-weight:900;cursor:pointer}
 </style>
 </head>
 
 <body>
 <div class="wrap">
+  <div class="hero">
+    <h1 data-pp-speak-title>Sorting Variations Identifier</h1>
+    <p class="subtitle">
+      Identify sorting patterns from array changes. This focused version compares
+      Bubble Sort, Selection Sort, Insertion Sort, and their important variations.
+    </p>
 
-<h1>Sorting Variations Lab — Bubble, Selection, Insertion</h1>
+    <div class="controls">
+      <select id="exampleSelect"></select>
+      <button onclick="loadExample()">Load Example</button>
+      <button class="secondary" onclick="identify()">Identify</button>
+      <button class="secondary" onclick="playAnimation()">Play Animation</button>
+      <button class="secondary" onclick="clearInput()">Clear</button>
+    </div>
 
 <textarea id="input">Start: [5,1,4,2,8]
-Pass1:[1,4,2,5,8]
-Pass2:[1,2,4,5,8]</textarea>
+Pass 1: [1,4,2,5,8]
+Pass 2: [1,2,4,5,8]
+Pass 3: [1,2,4,5,8]</textarea>
 
-<button onclick="identify()">Identify</button>
-<button onclick="play()">Animate</button>
+    <div class="grid">
+      <div class="card">
+        <h2>Detected Pattern</h2>
+        <div id="result" class="result">Waiting...</div>
+        <p id="reason" class="subtitle"></p>
+        <div id="badges"></div>
+      </div>
 
-<div class="card">
-<div id="result" class="result">Waiting...</div>
-<div id="reason"></div>
-</div>
+      <div class="card">
+        <h2>Confidence Scores</h2>
+        <div id="scores"></div>
+      </div>
+    </div>
 
-<div class="card" id="scores"></div>
-<div class="card" id="viz"></div>
+    <div class="card">
+      <h2>Step Visualization</h2>
+      <div id="viz"></div>
+    </div>
 
+    <div class="card">
+      <h2>Step Feedback</h2>
+      <div id="feedback" class="subtitle"></div>
+    </div>
+
+    <div class="card">
+      <h2>Example Library</h2>
+      <div id="exampleList"></div>
+    </div>
+
+    <div class="card">
+      <h2>Help Section</h2>
+
+      <details open>
+        <summary>How to enter array changes</summary>
+        <p class="subtitle">Use one array per line. Labels can be Start, Pass 1, Step 1, Round 1, etc.</p>
+<pre>Start: [5,1,4,2,8]
+Pass 1: [1,4,2,5,8]
+Pass 2: [1,2,4,5,8]</pre>
+      </details>
+
+      <details>
+        <summary>Bubble Sort family</summary>
+        <p class="subtitle">
+          Bubble Sort repeatedly swaps adjacent elements. In standard Bubble Sort,
+          the largest unsorted value moves to the right after each pass.
+        </p>
+        <p>
+          <span class="badge">Standard Bubble</span>
+          <span class="badge">Optimized Bubble</span>
+          <span class="badge">Cocktail Shaker</span>
+        </p>
+      </details>
+
+      <details>
+        <summary>Selection Sort family</summary>
+        <p class="subtitle">
+          Selection Sort selects the smallest remaining value and places it at the front.
+          Double Selection places both minimum and maximum in one round.
+        </p>
+        <p>
+          <span class="badge">Standard Selection</span>
+          <span class="badge">Double Selection</span>
+        </p>
+      </details>
+
+      <details>
+        <summary>Insertion Sort family</summary>
+        <p class="subtitle">
+          Insertion Sort grows a sorted left side. Binary Insertion uses binary search
+          to locate the insertion position. Gnome Sort behaves like an insertion-style swap walk.
+        </p>
+        <p>
+          <span class="badge">Standard Insertion</span>
+          <span class="badge">Binary Insertion</span>
+          <span class="badge">Gnome Sort</span>
+        </p>
+      </details>
+
+      <details>
+        <summary>Important limitation</summary>
+        <p class="subtitle">
+          Small arrays may produce the same pass for more than one algorithm. In that case,
+          use the confidence scores and provide more passes for a better match.
+        </p>
+      </details>
+    </div>
+  </div>
 </div>
 
 <script>
+const EXAMPLES = [
+  {
+    name:"Bubble Sort — Example 1",
+    text:`Start: [5,1,4,2,8]
+Pass 1: [1,4,2,5,8]
+Pass 2: [1,2,4,5,8]
+Pass 3: [1,2,4,5,8]
+Pass 4: [1,2,4,5,8]`
+  },
+  {
+    name:"Bubble Sort — Example 2",
+    text:`Start: [9,7,3,1]
+Pass 1: [7,3,1,9]
+Pass 2: [3,1,7,9]
+Pass 3: [1,3,7,9]
+Pass 4: [1,3,7,9]`
+  },
+  {
+    name:"Optimized Bubble — Example 1",
+    text:`Start: [1,2,3,4,5]
+Pass 1: [1,2,3,4,5]`
+  },
+  {
+    name:"Optimized Bubble — Example 2",
+    text:`Start: [2,1,3,4,5]
+Pass 1: [1,2,3,4,5]
+Pass 2: [1,2,3,4,5]`
+  },
+  {
+    name:"Cocktail Shaker — Example 1",
+    text:`Start: [5,1,4,2,8]
+Pass 1: [1,4,2,5,8]
+Pass 2: [1,2,4,5,8]`
+  },
+  {
+    name:"Cocktail Shaker — Example 2",
+    text:`Start: [4,3,2,1]
+Pass 1: [3,2,1,4]
+Pass 2: [1,3,2,4]
+Pass 3: [1,2,3,4]`
+  },
+  {
+    name:"Selection Sort — Example 1",
+    text:`Start: [5,1,4,2,8]
+Pass 1: [1,5,4,2,8]
+Pass 2: [1,2,4,5,8]
+Pass 3: [1,2,4,5,8]
+Pass 4: [1,2,4,5,8]`
+  },
+  {
+    name:"Selection Sort — Example 2",
+    text:`Start: [64,25,12,22,11]
+Pass 1: [11,25,12,22,64]
+Pass 2: [11,12,25,22,64]
+Pass 3: [11,12,22,25,64]
+Pass 4: [11,12,22,25,64]`
+  },
+  {
+    name:"Double Selection — Example 1",
+    text:`Start: [5,1,4,2,8]
+Pass 1: [1,5,4,2,8]
+Pass 2: [1,2,4,5,8]`
+  },
+  {
+    name:"Double Selection — Example 2",
+    text:`Start: [9,3,7,1,6]
+Pass 1: [1,3,7,6,9]
+Pass 2: [1,3,6,7,9]`
+  },
+  {
+    name:"Insertion Sort — Example 1",
+    text:`Start: [5,1,4,2,8]
+Pass 1: [1,5,4,2,8]
+Pass 2: [1,4,5,2,8]
+Pass 3: [1,2,4,5,8]
+Pass 4: [1,2,4,5,8]`
+  },
+  {
+    name:"Insertion Sort — Example 2",
+    text:`Start: [9,3,6,2]
+Pass 1: [3,9,6,2]
+Pass 2: [3,6,9,2]
+Pass 3: [2,3,6,9]`
+  },
+  {
+    name:"Binary Insertion — Example 1",
+    text:`Start: [5,1,4,2,8]
+Pass 1: [1,5,4,2,8]
+Pass 2: [1,4,5,2,8]
+Pass 3: [1,2,4,5,8]
+Pass 4: [1,2,4,5,8]`
+  },
+  {
+    name:"Binary Insertion — Example 2",
+    text:`Start: [10,7,8,3]
+Pass 1: [7,10,8,3]
+Pass 2: [7,8,10,3]
+Pass 3: [3,7,8,10]`
+  },
+  {
+    name:"Gnome Sort — Example 1",
+    text:`Start: [5,1,4,2]
+Pass 1: [1,5,4,2]
+Pass 2: [1,4,5,2]
+Pass 3: [1,4,2,5]
+Pass 4: [1,2,4,5]`
+  },
+  {
+    name:"Gnome Sort — Example 2",
+    text:`Start: [3,2,1]
+Pass 1: [2,3,1]
+Pass 2: [2,1,3]
+Pass 3: [1,2,3]`
+  }
+];
 
-/* -------- PARSE -------- */
-function parse(text){
+function initExamples(){
+  const select = document.getElementById("exampleSelect");
+  select.innerHTML = EXAMPLES.map((e,i)=>`<option value="${i}">${e.name}</option>`).join("");
+
+  document.getElementById("exampleList").innerHTML = EXAMPLES.map((e,i)=>`
+    <div class="example-box">
+      <b>${e.name}</b>
+      <pre>${e.text}</pre>
+      <button class="secondary" onclick="loadExample(${i})">Use This Example</button>
+    </div>
+  `).join("");
+}
+
+function loadExample(index){
+  const i = index ?? Number(document.getElementById("exampleSelect").value);
+  document.getElementById("input").value = EXAMPLES[i].text;
+  identify();
+}
+
+function clearInput(){
+  document.getElementById("input").value = "";
+  document.getElementById("result").innerText = "Waiting...";
+  document.getElementById("reason").innerText = "Paste array changes and click Identify.";
+  document.getElementById("scores").innerHTML = "";
+  document.getElementById("viz").innerHTML = "";
+  document.getElementById("feedback").innerHTML = "";
+  document.getElementById("badges").innerHTML = "";
+}
+
+function parseInput(text){
   return text.split("\n")
-    .map(l=>l.match(/\[(.*?)\]/))
+    .map(line => line.match(/\[(.*?)\]/))
     .filter(Boolean)
-    .map(m=>m[1].split(",").map(x=>+x));
+    .map(match =>
+      match[1]
+        .split(",")
+        .map(x => Number(x.trim()))
+        .filter(x => !Number.isNaN(x))
+    );
 }
 
 function same(a,b){
-  return a.length===b.length && a.every((v,i)=>v===b[i]);
+  return a.length === b.length && a.every((v,i)=>v===b[i]);
 }
 
-/* =======================
-   BUBBLE VARIATIONS
-======================= */
-
-function bubble(a){
-  a=[...a];let s=[];
-  for(let i=0;i<a.length;i++){
+/* Bubble family */
+function bubbleSortSteps(input){
+  const a = [...input], steps = [];
+  for(let i=0;i<a.length-1;i++){
     for(let j=0;j<a.length-1-i;j++){
-      if(a[j]>a[j+1]){
-        [a[j],a[j+1]]=[a[j+1],a[j]];
-      }
+      if(a[j] > a[j+1]) [a[j],a[j+1]] = [a[j+1],a[j]];
     }
-    s.push([...a]);
+    steps.push([...a]);
   }
-  return s;
+  return steps;
 }
 
-function bubbleOptimized(a){
-  a=[...a];let s=[];
-  for(let i=0;i<a.length;i++){
-    let swapped=false;
+function optimizedBubbleSteps(input){
+  const a = [...input], steps = [];
+  for(let i=0;i<a.length-1;i++){
+    let swapped = false;
     for(let j=0;j<a.length-1-i;j++){
-      if(a[j]>a[j+1]){
-        [a[j],a[j+1]]=[a[j+1],a[j]];
-        swapped=true;
+      if(a[j] > a[j+1]){
+        [a[j],a[j+1]] = [a[j+1],a[j]];
+        swapped = true;
       }
     }
-    s.push([...a]);
+    steps.push([...a]);
     if(!swapped) break;
   }
-  return s;
+  return steps;
 }
 
-function cocktail(a){
-  a=[...a];let s=[];
-  let start=0,end=a.length-1;
-  while(start<end){
-    for(let i=start;i<end;i++){
-      if(a[i]>a[i+1])[a[i],a[i+1]]=[a[i+1],a[i]];
+function cocktailShakerSteps(input){
+  const a = [...input], steps = [];
+  let left = 0, right = a.length - 1;
+  while(left < right){
+    let swapped = false;
+
+    for(let i=left;i<right;i++){
+      if(a[i] > a[i+1]){
+        [a[i],a[i+1]] = [a[i+1],a[i]];
+        swapped = true;
+      }
     }
-    s.push([...a]);
-    end--;
-    for(let i=end;i>start;i--){
-      if(a[i]<a[i-1])[a[i],a[i-1]]=[a[i-1],a[i]];
+    steps.push([...a]);
+    right--;
+
+    if(!swapped) break;
+    swapped = false;
+
+    for(let i=right;i>left;i--){
+      if(a[i] < a[i-1]){
+        [a[i],a[i-1]] = [a[i-1],a[i]];
+        swapped = true;
+      }
     }
-    s.push([...a]);
-    start++;
+    steps.push([...a]);
+    left++;
+
+    if(!swapped) break;
   }
-  return s;
+  return steps;
 }
 
-/* =======================
-   SELECTION VARIATIONS
-======================= */
-
-function selection(a){
-  a=[...a];let s=[];
-  for(let i=0;i<a.length;i++){
-    let m=i;
+/* Selection family */
+function selectionSortSteps(input){
+  const a = [...input], steps = [];
+  for(let i=0;i<a.length-1;i++){
+    let min = i;
     for(let j=i+1;j<a.length;j++){
-      if(a[j]<a[m])m=j;
+      if(a[j] < a[min]) min = j;
     }
-    [a[i],a[m]]=[a[m],a[i]];
-    s.push([...a]);
+    [a[i],a[min]] = [a[min],a[i]];
+    steps.push([...a]);
   }
-  return s;
+  return steps;
 }
 
-function doubleSelection(a){
-  a=[...a];let s=[];
-  let left=0,right=a.length-1;
+function doubleSelectionSteps(input){
+  const a = [...input], steps = [];
+  let left = 0, right = a.length - 1;
 
-  while(left<right){
-    let min=left,max=right;
+  while(left < right){
+    let min = left, max = left;
 
     for(let i=left;i<=right;i++){
-      if(a[i]<a[min])min=i;
-      if(a[i]>a[max])max=i;
+      if(a[i] < a[min]) min = i;
+      if(a[i] > a[max]) max = i;
     }
 
-    [a[left],a[min]]=[a[min],a[left]];
-    if(max===left) max=min;
+    [a[left],a[min]] = [a[min],a[left]];
 
-    [a[right],a[max]]=[a[max],a[right]];
+    if(max === left) max = min;
 
-    s.push([...a]);
-    left++; right--;
+    [a[right],a[max]] = [a[max],a[right]];
+
+    steps.push([...a]);
+    left++;
+    right--;
   }
-  return s;
+  return steps;
 }
 
-/* =======================
-   INSERTION VARIATIONS
-======================= */
-
-function insertion(a){
-  a=[...a];let s=[];
+/* Insertion family */
+function insertionSortSteps(input){
+  const a = [...input], steps = [];
   for(let i=1;i<a.length;i++){
-    let key=a[i],j=i-1;
-    while(j>=0 && a[j]>key){
-      a[j+1]=a[j]; j--;
+    const key = a[i];
+    let j = i - 1;
+    while(j >= 0 && a[j] > key){
+      a[j+1] = a[j];
+      j--;
     }
-    a[j+1]=key;
-    s.push([...a]);
+    a[j+1] = key;
+    steps.push([...a]);
   }
-  return s;
+  return steps;
 }
 
-function binaryInsertion(a){
-  a=[...a];let s=[];
-  for(let i=1;i<a.length;i++){
-    let key=a[i];
-    let left=0,right=i-1;
+function binaryInsertionSteps(input){
+  const a = [...input], steps = [];
 
-    while(left<=right){
-      let mid=Math.floor((left+right)/2);
-      if(a[mid]>key) right=mid-1;
-      else left=mid+1;
+  for(let i=1;i<a.length;i++){
+    const key = a[i];
+    let left = 0, right = i - 1;
+
+    while(left <= right){
+      const mid = Math.floor((left + right) / 2);
+      if(a[mid] > key) right = mid - 1;
+      else left = mid + 1;
     }
 
     for(let j=i-1;j>=left;j--){
-      a[j+1]=a[j];
+      a[j+1] = a[j];
     }
-    a[left]=key;
-    s.push([...a]);
+
+    a[left] = key;
+    steps.push([...a]);
   }
-  return s;
+
+  return steps;
 }
 
-function gnome(a){
-  a=[...a];let s=[];
-  let i=1;
-  while(i<a.length){
-    if(i==0 || a[i]>=a[i-1]) i++;
-    else{
-      [a[i],a[i-1]]=[a[i-1],a[i]];
-      s.push([...a]);
+function gnomeSortSteps(input){
+  const a = [...input], steps = [];
+  let i = 1;
+
+  while(i < a.length){
+    if(i === 0 || a[i] >= a[i-1]){
+      i++;
+    }else{
+      [a[i],a[i-1]] = [a[i-1],a[i]];
+      steps.push([...a]);
       i--;
     }
   }
-  return s;
+
+  return steps;
 }
 
-/* -------- SCORE -------- */
-function score(exp,act){
-  let a=act.slice(1),p=0;
-  for(let i=0;i<a.length;i++){
-    if(exp[i]&&same(exp[i],a[i]))p++;
+function score(expected, actual){
+  const userPasses = actual.slice(1);
+  if(userPasses.length === 0) return 0;
+
+  let points = 0;
+  for(let i=0;i<userPasses.length;i++){
+    if(expected[i] && same(expected[i], userPasses[i])) points++;
   }
-  return Math.round(p/a.length*100);
+
+  return Math.round((points / userPasses.length) * 100);
 }
 
-/* -------- IDENTIFY -------- */
 function identify(){
-  let steps=parse(document.getElementById("input").value);
-  if(steps.length<2)return;
+  const steps = parseInput(document.getElementById("input").value);
 
-  let start=steps[0];
+  if(steps.length < 2){
+    document.getElementById("result").innerText = "Not enough data";
+    document.getElementById("reason").innerText = "Please provide Start and at least one Pass.";
+    document.getElementById("scores").innerHTML = "";
+    document.getElementById("viz").innerHTML = "";
+    document.getElementById("feedback").innerHTML = "";
+    return;
+  }
 
-  let algos={
-    "Bubble":bubble(start),
-    "Bubble Optimized":bubbleOptimized(start),
-    "Cocktail":cocktail(start),
-    "Selection":selection(start),
-    "Double Selection":doubleSelection(start),
-    "Insertion":insertion(start),
-    "Binary Insertion":binaryInsertion(start),
-    "Gnome":gnome(start)
+  const start = steps[0];
+
+  const algorithms = {
+    "Bubble Sort": bubbleSortSteps(start),
+    "Optimized Bubble Sort": optimizedBubbleSteps(start),
+    "Cocktail Shaker Sort": cocktailShakerSteps(start),
+    "Selection Sort": selectionSortSteps(start),
+    "Double Selection Sort": doubleSelectionSteps(start),
+    "Insertion Sort": insertionSortSteps(start),
+    "Binary Insertion Sort": binaryInsertionSteps(start),
+    "Gnome Sort": gnomeSortSteps(start)
   };
 
-  let res=Object.entries(algos)
-    .map(([n,e])=>({name:n,exp:e,score:score(e,steps)}))
-    .sort((a,b)=>b.score-a.score);
+  const reasons = {
+    "Bubble Sort":"Largest unsorted elements move to the right after each pass.",
+    "Optimized Bubble Sort":"Same as Bubble Sort, but it stops early when no swap happens.",
+    "Cocktail Shaker Sort":"Like Bubble Sort, but it moves in both directions.",
+    "Selection Sort":"The smallest remaining value is selected and fixed at the left.",
+    "Double Selection Sort":"Both minimum and maximum are placed in the same round.",
+    "Insertion Sort":"A sorted left portion grows one element at a time.",
+    "Binary Insertion Sort":"Insertion Sort pattern, but insertion position is found using binary search.",
+    "Gnome Sort":"Insertion-style adjacent swapping that walks backward when needed."
+  };
 
-  let best=res[0];
+  const results = Object.entries(algorithms)
+    .map(([name, expected]) => ({
+      name,
+      expected,
+      score: score(expected, steps)
+    }))
+    .sort((a,b) => b.score - a.score);
 
-  document.getElementById("result").innerText=best.name;
+  const best = results[0];
 
-  document.getElementById("reason").innerText=
-    "Best pattern match among classic + variation sorts.";
+  document.getElementById("result").innerText = best.name;
+  document.getElementById("reason").innerText = reasons[best.name];
 
-  document.getElementById("scores").innerHTML=
-    res.map(r=>`${r.name}: <span class="${r.score>60?'good':'bad'}">${r.score}%</span>`).join("<br>");
+  document.getElementById("badges").innerHTML = `
+    <span class="badge">Best Match</span>
+    <span class="badge">${best.score}% confidence</span>
+    <span class="badge">${steps.length - 1} passes checked</span>
+  `;
 
-  visualize(steps,best.exp);
+  document.getElementById("scores").innerHTML = results.map(r => `
+    <div class="score-row">
+      <span>${r.name}</span>
+      <span class="${r.score >= 70 ? "good":"bad"}">${r.score}%</span>
+    </div>
+  `).join("");
+
+  visualize(steps, best.expected);
+  makeFeedback(steps, best.expected, best.name);
 }
 
-/* -------- VISUAL -------- */
-function visualize(steps,exp){
-  let max=Math.max(...steps.flat());
+function visualize(steps, expected, activeIndex = -1){
+  const max = Math.max(...steps.flat(), 1);
 
-  document.getElementById("viz").innerHTML=
-    steps.map((a,i)=>{
-      let cls="";
-      if(exp && i>0){
-        cls=same(a,exp[i-1])?"correct":"wrong";
-      }
-      return `
-        <div class="${cls}">
-        <h3>${i===0?"Start":"Pass "+i}</h3>
+  document.getElementById("viz").innerHTML = steps.map((arr,i)=>{
+    let cls = "pass-card";
+
+    if(i === activeIndex) cls += " active";
+    else if(expected && i > 0) cls += same(arr, expected[i-1]) ? " correct" : " wrong";
+
+    return `
+      <div class="${cls}">
+        <h3>${i === 0 ? "Start" : "Pass " + i}</h3>
         <div class="barrow">
-        ${a.map(x=>`<div class="bar" style="height:${40+(x/max)*120}px">${x}</div>`).join("")}
+          ${arr.map(x=>`
+            <div class="bar" style="height:${45 + (x / max) * 125}px">${x}</div>
+          `).join("")}
         </div>
-        </div>`;
-    }).join("");
+      </div>
+    `;
+  }).join("");
 }
 
-/* -------- PLAY -------- */
-function play(){
-  let steps=parse(document.getElementById("input").value);
-  let i=0;
+function makeFeedback(steps, expected, name){
+  const lines = [];
 
-  let t=setInterval(()=>{
-    visualize([steps[i]]);
+  for(let i=1;i<steps.length;i++){
+    const user = steps[i];
+    const exp = expected[i-1];
+
+    if(!exp){
+      lines.push(`<p><b>Pass ${i}:</b> Extra pass provided. No matching expected pass for ${name}.</p>`);
+    }else if(same(user, exp)){
+      lines.push(`<p><b>Pass ${i}:</b> Correct for ${name}.</p>`);
+    }else{
+      lines.push(`<p><b>Pass ${i}:</b> Does not match ${name}. Expected <code>[${exp.join(", ")}]</code>, but received <code>[${user.join(", ")}]</code>.</p>`);
+    }
+  }
+
+  document.getElementById("feedback").innerHTML = lines.join("");
+}
+
+function playAnimation(){
+  const steps = parseInput(document.getElementById("input").value);
+  if(steps.length === 0) return;
+
+  let i = 0;
+  visualize(steps, null, i);
+
+  const timer = setInterval(()=>{
     i++;
-    if(i>=steps.length)clearInterval(t);
-  },700);
+    visualize(steps, null, i);
+    if(i >= steps.length - 1) clearInterval(timer);
+  }, 800);
 }
 
+initExamples();
 identify();
-
 </script>
-
 </body>
 </html>
