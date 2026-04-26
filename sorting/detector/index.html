@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sorting Algorithm Identifier | Programmer's Picnic</title>
+
+    <style>
+      :root {
+        --bg: #fffaf0;
+        --bg2: #fff4d6;
+        --card: #ffffff;
+        --text: #2b2112;
+        --muted: #725b36;
+        --brand: #f59e0b;
+        --brand2: #d97706;
+        --border: #f1d7a8;
+        --good: #16a34a;
+        --bad: #dc2626;
+        --blue: #2563eb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, var(--bg), var(--bg2));
+        color: var(--text);
+      }
+
+      .wrap {
+        max-width: 1200px;
+        margin: auto;
+        padding: 24px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #fff, #fff8e8);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        padding: 26px;
+        box-shadow: 0 20px 55px rgba(217, 119, 6, 0.16);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 34px;
+      }
+
+      .subtitle {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 210px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 16px;
+        font-size: 16px;
+        outline: none;
+        background: #fff;
+      }
+
+      button,
+      select {
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 18px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      button {
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        color: #fff;
+        box-shadow: 0 10px 25px rgba(217, 119, 6, 0.25);
+      }
+
+      button.secondary {
+        background: #fff3d0;
+        color: #7c4a00;
+        border: 1px solid var(--border);
+        box-shadow: none;
+      }
+
+      select {
+        background: #fff;
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 14px 0;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        padding: 18px;
+        box-shadow: 0 12px 34px rgba(0, 0, 0, 0.05);
+        margin-top: 16px;
+      }
+
+      .result {
+        font-size: 32px;
+        font-weight: 900;
+        color: var(--brand2);
+      }
+
+      .score-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        border-bottom: 1px dashed #eed4a4;
+        padding: 9px 0;
+      }
+
+      .score {
+        font-weight: 900;
+      }
+
+      .good {
+        color: var(--good);
+      }
+      .bad {
+        color: var(--bad);
+      }
+
+      .barrow {
+        display: flex;
+        gap: 8px;
+        align-items: end;
+        padding: 14px;
+        background: #fff8e8;
+        border-radius: 18px;
+        overflow: auto;
+        min-height: 180px;
+      }
+
+      .bar {
+        min-width: 44px;
+        background: linear-gradient(#fbbf24, #d97706);
+        color: white;
+        border-radius: 12px 12px 7px 7px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        padding-bottom: 8px;
+        font-weight: 900;
+        transition: 0.35s;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: #fff3d0;
+        color: #92400e;
+        font-size: 13px;
+        font-weight: 800;
+        margin: 3px;
+      }
+
+      .example-box {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 14px;
+        background: #fffaf0;
+        margin: 10px 0;
+      }
+
+      pre {
+        white-space: pre-wrap;
+        background: #2b2112;
+        color: #fff7e6;
+        padding: 14px;
+        border-radius: 16px;
+        overflow: auto;
+      }
+
+      details {
+        background: #fffaf0;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 14px;
+        margin: 10px 0;
+      }
+
+      summary {
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .current-pass {
+        outline: 4px solid rgba(245, 158, 11, 0.35);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="hero">
+        <h1>Sorting Algorithm Identifier —</h1>
+        <p class="subtitle">
+          Paste the array changes step by step. This page checks whether the
+          pattern looks like Bubble Sort, Selection Sort, Insertion Sort,
+          Counting Sort, or Radix Sort.
+        </p>
+
+        <div class="controls">
+          <select id="exampleSelect"></select>
+          <button onclick="loadExample(1)">Load Example</button>
+          <button class="secondary" onclick="identify()">
+            Identify Algorithm
+          </button>
+          <button class="secondary" onclick="playAnimation()">
+            Play Animation
+          </button>
+          <button class="secondary" onclick="clearInput()">Clear</button>
+        </div>
+
+        <textarea id="input">
+Start:  [5, 1, 4, 2, 8]
+Pass 1: [1, 4, 2, 5, 8]
+Pass 2: [1, 2, 4, 5, 8]
+Pass 3: [1, 2, 4, 5, 8]</textarea
+        >
+
+        <div class="grid">
+          <div class="card">
+            <h2>Detected Algorithm</h2>
+            <div id="result" class="result">Bubble Sort</div>
+            <p id="reason" class="subtitle"></p>
+            <div id="badges"></div>
+          </div>
+
+          <div class="card">
+            <h2>Confidence Scores</h2>
+            <div id="scores"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Step Visualization</h2>
+          <div id="viz"></div>
+        </div>
+
+        <div class="card">
+          <h2>Example Library</h2>
+          <div id="exampleList"></div>
+        </div>
+
+        <div class="card">
+          <h2>Help Section</h2>
+
+          <details open>
+            <summary>How to enter data</summary>
+            <p class="subtitle">
+              Write one array per line. The label can be anything, but the array
+              must be inside square brackets.
+            </p>
+            <pre>
+Start:  [5, 1, 4, 2, 8]
+Pass 1: [1, 4, 2, 5, 8]
+Pass 2: [1, 2, 4, 5, 8]</pre
+            >
+          </details>
+
+          <details>
+            <summary>How detection works</summary>
+            <p class="subtitle">
+              The tool simulates each sorting algorithm from the starting array
+              and compares its generated passes with the passes entered by the
+              user. The closest match gets the highest score.
+            </p>
+          </details>
+
+          <details>
+            <summary>Important limitations</summary>
+            <p class="subtitle">
+              Some algorithms can produce the same intermediate array for small
+              inputs. In that case, the page shows the best match with
+              confidence scores. More passes usually improve accuracy.
+            </p>
+          </details>
+
+          <details>
+            <summary>Supported algorithms</summary>
+            <p>
+              <span class="badge">Bubble Sort</span>
+              <span class="badge">Selection Sort</span>
+              <span class="badge">Insertion Sort</span>
+              <span class="badge">Counting Sort</span>
+              <span class="badge">Radix Sort</span>
+            </p>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const EXAMPLES = [
+        {
+          name: "Bubble Sort Example 1",
+          text: `Start:  [5, 1, 4, 2, 8]
+Pass 1: [1, 4, 2, 5, 8]
+Pass 2: [1, 2, 4, 5, 8]
+Pass 3: [1, 2, 4, 5, 8]
+Pass 4: [1, 2, 4, 5, 8]`,
+        },
+        {
+          name: "Bubble Sort Example 2",
+          text: `Start:  [9, 7, 3, 1]
+Pass 1: [7, 3, 1, 9]
+Pass 2: [3, 1, 7, 9]
+Pass 3: [1, 3, 7, 9]`,
+        },
+        {
+          name: "Selection Sort Example 1",
+          text: `Start:  [5, 1, 4, 2, 8]
+Pass 1: [1, 5, 4, 2, 8]
+Pass 2: [1, 2, 4, 5, 8]
+Pass 3: [1, 2, 4, 5, 8]
+Pass 4: [1, 2, 4, 5, 8]`,
+        },
+        {
+          name: "Selection Sort Example 2",
+          text: `Start:  [64, 25, 12, 22, 11]
+Pass 1: [11, 25, 12, 22, 64]
+Pass 2: [11, 12, 25, 22, 64]
+Pass 3: [11, 12, 22, 25, 64]
+Pass 4: [11, 12, 22, 25, 64]`,
+        },
+        {
+          name: "Insertion Sort Example 1",
+          text: `Start:  [5, 1, 4, 2, 8]
+Pass 1: [1, 5, 4, 2, 8]
+Pass 2: [1, 4, 5, 2, 8]
+Pass 3: [1, 2, 4, 5, 8]
+Pass 4: [1, 2, 4, 5, 8]`,
+        },
+        {
+          name: "Insertion Sort Example 2",
+          text: `Start:  [9, 3, 6, 2]
+Pass 1: [3, 9, 6, 2]
+Pass 2: [3, 6, 9, 2]
+Pass 3: [2, 3, 6, 9]`,
+        },
+        {
+          name: "Counting Sort Example 1",
+          text: `Start:  [4, 2, 2, 8, 3]
+Pass 1: [2, 2, 2, 8, 3]
+Pass 2: [2, 2, 2, 8, 3]
+Pass 3: [2, 2, 3, 8, 3]
+Pass 4: [2, 2, 3, 4, 3]
+Pass 5: [2, 2, 3, 4, 8]`,
+        },
+        {
+          name: "Counting Sort Example 2",
+          text: `Start:  [3, 1, 2, 1]
+Pass 1: [1, 1, 2, 1]
+Pass 2: [1, 1, 2, 1]
+Pass 3: [1, 1, 2, 1]
+Pass 4: [1, 1, 2, 3]`,
+        },
+        {
+          name: "Radix Sort Example 1",
+          text: `Start:  [170, 45, 75, 90, 802, 24, 2, 66]
+Pass 1: [170, 90, 802, 2, 24, 45, 75, 66]
+Pass 2: [802, 2, 24, 45, 66, 170, 75, 90]
+Pass 3: [2, 24, 45, 66, 75, 90, 170, 802]`,
+        },
+        {
+          name: "Radix Sort Example 2",
+          text: `Start:  [329, 457, 657, 839, 436, 720, 355]
+Pass 1: [720, 355, 436, 457, 657, 329, 839]
+Pass 2: [720, 329, 436, 839, 355, 457, 657]
+Pass 3: [329, 355, 436, 457, 657, 720, 839]`,
+        },
+      ];
+
+      function initExamples() {
+        const select = document.getElementById("exampleSelect");
+        select.innerHTML = EXAMPLES.map(
+          (e, i) => `<option value="${i}">${e.name}</option>`,
+        ).join("");
+
+        document.getElementById("exampleList").innerHTML = EXAMPLES.map(
+          (e, i) => `
+    <div class="example-box">
+      <b>${e.name}</b>
+      <pre>${e.text}</pre>
+      <button class="secondary" onclick="loadExample(${i})">Use This Example</button>
+    </div>
+  `,
+        ).join("");
+      }
+
+      function loadExample(index) {
+        alert(index);
+        const i =
+          index ?? Number(document.getElementById("exampleSelect").value);
+        document.getElementById("input").value = EXAMPLES[i].text;
+        identify();
+      }
+
+      function clearInput() {
+        document.getElementById("input").value = "";
+        document.getElementById("result").innerText = "Waiting...";
+        document.getElementById("reason").innerText =
+          "Paste sorting steps and click Identify Algorithm.";
+        document.getElementById("scores").innerHTML = "";
+        document.getElementById("viz").innerHTML = "";
+      }
+
+      function parseInput(text) {
+        alert(text);
+        return text
+          .split("\\n")
+          .map((line) => line.match(/\\[(.*?)\\]/))
+          .filter(Boolean)
+          .map((match) =>
+            match[1]
+              .split(",")
+              .map((x) => Number(x.trim()))
+              .filter((x) => !Number.isNaN(x)),
+          );
+      }
+
+      function same(a, b) {
+        return a.length === b.length && a.every((v, i) => v === b[i]);
+      }
+
+      function bubble(start) {
+        let a = [...start],
+          s = [];
+        for (let i = 0; i < a.length - 1; i++) {
+          for (let j = 0; j < a.length - 1 - i; j++) {
+            if (a[j] > a[j + 1]) {
+              [a[j], a[j + 1]] = [a[j + 1], a[j]];
+            }
+          }
+          s.push([...a]);
+        }
+        return s;
+      }
+
+      function selection(start) {
+        let a = [...start],
+          s = [];
+        for (let i = 0; i < a.length - 1; i++) {
+          let min = i;
+          for (let j = i + 1; j < a.length; j++) {
+            if (a[j] < a[min]) min = j;
+          }
+          [a[i], a[min]] = [a[min], a[i]];
+          s.push([...a]);
+        }
+        return s;
+      }
+
+      function insertion(start) {
+        let a = [...start],
+          s = [];
+        for (let i = 1; i < a.length; i++) {
+          let key = a[i],
+            j = i - 1;
+          while (j >= 0 && a[j] > key) {
+            a[j + 1] = a[j];
+            j--;
+          }
+          a[j + 1] = key;
+          s.push([...a]);
+        }
+        return s;
+      }
+
+      function counting(start) {
+        if (start.some((x) => x < 0 || !Number.isInteger(x))) return [];
+        let a = [...start],
+          s = [];
+        let max = Math.max(...a);
+        let count = Array(max + 1).fill(0);
+
+        for (const x of a) count[x]++;
+
+        let index = 0;
+        for (let value = 0; value < count.length; value++) {
+          while (count[value] > 0) {
+            a[index++] = value;
+            count[value]--;
+            s.push([...a]);
+          }
+        }
+        return s;
+      }
+
+      function radix(start) {
+        if (start.some((x) => x < 0 || !Number.isInteger(x))) return [];
+        let a = [...start],
+          s = [];
+        let max = Math.max(...a);
+
+        for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {
+          let buckets = Array.from({ length: 10 }, () => []);
+          for (const x of a) {
+            let digit = Math.floor(x / exp) % 10;
+            buckets[digit].push(x);
+          }
+          a = buckets.flat();
+          s.push([...a]);
+        }
+        return s;
+      }
+
+      function score(expected, actual) {
+        const userPasses = actual.slice(1);
+        if (userPasses.length === 0) return 0;
+
+        let points = 0;
+        for (let i = 0; i < userPasses.length; i++) {
+          if (expected[i] && same(expected[i], userPasses[i])) points++;
+        }
+
+        return Math.round((points / userPasses.length) * 100);
+      }
+
+      function identify() {
+        alert("identify");
+        const steps = parseInput(document.getElementById("input").value);
+        alert(steps);
+
+        if (steps.length < 2) {
+          document.getElementById("result").innerText = "Not enough data";
+          document.getElementById("reason").innerText =
+            "Please provide Start and at least one Pass.";
+          return;
+        }
+
+        const start = steps[0];
+
+        const algorithms = {
+          "Bubble Sort": bubble(start),
+          "Selection Sort": selection(start),
+          "Insertion Sort": insertion(start),
+          "Counting Sort": counting(start),
+          "Radix Sort": radix(start),
+        };
+
+        const results = Object.entries(algorithms)
+          .map(([name, expected]) => ({
+            name,
+            expected,
+            score: score(expected, steps),
+          }))
+          .sort((a, b) => b.score - a.score);
+
+        const best = results[0];
+
+        const reasons = {
+          "Bubble Sort":
+            "Largest unsorted elements move toward the right side after each pass.",
+          "Selection Sort":
+            "The smallest remaining element is selected and fixed at the left side.",
+          "Insertion Sort":
+            "The sorted portion grows from the left side one element at a time.",
+          "Counting Sort": "Values are reconstructed in frequency order.",
+          "Radix Sort":
+            "Numbers are sorted digit by digit, usually from least significant digit to most significant digit.",
+        };
+
+        document.getElementById("result").innerText = best.name;
+        document.getElementById("reason").innerText = reasons[best.name];
+
+        document.getElementById("badges").innerHTML = `
+    <span class="badge">Best Match</span>
+    <span class="badge">${best.score}% confidence</span>
+    <span class="badge">${steps.length - 1} passes checked</span>
+  `;
+
+        document.getElementById("scores").innerHTML = results
+          .map(
+            (r) => `
+    <div class="score-row">
+      <span>${r.name}</span>
+      <span class="score ${r.score >= 70 ? "good" : "bad"}">${r.score}%</span>
+    </div>
+  `,
+          )
+          .join("");
+
+        visualize(steps);
+      }
+
+      function visualize(steps, activeIndex = -1) {
+        const max = Math.max(...steps.flat(), 1);
+
+        document.getElementById("viz").innerHTML = steps
+          .map(
+            (arr, i) => `
+    <div class="${i === activeIndex ? "current-pass" : ""}" style="border-radius:18px;padding:6px;">
+      <h3>${i === 0 ? "Start" : "Pass " + i}</h3>
+      <div class="barrow">
+        ${arr
+          .map(
+            (x) => `
+          <div class="bar" style="height:${45 + (x / max) * 125}px">${x}</div>
+        `,
+          )
+          .join("")}
+      </div>
+    </div>
+  `,
+          )
+          .join("");
+      }
+
+      function playAnimation() {
+        const steps = parseInput(document.getElementById("input").value);
+        if (steps.length === 0) return;
+
+        let i = 0;
+        visualize(steps, i);
+
+        const timer = setInterval(() => {
+          i++;
+          visualize(steps, i);
+          if (i >= steps.length - 1) clearInterval(timer);
+        }, 850);
+      }
+
+      initExamples();
+      identify();
+    </script>
+  </body>
+</html>
