@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Sorting Variations Lab | Programmer's Picnic</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#fffaf0;color:#2b2112}
+.wrap{max-width:1100px;margin:auto;padding:20px}
+
+textarea{
+  width:100%;
+  height:180px;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #f1d7a8
+}
+
+button{
+  margin:8px 5px 0 0;
+  padding:10px 16px;
+  border-radius:999px;
+  border:0;
+  background:#f59e0b;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer
+}
+
+.card{
+  margin-top:15px;
+  padding:15px;
+  background:#fff;
+  border-radius:12px;
+  border:1px solid #f1d7a8
+}
+
+.result{font-size:28px;font-weight:900;color:#d97706}
+
+.barrow{display:flex;gap:6px}
+.bar{
+  min-width:40px;
+  background:#f59e0b;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  border-radius:6px
+}
+
+.correct{outline:3px solid green}
+.wrong{outline:3px solid red}
+
+.good{color:green;font-weight:bold}
+.bad{color:red;font-weight:bold}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<h1>Sorting Variations Lab — Bubble, Selection, Insertion</h1>
+
+<textarea id="input">Start: [5,1,4,2,8]
+Pass1:[1,4,2,5,8]
+Pass2:[1,2,4,5,8]</textarea>
+
+<button onclick="identify()">Identify</button>
+<button onclick="play()">Animate</button>
+
+<div class="card">
+<div id="result" class="result">Waiting...</div>
+<div id="reason"></div>
+</div>
+
+<div class="card" id="scores"></div>
+<div class="card" id="viz"></div>
+
+</div>
+
+<script>
+
+/* -------- PARSE -------- */
+function parse(text){
+  return text.split("\n")
+    .map(l=>l.match(/\[(.*?)\]/))
+    .filter(Boolean)
+    .map(m=>m[1].split(",").map(x=>+x));
+}
+
+function same(a,b){
+  return a.length===b.length && a.every((v,i)=>v===b[i]);
+}
+
+/* =======================
+   BUBBLE VARIATIONS
+======================= */
+
+function bubble(a){
+  a=[...a];let s=[];
+  for(let i=0;i<a.length;i++){
+    for(let j=0;j<a.length-1-i;j++){
+      if(a[j]>a[j+1]){
+        [a[j],a[j+1]]=[a[j+1],a[j]];
+      }
+    }
+    s.push([...a]);
+  }
+  return s;
+}
+
+function bubbleOptimized(a){
+  a=[...a];let s=[];
+  for(let i=0;i<a.length;i++){
+    let swapped=false;
+    for(let j=0;j<a.length-1-i;j++){
+      if(a[j]>a[j+1]){
+        [a[j],a[j+1]]=[a[j+1],a[j]];
+        swapped=true;
+      }
+    }
+    s.push([...a]);
+    if(!swapped) break;
+  }
+  return s;
+}
+
+function cocktail(a){
+  a=[...a];let s=[];
+  let start=0,end=a.length-1;
+  while(start<end){
+    for(let i=start;i<end;i++){
+      if(a[i]>a[i+1])[a[i],a[i+1]]=[a[i+1],a[i]];
+    }
+    s.push([...a]);
+    end--;
+    for(let i=end;i>start;i--){
+      if(a[i]<a[i-1])[a[i],a[i-1]]=[a[i-1],a[i]];
+    }
+    s.push([...a]);
+    start++;
+  }
+  return s;
+}
+
+/* =======================
+   SELECTION VARIATIONS
+======================= */
+
+function selection(a){
+  a=[...a];let s=[];
+  for(let i=0;i<a.length;i++){
+    let m=i;
+    for(let j=i+1;j<a.length;j++){
+      if(a[j]<a[m])m=j;
+    }
+    [a[i],a[m]]=[a[m],a[i]];
+    s.push([...a]);
+  }
+  return s;
+}
+
+function doubleSelection(a){
+  a=[...a];let s=[];
+  let left=0,right=a.length-1;
+
+  while(left<right){
+    let min=left,max=right;
+
+    for(let i=left;i<=right;i++){
+      if(a[i]<a[min])min=i;
+      if(a[i]>a[max])max=i;
+    }
+
+    [a[left],a[min]]=[a[min],a[left]];
+    if(max===left) max=min;
+
+    [a[right],a[max]]=[a[max],a[right]];
+
+    s.push([...a]);
+    left++; right--;
+  }
+  return s;
+}
+
+/* =======================
+   INSERTION VARIATIONS
+======================= */
+
+function insertion(a){
+  a=[...a];let s=[];
+  for(let i=1;i<a.length;i++){
+    let key=a[i],j=i-1;
+    while(j>=0 && a[j]>key){
+      a[j+1]=a[j]; j--;
+    }
+    a[j+1]=key;
+    s.push([...a]);
+  }
+  return s;
+}
+
+function binaryInsertion(a){
+  a=[...a];let s=[];
+  for(let i=1;i<a.length;i++){
+    let key=a[i];
+    let left=0,right=i-1;
+
+    while(left<=right){
+      let mid=Math.floor((left+right)/2);
+      if(a[mid]>key) right=mid-1;
+      else left=mid+1;
+    }
+
+    for(let j=i-1;j>=left;j--){
+      a[j+1]=a[j];
+    }
+    a[left]=key;
+    s.push([...a]);
+  }
+  return s;
+}
+
+function gnome(a){
+  a=[...a];let s=[];
+  let i=1;
+  while(i<a.length){
+    if(i==0 || a[i]>=a[i-1]) i++;
+    else{
+      [a[i],a[i-1]]=[a[i-1],a[i]];
+      s.push([...a]);
+      i--;
+    }
+  }
+  return s;
+}
+
+/* -------- SCORE -------- */
+function score(exp,act){
+  let a=act.slice(1),p=0;
+  for(let i=0;i<a.length;i++){
+    if(exp[i]&&same(exp[i],a[i]))p++;
+  }
+  return Math.round(p/a.length*100);
+}
+
+/* -------- IDENTIFY -------- */
+function identify(){
+  let steps=parse(document.getElementById("input").value);
+  if(steps.length<2)return;
+
+  let start=steps[0];
+
+  let algos={
+    "Bubble":bubble(start),
+    "Bubble Optimized":bubbleOptimized(start),
+    "Cocktail":cocktail(start),
+    "Selection":selection(start),
+    "Double Selection":doubleSelection(start),
+    "Insertion":insertion(start),
+    "Binary Insertion":binaryInsertion(start),
+    "Gnome":gnome(start)
+  };
+
+  let res=Object.entries(algos)
+    .map(([n,e])=>({name:n,exp:e,score:score(e,steps)}))
+    .sort((a,b)=>b.score-a.score);
+
+  let best=res[0];
+
+  document.getElementById("result").innerText=best.name;
+
+  document.getElementById("reason").innerText=
+    "Best pattern match among classic + variation sorts.";
+
+  document.getElementById("scores").innerHTML=
+    res.map(r=>`${r.name}: <span class="${r.score>60?'good':'bad'}">${r.score}%</span>`).join("<br>");
+
+  visualize(steps,best.exp);
+}
+
+/* -------- VISUAL -------- */
+function visualize(steps,exp){
+  let max=Math.max(...steps.flat());
+
+  document.getElementById("viz").innerHTML=
+    steps.map((a,i)=>{
+      let cls="";
+      if(exp && i>0){
+        cls=same(a,exp[i-1])?"correct":"wrong";
+      }
+      return `
+        <div class="${cls}">
+        <h3>${i===0?"Start":"Pass "+i}</h3>
+        <div class="barrow">
+        ${a.map(x=>`<div class="bar" style="height:${40+(x/max)*120}px">${x}</div>`).join("")}
+        </div>
+        </div>`;
+    }).join("");
+}
+
+/* -------- PLAY -------- */
+function play(){
+  let steps=parse(document.getElementById("input").value);
+  let i=0;
+
+  let t=setInterval(()=>{
+    visualize([steps[i]]);
+    i++;
+    if(i>=steps.length)clearInterval(t);
+  },700);
+}
+
+identify();
+
+</script>
+
+</body>
+</html>
