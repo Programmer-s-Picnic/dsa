@@ -274,13 +274,13 @@ Pass 3: [1,2,4,5,8]</textarea
           <div class="controls">
             <select id="quizAlgo">
               <option>Bubble Sort</option>
-              <option>Optimized Bubble Sort</option>
-              <option>Cocktail Shaker Sort</option>
+              <!-- <option>Optimized Bubble Sort</option> -->
+              <!-- <option>Cocktail Shaker Sort</option> -->
               <option>Selection Sort</option>
               <option>Double Selection Sort</option>
               <option>Insertion Sort</option>
-              <option>Binary Insertion Sort</option>
-              <option>Gnome Sort</option>
+              <!-- <option>Binary Insertion Sort</option> -->
+              <!-- <option>Gnome Sort</option> -->
             </select>
             <button onclick="makeStepQuiz()">Make Step Quiz</button>
             <button class="secondary" onclick="checkStepQuiz()">
@@ -694,6 +694,14 @@ Pass 3: [1,2,3]`,
       function getAlgorithms(start) {
         return {
           "Bubble Sort": bubbleSortSteps(start),
+
+          "Selection Sort": selectionSortSteps(start),
+
+          "Insertion Sort": insertionSortSteps(start),
+        };
+        /**
+        return {
+          "Bubble Sort": bubbleSortSteps(start),
           "Optimized Bubble Sort": optimizedBubbleSteps(start),
           "Cocktail Shaker Sort": cocktailShakerSteps(start),
           "Selection Sort": selectionSortSteps(start),
@@ -701,7 +709,7 @@ Pass 3: [1,2,3]`,
           "Insertion Sort": insertionSortSteps(start),
           "Binary Insertion Sort": binaryInsertionSteps(start),
           "Gnome Sort": gnomeSortSteps(start),
-        };
+        };*/
       }
       const reasons = {
         "Bubble Sort":
