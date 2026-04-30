@@ -438,6 +438,78 @@ flutterfire configure</code></pre>
         </div>
       </section>
 
+<section class="card">
+  <div class="step">
+    <div class="num">5A</div>
+    <div>
+      <h2 id="speak11a">Adding Firebase to an Existing Flutter App</h2>
+      <p>
+        If you already have a Flutter Android app, you do not need to create a new project.
+        You only need to connect the existing app with Firebase.
+      </p>
+
+      <div class="mini">
+        <strong>Use this when:</strong>
+        your Flutter app is already created and you now want to add Firebase features like login,
+        database, storage, or notifications.
+      </div>
+
+      <h3>Step 1: Go to your existing app folder</h3>
+
+      <button class="copy" onclick="copyCode(this)">Copy</button>
+      <pre><code>cd your_existing_flutter_app</code></pre>
+
+      <h3>Step 2: Add Firebase Core</h3>
+
+      <button class="copy" onclick="copyCode(this)">Copy</button>
+      <pre><code>flutter pub add firebase_core</code></pre>
+
+      <h3>Step 3: Install FlutterFire CLI</h3>
+
+      <button class="copy" onclick="copyCode(this)">Copy</button>
+      <pre><code>dart pub global activate flutterfire_cli</code></pre>
+
+      <h3>Step 4: Configure Firebase for the existing app</h3>
+
+      <button class="copy" onclick="copyCode(this)">Copy</button>
+      <pre><code>flutterfire configure</code></pre>
+
+      <p>
+        During setup, select your existing Firebase project or create a new one.
+        Then choose Android as the platform.
+      </p>
+
+      <h3>Step 5: Update main.dart</h3>
+
+      <button class="copy" onclick="copyCode(this)">Copy</button>
+      <pre><code>import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(const MyApp());
+}</code></pre>
+
+      <h3>Step 6: Run the existing app</h3>
+
+      <button class="copy" onclick="copyCode(this)">Copy</button>
+      <pre><code>flutter clean
+flutter pub get
+flutter run</code></pre>
+
+      <div class="mini">
+        <strong>Success check:</strong>
+        If your old app opens without Firebase error, Firebase has been added successfully.
+      </div>
+    </div>
+  </div>
+</section>
+
       <section class="card">
         <div class="step">
           <div class="num">6</div>
