@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>
+      Hello World Android Flutter App Connected to Firebase | Programmer's
+      Picnic
+    </title>
+
+    <meta
+      name="description"
+      content="Beginner friendly lesson: build a Hello World Android Flutter app and connect it to Firebase."
+    />
+    <meta name="theme-color" content="#f59e0b" />
+
+    <style>
+      :root {
+        --bg: #fff7e6;
+        --card: #ffffff;
+        --text: #1f1608;
+        --muted: #6b4a1d;
+        --brand: #d97706;
+        --brand2: #f59e0b;
+        --soft: #fff1c7;
+        --line: #f3c76f;
+        --green: #16a34a;
+        --red: #dc2626;
+        --shadow: 0 18px 45px rgba(120, 72, 0, 0.14);
+        --radius: 24px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(245, 158, 11, 0.22),
+            transparent 35%
+          ),
+          linear-gradient(180deg, #fffaf0, #fff7e6);
+        color: var(--text);
+        line-height: 1.65;
+      }
+
+      a {
+        color: var(--brand);
+        font-weight: 700;
+      }
+
+      .wrap {
+        width: min(1180px, 94%);
+        margin: auto;
+      }
+
+      header {
+        padding: 42px 0 28px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #fff7e6, #ffffff);
+        border: 1px solid var(--line);
+        border-radius: 32px;
+        box-shadow: var(--shadow);
+        padding: 32px;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 24px;
+        align-items: center;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: var(--soft);
+        color: var(--brand);
+        font-weight: 800;
+        border: 1px solid var(--line);
+      }
+
+      h1 {
+        font-size: clamp(2rem, 4vw, 4rem);
+        line-height: 1.06;
+        margin: 16px 0;
+      }
+
+      h2 {
+        font-size: clamp(1.5rem, 3vw, 2.3rem);
+        margin: 0 0 14px;
+      }
+
+      h3 {
+        margin-top: 0;
+      }
+
+      .lead {
+        font-size: 1.12rem;
+        color: var(--muted);
+        max-width: 760px;
+      }
+
+      .hero-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        padding: 22px;
+        box-shadow: 0 14px 30px rgba(120, 72, 0, 0.1);
+      }
+
+      .hero-card ul {
+        padding-left: 20px;
+        margin: 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin: 24px 0;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 24px;
+        box-shadow: var(--shadow);
+        margin: 22px 0;
+      }
+
+      .mini {
+        background: #fffaf0;
+        border: 1px dashed var(--line);
+        border-radius: 18px;
+        padding: 16px;
+      }
+
+      pre {
+        background: #1f1608;
+        color: #fff7e6;
+        padding: 18px;
+        border-radius: 18px;
+        overflow: auto;
+        position: relative;
+        font-size: 0.94rem;
+      }
+
+      code {
+        font-family: "Consolas", "Monaco", monospace;
+      }
+
+      .copy {
+        float: right;
+        border: 0;
+        background: var(--brand2);
+        color: #1f1608;
+        font-weight: 800;
+        padding: 8px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        margin-bottom: 8px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 52px 1fr;
+        gap: 16px;
+        align-items: start;
+      }
+
+      .num {
+        width: 52px;
+        height: 52px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        color: #fff;
+        font-size: 1.25rem;
+        font-weight: 900;
+        border-radius: 18px;
+        box-shadow: 0 12px 24px rgba(217, 119, 6, 0.25);
+      }
+
+      .checklist label {
+        display: block;
+        background: #fffaf0;
+        border: 1px solid var(--line);
+        padding: 12px 14px;
+        border-radius: 14px;
+        margin: 10px 0;
+        cursor: pointer;
+      }
+
+      .quiz-option {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: #fffaf0;
+        margin: 8px 0;
+        cursor: pointer;
+        font-weight: 650;
+      }
+
+      .quiz-option.correct {
+        background: #dcfce7;
+        border-color: #16a34a;
+      }
+
+      .quiz-option.wrong {
+        background: #fee2e2;
+        border-color: #dc2626;
+      }
+
+      .result {
+        font-weight: 900;
+        margin-top: 12px;
+      }
+
+      .footer {
+        text-align: center;
+        color: var(--muted);
+        padding: 34px 0 50px;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .pill {
+        padding: 8px 12px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        font-weight: 800;
+        color: var(--muted);
+      }
+
+      iframe {
+        width: 100%;
+        min-height: 460px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: #fff;
+      }
+
+      @media (max-width: 850px) {
+        .hero,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="wrap">
+      <section class="hero">
+        <div>
+          <span class="badge">🔥 Flutter + Firebase Lesson</span>
+          <h1 id="speak01">
+            Hello World Android Flutter App Connected to Firebase
+          </h1>
+          <p class="lead" id="speak02">
+            In this lesson, we will create a simple Android Flutter app, connect
+            it with Firebase, initialize Firebase in code, and display a success
+            message on the screen.
+          </p>
+
+          <div class="pill-row">
+            <span class="pill">Level: Beginner</span>
+            <span class="pill">Platform: Android</span>
+            <span class="pill">Tool: Flutter</span>
+            <span class="pill">Backend: Firebase</span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <h3 id="speak03">What you will build</h3>
+          <ul>
+            <li>A Flutter Android project</li>
+            <li>A Firebase project</li>
+            <li>Firebase connection setup</li>
+            <li>A working Hello World screen</li>
+            <li>A simple Firebase connection test</li>
+          </ul>
+        </div>
+      </section>
+    </header>
+
+    <main class="wrap">
+      <section class="grid">
+        <div class="card">
+          <h3 id="speak04">Flutter</h3>
+          <p>Flutter is used to build the mobile app interface.</p>
+        </div>
+
+        <div class="card">
+          <h3 id="speak05">Firebase</h3>
+          <p>
+            Firebase gives backend services like authentication, database,
+            storage, and notifications.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 id="speak06">Android</h3>
+          <p>
+            We will run this app on an Android emulator or real Android phone.
+          </p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="step">
+          <div class="num">1</div>
+          <div>
+            <h2 id="speak07">Create a Flutter Project</h2>
+            <p>Open terminal and run:</p>
+
+            <button class="copy" onclick="copyCode(this)">Copy</button>
+            <pre><code>flutter create hello_firebase_app
+cd hello_firebase_app</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="step">
+          <div class="num">2</div>
+          <div>
+            <h2 id="speak08">Create Firebase Project</h2>
+            <p>Go to Firebase Console and create a new project.</p>
+
+            <div class="mini">
+              <strong>Simple idea:</strong>
+              Firebase project is like the backend home of your app.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="step">
+          <div class="num">3</div>
+          <div>
+            <h2 id="speak09">Add Android App in Firebase</h2>
+            <p>
+              Inside Firebase, add an Android app. Use your Flutter package
+              name.
+            </p>
+
+            <button class="copy" onclick="copyCode(this)">Copy</button>
+            <pre><code>com.example.hello_firebase_app</code></pre>
+
+            <p>Then download:</p>
+
+            <button class="copy" onclick="copyCode(this)">Copy</button>
+            <pre><code>google-services.json</code></pre>
+
+            <p>Place it here:</p>
+
+            <button class="copy" onclick="copyCode(this)">Copy</button>
+            <pre><code>android/app/google-services.json</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="step">
+          <div class="num">4</div>
+          <div>
+            <h2 id="speak10">Add Firebase Package</h2>
+            <p>Open <code>pubspec.yaml</code> and add:</p>
+
+            <button class="copy" onclick="copyCode(this)">Copy</button>
+            <pre><code>dependencies:
+  flutter:
+    sdk: flutter
+
+  firebase_core: ^latest_version</code></pre>
+
+            <p>Then run:</p>
+
+            <button class="copy" onclick="copyCode(this)">Copy</button>
+            <pre><code>flutter pub get</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="step">
+          <div class="num">5</div>
+          <div>
+            <h2 id="speak11">Recommended Modern Setup</h2>
+            <p>
+              The modern FlutterFire method is better because it creates
+              <code>firebase_options.dart</code> automatically.
+            </p>
+
+            <button class="copy" onclick="copyCode(this)">Copy</button>
+            <pre><code>dart pub global activate flutterfire_cli
+flutterfire configure</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="step">
+          <div class="num">6</div>
+          <div>
+            <h2 id="speak12">Complete main.dart Code</h2>
+            <p>Replace <code>lib/main.dart</code> with this:</p>
+
+            <button class="copy" onclick="copyCode(this)">Copy</button>
+            <pre><code>import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Hello Firebase App',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorSchemeSeed: Colors.orange,
+        useMaterial3: true,
+      ),
+      home: const HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final firebaseAppsCount = Firebase.apps.length;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Programmer\\'s Picnic'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Card(
+          margin: const EdgeInsets.all(24),
+          elevation: 4,
+          child: Padding(
+            padding: const EdgeInsets.all(28),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.local_fire_department,
+                  size: 72,
+                  color: Colors.orange,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Hello World + Firebase',
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'Firebase apps connected: $firebaseAppsCount',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  'If this screen opens without error, Firebase is initialized successfully.',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="step">
+          <div class="num">7</div>
+          <div>
+            <h2 id="speak13">Run the App</h2>
+            <p>Connect your Android phone or open an emulator, then run:</p>
+
+            <button class="copy" onclick="copyCode(this)">Copy</button>
+            <pre><code>flutter run</code></pre>
+
+            <div class="mini">
+              Expected output: <strong>Hello World + Firebase</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 id="speak14">Very Simple Explanation</h2>
+
+        <div class="grid">
+          <div class="mini">
+            <h3>main()</h3>
+            <p>The app starts from here.</p>
+          </div>
+
+          <div class="mini">
+            <h3>WidgetsFlutterBinding</h3>
+            <p>Prepares Flutter before Firebase starts.</p>
+          </div>
+
+          <div class="mini">
+            <h3>Firebase.initializeApp()</h3>
+            <p>Connects the app to Firebase.</p>
+          </div>
+
+          <div class="mini">
+            <h3>MaterialApp</h3>
+            <p>Creates the base Flutter app.</p>
+          </div>
+
+          <div class="mini">
+            <h3>Scaffold</h3>
+            <p>Creates the screen structure.</p>
+          </div>
+
+          <div class="mini">
+            <h3>Firebase.apps.length</h3>
+            <p>Checks how many Firebase apps are initialized.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card checklist">
+        <h2 id="speak15">Setup Checklist</h2>
+
+        <label><input type="checkbox" /> Flutter project created</label>
+        <label><input type="checkbox" /> Firebase project created</label>
+        <label><input type="checkbox" /> Android app added in Firebase</label>
+        <label><input type="checkbox" /> FlutterFire CLI configured</label>
+        <label><input type="checkbox" /> firebase_core added</label>
+        <label><input type="checkbox" /> main.dart updated</label>
+        <label><input type="checkbox" /> App runs successfully</label>
+      </section>
+
+      <section class="card">
+        <h2 id="speak16">Common Errors and Fixes</h2>
+
+        <div class="mini">
+          <h3>Error: Firebase has not been correctly initialized</h3>
+          <p>
+            Fix: Make sure <code>Firebase.initializeApp()</code> is called
+            before <code>runApp()</code>.
+          </p>
+        </div>
+
+        <br />
+
+        <div class="mini">
+          <h3>Error: firebase_options.dart not found</h3>
+          <p>Fix: Run <code>flutterfire configure</code>.</p>
+        </div>
+
+        <br />
+
+        <div class="mini">
+          <h3>App builds but Firebase does not work</h3>
+          <p>Fix: Check package name and Firebase Android app configuration.</p>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 id="speak17">MCQ Quiz</h2>
+
+        <div class="quiz" data-answer="b">
+          <h3>
+            1. Which package is required to initialize Firebase in Flutter?
+          </h3>
+          <button class="quiz-option" data-option="a">cloud_firestore</button>
+          <button class="quiz-option" data-option="b">firebase_core</button>
+          <button class="quiz-option" data-option="c">firebase_ui</button>
+          <button class="quiz-option" data-option="d">flutter_http</button>
+          <div class="result"></div>
+        </div>
+
+        <hr />
+
+        <div class="quiz" data-answer="c">
+          <h3>2. Which function connects Flutter with Firebase?</h3>
+          <button class="quiz-option" data-option="a">runFirebase()</button>
+          <button class="quiz-option" data-option="b">startFirebase()</button>
+          <button class="quiz-option" data-option="c">
+            Firebase.initializeApp()
+          </button>
+          <button class="quiz-option" data-option="d">connectBackend()</button>
+          <div class="result"></div>
+        </div>
+
+        <hr />
+
+        <div class="quiz" data-answer="a">
+          <h3>3. Which command runs the Flutter app?</h3>
+          <button class="quiz-option" data-option="a">flutter run</button>
+          <button class="quiz-option" data-option="b">flutter start</button>
+          <button class="quiz-option" data-option="c">dart launch</button>
+          <button class="quiz-option" data-option="d">firebase run</button>
+          <div class="result"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 id="speak18">Embedded Flutter Editor Area</h2>
+        <p>
+          You can replace this iframe URL with your own Flutter/Dart editor
+          link.
+        </p>
+
+        <iframe
+          src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1"
+        ></iframe>
+      </section>
+
+      <section class="card">
+        <h2 id="speak19">Next Upgrade Ideas</h2>
+        <ul>
+          <li>Add Firebase Authentication</li>
+          <li>Add Firestore database</li>
+          <li>Add Google login</li>
+          <li>Add push notifications</li>
+          <li>Create a full student registration app</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Made for Programmer's Picnic | Champak Roy</p>
+    </footer>
+
+    <script>
+      function copyCode(btn) {
+        const pre = btn.nextElementSibling;
+        const code = pre.innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const old = btn.innerText;
+          btn.innerText = "Copied!";
+          setTimeout(() => (btn.innerText = old), 1200);
+        });
+      }
+
+      document.querySelectorAll(".quiz").forEach((quiz) => {
+        const answer = quiz.dataset.answer;
+        const buttons = quiz.querySelectorAll(".quiz-option");
+        const result = quiz.querySelector(".result");
+
+        buttons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            buttons.forEach((b) => {
+              b.classList.remove("correct", "wrong");
+              b.disabled = true;
+            });
+
+            if (btn.dataset.option === answer) {
+              btn.classList.add("correct");
+              result.textContent = "Correct ✅";
+              result.style.color = "#16a34a";
+            } else {
+              btn.classList.add("wrong");
+              result.textContent =
+                "Wrong ❌ Correct answer is option " + answer.toUpperCase();
+              result.style.color = "#dc2626";
+
+              buttons.forEach((b) => {
+                if (b.dataset.option === answer) {
+                  b.classList.add("correct");
+                }
+              });
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
