@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>
+      Dart, Flutter, Firebase & FlutterFire CLI Commands | Programmer's Picnic
+    </title>
+    <style>
+      :root {
+        --bg: #fff7e6;
+        --card: #fff;
+        --text: #1f1608;
+        --muted: #6b4a1d;
+        --brand: #d97706;
+        --brand2: #f59e0b;
+        --soft: #fff1c7;
+        --line: #f3c76f;
+        --code: #111827;
+        --codeText: #f9fafb;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          sans-serif;
+        background: linear-gradient(135deg, var(--bg), #fffdf7);
+        color: var(--text);
+      }
+      header {
+        padding: 38px 18px;
+        text-align: center;
+        background: radial-gradient(circle at top, #ffe8a3, #fff7e6 55%);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 4rem);
+        color: #7c2d12;
+      }
+      .sub {
+        max-width: 850px;
+        margin: 12px auto;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+      .wrap {
+        max-width: 1200px;
+        margin: auto;
+        padding: 18px;
+      }
+      .tools {
+        position: sticky;
+        top: 0;
+        background: rgba(255, 247, 230, 0.94);
+        backdrop-filter: blur(10px);
+        z-index: 10;
+        padding: 14px;
+        border-bottom: 1px solid var(--line);
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid var(--line);
+        border-radius: 16px;
+        font-size: 1rem;
+        background: white;
+      }
+      .filters {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 12px;
+        max-width: 1100px;
+        margin: auto;
+      }
+      section {
+        margin: 30px 0;
+      }
+      .section-title {
+        font-size: 1.8rem;
+        color: #92400e;
+        border-left: 8px solid var(--brand2);
+        padding-left: 12px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 18px;
+        box-shadow: 0 10px 28px rgba(217, 119, 6, 0.12);
+      }
+      .tag {
+        display: inline-block;
+        background: var(--soft);
+        color: #92400e;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 10px;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+      h3 {
+        margin: 12px 0 8px;
+        color: #78350f;
+      }
+      p {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+      pre {
+        background: var(--code);
+        color: var(--codeText);
+        padding: 13px;
+        border-radius: 14px;
+        overflow: auto;
+        white-space: pre-wrap;
+      }
+      .copy {
+        border: 0;
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        color: white;
+        border-radius: 12px;
+        padding: 9px 12px;
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .count {
+        text-align: center;
+        color: var(--muted);
+        margin: 10px;
+      }
+      @media (max-width: 700px) {
+        .filters {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>CLI Commands Master List</h1>
+      <p class="sub">
+        Searchable command-line guide for Dart, Flutter, Firebase CLI, and
+        FlutterFire CLI. Each command includes meaning and at least two
+        practical examples.
+      </p>
+    </header>
+
+    <div class="tools">
+      <div class="filters">
+        <input
+          id="search"
+          placeholder="Search command, topic, example... e.g. flutter build apk, firebase deploy, dart pub"
+        />
+        <select id="sectionFilter">
+          <option value="all">All sections</option>
+          <option value="Dart">Dart</option>
+          <option value="Flutter">Flutter</option>
+          <option value="Firebase CLI">Firebase CLI</option>
+          <option value="FlutterFire">FlutterFire</option>
+        </select>
+      </div>
+      <div class="count" id="count"></div>
+    </div>
+
+    <main class="wrap" id="app"></main>
+
+    <script>
+      const commands = [
+        {
+          section: "Dart",
+          command: "dart --version",
+          meaning: "Shows the installed Dart SDK version.",
+          examples: [
+            "dart --version",
+            "where dart   # Windows\nwhich dart   # macOS/Linux",
+          ],
+        },
+        {
+          section: "Dart",
+          command: "dart --help",
+          meaning: "Shows Dart CLI help and available subcommands.",
+          examples: ["dart --help", "dart run --help"],
+        },
+        {
+          section: "Dart",
+          command: "dart create",
+          meaning: "Creates a new Dart project from a template.",
+          examples: [
+            "dart create my_console_app",
+            "dart create -t console-full my_full_console_app",
+          ],
+        },
+        {
+          section: "Dart",
+          command: "dart run",
+          meaning: "Runs a Dart file or executable from the current package.",
+          examples: ["dart run", "dart run bin/main.dart"],
+        },
+        {
+          section: "Dart",
+          command: "dart analyze",
+          meaning:
+            "Analyzes Dart code and reports errors, warnings, and style issues.",
+          examples: ["dart analyze", "dart analyze lib/"],
+        },
+        {
+          section: "Dart",
+          command: "dart test",
+          meaning:
+            "Runs tests in a Dart project when the test package is configured.",
+          examples: ["dart test", "dart test test/my_test.dart"],
+        },
+        {
+          section: "Dart",
+          command: "dart format",
+          meaning: "Formats Dart source code.",
+          examples: ["dart format .", "dart format lib/main.dart"],
+        },
+        {
+          section: "Dart",
+          command: "dart fix",
+          meaning: "Applies automated fixes suggested by Dart analyzer.",
+          examples: ["dart fix --dry-run", "dart fix --apply"],
+        },
+        {
+          section: "Dart",
+          command: "dart pub get",
+          meaning: "Downloads dependencies listed in pubspec.yaml.",
+          examples: ["dart pub get", "dart pub get --offline"],
+        },
+        {
+          section: "Dart",
+          command: "dart pub add",
+          meaning: "Adds a package dependency to pubspec.yaml.",
+          examples: ["dart pub add http", "dart pub add dev:test --dev"],
+        },
+        {
+          section: "Dart",
+          command: "dart pub upgrade",
+          meaning: "Upgrades package dependencies.",
+          examples: ["dart pub upgrade", "dart pub upgrade --major-versions"],
+        },
+        {
+          section: "Dart",
+          command: "dart pub outdated",
+          meaning: "Shows outdated dependencies.",
+          examples: [
+            "dart pub outdated",
+            "dart pub outdated --mode=null-safety",
+          ],
+        },
+        {
+          section: "Dart",
+          command: "dart compile",
+          meaning:
+            "Compiles Dart code to native executable, JavaScript, or other targets.",
+          examples: [
+            "dart compile exe bin/main.dart",
+            "dart compile js web/main.dart -o web/main.js",
+          ],
+        },
+        {
+          section: "Dart",
+          command: "dart doc",
+          meaning: "Generates API documentation for a Dart package.",
+          examples: ["dart doc", "dart doc --output docs"],
+        },
+
+        {
+          section: "Flutter",
+          command: "flutter --version",
+          meaning:
+            "Shows installed Flutter SDK, Dart SDK, and channel information.",
+          examples: ["flutter --version", "flutter --version --machine"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter doctor",
+          meaning:
+            "Checks Flutter installation, Android toolchain, devices, and IDE setup.",
+          examples: ["flutter doctor", "flutter doctor -v"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter create",
+          meaning: "Creates a new Flutter app, package, plugin, or module.",
+          examples: [
+            "flutter create my_app",
+            "flutter create --org com.programmerspicnic hello_firebase",
+          ],
+        },
+        {
+          section: "Flutter",
+          command: "flutter run",
+          meaning:
+            "Runs the Flutter app on a connected device, emulator, or browser.",
+          examples: ["flutter run", "flutter run -d chrome"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter devices",
+          meaning:
+            "Lists connected devices available for running Flutter apps.",
+          examples: ["flutter devices", "flutter devices --machine"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter emulators",
+          meaning: "Lists, creates, and launches Android emulators.",
+          examples: ["flutter emulators", "flutter emulators --launch Pixel_7"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter pub get",
+          meaning: "Downloads Flutter package dependencies.",
+          examples: ["flutter pub get", "flutter pub get --offline"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter pub add",
+          meaning: "Adds a Flutter/Dart package dependency.",
+          examples: [
+            "flutter pub add firebase_core",
+            "flutter pub add provider",
+          ],
+        },
+        {
+          section: "Flutter",
+          command: "flutter analyze",
+          meaning: "Checks Flutter project code for errors and warnings.",
+          examples: ["flutter analyze", "flutter analyze lib/"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter test",
+          meaning: "Runs unit and widget tests.",
+          examples: ["flutter test", "flutter test test/widget_test.dart"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter build apk",
+          meaning: "Builds Android APK file.",
+          examples: ["flutter build apk", "flutter build apk --release"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter build appbundle",
+          meaning: "Builds Android App Bundle for Play Store upload.",
+          examples: [
+            "flutter build appbundle",
+            "flutter build appbundle --release",
+          ],
+        },
+        {
+          section: "Flutter",
+          command: "flutter build web",
+          meaning: "Builds Flutter web output.",
+          examples: ["flutter build web", "flutter build web --release"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter clean",
+          meaning: "Deletes build cache and generated files.",
+          examples: ["flutter clean", "flutter clean && flutter pub get"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter upgrade",
+          meaning: "Upgrades Flutter SDK to latest version on current channel.",
+          examples: ["flutter upgrade", "flutter upgrade --force"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter channel",
+          meaning: "Shows or switches Flutter release channel.",
+          examples: ["flutter channel", "flutter channel stable"],
+        },
+        {
+          section: "Flutter",
+          command: "flutter config",
+          meaning: "Changes Flutter configuration options.",
+          examples: [
+            "flutter config --enable-web",
+            "flutter config --android-sdk C:\\\\Android\\\\Sdk",
+          ],
+        },
+        {
+          section: "Flutter",
+          command: "flutter logs",
+          meaning: "Shows logs from a running Flutter app/device.",
+          examples: ["flutter logs", "flutter logs -d emulator-5554"],
+        },
+
+        {
+          section: "Firebase CLI",
+          command: "firebase --version",
+          meaning: "Shows installed Firebase CLI version.",
+          examples: [
+            "firebase --version",
+            "npm install -g firebase-tools && firebase --version",
+          ],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase login",
+          meaning: "Logs in to Firebase from the command line.",
+          examples: ["firebase login", "firebase login --no-localhost"],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase logout",
+          meaning: "Logs out from Firebase CLI.",
+          examples: ["firebase logout", "firebase logout user@example.com"],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase projects:list",
+          meaning: "Lists Firebase projects available to your account.",
+          examples: ["firebase projects:list", "firebase projects:list --json"],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase init",
+          meaning:
+            "Initializes Firebase features in the current project folder.",
+          examples: ["firebase init", "firebase init hosting"],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase use",
+          meaning: "Sets or views the active Firebase project alias.",
+          examples: ["firebase use", "firebase use my-project-id"],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase deploy",
+          meaning: "Deploys selected Firebase services.",
+          examples: ["firebase deploy", "firebase deploy --only hosting"],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase serve",
+          meaning:
+            "Serves Firebase Hosting or Functions locally. Prefer emulators for modern local testing.",
+          examples: ["firebase serve", "firebase serve --only hosting"],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase emulators:start",
+          meaning: "Starts Firebase Emulator Suite locally.",
+          examples: [
+            "firebase emulators:start",
+            "firebase emulators:start --only firestore,auth",
+          ],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase emulators:exec",
+          meaning: "Runs a command while Firebase emulators are active.",
+          examples: [
+            'firebase emulators:exec "npm test"',
+            'firebase emulators:exec --only firestore "npm run test"',
+          ],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase hosting:channel:deploy",
+          meaning: "Deploys a preview version of Firebase Hosting.",
+          examples: [
+            "firebase hosting:channel:deploy preview",
+            "firebase hosting:channel:deploy test-ui --expires 7d",
+          ],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase functions:list",
+          meaning: "Lists deployed Cloud Functions.",
+          examples: [
+            "firebase functions:list",
+            "firebase functions:list --project my-project-id",
+          ],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase functions:delete",
+          meaning: "Deletes deployed Cloud Functions.",
+          examples: [
+            "firebase functions:delete myFunction",
+            "firebase functions:delete myFunction --region asia-south1",
+          ],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase firestore:indexes",
+          meaning: "Manages or deploys Firestore index configuration.",
+          examples: [
+            "firebase deploy --only firestore:indexes",
+            "firebase firestore:indexes > indexes.txt",
+          ],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase database:get",
+          meaning: "Reads data from Firebase Realtime Database.",
+          examples: [
+            "firebase database:get /users",
+            "firebase database:get /users/user1 --project my-project-id",
+          ],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase database:set",
+          meaning: "Writes data to Firebase Realtime Database.",
+          examples: [
+            "firebase database:set /message '\"Hello\"'",
+            "firebase database:set /settings settings.json",
+          ],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase auth:export",
+          meaning: "Exports Firebase Authentication users.",
+          examples: [
+            "firebase auth:export users.json",
+            "firebase auth:export users.csv --format=csv",
+          ],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase auth:import",
+          meaning: "Imports users into Firebase Authentication.",
+          examples: [
+            "firebase auth:import users.json",
+            "firebase auth:import users.csv --hash-algo=BCRYPT",
+          ],
+        },
+        {
+          section: "Firebase CLI",
+          command: "firebase apps:list",
+          meaning: "Lists registered Firebase apps.",
+          examples: [
+            "firebase apps:list",
+            "firebase apps:list --project my-project-id",
+          ],
+        },
+
+        {
+          section: "FlutterFire",
+          command: "dart pub global activate flutterfire_cli",
+          meaning: "Installs or updates the FlutterFire CLI globally.",
+          examples: [
+            "dart pub global activate flutterfire_cli",
+            "dart pub global activate flutterfire_cli 1.0.0",
+          ],
+        },
+        {
+          section: "FlutterFire",
+          command: "flutterfire --help",
+          meaning: "Shows FlutterFire CLI help.",
+          examples: ["flutterfire --help", "flutterfire configure --help"],
+        },
+        {
+          section: "FlutterFire",
+          command: "flutterfire configure",
+          meaning:
+            "Connects a Flutter app to Firebase and generates firebase_options.dart.",
+          examples: [
+            "flutterfire configure",
+            "flutterfire configure --project=my-project-id",
+          ],
+        },
+        {
+          section: "FlutterFire",
+          command: "flutterfire configure --platforms",
+          meaning: "Configures Firebase only for selected Flutter platforms.",
+          examples: [
+            "flutterfire configure --platforms=android,ios",
+            "flutterfire configure --platforms=android,web",
+          ],
+        },
+        {
+          section: "FlutterFire",
+          command: "flutterfire configure --out",
+          meaning: "Changes the output location of Firebase options file.",
+          examples: [
+            "flutterfire configure --out=lib/firebase_options.dart",
+            "flutterfire configure --out=lib/config/firebase_options.dart",
+          ],
+        },
+      ];
+
+      const app = document.getElementById("app");
+      const search = document.getElementById("search");
+      const sectionFilter = document.getElementById("sectionFilter");
+      const count = document.getElementById("count");
+
+      function copyText(text) {
+        navigator.clipboard.writeText(text);
+        alert("Copied command examples!");
+      }
+
+      function render() {
+        const q = search.value.toLowerCase().trim();
+        const selected = sectionFilter.value;
+
+        const filtered = commands.filter((item) => {
+          const blob = [
+            item.section,
+            item.command,
+            item.meaning,
+            item.examples.join(" "),
+          ]
+            .join(" ")
+            .toLowerCase();
+
+          const matchSearch = !q || blob.includes(q);
+          const matchSection = selected === "all" || item.section === selected;
+          return matchSearch && matchSection;
+        });
+
+        count.textContent = `${filtered.length} command cards shown`;
+
+        const grouped = {};
+        filtered.forEach((item) => {
+          if (!grouped[item.section]) grouped[item.section] = [];
+          grouped[item.section].push(item);
+        });
+
+        app.innerHTML =
+          Object.keys(grouped)
+            .map(
+              (section) => `
+    <section>
+      <h2 class="section-title">${section}</h2>
+      <div class="grid">
+        ${grouped[section]
+          .map(
+            (item) => `
+          <article class="card">
+            <span class="tag">${item.section}</span>
+            <h3>${item.command}</h3>
+            <p>${item.meaning}</p>
+            <h4>Examples</h4>
+            <pre>${item.examples.map((x, i) => `${i + 1}. ${x}`).join("\\n\\n")}</pre>
+            <button class="copy" onclick='copyText(${JSON.stringify(item.examples.join("\\n"))})'>Copy examples</button>
+          </article>
+        `,
+          )
+          .join("")}
+      </div>
+    </section>
+  `,
+            )
+            .join("") || `<p>No command found.</p>`;
+      }
+
+      search.addEventListener("input", render);
+      sectionFilter.addEventListener("change", render);
+      render();
+    </script>
+  </body>
+  ::contentReference[oaicite:1]{index=1}
+</html>
