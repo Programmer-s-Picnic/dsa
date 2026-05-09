@@ -211,9 +211,7 @@ function interpretPrompt(prompt) {
     ];
     next.seoKeywords = ["healthcare", "clinic", "doctors", "therapy", "appointment"];
     applyTheme(next, "green");
-  }
-
-  else if (p.includes("portfolio") || p.includes("resume") || p.includes("personal")) {
+  } else if (p.includes("portfolio") || p.includes("resume") || p.includes("personal")) {
     next.type = "Portfolio";
     next.tagline = "A clean portfolio for work, projects and professional presence.";
     next.sections = ["Hero", "About", "Services", "Gallery", "Testimonials", "Contact"];
@@ -225,9 +223,7 @@ function interpretPrompt(prompt) {
     next.galleryLabels = ["Project", "Work", "Result"];
     next.seoKeywords = ["portfolio", "projects", "web developer", "teacher"];
     applyTheme(next, p.includes("dark") ? "dark" : "saffron");
-  }
-
-  else if (
+  } else if (
     p.includes("shop") ||
     p.includes("ecommerce") ||
     p.includes("e-commerce") ||
@@ -248,9 +244,7 @@ function interpretPrompt(prompt) {
     next.paymentText = "Buy Now";
     next.seoKeywords = ["online store", "products", "buy online", "digital products"];
     applyTheme(next, "saffron");
-  }
-
-  else if (
+  } else if (
     p.includes("ai") ||
     p.includes("ml") ||
     p.includes("class") ||
@@ -278,9 +272,7 @@ function interpretPrompt(prompt) {
     next.paymentText = "Enroll Now";
     next.seoKeywords = ["AI ML classes", "Python course", "NumPy classes", "machine learning beginner"];
     applyTheme(next, "saffron");
-  }
-
-  else {
+  } else {
     next.type = "Business";
     next.tagline = "A modern website for your services, customers and online presence.";
     next.sections = ["Hero", "About", "Services", "Testimonials", "Payment", "Contact"];
@@ -293,12 +285,7 @@ function interpretPrompt(prompt) {
     applyTheme(next, "saffron");
   }
 
-  if (p.includes("green")) applyTheme(next, "green");
-  if (p.includes("blue")) applyTheme(next, "blue");
-  if (p.includes("dark")) applyTheme(next, "dark");
-  if (p.includes("saffron") || p.includes("orange")) applyTheme(next, "saffron");
-  if (p.includes("pink")) applyTheme(next, "pink");
-  if (p.includes("purple")) applyTheme(next, "purple");
+  applyThemeFromPrompt(next, prompt);
 
   if (p.includes("gallery") && !next.sections.includes("Gallery")) next.sections.push("Gallery");
   if ((p.includes("doctor") || p.includes("doctors")) && !next.sections.includes("Doctors")) next.sections.push("Doctors");
@@ -373,6 +360,24 @@ function applyTheme(target, name) {
       muted: "#7c5b35",
       line: "#f2d6ad"
     },
+    orange: {
+      bg: "#fff7ed",
+      text: "#241407",
+      card: "#ffffff",
+      primary: "#ea580c",
+      accent: "#fb923c",
+      muted: "#7c5b35",
+      line: "#fed7aa"
+    },
+    red: {
+      bg: "#fef2f2",
+      text: "#2b1111",
+      card: "#ffffff",
+      primary: "#dc2626",
+      accent: "#f87171",
+      muted: "#7f4b4b",
+      line: "#fecaca"
+    },
     green: {
       bg: "#f0fdf4",
       text: "#102018",
@@ -391,14 +396,59 @@ function applyTheme(target, name) {
       muted: "#475569",
       line: "#bfdbfe"
     },
-    dark: {
-      bg: "#111827",
-      text: "#f8fafc",
-      card: "#1f2937",
-      primary: "#f59e0b",
-      accent: "#fbbf24",
-      muted: "#cbd5e1",
-      line: "#374151"
+    sky: {
+      bg: "#f0f9ff",
+      text: "#082f49",
+      card: "#ffffff",
+      primary: "#0284c7",
+      accent: "#38bdf8",
+      muted: "#46677a",
+      line: "#bae6fd"
+    },
+    cyan: {
+      bg: "#ecfeff",
+      text: "#083344",
+      card: "#ffffff",
+      primary: "#0891b2",
+      accent: "#22d3ee",
+      muted: "#4b6b72",
+      line: "#a5f3fc"
+    },
+    teal: {
+      bg: "#f0fdfa",
+      text: "#0f2f2a",
+      card: "#ffffff",
+      primary: "#0f766e",
+      accent: "#2dd4bf",
+      muted: "#4b635f",
+      line: "#99f6e4"
+    },
+    purple: {
+      bg: "#faf5ff",
+      text: "#251536",
+      card: "#ffffff",
+      primary: "#7e22ce",
+      accent: "#a855f7",
+      muted: "#655071",
+      line: "#e9d5ff"
+    },
+    violet: {
+      bg: "#f5f3ff",
+      text: "#21163d",
+      card: "#ffffff",
+      primary: "#6d28d9",
+      accent: "#8b5cf6",
+      muted: "#5f5575",
+      line: "#ddd6fe"
+    },
+    indigo: {
+      bg: "#eef2ff",
+      text: "#151b3d",
+      card: "#ffffff",
+      primary: "#4f46e5",
+      accent: "#818cf8",
+      muted: "#4f5875",
+      line: "#c7d2fe"
     },
     pink: {
       bg: "#fff1f2",
@@ -409,18 +459,222 @@ function applyTheme(target, name) {
       muted: "#7f4b58",
       line: "#fecdd3"
     },
-    purple: {
-      bg: "#faf5ff",
-      text: "#251536",
+    rose: {
+      bg: "#fff1f2",
+      text: "#3b1118",
       card: "#ffffff",
-      primary: "#7e22ce",
-      accent: "#a855f7",
-      muted: "#655071",
-      line: "#e9d5ff"
+      primary: "#be123c",
+      accent: "#fb7185",
+      muted: "#7f4b58",
+      line: "#fecdd3"
+    },
+    yellow: {
+      bg: "#fefce8",
+      text: "#2e2605",
+      card: "#ffffff",
+      primary: "#ca8a04",
+      accent: "#facc15",
+      muted: "#756a35",
+      line: "#fde68a"
+    },
+    lime: {
+      bg: "#f7fee7",
+      text: "#1a2e05",
+      card: "#ffffff",
+      primary: "#65a30d",
+      accent: "#a3e635",
+      muted: "#5d6b3b",
+      line: "#d9f99d"
+    },
+    gray: {
+      bg: "#f8fafc",
+      text: "#111827",
+      card: "#ffffff",
+      primary: "#475569",
+      accent: "#94a3b8",
+      muted: "#64748b",
+      line: "#e2e8f0"
+    },
+    black: {
+      bg: "#020617",
+      text: "#f8fafc",
+      card: "#0f172a",
+      primary: "#f59e0b",
+      accent: "#fbbf24",
+      muted: "#cbd5e1",
+      line: "#334155"
+    },
+    dark: {
+      bg: "#111827",
+      text: "#f8fafc",
+      card: "#1f2937",
+      primary: "#f59e0b",
+      accent: "#fbbf24",
+      muted: "#cbd5e1",
+      line: "#374151"
+    },
+    white: {
+      bg: "#ffffff",
+      text: "#111827",
+      card: "#ffffff",
+      primary: "#2563eb",
+      accent: "#60a5fa",
+      muted: "#64748b",
+      line: "#e5e7eb"
     }
   };
 
-  target.colors = themes[name] || themes.saffron;
+  target.colors = themes[name] || makeThemeFromColor(name);
+}
+
+function applyThemeFromPrompt(target, prompt) {
+  const p = prompt.toLowerCase();
+
+  const knownThemes = [
+    "saffron",
+    "orange",
+    "red",
+    "green",
+    "blue",
+    "sky",
+    "cyan",
+    "teal",
+    "purple",
+    "violet",
+    "indigo",
+    "pink",
+    "rose",
+    "yellow",
+    "lime",
+    "gray",
+    "black",
+    "dark",
+    "white",
+    "maroon",
+    "brown",
+    "chocolate",
+    "gold",
+    "golden",
+    "silver",
+    "navy",
+    "royal blue",
+    "aqua",
+    "turquoise",
+    "mint",
+    "olive",
+    "lavender",
+    "magenta",
+    "peach",
+    "cream",
+    "beige"
+  ];
+
+  const hexMatch = prompt.match(/#[0-9A-Fa-f]{6}/);
+
+  if (hexMatch) {
+    target.themeName = hexMatch[0];
+    target.colors = makeThemeFromColor(hexMatch[0]);
+    return;
+  }
+
+  for (const theme of knownThemes) {
+    if (p.includes(theme)) {
+      applyTheme(target, theme);
+      return;
+    }
+  }
+}
+
+function makeThemeFromColor(input) {
+  const colorMap = {
+    maroon: "#800000",
+    brown: "#92400e",
+    chocolate: "#7c2d12",
+    gold: "#ca8a04",
+    golden: "#ca8a04",
+    silver: "#64748b",
+    navy: "#1d4ed8",
+    royalblue: "#2563eb",
+    "royal blue": "#2563eb",
+    aqua: "#0891b2",
+    turquoise: "#0f766e",
+    mint: "#10b981",
+    olive: "#65a30d",
+    lavender: "#8b5cf6",
+    magenta: "#d946ef",
+    peach: "#fb923c",
+    cream: "#d97706",
+    beige: "#a16207"
+  };
+
+  let base = String(input || "saffron").toLowerCase().trim();
+
+  if (colorMap[base]) {
+    base = colorMap[base];
+  }
+
+  if (!/^#[0-9a-f]{6}$/i.test(base)) {
+    base = "#d97706";
+  }
+
+  const dark = isDarkColor(base);
+
+  const bg = dark ? mixColor(base, "#000000", 0.45) : mixColor(base, "#ffffff", 0.9);
+  const text = dark ? "#f8fafc" : "#241407";
+  const card = dark ? mixColor(base, "#000000", 0.25) : "#ffffff";
+  const primary = base;
+  const accent = mixColor(base, "#ffffff", 0.32);
+  const muted = dark ? "#cbd5e1" : mixColor(base, "#334155", 0.48);
+  const line = dark ? mixColor(base, "#ffffff", 0.25) : mixColor(base, "#ffffff", 0.72);
+
+  return {
+    bg,
+    text,
+    card,
+    primary,
+    accent,
+    muted,
+    line
+  };
+}
+
+function hexToRgb(hex) {
+  const clean = hex.replace("#", "");
+
+  return {
+    r: parseInt(clean.slice(0, 2), 16),
+    g: parseInt(clean.slice(2, 4), 16),
+    b: parseInt(clean.slice(4, 6), 16)
+  };
+}
+
+function rgbToHex(r, g, b) {
+  return (
+    "#" +
+    [r, g, b]
+      .map(value => {
+        const hex = Math.round(value).toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+      })
+      .join("")
+  );
+}
+
+function mixColor(color1, color2, weight = 0.5) {
+  const c1 = hexToRgb(color1);
+  const c2 = hexToRgb(color2);
+
+  const r = c1.r * (1 - weight) + c2.r * weight;
+  const g = c1.g * (1 - weight) + c2.g * weight;
+  const b = c1.b * (1 - weight) + c2.b * weight;
+
+  return rgbToHex(r, g, b);
+}
+
+function isDarkColor(hex) {
+  const { r, g, b } = hexToRgb(hex);
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness < 95;
 }
 
 function renderInputs() {
@@ -580,6 +834,7 @@ function buildWebsiteHTML() {
   html += ".btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}";
   html += ".btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:14px;background:var(--primary);color:white;font-weight:900}";
   html += ".btn.alt{background:var(--accent)}";
+  html += ".panel .btn{margin:4px 6px 4px 0}";
   html += ".grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}";
   html += ".two{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}";
   html += ".muted{color:var(--muted)}";
@@ -608,8 +863,9 @@ function buildWebsiteHTML() {
   html += "</nav>";
   html += "</div></header>";
 
+  html += "<main>";
+
   if (d.sections.includes("Hero")) {
-    html += "<main>";
     html += "<section class='wrap hero'>";
     html += "<div>";
     html += "<span class='pill'>" + safe(d.type) + "</span>";
