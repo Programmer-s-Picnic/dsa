@@ -1,144 +1,157 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Using var() and calc() in CSS — Reverse Text Color from Background</title>
 
-  <script
-    async
-    crossorigin="anonymous"
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
-  ></script>
+  <script async crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
 
-  <meta
-    name="description"
-    content="A complete beginner-friendly lesson on using var() and calc() in CSS, including how to derive a reverse text color from background color using CSS custom properties."
-  />
+  <meta name="description"
+    content="A complete beginner-friendly lesson on using var() and calc() in CSS, including how to derive a reverse text color from background color using CSS custom properties." />
   <meta name="theme-color" content="#d97706" />
 
   <style>
-    :root{
-      --bg:#fff8ef;
-      --panel:#ffffff;
-      --panel-2:#fff3df;
-      --ink:#1f2937;
-      --muted:#6b7280;
-      --brand:#d97706;
-      --brand-2:#f59e0b;
-      --line:#ead7c4;
-      --ok:#166534;
-      --ok-bg:#ecfdf3;
-      --warn-bg:#fff8e8;
-      --shadow:0 12px 35px rgba(0,0,0,.08);
-      --radius:22px;
-      --max:1200px;
-      --code:#111827;
-      --code-ink:#f9fafb;
+    :root {
+      --bg: #fff8ef;
+      --panel: #ffffff;
+      --panel-2: #fff3df;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --brand: #d97706;
+      --brand-2: #f59e0b;
+      --line: #ead7c4;
+      --ok: #166534;
+      --ok-bg: #ecfdf3;
+      --warn-bg: #fff8e8;
+      --shadow: 0 12px 35px rgba(0, 0, 0, .08);
+      --radius: 22px;
+      --max: 1200px;
+      --code: #111827;
+      --code-ink: #f9fafb;
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    * {
+      box-sizing: border-box
+    }
 
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      line-height:1.65;
-      color:var(--ink);
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+      color: var(--ink);
       background:
-        radial-gradient(circle at top right, rgba(245,158,11,.10), transparent 24rem),
+        radial-gradient(circle at top right, rgba(245, 158, 11, .10), transparent 24rem),
         linear-gradient(180deg, #fff9f1 0%, var(--bg) 100%);
     }
 
-    a{color:inherit}
-    img{max-width:100%;display:block}
-    code, pre, textarea, input{font-family:Consolas, Monaco, "Courier New", monospace}
-
-    .container{
-      width:min(var(--max), calc(100% - 28px));
-      margin:0 auto;
+    a {
+      color: inherit
     }
 
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:1000;
-      backdrop-filter:blur(10px);
-      background:rgba(255,248,239,.92);
-      border-bottom:1px solid var(--line);
+    img {
+      max-width: 100%;
+      display: block
     }
 
-    .topbar-inner{
-      min-height:68px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
+    code,
+    pre,
+    textarea,
+    input {
+      font-family: Consolas, Monaco, "Courier New", monospace
     }
 
-    .brand{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      text-decoration:none;
-      color:var(--brand);
-      font-weight:800;
+    .container {
+      width: min(var(--max), calc(100% - 28px));
+      margin: 0 auto;
     }
 
-    .brand-badge{
-      width:40px;
-      height:40px;
-      border-radius:12px;
-      display:grid;
-      place-items:center;
-      color:#fff;
-      background:linear-gradient(135deg,var(--brand),var(--brand-2));
-      box-shadow:var(--shadow);
-      font-size:1.1rem;
-      flex:0 0 auto;
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 248, 239, .92);
+      border-bottom: 1px solid var(--line);
     }
 
-    .nav{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
+    .topbar-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-    .nav a{
-      text-decoration:none;
-      padding:10px 12px;
-      border-radius:999px;
-      color:var(--muted);
-      font-weight:700;
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      text-decoration: none;
+      color: var(--brand);
+      font-weight: 800;
     }
 
-    .nav a:hover{
-      background:#fff;
-      color:var(--brand);
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: var(--shadow);
+      font-size: 1.1rem;
+      flex: 0 0 auto;
     }
 
-    .nav-toggle{
-      display:none;
-      border:none;
-      background:#fff;
-      color:var(--brand);
-      border:1px solid var(--line);
-      border-radius:12px;
-      padding:10px 12px;
-      font-weight:800;
-      cursor:pointer;
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
     }
 
-    .hero{
-      padding:40px 0 24px;
+    .nav a {
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-weight: 700;
     }
 
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.12fr .88fr;
-      gap:22px;
-      align-items:stretch;
+    .nav a:hover {
+      background: #fff;
+      color: var(--brand);
+    }
+
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: #fff;
+      color: var(--brand);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 40px 0 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 22px;
+      align-items: stretch;
     }
 
     .hero-card,
@@ -146,323 +159,328 @@
     .lesson-card,
     .check-card,
     .tip-card,
-    .project-preview{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
+    .project-preview {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
 
     .hero-card,
     .side-card,
-    .lesson-card{
-      padding:24px;
+    .lesson-card {
+      padding: 24px;
     }
 
-    .hero h1{
-      margin:0 0 10px;
-      line-height:1.1;
-      font-size:clamp(2rem,5vw,3.4rem);
+    .hero h1 {
+      margin: 0 0 10px;
+      line-height: 1.1;
+      font-size: clamp(2rem, 5vw, 3.4rem);
     }
 
-    .eyebrow{
-      margin:0 0 8px;
-      color:var(--brand);
-      font-weight:800;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-      font-size:.85rem;
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--brand);
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: .85rem;
     }
 
-    .hero p{
-      color:var(--muted);
-      margin:0;
+    .hero p {
+      color: var(--muted);
+      margin: 0;
     }
 
-    .hero-actions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:18px;
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
     }
 
-    .btn{
-      border:none;
-      border-radius:14px;
-      padding:12px 16px;
-      font-weight:800;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      transition:transform .2s ease, box-shadow .2s ease;
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform .2s ease, box-shadow .2s ease;
     }
 
-    .btn:hover{transform:translateY(-2px)}
-
-    .btn-primary{
-      background:linear-gradient(135deg,var(--brand),var(--brand-2));
-      color:#fff;
-      box-shadow:0 10px 24px rgba(217,119,6,.24);
+    .btn:hover {
+      transform: translateY(-2px)
     }
 
-    .btn-secondary{
-      background:#fff;
-      color:var(--brand);
-      border:1px solid var(--line);
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(217, 119, 6, .24);
     }
 
-    .pill-row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:12px;
+    .btn-secondary {
+      background: #fff;
+      color: var(--brand);
+      border: 1px solid var(--line);
     }
 
-    .pill{
-      background:var(--panel-2);
-      border:1px solid var(--line);
-      color:var(--brand);
-      border-radius:999px;
-      padding:8px 12px;
-      font-weight:800;
-      font-size:.92rem;
+    .pill-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
     }
 
-    .mini-list{
-      display:grid;
-      gap:10px;
-      margin-top:14px;
+    .pill {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      color: var(--brand);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 800;
+      font-size: .92rem;
     }
 
-    .mini-item{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:12px 14px;
+    .mini-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 320px;
-      gap:22px;
-      margin:14px auto 36px;
+    .mini-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
     }
 
-    .toc{
-      position:sticky;
-      top:88px;
-      align-self:start;
-      padding:18px;
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 22px;
+      margin: 14px auto 36px;
     }
 
-    .toc h3{
-      margin:0 0 12px;
-      font-size:1rem;
+    .toc {
+      position: sticky;
+      top: 88px;
+      align-self: start;
+      padding: 18px;
     }
 
-    .toc a{
-      display:block;
-      text-decoration:none;
-      padding:10px 12px;
-      border-radius:12px;
-      color:var(--muted);
-      font-weight:700;
+    .toc h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
     }
 
-    .toc a:hover{
-      background:var(--panel-2);
-      color:var(--brand);
+    .toc a {
+      display: block;
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-weight: 700;
     }
 
-    .lesson-card{
-      margin-bottom:20px;
-      scroll-margin-top:90px;
+    .toc a:hover {
+      background: var(--panel-2);
+      color: var(--brand);
     }
 
-    .lesson-card h2{
-      margin:0 0 8px;
-      font-size:clamp(1.4rem,3vw,2rem);
+    .lesson-card {
+      margin-bottom: 20px;
+      scroll-margin-top: 90px;
     }
 
-    .lesson-card h3{
-      margin-top:24px;
-      margin-bottom:8px;
+    .lesson-card h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.4rem, 3vw, 2rem);
     }
 
-    .muted{color:var(--muted)}
-
-    .step-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:8px;
+    .lesson-card h3 {
+      margin-top: 24px;
+      margin-bottom: 8px;
     }
 
-    .step-no{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:44px;
-      height:44px;
-      border-radius:14px;
-      background:linear-gradient(135deg,var(--brand),var(--brand-2));
-      color:#fff;
-      font-weight:900;
-      box-shadow:0 8px 20px rgba(217,119,6,.22);
+    .muted {
+      color: var(--muted)
     }
 
-    .two-col{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
     }
 
-    .three-col{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:16px;
+    .step-no {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #fff;
+      font-weight: 900;
+      box-shadow: 0 8px 20px rgba(217, 119, 6, .22);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
     .explain,
     .check-card,
-    .tip-card{
-      padding:16px 18px;
-      margin-top:14px;
+    .tip-card {
+      padding: 16px 18px;
+      margin-top: 14px;
     }
 
-    .explain{
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:#fffdf9;
+    .explain {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fffdf9;
     }
 
-    .check-card{
-      background:var(--ok-bg);
-      border:1px solid #b7ebcb;
+    .check-card {
+      background: var(--ok-bg);
+      border: 1px solid #b7ebcb;
     }
 
     .check-card h4,
-    .tip-card h4{
-      margin:0 0 8px;
+    .tip-card h4 {
+      margin: 0 0 8px;
     }
 
-    .tip-card{
-      background:var(--warn-bg);
-      border:1px solid #f6dfb0;
+    .tip-card {
+      background: var(--warn-bg);
+      border: 1px solid #f6dfb0;
     }
 
-    .code-wrap{
-      margin-top:14px;
-      border-radius:18px;
-      overflow:hidden;
-      border:1px solid #1f2937;
-      box-shadow:var(--shadow);
+    .code-wrap {
+      margin-top: 14px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid #1f2937;
+      box-shadow: var(--shadow);
     }
 
-    .code-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:10px 14px;
-      background:#0f172a;
-      color:#e5e7eb;
-      border-bottom:1px solid rgba(255,255,255,.08);
+    .code-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #0f172a;
+      color: #e5e7eb;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
     }
 
-    .code-title{
-      font-weight:800;
-      font-size:.95rem;
+    .code-title {
+      font-weight: 800;
+      font-size: .95rem;
     }
 
-    .copy-btn{
-      border:none;
-      border-radius:10px;
-      padding:9px 12px;
-      background:#1f2937;
-      color:#fff;
-      cursor:pointer;
-      font-weight:800;
+    .copy-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 9px 12px;
+      background: #1f2937;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 800;
     }
 
-    .copy-btn:hover{
-      background:#374151;
+    .copy-btn:hover {
+      background: #374151;
     }
 
-    pre{
-      margin:0;
-      padding:18px;
-      overflow:auto;
-      background:var(--code);
-      color:var(--code-ink);
-      font-size:.94rem;
-      line-height:1.6;
-      tab-size:2;
+    pre {
+      margin: 0;
+      padding: 18px;
+      overflow: auto;
+      background: var(--code);
+      color: var(--code-ink);
+      font-size: .94rem;
+      line-height: 1.6;
+      tab-size: 2;
     }
 
-    .inline-code{
-      background:#fff2dd;
-      border:1px solid #f0d6aa;
-      padding:.1rem .4rem;
-      border-radius:8px;
-      font-size:.95em;
+    .inline-code {
+      background: #fff2dd;
+      border: 1px solid #f0d6aa;
+      padding: .1rem .4rem;
+      border-radius: 8px;
+      font-size: .95em;
     }
 
-    ul.clean, ol.clean{
-      padding-left:20px;
-      margin:10px 0 0;
+    ul.clean,
+    ol.clean {
+      padding-left: 20px;
+      margin: 10px 0 0;
     }
 
-    .demo-shell{
-      margin-top:18px;
-      border:1px solid var(--line);
-      border-radius:20px;
-      overflow:hidden;
-      background:#fff;
-      box-shadow:var(--shadow);
+    .demo-shell {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow);
     }
 
-    .demo-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:14px 18px;
-      background:linear-gradient(90deg,#fff6e8,#fffdf7);
-      border-bottom:1px solid var(--line);
-      flex-wrap:wrap;
+    .demo-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(90deg, #fff6e8, #fffdf7);
+      border-bottom: 1px solid var(--line);
+      flex-wrap: wrap;
     }
 
-    .demo-head h3{
-      margin:0;
-      color:var(--brand);
-      font-size:1.08rem;
+    .demo-head h3 {
+      margin: 0;
+      color: var(--brand);
+      font-size: 1.08rem;
     }
 
-    .demo-note{
-      color:var(--muted);
-      font-size:.95rem;
-      margin-top:4px;
+    .demo-note {
+      color: var(--muted);
+      font-size: .95rem;
+      margin-top: 4px;
     }
 
-    .play-area{
-      padding:18px;
-      background:#fffdf9;
+    .play-area {
+      padding: 18px;
+      background: #fffdf9;
     }
 
-    .preview-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:16px;
-      margin-top:12px;
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 12px;
     }
 
-    .reverse-card{
+    .reverse-card {
       --bg-r: 34;
       --bg-g: 120;
       --bg-b: 200;
@@ -471,101 +489,102 @@
       --reverse-b: calc(255 - var(--bg-b));
       background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
       color: rgb(var(--reverse-r), var(--reverse-g), var(--reverse-b));
-      border-radius:18px;
-      min-height:140px;
-      padding:18px;
-      border:1px solid rgba(0,0,0,.08);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      box-shadow:var(--shadow);
+      border-radius: 18px;
+      min-height: 140px;
+      padding: 18px;
+      border: 1px solid rgba(0, 0, 0, .08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: var(--shadow);
     }
 
-    .reverse-card strong{
-      font-size:1.05rem;
-      margin-bottom:6px;
+    .reverse-card strong {
+      font-size: 1.05rem;
+      margin-bottom: 6px;
     }
 
-    .swatch-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:12px;
-      margin-top:14px;
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 14px;
     }
 
-    .swatch{
-      border-radius:16px;
-      padding:14px;
-      min-height:110px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      font-weight:900;
-      border:1px solid rgba(0,0,0,.08);
+    .swatch {
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 900;
+      border: 1px solid rgba(0, 0, 0, .08);
     }
 
-    .formula-box{
-      border:1px dashed #e7c995;
-      background:#fffdf8;
-      border-radius:18px;
-      padding:16px;
-      margin-top:14px;
+    .formula-box {
+      border: 1px dashed #e7c995;
+      background: #fffdf8;
+      border-radius: 18px;
+      padding: 16px;
+      margin-top: 14px;
     }
 
-    table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:14px;
-      overflow:hidden;
-      border-radius:14px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      overflow: hidden;
+      border-radius: 14px;
     }
 
-    th,td{
-      border:1px solid var(--line);
-      padding:12px;
-      text-align:left;
-      vertical-align:top;
-      background:#fff;
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+      background: #fff;
     }
 
-    th{
-      background:#fff5e8;
-      color:var(--brand);
+    th {
+      background: #fff5e8;
+      color: var(--brand);
     }
 
-    .lab-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-      margin-top:16px;
+    .lab-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
     }
 
-    .control-card{
-      background:#fffdf9;
-      border:1px solid #efdcb7;
-      border-radius:18px;
-      padding:16px;
+    .control-card {
+      background: #fffdf9;
+      border: 1px solid #efdcb7;
+      border-radius: 18px;
+      padding: 16px;
     }
 
-    .control-card label{
-      display:block;
-      font-weight:800;
-      margin:0 0 8px;
-      color:#92400e;
+    .control-card label {
+      display: block;
+      font-weight: 800;
+      margin: 0 0 8px;
+      color: #92400e;
     }
 
-    .control-card input[type="range"]{
-      width:100%;
+    .control-card input[type="range"] {
+      width: 100%;
     }
 
-    .value-row{
-      margin-top:8px;
-      color:var(--muted);
-      font-weight:700;
+    .value-row {
+      margin-top: 8px;
+      color: var(--muted);
+      font-weight: 700;
     }
 
-    .lab-preview{
+    .lab-preview {
       --bg-r: 40;
       --bg-g: 120;
       --bg-b: 210;
@@ -574,141 +593,153 @@
       --reverse-b: calc(255 - var(--bg-b));
       background: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
       color: rgb(var(--reverse-r), var(--reverse-g), var(--reverse-b));
-      border-radius:20px;
-      min-height:220px;
-      display:grid;
-      place-items:center;
-      text-align:center;
-      padding:18px;
-      border:1px solid rgba(0,0,0,.08);
-      transition:background .2s ease, color .2s ease;
+      border-radius: 20px;
+      min-height: 220px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 18px;
+      border: 1px solid rgba(0, 0, 0, .08);
+      transition: background .2s ease, color .2s ease;
     }
 
-    .lab-preview .inner{
-      max-width:380px;
+    .lab-preview .inner {
+      max-width: 380px;
     }
 
-    .big-code{
-      font-size:1rem;
-      font-weight:900;
-      line-height:1.5;
-      word-break:break-word;
+    .big-code {
+      font-size: 1rem;
+      font-weight: 900;
+      line-height: 1.5;
+      word-break: break-word;
     }
 
-    .project-preview{
-      padding:20px;
-      background:linear-gradient(180deg,#fff,#fff8ef);
+    .project-preview {
+      padding: 20px;
+      background: linear-gradient(180deg, #fff, #fff8ef);
     }
 
-    .project-frame{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:20px;
-      padding:18px;
-      margin-top:14px;
+    .project-frame {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 14px;
     }
 
-    .project-card-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
+    .project-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
     }
 
-    .project-mini{
+    .project-mini {
       --bg-r: 70;
       --bg-g: 80;
       --bg-b: 200;
       --reverse-r: calc(255 - var(--bg-r));
       --reverse-g: calc(255 - var(--bg-g));
       --reverse-b: calc(255 - var(--bg-b));
-      background:rgb(var(--bg-r), var(--bg-g), var(--bg-b));
-      color:rgb(var(--reverse-r), var(--reverse-g), var(--reverse-b));
-      border-radius:16px;
-      padding:16px;
-      min-height:120px;
-      display:grid;
-      place-items:center;
-      text-align:center;
-      border:1px solid rgba(0,0,0,.08);
-      font-weight:800;
+      background: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+      color: rgb(var(--reverse-r), var(--reverse-g), var(--reverse-b));
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 120px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 1px solid rgba(0, 0, 0, .08);
+      font-weight: 800;
     }
 
-    .footer{
-      padding:28px 0 60px;
-      text-align:center;
-      color:var(--muted);
+    .footer {
+      padding: 28px 0 60px;
+      text-align: center;
+      color: var(--muted);
     }
 
-    [id^="speak"]{
-      scroll-margin-top:100px;
+    [id^="speak"] {
+      scroll-margin-top: 100px;
     }
 
-    @media (max-width: 980px){
+    @media (max-width: 980px) {
+
       .hero-grid,
       .main-grid,
       .two-col,
       .three-col,
       .lab-grid,
       .preview-grid,
-      .project-card-grid{
-        grid-template-columns:1fr;
+      .project-card-grid {
+        grid-template-columns: 1fr;
       }
 
-      .toc{
-        position:relative;
-        top:0;
-        order:-1;
+      .toc {
+        position: relative;
+        top: 0;
+        order: -1;
       }
 
-      .swatch-grid{
-        grid-template-columns:repeat(2,1fr);
+      .swatch-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 760px){
-      .nav{
-        display:none;
-        width:100%;
-        flex-direction:column;
-        align-items:stretch;
-        padding:10px 0 2px;
+    @media (max-width: 760px) {
+      .nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 0 2px;
       }
 
-      .nav.open{
-        display:flex;
+      .nav.open {
+        display: flex;
       }
 
-      .nav a{
-        background:#fff;
-        border:1px solid var(--line);
+      .nav a {
+        background: #fff;
+        border: 1px solid var(--line);
       }
 
-      .nav-toggle{
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
+      .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      .topbar-inner{
-        align-items:flex-start;
-        flex-direction:column;
-        padding:12px 0;
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
       }
 
-      .topbar-row{
-        width:100%;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:12px;
+      .topbar-row {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
       }
 
-      .hero-card,.side-card,.lesson-card{padding:18px}
-      pre{font-size:.88rem}
-      .swatch-grid{grid-template-columns:1fr}
+      .hero-card,
+      .side-card,
+      .lesson-card {
+        padding: 18px
+      }
+
+      pre {
+        font-size: .88rem
+      }
+
+      .swatch-grid {
+        grid-template-columns: 1fr
+      }
     }
   </style>
 </head>
+
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
@@ -737,9 +768,11 @@
     <div class="container hero-grid">
       <div class="hero-card">
         <p class="eyebrow" id="speak0" data-pp-speak-title="true">CSS Lesson • Custom Properties + Math</p>
-        <h1 id="speak1">Using <span class="inline-code">var()</span> and <span class="inline-code">calc()</span> in CSS</h1>
+        <h1 id="speak1">Using <span class="inline-code">var()</span> and <span class="inline-code">calc()</span> in CSS
+        </h1>
         <p id="speak2">
-          This lesson teaches what <span class="inline-code">var()</span> and <span class="inline-code">calc()</span> do,
+          This lesson teaches what <span class="inline-code">var()</span> and <span class="inline-code">calc()</span>
+          do,
           why they are useful, and how to use them together to set text color as the reverse of the background color.
         </p>
 
@@ -760,12 +793,18 @@
       <aside class="side-card">
         <h3 id="speak3" style="margin-top:0;">What students will learn</h3>
         <div class="mini-list">
-          <div class="mini-item" id="speak4"><strong>What is var()</strong><br /><span class="muted">Read values from CSS variables</span></div>
-          <div class="mini-item" id="speak5"><strong>What is calc()</strong><br /><span class="muted">Do math directly in CSS</span></div>
-          <div class="mini-item" id="speak6"><strong>Store RGB values</strong><br /><span class="muted">Use separate red, green, blue variables</span></div>
-          <div class="mini-item" id="speak7"><strong>Reverse text color</strong><br /><span class="muted">Use 255 minus each channel</span></div>
-          <div class="mini-item" id="speak8"><strong>Build flexible UI</strong><br /><span class="muted">Reuse values across many elements</span></div>
-          <div class="mini-item" id="speak9"><strong>Avoid mistakes</strong><br /><span class="muted">Understand the limits of CSS color math</span></div>
+          <div class="mini-item" id="speak4"><strong>What is var()</strong><br /><span class="muted">Read values from
+              CSS variables</span></div>
+          <div class="mini-item" id="speak5"><strong>What is calc()</strong><br /><span class="muted">Do math directly
+              in CSS</span></div>
+          <div class="mini-item" id="speak6"><strong>Store RGB values</strong><br /><span class="muted">Use separate
+              red, green, blue variables</span></div>
+          <div class="mini-item" id="speak7"><strong>Reverse text color</strong><br /><span class="muted">Use 255 minus
+              each channel</span></div>
+          <div class="mini-item" id="speak8"><strong>Build flexible UI</strong><br /><span class="muted">Reuse values
+              across many elements</span></div>
+          <div class="mini-item" id="speak9"><strong>Avoid mistakes</strong><br /><span class="muted">Understand the
+              limits of CSS color math</span></div>
         </div>
       </aside>
     </div>
@@ -777,7 +816,8 @@
         <h2 id="speak10">Lesson Goal</h2>
         <p class="muted" id="speak11">
           CSS variables help us store reusable values. CSS math helps us calculate new values from existing ones.
-          In this lesson, we will use both to create a background color and then automatically derive a reversed text color.
+          In this lesson, we will use both to create a background color and then automatically derive a reversed text
+          color.
         </p>
 
         <div class="two-col">
@@ -874,14 +914,17 @@
             <span class="step-no">2</span>
             <div>
               <h2 id="speak24" style="margin:0;">Step 2 — Why we store RGB channels separately</h2>
-              <p class="muted" style="margin:4px 0 0;" id="speak25">This is the key to reversing color with CSS math.</p>
+              <p class="muted" style="margin:4px 0 0;" id="speak25">This is the key to reversing color with CSS math.
+              </p>
             </div>
           </div>
         </div>
 
         <div class="explain" id="speak26">
-          CSS cannot easily take a full hex color like <span class="inline-code">#2a78c8</span> and directly reverse it with
-          pure <span class="inline-code">calc()</span>. A much better method is to store the red, green, and blue channels separately.
+          CSS cannot easily take a full hex color like <span class="inline-code">#2a78c8</span> and directly reverse it
+          with
+          pure <span class="inline-code">calc()</span>. A much better method is to store the red, green, and blue
+          channels separately.
         </div>
 
         <div class="code-wrap">
@@ -950,7 +993,8 @@
         <div class="check-card">
           <h4>Check</h4>
           <p style="margin:0;" id="speak31">
-            Background and text are now mathematically linked. Change the background channels once, and the text color updates automatically.
+            Background and text are now mathematically linked. Change the background channels once, and the text color
+            updates automatically.
           </p>
         </div>
       </section>
@@ -991,8 +1035,10 @@
         <div class="tip-card">
           <h4 id="speak34">Important note</h4>
           <p style="margin:0;" id="speak35">
-            This creates an inverted or reversed RGB color. It is not always the same as the best accessible contrast color,
-            but it is excellent for teaching <span class="inline-code">var()</span> and <span class="inline-code">calc()</span>.
+            This creates an inverted or reversed RGB color. It is not always the same as the best accessible contrast
+            color,
+            but it is excellent for teaching <span class="inline-code">var()</span> and <span
+              class="inline-code">calc()</span>.
           </p>
         </div>
       </section>
@@ -1000,7 +1046,8 @@
       <section class="lesson-card" id="lab">
         <h2 id="speak36">Live Reverse Color Lab</h2>
         <p class="muted" id="speak37">
-          Move the sliders to change the background. The text color will update automatically using CSS variables and CSS math.
+          Move the sliders to change the background. The text color will update automatically using CSS variables and
+          CSS math.
         </p>
 
         <div class="demo-shell">
@@ -1031,7 +1078,8 @@
                 <div id="labPreview" class="lab-preview">
                   <div class="inner">
                     <div class="big-code" id="previewText">Reverse Text Color Preview</div>
-                    <p style="margin:10px 0 0;">Change the sliders. The background and text colors are linked by CSS math.</p>
+                    <p style="margin:10px 0 0;">Change the sliders. The background and text colors are linked by CSS
+                      math.</p>
                   </div>
                 </div>
 
@@ -1082,7 +1130,8 @@
             <div class="project-card-grid">
               <div class="project-mini" style="--bg-r:24; --bg-g:94; --bg-b:180;">Blue box<br />auto reverse text</div>
               <div class="project-mini" style="--bg-r:170; --bg-g:60; --bg-b:48;">Rust box<br />auto reverse text</div>
-              <div class="project-mini" style="--bg-r:72; --bg-g:150; --bg-b:112;">Green box<br />auto reverse text</div>
+              <div class="project-mini" style="--bg-r:72; --bg-g:150; --bg-b:112;">Green box<br />auto reverse text
+              </div>
             </div>
           </div>
         </div>
@@ -1308,5 +1357,7 @@
       });
     }
   </script>
+  <script src="https://programmer-s-picnic.github.io/json-images/pwd.js"></script>
 </body>
+
 </html>
