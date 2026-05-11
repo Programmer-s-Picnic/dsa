@@ -1,0 +1,1558 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Computer Jinn | Introductory Programming Lesson</title>
+  <meta name="description" content="A beginner-friendly lesson explaining computer, program, language, IDE, editor, compiler, interpreter, loader, virtual machine and more using the Computer Jinn metaphor." />
+  <meta name="theme-color" content="#f59e0b" />
+
+  <style>
+    :root {
+      --bg: #fff7ed;
+      --bg2: #fffbeb;
+      --panel: rgba(255, 255, 255, 0.88);
+      --ink: #231305;
+      --muted: #74512d;
+      --line: rgba(146, 64, 14, 0.18);
+      --saffron: #f59e0b;
+      --saffron2: #f97316;
+      --deep: #7c2d12;
+      --green: #15803d;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --danger: #dc2626;
+      --shadow: 0 22px 60px rgba(146, 64, 14, 0.16);
+      --radius: 24px;
+      --codebg: #1f1408;
+      --codefg: #fff7ed;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(245, 158, 11, 0.28), transparent 34rem),
+        radial-gradient(circle at top right, rgba(249, 115, 22, 0.18), transparent 34rem),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--deep);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(255, 247, 237, 0.86);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 950;
+      color: var(--deep);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--saffron), var(--saffron2));
+      color: white;
+      box-shadow: 0 10px 24px rgba(249, 115, 22, 0.25);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      font-size: 13px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid var(--line);
+      color: var(--deep);
+      text-decoration: none;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 18px 70px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255, 247, 237, 0.76)),
+        radial-gradient(circle at 80% 10%, rgba(245, 158, 11, 0.34), transparent 24rem);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 42px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.14);
+      border: 1px solid rgba(245, 158, 11, 0.32);
+      color: var(--deep);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(34px, 6vw, 68px);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      color: var(--deep);
+    }
+
+    .lead {
+      font-size: clamp(17px, 2vw, 22px);
+      color: var(--muted);
+      max-width: 760px;
+      margin: 0;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 12px 17px;
+      font-weight: 950;
+      box-shadow: 0 12px 26px rgba(124, 45, 18, 0.12);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--saffron), var(--saffron2));
+      color: white;
+    }
+
+    .btn-soft {
+      background: white;
+      color: var(--deep);
+      border: 1px solid var(--line);
+    }
+
+    .jinn-card {
+      position: relative;
+      min-height: 380px;
+      border-radius: 34px;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      background:
+        radial-gradient(circle at 50% 24%, rgba(255, 255, 255, 0.95), rgba(255, 237, 213, 0.74) 42%, rgba(251, 146, 60, 0.24)),
+        linear-gradient(135deg, #fff7ed, #ffedd5);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .jinn-card::before {
+      content: "";
+      position: absolute;
+      width: 270px;
+      height: 270px;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, 0.16);
+      filter: blur(2px);
+      animation: pulse 4s infinite ease-in-out;
+    }
+
+    .jinn {
+      position: relative;
+      width: 230px;
+      height: 280px;
+    }
+
+    .jinn .head {
+      position: absolute;
+      left: 50%;
+      top: 18px;
+      transform: translateX(-50%);
+      width: 118px;
+      height: 104px;
+      border-radius: 48% 48% 44% 44%;
+      background: linear-gradient(145deg, #f59e0b, #fb923c);
+      box-shadow: inset -14px -16px 0 rgba(124, 45, 18, 0.12);
+    }
+
+    .jinn .turban {
+      position: absolute;
+      left: 50%;
+      top: -4px;
+      transform: translateX(-50%);
+      width: 142px;
+      height: 48px;
+      background: #fff7ed;
+      border: 4px solid #fed7aa;
+      border-radius: 999px;
+      box-shadow: 0 8px 20px rgba(124, 45, 18, 0.12);
+    }
+
+    .jinn .gem {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background: #dc2626;
+      box-shadow: 0 0 0 5px rgba(220,38,38,0.14);
+    }
+
+    .eye {
+      position: absolute;
+      top: 48px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #2b1607;
+    }
+
+    .eye.left { left: 38px; }
+    .eye.right { right: 38px; }
+
+    .smile {
+      position: absolute;
+      left: 50%;
+      top: 70px;
+      transform: translateX(-50%);
+      width: 38px;
+      height: 18px;
+      border-bottom: 4px solid #2b1607;
+      border-radius: 0 0 40px 40px;
+    }
+
+    .body {
+      position: absolute;
+      left: 50%;
+      top: 108px;
+      transform: translateX(-50%);
+      width: 168px;
+      height: 146px;
+      border-radius: 70px 70px 34px 34px;
+      background: linear-gradient(145deg, #f97316, #f59e0b);
+      box-shadow: inset -18px -20px 0 rgba(124, 45, 18, 0.14);
+    }
+
+    .arm {
+      position: absolute;
+      top: 136px;
+      width: 82px;
+      height: 28px;
+      border-radius: 999px;
+      background: #f97316;
+    }
+
+    .arm.left {
+      left: 4px;
+      transform: rotate(-28deg);
+    }
+
+    .arm.right {
+      right: 4px;
+      transform: rotate(28deg);
+    }
+
+    .tail {
+      position: absolute;
+      left: 50%;
+      bottom: 4px;
+      transform: translateX(-50%);
+      width: 92px;
+      height: 88px;
+      background: linear-gradient(145deg, #fb923c, #f59e0b);
+      clip-path: polygon(50% 0, 100% 58%, 63% 52%, 82% 100%, 34% 66%, 0 78%);
+      opacity: 0.9;
+    }
+
+    .command-scroll {
+      position: absolute;
+      right: 22px;
+      bottom: 24px;
+      width: 150px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line);
+      padding: 13px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      color: var(--deep);
+      box-shadow: 0 12px 30px rgba(124, 45, 18, 0.16);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.72; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    .section {
+      margin-top: 28px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: clamp(26px, 3.2vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: var(--deep);
+    }
+
+    .section h3 {
+      margin: 26px 0 8px;
+      font-size: 23px;
+      color: #9a3412;
+      letter-spacing: -0.02em;
+    }
+
+    .section p {
+      margin: 10px 0;
+    }
+
+    .big-idea {
+      font-size: 20px;
+      border-left: 6px solid var(--saffron);
+      padding: 16px 18px;
+      background: rgba(245, 158, 11, 0.12);
+      border-radius: 18px;
+      color: var(--deep);
+      font-weight: 750;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 14px 30px rgba(124, 45, 18, 0.08);
+    }
+
+    .card .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: rgba(245, 158, 11, 0.16);
+      color: var(--deep);
+      font-weight: 950;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      margin: 0 0 7px;
+      font-size: 19px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .flow span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--line);
+      color: var(--deep);
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(124,45,18,0.08);
+    }
+
+    .arrow {
+      font-weight: 950;
+      color: var(--saffron2);
+      font-size: 24px;
+    }
+
+    pre {
+      background: var(--codebg);
+      color: var(--codefg);
+      border-radius: 20px;
+      padding: 18px;
+      overflow: auto;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95em;
+    }
+
+    .inline-code {
+      background: rgba(124, 45, 18, 0.08);
+      color: var(--deep);
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-weight: 800;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+      background: white;
+      margin-top: 18px;
+      border: 1px solid var(--line);
+    }
+
+    th, td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(245, 158, 11, 0.14);
+      color: var(--deep);
+      font-weight: 950;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.14);
+      border: 1px solid rgba(245, 158, 11, 0.24);
+      color: var(--deep);
+      font-weight: 900;
+      font-size: 12px;
+      margin: 3px;
+    }
+
+    .practice {
+      background:
+        radial-gradient(circle at top right, rgba(245, 158, 11, 0.18), transparent 22rem),
+        white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+      margin-top: 16px;
+    }
+
+    .practice ol {
+      margin-bottom: 0;
+    }
+
+    .warning {
+      border-left: 6px solid var(--danger);
+      background: rgba(220, 38, 38, 0.08);
+      color: #7f1d1d;
+      padding: 14px 16px;
+      border-radius: 16px;
+      font-weight: 800;
+    }
+
+    .success {
+      border-left: 6px solid var(--green);
+      background: rgba(21, 128, 61, 0.08);
+      color: #14532d;
+      padding: 14px 16px;
+      border-radius: 16px;
+      font-weight: 800;
+    }
+
+    .mini-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 950;
+      margin-bottom: 8px;
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .toc a {
+      display: inline-flex;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--line);
+      color: var(--deep);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 700;
+      padding: 28px;
+    }
+
+    .quiz details {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-top: 10px;
+    }
+
+    .quiz summary {
+      cursor: pointer;
+      font-weight: 950;
+      color: var(--deep);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .diagram {
+      width: 100%;
+      max-width: 920px;
+      display: block;
+      margin: 18px auto 8px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 28px;
+      }
+
+      .grid,
+      .grid.two {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .section {
+        padding: 21px;
+      }
+
+      .jinn-card {
+        min-height: 330px;
+      }
+    }
+
+    @media print {
+      .topbar,
+      .hero-actions {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .section,
+      .hero {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-badge">J</div>
+        <div>Programmers Picnic AI-ML Classes by Champak Roy</div>
+      </div>
+
+      <nav class="nav">
+        <a href="#idea">Idea</a>
+        <a href="#program">Program</a>
+        <a href="#language">Language</a>
+        <a href="#ide">IDE</a>
+        <a href="#compiler">Compiler</a>
+        <a href="#vm">VM</a>
+        <a href="#practice">Practice</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Lesson 0 · For Total Novices</div>
+        <h1>The Computer Is a Jinn Who Obeys Commands</h1>
+        <p class="lead">
+          Before we learn coding, we need one beautiful picture in the mind:
+          the computer itself is a powerful jinn. It is fast, obedient, tireless,
+          and literal. It does not guess your wish. It follows your command.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#idea">Start Lesson</a>
+          <button class="btn btn-soft" onclick="window.print()">Print Lesson</button>
+        </div>
+      </div>
+
+      <div class="jinn-card" aria-label="Computer jinn illustration">
+        <div class="jinn">
+          <div class="tail"></div>
+          <div class="body"></div>
+          <div class="arm left"></div>
+          <div class="arm right"></div>
+          <div class="head">
+            <div class="turban"></div>
+            <div class="gem"></div>
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+            <div class="smile"></div>
+          </div>
+        </div>
+
+        <div class="command-scroll">
+          print("Hello")<br />
+          add(2, 3)<br />
+          repeat(5)
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="mini-title">Table of Contents</div>
+      <div class="toc">
+        <a href="#idea">1. The Big Idea</a>
+        <a href="#commands">2. Commands</a>
+        <a href="#program">3. Program</a>
+        <a href="#language">4. Language</a>
+        <a href="#editor">5. Editor</a>
+        <a href="#ide">6. IDE</a>
+        <a href="#compiler">7. Compiler</a>
+        <a href="#interpreter">8. Interpreter</a>
+        <a href="#loader">9. Loader</a>
+        <a href="#vm">10. Virtual Machine</a>
+        <a href="#terminal">11. Terminal</a>
+        <a href="#summary">12. Summary</a>
+      </div>
+    </section>
+
+    <section class="section" id="idea">
+      <h2>1. The Big Idea: Computer = Jinn</h2>
+
+      <p class="big-idea">
+        The computer itself is the jinn. A program is the written command scroll.
+        Programming is the art of writing clear commands for this computer-jinn.
+      </p>
+
+      <p>
+        Imagine you own a very powerful jinn. This jinn can calculate, draw,
+        store information, search, display videos, run games, open websites,
+        play music, and even help build artificial intelligence.
+      </p>
+
+      <p>
+        But this jinn has one strict rule:
+      </p>
+
+      <p class="warning">
+        It does not understand vague wishes. It only obeys clear, exact, step-by-step commands.
+      </p>
+
+      <p>
+        If you tell a human, “Make tea,” the human understands many hidden steps.
+        But if you tell the computer-jinn, “Make tea,” it will not understand
+        unless every step is clearly written.
+      </p>
+
+      <pre><code>Step 1: Take water
+Step 2: Heat water
+Step 3: Add tea leaves
+Step 4: Add milk
+Step 5: Add sugar
+Step 6: Pour into cup
+Step 7: Stop</code></pre>
+
+      <p>
+        This step-by-step method is called an <strong>algorithm</strong>.
+      </p>
+    </section>
+
+    <section class="section" id="commands">
+      <h2>2. Commands: How We Speak to the Jinn</h2>
+
+      <p>
+        A command is an instruction. When you write code, you are writing commands.
+      </p>
+
+      <pre><code>print("Hello, Computer Jinn!")</code></pre>
+
+      <p>
+        This command tells the computer-jinn:
+      </p>
+
+      <div class="flow">
+        <span>Take this text</span>
+        <span class="arrow">→</span>
+        <span>Show it on screen</span>
+      </div>
+
+      <p>
+        The computer does not ask, “Why should I show it?” It simply obeys.
+      </p>
+
+      <div class="success">
+        Good programming begins with clear thinking. Clear thinking becomes clear commands.
+      </div>
+    </section>
+
+    <section class="section" id="program">
+      <h2>3. What Is a Program?</h2>
+
+      <p>
+        A <strong>program</strong> is a collection of commands written for the computer.
+        It is like a command scroll given to the computer-jinn.
+      </p>
+
+      <pre><code>print("Welcome")
+print("Today we begin programming")
+print("The computer obeys clear commands")</code></pre>
+
+      <p>
+        This program has three commands. The computer follows them one by one.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Line</th>
+            <th>Command</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><code>print("Welcome")</code></td>
+            <td>Show the word Welcome.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><code>print("Today we begin programming")</code></td>
+            <td>Show the second message.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><code>print("The computer obeys clear commands")</code></td>
+            <td>Show the third message.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="language">
+      <h2>4. What Is a Programming Language?</h2>
+
+      <p>
+        The computer-jinn does not directly understand ordinary English. It needs
+        commands written in a special style. This special style is called a
+        <strong>programming language</strong>.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="icon">Py</div>
+          <h3>Python</h3>
+          <p>Simple and beginner-friendly. Used in AI, ML, web, data, automation and education.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">JS</div>
+          <h3>JavaScript</h3>
+          <p>Used to make websites interactive. Runs in browsers.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">C</div>
+          <h3>C / C++</h3>
+          <p>Powerful languages used for systems, games, performance and hardware-level work.</p>
+        </div>
+      </div>
+
+      <h3>Same Idea, Different Languages</h3>
+
+      <pre><code>// Python
+print("Hello")
+
+// JavaScript
+console.log("Hello");
+
+// C
+printf("Hello");</code></pre>
+
+      <p>
+        The command style changes, but the purpose is similar: tell the computer-jinn what to do.
+      </p>
+    </section>
+
+    <section class="section" id="editor">
+      <h2>5. What Is an Editor?</h2>
+
+      <p>
+        An <strong>editor</strong> is the place where we write code.
+        It is the notebook or writing desk for the command scroll.
+      </p>
+
+      <p>
+        Examples of editors:
+      </p>
+
+      <div class="pill-row">
+        <span class="tag">Notepad</span>
+        <span class="tag">VS Code</span>
+        <span class="tag">Sublime Text</span>
+        <span class="tag">Atom</span>
+        <span class="tag">Online Code Editor</span>
+      </div>
+
+      <h3>What does an editor help with?</h3>
+
+      <div class="grid">
+        <div class="card">
+          <div class="icon">1</div>
+          <h3>Writing Code</h3>
+          <p>You type your program inside it.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">2</div>
+          <h3>Saving Files</h3>
+          <p>You save your code as files like <code>.py</code>, <code>.js</code>, or <code>.html</code>.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">3</div>
+          <h3>Coloring Code</h3>
+          <p>It highlights keywords, strings and mistakes to make code easier to read.</p>
+        </div>
+      </div>
+
+      <p>
+        The editor is not the jinn. The editor is where you write instructions for the jinn.
+      </p>
+    </section>
+
+    <section class="section" id="ide">
+      <h2>6. What Is an IDE?</h2>
+
+      <p>
+        IDE means <strong>Integrated Development Environment</strong>.
+      </p>
+
+      <p class="big-idea">
+        An IDE is a complete workshop for programming. It includes an editor,
+        run button, debugging tools, project manager, terminal, extensions, and more.
+      </p>
+
+      <p>
+        If an editor is just a writing desk, an IDE is a full command center.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Simple Meaning</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Editor</td>
+            <td>Place to write code</td>
+            <td>Notepad, VS Code editor area</td>
+          </tr>
+          <tr>
+            <td>IDE</td>
+            <td>Complete coding workshop</td>
+            <td>VS Code, PyCharm, Android Studio, IntelliJ IDEA</td>
+          </tr>
+          <tr>
+            <td>Compiler / Interpreter</td>
+            <td>Runs or translates code</td>
+            <td>Python interpreter, GCC compiler</td>
+          </tr>
+          <tr>
+            <td>Debugger</td>
+            <td>Helps find mistakes step by step</td>
+            <td>Breakpoints in VS Code</td>
+          </tr>
+          <tr>
+            <td>Terminal</td>
+            <td>Place to type commands</td>
+            <td>Command Prompt, PowerShell, Bash</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>IDE Examples</h3>
+
+      <div class="grid">
+        <div class="card">
+          <div class="icon">VS</div>
+          <h3>Visual Studio Code</h3>
+          <p>Popular for web, Python, JavaScript, TypeScript, C++, and many languages.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">Py</div>
+          <h3>PyCharm</h3>
+          <p>A powerful IDE mainly for Python programming.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">A</div>
+          <h3>Android Studio</h3>
+          <p>Used to build Android mobile and Android TV apps.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="compiler">
+      <h2>7. What Is a Compiler?</h2>
+
+      <p>
+        A <strong>compiler</strong> is like a royal translator.
+        It translates your code into a form the computer can run.
+      </p>
+
+      <div class="flow">
+        <span>Your Code</span>
+        <span class="arrow">→</span>
+        <span>Compiler</span>
+        <span class="arrow">→</span>
+        <span>Machine Code</span>
+        <span class="arrow">→</span>
+        <span>Computer-Jinn Runs It</span>
+      </div>
+
+      <p>
+        Languages like C and C++ commonly use compilers.
+      </p>
+
+      <pre><code>// C example
+#include &lt;stdio.h&gt;
+
+int main() {
+    printf("Hello");
+    return 0;
+}</code></pre>
+
+      <p>
+        The compiler checks the whole program and prepares it before running.
+      </p>
+    </section>
+
+    <section class="section" id="interpreter">
+      <h2>8. What Is an Interpreter?</h2>
+
+      <p>
+        An <strong>interpreter</strong> reads and runs the program step by step.
+        Python is commonly run through an interpreter.
+      </p>
+
+      <div class="flow">
+        <span>Your Code</span>
+        <span class="arrow">→</span>
+        <span>Interpreter</span>
+        <span class="arrow">→</span>
+        <span>Line by Line Execution</span>
+      </div>
+
+      <pre><code>print("First command")
+print("Second command")
+print("Third command")</code></pre>
+
+      <p>
+        The interpreter reads line 1, runs it, then reads line 2, runs it, and so on.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Compiler</th>
+            <th>Interpreter</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Translates the whole program before running.</td>
+            <td>Runs the program line by line.</td>
+          </tr>
+          <tr>
+            <td>Often creates an executable file.</td>
+            <td>Usually runs directly through the interpreter.</td>
+          </tr>
+          <tr>
+            <td>Common with C, C++.</td>
+            <td>Common with Python, JavaScript.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="loader">
+      <h2>9. What Is a Loader?</h2>
+
+      <p>
+        Before a program runs, it must be brought into memory.
+        The <strong>loader</strong> does this job.
+      </p>
+
+      <p>
+        Think of storage as a cupboard and memory as the jinn’s working table.
+        The loader takes the program from the cupboard and places it on the working table.
+      </p>
+
+      <div class="flow">
+        <span>Program in Storage</span>
+        <span class="arrow">→</span>
+        <span>Loader</span>
+        <span class="arrow">→</span>
+        <span>Program in Memory</span>
+        <span class="arrow">→</span>
+        <span>CPU Executes</span>
+      </div>
+
+      <p>
+        You may not directly see the loader every day, but it works behind the scenes
+        whenever a program starts.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>10. CPU, Memory, and Storage</h2>
+
+      <div class="grid">
+        <div class="card">
+          <div class="icon">CPU</div>
+          <h3>CPU</h3>
+          <p>The jinn’s thinking and working power. It executes instructions.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">RAM</div>
+          <h3>Memory</h3>
+          <p>The jinn’s work table. Temporary space used while a program is running.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">SSD</div>
+          <h3>Storage</h3>
+          <p>The jinn’s cupboard. Long-term place for files, programs, photos and videos.</p>
+        </div>
+      </div>
+
+      <h3>Example</h3>
+
+      <pre><code>name = "Student"
+marks = 85
+print(name)
+print(marks)</code></pre>
+
+      <p>
+        The values <code>Student</code> and <code>85</code> are kept in memory while
+        the program runs.
+      </p>
+    </section>
+
+    <section class="section" id="vm">
+      <h2>11. What Is a Virtual Machine?</h2>
+
+      <p>
+        A <strong>virtual machine</strong> is like a computer inside a computer.
+      </p>
+
+      <p>
+        Imagine your real computer-jinn creates a special room. Inside that room,
+        another artificial computer environment runs. That is a virtual machine.
+      </p>
+
+      <div class="grid two">
+        <div class="card">
+          <div class="icon">PC</div>
+          <h3>Real Computer</h3>
+          <p>Your actual laptop or desktop with its real CPU, memory and storage.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">VM</div>
+          <h3>Virtual Computer</h3>
+          <p>A software-created computer environment running inside the real computer.</p>
+        </div>
+      </div>
+
+      <h3>Examples</h3>
+
+      <div class="pill-row">
+        <span class="tag">VirtualBox</span>
+        <span class="tag">VMware</span>
+        <span class="tag">Java Virtual Machine</span>
+        <span class="tag">Android Emulator</span>
+      </div>
+
+      <p>
+        A virtual machine is useful for testing, learning, safety, and running software
+        in a controlled environment.
+      </p>
+
+      <pre><code>Real computer: Windows
+Virtual machine: Linux
+
+Real computer: Linux
+Virtual machine: Android Emulator</code></pre>
+    </section>
+
+    <section class="section">
+      <h2>12. What Is an Operating System?</h2>
+
+      <p>
+        The <strong>operating system</strong>, or OS, manages the computer.
+        It controls files, memory, devices, windows, keyboard, mouse, screen,
+        programs and users.
+      </p>
+
+      <p>
+        Examples:
+      </p>
+
+      <div class="pill-row">
+        <span class="tag">Windows</span>
+        <span class="tag">macOS</span>
+        <span class="tag">Linux</span>
+        <span class="tag">Android</span>
+        <span class="tag">iOS</span>
+      </div>
+
+      <p>
+        If the computer is the jinn, the OS is like the palace manager.
+        It keeps everything organized so that programs can run properly.
+      </p>
+    </section>
+
+    <section class="section" id="terminal">
+      <h2>13. What Is a Terminal?</h2>
+
+      <p>
+        A <strong>terminal</strong> is a place where you type commands directly.
+      </p>
+
+      <p>
+        In graphical apps, you click buttons. In the terminal, you type commands.
+      </p>
+
+      <pre><code>python hello.py</code></pre>
+
+      <p>
+        This means:
+      </p>
+
+      <p class="success">
+        Computer-jinn, please run the Python file named hello.py.
+      </p>
+
+      <h3>Common Terminal Commands</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Command</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>dir</code></td>
+            <td>Show files and folders on Windows.</td>
+          </tr>
+          <tr>
+            <td><code>ls</code></td>
+            <td>Show files and folders on Linux/macOS.</td>
+          </tr>
+          <tr>
+            <td><code>cd foldername</code></td>
+            <td>Enter a folder.</td>
+          </tr>
+          <tr>
+            <td><code>python file.py</code></td>
+            <td>Run a Python file.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>14. What Is Debugging?</h2>
+
+      <p>
+        <strong>Debugging</strong> means finding and fixing mistakes in a program.
+      </p>
+
+      <p>
+        If your command scroll has a mistake, the computer-jinn may stop, complain,
+        or produce the wrong result.
+      </p>
+
+      <pre><code>print("Hello"</code></pre>
+
+      <p>
+        This has a missing closing bracket. The computer will show an error.
+      </p>
+
+      <p class="warning">
+        Error messages are not enemies. They are the jinn saying, “I cannot understand this command yet.”
+      </p>
+
+      <h3>Debugger</h3>
+
+      <p>
+        A debugger lets you run the program slowly, one step at a time, so you can
+        see where the problem is.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>15. What Happens When You Run a Program?</h2>
+
+      <p>
+        Suppose you write this:
+      </p>
+
+      <pre><code>print("Hello, world!")</code></pre>
+
+      <p>
+        Behind the scenes, this journey happens:
+      </p>
+
+      <div class="flow">
+        <span>You write code</span>
+        <span class="arrow">→</span>
+        <span>Editor / IDE saves it</span>
+        <span class="arrow">→</span>
+        <span>Compiler or interpreter handles it</span>
+        <span class="arrow">→</span>
+        <span>Loader places it in memory</span>
+        <span class="arrow">→</span>
+        <span>CPU executes it</span>
+        <span class="arrow">→</span>
+        <span>Output appears</span>
+      </div>
+
+      <p>
+        The result looks simple:
+      </p>
+
+      <pre><code>Hello, world!</code></pre>
+
+      <p>
+        But many helpers worked behind the curtain.
+      </p>
+    </section>
+
+    <section class="section" id="summary">
+      <h2>16. The Computer Jinn Dictionary</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Metaphor</th>
+            <th>Real Term</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jinn</td>
+            <td>Computer</td>
+            <td>The powerful machine that obeys commands.</td>
+          </tr>
+          <tr>
+            <td>Command scroll</td>
+            <td>Program</td>
+            <td>A written set of instructions.</td>
+          </tr>
+          <tr>
+            <td>Command language</td>
+            <td>Programming language</td>
+            <td>The language used to write commands.</td>
+          </tr>
+          <tr>
+            <td>Writing desk</td>
+            <td>Editor</td>
+            <td>The place where code is written.</td>
+          </tr>
+          <tr>
+            <td>Full workshop</td>
+            <td>IDE</td>
+            <td>Editor plus many programming tools.</td>
+          </tr>
+          <tr>
+            <td>Royal translator</td>
+            <td>Compiler / Interpreter</td>
+            <td>Helps code become runnable by the computer.</td>
+          </tr>
+          <tr>
+            <td>Scroll carrier</td>
+            <td>Loader</td>
+            <td>Loads the program into memory.</td>
+          </tr>
+          <tr>
+            <td>Work table</td>
+            <td>Memory / RAM</td>
+            <td>Temporary space used while working.</td>
+          </tr>
+          <tr>
+            <td>Cupboard</td>
+            <td>Storage</td>
+            <td>Long-term place where files are saved.</td>
+          </tr>
+          <tr>
+            <td>Thinking power</td>
+            <td>CPU</td>
+            <td>Executes the actual instructions.</td>
+          </tr>
+          <tr>
+            <td>Palace manager</td>
+            <td>Operating System</td>
+            <td>Manages files, memory, devices and programs.</td>
+          </tr>
+          <tr>
+            <td>Computer inside computer</td>
+            <td>Virtual Machine</td>
+            <td>A software-created computer environment.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="practice">
+      <h2>17. First Practice</h2>
+
+      <div class="practice">
+        <h3>Practice 1: Read the Program</h3>
+        <p>Read this code and explain what command is being given to the computer-jinn.</p>
+
+        <pre><code>print("I am learning programming")
+print("The computer obeys clear commands")</code></pre>
+
+        <details>
+          <summary>Show answer</summary>
+          <p>
+            The first line tells the computer to show “I am learning programming”.
+            The second line tells it to show “The computer obeys clear commands”.
+          </p>
+        </details>
+      </div>
+
+      <div class="practice">
+        <h3>Practice 2: Variables</h3>
+        <p>What does this program store?</p>
+
+        <pre><code>name = "Student"
+course = "Python"
+print(name)
+print(course)</code></pre>
+
+        <details>
+          <summary>Show answer</summary>
+          <p>
+            It stores “Student” in <code>name</code> and “Python” in <code>course</code>.
+            Then it prints both values.
+          </p>
+        </details>
+      </div>
+
+      <div class="practice">
+        <h3>Practice 3: Find the Mistake</h3>
+        <p>What is wrong here?</p>
+
+        <pre><code>print("Hello"</code></pre>
+
+        <details>
+          <summary>Show answer</summary>
+          <p>
+            The closing bracket is missing. Correct code:
+          </p>
+
+          <pre><code>print("Hello")</code></pre>
+        </details>
+      </div>
+    </section>
+
+    <section class="section quiz">
+      <h2>18. Quick Quiz</h2>
+
+      <details>
+        <summary>1. What is a program?</summary>
+        <p>A program is a written set of commands for the computer.</p>
+      </details>
+
+      <details>
+        <summary>2. What is a programming language?</summary>
+        <p>A programming language is a special language used to write commands for the computer.</p>
+      </details>
+
+      <details>
+        <summary>3. What is an editor?</summary>
+        <p>An editor is the place where we write code.</p>
+      </details>
+
+      <details>
+        <summary>4. What is an IDE?</summary>
+        <p>An IDE is a complete programming workshop containing an editor and other tools.</p>
+      </details>
+
+      <details>
+        <summary>5. What is a compiler?</summary>
+        <p>A compiler translates code into a form the computer can run.</p>
+      </details>
+
+      <details>
+        <summary>6. What is an interpreter?</summary>
+        <p>An interpreter reads and runs code line by line.</p>
+      </details>
+
+      <details>
+        <summary>7. What is a loader?</summary>
+        <p>A loader places a program into memory so it can run.</p>
+      </details>
+
+      <details>
+        <summary>8. What is a virtual machine?</summary>
+        <p>A virtual machine is a computer-like environment running inside another computer.</p>
+      </details>
+    </section>
+
+    <section class="section">
+      <h2>19. Final Message</h2>
+
+      <p class="big-idea">
+        The computer is a jinn. It is powerful, fast and obedient.
+        But it needs clear commands.
+      </p>
+
+      <p>
+        A programmer is not someone who memorizes everything. A programmer is someone
+        who learns how to think clearly, break problems into steps, and give precise
+        commands to the computer.
+      </p>
+
+      <p>
+        Your first command can be very small:
+      </p>
+
+      <pre><code>print("Hello, world!")</code></pre>
+
+      <p>
+        But from this small command begins the entire world of programming.
+      </p>
+    </section>
+
+    <footer class="footer">
+      Programmers Picnic AI-ML Classes by Champak Roy · learnwithchampak.live
+    </footer>
+  </main>
+</body>
+</html>
