@@ -1,0 +1,1463 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS :root, ::before, ::after - Level 0 to Infinity</title>
+
+  <meta name="description"
+    content="A beginner to advanced lesson on CSS :root, variables, ::before, ::after, pseudo-classes and pseudo-elements." />
+  <meta name="theme-color" content="#d97706" />
+
+  <style>
+    :root {
+      --bg: #fff7ed;
+      --bg2: #ffedd5;
+      --card: #ffffff;
+      --ink: #241407;
+      --muted: #7c5b35;
+      --soft: #fffaf2;
+      --primary: #d97706;
+      --primary2: #f59e0b;
+      --primary3: #ffb84d;
+      --line: rgba(146, 64, 14, 0.18);
+      --shadow: 0 18px 50px rgba(120, 53, 15, 0.14);
+      --shadow2: 0 12px 30px rgba(120, 53, 15, 0.10);
+      --radius: 24px;
+      --max: 1120px;
+      --code-bg: #1f1307;
+      --code-ink: #fff7ed;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(245, 158, 11, 0.28), transparent 34rem),
+        radial-gradient(circle at 85% 8%, rgba(251, 191, 36, 0.24), transparent 28rem),
+        linear-gradient(135deg, var(--bg), #ffffff 52%, var(--bg2));
+      color: var(--ink);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 247, 237, 0.86)),
+        radial-gradient(circle at top right, rgba(245, 158, 11, 0.35), transparent 22rem);
+      box-shadow: var(--shadow);
+      padding: 42px;
+      margin: 18px 0 28px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: -90px;
+      top: -100px;
+      background: radial-gradient(circle, #f59e0b, #fed7aa);
+      border-radius: 50%;
+      opacity: 0.35;
+    }
+
+    .hero::after {
+      content: "CSS";
+      position: absolute;
+      right: 28px;
+      bottom: 12px;
+      font-size: clamp(70px, 14vw, 170px);
+      font-weight: 900;
+      color: rgba(217, 119, 6, 0.07);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff7ed;
+      color: var(--primary);
+      border: 1px solid var(--line);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: var(--primary2);
+      border-radius: 50%;
+      box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.18);
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 20px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+      box-shadow: 0 12px 24px rgba(217, 119, 6, 0.25);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -80px;
+      width: 45px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.45);
+      transform: skewX(-25deg);
+    }
+
+    .btn:hover::after {
+      left: 130%;
+      transition: 0.65s;
+    }
+
+    .btn.secondary {
+      background: #ffffff;
+      color: var(--primary);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow2);
+    }
+
+    .toc h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--muted);
+      padding: 9px 10px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    .toc a:hover {
+      background: #fff7ed;
+      color: var(--primary);
+    }
+
+    main {
+      display: grid;
+      gap: 18px;
+    }
+
+    .section {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: var(--shadow2);
+      padding: 28px;
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: linear-gradient(180deg, var(--primary2), var(--primary));
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: clamp(25px, 3vw, 38px);
+      letter-spacing: -0.03em;
+    }
+
+    .section h2::after {
+      content: "";
+      display: block;
+      width: 78px;
+      height: 5px;
+      background: var(--primary2);
+      border-radius: 999px;
+      margin-top: 12px;
+    }
+
+    .section h3 {
+      margin: 26px 0 10px;
+      color: #7c2d12;
+      font-size: 22px;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 17px;
+    }
+
+    .note {
+      position: relative;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      background: #fffbeb;
+      border-radius: 18px;
+      padding: 16px 18px 16px 48px;
+      color: #78350f;
+      margin: 16px 0;
+    }
+
+    .note::before {
+      content: "!";
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--primary2);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mini-card {
+      position: relative;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .mini-card::after {
+      content: "";
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      right: -34px;
+      bottom: -34px;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, 0.16);
+    }
+
+    .mini-card h3 {
+      margin-top: 0;
+    }
+
+    code {
+      background: rgba(217, 119, 6, 0.10);
+      color: #7c2d12;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    pre {
+      position: relative;
+      margin: 16px 0;
+      background: var(--code-bg);
+      color: var(--code-ink);
+      border-radius: 18px;
+      padding: 18px;
+      overflow: auto;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    pre::before {
+      content: "code";
+      position: absolute;
+      right: 14px;
+      top: 10px;
+      color: rgba(255, 247, 237, 0.45);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      font-weight: 400;
+    }
+
+    .demo {
+      border: 1px dashed rgba(146, 64, 14, 0.28);
+      background: #fffaf2;
+      border-radius: 18px;
+      padding: 18px;
+      margin: 16px 0;
+    }
+
+    .demo-title {
+      position: relative;
+      display: inline-block;
+      margin: 0 0 14px;
+      color: var(--ink);
+    }
+
+    .demo-title::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 5px;
+      background: var(--primary2);
+      border-radius: 999px;
+      margin-top: 6px;
+    }
+
+    .sample-card {
+      position: relative;
+      padding: 24px;
+      border-radius: 22px;
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow2);
+      overflow: hidden;
+    }
+
+    .sample-card::before {
+      content: "Featured";
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .sample-card::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: -45px;
+      bottom: -45px;
+      border-radius: 50%;
+      background: var(--primary2);
+      opacity: 0.14;
+    }
+
+    .sample-card h3 {
+      margin-top: 22px;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+
+    .check-list li {
+      position: relative;
+      padding: 12px 12px 12px 40px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 10px;
+      top: 11px;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, 0.16);
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .check-list li:hover {
+      background: #fff7ed;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: white;
+      margin: 16px 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 620px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      background: #fff7ed;
+      color: #7c2d12;
+    }
+
+    tr:nth-child(even) td {
+      background: #fffaf2;
+    }
+
+    .assignment {
+      counter-reset: task;
+      display: grid;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .task {
+      counter-increment: task;
+      position: relative;
+      padding: 18px 18px 18px 58px;
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 18px;
+    }
+
+    .task::before {
+      content: counter(task);
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--primary);
+      color: white;
+      font-weight: 900;
+    }
+
+    .memory-map {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .memory-item {
+      background: #fffaf2;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .memory-item strong {
+      color: var(--primary);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 32px 16px 48px;
+      color: var(--muted);
+    }
+
+    .top-link {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      box-shadow: 0 12px 24px rgba(217, 119, 6, 0.32);
+      font-weight: 900;
+      z-index: 50;
+    }
+
+    .tooltip-demo {
+      position: relative;
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tooltip-demo::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 50%;
+      bottom: 135%;
+      transform: translateX(-50%);
+      background: #1f1307;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s;
+    }
+
+    .tooltip-demo:hover::after {
+      opacity: 1;
+    }
+
+    .quote-demo {
+      position: relative;
+      padding: 20px 20px 20px 60px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .quote-demo::before {
+      content: "“";
+      position: absolute;
+      left: 20px;
+      top: 8px;
+      font-size: 62px;
+      color: var(--primary2);
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+
+    ::selection {
+      background: var(--primary2);
+      color: white;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+
+      .grid.two,
+      .memory-map {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 28px;
+      }
+    }
+
+    @media print {
+
+      .toc,
+      .top-link,
+      .hero-actions {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .page {
+        max-width: none;
+      }
+
+      .section,
+      .hero {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="top-link" href="#top" aria-label="Back to top">↑</a>
+
+  <div class="page" id="top">
+    <header class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Programmers Picnic CSS Lesson</div>
+        <h1>CSS :root, ::before, ::after from Level 0 to Infinity</h1>
+        <p class="subtitle">
+          Learn how professional CSS uses variables, pseudo-classes, and pseudo-elements
+          to build clean, beautiful, reusable designs without adding unnecessary HTML.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn" href="#level0">Start from Level 0</a>
+          <a class="btn secondary" href="#project">Jump to Mini Project</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="toc">
+        <h2>Lesson Menu</h2>
+        <a href="#level0">0. Normal CSS</a>
+        <a href="#root">1. :root</a>
+        <a href="#variables">2. CSS Variables</a>
+        <a href="#before">3. ::before</a>
+        <a href="#after">4. ::after</a>
+        <a href="#colon">5. Single vs Double Colon</a>
+        <a href="#pseudo">6. Pseudo-class vs Pseudo-element</a>
+        <a href="#patterns">7. Practical Patterns</a>
+        <a href="#advanced">8. Advanced Examples</a>
+        <a href="#mistakes">9. Common Mistakes</a>
+        <a href="#project">10. Mini Project</a>
+        <a href="#practice">11. Practice</a>
+        <a href="#memory">12. Memory Map</a>
+      </aside>
+
+      <main>
+        <section class="section" id="level0">
+          <h2>0. Level 0: What is a CSS selector?</h2>
+          <p>
+            A CSS selector tells the browser which HTML element should receive a style.
+            At the beginner level, we usually select normal HTML tags, classes, or IDs.
+          </p>
+
+          <pre><code>&lt;h1&gt;Programmers Picnic&lt;/h1&gt;
+&lt;p&gt;Learn CSS step by step.&lt;/p&gt;</code></pre>
+
+          <pre><code>h1 {
+  color: orange;
+}
+
+p {
+  color: #333;
+}</code></pre>
+
+          <div class="note">
+            Here, <code>h1</code> selects all heading elements and <code>p</code> selects all paragraph elements.
+          </div>
+        </section>
+
+        <section class="section" id="root">
+          <h2>1. What is :root?</h2>
+          <p>
+            <code>:root</code> means the highest-level parent of the page.
+            In an HTML document, <code>:root</code> usually represents the <code>&lt;html&gt;</code> element.
+          </p>
+
+          <pre><code>:root {
+  --main-color: #d97706;
+  --bg-color: #fff7ed;
+  --text-color: #241407;
+}</code></pre>
+
+          <p>
+            The most common use of <code>:root</code> is to store CSS variables.
+            These variables can control the whole page theme from one place.
+          </p>
+        </section>
+
+        <section class="section" id="variables">
+          <h2>2. CSS Variables</h2>
+          <p>
+            CSS variables are reusable values. They usually start with two hyphens.
+          </p>
+
+          <pre><code>:root {
+  --saffron: #f59e0b;
+  --dark: #1f2937;
+  --light: #fff7ed;
+}</code></pre>
+
+          <p>Now we can use these values anywhere with <code>var()</code>.</p>
+
+          <pre><code>body {
+  background: var(--light);
+  color: var(--dark);
+}
+
+button {
+  background: var(--saffron);
+}</code></pre>
+
+          <div class="grid two">
+            <div class="mini-card">
+              <h3>Without variables</h3>
+              <p>You repeat the same color again and again. Changing the design becomes slow.</p>
+            </div>
+            <div class="mini-card">
+              <h3>With variables</h3>
+              <p>You change the value once inside <code>:root</code> and the whole design updates.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>3. Complete Beginner Example Using :root</h2>
+
+          <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;CSS Root Example&lt;/title&gt;
+
+  &lt;style&gt;
+    :root {
+      --bg: #fff7ed;
+      --card: #ffffff;
+      --primary: #d97706;
+      --text: #241407;
+      --muted: #7c5b35;
+      --radius: 20px;
+      --shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .card {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 30px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      color: var(--primary);
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class="card"&gt;
+    &lt;h1&gt;Programmers Picnic&lt;/h1&gt;
+    &lt;p&gt;This page uses CSS variables stored inside :root.&lt;/p&gt;
+    &lt;button&gt;Start Learning&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </section>
+
+        <section class="section" id="before">
+          <h2>4. What is ::before?</h2>
+          <p>
+            <code>::before</code> creates a fake element before the real content of an element.
+            The content is not written in HTML. CSS adds it visually.
+          </p>
+
+          <pre><code>&lt;h2&gt;CSS Lesson&lt;/h2&gt;</code></pre>
+
+          <pre><code>h2::before {
+  content: "★ ";
+}</code></pre>
+
+          <div class="demo">
+            <h3 class="demo-title">Live Demo</h3>
+            <p style="font-size:24px; color:#241407; margin:0;">
+              ★ CSS Lesson
+            </p>
+          </div>
+
+          <div class="note">
+            The star is not in the HTML. It is added by CSS.
+          </div>
+        </section>
+
+        <section class="section" id="after">
+          <h2>5. What is ::after?</h2>
+          <p>
+            <code>::after</code> creates a fake element after the real content of an element.
+          </p>
+
+          <pre><code>h2::after {
+  content: " ✓";
+}</code></pre>
+
+          <div class="demo">
+            <h3 class="demo-title">Live Demo</h3>
+            <p style="font-size:24px; color:#241407; margin:0;">
+              CSS Lesson ✓
+            </p>
+          </div>
+
+          <h3>Important Rule</h3>
+          <p>
+            For <code>::before</code> and <code>::after</code>, the <code>content</code> property is usually required.
+          </p>
+
+          <pre><code>.box::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: orange;
+}</code></pre>
+        </section>
+
+        <section class="section">
+          <h2>6. Decoration With ::before and ::after</h2>
+
+          <p>
+            Pseudo-elements are often used for decoration, badges, shapes, icons, and underlines.
+          </p>
+
+          <pre><code>.title {
+  position: relative;
+  display: inline-block;
+}
+
+.title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 5px;
+  background: orange;
+  border-radius: 999px;
+}</code></pre>
+
+          <div class="demo">
+            <h3 class="demo-title">Learn CSS</h3>
+            <p>This heading underline is made using <code>::after</code>.</p>
+          </div>
+        </section>
+
+        <section class="section" id="colon">
+          <h2>7. Single Colon vs Double Colon</h2>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Examples</th>
+                  <th>Meaning</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Pseudo-class</td>
+                  <td><code>:hover</code>, <code>:focus</code>, <code>:root</code>, <code>:first-child</code></td>
+                  <td>Selects a state or condition.</td>
+                </tr>
+                <tr>
+                  <td>Pseudo-element</td>
+                  <td><code>::before</code>, <code>::after</code>, <code>::selection</code>, <code>::first-letter</code>
+                  </td>
+                  <td>Creates or styles a special part of an element.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <pre><code>/* Modern pseudo-element style */
+h1::before {
+  content: "Modern ";
+}
+
+/* Old style still often works */
+h1:before {
+  content: "Old ";
+}</code></pre>
+
+          <div class="note">
+            Use double colon for pseudo-elements. Use single colon for pseudo-classes.
+          </div>
+        </section>
+
+        <section class="section" id="pseudo">
+          <h2>8. Pseudo-class vs Pseudo-element</h2>
+
+          <h3>Pseudo-class</h3>
+          <p>A pseudo-class selects a state or condition.</p>
+
+          <pre><code>button:hover {
+  background: black;
+}</code></pre>
+
+          <h3>Pseudo-element</h3>
+          <p>A pseudo-element creates or styles a part of an element.</p>
+
+          <pre><code>button::after {
+  content: " →";
+}</code></pre>
+
+          <h3>Common Pseudo-classes</h3>
+
+          <pre><code>.card:hover {
+  transform: translateY(-5px);
+}
+
+input:focus {
+  border-color: orange;
+  outline: none;
+}
+
+li:first-child {
+  font-weight: bold;
+}
+
+li:last-child {
+  color: red;
+}
+
+li:nth-child(odd) {
+  background: #fff7ed;
+}</code></pre>
+        </section>
+
+        <section class="section">
+          <h2>9. Beautiful Lesson Card Example</h2>
+
+          <div class="demo">
+            <div class="sample-card">
+              <h3>Python Beginner Course</h3>
+              <p>
+                This card uses <code>::before</code> for the badge and <code>::after</code>
+                for the background circle.
+              </p>
+            </div>
+          </div>
+
+          <pre><code>.course-card {
+  position: relative;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+
+.course-card::before {
+  content: "Featured";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #f59e0b;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.course-card::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  right: -45px;
+  bottom: -45px;
+  background: orange;
+  border-radius: 50%;
+  opacity: 0.15;
+}</code></pre>
+        </section>
+
+        <section class="section" id="patterns">
+          <h2>10. Practical Patterns</h2>
+
+          <h3>Pattern 1: Heading underline</h3>
+          <pre><code>.heading::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: orange;
+  margin-top: 10px;
+}</code></pre>
+
+          <h3>Pattern 2: Required field star</h3>
+          <pre><code>label.required::after {
+  content: " *";
+  color: red;
+}</code></pre>
+
+          <h3>Pattern 3: Quote mark</h3>
+          <pre><code>.quote::before {
+  content: "“";
+  font-size: 60px;
+  color: orange;
+}</code></pre>
+
+          <div class="quote-demo">
+            CSS pseudo-elements help us add visual meaning without adding extra HTML.
+          </div>
+
+          <h3>Pattern 4: External link arrow</h3>
+          <pre><code>a.external::after {
+  content: " ↗";
+}</code></pre>
+
+          <h3>Pattern 5: List check icon</h3>
+          <pre><code>li::before {
+  content: "✓";
+  color: green;
+}</code></pre>
+        </section>
+
+        <section class="section" id="advanced">
+          <h2>11. Advanced Examples</h2>
+
+          <h3>Theme switching with :root</h3>
+
+          <pre><code>:root {
+  --bg: white;
+  --text: black;
+}
+
+body.dark {
+  --bg: #111827;
+  --text: #f9fafb;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}</code></pre>
+
+          <pre><code>&lt;button onclick="document.body.classList.toggle('dark')"&gt;
+  Toggle Dark Mode
+&lt;/button&gt;</code></pre>
+
+          <h3>::before as a background layer</h3>
+
+          <pre><code>.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, orange, transparent);
+  opacity: 0.25;
+  z-index: -1;
+}</code></pre>
+
+          <h3>::after as tooltip</h3>
+
+          <div class="demo">
+            <span class="tooltip-demo" data-tip="This tooltip is made with ::after">
+              Hover on me
+            </span>
+          </div>
+
+          <pre><code>.help {
+  position: relative;
+}
+
+.help::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: 130%;
+  transform: translateX(-50%);
+  background: #111827;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.help:hover::after {
+  opacity: 1;
+}</code></pre>
+
+          <div class="note">
+            <code>content: attr(data-tip);</code> takes text from an HTML attribute.
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>12. More Pseudo-elements</h2>
+
+          <h3>::selection</h3>
+          <pre><code>::selection {
+  background: orange;
+  color: white;
+}</code></pre>
+
+          <h3>::first-letter</h3>
+          <pre><code>p::first-letter {
+  font-size: 48px;
+  color: orange;
+  font-weight: bold;
+}</code></pre>
+
+          <h3>::first-line</h3>
+          <pre><code>p::first-line {
+  font-weight: bold;
+}</code></pre>
+        </section>
+
+        <section class="section" id="mistakes">
+          <h2>13. Common Mistakes</h2>
+
+          <h3>Mistake 1: Forgetting content</h3>
+
+          <pre><code>/* Wrong */
+.box::after {
+  background: red;
+}
+
+/* Correct */
+.box::after {
+  content: "";
+  background: red;
+}</code></pre>
+
+          <h3>Mistake 2: Forgetting display</h3>
+
+          <pre><code>.box::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 5px;
+  background: orange;
+}</code></pre>
+
+          <h3>Mistake 3: Forgetting position: relative</h3>
+
+          <pre><code>.card {
+  position: relative;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+}</code></pre>
+
+          <h3>Mistake 4: Using pseudo-elements directly on some replaced elements</h3>
+
+          <p>
+            Pseudo-elements may not work reliably on elements like <code>&lt;img&gt;</code>,
+            <code>&lt;input&gt;</code>, and <code>&lt;br&gt;</code>. Wrap them in another element.
+          </p>
+
+          <pre><code>&lt;div class="image-wrap"&gt;
+  &lt;img src="photo.jpg" alt="Photo"&gt;
+&lt;/div&gt;
+
+.image-wrap::after {
+  content: "";
+}</code></pre>
+        </section>
+
+        <section class="section" id="project">
+          <h2>14. Mini Project: Saffron Course Card</h2>
+
+          <p>
+            This mini project combines <code>:root</code>, CSS variables,
+            <code>::before</code>, and <code>::after</code>.
+          </p>
+
+          <pre><code>&lt;div class="course"&gt;
+  &lt;h2&gt;Python + AI Beginner Course&lt;/h2&gt;
+  &lt;p&gt;Start from zero and learn step by step.&lt;/p&gt;
+  &lt;a href="#"&gt;View Course&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+
+          <pre><code>:root {
+  --bg: #fff7ed;
+  --card: #ffffff;
+  --primary: #d97706;
+  --text: #241407;
+  --muted: #7c5b35;
+}
+
+body {
+  background: var(--bg);
+  font-family: Arial, sans-serif;
+}
+
+.course {
+  position: relative;
+  max-width: 420px;
+  margin: 60px auto;
+  padding: 28px;
+  background: var(--card);
+  border-radius: 24px;
+  box-shadow: 0 20px 45px rgba(120, 53, 15, 0.16);
+  overflow: hidden;
+}
+
+.course::before {
+  content: "Popular";
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: var(--primary);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.course::after {
+  content: "";
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  right: -50px;
+  bottom: -50px;
+  background: #f59e0b;
+  border-radius: 50%;
+  opacity: 0.18;
+}
+
+.course h2 {
+  color: var(--text);
+  margin-top: 20px;
+}
+
+.course p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.course a {
+  display: inline-block;
+  margin-top: 12px;
+  background: var(--primary);
+  color: white;
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 999px;
+}</code></pre>
+        </section>
+
+        <section class="section" id="practice">
+          <h2>15. Practice Assignments</h2>
+
+          <div class="assignment">
+            <div class="task">
+              Create a heading with an orange underline using <code>::after</code>.
+            </div>
+
+            <div class="task">
+              Create a button that adds an arrow after the text using <code>::after</code>.
+            </div>
+
+            <div class="task">
+              Create a card with a <code>New</code> badge using <code>::before</code>.
+            </div>
+
+            <div class="task">
+              Create a list where each item gets a check mark using <code>::before</code>.
+            </div>
+
+            <div class="task">
+              Create a tooltip using <code>data-tip</code> and <code>::after</code>.
+            </div>
+
+            <div class="task">
+              Create a full page theme using <code>:root</code> variables.
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="memory">
+          <h2>16. Final Memory Map</h2>
+
+          <div class="memory-map">
+            <div class="memory-item">
+              <strong>:root</strong>
+              Stores global CSS variables.
+            </div>
+
+            <div class="memory-item">
+              <strong>:hover</strong>
+              Styles an element when the mouse is over it.
+            </div>
+
+            <div class="memory-item">
+              <strong>:focus</strong>
+              Styles an input or button when it is selected.
+            </div>
+
+            <div class="memory-item">
+              <strong>:first-child</strong>
+              Selects the first child.
+            </div>
+
+            <div class="memory-item">
+              <strong>:last-child</strong>
+              Selects the last child.
+            </div>
+
+            <div class="memory-item">
+              <strong>:nth-child()</strong>
+              Selects elements by position or pattern.
+            </div>
+
+            <div class="memory-item">
+              <strong>::before</strong>
+              Creates fake content before real content.
+            </div>
+
+            <div class="memory-item">
+              <strong>::after</strong>
+              Creates fake content after real content.
+            </div>
+
+            <div class="memory-item">
+              <strong>::selection</strong>
+              Styles selected text.
+            </div>
+
+            <div class="memory-item">
+              <strong>::first-letter</strong>
+              Styles the first letter.
+            </div>
+
+            <div class="memory-item">
+              <strong>::first-line</strong>
+              Styles the first visible line.
+            </div>
+          </div>
+
+          <div class="note">
+            Main idea: use <code>:root</code> for the design system, use <code>::before</code>
+            and <code>::after</code> for clean decorative elements, and use pseudo-classes
+            for states and conditions.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <p>
+        Programmers Picnic by Champak Roy<br />
+        CSS Level 0 to Infinity Lesson
+      </p>
+    </footer>
+  </div>
+</body>
+
+</html>
