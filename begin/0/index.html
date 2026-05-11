@@ -1,21 +1,24 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <title>The Computer Jinn | Introductory Programming Lesson</title>
 
-  <meta name="description"
-    content="A beginner-friendly introductory programming lesson explaining computer, program, language, IDE, editor, compiler, interpreter, loader, virtual machine, OS, CPU, memory, storage and terminal using the Computer Jinn metaphor." />
+  <meta
+    name="description"
+    content="A beginner-friendly introductory programming lesson explaining computer, program, language, IDE, editor, compiler, interpreter, loader, virtual machine, OS, CPU, memory, storage and terminal using the Computer Jinn metaphor."
+  />
 
   <meta name="theme-color" content="#f59e0b" />
 
   <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
     crossorigin="anonymous">
-    </script>
+  </script>
 
   <style>
     :root {
@@ -133,7 +136,7 @@
       overflow: hidden;
       border-radius: 34px;
       background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 247, 237, 0.78)),
+        linear-gradient(135deg, rgba(255,255,255,0.94), rgba(255, 247, 237, 0.78)),
         radial-gradient(circle at 80% 10%, rgba(245, 158, 11, 0.34), transparent 24rem);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
@@ -264,7 +267,7 @@
       border-radius: 50%;
       transform: translateX(-50%);
       background: #dc2626;
-      box-shadow: 0 0 0 5px rgba(220, 38, 38, 0.14);
+      box-shadow: 0 0 0 5px rgba(220,38,38,0.14);
     }
 
     .eye {
@@ -354,9 +357,7 @@
     }
 
     @keyframes pulse {
-
-      0%,
-      100% {
+      0%, 100% {
         transform: scale(1);
         opacity: 0.72;
       }
@@ -412,10 +413,6 @@
       margin-top: 18px;
     }
 
-    .grid.two {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
     .card {
       background: white;
       border: 1px solid var(--line);
@@ -465,7 +462,7 @@
       border: 1px solid var(--line);
       color: var(--deep);
       font-weight: 900;
-      box-shadow: 0 8px 18px rgba(124, 45, 18, 0.08);
+      box-shadow: 0 8px 18px rgba(124,45,18,0.08);
     }
 
     .arrow {
@@ -481,7 +478,7 @@
       padding: 18px;
       overflow: auto;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
     }
 
     code {
@@ -499,8 +496,7 @@
       border: 1px solid var(--line);
     }
 
-    th,
-    td {
+    th, td {
       padding: 13px 14px;
       border-bottom: 1px solid var(--line);
       text-align: left;
@@ -527,6 +523,13 @@
       font-weight: 900;
       font-size: 12px;
       margin: 3px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
     }
 
     .practice {
@@ -607,13 +610,6 @@
       color: var(--deep);
     }
 
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
     .ad-box {
       margin: 28px 0;
       padding: 14px;
@@ -633,14 +629,67 @@
       margin-bottom: 8px;
     }
 
+    .pp-speak-panel {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 10px;
+      border-radius: 999px;
+      background: rgba(255, 247, 237, 0.96);
+      border: 1px solid rgba(146, 64, 14, 0.25);
+      box-shadow: 0 18px 44px rgba(124, 45, 18, 0.22);
+      backdrop-filter: blur(12px);
+    }
+
+    .pp-speak-panel button {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, #f59e0b, #f97316);
+    }
+
+    .pp-speak-panel button:hover {
+      filter: brightness(0.96);
+    }
+
+    .pp-auto-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #7c2d12;
+    }
+
+    #pp-speak-counter {
+      font-size: 12px;
+      font-weight: 900;
+      color: #7c2d12;
+      padding-right: 6px;
+    }
+
+    .pp-speaking-now {
+      outline: 3px solid #f59e0b;
+      outline-offset: 5px;
+      border-radius: 12px;
+      background: rgba(245, 158, 11, 0.16) !important;
+    }
+
     @media (max-width: 900px) {
       .hero {
         grid-template-columns: 1fr;
         padding: 28px;
       }
 
-      .grid,
-      .grid.two {
+      .grid {
         grid-template-columns: 1fr;
       }
 
@@ -655,13 +704,21 @@
       .jinn-card {
         min-height: 330px;
       }
+
+      .pp-speak-panel {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        border-radius: 22px;
+        justify-content: center;
+      }
     }
 
     @media print {
-
       .topbar,
       .hero-actions,
-      .ad-box {
+      .ad-box,
+      .pp-speak-panel {
         display: none;
       }
 
@@ -707,8 +764,7 @@
           The Computer Is a Jinn Who Obeys Commands
         </h1>
 
-        <p id="pp-speak1" class="lead">         
-          
+        <p id="pp-speak1" class="lead">
           Before we learn coding, we need one beautiful picture in the mind:
           the computer itself is a powerful jinn. It is fast, obedient, tireless,
           and literal. It does not guess your wish. It follows your command.
@@ -745,8 +801,13 @@
 
     <div class="ad-box">
       <div class="ad-label">Advertisement</div>
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
-        data-ad-format="auto" data-full-width-responsive="true">
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true">
       </ins>
     </div>
 
@@ -840,33 +901,6 @@ print("The computer obeys clear commands")</code></pre>
       <p id="pp-speak17">
         This program has three commands. The computer follows them one by one.
       </p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Line</th>
-            <th>Command</th>
-            <th>Meaning</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td><code>print("Welcome")</code></td>
-            <td>Show the word Welcome.</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td><code>print("Today we begin programming")</code></td>
-            <td>Show the second message.</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td><code>print("The computer obeys clear commands")</code></td>
-            <td>Show the third message.</td>
-          </tr>
-        </tbody>
-      </table>
     </section>
 
     <section class="section" id="language">
@@ -1010,8 +1044,13 @@ printf("Hello");</code></pre>
 
     <div class="ad-box">
       <div class="ad-label">Advertisement</div>
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
-        data-ad-format="auto" data-full-width-responsive="true">
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true">
       </ins>
     </div>
 
@@ -1107,26 +1146,6 @@ print("Third command")</code></pre>
     <section class="section">
       <h2 id="pp-speak47">10. CPU, Memory, and Storage</h2>
 
-      <div class="grid">
-        <div class="card">
-          <div class="icon">CPU</div>
-          <h3>CPU</h3>
-          <p>The jinn’s thinking and working power. It executes instructions.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon">RAM</div>
-          <h3>Memory</h3>
-          <p>The jinn’s work table. Temporary space used while a program is running.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon">SSD</div>
-          <h3>Storage</h3>
-          <p>The jinn’s cupboard. Long-term place for files, programs, photos and videos.</p>
-        </div>
-      </div>
-
       <p id="pp-speak48">
         The CPU is the jinn’s thinking and working power. It executes instructions.
       </p>
@@ -1194,8 +1213,13 @@ Virtual machine: Android Emulator</code></pre>
 
     <div class="ad-box">
       <div class="ad-label">Advertisement</div>
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
-        data-ad-format="auto" data-full-width-responsive="true">
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true">
       </ins>
     </div>
 
@@ -1215,33 +1239,6 @@ Virtual machine: Android Emulator</code></pre>
       <p id="pp-speak66">
         This means: computer-jinn, please run the Python file named hello.py.
       </p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Command</th>
-            <th>Meaning</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>dir</code></td>
-            <td>Show files and folders on Windows.</td>
-          </tr>
-          <tr>
-            <td><code>ls</code></td>
-            <td>Show files and folders on Linux or macOS.</td>
-          </tr>
-          <tr>
-            <td><code>cd foldername</code></td>
-            <td>Enter a folder.</td>
-          </tr>
-          <tr>
-            <td><code>python file.py</code></td>
-            <td>Run a Python file.</td>
-          </tr>
-        </tbody>
-      </table>
     </section>
 
     <section class="section">
@@ -1506,8 +1503,13 @@ print(course)</code></pre>
 
     <div class="ad-box">
       <div class="ad-label">Advertisement</div>
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
-        data-ad-format="auto" data-full-width-responsive="true">
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true">
       </ins>
     </div>
 
@@ -1552,10 +1554,200 @@ print(course)</code></pre>
     });
   </script>
 
+  <!-- Working Programmer's Picnic Speak System -->
+  <script>
+    (function () {
+      const speakItems = Array.from(document.querySelectorAll('[id^="pp-speak"]'));
+
+      if (!speakItems.length) {
+        console.warn("No pp-speak elements found.");
+        return;
+      }
+
+      let currentIndex = 0;
+      let isSpeaking = false;
+      let voices = [];
+
+      function loadVoices() {
+        voices = window.speechSynthesis.getVoices();
+      }
+
+      loadVoices();
+
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+      }
+
+      function cleanText(text) {
+        return text
+          .replace(/\s+/g, " ")
+          .replace(/print\(/g, "print command ")
+          .replace(/\)/g, " ")
+          .replace(/"/g, "")
+          .replace(/#/g, " hash ")
+          .replace(/;/g, " semicolon ")
+          .replace(/\{/g, " open brace ")
+          .replace(/\}/g, " close brace ")
+          .replace(/\[/g, " open bracket ")
+          .replace(/\]/g, " close bracket ")
+          .trim();
+      }
+
+      function highlightElement(el) {
+        speakItems.forEach(item => item.classList.remove("pp-speaking-now"));
+
+        if (el) {
+          el.classList.add("pp-speaking-now");
+          el.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }
+      }
+
+      function updateButtonText() {
+        const playBtn = document.getElementById("pp-speak-play");
+
+        if (playBtn) {
+          playBtn.textContent = isSpeaking ? "Stop" : "Speak";
+        }
+
+        const counter = document.getElementById("pp-speak-counter");
+
+        if (counter) {
+          counter.textContent = (currentIndex + 1) + " / " + speakItems.length;
+        }
+      }
+
+      function speakElement(index) {
+        if (!("speechSynthesis" in window)) {
+          alert("Speech synthesis is not supported in this browser.");
+          return;
+        }
+
+        if (index < 0 || index >= speakItems.length) {
+          stopSpeaking();
+          return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        currentIndex = index;
+
+        const el = speakItems[currentIndex];
+        const text = cleanText(el.innerText || el.textContent || "");
+
+        if (!text) {
+          speakElement(currentIndex + 1);
+          return;
+        }
+
+        highlightElement(el);
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "en-IN";
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+
+        const preferredVoice =
+          voices.find(v => v.lang === "en-IN") ||
+          voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en-in")) ||
+          voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en")) ||
+          voices[0];
+
+        if (preferredVoice) {
+          utterance.voice = preferredVoice;
+        }
+
+        utterance.onstart = function () {
+          isSpeaking = true;
+          updateButtonText();
+        };
+
+        utterance.onend = function () {
+          isSpeaking = false;
+          updateButtonText();
+
+          const autoNext = document.getElementById("pp-auto-next");
+
+          if (autoNext && autoNext.checked) {
+            speakElement(currentIndex + 1);
+          }
+        };
+
+        utterance.onerror = function () {
+          isSpeaking = false;
+          updateButtonText();
+        };
+
+        window.speechSynthesis.speak(utterance);
+      }
+
+      function stopSpeaking() {
+        if ("speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
+        }
+
+        isSpeaking = false;
+        speakItems.forEach(item => item.classList.remove("pp-speaking-now"));
+        updateButtonText();
+      }
+
+      const panel = document.createElement("div");
+      panel.className = "pp-speak-panel";
+      panel.innerHTML = `
+        <button id="pp-speak-prev" type="button">Previous</button>
+        <button id="pp-speak-play" type="button">Speak</button>
+        <button id="pp-speak-next" type="button">Next</button>
+        <label class="pp-auto-label">
+          <input id="pp-auto-next" type="checkbox" checked>
+          Auto
+        </label>
+        <span id="pp-speak-counter">1 / ${speakItems.length}</span>
+      `;
+
+      document.body.appendChild(panel);
+
+      document.getElementById("pp-speak-play").addEventListener("click", function () {
+        if (isSpeaking) {
+          stopSpeaking();
+        } else {
+          speakElement(currentIndex);
+        }
+      });
+
+      document.getElementById("pp-speak-prev").addEventListener("click", function () {
+        stopSpeaking();
+        currentIndex = Math.max(0, currentIndex - 1);
+        speakElement(currentIndex);
+      });
+
+      document.getElementById("pp-speak-next").addEventListener("click", function () {
+        stopSpeaking();
+        currentIndex = Math.min(speakItems.length - 1, currentIndex + 1);
+        speakElement(currentIndex);
+      });
+
+      speakItems.forEach((el, index) => {
+        el.style.cursor = "pointer";
+        el.setAttribute("title", "Click to speak this part");
+
+        el.addEventListener("click", function () {
+          stopSpeaking();
+          speakElement(index);
+        });
+      });
+
+      window.addEventListener("beforeunload", stopSpeaking);
+
+      updateButtonText();
+    })();
+  </script>
+
   <!-- Usual Programmer's Picnic scripts -->
   <script src="https://varanasi-software-junction.github.io/search/branding/branding.js"></script>
   <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
   <script src="https://programmer-s-picnic.github.io/json-images/contact_champak.js"></script>
 </body>
-
 </html>
