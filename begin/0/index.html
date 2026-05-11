@@ -1,17 +1,27 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>The Computer Jinn | Introductory Programming Lesson</title>
-  <meta name="description" content="A beginner-friendly lesson explaining computer, program, language, IDE, editor, compiler, interpreter, loader, virtual machine and more using the Computer Jinn metaphor." />
+
+  <meta name="description"
+    content="A beginner-friendly introductory programming lesson explaining computer, program, language, IDE, editor, compiler, interpreter, loader, virtual machine, OS, CPU, memory, storage and terminal using the Computer Jinn metaphor." />
+
   <meta name="theme-color" content="#f59e0b" />
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
+    crossorigin="anonymous">
+    </script>
 
   <style>
     :root {
       --bg: #fff7ed;
       --bg2: #fffbeb;
-      --panel: rgba(255, 255, 255, 0.88);
+      --panel: rgba(255, 255, 255, 0.92);
       --ink: #231305;
       --muted: #74512d;
       --line: rgba(146, 64, 14, 0.18);
@@ -19,8 +29,6 @@
       --saffron2: #f97316;
       --deep: #7c2d12;
       --green: #15803d;
-      --blue: #2563eb;
-      --purple: #7c3aed;
       --danger: #dc2626;
       --shadow: 0 22px 60px rgba(146, 64, 14, 0.16);
       --radius: 24px;
@@ -62,7 +70,7 @@
       top: 0;
       z-index: 20;
       backdrop-filter: blur(18px);
-      background: rgba(255, 247, 237, 0.86);
+      background: rgba(255, 247, 237, 0.92);
       border-bottom: 1px solid var(--line);
     }
 
@@ -108,7 +116,7 @@
       font-size: 13px;
       padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.68);
+      background: rgba(255, 255, 255, 0.75);
       border: 1px solid var(--line);
       color: var(--deep);
       text-decoration: none;
@@ -125,7 +133,7 @@
       overflow: hidden;
       border-radius: 34px;
       background:
-        linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255, 247, 237, 0.76)),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 247, 237, 0.78)),
         radial-gradient(circle at 80% 10%, rgba(245, 158, 11, 0.34), transparent 24rem);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
@@ -256,7 +264,7 @@
       border-radius: 50%;
       transform: translateX(-50%);
       background: #dc2626;
-      box-shadow: 0 0 0 5px rgba(220,38,38,0.14);
+      box-shadow: 0 0 0 5px rgba(220, 38, 38, 0.14);
     }
 
     .eye {
@@ -268,8 +276,13 @@
       background: #2b1607;
     }
 
-    .eye.left { left: 38px; }
-    .eye.right { right: 38px; }
+    .eye.left {
+      left: 38px;
+    }
+
+    .eye.right {
+      right: 38px;
+    }
 
     .smile {
       position: absolute;
@@ -341,8 +354,17 @@
     }
 
     @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.72; }
-      50% { transform: scale(1.08); opacity: 1; }
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.72;
+      }
+
+      50% {
+        transform: scale(1.08);
+        opacity: 1;
+      }
     }
 
     .section {
@@ -443,7 +465,7 @@
       border: 1px solid var(--line);
       color: var(--deep);
       font-weight: 900;
-      box-shadow: 0 8px 18px rgba(124,45,18,0.08);
+      box-shadow: 0 8px 18px rgba(124, 45, 18, 0.08);
     }
 
     .arrow {
@@ -459,20 +481,12 @@
       padding: 18px;
       overflow: auto;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
     }
 
     code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.95em;
-    }
-
-    .inline-code {
-      background: rgba(124, 45, 18, 0.08);
-      color: var(--deep);
-      padding: 2px 6px;
-      border-radius: 8px;
-      font-weight: 800;
     }
 
     table {
@@ -485,7 +499,8 @@
       border: 1px solid var(--line);
     }
 
-    th, td {
+    th,
+    td {
       padding: 13px 14px;
       border-bottom: 1px solid var(--line);
       text-align: left;
@@ -522,10 +537,6 @@
       border-radius: 24px;
       padding: 22px;
       margin-top: 16px;
-    }
-
-    .practice ol {
-      margin-bottom: 0;
     }
 
     .warning {
@@ -580,7 +591,8 @@
       padding: 28px;
     }
 
-    .quiz details {
+    .quiz details,
+    details.answer-box {
       background: white;
       border: 1px solid var(--line);
       border-radius: 18px;
@@ -588,7 +600,8 @@
       margin-top: 10px;
     }
 
-    .quiz summary {
+    .quiz summary,
+    details.answer-box summary {
       cursor: pointer;
       font-weight: 950;
       color: var(--deep);
@@ -601,11 +614,23 @@
       margin-top: 12px;
     }
 
-    .diagram {
-      width: 100%;
-      max-width: 920px;
-      display: block;
-      margin: 18px auto 8px;
+    .ad-box {
+      margin: 28px 0;
+      padding: 14px;
+      border-radius: 22px;
+      border: 1px dashed rgba(146, 64, 14, 0.32);
+      background: rgba(255, 255, 255, 0.72);
+      text-align: center;
+      min-height: 90px;
+    }
+
+    .ad-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 900;
+      margin-bottom: 8px;
     }
 
     @media (max-width: 900px) {
@@ -633,8 +658,10 @@
     }
 
     @media print {
+
       .topbar,
-      .hero-actions {
+      .hero-actions,
+      .ad-box {
         display: none;
       }
 
@@ -675,8 +702,12 @@
     <section class="hero">
       <div>
         <div class="eyebrow">Lesson 0 · For Total Novices</div>
-        <h1>The Computer Is a Jinn Who Obeys Commands</h1>
-        <p class="lead">
+
+        <h1 id="pp-speak0" data-pp-speak-title="true">
+          The Computer Is a Jinn Who Obeys Commands
+        </h1>
+
+        <p id="pp-speak1" class="lead">
           Before we learn coding, we need one beautiful picture in the mind:
           the computer itself is a powerful jinn. It is fast, obedient, tireless,
           and literal. It does not guess your wish. It follows your command.
@@ -711,8 +742,16 @@
       </div>
     </section>
 
+    <div class="ad-box">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
+        data-ad-format="auto" data-full-width-responsive="true">
+      </ins>
+    </div>
+
     <section class="section">
       <div class="mini-title">Table of Contents</div>
+
       <div class="toc">
         <a href="#idea">1. The Big Idea</a>
         <a href="#commands">2. Commands</a>
@@ -730,34 +769,31 @@
     </section>
 
     <section class="section" id="idea">
-      <h2>1. The Big Idea: Computer = Jinn</h2>
+      <h2 id="pp-speak2">1. The Big Idea: Computer Equals Jinn</h2>
 
-      <p class="big-idea">
+      <p id="pp-speak3" class="big-idea">
         The computer itself is the jinn. A program is the written command scroll.
         Programming is the art of writing clear commands for this computer-jinn.
       </p>
 
-      <p>
+      <p id="pp-speak4">
         Imagine you own a very powerful jinn. This jinn can calculate, draw,
         store information, search, display videos, run games, open websites,
         play music, and even help build artificial intelligence.
       </p>
 
-      <p>
-        But this jinn has one strict rule:
+      <p id="pp-speak5">
+        But this jinn has one strict rule. It does not understand vague wishes.
+        It only obeys clear, exact, step-by-step commands.
       </p>
 
-      <p class="warning">
-        It does not understand vague wishes. It only obeys clear, exact, step-by-step commands.
-      </p>
-
-      <p>
-        If you tell a human, “Make tea,” the human understands many hidden steps.
-        But if you tell the computer-jinn, “Make tea,” it will not understand
+      <p id="pp-speak6">
+        If you tell a human, make tea, the human understands many hidden steps.
+        But if you tell the computer-jinn, make tea, it will not understand
         unless every step is clearly written.
       </p>
 
-      <pre><code>Step 1: Take water
+      <pre id="pp-speak7"><code>Step 1: Take water
 Step 2: Heat water
 Step 3: Add tea leaves
 Step 4: Add milk
@@ -765,52 +801,42 @@ Step 5: Add sugar
 Step 6: Pour into cup
 Step 7: Stop</code></pre>
 
-      <p>
-        This step-by-step method is called an <strong>algorithm</strong>.
+      <p id="pp-speak8">
+        This step-by-step method is called an algorithm.
       </p>
     </section>
 
     <section class="section" id="commands">
-      <h2>2. Commands: How We Speak to the Jinn</h2>
+      <h2 id="pp-speak9">2. Commands: How We Speak to the Jinn</h2>
 
-      <p>
+      <p id="pp-speak10">
         A command is an instruction. When you write code, you are writing commands.
       </p>
 
-      <pre><code>print("Hello, Computer Jinn!")</code></pre>
+      <pre id="pp-speak11"><code>print("Hello, Computer Jinn!")</code></pre>
 
-      <p>
-        This command tells the computer-jinn:
+      <p id="pp-speak12">
+        This command tells the computer-jinn to take this text and show it on the screen.
       </p>
 
-      <div class="flow">
-        <span>Take this text</span>
-        <span class="arrow">→</span>
-        <span>Show it on screen</span>
-      </div>
-
-      <p>
-        The computer does not ask, “Why should I show it?” It simply obeys.
-      </p>
-
-      <div class="success">
+      <p id="pp-speak13" class="success">
         Good programming begins with clear thinking. Clear thinking becomes clear commands.
-      </div>
+      </p>
     </section>
 
     <section class="section" id="program">
-      <h2>3. What Is a Program?</h2>
+      <h2 id="pp-speak14">3. What Is a Program?</h2>
 
-      <p>
-        A <strong>program</strong> is a collection of commands written for the computer.
+      <p id="pp-speak15">
+        A program is a collection of commands written for the computer.
         It is like a command scroll given to the computer-jinn.
       </p>
 
-      <pre><code>print("Welcome")
+      <pre id="pp-speak16"><code>print("Welcome")
 print("Today we begin programming")
 print("The computer obeys clear commands")</code></pre>
 
-      <p>
+      <p id="pp-speak17">
         This program has three commands. The computer follows them one by one.
       </p>
 
@@ -843,12 +869,17 @@ print("The computer obeys clear commands")</code></pre>
     </section>
 
     <section class="section" id="language">
-      <h2>4. What Is a Programming Language?</h2>
+      <h2 id="pp-speak18">4. What Is a Programming Language?</h2>
 
-      <p>
-        The computer-jinn does not directly understand ordinary English. It needs
-        commands written in a special style. This special style is called a
-        <strong>programming language</strong>.
+      <p id="pp-speak19">
+        The computer-jinn does not directly understand ordinary English.
+        It needs commands written in a special style. This special style is called
+        a programming language.
+      </p>
+
+      <p id="pp-speak20">
+        Python, JavaScript, C, C++, Java, TypeScript, HTML, and CSS are examples
+        of languages used to command the computer.
       </p>
 
       <div class="grid">
@@ -871,9 +902,9 @@ print("The computer obeys clear commands")</code></pre>
         </div>
       </div>
 
-      <h3>Same Idea, Different Languages</h3>
+      <h3 id="pp-speak21">Same Idea, Different Languages</h3>
 
-      <pre><code>// Python
+      <pre id="pp-speak22"><code>// Python
 print("Hello")
 
 // JavaScript
@@ -882,21 +913,23 @@ console.log("Hello");
 // C
 printf("Hello");</code></pre>
 
-      <p>
-        The command style changes, but the purpose is similar: tell the computer-jinn what to do.
+      <p id="pp-speak23">
+        The command style changes, but the purpose is similar:
+        tell the computer-jinn what to do.
       </p>
     </section>
 
     <section class="section" id="editor">
-      <h2>5. What Is an Editor?</h2>
+      <h2 id="pp-speak24">5. What Is an Editor?</h2>
 
-      <p>
-        An <strong>editor</strong> is the place where we write code.
-        It is the notebook or writing desk for the command scroll.
+      <p id="pp-speak25">
+        An editor is the place where we write code. It is the notebook or writing
+        desk for the command scroll.
       </p>
 
-      <p>
-        Examples of editors:
+      <p id="pp-speak26">
+        Examples of editors are Notepad, Visual Studio Code, Sublime Text,
+        Atom, and online code editors.
       </p>
 
       <div class="pill-row">
@@ -907,46 +940,27 @@ printf("Hello");</code></pre>
         <span class="tag">Online Code Editor</span>
       </div>
 
-      <h3>What does an editor help with?</h3>
-
-      <div class="grid">
-        <div class="card">
-          <div class="icon">1</div>
-          <h3>Writing Code</h3>
-          <p>You type your program inside it.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon">2</div>
-          <h3>Saving Files</h3>
-          <p>You save your code as files like <code>.py</code>, <code>.js</code>, or <code>.html</code>.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon">3</div>
-          <h3>Coloring Code</h3>
-          <p>It highlights keywords, strings and mistakes to make code easier to read.</p>
-        </div>
-      </div>
-
-      <p>
-        The editor is not the jinn. The editor is where you write instructions for the jinn.
+      <p id="pp-speak27">
+        The editor helps you write code, save files, color the code, and manage
+        your program. The editor is not the jinn. The editor is where you write
+        instructions for the jinn.
       </p>
     </section>
 
     <section class="section" id="ide">
-      <h2>6. What Is an IDE?</h2>
+      <h2 id="pp-speak28">6. What Is an IDE?</h2>
 
-      <p>
-        IDE means <strong>Integrated Development Environment</strong>.
+      <p id="pp-speak29">
+        IDE means Integrated Development Environment.
       </p>
 
-      <p class="big-idea">
+      <p id="pp-speak30" class="big-idea">
         An IDE is a complete workshop for programming. It includes an editor,
-        run button, debugging tools, project manager, terminal, extensions, and more.
+        run button, debugging tools, project manager, terminal, extensions,
+        and more.
       </p>
 
-      <p>
+      <p id="pp-speak31">
         If an editor is just a writing desk, an IDE is a full command center.
       </p>
 
@@ -987,35 +1001,25 @@ printf("Hello");</code></pre>
         </tbody>
       </table>
 
-      <h3>IDE Examples</h3>
-
-      <div class="grid">
-        <div class="card">
-          <div class="icon">VS</div>
-          <h3>Visual Studio Code</h3>
-          <p>Popular for web, Python, JavaScript, TypeScript, C++, and many languages.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon">Py</div>
-          <h3>PyCharm</h3>
-          <p>A powerful IDE mainly for Python programming.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon">A</div>
-          <h3>Android Studio</h3>
-          <p>Used to build Android mobile and Android TV apps.</p>
-        </div>
-      </div>
+      <p id="pp-speak32">
+        Examples of IDEs are Visual Studio Code, PyCharm, Android Studio,
+        IntelliJ IDEA, Eclipse, and NetBeans.
+      </p>
     </section>
 
-    <section class="section" id="compiler">
-      <h2>7. What Is a Compiler?</h2>
+    <div class="ad-box">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
+        data-ad-format="auto" data-full-width-responsive="true">
+      </ins>
+    </div>
 
-      <p>
-        A <strong>compiler</strong> is like a royal translator.
-        It translates your code into a form the computer can run.
+    <section class="section" id="compiler">
+      <h2 id="pp-speak33">7. What Is a Compiler?</h2>
+
+      <p id="pp-speak34">
+        A compiler is like a royal translator. It translates your code into a form
+        the computer can run.
       </p>
 
       <div class="flow">
@@ -1028,11 +1032,12 @@ printf("Hello");</code></pre>
         <span>Computer-Jinn Runs It</span>
       </div>
 
-      <p>
-        Languages like C and C++ commonly use compilers.
+      <p id="pp-speak35">
+        The journey is: your code goes to the compiler, the compiler creates
+        machine code, and then the computer-jinn runs it.
       </p>
 
-      <pre><code>// C example
+      <pre id="pp-speak36"><code>// C example
 #include &lt;stdio.h&gt;
 
 int main() {
@@ -1040,70 +1045,46 @@ int main() {
     return 0;
 }</code></pre>
 
-      <p>
-        The compiler checks the whole program and prepares it before running.
+      <p id="pp-speak37">
+        Languages like C and C++ commonly use compilers.
       </p>
     </section>
 
     <section class="section" id="interpreter">
-      <h2>8. What Is an Interpreter?</h2>
+      <h2 id="pp-speak38">8. What Is an Interpreter?</h2>
 
-      <p>
-        An <strong>interpreter</strong> reads and runs the program step by step.
+      <p id="pp-speak39">
+        An interpreter reads and runs the program step by step.
         Python is commonly run through an interpreter.
       </p>
 
-      <div class="flow">
-        <span>Your Code</span>
-        <span class="arrow">→</span>
-        <span>Interpreter</span>
-        <span class="arrow">→</span>
-        <span>Line by Line Execution</span>
-      </div>
-
-      <pre><code>print("First command")
+      <pre id="pp-speak40"><code>print("First command")
 print("Second command")
 print("Third command")</code></pre>
 
-      <p>
-        The interpreter reads line 1, runs it, then reads line 2, runs it, and so on.
+      <p id="pp-speak41">
+        The interpreter reads line one, runs it, then reads line two, runs it,
+        and continues like this.
       </p>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Compiler</th>
-            <th>Interpreter</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Translates the whole program before running.</td>
-            <td>Runs the program line by line.</td>
-          </tr>
-          <tr>
-            <td>Often creates an executable file.</td>
-            <td>Usually runs directly through the interpreter.</td>
-          </tr>
-          <tr>
-            <td>Common with C, C++.</td>
-            <td>Common with Python, JavaScript.</td>
-          </tr>
-        </tbody>
-      </table>
+      <p id="pp-speak42">
+        A compiler usually translates the whole program before running.
+        An interpreter usually runs the program line by line.
+      </p>
     </section>
 
     <section class="section" id="loader">
-      <h2>9. What Is a Loader?</h2>
+      <h2 id="pp-speak43">9. What Is a Loader?</h2>
 
-      <p>
+      <p id="pp-speak44">
         Before a program runs, it must be brought into memory.
-        The <strong>loader</strong> does this job.
+        The loader does this job.
       </p>
 
-      <p>
+      <p id="pp-speak45">
         Think of storage as a cupboard and memory as the jinn’s working table.
-        The loader takes the program from the cupboard and places it on the working table.
+        The loader takes the program from the cupboard and places it on the
+        working table.
       </p>
 
       <div class="flow">
@@ -1116,14 +1097,14 @@ print("Third command")</code></pre>
         <span>CPU Executes</span>
       </div>
 
-      <p>
-        You may not directly see the loader every day, but it works behind the scenes
-        whenever a program starts.
+      <p id="pp-speak46">
+        The journey is: program in storage, loader, program in memory,
+        then CPU execution.
       </p>
     </section>
 
     <section class="section">
-      <h2>10. CPU, Memory, and Storage</h2>
+      <h2 id="pp-speak47">10. CPU, Memory, and Storage</h2>
 
       <div class="grid">
         <div class="card">
@@ -1145,60 +1126,47 @@ print("Third command")</code></pre>
         </div>
       </div>
 
-      <h3>Example</h3>
+      <p id="pp-speak48">
+        The CPU is the jinn’s thinking and working power. It executes instructions.
+      </p>
 
-      <pre><code>name = "Student"
+      <p id="pp-speak49">
+        Memory, also called RAM, is the jinn’s work table. It is temporary space
+        used while a program is running.
+      </p>
+
+      <p id="pp-speak50">
+        Storage is the jinn’s cupboard. It keeps files, programs, photos,
+        videos, and documents for a long time.
+      </p>
+
+      <pre id="pp-speak51"><code>name = "Student"
 marks = 85
 print(name)
 print(marks)</code></pre>
 
-      <p>
-        The values <code>Student</code> and <code>85</code> are kept in memory while
-        the program runs.
+      <p id="pp-speak52">
+        The values Student and eighty five are kept in memory while the program runs.
       </p>
     </section>
 
     <section class="section" id="vm">
-      <h2>11. What Is a Virtual Machine?</h2>
+      <h2 id="pp-speak53">11. What Is a Virtual Machine?</h2>
 
-      <p>
-        A <strong>virtual machine</strong> is like a computer inside a computer.
+      <p id="pp-speak54">
+        A virtual machine is like a computer inside a computer.
       </p>
 
-      <p>
+      <p id="pp-speak55">
         Imagine your real computer-jinn creates a special room. Inside that room,
         another artificial computer environment runs. That is a virtual machine.
       </p>
 
-      <div class="grid two">
-        <div class="card">
-          <div class="icon">PC</div>
-          <h3>Real Computer</h3>
-          <p>Your actual laptop or desktop with its real CPU, memory and storage.</p>
-        </div>
-
-        <div class="card">
-          <div class="icon">VM</div>
-          <h3>Virtual Computer</h3>
-          <p>A software-created computer environment running inside the real computer.</p>
-        </div>
-      </div>
-
-      <h3>Examples</h3>
-
-      <div class="pill-row">
-        <span class="tag">VirtualBox</span>
-        <span class="tag">VMware</span>
-        <span class="tag">Java Virtual Machine</span>
-        <span class="tag">Android Emulator</span>
-      </div>
-
-      <p>
-        A virtual machine is useful for testing, learning, safety, and running software
-        in a controlled environment.
+      <p id="pp-speak56">
+        Examples include VirtualBox, VMware, Java Virtual Machine, and Android Emulator.
       </p>
 
-      <pre><code>Real computer: Windows
+      <pre id="pp-speak57"><code>Real computer: Windows
 Virtual machine: Linux
 
 Real computer: Linux
@@ -1206,54 +1174,46 @@ Virtual machine: Android Emulator</code></pre>
     </section>
 
     <section class="section">
-      <h2>12. What Is an Operating System?</h2>
+      <h2 id="pp-speak58">12. What Is an Operating System?</h2>
 
-      <p>
-        The <strong>operating system</strong>, or OS, manages the computer.
-        It controls files, memory, devices, windows, keyboard, mouse, screen,
-        programs and users.
+      <p id="pp-speak59">
+        The operating system, or OS, manages the computer. It controls files,
+        memory, devices, windows, keyboard, mouse, screen, programs, and users.
       </p>
 
-      <p>
-        Examples:
+      <p id="pp-speak60">
+        Examples of operating systems are Windows, macOS, Linux, Android, and iOS.
       </p>
 
-      <div class="pill-row">
-        <span class="tag">Windows</span>
-        <span class="tag">macOS</span>
-        <span class="tag">Linux</span>
-        <span class="tag">Android</span>
-        <span class="tag">iOS</span>
-      </div>
-
-      <p>
-        If the computer is the jinn, the OS is like the palace manager.
-        It keeps everything organized so that programs can run properly.
+      <p id="pp-speak61">
+        If the computer is the jinn, the operating system is like the palace manager.
+        It keeps everything organized so programs can run properly.
       </p>
     </section>
 
-    <section class="section" id="terminal">
-      <h2>13. What Is a Terminal?</h2>
+    <div class="ad-box">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
+        data-ad-format="auto" data-full-width-responsive="true">
+      </ins>
+    </div>
 
-      <p>
-        A <strong>terminal</strong> is a place where you type commands directly.
+    <section class="section" id="terminal">
+      <h2 id="pp-speak62">13. What Is a Terminal?</h2>
+
+      <p id="pp-speak63">
+        A terminal is a place where you type commands directly.
       </p>
 
-      <p>
+      <p id="pp-speak64">
         In graphical apps, you click buttons. In the terminal, you type commands.
       </p>
 
-      <pre><code>python hello.py</code></pre>
+      <pre id="pp-speak65"><code>python hello.py</code></pre>
 
-      <p>
-        This means:
+      <p id="pp-speak66">
+        This means: computer-jinn, please run the Python file named hello.py.
       </p>
-
-      <p class="success">
-        Computer-jinn, please run the Python file named hello.py.
-      </p>
-
-      <h3>Common Terminal Commands</h3>
 
       <table>
         <thead>
@@ -1269,7 +1229,7 @@ Virtual machine: Android Emulator</code></pre>
           </tr>
           <tr>
             <td><code>ls</code></td>
-            <td>Show files and folders on Linux/macOS.</td>
+            <td>Show files and folders on Linux or macOS.</td>
           </tr>
           <tr>
             <td><code>cd foldername</code></td>
@@ -1284,52 +1244,41 @@ Virtual machine: Android Emulator</code></pre>
     </section>
 
     <section class="section">
-      <h2>14. What Is Debugging?</h2>
+      <h2 id="pp-speak67">14. What Is Debugging?</h2>
 
-      <p>
-        <strong>Debugging</strong> means finding and fixing mistakes in a program.
+      <p id="pp-speak68">
+        Debugging means finding and fixing mistakes in a program.
       </p>
 
-      <p>
-        If your command scroll has a mistake, the computer-jinn may stop, complain,
-        or produce the wrong result.
+      <p id="pp-speak69">
+        If your command scroll has a mistake, the computer-jinn may stop,
+        complain, or produce the wrong result.
       </p>
 
-      <pre><code>print("Hello"</code></pre>
+      <pre id="pp-speak70"><code>print("Hello"</code></pre>
 
-      <p>
-        This has a missing closing bracket. The computer will show an error.
+      <p id="pp-speak71" class="warning">
+        Error messages are not enemies. They are the jinn saying:
+        I cannot understand this command yet.
       </p>
 
-      <p class="warning">
-        Error messages are not enemies. They are the jinn saying, “I cannot understand this command yet.”
-      </p>
-
-      <h3>Debugger</h3>
-
-      <p>
-        A debugger lets you run the program slowly, one step at a time, so you can
-        see where the problem is.
+      <p id="pp-speak72">
+        A debugger lets you run the program slowly, one step at a time,
+        so you can see where the problem is.
       </p>
     </section>
 
     <section class="section">
-      <h2>15. What Happens When You Run a Program?</h2>
+      <h2 id="pp-speak73">15. What Happens When You Run a Program?</h2>
 
-      <p>
-        Suppose you write this:
-      </p>
-
-      <pre><code>print("Hello, world!")</code></pre>
-
-      <p>
-        Behind the scenes, this journey happens:
+      <p id="pp-speak74">
+        Suppose you write print Hello world. Behind the scenes, a journey happens.
       </p>
 
       <div class="flow">
         <span>You write code</span>
         <span class="arrow">→</span>
-        <span>Editor / IDE saves it</span>
+        <span>Editor or IDE saves it</span>
         <span class="arrow">→</span>
         <span>Compiler or interpreter handles it</span>
         <span class="arrow">→</span>
@@ -1340,19 +1289,21 @@ Virtual machine: Android Emulator</code></pre>
         <span>Output appears</span>
       </div>
 
-      <p>
-        The result looks simple:
+      <p id="pp-speak75">
+        You write code. The editor or IDE saves it. The compiler or interpreter
+        handles it. The loader places it in memory. The CPU executes it.
+        Then the output appears.
       </p>
 
-      <pre><code>Hello, world!</code></pre>
+      <pre id="pp-speak76"><code>print("Hello, world!")</code></pre>
 
-      <p>
-        But many helpers worked behind the curtain.
+      <p id="pp-speak77">
+        The result looks simple, but many helpers worked behind the curtain.
       </p>
     </section>
 
     <section class="section" id="summary">
-      <h2>16. The Computer Jinn Dictionary</h2>
+      <h2 id="pp-speak78">16. The Computer Jinn Dictionary</h2>
 
       <table>
         <thead>
@@ -1362,6 +1313,7 @@ Virtual machine: Android Emulator</code></pre>
             <th>Meaning</th>
           </tr>
         </thead>
+
         <tbody>
           <tr>
             <td>Jinn</td>
@@ -1425,55 +1377,81 @@ Virtual machine: Android Emulator</code></pre>
           </tr>
         </tbody>
       </table>
+
+      <p id="pp-speak79">
+        Computer means jinn. Program means command scroll. Programming language
+        means the language of commands. Editor means writing desk. IDE means
+        full workshop.
+      </p>
+
+      <p id="pp-speak80">
+        Compiler and interpreter are translators. Loader places the program into memory.
+        Memory is the work table. Storage is the cupboard. CPU is the thinking and
+        working power.
+      </p>
+
+      <p id="pp-speak81">
+        The operating system is the palace manager. A virtual machine is a computer
+        inside a computer.
+      </p>
     </section>
 
     <section class="section" id="practice">
-      <h2>17. First Practice</h2>
+      <h2 id="pp-speak82">17. First Practice</h2>
 
       <div class="practice">
-        <h3>Practice 1: Read the Program</h3>
-        <p>Read this code and explain what command is being given to the computer-jinn.</p>
+        <h3 id="pp-speak83">Practice 1: Read the Program</h3>
 
-        <pre><code>print("I am learning programming")
+        <p id="pp-speak84">
+          Read this code and explain what command is being given to the computer-jinn.
+        </p>
+
+        <pre id="pp-speak85"><code>print("I am learning programming")
 print("The computer obeys clear commands")</code></pre>
 
-        <details>
+        <details class="answer-box">
           <summary>Show answer</summary>
-          <p>
-            The first line tells the computer to show “I am learning programming”.
-            The second line tells it to show “The computer obeys clear commands”.
+          <p id="pp-speak86">
+            The first line tells the computer to show I am learning programming.
+            The second line tells it to show The computer obeys clear commands.
           </p>
         </details>
       </div>
 
       <div class="practice">
-        <h3>Practice 2: Variables</h3>
-        <p>What does this program store?</p>
+        <h3 id="pp-speak87">Practice 2: Variables</h3>
 
-        <pre><code>name = "Student"
+        <p id="pp-speak88">
+          What does this program store?
+        </p>
+
+        <pre id="pp-speak89"><code>name = "Student"
 course = "Python"
 print(name)
 print(course)</code></pre>
 
-        <details>
+        <details class="answer-box">
           <summary>Show answer</summary>
-          <p>
-            It stores “Student” in <code>name</code> and “Python” in <code>course</code>.
-            Then it prints both values.
+          <p id="pp-speak90">
+            It stores Student in name and Python in course. Then it prints both values.
           </p>
         </details>
       </div>
 
       <div class="practice">
-        <h3>Practice 3: Find the Mistake</h3>
-        <p>What is wrong here?</p>
+        <h3 id="pp-speak91">Practice 3: Find the Mistake</h3>
 
-        <pre><code>print("Hello"</code></pre>
+        <p id="pp-speak92">
+          What is wrong here?
+        </p>
 
-        <details>
+        <pre id="pp-speak93"><code>print("Hello"</code></pre>
+
+        <details class="answer-box">
           <summary>Show answer</summary>
-          <p>
-            The closing bracket is missing. Correct code:
+          <p id="pp-speak94">
+            The closing bracket is missing. The correct code is print Hello with
+            the closing bracket.
           </p>
 
           <pre><code>print("Hello")</code></pre>
@@ -1482,77 +1460,101 @@ print(course)</code></pre>
     </section>
 
     <section class="section quiz">
-      <h2>18. Quick Quiz</h2>
+      <h2 id="pp-speak95">18. Quick Quiz</h2>
 
       <details>
         <summary>1. What is a program?</summary>
-        <p>A program is a written set of commands for the computer.</p>
+        <p id="pp-speak96">A program is a written set of commands for the computer.</p>
       </details>
 
       <details>
         <summary>2. What is a programming language?</summary>
-        <p>A programming language is a special language used to write commands for the computer.</p>
+        <p id="pp-speak97">A programming language is a special language used to write commands for the computer.</p>
       </details>
 
       <details>
         <summary>3. What is an editor?</summary>
-        <p>An editor is the place where we write code.</p>
+        <p id="pp-speak98">An editor is the place where we write code.</p>
       </details>
 
       <details>
         <summary>4. What is an IDE?</summary>
-        <p>An IDE is a complete programming workshop containing an editor and other tools.</p>
+        <p id="pp-speak99">An IDE is a complete programming workshop containing an editor and other tools.</p>
       </details>
 
       <details>
         <summary>5. What is a compiler?</summary>
-        <p>A compiler translates code into a form the computer can run.</p>
+        <p id="pp-speak100">A compiler translates code into a form the computer can run.</p>
       </details>
 
       <details>
         <summary>6. What is an interpreter?</summary>
-        <p>An interpreter reads and runs code line by line.</p>
+        <p id="pp-speak101">An interpreter reads and runs code line by line.</p>
       </details>
 
       <details>
         <summary>7. What is a loader?</summary>
-        <p>A loader places a program into memory so it can run.</p>
+        <p id="pp-speak102">A loader places a program into memory so it can run.</p>
       </details>
 
       <details>
         <summary>8. What is a virtual machine?</summary>
-        <p>A virtual machine is a computer-like environment running inside another computer.</p>
+        <p id="pp-speak103">A virtual machine is a computer-like environment running inside another computer.</p>
       </details>
     </section>
 
-    <section class="section">
-      <h2>19. Final Message</h2>
+    <div class="ad-box">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
+        data-ad-format="auto" data-full-width-responsive="true">
+      </ins>
+    </div>
 
-      <p class="big-idea">
-        The computer is a jinn. It is powerful, fast and obedient.
+    <section class="section">
+      <h2 id="pp-speak104">19. Final Message</h2>
+
+      <p id="pp-speak105" class="big-idea">
+        The computer is a jinn. It is powerful, fast, and obedient.
         But it needs clear commands.
       </p>
 
-      <p>
+      <p id="pp-speak106">
         A programmer is not someone who memorizes everything. A programmer is someone
         who learns how to think clearly, break problems into steps, and give precise
         commands to the computer.
       </p>
 
-      <p>
-        Your first command can be very small:
-      </p>
+      <pre id="pp-speak107"><code>print("Hello, world!")</code></pre>
 
-      <pre><code>print("Hello, world!")</code></pre>
-
-      <p>
-        But from this small command begins the entire world of programming.
+      <p id="pp-speak108">
+        From this small command begins the entire world of programming.
       </p>
     </section>
 
-    <footer class="footer">
+    <footer id="pp-speak109" class="footer">
       Programmers Picnic AI-ML Classes by Champak Roy · learnwithchampak.live
     </footer>
   </main>
+
+  <!-- Push all AdSense blocks -->
+  <script>
+    window.addEventListener("load", function () {
+      var ads = document.querySelectorAll(".adsbygoogle");
+
+      ads.forEach(function () {
+        try {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (error) {
+          console.warn("AdSense push skipped:", error);
+        }
+      });
+    });
+  </script>
+
+  <!-- Usual Programmer's Picnic scripts -->
+  <script src="https://varanasi-software-junction.github.io/search/branding/branding.js"></script>
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+  <script src="https://programmer-s-picnic.github.io/json-images/contact_champak.js"></script>
 </body>
+
 </html>
