@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>One Thread Per Drag Canvas Simulation</title>
+
+    <meta name="description"
+        content="One drag creates one animated drawing thread. Direction and speed come from the mouse drag, and the thread reflects from canvas borders." />
+    <meta name="keywords"
+        content="HTML Canvas, JavaScript, drag animation, threaded drawing, canvas reflection, Programmer's Picnic" />
+    <meta name="author" content="Champak Roy" />
+
+    <meta property="og:title" content="One Thread Per Drag Canvas Simulation" />
+    <meta property="og:description"
+        content="Drag and release to create one animated thread. Direction and speed come from the drag." />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://learnwithchampak.live/images/one-thread-per-drag-canvas-og.png" />
+
+    <script async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+        crossorigin="anonymous">
+        </script>
+
+    <style>
+        :root {
+            --saffron: #ff8c00;
+            --saffron-light: #ffb347;
+            --saffron-dark: #b85f00;
+            --cream: #fff7e8;
+            --ink: #1f1b16;
+            --card: #ffffff;
+            --line: #ead6b7;
+            --dark: #111827;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(255, 140, 0, 0.22), transparent 35%),
+                linear-gradient(135deg, #fff7e8, #fffdf7);
+            color: var(--ink);
+        }
+
+        header {
+            padding: 28px 18px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--saffron-light), var(--saffron));
+            color: #1d1203;
+            border-bottom: 4px solid var(--saffron-dark);
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: clamp(1.7rem, 4vw, 3rem);
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.05rem;
+            max-width: 850px;
+            margin-inline: auto;
+            line-height: 1.6;
+        }
+
+        main {
+            width: min(1100px, 94vw);
+            margin: 24px auto 50px;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 18px;
+            box-shadow: 0 18px 45px rgba(120, 70, 0, 0.12);
+            margin-bottom: 20px;
+        }
+
+        .canvas-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            border: 3px solid var(--saffron);
+            background: var(--dark);
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 560px;
+            cursor: crosshair;
+            touch-action: none;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                #111827;
+            background-size: 28px 28px;
+        }
+
+        .canvas-wrap:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            border: 0;
+            background: #111827;
+        }
+
+        .canvas-wrap:fullscreen canvas {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .canvas-wrap:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            border: 0;
+            background: #111827;
+        }
+
+        .canvas-wrap:-webkit-full-screen canvas {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .hint {
+            position: absolute;
+            left: 18px;
+            bottom: 18px;
+            background: rgba(255, 247, 232, 0.92);
+            color: #1f1b16;
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 0.92rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+            pointer-events: none;
+        }
+
+        .fullscreen-controls {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: none;
+            z-index: 5;
+        }
+
+        .canvas-wrap:fullscreen .fullscreen-controls,
+        .canvas-wrap:-webkit-full-screen .fullscreen-controls {
+            display: block;
+        }
+
+        .fullscreen-controls button {
+            background: rgba(255, 247, 232, 0.94);
+            color: #1f1b16;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button,
+        select,
+        input {
+            border: 0;
+            border-radius: 999px;
+            padding: 11px 16px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        button {
+            background: var(--saffron);
+            color: #1d1203;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(184, 95, 0, 0.25);
+        }
+
+        button:hover {
+            background: #ff9f1a;
+        }
+
+        button.secondary {
+            background: #1f2937;
+            color: #ffffff;
+        }
+
+        select {
+            background: #fff4dc;
+            color: #1f1b16;
+            border: 1px solid #e6c98f;
+        }
+
+        label {
+            font-weight: 800;
+        }
+
+        input[type="range"] {
+            accent-color: var(--saffron);
+            padding-inline: 0;
+        }
+
+        .info {
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .info h2 {
+            margin-top: 0;
+        }
+
+        .info code {
+            background: #1f2937;
+            color: #fff3c4;
+            padding: 3px 7px;
+            border-radius: 8px;
+        }
+
+        .ad-box {
+            margin: 22px 0;
+            min-height: 90px;
+            border: 1px dashed var(--line);
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            background: #fffaf0;
+            color: #6b4b18;
+            font-size: 0.92rem;
+            overflow: hidden;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: #5a3a08;
+            font-weight: 700;
+        }
+
+        @media (max-width: 700px) {
+            canvas {
+                height: 430px;
+            }
+
+            .hint {
+                font-size: 0.8rem;
+                left: 12px;
+                bottom: 12px;
+            }
+
+            button,
+            select,
+            input {
+                font-size: 0.88rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>One Thread Per Drag</h1>
+        <p>
+            Drag on the canvas and release. One moving thread starts from the drag start point.
+            Its direction and speed come from your drag.
+        </p>
+    </header>
+
+    <main>
+        <section class="panel">
+            <div class="canvas-wrap" id="canvasWrap">
+                <canvas id="drawingCanvas"></canvas>
+
+                <div class="hint">Drag and release to launch one thread</div>
+
+                <div class="fullscreen-controls">
+                    <button id="exitFullscreenBtn">Exit Fullscreen</button>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="startBtn">Start</button>
+                <button id="pauseBtn" class="secondary">Pause</button>
+                <button id="clearBtn" class="secondary">Clear</button>
+                <button id="fullscreenBtn">Fullscreen</button>
+
+                <label for="speedRange">Speed</label>
+                <input id="speedRange" type="range" min="1" max="10" value="4" />
+
+                <label for="modeSelect">Mode</label>
+                <select id="modeSelect" style="visibility: hidden;">
+                    <option value="lines">Lines</option>
+                    <option selected value="circles">Circles</option>
+                    <option value="mixed">Mixed</option>
+                    <option value="web">Web Pattern</option>
+                    <option value="spark">Spark</option>
+                </select>
+            </div>
+        </section>
+
+        <div class="ad-box">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494"
+                data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        </div>
+
+        <section class="panel info">
+            <h2>How this works</h2>
+
+            <p>
+                One drag creates exactly one animated object. The drag start point becomes the thread's starting point.
+                The drag direction decides the movement direction. The drag length decides the initial speed.
+            </p>
+
+            <p>
+                When the thread touches the left or right wall, its horizontal velocity is reversed.
+                When it touches the top or bottom wall, its vertical velocity is reversed.
+            </p>
+
+            <p>
+                This is similar to a ball reflecting from a wall. The JavaScript animation is handled by
+                <code>requestAnimationFrame()</code>.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        Programmer's Picnic AI-ML classes by Champak Roy
+    </footer>
+
+    <script>
+        const canvasWrap = document.getElementById("canvasWrap");
+        const canvas = document.getElementById("drawingCanvas");
+        const ctx = canvas.getContext("2d");
+
+        const startBtn = document.getElementById("startBtn");
+        const pauseBtn = document.getElementById("pauseBtn");
+        const clearBtn = document.getElementById("clearBtn");
+        const fullscreenBtn = document.getElementById("fullscreenBtn");
+        const exitFullscreenBtn = document.getElementById("exitFullscreenBtn");
+        const speedRange = document.getElementById("speedRange");
+        const modeSelect = document.getElementById("modeSelect");
+
+        let running = true;
+        let animationId = null;
+        let drawingThreads = [];
+
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let dragEndX = 0;
+        let dragEndY = 0;
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            softClear();
+            drawThreadCounter();
+        }
+
+        function getCanvasPoint(event) {
+            const rect = canvas.getBoundingClientRect();
+
+            let clientX;
+            let clientY;
+
+            if (event.touches && event.touches.length > 0) {
+                clientX = event.touches[0].clientX;
+                clientY = event.touches[0].clientY;
+            } else if (event.changedTouches && event.changedTouches.length > 0) {
+                clientX = event.changedTouches[0].clientX;
+                clientY = event.changedTouches[0].clientY;
+            } else {
+                clientX = event.clientX;
+                clientY = event.clientY;
+            }
+
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        function randomBetween(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function randomColor() {
+            const colors = [
+                "#ffb703",
+                "#fb8500",
+                "#8ecae6",
+                "#219ebc",
+                "#90be6d",
+                "#f94144",
+                "#f9c74f",
+                "#ffffff",
+                "#c084fc",
+                "#67e8f9"
+            ];
+
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        class DrawingThread {
+            constructor(x, y, vx, vy) {
+                this.x = x;
+                this.y = y;
+                this.oldX = x;
+                this.oldY = y;
+
+                this.vx = vx;
+                this.vy = vy;
+
+                this.color = randomColor();
+                this.radius = randomBetween(4, 9);
+                this.lineWidth = randomBetween(2, 4);
+                this.life = 0;
+                this.maxLife = 100000;
+
+                this.angle = randomBetween(0, Math.PI * 2);
+                this.spin = randomBetween(-0.05, 0.05);
+            }
+
+            update(speedMultiplier) {
+                this.oldX = this.x;
+                this.oldY = this.y;
+
+                this.angle += this.spin;
+
+                this.x += this.vx * speedMultiplier;
+                this.y += this.vy * speedMultiplier;
+
+                const w = canvas.clientWidth;
+                const h = canvas.clientHeight;
+
+                if (this.x - this.radius <= 0) {
+                    this.x = this.radius;
+                    this.vx *= -1;
+                    this.changeAfterReflection();
+                }
+
+                if (this.x + this.radius >= w) {
+                    this.x = w - this.radius;
+                    this.vx *= -1;
+                    this.changeAfterReflection();
+                }
+
+                if (this.y - this.radius <= 0) {
+                    this.y = this.radius;
+                    this.vy *= -1;
+                    this.changeAfterReflection();
+                }
+
+                if (this.y + this.radius >= h) {
+                    this.y = h - this.radius;
+                    this.vy *= -1;
+                    this.changeAfterReflection();
+                }
+
+                this.life++;
+            }
+
+            changeAfterReflection() {
+                this.color = randomColor();
+                this.spin = randomBetween(-0.05, 0.05);
+            }
+
+            draw(mode) {
+                ctx.save();
+
+                ctx.globalAlpha = 0.9;
+                ctx.strokeStyle = this.color;
+                ctx.fillStyle = this.color;
+                ctx.lineWidth = this.lineWidth;
+                ctx.lineCap = "round";
+                ctx.lineJoin = "round";
+
+                if (mode === "lines") {
+                    this.drawLine();
+                } else if (mode === "circles") {
+                    this.drawCircle();
+                } else if (mode === "web") {
+                    this.drawWeb();
+                } else if (mode === "spark") {
+                    this.drawSpark();
+                } else {
+                    this.drawLine();
+                    this.drawCircle();
+                }
+
+                ctx.restore();
+            }
+
+            drawLine() {
+                ctx.beginPath();
+                ctx.moveTo(this.oldX, this.oldY);
+                ctx.lineTo(this.x, this.y);
+                ctx.stroke();
+            }
+
+            drawCircle() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            drawWeb() {
+                ctx.beginPath();
+                ctx.moveTo(canvas.clientWidth / 2, canvas.clientHeight / 2);
+                ctx.lineTo(this.x, this.y);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * 0.75, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            drawSpark() {
+                const spikes = 6;
+                const outer = this.radius * 2.2;
+                const inner = this.radius * 0.75;
+
+                ctx.beginPath();
+
+                for (let i = 0; i < spikes * 2; i++) {
+                    const r = i % 2 === 0 ? outer : inner;
+                    const a = this.angle + i * Math.PI / spikes;
+                    const px = this.x + Math.cos(a) * r;
+                    const py = this.y + Math.sin(a) * r;
+
+                    if (i === 0) {
+                        ctx.moveTo(px, py);
+                    } else {
+                        ctx.lineTo(px, py);
+                    }
+                }
+
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            isDead() {
+                return this.life > this.maxLife;
+            }
+        }
+
+        function createOneThreadFromDrag(startX, startY, endX, endY) {
+            const dx = endX - startX;
+            const dy = endY - startY;
+
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 8) {
+                return;
+            }
+
+            const speedScale = 0.035;
+
+            let vx = dx * speedScale;
+            let vy = dy * speedScale;
+
+            const maxSpeed = 12;
+            const speed = Math.sqrt(vx * vx + vy * vy);
+
+            if (speed > maxSpeed) {
+                vx = (vx / speed) * maxSpeed;
+                vy = (vy / speed) * maxSpeed;
+            }
+
+            const thread = new DrawingThread(startX, startY, vx, vy);
+            drawingThreads.push(thread);
+
+            if (!running) {
+                running = true;
+                animate();
+            }
+        }
+
+        function softClear() {
+            ctx.fillStyle = "#111827";
+            ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+        }
+
+        function fadeCanvas() {
+            ctx.fillStyle = "rgba(17, 24, 39, 0.045)";
+            ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+        }
+
+        function drawDragPreview() {
+            if (!isDragging) return;
+
+            ctx.save();
+
+            ctx.strokeStyle = "#ffb703";
+            ctx.lineWidth = 3;
+            ctx.setLineDash([8, 8]);
+            ctx.lineCap = "round";
+
+            ctx.beginPath();
+            ctx.moveTo(dragStartX, dragStartY);
+            ctx.lineTo(dragEndX, dragEndY);
+            ctx.stroke();
+
+            ctx.setLineDash([]);
+
+            drawArrowHead(dragStartX, dragStartY, dragEndX, dragEndY);
+
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.arc(dragStartX, dragStartY, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = "#ffb703";
+            ctx.beginPath();
+            ctx.arc(dragEndX, dragEndY, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawArrowHead(fromX, fromY, toX, toY) {
+            const angle = Math.atan2(toY - fromY, toX - fromX);
+            const size = 16;
+
+            ctx.fillStyle = "#ffb703";
+            ctx.beginPath();
+            ctx.moveTo(toX, toY);
+            ctx.lineTo(
+                toX - size * Math.cos(angle - Math.PI / 6),
+                toY - size * Math.sin(angle - Math.PI / 6)
+            );
+            ctx.lineTo(
+                toX - size * Math.cos(angle + Math.PI / 6),
+                toY - size * Math.sin(angle + Math.PI / 6)
+            );
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function animate() {
+            if (!running) return;
+
+            const speedMultiplier = Number(speedRange.value) / 4;
+            const mode = modeSelect.value;
+
+            fadeCanvas();
+
+            for (const thread of drawingThreads) {
+                thread.update(speedMultiplier);
+                thread.draw(mode);
+            }
+
+            drawingThreads = drawingThreads.filter(thread => !thread.isDead());
+
+            drawDragPreview();
+            drawThreadCounter();
+
+            animationId = requestAnimationFrame(animate);
+        }
+
+        function drawThreadCounter() {
+            ctx.save();
+
+            ctx.globalAlpha = 0.92;
+            ctx.fillStyle = "rgba(255, 247, 232, 0.9)";
+            ctx.fillRect(16, 16, 350, 70);
+
+            ctx.fillStyle = "#1f1b16";
+            ctx.font = "700 16px system-ui";
+            ctx.fillText("Active threads: " + drawingThreads.length, 28, 42);
+
+            ctx.font = "500 13px system-ui";
+            ctx.fillText("One drag creates one reflecting thread", 28, 65);
+
+            ctx.restore();
+        }
+
+        function startDrag(event) {
+            event.preventDefault();
+
+            isDragging = true;
+
+            const point = getCanvasPoint(event);
+
+            dragStartX = point.x;
+            dragStartY = point.y;
+            dragEndX = point.x;
+            dragEndY = point.y;
+        }
+
+        function moveDrag(event) {
+            if (!isDragging) return;
+
+            event.preventDefault();
+
+            const point = getCanvasPoint(event);
+
+            dragEndX = point.x;
+            dragEndY = point.y;
+        }
+
+        function endDrag(event) {
+            if (!isDragging) return;
+
+            event.preventDefault();
+
+            const point = getCanvasPoint(event);
+
+            dragEndX = point.x;
+            dragEndY = point.y;
+
+            createOneThreadFromDrag(dragStartX, dragStartY, dragEndX, dragEndY);
+
+            isDragging = false;
+        }
+
+        async function enterFullscreen() {
+            if (canvasWrap.requestFullscreen) {
+                await canvasWrap.requestFullscreen();
+            } else if (canvasWrap.webkitRequestFullscreen) {
+                await canvasWrap.webkitRequestFullscreen();
+            }
+        }
+
+        async function exitFullscreen() {
+            if (document.fullscreenElement && document.exitFullscreen) {
+                await document.exitFullscreen();
+            } else if (document.webkitFullscreenElement && document.webkitExitFullscreen) {
+                await document.webkitExitFullscreen();
+            }
+        }
+
+        function toggleFullscreen() {
+            const isFull =
+                document.fullscreenElement === canvasWrap ||
+                document.webkitFullscreenElement === canvasWrap;
+
+            if (isFull) {
+                exitFullscreen();
+            } else {
+                enterFullscreen();
+            }
+        }
+
+        function handleFullscreenChange() {
+            setTimeout(() => {
+                resizeCanvas();
+
+                const isFull =
+                    document.fullscreenElement === canvasWrap ||
+                    document.webkitFullscreenElement === canvasWrap;
+
+                fullscreenBtn.textContent = isFull ? "Exit Fullscreen" : "Fullscreen";
+            }, 120);
+        }
+
+        canvas.addEventListener("mousedown", startDrag);
+        canvas.addEventListener("mousemove", moveDrag);
+        window.addEventListener("mouseup", endDrag);
+
+        canvas.addEventListener("touchstart", startDrag, { passive: false });
+        canvas.addEventListener("touchmove", moveDrag, { passive: false });
+        window.addEventListener("touchend", endDrag, { passive: false });
+
+        window.addEventListener("touchcancel", () => {
+            isDragging = false;
+        });
+
+        fullscreenBtn.addEventListener("click", toggleFullscreen);
+        exitFullscreenBtn.addEventListener("click", exitFullscreen);
+
+        document.addEventListener("fullscreenchange", handleFullscreenChange);
+        document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+
+        startBtn.addEventListener("click", () => {
+            if (!running) {
+                running = true;
+                animate();
+            }
+        });
+
+        pauseBtn.addEventListener("click", () => {
+            running = false;
+            cancelAnimationFrame(animationId);
+        });
+
+        clearBtn.addEventListener("click", () => {
+            drawingThreads = [];
+            softClear();
+            drawThreadCounter();
+        });
+
+        window.addEventListener("resize", resizeCanvas);
+
+        resizeCanvas();
+        softClear();
+        drawThreadCounter();
+        animate();
+
+        try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (error) {
+            console.log("AdSense not loaded yet.");
+        }
+    </script>
+</body>
+
+</html>
