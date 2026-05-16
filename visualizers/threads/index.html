@@ -284,7 +284,7 @@
             <div class="canvas-wrap" id="canvasWrap">
                 <canvas id="drawingCanvas"></canvas>
 
-                <div class="hint">Drag and release to launch one thread</div>
+                <!-- <div class="hint">Drag and release to launch one thread</div> -->
 
                 <div class="fullscreen-controls">
                     <button id="exitFullscreenBtn">Exit Fullscreen</button>
@@ -678,6 +678,7 @@
         }
 
         function drawThreadCounter() {
+            return;
             ctx.save();
 
             ctx.globalAlpha = 0.92;
@@ -686,10 +687,10 @@
 
             ctx.fillStyle = "#1f1b16";
             ctx.font = "700 16px system-ui";
-            ctx.fillText("Active threads: " + drawingThreads.length, 28, 42);
+            // ctx.fillText("" + drawingThreads.length, 5, 5);
 
             ctx.font = "500 13px system-ui";
-            ctx.fillText("One drag creates one reflecting thread", 28, 65);
+            // ctx.fillText("One drag creates one reflecting thread", 28, 65);
 
             ctx.restore();
         }
