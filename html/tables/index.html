@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Learn HTML Tables from 0 to Infinity | Programmers Picnic</title>
+    <meta
+      name="description"
+      content="A complete beginner-friendly HTML tables lesson. Learn table, tr, th, td, caption, thead, tbody, tfoot, colspan, rowspan, styling, responsive tables, accessibility, and practice challenges."
+    />
+    <meta name="keywords" content="HTML tables, table tag, tr th td, colspan rowspan, accessible tables, responsive HTML table, HTML lesson, Programmers Picnic" />
+    <meta name="author" content="Champak Roy, Programmers Picnic AI-ML Classes" />
+    <meta name="theme-color" content="#f59e0b" />
+
+    <meta property="og:title" content="Learn HTML Tables from 0 to Infinity" />
+    <meta property="og:description" content="Build clean, accessible, responsive tables in HTML with examples, demos, copy buttons, and practice challenges." />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://programmer-s-picnic.github.io/json-images/html-tables-sm.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Learn HTML Tables from 0 to Infinity" />
+    <meta name="twitter:description" content="A complete practical lesson on HTML tables." />
+    <meta name="twitter:image" content="https://programmer-s-picnic.github.io/json-images/html-tables-sm.png" />
+    <link rel="preload" as="image" href="https://programmer-s-picnic.github.io/json-images/html-tables-sm.png" />
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109" crossorigin="anonymous"></script>
+
+    <style>
+      :root {
+        --bg: #fffaf0;
+        --bg2: #fff4d6;
+        --panel: #ffffff;
+        --panel-soft: #fff7ea;
+        --text: teal;
+        --muted: #6b5a3d;
+        --line: #efdfb2;
+        --brand: #d97706;
+        --brand2: #f59e0b;
+        --brand3: #fbbf24;
+        --ok: #15803d;
+        --okbg: #ecfdf3;
+        --tipbg: #fff8e8;
+        --danger: #b91c1c;
+        --dangerbg: #fff1f2;
+        --shadow: 0 18px 50px rgba(128, 81, 0, 0.12);
+        --radius: 22px;
+        --max: 1240px;
+        --code: #111827;
+        --codeInk: teal;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.7;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top right, rgba(245, 158, 11, 0.1), transparent 24rem),
+          linear-gradient(180deg, #fff9f1 0%, var(--bg) 100%);
+      }
+
+      a { color: inherit; }
+      img { max-width: 100%; display: block; }
+      code, pre { font-family: Consolas, Monaco, "Courier New", monospace; }
+
+      .container { width: min(var(--max), calc(100% - 28px)); margin: 0 auto; }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 250, 240, 0.92);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar-inner {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--brand);
+        font-weight: 900;
+      }
+
+      .brand-badge {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        box-shadow: var(--shadow);
+        font-size: 1.05rem;
+      }
+
+      .nav { display: flex; flex-wrap: wrap; gap: 10px; }
+      .nav a {
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 999px;
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+      .nav a:hover { background: #fff; color: var(--brand); }
+
+      .hero { padding: 38px 0 24px; }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 22px;
+        align-items: stretch;
+      }
+
+      .card, .lesson-card, .side-card, .toc, .mini-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card, .side-card, .lesson-card { padding: 24px; }
+      .hero h1 { margin: 0 0 10px; line-height: 1.08; font-size: clamp(2rem, 5vw, 3.5rem); }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: var(--brand);
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+      }
+
+      .muted { color: var(--muted); }
+      .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+      .btn {
+        border: none;
+        border-radius: 14px;
+        padding: 12px 16px;
+        font-weight: 800;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .btn:hover { transform: translateY(-2px); }
+      .btn-primary { background: linear-gradient(135deg, var(--brand), var(--brand2)); color: #fff; box-shadow: 0 10px 24px rgba(217, 119, 6, 0.24); }
+      .btn-secondary { background: #fff; color: var(--brand); border: 1px solid var(--line); }
+
+      .pill-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+      .pill {
+        background: var(--bg2);
+        border: 1px solid var(--line);
+        color: var(--brand);
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-weight: 800;
+        font-size: 0.92rem;
+      }
+
+      .mini-list { display: grid; gap: 10px; margin-top: 14px; }
+      .mini-item { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+
+      .main-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 22px;
+        margin: 14px auto 36px;
+      }
+
+      .toc { position: sticky; top: 88px; align-self: start; padding: 18px; }
+      .toc h3 { margin: 0 0 12px; font-size: 1rem; }
+      .toc a {
+        display: block;
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 12px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .toc a:hover { background: var(--bg2); color: var(--brand); }
+
+      .lesson-card { margin-bottom: 20px; }
+      .lesson-card h2 { margin: 0 0 8px; font-size: clamp(1.45rem, 3vw, 2rem); }
+      .lesson-card h3 { margin-top: 24px; margin-bottom: 8px; }
+
+      .level-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+      .level-no {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        color: #fff;
+        font-weight: 900;
+        box-shadow: 0 8px 20px rgba(217, 119, 6, 0.22);
+        font-size: 1rem;
+      }
+
+      .explain, .check-card, .tip-card, .warning-card {
+        padding: 16px 18px;
+        margin-top: 14px;
+        border-radius: 18px;
+      }
+      .explain { border: 1px solid var(--line); background: #fffdf9; }
+      .check-card { background: var(--okbg); border: 1px solid #b7ebcb; }
+      .tip-card { background: var(--tipbg); border: 1px solid #f6dfb0; }
+      .warning-card { background: var(--dangerbg); border: 1px solid #fecdd3; }
+      .check-card h4, .tip-card h4, .warning-card h4 { margin: 0 0 8px; }
+
+      .two-col, .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+      .code-wrap {
+        margin-top: 14px;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid #1f2937;
+        box-shadow: var(--shadow);
+      }
+      .code-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 14px;
+        background: #0f172a;
+        color: #e5e7eb;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .code-title { font-weight: 800; font-size: 0.95rem; }
+      .copy-btn { border: none; border-radius: 10px; padding: 9px 12px; background: #1f2937; color: #fff; cursor: pointer; font-weight: 800; }
+      .copy-btn:hover { background: #374151; }
+      pre {
+        margin: 0;
+        padding: 18px;
+        overflow: auto;
+        background: var(--code);
+        color: var(--codeInk);
+        font-size: 0.94rem;
+        line-height: 1.6;
+        tab-size: 2;
+      }
+
+      .demo { margin-top: 14px; border: 1px solid var(--line); border-radius: 18px; padding: 16px; background: #fffdf9; }
+      .demo-title { font-weight: 800; color: var(--brand); margin-bottom: 12px; }
+      .stage { border: 2px dashed #efcfa6; background: #fff8ee; border-radius: 18px; padding: 14px; margin-top: 10px; }
+      .demo-box {
+        min-height: 54px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        font-weight: 800;
+        color: #7c2d12;
+        background: linear-gradient(135deg, #fde7c0, #fff1dd);
+        border: 1px solid #f0d6aa;
+        padding: 12px;
+        text-align: center;
+      }
+      .inline-code {
+        background: #fff2dd;
+        border: 1px solid #f0d6aa;
+        padding: 0.1rem 0.4rem;
+        border-radius: 8px;
+        font-family: Consolas, Monaco, monospace;
+        font-size: 0.95em;
+      }
+
+      .table-map {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .table-map .demo-box { min-height: 90px; }
+      .span-demo-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .wide { grid-column: span 2; }
+      .tall { grid-row: span 2; min-height: 120px; }
+
+      .preview-table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--line); background: #fff; }
+      table.preview-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 560px;
+      }
+      .preview-table caption {
+        caption-side: top;
+        text-align: left;
+        font-weight: 900;
+        color: var(--brand);
+        padding: 12px 14px;
+        background: #fff7ea;
+        border-bottom: 1px solid var(--line);
+      }
+      .preview-table th, .preview-table td {
+        border: 1px solid var(--line);
+        padding: 12px 14px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .preview-table th { background: #fff4d6; color: #7c2d12; }
+      .preview-table tbody tr:nth-child(even) { background: #fffaf0; }
+      .preview-table tfoot td { background: #ecfdf3; font-weight: 900; }
+
+      .bad-good-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .tag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+      .ad-box {
+        margin: 18px 0;
+        padding: 14px;
+        border: 1px dashed #e2b86d;
+        border-radius: 18px;
+        background: #fff7ea;
+        text-align: center;
+        color: var(--muted);
+      }
+
+      .challenge { margin-top: 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 18px; background: #fffdf9; }
+      details.answer { margin-top: 10px; border: 1px solid #f0d6aa; border-radius: 14px; padding: 12px 14px; background: #fff7ea; }
+      details.answer summary { cursor: pointer; font-weight: 800; color: var(--brand); }
+      ul.clean, ol.clean { padding-left: 20px; margin: 10px 0 0; }
+      .footer { padding: 28px 0 60px; text-align: center; color: var(--muted); }
+
+      @media (max-width: 1020px) {
+        .hero-grid, .main-grid, .two-col, .compare-grid, .bad-good-grid { grid-template-columns: 1fr; }
+        .toc { position: relative; top: 0; order: -1; }
+        .table-map, .tag-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+
+      @media (max-width: 760px) {
+        .nav { display: none; }
+        .hero-card, .side-card, .lesson-card { padding: 18px; }
+        .table-map, .tag-grid, .span-demo-grid { grid-template-columns: 1fr; }
+        .wide, .tall { grid-column: auto; grid-row: auto; }
+        pre { font-size: 0.88rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="#top">
+          <span class="brand-badge">PP</span>
+          <span>HTML Tables Lesson</span>
+        </a>
+        <nav class="nav">
+          <a href="#goal">Goal</a>
+          <a href="#level0">L0</a>
+          <a href="#level1">L1</a>
+          <a href="#level2">L2</a>
+          <a href="#level3">L3</a>
+          <a href="#level4">L4</a>
+          <a href="#challenge">Challenge</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="card hero-card">
+          <p class="eyebrow">HTML 0 to Infinity Lesson</p>
+          <h1>Learn Tables in HTML by Building Real Data Tables</h1>
+          <p class="muted">
+            In this lesson, we will learn HTML tables from the first idea to practical use. We will build student marks tables, timetable tables, product comparison tables, and responsive tables that look good on mobile screens.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#goal">Start the Lesson</a>
+            <a class="btn btn-secondary" href="#level4">Jump to Final Table</a>
+          </div>
+          <div class="pill-row">
+            <span class="pill">table</span>
+            <span class="pill">tr</span>
+            <span class="pill">th</span>
+            <span class="pill">td</span>
+            <span class="pill">caption</span>
+            <span class="pill">colspan + rowspan</span>
+            <span class="pill">Responsive Tables</span>
+          </div>
+        </div>
+
+        <aside class="side-card">
+          <h3 style="margin-top: 0">What this lesson builds</h3>
+          <div class="mini-list">
+            <div class="mini-item"><strong>Basic Table</strong><br /><span class="muted">Rows, headings, and cells</span></div>
+            <div class="mini-item"><strong>Semantic Table</strong><br /><span class="muted">caption, thead, tbody, and tfoot</span></div>
+            <div class="mini-item"><strong>Merged Cells</strong><br /><span class="muted">colspan and rowspan</span></div>
+            <div class="mini-item"><strong>Styled Table</strong><br /><span class="muted">Borders, zebra rows, spacing, hover</span></div>
+            <div class="mini-item"><strong>Responsive Table</strong><br /><span class="muted">Horizontal scroll for small screens</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="container ad-box">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="container main-grid">
+      <main>
+        <section class="lesson-card" id="goal">
+          <h2>Lesson Goal</h2>
+          <p class="muted">A table is used when information belongs naturally in rows and columns.</p>
+          <div class="check-card">
+            <h4>Main idea</h4>
+            <ul class="clean">
+              <li>Use tables for real tabular data.</li>
+              <li>Do not use tables only to design page layout.</li>
+              <li>Use headings so readers understand each column.</li>
+              <li>Use semantic tags so browsers, screen readers, and search engines understand the table better.</li>
+            </ul>
+          </div>
+          <div class="tip-card">
+            <h4>Simple test</h4>
+            <p style="margin: 0">Ask: “Can this content be understood as rows and columns?” If yes, a table may be the right element.</p>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level0">
+          <div class="level-header">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span class="level-no">0</span>
+              <div>
+                <h2 style="margin: 0">Level 0 — Understand the table family</h2>
+                <p class="muted" style="margin: 4px 0 0">First understand the main tags.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="explain">
+            HTML tables are built like a grid. The <span class="inline-code">&lt;table&gt;</span> is the outer box. Each <span class="inline-code">&lt;tr&gt;</span> creates a row. Inside rows, <span class="inline-code">&lt;th&gt;</span> creates a heading cell and <span class="inline-code">&lt;td&gt;</span> creates a normal data cell.
+          </div>
+
+          <div class="demo">
+            <div class="demo-title">Table tag map</div>
+            <div class="stage table-map">
+              <div class="demo-box">&lt;table&gt;<br />whole table</div>
+              <div class="demo-box">&lt;tr&gt;<br />table row</div>
+              <div class="demo-box">&lt;th&gt;<br />heading cell</div>
+              <div class="demo-box">&lt;td&gt;<br />data cell</div>
+            </div>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top"><span class="code-title">Smallest useful table</span><button class="copy-btn" data-copy-target="code-level0">Copy</button></div>
+            <pre id="code-level0"><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Course&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Aarav&lt;/td&gt;
+    &lt;td&gt;HTML&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level1">
+          <div class="level-header">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span class="level-no">1</span>
+              <div>
+                <h2 style="margin: 0">Level 1 — Build a marks table</h2>
+                <p class="muted" style="margin: 4px 0 0">Rows and columns become meaningful data.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="explain">
+            In a marks table, each row represents one student. Each column represents one property: name, HTML score, CSS score, and result. This is exactly what a table is made for.
+          </div>
+
+          <div class="demo">
+            <div class="demo-title">Preview: student marks table</div>
+            <div class="preview-table-wrap">
+              <table class="preview-table">
+                <tr><th>Student</th><th>HTML</th><th>CSS</th><th>Result</th></tr>
+                <tr><td>Aarav</td><td>92</td><td>88</td><td>Pass</td></tr>
+                <tr><td>Meera</td><td>84</td><td>91</td><td>Pass</td></tr>
+                <tr><td>Kabir</td><td>71</td><td>66</td><td>Pass</td></tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top"><span class="code-title">Marks table HTML</span><button class="copy-btn" data-copy-target="code-level1">Copy</button></div>
+            <pre id="code-level1"><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Student&lt;/th&gt;
+    &lt;th&gt;HTML&lt;/th&gt;
+    &lt;th&gt;CSS&lt;/th&gt;
+    &lt;th&gt;Result&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Aarav&lt;/td&gt;
+    &lt;td&gt;92&lt;/td&gt;
+    &lt;td&gt;88&lt;/td&gt;
+    &lt;td&gt;Pass&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Meera&lt;/td&gt;
+    &lt;td&gt;84&lt;/td&gt;
+    &lt;td&gt;91&lt;/td&gt;
+    &lt;td&gt;Pass&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level2">
+          <div class="level-header">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span class="level-no">2</span>
+              <div>
+                <h2 style="margin: 0">Level 2 — Add caption, thead, tbody, and tfoot</h2>
+                <p class="muted" style="margin: 4px 0 0">Now make the table more meaningful.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="explain">
+            A good table is not only visible; it is understandable. Use <span class="inline-code">caption</span> for the table title, <span class="inline-code">thead</span> for header rows, <span class="inline-code">tbody</span> for main data, and <span class="inline-code">tfoot</span> for totals or summary rows.
+          </div>
+
+          <div class="compare-grid">
+            <div class="tip-card">
+              <h4>Useful table parts</h4>
+              <ul class="clean">
+                <li><span class="inline-code">caption</span>: table title</li>
+                <li><span class="inline-code">thead</span>: heading section</li>
+                <li><span class="inline-code">tbody</span>: data section</li>
+                <li><span class="inline-code">tfoot</span>: summary section</li>
+              </ul>
+            </div>
+            <div class="check-card">
+              <h4>Why this matters</h4>
+              <p style="margin: 0">These tags help structure the table clearly. They also make styling and accessibility easier.</p>
+            </div>
+          </div>
+
+          <div class="demo">
+            <div class="demo-title">Preview: semantic table</div>
+            <div class="preview-table-wrap">
+              <table class="preview-table">
+                <caption>Course Progress Report</caption>
+                <thead><tr><th>Topic</th><th>Classes</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td>HTML Basics</td><td>3</td><td>Completed</td></tr>
+                  <tr><td>HTML Tables</td><td>2</td><td>Running</td></tr>
+                </tbody>
+                <tfoot><tr><td colspan="2">Total Topics</td><td>2</td></tr></tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top"><span class="code-title">Semantic table HTML</span><button class="copy-btn" data-copy-target="code-level2">Copy</button></div>
+            <pre id="code-level2"><code>&lt;table&gt;
+  &lt;caption&gt;Course Progress Report&lt;/caption&gt;
+
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Topic&lt;/th&gt;
+      &lt;th&gt;Classes&lt;/th&gt;
+      &lt;th&gt;Status&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;HTML Basics&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;Completed&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;HTML Tables&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;Running&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td colspan="2"&gt;Total Topics&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level3">
+          <div class="level-header">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span class="level-no">3</span>
+              <div>
+                <h2 style="margin: 0">Level 3 — Merge cells using colspan and rowspan</h2>
+                <p class="muted" style="margin: 4px 0 0">Some tables need cells that cover more space.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="explain">
+            Use <span class="inline-code">colspan</span> when one cell should stretch across multiple columns. Use <span class="inline-code">rowspan</span> when one cell should stretch across multiple rows.
+          </div>
+
+          <div class="demo">
+            <div class="demo-title">Visual idea of merging</div>
+            <div class="stage span-demo-grid">
+              <div class="demo-box wide">colspan="2"</div>
+              <div class="demo-box">Cell</div>
+              <div class="demo-box">Cell</div>
+              <div class="demo-box tall">rowspan="2"</div>
+              <div class="demo-box">Cell</div>
+              <div class="demo-box">Cell</div>
+              <div class="demo-box">Cell</div>
+              <div class="demo-box">Cell</div>
+            </div>
+          </div>
+
+          <div class="demo">
+            <div class="demo-title">Preview: weekly timetable</div>
+            <div class="preview-table-wrap">
+              <table class="preview-table">
+                <caption>Weekly Coding Timetable</caption>
+                <thead><tr><th>Day</th><th>Time</th><th>Topic</th></tr></thead>
+                <tbody>
+                  <tr><td rowspan="2">Monday</td><td>11:00 AM</td><td>HTML Table Basics</td></tr>
+                  <tr><td>12:00 PM</td><td>Practice Questions</td></tr>
+                  <tr><td>Sunday</td><td colspan="2">Test, revision, doubt solving, and mini project</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top"><span class="code-title">colspan and rowspan example</span><button class="copy-btn" data-copy-target="code-level3">Copy</button></div>
+            <pre id="code-level3"><code>&lt;table&gt;
+  &lt;caption&gt;Weekly Coding Timetable&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Day&lt;/th&gt;
+    &lt;th&gt;Time&lt;/th&gt;
+    &lt;th&gt;Topic&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td rowspan="2"&gt;Monday&lt;/td&gt;
+    &lt;td&gt;11:00 AM&lt;/td&gt;
+    &lt;td&gt;HTML Table Basics&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;12:00 PM&lt;/td&gt;
+    &lt;td&gt;Practice Questions&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Sunday&lt;/td&gt;
+    &lt;td colspan="2"&gt;Test, revision, doubt solving, and mini project&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level4">
+          <div class="level-header">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span class="level-no">4</span>
+              <div>
+                <h2 style="margin: 0">Level 4 — Style and make tables responsive</h2>
+                <p class="muted" style="margin: 4px 0 0">A table must be readable on desktop and mobile.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="explain">
+            Good table styling uses readable spacing, clear borders, strong heading colors, and enough contrast. For small screens, wrap the table inside a scroll container so the page does not break.
+          </div>
+
+          <div class="demo">
+            <div class="demo-title">Final responsive product comparison table</div>
+            <div class="preview-table-wrap">
+              <table class="preview-table">
+                <caption>HTML Course Package Comparison</caption>
+                <thead>
+                  <tr><th>Plan</th><th>Best For</th><th>Includes</th><th>Support</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Starter</td><td>Beginners</td><td>HTML basics, tags, links, images</td><td>Email</td></tr>
+                  <tr><td>Builder</td><td>Project learners</td><td>Tables, forms, layout, mini projects</td><td>WhatsApp guidance</td></tr>
+                  <tr><td>Mastery</td><td>Serious students</td><td>HTML, CSS, JavaScript, deployment</td><td>WhatsApp + Zoom</td></tr>
+                </tbody>
+                <tfoot>
+                  <tr><td colspan="4">Choose the plan according to your current confidence and practice time.</td></tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="tip-card">
+              <h4>Good styling</h4>
+              <ul class="clean">
+                <li>Use <span class="inline-code">border-collapse: collapse</span>.</li>
+                <li>Add enough <span class="inline-code">padding</span>.</li>
+                <li>Make <span class="inline-code">th</span> visually different.</li>
+                <li>Use zebra rows when many rows are present.</li>
+              </ul>
+            </div>
+            <div class="check-card">
+              <h4>Responsive rule</h4>
+              <p style="margin: 0">Put the table inside a wrapper with <span class="inline-code">overflow-x:auto</span>. This allows horizontal scrolling on small screens.</p>
+            </div>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top"><span class="code-title">Final responsive table code</span><button class="copy-btn" data-copy-target="code-level4">Copy</button></div>
+            <pre id="code-level4"><code>&lt;div class="table-wrapper"&gt;
+  &lt;table class="course-table"&gt;
+    &lt;caption&gt;HTML Course Package Comparison&lt;/caption&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Plan&lt;/th&gt;
+        &lt;th&gt;Best For&lt;/th&gt;
+        &lt;th&gt;Includes&lt;/th&gt;
+        &lt;th&gt;Support&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Starter&lt;/td&gt;
+        &lt;td&gt;Beginners&lt;/td&gt;
+        &lt;td&gt;HTML basics, tags, links, images&lt;/td&gt;
+        &lt;td&gt;Email&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Builder&lt;/td&gt;
+        &lt;td&gt;Project learners&lt;/td&gt;
+        &lt;td&gt;Tables, forms, layout, mini projects&lt;/td&gt;
+        &lt;td&gt;WhatsApp guidance&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.table-wrapper{
+  overflow-x:auto;
+  border:1px solid #efdfb2;
+  border-radius:16px;
+}
+
+.course-table{
+  width:100%;
+  min-width:620px;
+  border-collapse:collapse;
+}
+
+.course-table caption{
+  text-align:left;
+  font-weight:900;
+  padding:12px 14px;
+  background:#fff7ea;
+}
+
+.course-table th,
+.course-table td{
+  border:1px solid #efdfb2;
+  padding:12px 14px;
+  text-align:left;
+}
+
+.course-table th{
+  background:#fff4d6;
+}
+
+.course-table tbody tr:nth-child(even){
+  background:#fffaf0;
+}
+&lt;/style&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="level5">
+          <div class="level-header">
+            <div style="display: flex; align-items: center; gap: 12px">
+              <span class="level-no">5</span>
+              <div>
+                <h2 style="margin: 0">Level 5 — Table accessibility and mistakes to avoid</h2>
+                <p class="muted" style="margin: 4px 0 0">Readable for humans, meaningful for assistive tools.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bad-good-grid">
+            <div class="warning-card">
+              <h4>Avoid</h4>
+              <ul class="clean">
+                <li>Using tables to create page layout.</li>
+                <li>Leaving table headings empty.</li>
+                <li>Making very wide tables without a scroll wrapper.</li>
+                <li>Using tiny text or low-contrast colors.</li>
+              </ul>
+            </div>
+            <div class="check-card">
+              <h4>Prefer</h4>
+              <ul class="clean">
+                <li>Use <span class="inline-code">caption</span> for the table purpose.</li>
+                <li>Use <span class="inline-code">th</span> for headings.</li>
+                <li>Use <span class="inline-code">scope="col"</span> or <span class="inline-code">scope="row"</span> where useful.</li>
+                <li>Keep data consistent in every row.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="code-wrap">
+            <div class="code-top"><span class="code-title">Accessible heading scope example</span><button class="copy-btn" data-copy-target="code-level5">Copy</button></div>
+            <pre id="code-level5"><code>&lt;table&gt;
+  &lt;caption&gt;Monthly Attendance&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;th scope="col"&gt;Student&lt;/th&gt;
+    &lt;th scope="col"&gt;Present Days&lt;/th&gt;
+    &lt;th scope="col"&gt;Absent Days&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th scope="row"&gt;Aarav&lt;/th&gt;
+    &lt;td&gt;24&lt;/td&gt;
+    &lt;td&gt;2&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="challenge">
+          <h2>Practice Challenge</h2>
+          <p class="muted">Try building these tables yourself.</p>
+
+          <div class="challenge">
+            <strong>Challenge 1:</strong> Make a 5-row student marks table with columns: Name, HTML, CSS, JavaScript, Total.
+            <details class="answer"><summary>Show idea</summary><p>Use one header row with <span class="inline-code">th</span>, then five data rows with <span class="inline-code">td</span>.</p></details>
+          </div>
+
+          <div class="challenge">
+            <strong>Challenge 2:</strong> Create a weekly class timetable and use <span class="inline-code">rowspan</span> for a day that has two classes.
+            <details class="answer"><summary>Show idea</summary><p>Put <span class="inline-code">rowspan="2"</span> on the day cell and create two time/topic rows.</p></details>
+          </div>
+
+          <div class="challenge">
+            <strong>Challenge 3:</strong> Create a product comparison table with a responsive wrapper.
+            <details class="answer"><summary>Show idea</summary><p>Wrap the table in <span class="inline-code">&lt;div class="table-wrapper"&gt;</span> and set <span class="inline-code">overflow-x:auto</span>.</p></details>
+          </div>
+        </section>
+
+        <section class="lesson-card" id="final">
+          <h2>Final Summary</h2>
+          <p class="muted">You learned how to create tables that are structured, readable, styled, and mobile-friendly.</p>
+          <div class="check-card">
+            <h4>What you learned</h4>
+            <ol class="clean">
+              <li><span class="inline-code">table</span> creates the table.</li>
+              <li><span class="inline-code">tr</span> creates a row.</li>
+              <li><span class="inline-code">th</span> creates a heading cell.</li>
+              <li><span class="inline-code">td</span> creates a data cell.</li>
+              <li><span class="inline-code">caption</span>, <span class="inline-code">thead</span>, <span class="inline-code">tbody</span>, and <span class="inline-code">tfoot</span> make the table semantic.</li>
+              <li><span class="inline-code">colspan</span> and <span class="inline-code">rowspan</span> merge cells.</li>
+              <li>A scroll wrapper keeps wide tables usable on mobile.</li>
+            </ol>
+          </div>
+          <div class="tip-card">
+            <h4>Best next step</h4>
+            <p style="margin: 0">Build a real course timetable, a fee structure table, and a student result table. Tables become easy only when you create them repeatedly.</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="lesson-card toc">
+        <h3>Lesson Navigation</h3>
+        <a href="#goal">Lesson Goal</a>
+        <a href="#level0">Level 0 — Table Family</a>
+        <a href="#level1">Level 1 — Marks Table</a>
+        <a href="#level2">Level 2 — Semantic Table</a>
+        <a href="#level3">Level 3 — colspan + rowspan</a>
+        <a href="#level4">Level 4 — Responsive Styling</a>
+        <a href="#level5">Level 5 — Accessibility</a>
+        <a href="#challenge">Challenge</a>
+        <a href="#final">Final Summary</a>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        Programmers Picnic AI-ML Classes by Champak Roy — learn HTML step by step, build real pages, and practice with confidence.
+      </div>
+    </footer>
+
+    <script>
+      function copyTextFromTarget(targetId, button) {
+        const el = document.getElementById(targetId);
+        if (!el) return;
+        const text = el.innerText;
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            const old = button.textContent;
+            button.textContent = "Copied";
+            setTimeout(() => { button.textContent = old; }, 1200);
+          })
+          .catch(() => {
+            const old = button.textContent;
+            button.textContent = "Copy failed";
+            setTimeout(() => { button.textContent = old; }, 1400);
+          });
+      }
+
+      document.querySelectorAll(".copy-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          copyTextFromTarget(btn.dataset.copyTarget, btn);
+        });
+      });
+
+      try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {}
+    </script>
+    <script src="https://varanasi-software-junction.github.io/search/branding/branding.js"></script>
+    <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+    <script src="https://programmer-s-picnic.github.io/json-images/contact_champak.js"></script>
+    <script src="https://programmer-s-picnic.github.io/json-images/pwd.js"></script>
+  </body>
+</html>
