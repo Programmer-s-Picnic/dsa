@@ -1,18 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Java Lesson — While Loops, Nested While Loops, and Summation of Series</title>
-  <meta
-    name="description"
-    content="A complete beginner-to-advanced Java lesson on while loops, nested while loops, and summation of series with examples, assignments, and interactive MCQ quiz."
-  />
-  <meta name="theme-color" content="#d97706" />
-
-  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Java Lesson — While Loops, Nested While Loops, and Summation of Series</title>
+<meta content="A complete beginner-to-advanced Java lesson on while loops, nested while loops, and summation of series with examples, assignments, and interactive MCQ quiz." name="description"/>
+<meta content="#0b67b2" name="theme-color"/>
+<script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+<style>
     :root{
       --bg:#fff8eb;
       --card:#ffffff;
@@ -344,335 +340,296 @@
       .quiz-toolbar{align-items:flex-start}
     }
   </style>
-</head>
-<body>
-  <header>
-    <h1 id="speak0">Java Lesson — While Loops, Nested While Loops, and Summation of Series</h1>
-    <p id="speak1">A full lesson from level zero to advanced, with special focus on summation of series.</p>
-  </header>
-
-  <main class="container">
-    <section class="card hero-grid">
-      <div>
-        <h2 id="speak2">What this lesson covers</h2>
-        <p id="speak3">
+<link href="../../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../../"><div data-root="../../../" id="site-header"></div>
+<header>
+<h1 id="speak0">Java Lesson — While Loops, Nested While Loops, and Summation of Series</h1>
+<p id="speak1">A full lesson from level zero to advanced, with special focus on summation of series.</p>
+</header>
+<main class="container" id="main-content">
+<section class="card hero-grid">
+<div>
+<h2 id="speak2">What this lesson covers</h2>
+<p id="speak3">
           In this lesson, you will learn how <code>while</code> loops work, how nested while loops work, and how these loops are used to calculate many kinds of mathematical series. We will begin with the simplest while loops, then move to summing natural numbers, even numbers, odd numbers, squares, cubes, harmonic-like expressions, factorial-based terms, and nested summations.
         </p>
-        <p id="speak4">
+<p id="speak4">
           This lesson mainly concentrates on <strong>summation of series</strong>, because loops are one of the most natural tools for this topic. You will also learn tracing, common mistakes, nested series, and how to think mathematically while writing Java programs.
         </p>
-      </div>
-
-      <div class="mini-grid">
-        <div class="mini">
-          <strong id="speak5">while loop</strong>
-          <p class="muted" id="speak6">Repeats while a condition stays true</p>
-        </div>
-        <div class="mini">
-          <strong id="speak7">Nested while</strong>
-          <p class="muted" id="speak8">A while loop inside another while loop</p>
-        </div>
-        <div class="mini">
-          <strong id="speak9">Series</strong>
-          <p class="muted" id="speak10">Add terms one by one using loops</p>
-        </div>
-        <div class="mini">
-          <strong id="speak11">Tracing</strong>
-          <p class="muted" id="speak12">Follow each step carefully to avoid mistakes</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak13">What is a while loop?</h2>
-      <p id="speak14">
+</div>
+<div class="mini-grid">
+<div class="mini">
+<strong id="speak5">while loop</strong>
+<p class="muted" id="speak6">Repeats while a condition stays true</p>
+</div>
+<div class="mini">
+<strong id="speak7">Nested while</strong>
+<p class="muted" id="speak8">A while loop inside another while loop</p>
+</div>
+<div class="mini">
+<strong id="speak9">Series</strong>
+<p class="muted" id="speak10">Add terms one by one using loops</p>
+</div>
+<div class="mini">
+<strong id="speak11">Tracing</strong>
+<p class="muted" id="speak12">Follow each step carefully to avoid mistakes</p>
+</div>
+</div>
+</section>
+<section class="card">
+<h2 id="speak13">What is a while loop?</h2>
+<p id="speak14">
         A <code>while</code> loop repeats a block of code as long as a condition remains true.
       </p>
-
-      <pre id="speak15">while (condition) {
+<pre id="speak15">while (condition) {
     // code to repeat
 }</pre>
-
-      <p id="speak16">
+<p id="speak16">
         First Java checks the condition. If it is true, the body runs. Then Java checks the condition again. This continues until the condition becomes false.
       </p>
+<h3 id="speak17">Simple example</h3>
+<pre id="speak18">int i = 1;
 
-      <h3 id="speak17">Simple example</h3>
-      <pre id="speak18">int i = 1;
-
-while (i <= 5) {
+while (i &lt;= 5) {
     System.out.println(i);
     i++;
 }</pre>
-
-      <p id="speak19">
+<p id="speak19">
         This prints the numbers from 1 to 5.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak20">When should you use while instead of for?</h2>
-      <p id="speak21">
+</section>
+<section class="card">
+<h2 id="speak20">When should you use while instead of for?</h2>
+<p id="speak21">
         A <code>for</code> loop is often best when you clearly know the counting pattern. A <code>while</code> loop is often best when the repetition depends mainly on a condition.
       </p>
-
-      <ul>
-        <li id="speak22">Use <code>for</code> when you know the start, end, and update clearly.</li>
-        <li id="speak23">Use <code>while</code> when the condition is the main idea.</li>
-      </ul>
-
-      <p id="speak24">
+<ul>
+<li id="speak22">Use <code>for</code> when you know the start, end, and update clearly.</li>
+<li id="speak23">Use <code>while</code> when the condition is the main idea.</li>
+</ul>
+<p id="speak24">
         But mathematically, both can often solve the same problem. In this lesson we will deliberately use <code>while</code> a lot.
       </p>
-    </section>
+</section>
+<section class="card">
+<h2 id="speak25">Basic structure of a while loop</h2>
+<pre id="speak26">int i = 1;          // initialization
 
-    <section class="card">
-      <h2 id="speak25">Basic structure of a while loop</h2>
-      <pre id="speak26">int i = 1;          // initialization
-
-while (i <= 5) {    // condition
+while (i &lt;= 5) {    // condition
     System.out.println(i);
     i++;            // update
 }</pre>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th id="speak27">Part</th>
-              <th id="speak28">Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Initialization</td>
-              <td id="speak29">Set the starting value before the loop begins</td>
-            </tr>
-            <tr>
-              <td>Condition</td>
-              <td id="speak30">Controls whether the loop should continue</td>
-            </tr>
-            <tr>
-              <td>Update</td>
-              <td id="speak31">Changes the loop variable so the loop can move forward</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p id="speak32">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th id="speak27">Part</th>
+<th id="speak28">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Initialization</td>
+<td id="speak29">Set the starting value before the loop begins</td>
+</tr>
+<tr>
+<td>Condition</td>
+<td id="speak30">Controls whether the loop should continue</td>
+</tr>
+<tr>
+<td>Update</td>
+<td id="speak31">Changes the loop variable so the loop can move forward</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p id="speak32">
         If you forget the update, the loop may never end.
       </p>
-    </section>
+</section>
+<section class="card">
+<h2 id="speak33">Tracing a while loop</h2>
+<pre id="speak34">int i = 1;
 
-    <section class="card">
-      <h2 id="speak33">Tracing a while loop</h2>
-      <pre id="speak34">int i = 1;
-
-while (i <= 3) {
+while (i &lt;= 3) {
     System.out.println("i = " + i);
     i++;
 }</pre>
-
-      <ol>
-        <li id="speak35">Start with <code>i = 1</code>.</li>
-        <li id="speak36">Check <code>i &lt;= 3</code>. True. Print 1.</li>
-        <li id="speak37">Increase <code>i</code> to 2.</li>
-        <li id="speak38">Check again. True. Print 2.</li>
-        <li id="speak39">Increase <code>i</code> to 3.</li>
-        <li id="speak40">Check again. True. Print 3.</li>
-        <li id="speak41">Increase <code>i</code> to 4.</li>
-        <li id="speak42">Check again. False. Stop.</li>
-      </ol>
-    </section>
-
-    <section class="card">
-      <h2 id="speak43">What is a series?</h2>
-      <p id="speak44">
+<ol>
+<li id="speak35">Start with <code>i = 1</code>.</li>
+<li id="speak36">Check <code>i &lt;= 3</code>. True. Print 1.</li>
+<li id="speak37">Increase <code>i</code> to 2.</li>
+<li id="speak38">Check again. True. Print 2.</li>
+<li id="speak39">Increase <code>i</code> to 3.</li>
+<li id="speak40">Check again. True. Print 3.</li>
+<li id="speak41">Increase <code>i</code> to 4.</li>
+<li id="speak42">Check again. False. Stop.</li>
+</ol>
+</section>
+<section class="card">
+<h2 id="speak43">What is a series?</h2>
+<p id="speak44">
         A series is a sum of terms. For example:
       </p>
-
-      <ul>
-        <li id="speak45"><code>1 + 2 + 3 + 4 + 5</code></li>
-        <li id="speak46"><code>2 + 4 + 6 + 8 + 10</code></li>
-        <li id="speak47"><code>1² + 2² + 3² + 4²</code></li>
-        <li id="speak48"><code>1 + 1/2 + 1/3 + 1/4</code></li>
-      </ul>
-
-      <p id="speak49">
+<ul>
+<li id="speak45"><code>1 + 2 + 3 + 4 + 5</code></li>
+<li id="speak46"><code>2 + 4 + 6 + 8 + 10</code></li>
+<li id="speak47"><code>1² + 2² + 3² + 4²</code></li>
+<li id="speak48"><code>1 + 1/2 + 1/3 + 1/4</code></li>
+</ul>
+<p id="speak49">
         To calculate a series using Java, we usually:
       </p>
-
-      <ol>
-        <li id="speak50">Start with a sum variable, usually 0.</li>
-        <li id="speak51">Generate each term using a loop.</li>
-        <li id="speak52">Add each term into the sum.</li>
-      </ol>
-    </section>
-
-    <section class="card">
-      <h2 id="speak53">Summation of first n natural numbers</h2>
-      <p id="speak54">
+<ol>
+<li id="speak50">Start with a sum variable, usually 0.</li>
+<li id="speak51">Generate each term using a loop.</li>
+<li id="speak52">Add each term into the sum.</li>
+</ol>
+</section>
+<section class="card">
+<h2 id="speak53">Summation of first n natural numbers</h2>
+<p id="speak54">
         Let us calculate:
         <code>1 + 2 + 3 + ... + n</code>
-      </p>
-
-      <pre id="speak55">int n = 5;
+</p>
+<pre id="speak55">int n = 5;
 int i = 1;
 int sum = 0;
 
-while (i <= n) {
+while (i &lt;= n) {
     sum = sum + i;
     i++;
 }
 
 System.out.println("Sum = " + sum);</pre>
-
-      <p id="speak56">
+<p id="speak56">
         For <code>n = 5</code>, the result is 15.
       </p>
-
-      <h3 id="speak57">Trace table idea</h3>
-      <pre id="speak58">i = 1, sum = 1
+<h3 id="speak57">Trace table idea</h3>
+<pre id="speak58">i = 1, sum = 1
 i = 2, sum = 3
 i = 3, sum = 6
 i = 4, sum = 10
 i = 5, sum = 15</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak59">Summation of even numbers</h2>
-      <p id="speak60">
+</section>
+<section class="card">
+<h2 id="speak59">Summation of even numbers</h2>
+<p id="speak60">
         Example series:
         <code>2 + 4 + 6 + 8 + ...</code>
-      </p>
-
-      <pre id="speak61">int n = 10;
+</p>
+<pre id="speak61">int n = 10;
 int i = 2;
 int sum = 0;
 
-while (i <= n) {
+while (i &lt;= n) {
     sum += i;
     i += 2;
 }
 
 System.out.println("Sum of even numbers = " + sum);</pre>
-
-      <p id="speak62">
+<p id="speak62">
         If <code>n = 10</code>, this adds 2, 4, 6, 8, and 10.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak63">Summation of odd numbers</h2>
-      <pre id="speak64">int n = 9;
+</section>
+<section class="card">
+<h2 id="speak63">Summation of odd numbers</h2>
+<pre id="speak64">int n = 9;
 int i = 1;
 int sum = 0;
 
-while (i <= n) {
+while (i &lt;= n) {
     sum += i;
     i += 2;
 }
 
 System.out.println("Sum of odd numbers = " + sum);</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak65">Summation of squares</h2>
-      <p id="speak66">
+</section>
+<section class="card">
+<h2 id="speak65">Summation of squares</h2>
+<p id="speak66">
         Example series:
         <code>1² + 2² + 3² + ... + n²</code>
-      </p>
-
-      <pre id="speak67">int n = 5;
+</p>
+<pre id="speak67">int n = 5;
 int i = 1;
 int sum = 0;
 
-while (i <= n) {
+while (i &lt;= n) {
     sum += i * i;
     i++;
 }
 
 System.out.println("Sum of squares = " + sum);</pre>
-
-      <p id="speak68">
+<p id="speak68">
         For <code>n = 5</code>, this becomes
         <code>1 + 4 + 9 + 16 + 25 = 55</code>.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak69">Summation of cubes</h2>
-      <pre id="speak70">int n = 4;
+</section>
+<section class="card">
+<h2 id="speak69">Summation of cubes</h2>
+<pre id="speak70">int n = 4;
 int i = 1;
 int sum = 0;
 
-while (i <= n) {
+while (i &lt;= n) {
     sum += i * i * i;
     i++;
 }
 
 System.out.println("Sum of cubes = " + sum);</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak71">Summation of a general arithmetic-type series</h2>
-      <p id="speak72">
+</section>
+<section class="card">
+<h2 id="speak71">Summation of a general arithmetic-type series</h2>
+<p id="speak72">
         Suppose the series is:
         <code>3 + 6 + 9 + 12 + ... + n</code>
-      </p>
-
-      <pre id="speak73">int n = 18;
+</p>
+<pre id="speak73">int n = 18;
 int term = 3;
 int sum = 0;
 
-while (term <= n) {
+while (term &lt;= n) {
     sum += term;
     term += 3;
 }
 
 System.out.println("Sum = " + sum);</pre>
-
-      <p id="speak74">
+<p id="speak74">
         This works because each term is increasing by 3.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak75">Summation of fractional series using double</h2>
-      <p id="speak76">
+</section>
+<section class="card">
+<h2 id="speak75">Summation of fractional series using double</h2>
+<p id="speak76">
         Consider the series:
         <code>1 + 1/2 + 1/3 + 1/4 + ... + 1/n</code>
-      </p>
-
-      <pre id="speak77">int n = 5;
+</p>
+<pre id="speak77">int n = 5;
 int i = 1;
 double sum = 0.0;
 
-while (i <= n) {
+while (i &lt;= n) {
     sum += 1.0 / i;
     i++;
 }
 
 System.out.println("Sum = " + sum);</pre>
-
-      <p id="speak78">
+<p id="speak78">
         We use <code>1.0 / i</code> instead of <code>1 / i</code>, because integer division would give wrong results for most terms.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak79">Alternating series</h2>
-      <p id="speak80">
+</section>
+<section class="card">
+<h2 id="speak79">Alternating series</h2>
+<p id="speak80">
         Some series alternate between positive and negative terms, for example:
         <code>1 - 2 + 3 - 4 + 5 - 6 + ...</code>
-      </p>
-
-      <pre id="speak81">int n = 6;
+</p>
+<pre id="speak81">int n = 6;
 int i = 1;
 int sum = 0;
 
-while (i <= n) {
+while (i &lt;= n) {
     if (i % 2 == 0) {
         sum -= i;
     } else {
@@ -682,132 +639,120 @@ while (i <= n) {
 }
 
 System.out.println("Sum = " + sum);</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak82">Series with factorial terms</h2>
-      <p id="speak83">
+</section>
+<section class="card">
+<h2 id="speak82">Series with factorial terms</h2>
+<p id="speak83">
         Consider the series:
         <code>1! + 2! + 3! + ... + n!</code>
-      </p>
-
-      <pre id="speak84">int n = 5;
+</p>
+<pre id="speak84">int n = 5;
 int i = 1;
 int fact = 1;
 int sum = 0;
 
-while (i <= n) {
+while (i &lt;= n) {
     fact = fact * i;
     sum = sum + fact;
     i++;
 }
 
 System.out.println("Sum of factorial series = " + sum);</pre>
-
-      <p id="speak85">
+<p id="speak85">
         Notice that we do not calculate each factorial from the beginning every time. We keep building the factorial step by step.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak86">Series with powers</h2>
-      <p id="speak87">
+</section>
+<section class="card">
+<h2 id="speak86">Series with powers</h2>
+<p id="speak87">
         Suppose the series is:
         <code>2¹ + 2² + 2³ + ... + 2ⁿ</code>
-      </p>
-
-      <pre id="speak88">int n = 5;
+</p>
+<pre id="speak88">int n = 5;
 int i = 1;
 int sum = 0;
 
-while (i <= n) {
+while (i &lt;= n) {
     sum += (int)Math.pow(2, i);
     i++;
 }
 
 System.out.println("Sum = " + sum);</pre>
-
-      <p id="speak89">
+<p id="speak89">
         This uses the <code>Math.pow()</code> method.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak90">Term-by-term thinking for series</h2>
-      <p id="speak91">
+</section>
+<section class="card">
+<h2 id="speak90">Term-by-term thinking for series</h2>
+<p id="speak91">
         The most important skill in summation problems is identifying the term. Once you know how one term is generated, the loop becomes easy.
       </p>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th id="speak92">Series</th>
-              <th id="speak93">Term idea</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>1 + 2 + 3 + ... + n</code></td>
-              <td id="speak94">term = i</td>
-            </tr>
-            <tr>
-              <td><code>2 + 4 + 6 + ...</code></td>
-              <td id="speak95">term = i, increase by 2</td>
-            </tr>
-            <tr>
-              <td><code>1² + 2² + 3² + ...</code></td>
-              <td id="speak96">term = i * i</td>
-            </tr>
-            <tr>
-              <td><code>1³ + 2³ + 3³ + ...</code></td>
-              <td id="speak97">term = i * i * i</td>
-            </tr>
-            <tr>
-              <td><code>1 + 1/2 + 1/3 + ...</code></td>
-              <td id="speak98">term = 1.0 / i</td>
-            </tr>
-            <tr>
-              <td><code>1! + 2! + 3! + ...</code></td>
-              <td id="speak99">term = running factorial</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak100">What is a nested while loop?</h2>
-      <p id="speak101">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th id="speak92">Series</th>
+<th id="speak93">Term idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1 + 2 + 3 + ... + n</code></td>
+<td id="speak94">term = i</td>
+</tr>
+<tr>
+<td><code>2 + 4 + 6 + ...</code></td>
+<td id="speak95">term = i, increase by 2</td>
+</tr>
+<tr>
+<td><code>1² + 2² + 3² + ...</code></td>
+<td id="speak96">term = i * i</td>
+</tr>
+<tr>
+<td><code>1³ + 2³ + 3³ + ...</code></td>
+<td id="speak97">term = i * i * i</td>
+</tr>
+<tr>
+<td><code>1 + 1/2 + 1/3 + ...</code></td>
+<td id="speak98">term = 1.0 / i</td>
+</tr>
+<tr>
+<td><code>1! + 2! + 3! + ...</code></td>
+<td id="speak99">term = running factorial</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="card">
+<h2 id="speak100">What is a nested while loop?</h2>
+<p id="speak101">
         A nested while loop means one while loop is written inside another while loop. The inner loop runs fully for each iteration of the outer loop.
       </p>
+<pre id="speak102">int i = 1;
 
-      <pre id="speak102">int i = 1;
-
-while (i <= 3) {
+while (i &lt;= 3) {
     int j = 1;
 
-    while (j <= 2) {
+    while (j &lt;= 2) {
         System.out.println("i = " + i + ", j = " + j);
         j++;
     }
 
     i++;
 }</pre>
-
-      <p id="speak103">
+<p id="speak103">
         The inner loop variable must usually be initialized inside the outer loop, otherwise it may not reset properly.
       </p>
-    </section>
+</section>
+<section class="card">
+<h2 id="speak104">Nested while loops for rectangular patterns</h2>
+<pre id="speak105">int row = 1;
 
-    <section class="card">
-      <h2 id="speak104">Nested while loops for rectangular patterns</h2>
-      <pre id="speak105">int row = 1;
-
-while (row <= 3) {
+while (row &lt;= 3) {
     int col = 1;
 
-    while (col <= 5) {
+    while (col &lt;= 5) {
         System.out.print("* ");
         col++;
     }
@@ -815,16 +760,15 @@ while (row <= 3) {
     System.out.println();
     row++;
 }</pre>
-    </section>
+</section>
+<section class="card">
+<h2 id="speak106">Nested while loops for triangular patterns</h2>
+<pre id="speak107">int row = 1;
 
-    <section class="card">
-      <h2 id="speak106">Nested while loops for triangular patterns</h2>
-      <pre id="speak107">int row = 1;
-
-while (row <= 5) {
+while (row &lt;= 5) {
     int col = 1;
 
-    while (col <= row) {
+    while (col &lt;= row) {
         System.out.print(col + " ");
         col++;
     }
@@ -832,27 +776,24 @@ while (row <= 5) {
     System.out.println();
     row++;
 }</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak108">Nested while loops and summation of double series</h2>
-      <p id="speak109">
+</section>
+<section class="card">
+<h2 id="speak108">Nested while loops and summation of double series</h2>
+<p id="speak109">
         Now we come to the main focus: using nested while loops for more advanced summation.
       </p>
-
-      <h3 id="speak110">Example 1: Sum of a multiplication table grid</h3>
-      <p id="speak111">
+<h3 id="speak110">Example 1: Sum of a multiplication table grid</h3>
+<p id="speak111">
         Compute:
         <code>1×1 + 1×2 + 1×3 + 2×1 + 2×2 + 2×3</code>
-      </p>
-
-      <pre id="speak112">int i = 1;
+</p>
+<pre id="speak112">int i = 1;
 int sum = 0;
 
-while (i <= 2) {
+while (i &lt;= 2) {
     int j = 1;
 
-    while (j <= 3) {
+    while (j &lt;= 3) {
         sum += i * j;
         j++;
     }
@@ -861,24 +802,22 @@ while (i <= 2) {
 }
 
 System.out.println("Sum = " + sum);</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak113">Example 2: Summation row by row</h2>
-      <p id="speak114">
+</section>
+<section class="card">
+<h2 id="speak113">Example 2: Summation row by row</h2>
+<p id="speak114">
         Suppose we want:
         <code>(1) + (1+2) + (1+2+3) + ... + (1+2+...+n)</code>
-      </p>
-
-      <pre id="speak115">int n = 4;
+</p>
+<pre id="speak115">int n = 4;
 int i = 1;
 int totalSum = 0;
 
-while (i <= n) {
+while (i &lt;= n) {
     int j = 1;
     int rowSum = 0;
 
-    while (j <= i) {
+    while (j &lt;= i) {
         rowSum += j;
         j++;
     }
@@ -888,29 +827,26 @@ while (i <= n) {
 }
 
 System.out.println("Total sum = " + totalSum);</pre>
-
-      <p id="speak116">
+<p id="speak116">
         For <code>n = 4</code>, this becomes:
         <code>1 + (1+2) + (1+2+3) + (1+2+3+4)</code>.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak117">Example 3: Nested summation of squares</h2>
-      <p id="speak118">
+</section>
+<section class="card">
+<h2 id="speak117">Example 3: Nested summation of squares</h2>
+<p id="speak118">
         Consider:
         <code>(1²) + (1²+2²) + (1²+2²+3²) + ...</code>
-      </p>
-
-      <pre id="speak119">int n = 3;
+</p>
+<pre id="speak119">int n = 3;
 int i = 1;
 int totalSum = 0;
 
-while (i <= n) {
+while (i &lt;= n) {
     int j = 1;
     int rowSum = 0;
 
-    while (j <= i) {
+    while (j &lt;= i) {
         rowSum += j * j;
         j++;
     }
@@ -920,24 +856,22 @@ while (i <= n) {
 }
 
 System.out.println("Total sum = " + totalSum);</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak120">Example 4: Harmonic-style nested series</h2>
-      <p id="speak121">
+</section>
+<section class="card">
+<h2 id="speak120">Example 4: Harmonic-style nested series</h2>
+<p id="speak121">
         Consider:
         <code>(1) + (1 + 1/2) + (1 + 1/2 + 1/3) + ...</code>
-      </p>
-
-      <pre id="speak122">int n = 4;
+</p>
+<pre id="speak122">int n = 4;
 int i = 1;
 double totalSum = 0.0;
 
-while (i <= n) {
+while (i &lt;= n) {
     int j = 1;
     double rowSum = 0.0;
 
-    while (j <= i) {
+    while (j &lt;= i) {
         rowSum += 1.0 / j;
         j++;
     }
@@ -947,25 +881,23 @@ while (i <= n) {
 }
 
 System.out.println("Total sum = " + totalSum);</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak123">Example 5: Factorial inside nested summation</h2>
-      <p id="speak124">
+</section>
+<section class="card">
+<h2 id="speak123">Example 5: Factorial inside nested summation</h2>
+<p id="speak124">
         Consider:
         <code>(1!) + (1!+2!) + (1!+2!+3!) + ...</code>
-      </p>
-
-      <pre id="speak125">int n = 4;
+</p>
+<pre id="speak125">int n = 4;
 int i = 1;
 int totalSum = 0;
 
-while (i <= n) {
+while (i &lt;= n) {
     int j = 1;
     int fact = 1;
     int rowSum = 0;
 
-    while (j <= i) {
+    while (j &lt;= i) {
         fact *= j;
         rowSum += fact;
         j++;
@@ -976,59 +908,52 @@ while (i <= n) {
 }
 
 System.out.println("Total sum = " + totalSum);</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak126">Important tracing idea for nested series</h2>
-      <p id="speak127">
+</section>
+<section class="card">
+<h2 id="speak126">Important tracing idea for nested series</h2>
+<p id="speak127">
         In nested summation problems, always ask:
       </p>
-
-      <ol>
-        <li id="speak128">What does the outer loop represent?</li>
-        <li id="speak129">What does the inner loop represent?</li>
-        <li id="speak130">What is one term?</li>
-        <li id="speak131">What is one row sum?</li>
-        <li id="speak132">How do all row sums combine into the total sum?</li>
-      </ol>
-
-      <p id="speak133">
+<ol>
+<li id="speak128">What does the outer loop represent?</li>
+<li id="speak129">What does the inner loop represent?</li>
+<li id="speak130">What is one term?</li>
+<li id="speak131">What is one row sum?</li>
+<li id="speak132">How do all row sums combine into the total sum?</li>
+</ol>
+<p id="speak133">
         This way of thinking makes complicated summation programs much easier.
       </p>
-    </section>
+</section>
+<section class="card">
+<h2 id="speak134">Common mistakes in while loop series programs</h2>
+<ul>
+<li id="speak135">Forgetting to update the loop variable, causing an infinite loop.</li>
+<li id="speak136">Using <code>int</code> instead of <code>double</code> for fractional series.</li>
+<li id="speak137">Writing <code>1 / i</code> instead of <code>1.0 / i</code>.</li>
+<li id="speak138">Forgetting to reset inner variables in nested loops.</li>
+<li id="speak139">Adding the wrong thing to the sum, such as adding <code>i</code> when the term should be <code>i*i</code>.</li>
+</ul>
+</section>
+<section class="card">
+<h2 id="speak140">Infinite while loop warning</h2>
+<pre id="speak141">int i = 1;
 
-    <section class="card">
-      <h2 id="speak134">Common mistakes in while loop series programs</h2>
-      <ul>
-        <li id="speak135">Forgetting to update the loop variable, causing an infinite loop.</li>
-        <li id="speak136">Using <code>int</code> instead of <code>double</code> for fractional series.</li>
-        <li id="speak137">Writing <code>1 / i</code> instead of <code>1.0 / i</code>.</li>
-        <li id="speak138">Forgetting to reset inner variables in nested loops.</li>
-        <li id="speak139">Adding the wrong thing to the sum, such as adding <code>i</code> when the term should be <code>i*i</code>.</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2 id="speak140">Infinite while loop warning</h2>
-      <pre id="speak141">int i = 1;
-
-while (i <= 5) {
+while (i &lt;= 5) {
     System.out.println(i);
 }</pre>
-
-      <p id="speak142">
+<p id="speak142">
         This loop never changes <code>i</code>, so the condition stays true forever. Always check that your loop variable is moving toward the stopping condition.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak143">Complete example</h2>
-      <pre id="speak144">public class Main {
+</section>
+<section class="card">
+<h2 id="speak143">Complete example</h2>
+<pre id="speak144">public class Main {
     public static void main(String[] args) {
         // 1. Simple while loop
         int i = 1;
         int sum1 = 0;
-        while (i <= 5) {
+        while (i &lt;= 5) {
             sum1 += i;
             i++;
         }
@@ -1037,7 +962,7 @@ while (i <= 5) {
         // 2. Sum of squares
         i = 1;
         int sumSquares = 0;
-        while (i <= 4) {
+        while (i &lt;= 4) {
             sumSquares += i * i;
             i++;
         }
@@ -1046,7 +971,7 @@ while (i <= 5) {
         // 3. Fraction series
         i = 1;
         double harmonic = 0.0;
-        while (i <= 4) {
+        while (i &lt;= 4) {
             harmonic += 1.0 / i;
             i++;
         }
@@ -1055,11 +980,11 @@ while (i <= 5) {
         // 4. Nested while row sums
         int row = 1;
         int total = 0;
-        while (row <= 4) {
+        while (row &lt;= 4) {
             int col = 1;
             int rowSum = 0;
 
-            while (col <= row) {
+            while (col &lt;= row) {
                 rowSum += col;
                 col++;
             }
@@ -1070,99 +995,79 @@ while (i <= 5) {
         System.out.println("Nested row total = " + total);
     }
 }</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak145">Assignments</h2>
-
-      <div class="assignment" id="speak146">
-        <strong>Assignment 1:</strong> Use a while loop to print numbers from 1 to 20.
+</section>
+<section class="card">
+<h2 id="speak145">Assignments</h2>
+<div class="assignment" id="speak146">
+<strong>Assignment 1:</strong> Use a while loop to print numbers from 1 to 20.
       </div>
-
-      <div class="assignment" id="speak147">
-        <strong>Assignment 2:</strong> Use a while loop to find the sum of natural numbers from 1 to n.
+<div class="assignment" id="speak147">
+<strong>Assignment 2:</strong> Use a while loop to find the sum of natural numbers from 1 to n.
       </div>
-
-      <div class="assignment" id="speak148">
-        <strong>Assignment 3:</strong> Find the sum of even numbers up to n using a while loop.
+<div class="assignment" id="speak148">
+<strong>Assignment 3:</strong> Find the sum of even numbers up to n using a while loop.
       </div>
-
-      <div class="assignment" id="speak149">
-        <strong>Assignment 4:</strong> Find the sum of odd numbers up to n using a while loop.
+<div class="assignment" id="speak149">
+<strong>Assignment 4:</strong> Find the sum of odd numbers up to n using a while loop.
       </div>
-
-      <div class="assignment" id="speak150">
-        <strong>Assignment 5:</strong> Find the sum of squares from 1² to n².
+<div class="assignment" id="speak150">
+<strong>Assignment 5:</strong> Find the sum of squares from 1² to n².
       </div>
-
-      <div class="assignment" id="speak151">
-        <strong>Assignment 6:</strong> Find the sum of cubes from 1³ to n³.
+<div class="assignment" id="speak151">
+<strong>Assignment 6:</strong> Find the sum of cubes from 1³ to n³.
       </div>
-
-      <div class="assignment" id="speak152">
-        <strong>Assignment 7:</strong> Compute <code>1 + 1/2 + 1/3 + ... + 1/n</code> correctly using <code>double</code>.
+<div class="assignment" id="speak152">
+<strong>Assignment 7:</strong> Compute <code>1 + 1/2 + 1/3 + ... + 1/n</code> correctly using <code>double</code>.
       </div>
-
-      <div class="assignment" id="speak153">
-        <strong>Assignment 8:</strong> Compute the series <code>1! + 2! + 3! + ... + n!</code>.
+<div class="assignment" id="speak153">
+<strong>Assignment 8:</strong> Compute the series <code>1! + 2! + 3! + ... + n!</code>.
       </div>
-
-      <div class="assignment" id="speak154">
-        <strong>Assignment 9:</strong> Use nested while loops to compute <code>(1) + (1+2) + (1+2+3) + ... + (1+2+...+n)</code>.
+<div class="assignment" id="speak154">
+<strong>Assignment 9:</strong> Use nested while loops to compute <code>(1) + (1+2) + (1+2+3) + ... + (1+2+...+n)</code>.
       </div>
-
-      <div class="assignment" id="speak155">
-        <strong>Assignment 10:</strong> Use nested while loops to compute <code>(1²) + (1²+2²) + (1²+2²+3²) + ...</code>.
+<div class="assignment" id="speak155">
+<strong>Assignment 10:</strong> Use nested while loops to compute <code>(1²) + (1²+2²) + (1²+2²+3²) + ...</code>.
       </div>
-
-      <div class="assignment" id="speak156">
-        <strong>Assignment 11:</strong> Use nested while loops to print a rectangle and a right triangle.
+<div class="assignment" id="speak156">
+<strong>Assignment 11:</strong> Use nested while loops to print a rectangle and a right triangle.
       </div>
-
-      <div class="assignment" id="speak157">
-        <strong>Assignment 12:</strong> Design your own series and write a while-loop program for it.
+<div class="assignment" id="speak157">
+<strong>Assignment 12:</strong> Design your own series and write a while-loop program for it.
       </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak158">Interactive MCQ Quiz</h2>
-      <p id="speak159">
+</section>
+<section class="card">
+<h2 id="speak158">Interactive MCQ Quiz</h2>
+<p id="speak159">
         Choose one answer for each question and click <strong>Check Answers</strong>.
       </p>
-
-      <div class="quiz-toolbar">
-        <div id="speak160"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
-        <div class="quiz-actions">
-          <button id="checkBtn" type="button">Check Answers</button>
-          <button id="resetBtn" type="button" class="secondary">Reset Quiz</button>
-        </div>
-      </div>
-
-      <div id="quizContainer"></div>
-
-      <div id="resultBox" class="result-box" aria-live="polite">
-        <p class="score-big" id="scoreText">0 / 0</p>
-        <p id="resultNote">Your result will appear here.</p>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak161">Quick revision</h2>
-      <ul>
-        <li id="speak162">A while loop repeats while a condition is true.</li>
-        <li id="speak163">Always initialize before the loop and update inside the loop.</li>
-        <li id="speak164">Series programs usually use a running sum variable.</li>
-        <li id="speak165">For fractional series, use <code>double</code> and <code>1.0 / i</code>.</li>
-        <li id="speak166">A nested while loop has one while loop inside another.</li>
-        <li id="speak167">In nested loops, inner variables often need resetting inside the outer loop.</li>
-        <li id="speak168">For complex summations, think in terms of term, row sum, and total sum.</li>
-      </ul>
-    </section>
-
-    <p class="footer-note" id="speak169">Programmer’s Picnic Java lesson page — While loops, nested while loops, and summation of series.</p>
-  </main>
-
-  <script>
+<div class="quiz-toolbar">
+<div id="speak160"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
+<div class="quiz-actions">
+<button id="checkBtn" type="button">Check Answers</button>
+<button class="secondary" id="resetBtn" type="button">Reset Quiz</button>
+</div>
+</div>
+<div id="quizContainer"></div>
+<div aria-live="polite" class="result-box" id="resultBox">
+<p class="score-big" id="scoreText">0 / 0</p>
+<p id="resultNote">Your result will appear here.</p>
+</div>
+</section>
+<section class="card">
+<h2 id="speak161">Quick revision</h2>
+<ul>
+<li id="speak162">A while loop repeats while a condition is true.</li>
+<li id="speak163">Always initialize before the loop and update inside the loop.</li>
+<li id="speak164">Series programs usually use a running sum variable.</li>
+<li id="speak165">For fractional series, use <code>double</code> and <code>1.0 / i</code>.</li>
+<li id="speak166">A nested while loop has one while loop inside another.</li>
+<li id="speak167">In nested loops, inner variables often need resetting inside the outer loop.</li>
+<li id="speak168">For complex summations, think in terms of term, row sum, and total sum.</li>
+</ul>
+</section>
+<p class="footer-note" id="speak169">Programmer’s Picnic Java lesson page — While loops, nested while loops, and summation of series.</p>
+</main>
+<script>
     const quizData = [
       {
         topic: "Basics",
@@ -1436,5 +1341,5 @@ while (i <= 5) {
 
     createQuiz();
   </script>
-</body>
+<div data-root="../../../" id="site-footer"></div><script defer="True" src="../../../assets/js/include.js"></script></body>
 </html>

@@ -1,11 +1,12 @@
-<!doctype html>
-<html lang="en" data-theme="dark" data-design="classic">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Minimum Spanning Tree Demo  — Kruskal's and Prim's</title>
-    <script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
-    <style>
+<!DOCTYPE html>
+
+<html data-design="classic" data-theme="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Minimum Spanning Tree Demo  — Kruskal's and Prim's</title>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<style>
       :root {
         --bg: #0b1020;
         --bg2: #060914;
@@ -404,189 +405,146 @@
         }
       }
     </style>
-  </head>
-  <body>
-
-
-    <div class="wrap">
-      <div class="sectionTop">
-        <div>
-          <h1>MST Demonstration   — Kruskal's and Prim's</h1>
-          <div class="sub">
+<link href="../../assets/css/theme.css" rel="stylesheet"/><meta content="Minimum Spanning Tree Demo — Kruskal's and Prim's - practical learning page from DSA with Champak." name="description"/></head>
+<body data-root="../../"><div data-root="../../" id="site-header"></div><div id="main-content"></div>
+<div class="wrap">
+<div class="sectionTop">
+<div>
+<h1>MST Demonstration   — Kruskal's and Prim's</h1>
+<div class="sub">
             Minimum Spanning Tree.
-            <br />
-            <b>Important:</b> Kruskal's and Prim's find a
+            <br/>
+<b>Important:</b> Kruskal's and Prim's find a
             <b>Minimum Spanning Tree</b>.
           </div>
-        </div>
-        <div class="topControls">
-          <div>
-            <label>Theme</label>
-            <select id="themeSelect">
-              <option value="dark">Dark</option>
-              <option value="light">Light</option>
-            </select>
-          </div>
-          <div>
-            <label>Design</label>
-            <select id="designSelect">
-              <option value="classic">Classic</option>
-              <option value="glass">Glass</option>
-              <option value="warm">Warm</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="layout">
-        <div class="card">
-          <h2>Graph Controls</h2>
-
-          <label>Number of Nodes</label>
-          <input id="nodeCount" type="number" min="2" max="10" value="6" />
-
-          <label>Random Edge Density</label>
-          <input
-            id="density"
-            type="number"
-            min="0.2"
-            max="1"
-            step="0.1"
-            value="0.6"
-          />
-
-          <label>Weight Range</label>
-          <div class="row">
-            <input id="minW" type="number" min="1" value="1" />
-            <input id="maxW" type="number" min="1" value="20" />
-          </div>
-
-          <div class="row">
-            <button id="randomBtn">Generate Random</button>
-            <button id="clearBtn" class="secondary">Clear Graph</button>
-          </div>
-
-          <label>Manual Edge Entry</label>
-          <textarea
-            id="edgeInput"
-            placeholder="Example:
+</div>
+<div class="topControls">
+<div>
+<label>Theme</label>
+<select id="themeSelect">
+<option value="dark">Dark</option>
+<option value="light">Light</option>
+</select>
+</div>
+<div>
+<label>Design</label>
+<select id="designSelect">
+<option value="classic">Classic</option>
+<option value="glass">Glass</option>
+<option value="warm">Warm</option>
+</select>
+</div>
+</div>
+</div>
+<div class="layout">
+<div class="card">
+<h2>Graph Controls</h2>
+<label>Number of Nodes</label>
+<input id="nodeCount" max="10" min="2" type="number" value="6"/>
+<label>Random Edge Density</label>
+<input id="density" max="1" min="0.2" step="0.1" type="number" value="0.6"/>
+<label>Weight Range</label>
+<div class="row">
+<input id="minW" min="1" type="number" value="1"/>
+<input id="maxW" min="1" type="number" value="20"/>
+</div>
+<div class="row">
+<button id="randomBtn">Generate Random</button>
+<button class="secondary" id="clearBtn">Clear Graph</button>
+</div>
+<label>Manual Edge Entry</label>
+<textarea id="edgeInput" placeholder="Example:
 A B 4
 A C 3
 B C 1
 B D 2
 C D 4
 C E 5
-D E 1"
-          ></textarea>
-
-          <div class="small">
-            One edge per line: <span class="mono">Node1 Node2 Weight</span
-            ><br />
+D E 1"></textarea>
+<div class="small">
+            One edge per line: <span class="mono">Node1 Node2 Weight</span><br/>
             Example: <span class="mono">A B 7</span>
-          </div>
-
-          <div class="row">
-            <button id="loadBtn" class="blue">Load User Graph</button>
-            <button id="sampleBtn" class="secondary">Load Sample</button>
-          </div>
-
-          <label>Your MST Answer</label>
-          <textarea
-            id="answerInput"
-            placeholder="Enter your MST edges here.
+</div>
+<div class="row">
+<button class="blue" id="loadBtn">Load User Graph</button>
+<button class="secondary" id="sampleBtn">Load Sample</button>
+</div>
+<label>Your MST Answer</label>
+<textarea id="answerInput" placeholder="Enter your MST edges here.
 Example:
 B C 1
 D E 1
 B D 2
-A C 3"
-          ></textarea>
-
-          <div class="row">
-            <button id="checkBtn" class="good">Check Answer</button>
-            <button id="showMstBtn" class="secondary">Show Correct MST</button>
-          </div>
-
-          <div id="status" class="status">Ready.</div>
-
-          <div class="teach">
-            <b>How manual mode works</b><br />
-            1. Build or load a graph.<br />
-            2. Enter the MST edges in the answer box.<br />
-            3. Click <b>Check Answer</b>.<br />
+A C 3"></textarea>
+<div class="row">
+<button class="good" id="checkBtn">Check Answer</button>
+<button class="secondary" id="showMstBtn">Show Correct MST</button>
+</div>
+<div class="status" id="status">Ready.</div>
+<div class="teach">
+<b>How manual mode works</b><br/>
+            1. Build or load a graph.<br/>
+            2. Enter the MST edges in the answer box.<br/>
+            3. Click <b>Check Answer</b>.<br/>
             4. If your tree has the same minimum cost, it is accepted.
           </div>
-        </div>
-
-        <div class="card">
-          <div class="sectionTop">
-            <h2>Graph View</h2>
-            <div class="algoBadge" id="topAlgoBadge">Mode: none</div>
-          </div>
-
-          <div class="canvasWrap">
-            <canvas id="graphCanvas" width="820" height="560"></canvas>
-          </div>
-
-          <div class="legend">
-            <span class="pill">White = graph edge</span>
-            <span class="pill">Green = MST edge chosen</span>
-            <span class="pill">Blue = current edge</span>
-            <span class="pill">Red = rejected edge</span>
-            <span class="pill">Orange node = graph node</span>
-          </div>
-
-          <div class="teach">
-            <b>Quick add:</b> Click one node, then click another node to add an
+</div>
+<div class="card">
+<div class="sectionTop">
+<h2>Graph View</h2>
+<div class="algoBadge" id="topAlgoBadge">Mode: none</div>
+</div>
+<div class="canvasWrap">
+<canvas height="560" id="graphCanvas" width="820"></canvas>
+</div>
+<div class="legend">
+<span class="pill">White = graph edge</span>
+<span class="pill">Green = MST edge chosen</span>
+<span class="pill">Blue = current edge</span>
+<span class="pill">Red = rejected edge</span>
+<span class="pill">Orange node = graph node</span>
+</div>
+<div class="teach">
+<b>Quick add:</b> Click one node, then click another node to add an
             edge. The app will ask for the weight.
           </div>
-
-          <div class="resultBox">
-            <h3>Current Output</h3>
-            <div id="resultOut" class="mono">No result yet.</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>Teaching Mode</h2>
-
-          <label>Algorithm</label>
-          <select id="algoSelect">
-            <option value="kruskal">Kruskal's</option>
-            <option value="prim">Prim's</option>
-          </select>
-
-          <label>Prim's Start Node</label>
-          <select id="primStart"></select>
-
-          <div class="row">
-            <button id="prepareBtn" class="violet">Prepare Steps</button>
-            <button id="nextBtn" class="secondary">Next Step</button>
-          </div>
-
-          <div class="row">
-            <button id="autoBtn">Auto Play</button>
-            <button id="resetStepsBtn" class="secondary">Reset Steps</button>
-          </div>
-
-          <div class="teach" id="teachBox">
-            <b>Explanation</b><br />
+<div class="resultBox">
+<h3>Current Output</h3>
+<div class="mono" id="resultOut">No result yet.</div>
+</div>
+</div>
+<div class="card">
+<h2>Teaching Mode</h2>
+<label>Algorithm</label>
+<select id="algoSelect">
+<option value="kruskal">Kruskal's</option>
+<option value="prim">Prim's</option>
+</select>
+<label>Prim's Start Node</label>
+<select id="primStart"></select>
+<div class="row">
+<button class="violet" id="prepareBtn">Prepare Steps</button>
+<button class="secondary" id="nextBtn">Next Step</button>
+</div>
+<div class="row">
+<button id="autoBtn">Auto Play</button>
+<button class="secondary" id="resetStepsBtn">Reset Steps</button>
+</div>
+<div class="teach" id="teachBox">
+<b>Explanation</b><br/>
             Prepare a graph first, then choose an algorithm and step through it.
           </div>
-
-          <label>Step List</label>
-          <div id="stepsBox" class="steps"></div>
-
-          <div class="resultBox">
-            <h3>Algorithm Result</h3>
-            <div id="algoResult" class="mono">No algorithm prepared yet.</div>
-          </div>
-        </div>
-      </div>
-    </div>
+<label>Step List</label>
+<div class="steps" id="stepsBox"></div>
+<div class="resultBox">
+<h3>Algorithm Result</h3>
+<div class="mono" id="algoResult">No algorithm prepared yet.</div>
+</div>
+</div>
+</div>
+</div>
 <script src="https://programmer-s-picnic.github.io/json-images/computers-section.js"></script>
-
-
-    <script>
+<script>
       const canvas = document.getElementById("graphCanvas");
       const ctx = canvas.getContext("2d");
 
@@ -1510,5 +1468,5 @@ Minimum cost = ${correctCost}`;
       initAppearance();
       clearGraph();
     </script>
-  </body>
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>

@@ -1,27 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Java Lesson — For Loops in Detail</title>
-  <meta
-    name="description"
-    content="A complete beginner-to-advanced Java lesson on for loops with syntax, flow, examples, nested loops, patterns, break, continue, assignments, and interactive MCQ quiz."
-  />
-  <meta name="theme-color" content="#d97706" />
-
-
-<script
-      async=""
-      crossorigin="anonymous"
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
-    ></script>
-
-  
-  <script src="https://programmer-s-picnic.github.io/json-images/pwd.js"></script>
-  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Java Lesson — For Loops in Detail</title>
+<meta content="A complete beginner-to-advanced Java lesson on for loops with syntax, flow, examples, nested loops, patterns, break, continue, assignments, and interactive MCQ quiz." name="description"/>
+<meta content="#0b67b2" name="theme-color"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<script src="https://programmer-s-picnic.github.io/json-images/pwd.js"></script>
+<script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+<style>
     :root{
       --bg:#fff8eb;
       --card:#ffffff;
@@ -353,199 +342,173 @@
       .quiz-toolbar{align-items:flex-start}
     }
   </style>
-</head>
-<body>
-  <header>
-    <h1 id="speak0">Java Lesson — For Loops in Detail</h1>
-    <p id="speak1">A complete beginner-to-advanced lesson on repeating tasks using for loops in Java.</p>
-  </header>
-
-  <main class="container">
-    <section class="card hero-grid">
-      <div>
-        <h2 id="speak2">What this lesson covers</h2>
-        <p id="speak3">
+<link href="../../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../../"><div data-root="../../../" id="site-header"></div>
+<header>
+<h1 id="speak0">Java Lesson — For Loops in Detail</h1>
+<p id="speak1">A complete beginner-to-advanced lesson on repeating tasks using for loops in Java.</p>
+</header>
+<main class="container" id="main-content">
+<section class="card hero-grid">
+<div>
+<h2 id="speak2">What this lesson covers</h2>
+<p id="speak3">
           In this lesson, you will learn what a <code>for</code> loop is, why loops are useful, how the three parts of a for loop work, how Java executes a loop step by step, and how to use loops for counting, summing, tables, patterns, arrays, nested loops, and more.
         </p>
-        <p id="speak4">
+<p id="speak4">
           We will begin from level zero, where you simply repeat something a few times, and then move toward expert-level ideas such as nested loops, break, continue, infinite loops, scope of loop variables, and choosing the right loop style.
         </p>
-      </div>
-
-      <div class="mini-grid">
-        <div class="mini">
-          <strong id="speak5">Repetition</strong>
-          <p class="muted" id="speak6">Run the same block many times</p>
-        </div>
-        <div class="mini">
-          <strong id="speak7">Counting</strong>
-          <p class="muted" id="speak8">Perfect for known number of repetitions</p>
-        </div>
-        <div class="mini">
-          <strong id="speak9">Patterns</strong>
-          <p class="muted" id="speak10">Useful for tables, stars, grids, and shapes</p>
-        </div>
-        <div class="mini">
-          <strong id="speak11">Control</strong>
-          <p class="muted" id="speak12">Use break and continue to control flow</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak13">Why do we need loops?</h2>
-      <p id="speak14">
+</div>
+<div class="mini-grid">
+<div class="mini">
+<strong id="speak5">Repetition</strong>
+<p class="muted" id="speak6">Run the same block many times</p>
+</div>
+<div class="mini">
+<strong id="speak7">Counting</strong>
+<p class="muted" id="speak8">Perfect for known number of repetitions</p>
+</div>
+<div class="mini">
+<strong id="speak9">Patterns</strong>
+<p class="muted" id="speak10">Useful for tables, stars, grids, and shapes</p>
+</div>
+<div class="mini">
+<strong id="speak11">Control</strong>
+<p class="muted" id="speak12">Use break and continue to control flow</p>
+</div>
+</div>
+</section>
+<section class="card">
+<h2 id="speak13">Why do we need loops?</h2>
+<p id="speak14">
         Suppose you want to print the word <code>Hello</code> five times. Without a loop, you would write the same line again and again.
       </p>
-
-      <pre id="speak15">System.out.println("Hello");
+<pre id="speak15">System.out.println("Hello");
 System.out.println("Hello");
 System.out.println("Hello");
 System.out.println("Hello");
 System.out.println("Hello");</pre>
-
-      <p id="speak16">
+<p id="speak16">
         This works, but it is repetitive, long, and hard to maintain. A loop solves this problem by repeating a block of code automatically.
       </p>
-
-      <pre id="speak17">for (int i = 1; i <= 5; i++) {
+<pre id="speak17">for (int i = 1; i &lt;= 5; i++) {
     System.out.println("Hello");
 }</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak18">What is a for loop?</h2>
-      <p id="speak19">
+</section>
+<section class="card">
+<h2 id="speak18">What is a for loop?</h2>
+<p id="speak19">
         A <code>for</code> loop is used when you know how many times a block of code should run, or when the loop follows a clear counting pattern.
       </p>
-
-      <pre id="speak20">for (initialization; condition; update) {
+<pre id="speak20">for (initialization; condition; update) {
     // code to repeat
 }</pre>
-
-      <p id="speak21">
+<p id="speak21">
         This loop has three important parts:
       </p>
-
-      <ul>
-        <li id="speak22"><strong>Initialization:</strong> runs once at the beginning.</li>
-        <li id="speak23"><strong>Condition:</strong> checked before each repetition.</li>
-        <li id="speak24"><strong>Update:</strong> runs after each repetition.</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2 id="speak25">Basic syntax explained</h2>
-      <pre id="speak26">for (int i = 1; i <= 5; i++) {
+<ul>
+<li id="speak22"><strong>Initialization:</strong> runs once at the beginning.</li>
+<li id="speak23"><strong>Condition:</strong> checked before each repetition.</li>
+<li id="speak24"><strong>Update:</strong> runs after each repetition.</li>
+</ul>
+</section>
+<section class="card">
+<h2 id="speak25">Basic syntax explained</h2>
+<pre id="speak26">for (int i = 1; i &lt;= 5; i++) {
     System.out.println(i);
 }</pre>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th id="speak27">Part</th>
-              <th id="speak28">Code</th>
-              <th id="speak29">Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Initialization</td>
-              <td><code>int i = 1</code></td>
-              <td id="speak30">Start with i equal to 1</td>
-            </tr>
-            <tr>
-              <td>Condition</td>
-              <td><code>i &lt;= 5</code></td>
-              <td id="speak31">Keep looping while i is 5 or less</td>
-            </tr>
-            <tr>
-              <td>Update</td>
-              <td><code>i++</code></td>
-              <td id="speak32">Increase i by 1 after each loop</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p id="speak33">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th id="speak27">Part</th>
+<th id="speak28">Code</th>
+<th id="speak29">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Initialization</td>
+<td><code>int i = 1</code></td>
+<td id="speak30">Start with i equal to 1</td>
+</tr>
+<tr>
+<td>Condition</td>
+<td><code>i &lt;= 5</code></td>
+<td id="speak31">Keep looping while i is 5 or less</td>
+</tr>
+<tr>
+<td>Update</td>
+<td><code>i++</code></td>
+<td id="speak32">Increase i by 1 after each loop</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p id="speak33">
         So this loop prints 1, 2, 3, 4, and 5.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak34">Step-by-step flow of a for loop</h2>
-      <p id="speak35">
+</section>
+<section class="card">
+<h2 id="speak34">Step-by-step flow of a for loop</h2>
+<p id="speak35">
         Let us understand exactly how Java runs a for loop.
       </p>
-
-      <pre id="speak36">for (int i = 1; i <= 3; i++) {
+<pre id="speak36">for (int i = 1; i &lt;= 3; i++) {
     System.out.println("i = " + i);
 }</pre>
-
-      <ol>
-        <li id="speak37">Java runs <code>int i = 1</code> once.</li>
-        <li id="speak38">It checks <code>i &lt;= 3</code>. This is true.</li>
-        <li id="speak39">It executes the body and prints <code>i = 1</code>.</li>
-        <li id="speak40">It runs <code>i++</code>. Now i becomes 2.</li>
-        <li id="speak41">It checks the condition again.</li>
-        <li id="speak42">The loop continues until the condition becomes false.</li>
-      </ol>
-    </section>
-
-    <section class="card">
-      <h2 id="speak43">Printing numbers with for loops</h2>
-
-      <h3 id="speak44">From 1 to 10</h3>
-      <pre id="speak45">for (int i = 1; i <= 10; i++) {
+<ol>
+<li id="speak37">Java runs <code>int i = 1</code> once.</li>
+<li id="speak38">It checks <code>i &lt;= 3</code>. This is true.</li>
+<li id="speak39">It executes the body and prints <code>i = 1</code>.</li>
+<li id="speak40">It runs <code>i++</code>. Now i becomes 2.</li>
+<li id="speak41">It checks the condition again.</li>
+<li id="speak42">The loop continues until the condition becomes false.</li>
+</ol>
+</section>
+<section class="card">
+<h2 id="speak43">Printing numbers with for loops</h2>
+<h3 id="speak44">From 1 to 10</h3>
+<pre id="speak45">for (int i = 1; i &lt;= 10; i++) {
     System.out.println(i);
 }</pre>
-
-      <h3 id="speak46">From 10 down to 1</h3>
-      <pre id="speak47">for (int i = 10; i >= 1; i--) {
+<h3 id="speak46">From 10 down to 1</h3>
+<pre id="speak47">for (int i = 10; i &gt;= 1; i--) {
     System.out.println(i);
 }</pre>
-
-      <h3 id="speak48">Even numbers from 2 to 20</h3>
-      <pre id="speak49">for (int i = 2; i <= 20; i += 2) {
+<h3 id="speak48">Even numbers from 2 to 20</h3>
+<pre id="speak49">for (int i = 2; i &lt;= 20; i += 2) {
     System.out.println(i);
 }</pre>
-
-      <h3 id="speak50">Odd numbers from 1 to 19</h3>
-      <pre id="speak51">for (int i = 1; i < 20; i += 2) {
+<h3 id="speak50">Odd numbers from 1 to 19</h3>
+<pre id="speak51">for (int i = 1; i &lt; 20; i += 2) {
     System.out.println(i);
 }</pre>
-    </section>
+</section>
+<section class="card">
+<h2 id="speak52">Using for loops for calculations</h2>
+<h3 id="speak53">Sum from 1 to 5</h3>
+<pre id="speak54">int sum = 0;
 
-    <section class="card">
-      <h2 id="speak52">Using for loops for calculations</h2>
-
-      <h3 id="speak53">Sum from 1 to 5</h3>
-      <pre id="speak54">int sum = 0;
-
-for (int i = 1; i <= 5; i++) {
+for (int i = 1; i &lt;= 5; i++) {
     sum = sum + i;
 }
 
 System.out.println("Sum = " + sum);</pre>
-
-      <p id="speak55">
+<p id="speak55">
         Here the loop adds each value of <code>i</code> into <code>sum</code>.
       </p>
-
-      <h3 id="speak56">Factorial of a number</h3>
-      <pre id="speak57">int n = 5;
+<h3 id="speak56">Factorial of a number</h3>
+<pre id="speak57">int n = 5;
 int fact = 1;
 
-for (int i = 1; i <= n; i++) {
+for (int i = 1; i &lt;= n; i++) {
     fact = fact * i;
 }
 
 System.out.println("Factorial = " + fact);</pre>
-
-      <h3 id="speak58">Count digits from repeated division idea</h3>
-      <pre id="speak59">int num = 12345;
+<h3 id="speak58">Count digits from repeated division idea</h3>
+<pre id="speak59">int num = 12345;
 int count = 0;
 
 for (; num != 0; num = num / 10) {
@@ -553,380 +516,322 @@ for (; num != 0; num = num / 10) {
 }
 
 System.out.println("Digits = " + count);</pre>
-    </section>
+</section>
+<section class="card">
+<h2 id="speak60">Multiplication table using for loop</h2>
+<pre id="speak61">int n = 7;
 
-    <section class="card">
-      <h2 id="speak60">Multiplication table using for loop</h2>
-      <pre id="speak61">int n = 7;
-
-for (int i = 1; i <= 10; i++) {
+for (int i = 1; i &lt;= 10; i++) {
     System.out.println(n + " x " + i + " = " + (n * i));
 }</pre>
-
-      <p id="speak62">
+<p id="speak62">
         This is one of the most common and useful beginner examples.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak63">Using a for loop with strings</h2>
-      <p id="speak64">
+</section>
+<section class="card">
+<h2 id="speak63">Using a for loop with strings</h2>
+<p id="speak64">
         You can use a for loop to go through each character of a string.
       </p>
+<pre id="speak65">String word = "JAVA";
 
-      <pre id="speak65">String word = "JAVA";
-
-for (int i = 0; i < word.length(); i++) {
+for (int i = 0; i &lt; word.length(); i++) {
     System.out.println(word.charAt(i));
 }</pre>
-
-      <p id="speak66">
+<p id="speak66">
         This prints J, A, V, and A one by one.
       </p>
-    </section>
+</section>
+<section class="card">
+<h2 id="speak67">Using a for loop with arrays</h2>
+<pre id="speak68">int[] arr = {10, 20, 30, 40, 50};
 
-    <section class="card">
-      <h2 id="speak67">Using a for loop with arrays</h2>
-      <pre id="speak68">int[] arr = {10, 20, 30, 40, 50};
-
-for (int i = 0; i < arr.length; i++) {
+for (int i = 0; i &lt; arr.length; i++) {
     System.out.println(arr[i]);
 }</pre>
-
-      <p id="speak69">
+<p id="speak69">
         Here <code>i</code> is used as an index. It starts at 0 because array positions begin from 0.
       </p>
-
-      <h3 id="speak70">Sum of array elements</h3>
-      <pre id="speak71">int[] arr = {10, 20, 30, 40, 50};
+<h3 id="speak70">Sum of array elements</h3>
+<pre id="speak71">int[] arr = {10, 20, 30, 40, 50};
 int sum = 0;
 
-for (int i = 0; i < arr.length; i++) {
+for (int i = 0; i &lt; arr.length; i++) {
     sum += arr[i];
 }
 
 System.out.println("Sum = " + sum);</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak72">Nested for loops</h2>
-      <p id="speak73">
+</section>
+<section class="card">
+<h2 id="speak72">Nested for loops</h2>
+<p id="speak73">
         A nested for loop means a for loop inside another for loop. This is extremely useful for patterns, tables, grids, and matrix-like work.
       </p>
-
-      <h3 id="speak74">Simple nested loop</h3>
-      <pre id="speak75">for (int i = 1; i <= 3; i++) {
-    for (int j = 1; j <= 2; j++) {
+<h3 id="speak74">Simple nested loop</h3>
+<pre id="speak75">for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 2; j++) {
         System.out.println("i = " + i + ", j = " + j);
     }
 }</pre>
-
-      <p id="speak76">
+<p id="speak76">
         For each value of <code>i</code>, the inner loop runs completely.
       </p>
-
-      <h3 id="speak77">Multiplication grid</h3>
-      <pre id="speak78">for (int i = 1; i <= 3; i++) {
-    for (int j = 1; j <= 3; j++) {
+<h3 id="speak77">Multiplication grid</h3>
+<pre id="speak78">for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 3; j++) {
         System.out.print((i * j) + "\t");
     }
     System.out.println();
 }</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak79">Pattern printing with for loops</h2>
-
-      <h3 id="speak80">Pattern 1: stars in one row</h3>
-      <pre id="speak81">for (int i = 1; i <= 5; i++) {
+</section>
+<section class="card">
+<h2 id="speak79">Pattern printing with for loops</h2>
+<h3 id="speak80">Pattern 1: stars in one row</h3>
+<pre id="speak81">for (int i = 1; i &lt;= 5; i++) {
     System.out.print("*");
 }</pre>
-
-      <h3 id="speak82">Pattern 2: square of stars</h3>
-      <pre id="speak83">for (int i = 1; i <= 4; i++) {
-    for (int j = 1; j <= 4; j++) {
+<h3 id="speak82">Pattern 2: square of stars</h3>
+<pre id="speak83">for (int i = 1; i &lt;= 4; i++) {
+    for (int j = 1; j &lt;= 4; j++) {
         System.out.print("* ");
     }
     System.out.println();
 }</pre>
-
-      <h3 id="speak84">Pattern 3: right triangle</h3>
-      <pre id="speak85">for (int i = 1; i <= 5; i++) {
-    for (int j = 1; j <= i; j++) {
+<h3 id="speak84">Pattern 3: right triangle</h3>
+<pre id="speak85">for (int i = 1; i &lt;= 5; i++) {
+    for (int j = 1; j &lt;= i; j++) {
         System.out.print("* ");
     }
     System.out.println();
 }</pre>
-
-      <h3 id="speak86">Pattern 4: number triangle</h3>
-      <pre id="speak87">for (int i = 1; i <= 5; i++) {
-    for (int j = 1; j <= i; j++) {
+<h3 id="speak86">Pattern 4: number triangle</h3>
+<pre id="speak87">for (int i = 1; i &lt;= 5; i++) {
+    for (int j = 1; j &lt;= i; j++) {
         System.out.print(j + " ");
     }
     System.out.println();
 }</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak88">break in for loops</h2>
-      <p id="speak89">
+</section>
+<section class="card">
+<h2 id="speak88">break in for loops</h2>
+<p id="speak89">
         The <code>break</code> statement stops the loop immediately.
       </p>
-
-      <pre id="speak90">for (int i = 1; i <= 10; i++) {
+<pre id="speak90">for (int i = 1; i &lt;= 10; i++) {
     if (i == 6) {
         break;
     }
     System.out.println(i);
 }</pre>
-
-      <p id="speak91">
+<p id="speak91">
         This prints 1 to 5 only, because the loop stops when i becomes 6.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak92">continue in for loops</h2>
-      <p id="speak93">
+</section>
+<section class="card">
+<h2 id="speak92">continue in for loops</h2>
+<p id="speak93">
         The <code>continue</code> statement skips the current iteration and moves to the next one.
       </p>
-
-      <pre id="speak94">for (int i = 1; i <= 10; i++) {
+<pre id="speak94">for (int i = 1; i &lt;= 10; i++) {
     if (i == 5) {
         continue;
     }
     System.out.println(i);
 }</pre>
-
-      <p id="speak95">
+<p id="speak95">
         This prints all numbers from 1 to 10 except 5.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak96">Infinite for loop</h2>
-      <p id="speak97">
+</section>
+<section class="card">
+<h2 id="speak96">Infinite for loop</h2>
+<p id="speak97">
         If you remove the condition or make it always true, the loop may run forever.
       </p>
-
-      <pre id="speak98">for (;;) {
+<pre id="speak98">for (;;) {
     System.out.println("Running forever");
 }</pre>
-
-      <p id="speak99">
+<p id="speak99">
         This is called an infinite loop. It can be useful in special cases, but beginners should use it carefully.
       </p>
-    </section>
+</section>
+<section class="card">
+<h2 id="speak100">Different valid forms of for loop</h2>
+<h3 id="speak101">Initialization outside the loop</h3>
+<pre id="speak102">int i = 1;
 
-    <section class="card">
-      <h2 id="speak100">Different valid forms of for loop</h2>
-
-      <h3 id="speak101">Initialization outside the loop</h3>
-      <pre id="speak102">int i = 1;
-
-for (; i <= 5; i++) {
+for (; i &lt;= 5; i++) {
     System.out.println(i);
 }</pre>
-
-      <h3 id="speak103">Update inside the loop body</h3>
-      <pre id="speak104">for (int i = 1; i <= 5;) {
+<h3 id="speak103">Update inside the loop body</h3>
+<pre id="speak104">for (int i = 1; i &lt;= 5;) {
     System.out.println(i);
     i++;
 }</pre>
-
-      <h3 id="speak105">Multiple variables</h3>
-      <pre id="speak106">for (int i = 1, j = 10; i <= 5; i++, j--) {
+<h3 id="speak105">Multiple variables</h3>
+<pre id="speak106">for (int i = 1, j = 10; i &lt;= 5; i++, j--) {
     System.out.println(i + " " + j);
 }</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak107">Scope of loop variables</h2>
-      <p id="speak108">
+</section>
+<section class="card">
+<h2 id="speak107">Scope of loop variables</h2>
+<p id="speak108">
         A variable declared in the loop header usually exists only inside that loop.
       </p>
-
-      <pre id="speak109">for (int i = 1; i <= 5; i++) {
+<pre id="speak109">for (int i = 1; i &lt;= 5; i++) {
     System.out.println(i);
 }
 
 // System.out.println(i); // not allowed here</pre>
-
-      <p id="speak110">
+<p id="speak110">
         If you need the variable after the loop, declare it before the loop.
       </p>
-
-      <pre id="speak111">int i;
-for (i = 1; i <= 5; i++) {
+<pre id="speak111">int i;
+for (i = 1; i &lt;= 5; i++) {
     System.out.println(i);
 }
 System.out.println("After loop, i = " + i);</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak112">Common mistakes with for loops</h2>
-      <ul>
-        <li id="speak113">Using the wrong condition, causing the loop to run too many or too few times.</li>
-        <li id="speak114">Forgetting to update the loop variable, causing an infinite loop.</li>
-        <li id="speak115">Using <code>&lt;=</code> when <code>&lt;</code> is needed for arrays.</li>
-        <li id="speak116">Changing the loop variable in confusing ways inside the body.</li>
-        <li id="speak117">Using the wrong starting value.</li>
-      </ul>
-
-      <h3 id="speak118">Array mistake example</h3>
-      <pre id="speak119">int[] arr = {10, 20, 30};
+</section>
+<section class="card">
+<h2 id="speak112">Common mistakes with for loops</h2>
+<ul>
+<li id="speak113">Using the wrong condition, causing the loop to run too many or too few times.</li>
+<li id="speak114">Forgetting to update the loop variable, causing an infinite loop.</li>
+<li id="speak115">Using <code>&lt;=</code> when <code>&lt;</code> is needed for arrays.</li>
+<li id="speak116">Changing the loop variable in confusing ways inside the body.</li>
+<li id="speak117">Using the wrong starting value.</li>
+</ul>
+<h3 id="speak118">Array mistake example</h3>
+<pre id="speak119">int[] arr = {10, 20, 30};
 
 // Wrong:
-// for (int i = 0; i <= arr.length; i++) {
+// for (int i = 0; i &lt;= arr.length; i++) {
 //     System.out.println(arr[i]);
 // }</pre>
-
-      <p id="speak120">
+<p id="speak120">
         This is wrong because the last valid index is <code>arr.length - 1</code>. The correct condition is <code>i &lt; arr.length</code>.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak121">When should you use a for loop?</h2>
-      <ul>
-        <li id="speak122">When you know how many times something should repeat.</li>
-        <li id="speak123">When you need counting logic.</li>
-        <li id="speak124">When working with array indices.</li>
-        <li id="speak125">When building tables and patterns.</li>
-      </ul>
-
-      <p id="speak126">
+</section>
+<section class="card">
+<h2 id="speak121">When should you use a for loop?</h2>
+<ul>
+<li id="speak122">When you know how many times something should repeat.</li>
+<li id="speak123">When you need counting logic.</li>
+<li id="speak124">When working with array indices.</li>
+<li id="speak125">When building tables and patterns.</li>
+</ul>
+<p id="speak126">
         If the number of repetitions is unknown and depends on a condition, a <code>while</code> loop may sometimes be a better fit. But for counting and indexed work, <code>for</code> loops are excellent.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak127">Complete example from beginner to advanced</h2>
-      <pre id="speak128">public class Main {
+</section>
+<section class="card">
+<h2 id="speak127">Complete example from beginner to advanced</h2>
+<pre id="speak128">public class Main {
     public static void main(String[] args) {
         // 1. Basic counting
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i &lt;= 5; i++) {
             System.out.println("Count: " + i);
         }
 
         // 2. Sum
         int sum = 0;
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i &lt;= 5; i++) {
             sum += i;
         }
         System.out.println("Sum = " + sum);
 
         // 3. Table of 3
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i &lt;= 10; i++) {
             System.out.println("3 x " + i + " = " + (3 * i));
         }
 
         // 4. Nested loop pattern
-        for (int i = 1; i <= 3; i++) {
-            for (int j = 1; j <= i; j++) {
+        for (int i = 1; i &lt;= 3; i++) {
+            for (int j = 1; j &lt;= i; j++) {
                 System.out.print("* ");
             }
             System.out.println();
         }
 
         // 5. Continue example
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i &lt;= 5; i++) {
             if (i == 3) continue;
             System.out.println("After continue check: " + i);
         }
 
         // 6. Break example
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i &lt;= 10; i++) {
             if (i == 6) break;
             System.out.println("Before break point: " + i);
         }
     }
 }</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak129">Assignments</h2>
-
-      <div class="assignment" id="speak130">
-        <strong>Assignment 1:</strong> Print numbers from 1 to 20 using a for loop.
+</section>
+<section class="card">
+<h2 id="speak129">Assignments</h2>
+<div class="assignment" id="speak130">
+<strong>Assignment 1:</strong> Print numbers from 1 to 20 using a for loop.
       </div>
-
-      <div class="assignment" id="speak131">
-        <strong>Assignment 2:</strong> Print numbers from 20 down to 1 using a for loop.
+<div class="assignment" id="speak131">
+<strong>Assignment 2:</strong> Print numbers from 20 down to 1 using a for loop.
       </div>
-
-      <div class="assignment" id="speak132">
-        <strong>Assignment 3:</strong> Print all even numbers from 2 to 50.
+<div class="assignment" id="speak132">
+<strong>Assignment 3:</strong> Print all even numbers from 2 to 50.
       </div>
-
-      <div class="assignment" id="speak133">
-        <strong>Assignment 4:</strong> Print all odd numbers from 1 to 49.
+<div class="assignment" id="speak133">
+<strong>Assignment 4:</strong> Print all odd numbers from 1 to 49.
       </div>
-
-      <div class="assignment" id="speak134">
-        <strong>Assignment 5:</strong> Find the sum of numbers from 1 to 100.
+<div class="assignment" id="speak134">
+<strong>Assignment 5:</strong> Find the sum of numbers from 1 to 100.
       </div>
-
-      <div class="assignment" id="speak135">
-        <strong>Assignment 6:</strong> Print the multiplication table of a user-given number.
+<div class="assignment" id="speak135">
+<strong>Assignment 6:</strong> Print the multiplication table of a user-given number.
       </div>
-
-      <div class="assignment" id="speak136">
-        <strong>Assignment 7:</strong> Find the factorial of a number using a for loop.
+<div class="assignment" id="speak136">
+<strong>Assignment 7:</strong> Find the factorial of a number using a for loop.
       </div>
-
-      <div class="assignment" id="speak137">
-        <strong>Assignment 8:</strong> Print a square pattern of stars of size 5 by 5.
+<div class="assignment" id="speak137">
+<strong>Assignment 8:</strong> Print a square pattern of stars of size 5 by 5.
       </div>
-
-      <div class="assignment" id="speak138">
-        <strong>Assignment 9:</strong> Print a triangle pattern using nested for loops.
+<div class="assignment" id="speak138">
+<strong>Assignment 9:</strong> Print a triangle pattern using nested for loops.
       </div>
-
-      <div class="assignment" id="speak139">
-        <strong>Assignment 10:</strong> Use break to stop a loop at a chosen point and continue to skip one chosen value.
+<div class="assignment" id="speak139">
+<strong>Assignment 10:</strong> Use break to stop a loop at a chosen point and continue to skip one chosen value.
       </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak140">Interactive MCQ Quiz</h2>
-      <p id="speak141">
+</section>
+<section class="card">
+<h2 id="speak140">Interactive MCQ Quiz</h2>
+<p id="speak141">
         Choose one answer for each question and click <strong>Check Answers</strong>.
       </p>
-
-      <div class="quiz-toolbar">
-        <div id="speak142"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
-        <div class="quiz-actions">
-          <button id="checkBtn" type="button">Check Answers</button>
-          <button id="resetBtn" type="button" class="secondary">Reset Quiz</button>
-        </div>
-      </div>
-
-      <div id="quizContainer"></div>
-
-      <div id="resultBox" class="result-box" aria-live="polite">
-        <p class="score-big" id="scoreText">0 / 0</p>
-        <p id="resultNote">Your result will appear here.</p>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak143">Quick revision</h2>
-      <ul>
-        <li id="speak144">A for loop is best when repetition follows a counting pattern.</li>
-        <li id="speak145">A for loop has initialization, condition, and update.</li>
-        <li id="speak146">The condition is checked before every iteration.</li>
-        <li id="speak147">Nested for loops are useful for patterns and tables.</li>
-        <li id="speak148"><code>break</code> stops the loop immediately.</li>
-        <li id="speak149"><code>continue</code> skips the current iteration.</li>
-        <li id="speak150">Array loops usually use <code>i &lt; arr.length</code>.</li>
-      </ul>
-    </section>
-
-    <p class="footer-note" id="speak151">Programmer’s Picnic Java lesson page — For loops in detail.</p>
-  </main>
-
-  <script>
+<div class="quiz-toolbar">
+<div id="speak142"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
+<div class="quiz-actions">
+<button id="checkBtn" type="button">Check Answers</button>
+<button class="secondary" id="resetBtn" type="button">Reset Quiz</button>
+</div>
+</div>
+<div id="quizContainer"></div>
+<div aria-live="polite" class="result-box" id="resultBox">
+<p class="score-big" id="scoreText">0 / 0</p>
+<p id="resultNote">Your result will appear here.</p>
+</div>
+</section>
+<section class="card">
+<h2 id="speak143">Quick revision</h2>
+<ul>
+<li id="speak144">A for loop is best when repetition follows a counting pattern.</li>
+<li id="speak145">A for loop has initialization, condition, and update.</li>
+<li id="speak146">The condition is checked before every iteration.</li>
+<li id="speak147">Nested for loops are useful for patterns and tables.</li>
+<li id="speak148"><code>break</code> stops the loop immediately.</li>
+<li id="speak149"><code>continue</code> skips the current iteration.</li>
+<li id="speak150">Array loops usually use <code>i &lt; arr.length</code>.</li>
+</ul>
+</section>
+<p class="footer-note" id="speak151">Programmer’s Picnic Java lesson page — For loops in detail.</p>
+</main>
+<script>
     const quizData = [
       {
         topic: "Basics",
@@ -1200,5 +1105,5 @@ System.out.println("After loop, i = " + i);</pre>
 
     createQuiz();
   </script>
-</body>
+<div data-root="../../../" id="site-footer"></div><script defer="True" src="../../../assets/js/include.js"></script></body>
 </html>

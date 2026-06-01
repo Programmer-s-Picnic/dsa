@@ -1,19 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Prompt Website Builder JSON URL | Champak</title>
-
-    <!-- Optional Google Ads -->
-     
-    <script
-      async
-      crossorigin="anonymous"
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
-    ></script>
-
-    <style>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Prompt Website Builder JSON URL | Champak</title>
+<!-- Optional Google Ads -->
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<style>
       :root {
         --builder-bg: #fff7ed;
         --builder-card: #ffffff;
@@ -354,192 +348,137 @@
         }
       }
     </style>
-  </head>
-
-  <body>
-    <div class="app">
-      <header class="topbar">
-        <div class="brand-block">
-          <h1>Prompt Website Builder JSON URL</h1>
-          <p>
+<link href="../../../assets/css/theme.css" rel="stylesheet"/><meta content="Prompt Website Builder JSON URL - practical learning page from DSA with Champak." name="description"/></head>
+<body data-root="../../../"><div data-root="../../../" id="site-header"></div>
+<div class="app">
+<header class="topbar">
+<div class="brand-block">
+<h1>Prompt Website Builder JSON URL</h1>
+<p>
             Load data from data.json or any JSON URL. Edit, preview and export.
           </p>
-        </div>
-        <div class="badge">🟠 Saffron default theme</div>
-      </header>
-
-      <main class="grid">
-        <section class="panel">
-          <h2>1. JSON Data Source</h2>
-          <p class="hint">
+</div>
+<div class="badge">🟠 Saffron default theme</div>
+</header>
+<main class="grid" id="main-content">
+<section class="panel">
+<h2>1. JSON Data Source</h2>
+<p class="hint">
             Default file is <strong>data.json</strong>. You can also paste a
             GitHub raw URL, CDN URL, or your own JSON URL. The Update button
             reloads the latest JSON from that URL.
           </p>
-
-          <label for="jsonUrlInput">JSON URL</label>
-          <input
-            id="jsonUrlInput"
-            value="data.json"
-            placeholder="data.json or https://example.com/data.json"
-          />
-
-          <div class="button-row">
-            <button class="full" onclick="loadJSONFromURL()">
+<label for="jsonUrlInput">JSON URL</label>
+<input id="jsonUrlInput" placeholder="data.json or https://example.com/data.json" value="data.json"/>
+<div class="button-row">
+<button class="full" onclick="loadJSONFromURL()">
               Load JSON from URL
             </button>
-            <button class="secondary" onclick="updateFromJSONURL()">
+<button class="secondary" onclick="updateFromJSONURL()">
               Update / Reload URL
             </button>
-            <button class="secondary" onclick="saveJSONURL()">Save URL</button>
-          </div>
-
-          <div id="statusBox" class="status">Ready.</div>
-
-          <hr />
-
-          <h2>2. JSON Editor</h2>
-          <p class="hint">
+<button class="secondary" onclick="saveJSONURL()">Save URL</button>
+</div>
+<div class="status" id="statusBox">Ready.</div>
+<hr/>
+<h2>2. JSON Editor</h2>
+<p class="hint">
             Edit JSON here and click Generate from JSON. This updates the
             preview locally.
           </p>
-
-          <label for="jsonInputBox">Website JSON</label>
-          <textarea
-            id="jsonInputBox"
-            placeholder="Paste website JSON here"
-          ></textarea>
-
-          <div class="button-row">
-            <button class="full" onclick="generateFromJSON()">
+<label for="jsonInputBox">Website JSON</label>
+<textarea id="jsonInputBox" placeholder="Paste website JSON here"></textarea>
+<div class="button-row">
+<button class="full" onclick="generateFromJSON()">
               Generate from JSON
             </button>
-            <button class="secondary" onclick="loadCurrentDataToJSONInput()">
+<button class="secondary" onclick="loadCurrentDataToJSONInput()">
               Load Current Data
             </button>
-            <button class="secondary" onclick="formatJSONInput()">
+<button class="secondary" onclick="formatJSONInput()">
               Format JSON
             </button>
-            <button class="secondary" onclick="clearJSONInput()">
+<button class="secondary" onclick="clearJSONInput()">
               Clear JSON
             </button>
-          </div>
-
-          <hr />
-
-          <h2>3. Quick Edit</h2>
-
-          <div class="editor-grid">
-            <div>
-              <label>Brand name</label>
-              <input id="brandInput" oninput="syncFromInputs()" />
-            </div>
-            <div>
-              <label>Website type</label>
-              <select id="typeInput" onchange="syncFromInputs()">
-                <option>Education</option>
-                <option>Healthcare</option>
-                <option>Business</option>
-                <option>Portfolio</option>
-                <option>E-commerce</option>
-                <option>Landing Page</option>
-              </select>
-            </div>
-          </div>
-
-          <label>Tagline</label>
-          <input id="taglineInput" oninput="syncFromInputs()" />
-
-          <label>WhatsApp number</label>
-          <input
-            id="whatsappInput"
-            placeholder="Example: 919876543210"
-            oninput="syncFromInputs()"
-          />
-
-          <label>Contact email</label>
-          <input
-            id="emailInput"
-            placeholder="hello@example.com"
-            oninput="syncFromInputs()"
-          />
-
-          <label>Payment button text</label>
-          <input
-            id="paymentInput"
-            placeholder="Pay Now"
-            oninput="syncFromInputs()"
-          />
-
-          <label>Sections</label>
-          <div class="chips" id="sectionChips"></div>
-
-          <h3>Theme Colors</h3>
-          <div class="color-grid" id="colorGrid"></div>
-
-          <hr />
-
-          <h2>4. Export</h2>
-          <div class="button-row">
-            <button onclick="downloadHTML()">Download HTML</button>
-            <button onclick="downloadJSON()">Download JSON</button>
-            <button onclick="copyHTML()">Copy HTML</button>
-            <button onclick="copyJSON()">Copy JSON</button>
-            <button onclick="saveProject()">Save Project</button>
-            <button onclick="loadProject()">Load Project</button>
-            <button class="danger" onclick="resetAll()">Reset</button>
-          </div>
-
-          <div class="button-row">
-            <a
-              class="btn-link secondary"
-              id="openEditorLink"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Open in Editor</a
-            >
-            <button class="secondary" onclick="openPreviewNewTab()">
+</div>
+<hr/>
+<h2>3. Quick Edit</h2>
+<div class="editor-grid">
+<div>
+<label>Brand name</label>
+<input id="brandInput" oninput="syncFromInputs()"/>
+</div>
+<div>
+<label>Website type</label>
+<select id="typeInput" onchange="syncFromInputs()">
+<option>Education</option>
+<option>Healthcare</option>
+<option>Business</option>
+<option>Portfolio</option>
+<option>E-commerce</option>
+<option>Landing Page</option>
+</select>
+</div>
+</div>
+<label>Tagline</label>
+<input id="taglineInput" oninput="syncFromInputs()"/>
+<label>WhatsApp number</label>
+<input id="whatsappInput" oninput="syncFromInputs()" placeholder="Example: 919876543210"/>
+<label>Contact email</label>
+<input id="emailInput" oninput="syncFromInputs()" placeholder="hello@example.com"/>
+<label>Payment button text</label>
+<input id="paymentInput" oninput="syncFromInputs()" placeholder="Pay Now"/>
+<label>Sections</label>
+<div class="chips" id="sectionChips"></div>
+<h3>Theme Colors</h3>
+<div class="color-grid" id="colorGrid"></div>
+<hr/>
+<h2>4. Export</h2>
+<div class="button-row">
+<button onclick="downloadHTML()">Download HTML</button>
+<button onclick="downloadJSON()">Download JSON</button>
+<button onclick="copyHTML()">Copy HTML</button>
+<button onclick="copyJSON()">Copy JSON</button>
+<button onclick="saveProject()">Save Project</button>
+<button onclick="loadProject()">Load Project</button>
+<button class="danger" onclick="resetAll()">Reset</button>
+</div>
+<div class="button-row">
+<a class="btn-link secondary" href="#" id="openEditorLink" rel="noopener noreferrer" target="_blank">Open in Editor</a>
+<button class="secondary" onclick="openPreviewNewTab()">
               Preview New Tab
             </button>
-            <button class="secondary" onclick="toggleFullscreenPreview()">
+<button class="secondary" onclick="toggleFullscreenPreview()">
               Full Screen Preview
             </button>
-          </div>
-        </section>
-
-        <section class="panel">
-          <div class="tabs">
-            <button
-              class="tab active"
-              id="previewTab"
-              onclick="showTab('preview')"
-            >
+</div>
+</section>
+<section class="panel">
+<div class="tabs">
+<button class="tab active" id="previewTab" onclick="showTab('preview')">
               Preview
             </button>
-            <button class="tab" id="jsonTab" onclick="showTab('json')">
+<button class="tab" id="jsonTab" onclick="showTab('json')">
               JSON
             </button>
-            <button class="tab" id="htmlTab" onclick="showTab('html')">
+<button class="tab" id="htmlTab" onclick="showTab('html')">
               HTML
             </button>
-          </div>
-
-          <iframe id="preview" class="preview-frame"></iframe>
-          <pre id="jsonView" class="hidden"></pre>
-          <pre id="htmlView" class="hidden"></pre>
-        </section>
-      </main>
-    </div>
-
-    <div id="fullscreenBox" class="fullscreen-preview hidden">
-      <div class="fullscreen-bar">
-        <strong>Full Screen Preview</strong>
-        <button onclick="toggleFullscreenPreview()">Exit Full Screen</button>
-      </div>
-      <iframe id="fullscreenFrame" class="preview-frame"></iframe>
-    </div>
-
-    <script src="app.js"></script>
-  </body>
+</div>
+<iframe class="preview-frame" id="preview"></iframe>
+<pre class="hidden" id="jsonView"></pre>
+<pre class="hidden" id="htmlView"></pre>
+</section>
+</main>
+</div>
+<div class="fullscreen-preview hidden" id="fullscreenBox">
+<div class="fullscreen-bar">
+<strong>Full Screen Preview</strong>
+<button onclick="toggleFullscreenPreview()">Exit Full Screen</button>
+</div>
+<iframe class="preview-frame" id="fullscreenFrame"></iframe>
+</div>
+<script src="app.js"></script>
+<div data-root="../../../" id="site-footer"></div><script defer="True" src="../../../assets/js/include.js"></script></body>
 </html>

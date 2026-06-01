@@ -1,23 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>
       Flutter Firebase Hello World Android App |    | Programmer's Picnic
     </title>
-<script
-      async=""
-      crossorigin="anonymous"
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
-    ></script>
-    <meta
-      name="description"
-      content="   beginner-friendly lesson: build a Hello World Android Flutter app connected to Firebase using FlutterFire CLI, with app-name generator, package-name guide, existing-app setup, quiz, checklist, and common fixes."
-    />
-    <meta name="theme-color" content="#f59e0b" />
-
-    <style>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<meta content="   beginner-friendly lesson: build a Hello World Android Flutter app connected to Firebase using FlutterFire CLI, with app-name generator, package-name guide, existing-app setup, quiz, checklist, and common fixes." name="description"/>
+<meta content="#0b67b2" name="theme-color"/>
+<style>
       :root {
         --bg: #fff7e6;
         --bg2: #fffaf0;
@@ -404,634 +397,537 @@
         }
       }
     </style>
-  </head>
-
-  <body>
-    <header class="wrap">
-      <section class="hero">
-        <div>
-          <span class="badge">🔥    Lesson</span>
-          <h1 id="speak01">
+<link href="../../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../../"><div data-root="../../../" id="site-header"></div>
+<header class="wrap">
+<section class="hero">
+<div>
+<span class="badge">🔥    Lesson</span>
+<h1 id="speak01">
             Hello World Android Flutter App Connected to Firebase
           </h1>
-          <p class="lead" id="speak02">
+<p class="lead" id="speak02">
             Build a beginner-friendly Flutter Android app, connect it to
             Firebase using FlutterFire CLI, initialize Firebase in code, and
             display a success message on screen.
           </p>
-
-          <div class="pill-row">
-            <span class="pill">Level: Beginner</span>
-            <span class="pill">Platform: Android</span>
-            <span class="pill">Tool: Flutter</span>
-            <span class="pill">Backend: Firebase</span>
-            <span class="pill">Method: FlutterFire CLI</span>
-          </div>
-
-          <div class="btn-row">
-            <a class="btn" href="#app-generator">Generate App Name</a>
-            <a class="btn secondary" href="#quiz">Take Quiz</a>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <h3 id="speak03">What you will build</h3>
-          <ul>
-            <li>A Flutter Android project</li>
-            <li>A Firebase project</li>
-            <li>A Firebase-connected Flutter app</li>
-            <li>A working Hello World screen</li>
-            <li>A simple Firebase initialization test</li>
-          </ul>
-        </div>
-      </section>
-    </header>
-
-    <nav class="toc">
-      <div class="wrap toc-inner">
-        <a href="#app-generator">App Generator</a>
-        <a href="#overview">Overview</a>
-        <a href="#new-project">New App</a>
-        <a href="#package-name">Package Name</a>
-        <a href="#modern-setup">Firebase Setup</a>
-        <a href="#existing-app">Existing App</a>
-        <a href="#main-code">main.dart</a>
-        <a href="#errors">Errors</a>
-        <a href="#quiz">Quiz</a>
-      </div>
-    </nav>
-
-    <main class="wrap">
-      <section id="app-generator" class="card">
-        <h2 id="speak00">App Name Setup Generator</h2>
-        <p>
+<div class="pill-row">
+<span class="pill">Level: Beginner</span>
+<span class="pill">Platform: Android</span>
+<span class="pill">Tool: Flutter</span>
+<span class="pill">Backend: Firebase</span>
+<span class="pill">Method: FlutterFire CLI</span>
+</div>
+<div class="btn-row">
+<a class="btn" href="#app-generator">Generate App Name</a>
+<a class="btn secondary" href="#quiz">Take Quiz</a>
+</div>
+</div>
+<div class="hero-card">
+<h3 id="speak03">What you will build</h3>
+<ul>
+<li>A Flutter Android project</li>
+<li>A Firebase project</li>
+<li>A Firebase-connected Flutter app</li>
+<li>A working Hello World screen</li>
+<li>A simple Firebase initialization test</li>
+</ul>
+</div>
+</section>
+</header>
+<nav class="toc">
+<div class="wrap toc-inner">
+<a href="#app-generator">App Generator</a>
+<a href="#overview">Overview</a>
+<a href="#new-project">New App</a>
+<a href="#package-name">Package Name</a>
+<a href="#modern-setup">Firebase Setup</a>
+<a href="#existing-app">Existing App</a>
+<a href="#main-code">main.dart</a>
+<a href="#errors">Errors</a>
+<a href="#quiz">Quiz</a>
+</div>
+</nav>
+<main class="wrap" id="main-content">
+<section class="card" id="app-generator">
+<h2 id="speak00">App Name Setup Generator</h2>
+<p>
           Enter your Flutter app name. The lesson will automatically update
           project commands, package name, Firebase app name, and code examples.
         </p>
-
-        <div class="grid-2">
-          <div class="mini">
-            <label for="appNameInput"><strong>Enter App Name</strong></label>
-            <input
-              id="appNameInput"
-              type="text"
-              placeholder="Example: Student Attendance App"
-              oninput="applyAppNameLive()"
-            />
-          </div>
-
-          <div class="mini">
-            <h3>Generated Details</h3>
-            <p>
-              <strong>Project:</strong>
-              <code class="gen-project">hello_firebase_app</code>
-            </p>
-            <p>
-              <strong>Package:</strong>
-              <code class="gen-package">com.example.hello_firebase_app</code>
-            </p>
-            <p>
-              <strong>Title:</strong>
-              <code class="gen-title">Hello Firebase App</code>
-            </p>
-          </div>
-        </div>
-
-        <div class="btn-row">
-          <button class="btn" onclick="applyAppName()">Apply App Name</button>
-          <button class="btn secondary" onclick="resetAppName()">
+<div class="grid-2">
+<div class="mini">
+<label for="appNameInput"><strong>Enter App Name</strong></label>
+<input id="appNameInput" oninput="applyAppNameLive()" placeholder="Example: Student Attendance App" type="text"/>
+</div>
+<div class="mini">
+<h3>Generated Details</h3>
+<p>
+<strong>Project:</strong>
+<code class="gen-project">hello_firebase_app</code>
+</p>
+<p>
+<strong>Package:</strong>
+<code class="gen-package">com.example.hello_firebase_app</code>
+</p>
+<p>
+<strong>Title:</strong>
+<code class="gen-title">Hello Firebase App</code>
+</p>
+</div>
+</div>
+<div class="btn-row">
+<button class="btn" onclick="applyAppName()">Apply App Name</button>
+<button class="btn secondary" onclick="resetAppName()">
             Reset Default
           </button>
-        </div>
-
-        <div class="success" style="margin-top: 16px">
+</div>
+<div class="success" style="margin-top: 16px">
           Tip: Use a simple name like <strong>Student Attendance App</strong>.
           The system will convert it into Flutter-safe names automatically.
         </div>
-      </section>
-
-      <section id="overview" class="grid">
-        <div class="card">
-          <h3 id="speak04">Flutter</h3>
-          <p>Flutter builds the mobile app interface using Dart.</p>
-        </div>
-
-        <div class="card">
-          <h3 id="speak05">Firebase</h3>
-          <p>
+</section>
+<section class="grid" id="overview">
+<div class="card">
+<h3 id="speak04">Flutter</h3>
+<p>Flutter builds the mobile app interface using Dart.</p>
+</div>
+<div class="card">
+<h3 id="speak05">Firebase</h3>
+<p>
             Firebase gives backend services like authentication, database,
             storage, hosting, analytics, and notifications.
           </p>
-        </div>
-
-        <div class="card">
-          <h3 id="speak06">Android</h3>
-          <p>
+</div>
+<div class="card">
+<h3 id="speak06">Android</h3>
+<p>
             We will run this app on an Android emulator or a real Android phone.
           </p>
-        </div>
-      </section>
-
-      <section id="new-project" class="card">
-        <div class="step">
-          <div class="num">1</div>
-          <div>
-            <h2 id="speak07">Create a New Flutter Project</h2>
-            <p>Open terminal and run:</p>
-
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code id="cmdCreateProject">flutter create hello_firebase_app
+</div>
+</section>
+<section class="card" id="new-project">
+<div class="step">
+<div class="num">1</div>
+<div>
+<h2 id="speak07">Create a New Flutter Project</h2>
+<p>Open terminal and run:</p>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code id="cmdCreateProject">flutter create hello_firebase_app
 cd hello_firebase_app</code></pre>
-            </div>
-
-            <div class="note">
+</div>
+<div class="note">
               This creates a fresh Flutter app named
               <code class="gen-project">hello_firebase_app</code>.
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="firebase-project" class="card">
-        <div class="step">
-          <div class="num">2</div>
-          <div>
-            <h2 id="speak08">Create a Firebase Project</h2>
-            <p>
+</div>
+</div>
+</section>
+<section class="card" id="firebase-project">
+<div class="step">
+<div class="num">2</div>
+<div>
+<h2 id="speak08">Create a Firebase Project</h2>
+<p>
               Open Firebase Console and create a new project. You can name it
               <strong class="gen-title">Hello Firebase App</strong>.
             </p>
-
-            <div class="btn-row">
-              <a
-                class="btn"
-                href="https://console.firebase.google.com/"
-                target="_blank"
-              >
+<div class="btn-row">
+<a class="btn" href="https://console.firebase.google.com/" target="_blank">
                 Open Firebase Console
               </a>
-              <a
-                class="btn secondary"
-                href="https://firebase.google.com/docs/flutter/setup"
-                target="_blank"
-              >
+<a class="btn secondary" href="https://firebase.google.com/docs/flutter/setup" target="_blank">
                 FlutterFire Docs
               </a>
-            </div>
-
-            <br />
-
-            <div class="mini">
-              <strong>Simple idea:</strong> Firebase project is the backend home
+</div>
+<br/>
+<div class="mini">
+<strong>Simple idea:</strong> Firebase project is the backend home
               of your app.
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="package-name" class="card">
-        <div class="step">
-          <div class="num">3</div>
-          <div>
-            <h2 id="speak09">Find Your Android Package Name</h2>
-            <p>
+</div>
+</div>
+</section>
+<section class="card" id="package-name">
+<div class="step">
+<div class="num">3</div>
+<div>
+<h2 id="speak09">Find Your Android Package Name</h2>
+<p>
               Firebase asks for the Android package name. For this lesson, your
               generated package name is:
             </p>
-
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code id="androidPackageName">com.example.hello_firebase_app</code></pre>
-            </div>
-
-            <h3>Where to check it?</h3>
-
-            <details open>
-              <summary>For older Flutter projects</summary>
-              <p>Open this file:</p>
-              <div class="codebox">
-                <button class="copy" onclick="copyCode(this)">Copy</button>
-                <pre><code>android/app/build.gradle</code></pre>
-              </div>
-              <p>Look for:</p>
-              <div class="codebox">
-                <button class="copy" onclick="copyCode(this)">Copy</button>
-                <pre><code id="oldGradlePackage">applicationId "com.example.hello_firebase_app"</code></pre>
-              </div>
-            </details>
-
-            <details>
-              <summary>For newer Flutter projects</summary>
-              <p>Open this file:</p>
-              <div class="codebox">
-                <button class="copy" onclick="copyCode(this)">Copy</button>
-                <pre><code>android/app/build.gradle.kts</code></pre>
-              </div>
-              <p>Look for:</p>
-              <div class="codebox">
-                <button class="copy" onclick="copyCode(this)">Copy</button>
-                <pre><code id="newGradlePackage">applicationId = "com.example.hello_firebase_app"</code></pre>
-              </div>
-            </details>
-
-            <div class="danger">
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code id="androidPackageName">com.example.hello_firebase_app</code></pre>
+</div>
+<h3>Where to check it?</h3>
+<details open="">
+<summary>For older Flutter projects</summary>
+<p>Open this file:</p>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>android/app/build.gradle</code></pre>
+</div>
+<p>Look for:</p>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code id="oldGradlePackage">applicationId "com.example.hello_firebase_app"</code></pre>
+</div>
+</details>
+<details>
+<summary>For newer Flutter projects</summary>
+<p>Open this file:</p>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>android/app/build.gradle.kts</code></pre>
+</div>
+<p>Look for:</p>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code id="newGradlePackage">applicationId = "com.example.hello_firebase_app"</code></pre>
+</div>
+</details>
+<div class="danger">
               Important: The package name in Firebase must match your Android
               app package name exactly.
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="modern-setup" class="card">
-        <div class="step">
-          <div class="num">4</div>
-          <div>
-            <h2 id="speak10">Recommended Modern Firebase Setup</h2>
-            <p>
+</div>
+</div>
+</section>
+<section class="card" id="modern-setup">
+<div class="step">
+<div class="num">4</div>
+<div>
+<h2 id="speak10">Recommended Modern Firebase Setup</h2>
+<p>
               The modern FlutterFire method is best because it creates
               <code>firebase_options.dart</code> automatically.
             </p>
-
-            <h3>Install Firebase Core</h3>
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code>flutter pub add firebase_core</code></pre>
-            </div>
-
-            <h3>Install FlutterFire CLI</h3>
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code>dart pub global activate flutterfire_cli</code></pre>
-            </div>
-
-            <h3>Configure Firebase</h3>
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code>flutterfire configure</code></pre>
-            </div>
-
-            <div class="success">
+<h3>Install Firebase Core</h3>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>flutter pub add firebase_core</code></pre>
+</div>
+<h3>Install FlutterFire CLI</h3>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>dart pub global activate flutterfire_cli</code></pre>
+</div>
+<h3>Configure Firebase</h3>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>flutterfire configure</code></pre>
+</div>
+<div class="success">
               After this command, FlutterFire should create
               <code>lib/firebase_options.dart</code>.
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="manual-fallback" class="card">
-        <div class="step">
-          <div class="num">5</div>
-          <div>
-            <h2 id="speak11">Optional Manual Android Setup</h2>
-            <p>
+</div>
+</div>
+</section>
+<section class="card" id="manual-fallback">
+<div class="step">
+<div class="num">5</div>
+<div>
+<h2 id="speak11">Optional Manual Android Setup</h2>
+<p>
               Use this only if you are following the manual Firebase Android
               method.
             </p>
-
-            <h3>Download this file from Firebase:</h3>
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code>google-services.json</code></pre>
-            </div>
-
-            <h3>Place it here:</h3>
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code>android/app/google-services.json</code></pre>
-            </div>
-
-            <div class="note">
+<h3>Download this file from Firebase:</h3>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>google-services.json</code></pre>
+</div>
+<h3>Place it here:</h3>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>android/app/google-services.json</code></pre>
+</div>
+<div class="note">
               For beginners, prefer the FlutterFire CLI method in Step 4. It is
               cleaner and reduces manual mistakes.
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="existing-app" class="card">
-        <div class="step">
-          <div class="num">6</div>
-          <div>
-            <h2 id="speak12">Adding Firebase to an Existing Flutter App</h2>
-            <p>
+</div>
+</div>
+</section>
+<section class="card" id="existing-app">
+<div class="step">
+<div class="num">6</div>
+<div>
+<h2 id="speak12">Adding Firebase to an Existing Flutter App</h2>
+<p>
               If your Flutter app already exists, do not create a new app. Open
               your existing app folder and run the Firebase setup commands
               there.
             </p>
-
-            <h3>Go to your app folder</h3>
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code id="cmdExistingFolder">cd your_existing_flutter_app</code></pre>
-            </div>
-
-            <h3>Add Firebase Core</h3>
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code>flutter pub add firebase_core</code></pre>
-            </div>
-
-            <h3>Install and run FlutterFire CLI</h3>
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code>dart pub global activate flutterfire_cli
+<h3>Go to your app folder</h3>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code id="cmdExistingFolder">cd your_existing_flutter_app</code></pre>
+</div>
+<h3>Add Firebase Core</h3>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>flutter pub add firebase_core</code></pre>
+</div>
+<h3>Install and run FlutterFire CLI</h3>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>dart pub global activate flutterfire_cli
 flutterfire configure</code></pre>
-            </div>
-
-            <h3>Clean and run</h3>
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code>flutter clean
+</div>
+<h3>Clean and run</h3>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>flutter clean
 flutter pub get
 flutter run</code></pre>
-            </div>
-
-            <div class="success">
+</div>
+<div class="success">
               Success check: If your old app opens without Firebase error,
               Firebase has been added successfully.
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="main-code" class="card">
-        <div class="step">
-          <div class="num">7</div>
-          <div>
-            <h2 id="speak13">Complete main.dart Code</h2>
-            <p>Replace <code>lib/main.dart</code> with this:</p>
-
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code id="mainDartCode"></code></pre>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="run-app" class="card">
-        <div class="step">
-          <div class="num">8</div>
-          <div>
-            <h2 id="speak14">Run the App</h2>
-            <p>Connect your Android phone or open an emulator, then run:</p>
-
-            <div class="codebox">
-              <button class="copy" onclick="copyCode(this)">Copy</button>
-              <pre><code>flutter run</code></pre>
-            </div>
-
-            <div class="success">
+</div>
+</div>
+</section>
+<section class="card" id="main-code">
+<div class="step">
+<div class="num">7</div>
+<div>
+<h2 id="speak13">Complete main.dart Code</h2>
+<p>Replace <code>lib/main.dart</code> with this:</p>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code id="mainDartCode"></code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="card" id="run-app">
+<div class="step">
+<div class="num">8</div>
+<div>
+<h2 id="speak14">Run the App</h2>
+<p>Connect your Android phone or open an emulator, then run:</p>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>flutter run</code></pre>
+</div>
+<div class="success">
               Expected output:
               <strong class="gen-title">Hello Firebase App</strong>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2 id="speak15">Very Simple Explanation</h2>
-
-        <div class="grid">
-          <div class="mini">
-            <h3>main()</h3>
-            <p>The app starts from here.</p>
-          </div>
-
-          <div class="mini">
-            <h3>WidgetsFlutterBinding</h3>
-            <p>Prepares Flutter before Firebase starts.</p>
-          </div>
-
-          <div class="mini">
-            <h3>Firebase.initializeApp()</h3>
-            <p>Connects the app to Firebase.</p>
-          </div>
-
-          <div class="mini">
-            <h3>firebase_options.dart</h3>
-            <p>Stores Firebase configuration generated by FlutterFire CLI.</p>
-          </div>
-
-          <div class="mini">
-            <h3>MaterialApp</h3>
-            <p>Creates the base Flutter app.</p>
-          </div>
-
-          <div class="mini">
-            <h3>Firebase.apps.length</h3>
-            <p>Checks how many Firebase apps are initialized.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="card checklist">
-        <h2 id="speak16">Setup Checklist</h2>
-
-        <label><input type="checkbox" /> Flutter project created</label>
-        <label><input type="checkbox" /> Firebase project created</label>
-        <label><input type="checkbox" /> Android package name checked</label>
-        <label><input type="checkbox" /> firebase_core added</label>
-        <label><input type="checkbox" /> FlutterFire CLI installed</label>
-        <label><input type="checkbox" /> flutterfire configure completed</label>
-        <label><input type="checkbox" /> firebase_options.dart generated</label>
-        <label><input type="checkbox" /> main.dart updated</label>
-        <label><input type="checkbox" /> App runs successfully</label>
-      </section>
-
-      <section id="errors" class="card">
-        <h2 id="speak17">Common Errors and Fixes</h2>
-
-        <details open>
-          <summary>Firebase has not been correctly initialized</summary>
-          <p>
+</div>
+</div>
+</div>
+</section>
+<section class="card">
+<h2 id="speak15">Very Simple Explanation</h2>
+<div class="grid">
+<div class="mini">
+<h3>main()</h3>
+<p>The app starts from here.</p>
+</div>
+<div class="mini">
+<h3>WidgetsFlutterBinding</h3>
+<p>Prepares Flutter before Firebase starts.</p>
+</div>
+<div class="mini">
+<h3>Firebase.initializeApp()</h3>
+<p>Connects the app to Firebase.</p>
+</div>
+<div class="mini">
+<h3>firebase_options.dart</h3>
+<p>Stores Firebase configuration generated by FlutterFire CLI.</p>
+</div>
+<div class="mini">
+<h3>MaterialApp</h3>
+<p>Creates the base Flutter app.</p>
+</div>
+<div class="mini">
+<h3>Firebase.apps.length</h3>
+<p>Checks how many Firebase apps are initialized.</p>
+</div>
+</div>
+</section>
+<section class="card checklist">
+<h2 id="speak16">Setup Checklist</h2>
+<label><input type="checkbox"/> Flutter project created</label>
+<label><input type="checkbox"/> Firebase project created</label>
+<label><input type="checkbox"/> Android package name checked</label>
+<label><input type="checkbox"/> firebase_core added</label>
+<label><input type="checkbox"/> FlutterFire CLI installed</label>
+<label><input type="checkbox"/> flutterfire configure completed</label>
+<label><input type="checkbox"/> firebase_options.dart generated</label>
+<label><input type="checkbox"/> main.dart updated</label>
+<label><input type="checkbox"/> App runs successfully</label>
+</section>
+<section class="card" id="errors">
+<h2 id="speak17">Common Errors and Fixes</h2>
+<details open="">
+<summary>Firebase has not been correctly initialized</summary>
+<p>
             Fix: Make sure <code>Firebase.initializeApp()</code> is called
             before <code>runApp()</code>.
           </p>
-        </details>
-
-        <details>
-          <summary>firebase_options.dart not found</summary>
-          <p>Fix: Run:</p>
-          <div class="codebox">
-            <button class="copy" onclick="copyCode(this)">Copy</button>
-            <pre><code>flutterfire configure</code></pre>
-          </div>
-        </details>
-
-        <details>
-          <summary>FlutterFire command not found</summary>
-          <p>Fix: Install or reactivate FlutterFire CLI:</p>
-          <div class="codebox">
-            <button class="copy" onclick="copyCode(this)">Copy</button>
-            <pre><code>dart pub global activate flutterfire_cli</code></pre>
-          </div>
-        </details>
-
-        <details>
-          <summary>App builds but Firebase does not work</summary>
-          <p>
+</details>
+<details>
+<summary>firebase_options.dart not found</summary>
+<p>Fix: Run:</p>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>flutterfire configure</code></pre>
+</div>
+</details>
+<details>
+<summary>FlutterFire command not found</summary>
+<p>Fix: Install or reactivate FlutterFire CLI:</p>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>dart pub global activate flutterfire_cli</code></pre>
+</div>
+</details>
+<details>
+<summary>App builds but Firebase does not work</summary>
+<p>
             Fix: Check that your Firebase Android package name exactly matches
             your Flutter Android application ID.
           </p>
-        </details>
-
-        <details>
-          <summary>Gradle or Android build error</summary>
-          <p>Try:</p>
-          <div class="codebox">
-            <button class="copy" onclick="copyCode(this)">Copy</button>
-            <pre><code>flutter clean
+</details>
+<details>
+<summary>Gradle or Android build error</summary>
+<p>Try:</p>
+<div class="codebox">
+<button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><code>flutter clean
 flutter pub get
 flutter run</code></pre>
-          </div>
-        </details>
-      </section>
-
-      <section id="quiz" class="card">
-        <h2 id="speak18">MCQ Quiz</h2>
-
-        <div class="quiz" data-answer="b">
-          <h3>
+</div>
+</details>
+</section>
+<section class="card" id="quiz">
+<h2 id="speak18">MCQ Quiz</h2>
+<div class="quiz" data-answer="b">
+<h3>
             1. Which package is required to initialize Firebase in Flutter?
           </h3>
-          <button class="quiz-option" data-option="a">cloud_firestore</button>
-          <button class="quiz-option" data-option="b">firebase_core</button>
-          <button class="quiz-option" data-option="c">firebase_ui</button>
-          <button class="quiz-option" data-option="d">flutter_http</button>
-          <div class="result"></div>
-        </div>
-
-        <hr />
-
-        <div class="quiz" data-answer="c">
-          <h3>2. Which function connects Flutter with Firebase?</h3>
-          <button class="quiz-option" data-option="a">runFirebase()</button>
-          <button class="quiz-option" data-option="b">startFirebase()</button>
-          <button class="quiz-option" data-option="c">
+<button class="quiz-option" data-option="a">cloud_firestore</button>
+<button class="quiz-option" data-option="b">firebase_core</button>
+<button class="quiz-option" data-option="c">firebase_ui</button>
+<button class="quiz-option" data-option="d">flutter_http</button>
+<div class="result"></div>
+</div>
+<hr/>
+<div class="quiz" data-answer="c">
+<h3>2. Which function connects Flutter with Firebase?</h3>
+<button class="quiz-option" data-option="a">runFirebase()</button>
+<button class="quiz-option" data-option="b">startFirebase()</button>
+<button class="quiz-option" data-option="c">
             Firebase.initializeApp()
           </button>
-          <button class="quiz-option" data-option="d">connectBackend()</button>
-          <div class="result"></div>
-        </div>
-
-        <hr />
-
-        <div class="quiz" data-answer="a">
-          <h3>3. Which command runs the Flutter app?</h3>
-          <button class="quiz-option" data-option="a">flutter run</button>
-          <button class="quiz-option" data-option="b">flutter start</button>
-          <button class="quiz-option" data-option="c">dart launch</button>
-          <button class="quiz-option" data-option="d">firebase run</button>
-          <div class="result"></div>
-        </div>
-
-        <hr />
-
-        <div class="quiz" data-answer="d">
-          <h3>4. Which file is generated by FlutterFire CLI?</h3>
-          <button class="quiz-option" data-option="a">main_options.dart</button>
-          <button class="quiz-option" data-option="b">
+<button class="quiz-option" data-option="d">connectBackend()</button>
+<div class="result"></div>
+</div>
+<hr/>
+<div class="quiz" data-answer="a">
+<h3>3. Which command runs the Flutter app?</h3>
+<button class="quiz-option" data-option="a">flutter run</button>
+<button class="quiz-option" data-option="b">flutter start</button>
+<button class="quiz-option" data-option="c">dart launch</button>
+<button class="quiz-option" data-option="d">firebase run</button>
+<div class="result"></div>
+</div>
+<hr/>
+<div class="quiz" data-answer="d">
+<h3>4. Which file is generated by FlutterFire CLI?</h3>
+<button class="quiz-option" data-option="a">main_options.dart</button>
+<button class="quiz-option" data-option="b">
             flutter_config.html
           </button>
-          <button class="quiz-option" data-option="c">
+<button class="quiz-option" data-option="c">
             firebase.json only
           </button>
-          <button class="quiz-option" data-option="d">
+<button class="quiz-option" data-option="d">
             firebase_options.dart
           </button>
-          <div class="result"></div>
-        </div>
-
-        <div class="btn-row">
-          <button class="btn" onclick="resetQuiz()">Reset Quiz</button>
-        </div>
-      </section>
-
+<div class="result"></div>
+</div>
+<div class="btn-row">
+<button class="btn" onclick="resetQuiz()">Reset Quiz</button>
+</div>
+</section>
 <section class="card">
-  <h2 id="speak19">DartPad Practice Area</h2>
-  <p>
+<h2 id="speak19">DartPad Practice Area</h2>
+<p>
     Use DartPad for quick Dart and Flutter practice in the browser. For full
     Firebase setup, use your local Flutter installation because Firebase Android
     setup needs project files and Gradle configuration.
   </p>
-
-  <iframe
-    src="https://dartpad.dev/?embed=true"
-    title="DartPad Flutter Practice Editor"
-  ></iframe>
+<iframe src="https://dartpad.dev/?embed=true" title="DartPad Flutter Practice Editor"></iframe>
 </section>
-
 <section class="card">
-  <h2 id="speak19a">Official Installation and Setup Links</h2>
-
-  <div class="grid-2">
-    <div class="mini">
-      <h3>Install Flutter</h3>
-      <p>Download and install the Flutter SDK from the official documentation.</p>
-      <a href="https://docs.flutter.dev/install" target="_blank">Open Flutter Install Guide</a>
-    </div>
-
-    <div class="mini">
-      <h3>Install Android Studio</h3>
-      <p>Install Android Studio for Android SDK, emulator, and device tools.</p>
-      <a href="https://developer.android.com/studio" target="_blank">Open Android Studio Download</a>
-    </div>
-
-    <div class="mini">
-      <h3>Firebase Console</h3>
-      <p>Create your Firebase project and manage app configuration.</p>
-      <a href="https://console.firebase.google.com/" target="_blank">Open Firebase Console</a>
-    </div>
-
-    <div class="mini">
-      <h3>FlutterFire Setup</h3>
-      <p>Official guide for connecting Firebase with Flutter.</p>
-      <a href="https://firebase.google.com/docs/flutter/setup" target="_blank">Open FlutterFire Setup</a>
-    </div>
-
-    <div class="mini">
-      <h3>DartPad</h3>
-      <p>Practice Dart and Flutter online without installing anything.</p>
-      <a href="https://dartpad.dev/" target="_blank">Open DartPad</a>
-    </div>
-
-    <div class="mini">
-      <h3>FlutterFire Overview</h3>
-      <p>Learn how Firebase plugins work with Flutter apps.</p>
-      <a href="https://firebase.flutter.dev/docs/overview" target="_blank">Open FlutterFire Overview</a>
-    </div>
-  </div>
+<h2 id="speak19a">Official Installation and Setup Links</h2>
+<div class="grid-2">
+<div class="mini">
+<h3>Install Flutter</h3>
+<p>Download and install the Flutter SDK from the official documentation.</p>
+<a href="https://docs.flutter.dev/install" target="_blank">Open Flutter Install Guide</a>
+</div>
+<div class="mini">
+<h3>Install Android Studio</h3>
+<p>Install Android Studio for Android SDK, emulator, and device tools.</p>
+<a href="https://developer.android.com/studio" target="_blank">Open Android Studio Download</a>
+</div>
+<div class="mini">
+<h3>Firebase Console</h3>
+<p>Create your Firebase project and manage app configuration.</p>
+<a href="https://console.firebase.google.com/" target="_blank">Open Firebase Console</a>
+</div>
+<div class="mini">
+<h3>FlutterFire Setup</h3>
+<p>Official guide for connecting Firebase with Flutter.</p>
+<a href="https://firebase.google.com/docs/flutter/setup" target="_blank">Open FlutterFire Setup</a>
+</div>
+<div class="mini">
+<h3>DartPad</h3>
+<p>Practice Dart and Flutter online without installing anything.</p>
+<a href="https://dartpad.dev/" target="_blank">Open DartPad</a>
+</div>
+<div class="mini">
+<h3>FlutterFire Overview</h3>
+<p>Learn how Firebase plugins work with Flutter apps.</p>
+<a href="https://firebase.flutter.dev/docs/overview" target="_blank">Open FlutterFire Overview</a>
+</div>
+</div>
 </section>
-      <section class="card">
-        <h2 id="speak20">Next Upgrade Ideas</h2>
-        <div class="grid-2">
-          <div class="mini">
-            <h3>Firebase Authentication</h3>
-            <p>Add email/password login or Google login.</p>
-          </div>
-          <div class="mini">
-            <h3>Cloud Firestore</h3>
-            <p>Save student records, notes, or course progress.</p>
-          </div>
-          <div class="mini">
-            <h3>Firebase Storage</h3>
-            <p>Upload images, PDFs, and student files.</p>
-          </div>
-          <div class="mini">
-            <h3>Push Notifications</h3>
-            <p>Send class updates and reminders.</p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <p>Made for Programmer's Picnic | Champak Roy</p>
-    </footer>
-
-    <script>
+<section class="card">
+<h2 id="speak20">Next Upgrade Ideas</h2>
+<div class="grid-2">
+<div class="mini">
+<h3>Firebase Authentication</h3>
+<p>Add email/password login or Google login.</p>
+</div>
+<div class="mini">
+<h3>Cloud Firestore</h3>
+<p>Save student records, notes, or course progress.</p>
+</div>
+<div class="mini">
+<h3>Firebase Storage</h3>
+<p>Upload images, PDFs, and student files.</p>
+</div>
+<div class="mini">
+<h3>Push Notifications</h3>
+<p>Send class updates and reminders.</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<p>Made for Programmer's Picnic | Champak Roy</p>
+</footer>
+<script>
       const defaultApp = {
         displayName: "Hello Firebase App",
         projectName: "hello_firebase_app",
@@ -1271,9 +1167,7 @@ cd ${app.projectName}`;
 
       updateGeneratedText(defaultApp);
     </script>
-    <a href="https://dsa.learnwithchampak.live/flutter/commandline/" 
-   target="champak"
-   style="
+<a href="https://dsa.learnwithchampak.live/flutter/commandline/" style="
      position:fixed;
      bottom:20px;
      left:20px;
@@ -1285,8 +1179,8 @@ cd ${app.projectName}`;
      font-weight:bold;
      box-shadow:0 8px 20px rgba(0,0,0,0.2);
      z-index:9999;
-   ">
+   " target="champak">
   ⚡ CLI Guide
 </a>
-  </body>
+<div data-root="../../../" id="site-footer"></div><script defer="True" src="../../../assets/js/include.js"></script></body>
 </html>

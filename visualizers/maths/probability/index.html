@@ -1,15 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Probability Visualizer</title>
-  <meta name="description" content="Interactive probability visualizer with coin toss, dice, cards, spinner, bag draws, simulations, theoretical probability, and beginner-friendly explanations." />
-  <meta name="theme-color" content="#d97706" />
-  <script src="https://programmer-s-picnic.github.io/json-images/contact_champak.js"></script>
-  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109" crossorigin="anonymous"></script>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Probability Visualizer</title>
+<meta content="Interactive probability visualizer with coin toss, dice, cards, spinner, bag draws, simulations, theoretical probability, and beginner-friendly explanations." name="description"/>
+<meta content="#0b67b2" name="theme-color"/>
+<script src="https://programmer-s-picnic.github.io/json-images/contact_champak.js"></script>
+<script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&amp;host=ca-host-pub-1556223355139109"></script>
+<style>
     :root{
       --bg:#fffaf0;
       --bg2:#fff3d7;
@@ -133,278 +134,266 @@
     .foot{margin:22px 0 6px;text-align:center;color:var(--muted);font-size:.92rem}
     @media (max-width: 980px){.layout,.grid-two,.hero{grid-template-columns:1fr}.panel{position:static}.hero-avatar{margin:auto}}
   </style>
-</head>
-<body>
-  <div class="wrap">
-    <section class="hero card">
-      <div class="hero-avatar" aria-hidden="true">🎲</div>
-      <div>
-        <h1 id="speak0">Probability Visualizer </h1>
-        <p id="speak1" class="muted">Learn probability from the ground up using coins, dice, playing cards, spinners, and colored balls in a bag. Each section shows sample space, favorable outcomes, theoretical probability, and simulation results.</p>
-        <div class="pill-row">
-          <span class="pill">🪙 Coins</span>
-          <span class="pill">🎲 Dice</span>
-          <span class="pill">🂡 Cards</span>
-          <span class="pill">🎡 Spinner</span>
-          <span class="pill">🔴 Bag Draws</span>
-          <span class="pill">📈 Simulation</span>
-        </div>
-      </div>
-    </section>
-
-    <div class="layout">
-      <aside class="panel">
-        <h2 id="speak2">Probability basics</h2>
-        <p class="muted" id="speak3">The simplest formula is:</p>
-        <span class="formula" id="speak4">Probability = favorable outcomes / total outcomes</span>
-        <div class="stack" style="margin-top:14px">
-          <div class="callout" id="speak5"><strong>Certain event</strong><br />Probability = 1</div>
-          <div class="callout" id="speak6"><strong>Impossible event</strong><br />Probability = 0</div>
-          <div class="callout" id="speak7"><strong>Random event</strong><br />Probability is between 0 and 1</div>
-        </div>
-        <h3 style="margin-top:16px" id="speak8">What this page can do</h3>
-        <ul class="muted" style="padding-left:18px;margin:8px 0 0">
-          <li id="speak9">Show sample spaces clearly</li>
-          <li id="speak10">Calculate exact theoretical probabilities</li>
-          <li id="speak11">Run random simulations many times</li>
-          <li id="speak12">Compare theory with experiment</li>
-          <li id="speak13">Teach beginner and intermediate ideas visually</li>
-        </ul>
-      </aside>
-
-      <main class="stack">
-        <section class="card">
-          <div class="section-head">
-            <div>
-              <h2 id="speak14">Interactive probability lab</h2>
-              <p class="muted" id="speak15">Open a section, choose an event, and compare the exact answer with simulation.</p>
-            </div>
-            <div class="stats">
-              <span class="stat">Theory + Simulation</span>
-              <span class="stat">Friendly examples</span>
-            </div>
-          </div>
-          <div class="tabs">
-            <button class="tab-btn active" data-tab="coin">🪙 Coin toss</button>
-            <button class="tab-btn" data-tab="dice">🎲 Dice</button>
-            <button class="tab-btn" data-tab="cards">🂡 Cards</button>
-            <button class="tab-btn" data-tab="spinner">🎡 Spinner</button>
-            <button class="tab-btn" data-tab="bag">🔴 Bag draw</button>
-            <button class="tab-btn" data-tab="advanced">🧠 More ideas</button>
-            <button class="tab-btn" data-tab="bayes">🧩 Bayes visualizer</button>
-          </div>
-        </section>
-
-        <section class="card tab-content active" id="tab-coin">
-          <div class="section-head">
-            <div>
-              <h2 id="speak16">Coin toss visualizer</h2>
-              <p class="muted" id="speak17">Start with one or two fair coins. Then ask events like exactly one head, at least one tail, or both same.</p>
-            </div>
-            <span class="chip">Sample space is small and perfect for beginners</span>
-          </div>
-          <div class="controls">
-            <div class="control"><label for="coin-count">Number of coins</label><select id="coin-count"><option value="1">1 coin</option><option value="2" selected>2 coins</option></select></div>
-            <div class="control"><label for="coin-event">Event</label><select id="coin-event"></select></div>
-            <div class="control"><label for="coin-runs">Simulation runs</label><input id="coin-runs" type="number" min="1" max="50000" value="2000" /></div>
-          </div>
-          <div class="btn-row"><button class="btn" id="coin-calc">Show probability</button><button class="btn blue" id="coin-sim">Run simulation</button></div>
-          <div class="grid-two" style="margin-top:14px">
-            <div>
-              <div class="visual-box">
-                <div class="sample-space" id="coin-space"></div>
-              </div>
-            </div>
-            <div>
-              <div class="result" id="coin-result"></div>
-              <div class="hist" id="coin-hist"></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card tab-content" id="tab-dice">
-          <div class="section-head">
-            <div>
-              <h2 id="speak18">Dice visualizer</h2>
-              <p class="muted" id="speak19">Study one die or two dice. Explore even numbers, prime faces, sums, doubles, and more.</p>
-            </div>
-            <span class="chip">Great for events with many outcomes</span>
-          </div>
-          <div class="controls">
-            <div class="control"><label for="dice-count">Dice</label><select id="dice-count"><option value="1">1 die</option><option value="2" selected>2 dice</option></select></div>
-            <div class="control"><label for="dice-event">Event</label><select id="dice-event"></select></div>
-            <div class="control"><label for="dice-runs">Simulation runs</label><input id="dice-runs" type="number" min="1" max="50000" value="5000" /></div>
-          </div>
-          <div class="btn-row"><button class="btn" id="dice-calc">Show probability</button><button class="btn blue" id="dice-sim">Run simulation</button></div>
-          <div class="grid-two" style="margin-top:14px">
-            <div>
-              <div class="visual-box">
-                <div id="dice-space"></div>
-              </div>
-            </div>
-            <div>
-              <div class="result" id="dice-result"></div>
-              <div class="hist" id="dice-hist"></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card tab-content" id="tab-cards">
-          <div class="section-head">
-            <div>
-              <h2 id="speak20">Playing cards visualizer</h2>
-              <p class="muted" id="speak21">Draw one card from a standard 52-card deck. Explore red, black, face cards, suits, aces, hearts, spades, and more.</p>
-            </div>
-            <span class="chip">Classical probability with 52 equally likely outcomes</span>
-          </div>
-          <div class="controls">
-            <div class="control"><label for="card-event">Event</label><select id="card-event"></select></div>
-            <div class="control"><label for="card-runs">Simulation runs</label><input id="card-runs" type="number" min="1" max="50000" value="5000" /></div>
-          </div>
-          <div class="btn-row"><button class="btn" id="card-calc">Show probability</button><button class="btn blue" id="card-sim">Run simulation</button></div>
-          <div class="grid-two" style="margin-top:14px">
-            <div>
-              <div class="visual-box">
-                <div class="card-grid" id="card-space"></div>
-              </div>
-            </div>
-            <div>
-              <div class="result" id="card-result"></div>
-              <div class="hist" id="card-hist"></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card tab-content" id="tab-spinner">
-          <div class="section-head">
-            <div>
-              <h2 id="speak22">Spinner probability</h2>
-              <p class="muted" id="speak23">A spinner helps explain probability through sectors. Larger sectors mean larger probability.</p>
-            </div>
-            <span class="chip">Area-based intuition</span>
-          </div>
-          <div class="controls">
-            <div class="control"><label for="spinner-segments">Number of equal sectors</label><select id="spinner-segments"><option value="4">4</option><option value="6" selected>6</option><option value="8">8</option></select></div>
-            <div class="control"><label for="spinner-fav">Favorable sectors</label><input id="spinner-fav" type="number" min="0" max="8" value="2" /></div>
-            <div class="control"><label for="spinner-runs">Simulation runs</label><input id="spinner-runs" type="number" min="1" max="50000" value="4000" /></div>
-          </div>
-          <div class="btn-row"><button class="btn" id="spinner-calc">Show probability</button><button class="btn green" id="spinner-spin">Spin once</button><button class="btn blue" id="spinner-sim">Run simulation</button></div>
-          <div class="grid-two" style="margin-top:14px">
-            <div class="spinner-wrap">
-              <div class="pointer"></div>
-              <div class="spinner" id="spinner"></div>
-            </div>
-            <div>
-              <div class="result" id="spinner-result"></div>
-              <div class="hist" id="spinner-hist"></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card tab-content" id="tab-bag">
-          <div class="section-head">
-            <div>
-              <h2 id="speak24">Colored balls in a bag</h2>
-              <p class="muted" id="speak25">This is a powerful model for probability. You can change the bag composition and study single-draw probability.</p>
-            </div>
-            <span class="chip">Flexible and highly visual</span>
-          </div>
-          <div class="controls">
-            <div class="control"><label for="bag-red">Red balls</label><input id="bag-red" type="number" min="0" max="20" value="3" /></div>
-            <div class="control"><label for="bag-blue">Blue balls</label><input id="bag-blue" type="number" min="0" max="20" value="2" /></div>
-            <div class="control"><label for="bag-green">Green balls</label><input id="bag-green" type="number" min="0" max="20" value="1" /></div>
-            <div class="control"><label for="bag-event">Event</label><select id="bag-event"><option value="red">Draw a red ball</option><option value="blue">Draw a blue ball</option><option value="green">Draw a green ball</option><option value="not-red">Draw a non-red ball</option></select></div>
-            <div class="control"><label for="bag-runs">Simulation runs</label><input id="bag-runs" type="number" min="1" max="50000" value="5000" /></div>
-          </div>
-          <div class="btn-row"><button class="btn" id="bag-calc">Show probability</button><button class="btn blue" id="bag-sim">Run simulation</button></div>
-          <div class="grid-two" style="margin-top:14px">
-            <div>
-              <div class="visual-box" id="bag-space"></div>
-            </div>
-            <div>
-              <div class="result" id="bag-result"></div>
-              <div class="hist" id="bag-hist"></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card tab-content" id="tab-advanced">
-          <div class="section-head">
-            <div>
-              <h2 id="speak26">More probability ideas</h2>
-              <p class="muted" id="speak27">These extra examples make the visualizer richer and more useful.</p>
-            </div>
-            <span class="chip">Beyond the basics</span>
-          </div>
-          <div class="stack">
-            <details open>
-              <summary id="speak28">1. Complement rule</summary>
-              <p class="muted" id="speak29">Sometimes it is easier to calculate the probability that an event does not happen.</p>
-              <span class="formula" id="speak30">P(not A) = 1 - P(A)</span>
-              <p id="speak31">Example: with one die, probability of getting a number greater than 4 is 2/6 = 1/3. So probability of not getting a number greater than 4 is 1 - 1/3 = 2/3.</p>
-            </details>
-            <details open>
-              <summary id="speak32">2. Experimental probability</summary>
-              <p id="speak33">The simulation buttons on this page estimate probability by actually performing many random trials.</p>
-              <span class="formula" id="speak34">Experimental probability = number of successes / number of trials</span>
-            </details>
-            <details open>
-              <summary id="speak35">3. Independent events</summary>
-              <p id="speak36">If two events do not affect each other, multiply their probabilities.</p>
-              <span class="formula" id="speak37">P(A and B) = P(A) × P(B)</span>
-              <p id="speak38">Example: probability of head on a coin and 6 on a die = 1/2 × 1/6 = 1/12.</p>
-            </details>
-            <details open>
-              <summary id="speak39">4. Conditional probability idea</summary>
-              <p id="speak40">When information changes the sample space, probability changes too.</p>
-              <span class="formula" id="speak41">P(A | B) = P(A and B) / P(B)</span>
-              <p id="speak42">Example: from a deck of cards, probability of drawing a king given the card is face card = 4/12 = 1/3.</p>
-            </details>
-            <details open>
-              <summary id="speak43">5. Expected value intuition</summary>
-              <p id="speak44">Expected value is the long-run average outcome of a random experiment.</p>
-              <span class="formula" id="speak45">For one fair die: (1+2+3+4+5+6)/6 = 3.5</span>
-            </details>
-          </div>
-        </section>
-
-        <section class="card tab-content" id="tab-bayes">
-          <div class="section-head">
-            <div>
-              <h2 id="speak46">Bayes visualizer</h2>
-              <p class="muted" id="speak47">Bayes' theorem updates probability after new evidence arrives. This is useful in medical tests, spam detection, fraud checks, and machine learning.</p>
-            </div>
-            <span class="chip">Prior → evidence → posterior</span>
-          </div>
-          <div class="controls">
-            <div class="control"><label for="bayes-prior">P(A) prior probability</label><input id="bayes-prior" type="number" min="0" max="1" step="0.01" value="0.01" /></div>
-            <div class="control"><label for="bayes-like">P(B | A) evidence if A is true</label><input id="bayes-like" type="number" min="0" max="1" step="0.01" value="0.95" /></div>
-            <div class="control"><label for="bayes-false">P(B | not A) false positive / background rate</label><input id="bayes-false" type="number" min="0" max="1" step="0.01" value="0.05" /></div>
-            <div class="control"><label for="bayes-pop">Population size for visual model</label><input id="bayes-pop" type="number" min="100" max="100000" step="100" value="10000" /></div>
-          </div>
-          <div class="btn-row"><button class="btn" id="bayes-calc">Update probability</button></div>
-          <div class="grid-two" style="margin-top:14px">
-            <div>
-              <div class="visual-box">
-                <div class="formula" id="speak48">Bayes theorem: P(A | B) = P(B | A) × P(A) / P(B)</div>
-                <p id="speak49" class="muted" style="margin-top:10px">Think of A as a hidden condition and B as observed evidence. Example: A = person has a disease, B = test is positive.</p>
-                <div id="bayes-grid" class="sample-space" style="margin-top:10px"></div>
-              </div>
-            </div>
-            <div>
-              <div class="result" id="bayes-result"></div>
-              <div class="hist" id="bayes-hist"></div>
-            </div>
-          </div>
-        </section>
-
-      </main>
-    </div>
-
-    <p class="foot">@copy; Champak Roy</p>
-  </div>
-
-  <script>
+<link href="../../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../../"><div data-root="../../../" id="site-header"></div>
+<div class="wrap">
+<section class="hero card">
+<div aria-hidden="true" class="hero-avatar">🎲</div>
+<div>
+<h1 id="speak0">Probability Visualizer </h1>
+<p class="muted" id="speak1">Learn probability from the ground up using coins, dice, playing cards, spinners, and colored balls in a bag. Each section shows sample space, favorable outcomes, theoretical probability, and simulation results.</p>
+<div class="pill-row">
+<span class="pill">🪙 Coins</span>
+<span class="pill">🎲 Dice</span>
+<span class="pill">🂡 Cards</span>
+<span class="pill">🎡 Spinner</span>
+<span class="pill">🔴 Bag Draws</span>
+<span class="pill">📈 Simulation</span>
+</div>
+</div>
+</section>
+<div class="layout">
+<aside class="panel">
+<h2 id="speak2">Probability basics</h2>
+<p class="muted" id="speak3">The simplest formula is:</p>
+<span class="formula" id="speak4">Probability = favorable outcomes / total outcomes</span>
+<div class="stack" style="margin-top:14px">
+<div class="callout" id="speak5"><strong>Certain event</strong><br/>Probability = 1</div>
+<div class="callout" id="speak6"><strong>Impossible event</strong><br/>Probability = 0</div>
+<div class="callout" id="speak7"><strong>Random event</strong><br/>Probability is between 0 and 1</div>
+</div>
+<h3 id="speak8" style="margin-top:16px">What this page can do</h3>
+<ul class="muted" style="padding-left:18px;margin:8px 0 0">
+<li id="speak9">Show sample spaces clearly</li>
+<li id="speak10">Calculate exact theoretical probabilities</li>
+<li id="speak11">Run random simulations many times</li>
+<li id="speak12">Compare theory with experiment</li>
+<li id="speak13">Teach beginner and intermediate ideas visually</li>
+</ul>
+</aside>
+<main class="stack" id="main-content">
+<section class="card">
+<div class="section-head">
+<div>
+<h2 id="speak14">Interactive probability lab</h2>
+<p class="muted" id="speak15">Open a section, choose an event, and compare the exact answer with simulation.</p>
+</div>
+<div class="stats">
+<span class="stat">Theory + Simulation</span>
+<span class="stat">Friendly examples</span>
+</div>
+</div>
+<div class="tabs">
+<button class="tab-btn active" data-tab="coin">🪙 Coin toss</button>
+<button class="tab-btn" data-tab="dice">🎲 Dice</button>
+<button class="tab-btn" data-tab="cards">🂡 Cards</button>
+<button class="tab-btn" data-tab="spinner">🎡 Spinner</button>
+<button class="tab-btn" data-tab="bag">🔴 Bag draw</button>
+<button class="tab-btn" data-tab="advanced">🧠 More ideas</button>
+<button class="tab-btn" data-tab="bayes">🧩 Bayes visualizer</button>
+</div>
+</section>
+<section class="card tab-content active" id="tab-coin">
+<div class="section-head">
+<div>
+<h2 id="speak16">Coin toss visualizer</h2>
+<p class="muted" id="speak17">Start with one or two fair coins. Then ask events like exactly one head, at least one tail, or both same.</p>
+</div>
+<span class="chip">Sample space is small and perfect for beginners</span>
+</div>
+<div class="controls">
+<div class="control"><label for="coin-count">Number of coins</label><select id="coin-count"><option value="1">1 coin</option><option selected="" value="2">2 coins</option></select></div>
+<div class="control"><label for="coin-event">Event</label><select id="coin-event"></select></div>
+<div class="control"><label for="coin-runs">Simulation runs</label><input id="coin-runs" max="50000" min="1" type="number" value="2000"/></div>
+</div>
+<div class="btn-row"><button class="btn" id="coin-calc">Show probability</button><button class="btn blue" id="coin-sim">Run simulation</button></div>
+<div class="grid-two" style="margin-top:14px">
+<div>
+<div class="visual-box">
+<div class="sample-space" id="coin-space"></div>
+</div>
+</div>
+<div>
+<div class="result" id="coin-result"></div>
+<div class="hist" id="coin-hist"></div>
+</div>
+</div>
+</section>
+<section class="card tab-content" id="tab-dice">
+<div class="section-head">
+<div>
+<h2 id="speak18">Dice visualizer</h2>
+<p class="muted" id="speak19">Study one die or two dice. Explore even numbers, prime faces, sums, doubles, and more.</p>
+</div>
+<span class="chip">Great for events with many outcomes</span>
+</div>
+<div class="controls">
+<div class="control"><label for="dice-count">Dice</label><select id="dice-count"><option value="1">1 die</option><option selected="" value="2">2 dice</option></select></div>
+<div class="control"><label for="dice-event">Event</label><select id="dice-event"></select></div>
+<div class="control"><label for="dice-runs">Simulation runs</label><input id="dice-runs" max="50000" min="1" type="number" value="5000"/></div>
+</div>
+<div class="btn-row"><button class="btn" id="dice-calc">Show probability</button><button class="btn blue" id="dice-sim">Run simulation</button></div>
+<div class="grid-two" style="margin-top:14px">
+<div>
+<div class="visual-box">
+<div id="dice-space"></div>
+</div>
+</div>
+<div>
+<div class="result" id="dice-result"></div>
+<div class="hist" id="dice-hist"></div>
+</div>
+</div>
+</section>
+<section class="card tab-content" id="tab-cards">
+<div class="section-head">
+<div>
+<h2 id="speak20">Playing cards visualizer</h2>
+<p class="muted" id="speak21">Draw one card from a standard 52-card deck. Explore red, black, face cards, suits, aces, hearts, spades, and more.</p>
+</div>
+<span class="chip">Classical probability with 52 equally likely outcomes</span>
+</div>
+<div class="controls">
+<div class="control"><label for="card-event">Event</label><select id="card-event"></select></div>
+<div class="control"><label for="card-runs">Simulation runs</label><input id="card-runs" max="50000" min="1" type="number" value="5000"/></div>
+</div>
+<div class="btn-row"><button class="btn" id="card-calc">Show probability</button><button class="btn blue" id="card-sim">Run simulation</button></div>
+<div class="grid-two" style="margin-top:14px">
+<div>
+<div class="visual-box">
+<div class="card-grid" id="card-space"></div>
+</div>
+</div>
+<div>
+<div class="result" id="card-result"></div>
+<div class="hist" id="card-hist"></div>
+</div>
+</div>
+</section>
+<section class="card tab-content" id="tab-spinner">
+<div class="section-head">
+<div>
+<h2 id="speak22">Spinner probability</h2>
+<p class="muted" id="speak23">A spinner helps explain probability through sectors. Larger sectors mean larger probability.</p>
+</div>
+<span class="chip">Area-based intuition</span>
+</div>
+<div class="controls">
+<div class="control"><label for="spinner-segments">Number of equal sectors</label><select id="spinner-segments"><option value="4">4</option><option selected="" value="6">6</option><option value="8">8</option></select></div>
+<div class="control"><label for="spinner-fav">Favorable sectors</label><input id="spinner-fav" max="8" min="0" type="number" value="2"/></div>
+<div class="control"><label for="spinner-runs">Simulation runs</label><input id="spinner-runs" max="50000" min="1" type="number" value="4000"/></div>
+</div>
+<div class="btn-row"><button class="btn" id="spinner-calc">Show probability</button><button class="btn green" id="spinner-spin">Spin once</button><button class="btn blue" id="spinner-sim">Run simulation</button></div>
+<div class="grid-two" style="margin-top:14px">
+<div class="spinner-wrap">
+<div class="pointer"></div>
+<div class="spinner" id="spinner"></div>
+</div>
+<div>
+<div class="result" id="spinner-result"></div>
+<div class="hist" id="spinner-hist"></div>
+</div>
+</div>
+</section>
+<section class="card tab-content" id="tab-bag">
+<div class="section-head">
+<div>
+<h2 id="speak24">Colored balls in a bag</h2>
+<p class="muted" id="speak25">This is a powerful model for probability. You can change the bag composition and study single-draw probability.</p>
+</div>
+<span class="chip">Flexible and highly visual</span>
+</div>
+<div class="controls">
+<div class="control"><label for="bag-red">Red balls</label><input id="bag-red" max="20" min="0" type="number" value="3"/></div>
+<div class="control"><label for="bag-blue">Blue balls</label><input id="bag-blue" max="20" min="0" type="number" value="2"/></div>
+<div class="control"><label for="bag-green">Green balls</label><input id="bag-green" max="20" min="0" type="number" value="1"/></div>
+<div class="control"><label for="bag-event">Event</label><select id="bag-event"><option value="red">Draw a red ball</option><option value="blue">Draw a blue ball</option><option value="green">Draw a green ball</option><option value="not-red">Draw a non-red ball</option></select></div>
+<div class="control"><label for="bag-runs">Simulation runs</label><input id="bag-runs" max="50000" min="1" type="number" value="5000"/></div>
+</div>
+<div class="btn-row"><button class="btn" id="bag-calc">Show probability</button><button class="btn blue" id="bag-sim">Run simulation</button></div>
+<div class="grid-two" style="margin-top:14px">
+<div>
+<div class="visual-box" id="bag-space"></div>
+</div>
+<div>
+<div class="result" id="bag-result"></div>
+<div class="hist" id="bag-hist"></div>
+</div>
+</div>
+</section>
+<section class="card tab-content" id="tab-advanced">
+<div class="section-head">
+<div>
+<h2 id="speak26">More probability ideas</h2>
+<p class="muted" id="speak27">These extra examples make the visualizer richer and more useful.</p>
+</div>
+<span class="chip">Beyond the basics</span>
+</div>
+<div class="stack">
+<details open="">
+<summary id="speak28">1. Complement rule</summary>
+<p class="muted" id="speak29">Sometimes it is easier to calculate the probability that an event does not happen.</p>
+<span class="formula" id="speak30">P(not A) = 1 - P(A)</span>
+<p id="speak31">Example: with one die, probability of getting a number greater than 4 is 2/6 = 1/3. So probability of not getting a number greater than 4 is 1 - 1/3 = 2/3.</p>
+</details>
+<details open="">
+<summary id="speak32">2. Experimental probability</summary>
+<p id="speak33">The simulation buttons on this page estimate probability by actually performing many random trials.</p>
+<span class="formula" id="speak34">Experimental probability = number of successes / number of trials</span>
+</details>
+<details open="">
+<summary id="speak35">3. Independent events</summary>
+<p id="speak36">If two events do not affect each other, multiply their probabilities.</p>
+<span class="formula" id="speak37">P(A and B) = P(A) × P(B)</span>
+<p id="speak38">Example: probability of head on a coin and 6 on a die = 1/2 × 1/6 = 1/12.</p>
+</details>
+<details open="">
+<summary id="speak39">4. Conditional probability idea</summary>
+<p id="speak40">When information changes the sample space, probability changes too.</p>
+<span class="formula" id="speak41">P(A | B) = P(A and B) / P(B)</span>
+<p id="speak42">Example: from a deck of cards, probability of drawing a king given the card is face card = 4/12 = 1/3.</p>
+</details>
+<details open="">
+<summary id="speak43">5. Expected value intuition</summary>
+<p id="speak44">Expected value is the long-run average outcome of a random experiment.</p>
+<span class="formula" id="speak45">For one fair die: (1+2+3+4+5+6)/6 = 3.5</span>
+</details>
+</div>
+</section>
+<section class="card tab-content" id="tab-bayes">
+<div class="section-head">
+<div>
+<h2 id="speak46">Bayes visualizer</h2>
+<p class="muted" id="speak47">Bayes' theorem updates probability after new evidence arrives. This is useful in medical tests, spam detection, fraud checks, and machine learning.</p>
+</div>
+<span class="chip">Prior → evidence → posterior</span>
+</div>
+<div class="controls">
+<div class="control"><label for="bayes-prior">P(A) prior probability</label><input id="bayes-prior" max="1" min="0" step="0.01" type="number" value="0.01"/></div>
+<div class="control"><label for="bayes-like">P(B | A) evidence if A is true</label><input id="bayes-like" max="1" min="0" step="0.01" type="number" value="0.95"/></div>
+<div class="control"><label for="bayes-false">P(B | not A) false positive / background rate</label><input id="bayes-false" max="1" min="0" step="0.01" type="number" value="0.05"/></div>
+<div class="control"><label for="bayes-pop">Population size for visual model</label><input id="bayes-pop" max="100000" min="100" step="100" type="number" value="10000"/></div>
+</div>
+<div class="btn-row"><button class="btn" id="bayes-calc">Update probability</button></div>
+<div class="grid-two" style="margin-top:14px">
+<div>
+<div class="visual-box">
+<div class="formula" id="speak48">Bayes theorem: P(A | B) = P(B | A) × P(A) / P(B)</div>
+<p class="muted" id="speak49" style="margin-top:10px">Think of A as a hidden condition and B as observed evidence. Example: A = person has a disease, B = test is positive.</p>
+<div class="sample-space" id="bayes-grid" style="margin-top:10px"></div>
+</div>
+</div>
+<div>
+<div class="result" id="bayes-result"></div>
+<div class="hist" id="bayes-hist"></div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<p class="foot">@copy; Champak Roy</p>
+</div>
+<script>
     const $ = (id) => document.getElementById(id);
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabIds = ['coin','dice','cards','spinner','bag','advanced','bayes'];
@@ -766,5 +755,5 @@
     showBag();
     showBayes();
   </script>
-</body>
+<div data-root="../../../" id="site-footer"></div><script defer="True" src="../../../assets/js/include.js"></script></body>
 </html>

@@ -1,10 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shortest Path Visualizer</title>
-    <style>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shortest Path Visualizer</title>
+<style>
       :root {
         --bg: #fffaf0;
         --bg-grad-1: #fff7e6;
@@ -425,147 +426,135 @@
         }
       }
     </style>
-  </head>
-  <body class="light-theme soft-design">
-    <div class="app">
-      <div class="topbar">
-        <div class="title">
-          <div class="logo">SP</div>
-          <div>
-            <h1>Shortest Path Visualizer</h1>
-            <div class="subtitle">
+<link href="../../assets/css/theme.css" rel="stylesheet"/><meta content="Shortest Path Visualizer - practical learning page from DSA with Champak." name="description"/></head>
+<body class="light-theme soft-design" data-root="../../"><div data-root="../../" id="site-header"></div><div id="main-content"></div>
+<div class="app">
+<div class="topbar">
+<div class="title">
+<div class="logo">SP</div>
+<div>
+<h1>Shortest Path Visualizer</h1>
+<div class="subtitle">
               Visualize BFS, Dijkstra, A*, and Stack Explorer on a grid
             </div>
-          </div>
-        </div>
-
-        <div class="quick-toggles">
-          <div class="card">
-            <h3>Theme Toggle</h3>
-            <div class="toggle-buttons">
-              <button id="lightThemeBtn" class="toggle-on">Light</button>
-              <button id="darkThemeBtn">Dark</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>Design Toggle</h3>
-            <div class="toggle-buttons">
-              <button id="softDesignBtn" class="toggle-on">Soft</button>
-              <button id="sharpDesignBtn">Sharp</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>Full Screen</h3>
-            <button id="fullScreenBtn" class="secondary">
+</div>
+</div>
+<div class="quick-toggles">
+<div class="card">
+<h3>Theme Toggle</h3>
+<div class="toggle-buttons">
+<button class="toggle-on" id="lightThemeBtn">Light</button>
+<button id="darkThemeBtn">Dark</button>
+</div>
+</div>
+<div class="card">
+<h3>Design Toggle</h3>
+<div class="toggle-buttons">
+<button class="toggle-on" id="softDesignBtn">Soft</button>
+<button id="sharpDesignBtn">Sharp</button>
+</div>
+</div>
+<div class="card">
+<h3>Full Screen</h3>
+<button class="secondary" id="fullScreenBtn">
               Enter Full Screen
             </button>
+</div>
+</div>
+<div class="controls">
+<div class="card">
+<h3>Algorithm</h3>
+<label for="algorithm">Choose algorithm</label>
+<select id="algorithm">
+<option value="bfs">BFS</option>
+<option value="dijkstra">Dijkstra</option>
+<option value="astar">A*</option>
+<option value="stackExplorer">Stack Explorer</option>
+</select>
+</div>
+<div class="card">
+<h3>Drawing Mode</h3>
+<div class="mode-buttons three">
+<button class="mode-btn active" data-mode="wall">Wall</button>
+<button class="mode-btn" data-mode="start">Start</button>
+<button class="mode-btn" data-mode="end">End</button>
+</div>
+</div>
+<div class="card">
+<h3>Animation Speed</h3>
+<label for="speed">Delay: <span id="speedValue">20</span> ms</label>
+<input id="speed" max="100" min="0" type="range" value="20"/>
+</div>
+<div class="card">
+<h3>Actions</h3>
+<div class="row2">
+<button class="primary" id="visualizeBtn">Visualize</button>
+<button class="secondary" id="mazeBtn">Random Maze</button>
+</div>
+<div class="row2" style="margin-top: 8px">
+<button class="secondary" id="clearPathBtn">Clear Path</button>
+<button class="secondary" id="clearBoardBtn">Clear Board</button>
+</div>
+</div>
+</div>
+<div class="stats">
+<div class="stat">
+<div class="label">Visited Nodes</div>
+<div class="value" id="visitedCount">0</div>
+</div>
+<div class="stat">
+<div class="label">Path Length</div>
+<div class="value" id="pathLength">0</div>
+</div>
+<div class="stat">
+<div class="label">Grid Size</div>
+<div class="value" id="gridSize">25 × 45</div>
+</div>
+<div class="stat">
+<div class="label">Current Mode</div>
+<div class="value" id="currentModeLabel">Wall</div>
+</div>
+<div class="stat">
+<div class="label">Paths Found</div>
+<div class="value" id="pathsFound">0</div>
+</div>
+<div class="stat">
+<div class="label">Explorer Status</div>
+<div class="value" id="explorerStatus">Idle</div>
+</div>
+</div>
+</div>
+<div class="board-wrap">
+<div class="legend">
+<div class="legend-item">
+<span class="dot" style="background: var(--start)"></span> Start
           </div>
-        </div>
-
-        <div class="controls">
-          <div class="card">
-            <h3>Algorithm</h3>
-            <label for="algorithm">Choose algorithm</label>
-            <select id="algorithm">
-              <option value="bfs">BFS</option>
-              <option value="dijkstra">Dijkstra</option>
-              <option value="astar">A*</option>
-              <option value="stackExplorer">Stack Explorer</option>
-            </select>
+<div class="legend-item">
+<span class="dot" style="background: var(--end)"></span> End
           </div>
-
-          <div class="card">
-            <h3>Drawing Mode</h3>
-            <div class="mode-buttons three">
-              <button class="mode-btn active" data-mode="wall">Wall</button>
-              <button class="mode-btn" data-mode="start">Start</button>
-              <button class="mode-btn" data-mode="end">End</button>
-            </div>
+<div class="legend-item">
+<span class="dot" style="background: var(--wall)"></span> Wall
           </div>
-
-          <div class="card">
-            <h3>Animation Speed</h3>
-            <label for="speed">Delay: <span id="speedValue">20</span> ms</label>
-            <input id="speed" type="range" min="0" max="100" value="20" />
+<div class="legend-item">
+<span class="dot" style="background: var(--visited)"></span> Visited
           </div>
-
-          <div class="card">
-            <h3>Actions</h3>
-            <div class="row2">
-              <button id="visualizeBtn" class="primary">Visualize</button>
-              <button id="mazeBtn" class="secondary">Random Maze</button>
-            </div>
-            <div class="row2" style="margin-top: 8px">
-              <button id="clearPathBtn" class="secondary">Clear Path</button>
-              <button id="clearBoardBtn" class="secondary">Clear Board</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="stats">
-          <div class="stat">
-            <div class="label">Visited Nodes</div>
-            <div class="value" id="visitedCount">0</div>
-          </div>
-          <div class="stat">
-            <div class="label">Path Length</div>
-            <div class="value" id="pathLength">0</div>
-          </div>
-          <div class="stat">
-            <div class="label">Grid Size</div>
-            <div class="value" id="gridSize">25 × 45</div>
-          </div>
-          <div class="stat">
-            <div class="label">Current Mode</div>
-            <div class="value" id="currentModeLabel">Wall</div>
-          </div>
-          <div class="stat">
-            <div class="label">Paths Found</div>
-            <div class="value" id="pathsFound">0</div>
-          </div>
-          <div class="stat">
-            <div class="label">Explorer Status</div>
-            <div class="value" id="explorerStatus">Idle</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="board-wrap">
-        <div class="legend">
-          <div class="legend-item">
-            <span class="dot" style="background: var(--start)"></span> Start
-          </div>
-          <div class="legend-item">
-            <span class="dot" style="background: var(--end)"></span> End
-          </div>
-          <div class="legend-item">
-            <span class="dot" style="background: var(--wall)"></span> Wall
-          </div>
-          <div class="legend-item">
-            <span class="dot" style="background: var(--visited)"></span> Visited
-          </div>
-          <div class="legend-item">
-            <span class="dot" style="background: var(--path)"></span> Shortest
+<div class="legend-item">
+<span class="dot" style="background: var(--path)"></span> Shortest
             Path
           </div>
-          <div class="legend-item">
-            <span class="dot explorer"></span> Explorer
+<div class="legend-item">
+<span class="dot explorer"></span> Explorer
           </div>
-        </div>
-
-        <div id="grid" class="grid"></div>
-
-        <div class="footer-note">
+</div>
+<div class="grid" id="grid"></div>
+<div class="footer-note">
           Drag on the grid to draw walls. Stack Explorer moves one object
           forward, stacks moves, backtracks on dead ends, stores all successful
           paths, and then shows the shortest one.
         </div>
-      </div>
-    </div>
-
-    <script>
+</div>
+</div>
+<script>
       const ROWS = 25;
       const COLS = 45;
 
@@ -1290,5 +1279,5 @@
       setDesign("soft");
       updateFullScreenButton();
     </script>
-  </body>
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>

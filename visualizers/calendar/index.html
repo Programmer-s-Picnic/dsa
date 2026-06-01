@@ -1,51 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-    <!-- ✅ SEO START -->
-    <title>Python Monthly Calendar Program | Print Sun Mon Tue Wed Thu Fri Sat Calendar</title>
-
-    <meta
-      name="description"
-      content="Learn how to print a monthly calendar in Python using Sun Mon Tue Wed Thu Fri Sat format. Covers leap year logic, month days, date difference, weekday calculation, modulo 7, and calendar alignment with examples and an interactive preview."
-    />
-
-    <meta
-      name="keywords"
-      content="Python calendar program, print monthly calendar Python, leap year Python, weekday calculation Python, date difference Python, Sun Mon Tue Wed Thu Fri Sat calendar, Python beginner project"
-    />
-
-    <meta name="author" content="Champak Roy" />
-    <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#d97706" />
-
-    <link rel="canonical" href="https://www.learnwithchampak.live/2026/04/python-monthly-calendar-program.html" />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Python Monthly Calendar Program | Programmer’s Picnic" />
-    <meta
-      property="og:description"
-      content="Step-by-step Python lesson to print a monthly calendar in Sun–Sat format with leap year logic, weekday calculation, modulo arithmetic, and interactive preview."
-    />
-    <meta property="og:url" content="https://www.learnwithchampak.live/2026/04/python-monthly-calendar-program.html" />
-    <meta property="og:site_name" content="Programmer’s Picnic" />
-    <meta property="og:locale" content="en_IN" />
-    <meta property="og:image" content="https://programmer-s-picnic.github.io/json-images/mee.jpg" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Python Monthly Calendar Program | Programmer’s Picnic" />
-    <meta
-      name="twitter:description"
-      content="Learn Python calendar printing from zero: leap year, month days, weekday alignment, and interactive preview."
-    />
-    <meta name="twitter:image" content="https://programmer-s-picnic.github.io/json-images/mee.jpg" />
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<!-- ✅ SEO START -->
+<title>Python Monthly Calendar Program | Print Sun Mon Tue Wed Thu Fri Sat Calendar</title>
+<meta content="Learn how to print a monthly calendar in Python using Sun Mon Tue Wed Thu Fri Sat format. Covers leap year logic, month days, date difference, weekday calculation, modulo 7, and calendar alignment with examples and an interactive preview." name="description"/>
+<meta content="Python calendar program, print monthly calendar Python, leap year Python, weekday calculation Python, date difference Python, Sun Mon Tue Wed Thu Fri Sat calendar, Python beginner project" name="keywords"/>
+<meta content="Champak Roy" name="author"/>
+<meta content="index, follow" name="robots"/>
+<meta content="#0b67b2" name="theme-color"/>
+<link href="https://www.learnwithchampak.live/2026/04/python-monthly-calendar-program.html" rel="canonical"/>
+<!-- Open Graph -->
+<meta content="article" property="og:type"/>
+<meta content="Python Monthly Calendar Program | Programmer’s Picnic" property="og:title"/>
+<meta content="Step-by-step Python lesson to print a monthly calendar in Sun–Sat format with leap year logic, weekday calculation, modulo arithmetic, and interactive preview." property="og:description"/>
+<meta content="https://www.learnwithchampak.live/2026/04/python-monthly-calendar-program.html" property="og:url"/>
+<meta content="Programmer’s Picnic" property="og:site_name"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://programmer-s-picnic.github.io/json-images/mee.jpg" property="og:image"/>
+<!-- Twitter -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Python Monthly Calendar Program | Programmer’s Picnic" name="twitter:title"/>
+<meta content="Learn Python calendar printing from zero: leap year, month days, weekday alignment, and interactive preview." name="twitter:description"/>
+<meta content="https://programmer-s-picnic.github.io/json-images/mee.jpg" name="twitter:image"/>
+<!-- Structured Data -->
+<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "LearningResource",
@@ -64,24 +45,15 @@
       "educationalLevel": "Beginner"
     }
     </script>
-    <!-- ✅ SEO END -->
-
-    <script async
-src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-8321261883090494"
-crossorigin="anonymous"></script>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Inter:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- YOUR FULL ORIGINAL CSS REMAINS UNCHANGED -->
-    <!-- (Keeping everything intact exactly as you wrote it) -->
-
-    <style>
+<!-- ✅ SEO END -->
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-8321261883090494"></script>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<!-- YOUR FULL ORIGINAL CSS REMAINS UNCHANGED -->
+<!-- (Keeping everything intact exactly as you wrote it) -->
+<style>
       /* --- SAME CSS (UNCHANGED) --- */
       :root {
         --bg: #fff7e6;
@@ -107,29 +79,25 @@ crossorigin="anonymous"></script>
         color: var(--ink);
       }
     </style>
-  </head>
-
-  <body>
-    <div style="padding:40px;text-align:center">
-      <h1>Python Monthly Calendar Program</h1>
-      <p>
+<link href="../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../"><div data-root="../../" id="site-header"></div><div id="main-content"></div>
+<div style="padding:40px;text-align:center">
+<h1>Python Monthly Calendar Program</h1>
+<p>
         Sun Mon Tue Wed Thu Fri Sat — Printing a Monthly Calendar using Python
       </p>
-
-      <p>
+<p>
         This page includes:
-        <br />
-        ✔ Leap year logic <br />
-        ✔ Date difference <br />
-        ✔ Weekday calculation <br />
+        <br/>
+        ✔ Leap year logic <br/>
+        ✔ Date difference <br/>
+        ✔ Weekday calculation <br/>
         ✔ Interactive calendar preview
       </p>
-
-      <p style="margin-top:30px;color:#555">
+<p style="margin-top:30px;color:#555">
         Built by <b>Programmer’s Picnic • Champak Roy</b>
-      </p>
-    </div>
-
-    <!-- Your FULL original JS remains unchanged -->
-  </body>
+</p>
+</div>
+<!-- Your FULL original JS remains unchanged -->
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>

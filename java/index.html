@@ -1,833 +1,1025 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>CBSE Java Self-Paced Learning System | Programmers Picnic</title>
-
-  <meta name="description" content="CBSE Java self-paced learning system for school students. Learn Java step by step with syllabus, assignments, tests, WhatsApp guidance, Zoom support, and CBSE-style practice." />
-
-  <meta name="keywords" content="CBSE Java, Java for school students, ICSE Java, self paced Java course, CBSE computer science, Java programming, Programmers Picnic, Champak Roy" />
-
-  <meta name="author" content="Champak Roy, Programmers Picnic" />
-
-  <!-- Open Graph SEO -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="CBSE Java Self-Paced Learning System" />
-  <meta property="og:description" content="Learn CBSE Java step by step with guided lessons, assignments, tests, doubt support, WhatsApp guidance, and Zoom help." />
-  <meta property="og:image" content="https://learnwithchampak.live/images/cbse-java-self-paced-og.png" />
-  <meta property="og:url" content="https://learnwithchampak.live/cbse-java-self-paced" />
-
-  <!-- Twitter / X Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CBSE Java Self-Paced Learning System" />
-  <meta name="twitter:description" content="A guided self-paced Java learning system for CBSE students." />
-  <meta name="twitter:image" content="https://learnwithchampak.live/images/cbse-java-self-paced-og.png" />
-
-  <!-- Google AdSense Script -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109" crossorigin="anonymous"></script>
-
-  <!-- Programmer's Picnic Scripts -->
-  <script src="https://varanasi-software-junction.github.io/search/branding/branding.js"></script>
-  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
-  <script src="https://programmer-s-picnic.github.io/json-images/contact_champak.js"></script>
-
-  <style>
-    :root {
-      --saffron: #f59e0b;
-      --deep-saffron: #c2410c;
-      --soft-saffron: #fff7ed;
-      --cream: #fffbeb;
-      --dark: #1f2937;
-      --muted: #6b7280;
-      --green: #166534;
-      --blue: #1d4ed8;
-      --white: #ffffff;
-      --border: #fed7aa;
-      --shadow: 0 18px 45px rgba(120, 53, 15, 0.16);
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Java Lesson — Nested Loops in Detail</title>
+<meta content="A complete beginner-to-advanced Java lesson on nested loops with syntax, flow, tables, patterns, arrays, break, continue, assignments, and interactive MCQ quiz." name="description"/>
+<meta content="#0b67b2" name="theme-color"/>
+<script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+<style>
+    :root{
+      --bg:#fff8eb;
+      --card:#ffffff;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --brand:#d97706;
+      --brand2:#f59e0b;
+      --line:#ead7b0;
+      --soft:#fff4d6;
+      --soft2:#fffaf0;
+      --ok:#166534;
+      --bad:#991b1b;
+      --code:#111827;
+      --codeText:#f9fafb;
+      --shadow:0 16px 40px rgba(217,119,6,0.10);
+      --radius:18px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background:
-        radial-gradient(circle at top left, #ffedd5 0, transparent 34%),
-        linear-gradient(135deg, #fff7ed, #fffbeb 45%, #ffffff);
-      color: var(--dark);
-      line-height: 1.7;
+        radial-gradient(circle at top right, rgba(245,158,11,0.16), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(217,119,6,0.10), transparent 26%),
+        var(--bg);
+      color:var(--ink);
+      line-height:1.68;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    header{
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#fff;
+      padding:36px 20px;
+      text-align:center;
+      box-shadow:0 8px 24px rgba(0,0,0,0.12);
     }
 
-    .page {
-      width: min(1180px, 94%);
-      margin: auto;
+    header h1{
+      margin:0 0 10px;
+      font-size:clamp(2rem,4vw,3.2rem);
+      line-height:1.1;
     }
 
-    header {
-      padding: 24px 0;
+    header p{
+      margin:0;
+      opacity:.96;
+      font-size:1.04rem;
     }
 
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
+    .container{
+      max-width:1140px;
+      margin:0 auto;
+      padding:22px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      color: var(--deep-saffron);
-      font-size: 1.1rem;
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:22px;
+      margin-bottom:22px;
+      box-shadow:var(--shadow);
     }
 
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--saffron), var(--deep-saffron));
-      color: white;
-      display: grid;
-      place-items: center;
-      box-shadow: var(--shadow);
-      font-weight: 900;
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.25fr .95fr;
+      gap:18px;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:12px;
     }
 
-    .nav-links a {
-      padding: 8px 13px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.75);
-      border: 1px solid var(--border);
-      color: #7c2d12;
-      font-weight: 700;
-      font-size: 0.92rem;
+    .mini{
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
     }
 
-    .hero {
-      margin-top: 16px;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
-      align-items: center;
-      padding: 42px;
-      background: rgba(255, 255, 255, 0.86);
-      border: 1px solid var(--border);
-      border-radius: 34px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
+    h2{
+      margin-top:0;
+      color:var(--brand);
+      font-size:1.6rem;
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -90px;
-      top: -90px;
-      width: 260px;
-      height: 260px;
-      background: rgba(245, 158, 11, 0.18);
-      border-radius: 50%;
+    h3{
+      color:#9a5a05;
+      margin:16px 0 8px;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #ffedd5;
-      color: #9a3412;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-weight: 800;
-      border: 1px solid #fdba74;
-      margin-bottom: 18px;
+    p, li{
+      font-size:1rem;
     }
 
-    h1 {
-      font-size: clamp(2.1rem, 5vw, 4.2rem);
-      line-height: 1.05;
-      margin: 0 0 18px;
-      color: #7c2d12;
-      letter-spacing: -1.5px;
+    .muted{color:var(--muted)}
+
+    ul, ol{
+      padding-left:22px;
     }
 
-    .hero p {
-      font-size: 1.12rem;
-      color: #4b5563;
-      margin: 0 0 22px;
-      max-width: 720px;
+    code{
+      background:#fff1cc;
+      padding:2px 6px;
+      border:1px solid #efd393;
+      border-radius:6px;
+      font-size:.96em;
     }
 
-    .hero strong {
-      color: var(--deep-saffron);
+    pre{
+      background:var(--code);
+      color:var(--codeText);
+      padding:16px;
+      border-radius:14px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,0.08);
+      line-height:1.55;
+      font-size:.96rem;
     }
 
-    .cta-row {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 24px;
+    .table-wrap{overflow:auto}
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:#fffdfa;
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 13px 20px;
-      border-radius: 16px;
-      font-weight: 800;
-      border: 0;
-      cursor: pointer;
-      transition: 0.25s ease;
+    th, td{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--saffron), var(--deep-saffron));
-      color: white;
-      box-shadow: 0 12px 28px rgba(194, 65, 12, 0.28);
+    th{
+      background:#fff1cc;
+      color:#8a5206;
     }
 
-    .btn-secondary {
-      background: white;
-      color: #9a3412;
-      border: 1px solid #fdba74;
+    .assignment{
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      margin-bottom:12px;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
+    .quiz-toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:18px;
+      padding:14px;
+      background:var(--soft2);
+      border:1px solid var(--line);
+      border-radius:14px;
     }
 
-    .hero-card {
-      position: relative;
-      z-index: 1;
-      background: linear-gradient(160deg, #fff7ed, #ffffff);
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 26px;
+    .quiz-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
     }
 
-    .hero-card h2 {
-      margin-top: 0;
-      color: #9a3412;
+    button{
+      border:none;
+      background:var(--brand);
+      color:#fff;
+      padding:11px 16px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform .18s ease, background .18s ease, box-shadow .18s ease;
+      box-shadow:0 10px 24px rgba(217,119,6,.18);
     }
 
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-top: 18px;
+    button:hover{
+      background:var(--brand2);
+      transform:translateY(-1px);
     }
 
-    .stat {
-      padding: 18px;
-      border-radius: 20px;
-      background: white;
-      border: 1px solid #fed7aa;
+    button.secondary{
+      background:#fff;
+      color:var(--brand);
+      border:1px solid var(--line);
+      box-shadow:none;
     }
 
-    .stat b {
-      font-size: 1.65rem;
-      color: var(--deep-saffron);
-      display: block;
+    button.secondary:hover{
+      background:#fff7e8;
     }
 
-    section {
-      margin: 34px 0;
-      padding: 34px;
-      background: rgba(255,255,255,0.88);
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      box-shadow: 0 12px 32px rgba(120, 53, 15, 0.08);
+    .question-card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      margin-bottom:16px;
+      background:#fffdfa;
     }
 
-    .section-title {
-      margin-top: 0;
-      color: #7c2d12;
-      font-size: clamp(1.7rem, 3vw, 2.4rem);
-      line-height: 1.15;
+    .question-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      margin-bottom:10px;
     }
 
-    .section-intro {
-      color: var(--muted);
-      max-width: 860px;
-      margin-bottom: 24px;
-      font-size: 1.05rem;
+    .question-number{
+      font-weight:800;
+      color:var(--brand);
     }
 
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+    .topic-tag{
+      font-size:.83rem;
+      padding:6px 10px;
+      background:#fff2cf;
+      border:1px solid #efd393;
+      border-radius:999px;
+      color:#8a5206;
+      white-space:nowrap;
     }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
+    .question-text{
+      margin:0 0 14px;
+      font-size:1.05rem;
+      font-weight:600;
     }
 
-    .card {
-      padding: 22px;
-      background: #fff;
-      border: 1px solid #fed7aa;
-      border-radius: 24px;
-      transition: 0.25s ease;
+    .options{
+      display:grid;
+      gap:10px;
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 14px 28px rgba(120, 53, 15, 0.10);
+    .option{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      cursor:pointer;
+      transition:border-color .18s ease, background .18s ease, transform .18s ease;
     }
 
-    .card h3 {
-      margin-top: 0;
-      color: #9a3412;
+    .option:hover{
+      border-color:#e9ba56;
+      background:#fff9ec;
+      transform:translateY(-1px);
     }
 
-    .icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
-      background: #ffedd5;
-      color: var(--deep-saffron);
-      display: grid;
-      place-items: center;
-      font-size: 1.4rem;
-      margin-bottom: 14px;
+    .option input{
+      margin-top:4px;
+      accent-color:var(--brand);
+      transform:scale(1.08);
     }
 
-    .syllabus-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      padding: 0;
-      list-style: none;
+    .option.correct{
+      border-color:#98d5ad;
+      background:#ecfdf3;
     }
 
-    .syllabus-list li {
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      padding: 14px 16px;
-      border-radius: 18px;
-      font-weight: 700;
-      color: #7c2d12;
+    .option.incorrect{
+      border-color:#eab0b0;
+      background:#fef2f2;
     }
 
-    .method-steps {
-      counter-reset: step;
-      display: grid;
-      gap: 16px;
+    .feedback{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:12px;
+      font-weight:600;
+      display:none;
     }
 
-    .step {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 16px;
-      background: #fff;
-      border: 1px solid #fed7aa;
-      border-radius: 22px;
-      padding: 20px;
+    .feedback.show{display:block}
+    .feedback.correct{
+      background:#ecfdf3;
+      color:var(--ok);
+      border:1px solid #a7e2bb;
+    }
+    .feedback.incorrect{
+      background:#fef2f2;
+      color:var(--bad);
+      border:1px solid #efb2b2;
     }
 
-    .step::before {
-      counter-increment: step;
-      content: counter(step);
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: var(--deep-saffron);
-      color: white;
-      display: grid;
-      place-items: center;
-      font-weight: 900;
+    .result-box{
+      margin-top:18px;
+      padding:18px;
+      border-radius:16px;
+      background:#fff7e8;
+      border:1px solid var(--line);
+      display:none;
     }
 
-    .step h3 {
-      margin: 0 0 6px;
-      color: #9a3412;
+    .result-box.show{display:block}
+
+    .score-big{
+      font-size:2rem;
+      font-weight:800;
+      color:var(--brand);
+      margin:0 0 8px;
     }
 
-    .step p {
-      margin: 0;
-      color: #4b5563;
+    .footer-note{
+      text-align:center;
+      color:var(--muted);
+      font-size:.95rem;
+      padding-bottom:24px;
     }
 
-    .highlight {
-      background: linear-gradient(135deg, #fff7ed, #ffedd5);
-      border: 2px dashed #fb923c;
-    }
-
-    .cta-box {
-      text-align: center;
-      background: linear-gradient(135deg, #7c2d12, #c2410c);
-      color: white;
-      border-radius: 32px;
-      padding: 42px 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .cta-box h2 {
-      margin-top: 0;
-      font-size: clamp(1.9rem, 4vw, 3rem);
-    }
-
-    .cta-box p {
-      max-width: 780px;
-      margin: 0 auto 24px;
-      color: #ffedd5;
-      font-size: 1.08rem;
-    }
-
-    .cta-box .btn-secondary {
-      background: white;
-      color: #9a3412;
-      border: none;
-    }
-
-    .contact-strip {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 24px;
-    }
-
-    .contact-item {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.28);
-      padding: 18px;
-      border-radius: 22px;
-    }
-
-    .ad-placeholder {
-      margin: 28px 0;
-      padding: 20px;
-      border-radius: 22px;
-      border: 1px dashed #f59e0b;
-      background: #fff7ed;
-      color: #92400e;
-      text-align: center;
-      font-weight: 700;
-    }
-
-    footer {
-      padding: 36px 0;
-      color: #7c2d12;
-      text-align: center;
-    }
-
-    .small {
-      font-size: 0.92rem;
-      color: #6b7280;
-    }
-
-    @media (max-width: 900px) {
-      .hero,
-      .grid-3,
-      .grid-2,
-      .contact-strip {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding: 28px;
-      }
-
-      .syllabus-list {
-        grid-template-columns: 1fr;
-      }
-
-      section {
-        padding: 26px;
-      }
-    }
-
-    @media print {
-      .nav-links,
-      .cta-row,
-      .ad-placeholder,
-      footer button {
-        display: none;
-      }
-
-      body {
-        background: white;
-      }
-
-      section,
-      .hero {
-        box-shadow: none;
-        break-inside: avoid;
-      }
+    @media (max-width: 860px){
+      .hero-grid{grid-template-columns:1fr}
+      .question-head{flex-direction:column}
+      .quiz-toolbar{align-items:flex-start}
     }
   </style>
-</head>
-
-<body>
-
-  <header class="page">
-    <nav class="nav">
-      <div class="brand">
-        <div class="brand-mark">J</div>
-        <div>
-          Programmers Picnic<br />
-          <span class="small">CBSE Java Learning System</span>
-        </div>
-      </div>
-
-      <div class="nav-links">
-        <a href="#syllabus">Syllabus</a>
-        <a href="#method">Method</a>
-        <a href="#support">Support</a>
-        <a href="#join">Join</a>
-      </div>
-    </nav>
-  </header>
-
-  <main class="page">
-
-    <section class="hero">
-      <div>
-        <div class="badge">CBSE Java • Self-Paced • Guided</div>
-
-        <h1>Learn Java at your own pace, with proper guidance.</h1>
-
-        <p>
-          The <strong>CBSE Java Self-Paced Learning System</strong> is designed for school students who want to understand Java clearly, write programs confidently, and prepare for exams step by step.
+<link href="../../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../../"><div data-root="../../../" id="site-header"></div>
+<header>
+<h1 id="speak0">Java Lesson — Nested Loops in Detail</h1>
+<p id="speak1">A complete lesson on loops inside loops, from level zero to advanced pattern building.</p>
+</header>
+<main class="container" id="main-content">
+<section class="card hero-grid">
+<div>
+<h2 id="speak2">What this lesson covers</h2>
+<p id="speak3">
+          In this lesson, you will learn what a nested loop is, how the outer loop and inner loop work together, how to trace nested loop execution, and how nested loops are used for tables, patterns, grids, arrays, and matrix-like logic.
         </p>
-
-        <p>
-          Students do not have to rush. They learn one topic at a time, practise programs, solve assignments, ask doubts, revise, and grow steadily.
+<p id="speak4">
+          We will begin with the simple idea of one loop inside another, then move to pattern printing, rectangular grids, multiplication tables, searching combinations, break and continue in nested loops, and best practices for writing clean nested loop code.
         </p>
-
-        <div class="cta-row">
-          <a class="btn btn-primary" href="#join">Start Learning</a>
-          <a class="btn btn-secondary" href="#syllabus">View Syllabus</a>
-          <button class="btn btn-secondary" onclick="window.print()">Print Page</button>
-        </div>
-      </div>
-
-      <div class="hero-card">
-        <h2>What makes it different?</h2>
-        <p>
-          It is not just a video course. It is a guided system where students learn independently but still receive help when they need it.
-        </p>
-
-        <div class="stat-grid">
-          <div class="stat">
-            <b>0 → Exam</b>
-            Beginner to board level
-          </div>
-          <div class="stat">
-            <b>10</b>
-            Weekly guided queries
-          </div>
-          <div class="stat">
-            <b>Java</b>
-            Concepts + coding
-          </div>
-          <div class="stat">
-            <b>CBSE</b>
-            Board-style practice
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="ad-placeholder">
-      Google Ad Area: Use your AdSense unit here if needed.
-      <!--
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-8321261883090494"
-           data-ad-slot="7782388330"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-      -->
-    </div>
-
-    <section id="intro">
-      <h2 class="section-title">Introduction</h2>
-
-      <p class="section-intro">
-        Java becomes easy when it is learned in the correct order. Many students try to memorize programs before understanding the logic. This creates fear, confusion, and dependence on ready-made answers.
+</div>
+<div class="mini-grid">
+<div class="mini">
+<strong id="speak5">Outer Loop</strong>
+<p class="muted" id="speak6">Controls rows or major repetitions</p>
+</div>
+<div class="mini">
+<strong id="speak7">Inner Loop</strong>
+<p class="muted" id="speak8">Runs fully for each outer step</p>
+</div>
+<div class="mini">
+<strong id="speak9">Patterns</strong>
+<p class="muted" id="speak10">Stars, numbers, grids, shapes</p>
+</div>
+<div class="mini">
+<strong id="speak11">Tables</strong>
+<p class="muted" id="speak12">Useful for multiplication and 2D work</p>
+</div>
+</div>
+</section>
+<section class="card">
+<h2 id="speak13">What is a nested loop?</h2>
+<p id="speak14">
+        A nested loop means one loop written inside another loop. The outer loop runs one time, and for each of its iterations, the inner loop runs completely.
       </p>
-
-      <div class="grid-3">
-        <div class="card">
-          <div class="icon">1</div>
-          <h3>Understand First</h3>
-          <p>
-            Every topic starts from the basic idea. Students understand what the concept means before writing large programs.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="icon">2</div>
-          <h3>Practise Slowly</h3>
-          <p>
-            Students solve small programs first. Then they move to output questions, tracing, error correction, and exam-style tasks.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="icon">3</div>
-          <h3>Get Guidance</h3>
-          <p>
-            Whenever a student is stuck, guidance is available through doubt support, weekly direction, and revision planning.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="syllabus">
-      <h2 class="section-title">CBSE Java Syllabus Coverage</h2>
-
-      <p class="section-intro">
-        The syllabus is arranged from beginner level to exam level. The aim is to build both conceptual clarity and coding confidence.
+<pre id="speak15">for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 2; j++) {
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre>
+<p id="speak16">
+        Here, the outer loop uses <code>i</code> and the inner loop uses <code>j</code>. For each value of <code>i</code>, the inner loop starts again from its beginning.
       </p>
-
-      <ul class="syllabus-list">
-        <li>Introduction to Java and BlueJ / IDE usage</li>
-        <li>Structure of a Java program</li>
-        <li>Variables, constants, and data types</li>
-        <li>Operators and expressions</li>
-        <li>Input and output in Java</li>
-        <li>Conditional statements: if, if-else, switch</li>
-        <li>Loops: for, while, do-while</li>
-        <li>Nested loops and pattern programs</li>
-        <li>Methods and method calling</li>
-        <li>Method overloading</li>
-        <li>Arrays: one-dimensional arrays</li>
-        <li>Searching and sorting basics</li>
-        <li>Strings and string handling</li>
-        <li>Classes and objects</li>
-        <li>Constructors</li>
-        <li>Object-oriented programming basics</li>
-        <li>Output-based questions</li>
-        <li>Error correction questions</li>
-        <li>Program tracing</li>
-        <li>Board-style programming practice</li>
-      </ul>
-    </section>
-
-    <section id="method">
-      <h2 class="section-title">The Self-Paced Method</h2>
-
-      <p class="section-intro">
-        Self-paced does not mean careless learning. It means the student learns with freedom, but follows a clear path.
+</section>
+<section class="card">
+<h2 id="speak17">How nested loops execute</h2>
+<p id="speak18">
+        Let us trace this code carefully:
       </p>
-
-      <div class="method-steps">
-        <div class="step">
-          <div>
-            <h3>Step 1: Start with a small lesson</h3>
-            <p>
-              Each topic begins with a simple explanation. The student learns the meaning, use, and basic syntax of the concept.
-            </p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div>
-            <h3>Step 2: Watch or read the explanation carefully</h3>
-            <p>
-              The student studies the concept slowly. There is no pressure to finish quickly. Understanding is more important than speed.
-            </p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div>
-            <h3>Step 3: Run example programs</h3>
-            <p>
-              Students see working Java programs. They observe input, output, variables, logic, and flow of control.
-            </p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div>
-            <h3>Step 4: Modify the examples</h3>
-            <p>
-              Students change values, conditions, loops, and messages. This builds real understanding instead of memorization.
-            </p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div>
-            <h3>Step 5: Solve assignments</h3>
-            <p>
-              After each topic, students solve practice problems. These include basic, simple, medium, and advanced questions.
-            </p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div>
-            <h3>Step 6: Ask doubts</h3>
-            <p>
-              If a student is stuck, they can ask questions. Guidance is given so that the student understands the mistake and corrects it.
-            </p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div>
-            <h3>Step 7: Revise and test</h3>
-            <p>
-              Regular revision, short tests, output questions, and error correction tasks help students prepare for school exams.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="support">
-      <h2 class="section-title">Guidance and Support System</h2>
-
-      <p class="section-intro">
-        The course is self-paced, but the student is not left alone. Support is provided to keep learning disciplined and clear.
+<pre id="speak19">for (int i = 1; i &lt;= 2; i++) {
+    for (int j = 1; j &lt;= 3; j++) {
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre>
+<ol>
+<li id="speak20">The outer loop starts with <code>i = 1</code>.</li>
+<li id="speak21">Then the inner loop runs with <code>j = 1</code>, <code>j = 2</code>, and <code>j = 3</code>.</li>
+<li id="speak22">After the inner loop finishes, the outer loop changes <code>i</code> to 2.</li>
+<li id="speak23">Then the inner loop starts again from <code>j = 1</code>.</li>
+<li id="speak24">This continues until the outer loop condition becomes false.</li>
+</ol>
+<p id="speak25">
+        So the inner loop does not continue from its old value. It starts fresh every time the outer loop repeats.
       </p>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="icon">?</div>
-          <h3>10 Queries Per Week</h3>
-          <p>
-            Students can ask up to 10 learning queries per week. These may include doubts, program errors, logic problems, or explanation requests.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="icon">W</div>
-          <h3>WhatsApp Guidance</h3>
-          <p>
-            Students receive guidance through WhatsApp for doubts, study direction, reminders, and topic-wise improvement.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="icon">Z</div>
-          <h3>Zoom Support</h3>
-          <p>
-            Zoom support can be used for difficult topics, review sessions, and focused doubt-solving when required.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="icon">✓</div>
-          <h3>Progress Tracking</h3>
-          <p>
-            Students complete topics, assignments, and tests step by step. This helps them know what they have finished and what needs revision.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="highlight">
-      <h2 class="section-title">Who Should Join?</h2>
-
-      <div class="grid-2">
-        <div class="card">
-          <h3>This is useful for students who say:</h3>
-          <p>
-            “I understand in class but forget later.”<br />
-            “I can read programs but cannot write them.”<br />
-            “I am scared of output questions.”<br />
-            “I need more practice before exams.”
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>This is also useful for students who want:</h3>
-          <p>
-            A proper Java foundation.<br />
-            CBSE-style question practice.<br />
-            Slow and steady learning.<br />
-            Doubt support and revision guidance.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="join" class="cta-box">
-      <h2>Start CBSE Java with confidence.</h2>
-
-      <p>
-        Join the self-paced Java learning system and move from confusion to clarity. Learn slowly, practise regularly, ask doubts, and prepare strongly for exams.
+</section>
+<section class="card">
+<h2 id="speak26">Output of a basic nested loop</h2>
+<pre id="speak27">for (int i = 1; i &lt;= 2; i++) {
+    for (int j = 1; j &lt;= 3; j++) {
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre>
+<pre id="speak28">i = 1, j = 1
+i = 1, j = 2
+i = 1, j = 3
+i = 2, j = 1
+i = 2, j = 2
+i = 2, j = 3</pre>
+<p id="speak29">
+        Notice that for every outer loop value, the inner loop runs all of its values.
       </p>
+</section>
+<section class="card">
+<h2 id="speak30">Rows and columns thinking</h2>
+<p id="speak31">
+        Nested loops are often understood in terms of rows and columns.
+      </p>
+<ul>
+<li id="speak32">The outer loop often controls the row.</li>
+<li id="speak33">The inner loop often controls the column.</li>
+</ul>
+<pre id="speak34">for (int row = 1; row &lt;= 3; row++) {
+    for (int col = 1; col &lt;= 4; col++) {
+        System.out.print("* ");
+    }
+    System.out.println();
+}</pre>
+<p id="speak35">
+        This prints 3 rows, and in each row it prints 4 stars.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak36">Printing a rectangle</h2>
+<pre id="speak37">for (int row = 1; row &lt;= 3; row++) {
+    for (int col = 1; col &lt;= 5; col++) {
+        System.out.print("* ");
+    }
+    System.out.println();
+}</pre>
+<pre id="speak38">* * * * *
+* * * * *
+* * * * *</pre>
+<p id="speak39">
+        The outer loop controls the number of lines. The inner loop controls how many symbols appear in each line.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak40">Printing a square</h2>
+<pre id="speak41">for (int row = 1; row &lt;= 4; row++) {
+    for (int col = 1; col &lt;= 4; col++) {
+        System.out.print("# ");
+    }
+    System.out.println();
+}</pre>
+<p id="speak42">
+        When rows and columns are equal, you get a square shape.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak43">Printing a right triangle</h2>
+<p id="speak44">
+        In this pattern, the number of columns depends on the current row.
+      </p>
+<pre id="speak45">for (int row = 1; row &lt;= 5; row++) {
+    for (int col = 1; col &lt;= row; col++) {
+        System.out.print("* ");
+    }
+    System.out.println();
+}</pre>
+<pre id="speak46">*
+* *
+* * *
+* * * *
+* * * * *</pre>
+<p id="speak47">
+        Here, the inner loop limit is not a fixed number. It depends on <code>row</code>.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak48">Printing an inverted triangle</h2>
+<pre id="speak49">for (int row = 5; row &gt;= 1; row--) {
+    for (int col = 1; col &lt;= row; col++) {
+        System.out.print("* ");
+    }
+    System.out.println();
+}</pre>
+<pre id="speak50">* * * * *
+* * * *
+* * *
+* *
+*</pre>
+</section>
+<section class="card">
+<h2 id="speak51">Number patterns with nested loops</h2>
+<h3 id="speak52">Pattern 1</h3>
+<pre id="speak53">for (int row = 1; row &lt;= 5; row++) {
+    for (int col = 1; col &lt;= row; col++) {
+        System.out.print(col + " ");
+    }
+    System.out.println();
+}</pre>
+<pre id="speak54">1
+1 2
+1 2 3
+1 2 3 4
+1 2 3 4 5</pre>
+<h3 id="speak55">Pattern 2</h3>
+<pre id="speak56">for (int row = 1; row &lt;= 5; row++) {
+    for (int col = 1; col &lt;= row; col++) {
+        System.out.print(row + " ");
+    }
+    System.out.println();
+}</pre>
+<pre id="speak57">1
+2 2
+3 3 3
+4 4 4 4
+5 5 5 5 5</pre>
+</section>
+<section class="card">
+<h2 id="speak58">Multiplication table grid</h2>
+<p id="speak59">
+        Nested loops are very useful for multiplication tables.
+      </p>
+<pre id="speak60">for (int i = 1; i &lt;= 5; i++) {
+    for (int j = 1; j &lt;= 5; j++) {
+        System.out.print((i * j) + "\t");
+    }
+    System.out.println();
+}</pre>
+<p id="speak61">
+        This creates a 5 by 5 multiplication grid.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak62">Nested loops with arrays</h2>
+<p id="speak63">
+        Nested loops are very common when working with 2D arrays or matrix-like data.
+      </p>
+<pre id="speak64">int[][] matrix = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
 
-      <div class="cta-row" style="justify-content:center;">
-        <a class="btn btn-secondary" href="https://learnwithchampak.live">Visit Website</a>
-        <a class="btn btn-secondary" href="https://wa.me/919335874326?text=I%20am%20interested%20in%20CBSE%20Java%20Self-Paced%20Learning">Ask on WhatsApp</a>
+for (int row = 0; row &lt; matrix.length; row++) {
+    for (int col = 0; col &lt; matrix[row].length; col++) {
+        System.out.print(matrix[row][col] + " ");
+    }
+    System.out.println();
+}</pre>
+<p id="speak65">
+        The outer loop moves through rows, and the inner loop moves through the elements inside one row.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak66">Searching pairs with nested loops</h2>
+<p id="speak67">
+        Sometimes you want to check all possible pairs of values. Nested loops are perfect for that.
+      </p>
+<pre id="speak68">int[] arr = {2, 4, 6, 8};
+
+for (int i = 0; i &lt; arr.length; i++) {
+    for (int j = i + 1; j &lt; arr.length; j++) {
+        System.out.println(arr[i] + " " + arr[j]);
+    }
+}</pre>
+<p id="speak69">
+        This prints every unique pair from the array.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak70">break inside nested loops</h2>
+<p id="speak71">
+        A <code>break</code> only stops the loop in which it appears.
+      </p>
+<pre id="speak72">for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 5; j++) {
+        if (j == 3) {
+            break;
+        }
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre>
+<p id="speak73">
+        Here, the inner loop stops when <code>j == 3</code>, but the outer loop continues.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak74">continue inside nested loops</h2>
+<p id="speak75">
+        A <code>continue</code> skips the current iteration of the loop in which it appears.
+      </p>
+<pre id="speak76">for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 4; j++) {
+        if (j == 2) {
+            continue;
+        }
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre>
+<p id="speak77">
+        This skips the inner loop step whenever <code>j == 2</code>.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak78">Using labels with break</h2>
+<p id="speak79">
+        Java also supports labeled breaks, which can stop an outer loop from inside an inner loop.
+      </p>
+<pre id="speak80">outerLoop:
+for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 4; j++) {
+        if (i == 2 &amp;&amp; j == 3) {
+            break outerLoop;
+        }
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}</pre>
+<p id="speak81">
+        This breaks out of both loops together. It is powerful, but should be used carefully.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak82">Common mistakes in nested loops</h2>
+<ul>
+<li id="speak83">Using the same variable name in both loops.</li>
+<li id="speak84">Forgetting that the inner loop restarts every time the outer loop repeats.</li>
+<li id="speak85">Using the wrong loop limits, causing extra output or missing output.</li>
+<li id="speak86">Forgetting <code>System.out.println()</code> after each row in pattern problems.</li>
+<li id="speak87">Confusing row logic with column logic.</li>
+</ul>
+<h3 id="speak88">Wrong pattern example</h3>
+<pre id="speak89">for (int row = 1; row &lt;= 3; row++) {
+    for (int col = 1; col &lt;= 4; col++) {
+        System.out.print("* ");
+    }
+}</pre>
+<p id="speak90">
+        This prints all stars in one long line because there is no <code>System.out.println()</code> after the inner loop.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak91">Time complexity idea</h2>
+<p id="speak92">
+        A single loop may run <code>n</code> times. A nested loop may run about <code>n × n</code> times in many cases. That is why nested loops can be much more expensive than a single loop.
+      </p>
+<pre id="speak93">for (int i = 0; i &lt; n; i++) {
+    for (int j = 0; j &lt; n; j++) {
+        // work
+    }
+}</pre>
+<p id="speak94">
+        This kind of pattern is often called <code>O(n²)</code> time.
+      </p>
+</section>
+<section class="card">
+<h2 id="speak95">Complete example</h2>
+<pre id="speak96">public class Main {
+    public static void main(String[] args) {
+        // Rectangle
+        for (int row = 1; row &lt;= 3; row++) {
+            for (int col = 1; col &lt;= 5; col++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+
+        // Triangle
+        for (int row = 1; row &lt;= 4; row++) {
+            for (int col = 1; col &lt;= row; col++) {
+                System.out.print(row + " ");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+
+        // Multiplication grid
+        for (int i = 1; i &lt;= 4; i++) {
+            for (int j = 1; j &lt;= 4; j++) {
+                System.out.print((i * j) + "\t");
+            }
+            System.out.println();
+        }
+    }
+}</pre>
+</section>
+<section class="card">
+<h2 id="speak97">Assignments</h2>
+<div class="assignment" id="speak98">
+<strong>Assignment 1:</strong> Print a rectangle of stars with 4 rows and 6 columns.
       </div>
-
-      <div class="contact-strip">
-        <div class="contact-item">
-          <strong>Course</strong><br />
-          CBSE Java Self-Paced Learning
-        </div>
-
-        <div class="contact-item">
-          <strong>Support</strong><br />
-          WhatsApp + Zoom Guidance
-        </div>
-
-        <div class="contact-item">
-          <strong>Brand</strong><br />
-          Programmers Picnic by Champak Roy
-        </div>
+<div class="assignment" id="speak99">
+<strong>Assignment 2:</strong> Print a square pattern of size 5 using nested loops.
       </div>
-    </section>
+<div class="assignment" id="speak100">
+<strong>Assignment 3:</strong> Print a right triangle of stars with 5 rows.
+      </div>
+<div class="assignment" id="speak101">
+<strong>Assignment 4:</strong> Print an inverted right triangle of stars.
+      </div>
+<div class="assignment" id="speak102">
+<strong>Assignment 5:</strong> Print the pattern 1, then 1 2, then 1 2 3, and so on up to 5 rows.
+      </div>
+<div class="assignment" id="speak103">
+<strong>Assignment 6:</strong> Print a 10 by 10 multiplication grid.
+      </div>
+<div class="assignment" id="speak104">
+<strong>Assignment 7:</strong> Take a 2D array and print all elements row by row.
+      </div>
+<div class="assignment" id="speak105">
+<strong>Assignment 8:</strong> Print all unique pairs from an array of numbers.
+      </div>
+<div class="assignment" id="speak106">
+<strong>Assignment 9:</strong> Use break inside the inner loop and observe what happens.
+      </div>
+<div class="assignment" id="speak107">
+<strong>Assignment 10:</strong> Use a labeled break to stop both loops together.
+      </div>
+</section>
+<section class="card">
+<h2 id="speak108">Interactive MCQ Quiz</h2>
+<p id="speak109">
+        Choose one answer for each question and click <strong>Check Answers</strong>.
+      </p>
+<div class="quiz-toolbar">
+<div id="speak110"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
+<div class="quiz-actions">
+<button id="checkBtn" type="button">Check Answers</button>
+<button class="secondary" id="resetBtn" type="button">Reset Quiz</button>
+</div>
+</div>
+<div id="quizContainer"></div>
+<div aria-live="polite" class="result-box" id="resultBox">
+<p class="score-big" id="scoreText">0 / 0</p>
+<p id="resultNote">Your result will appear here.</p>
+</div>
+</section>
+<section class="card">
+<h2 id="speak111">Quick revision</h2>
+<ul>
+<li id="speak112">A nested loop is a loop inside another loop.</li>
+<li id="speak113">The inner loop runs fully for each outer loop iteration.</li>
+<li id="speak114">Outer loops often control rows and inner loops control columns.</li>
+<li id="speak115">Nested loops are heavily used in patterns and 2D arrays.</li>
+<li id="speak116">A normal break stops only the loop where it appears.</li>
+<li id="speak117">A labeled break can stop an outer loop too.</li>
+<li id="speak118">Nested loops can be powerful but may be expensive for large input sizes.</li>
+</ul>
+</section>
+<p class="footer-note" id="speak119">Programmer’s Picnic Java lesson page — Nested loops in detail.</p>
+</main>
+<script>
+    const quizData = [
+      {
+        topic: "Basics",
+        question: "What is a nested loop?",
+        options: [
+          "A loop without braces",
+          "A loop inside another loop",
+          "A loop with no condition",
+          "A loop that runs only once"
+        ],
+        answer: 1,
+        explanation: "A nested loop means one loop is written inside another loop."
+      },
+      {
+        topic: "Execution",
+        question: "What happens to the inner loop for each new outer loop iteration?",
+        options: [
+          "It continues from its old value",
+          "It does not run again",
+          "It starts again from its beginning",
+          "It becomes infinite"
+        ],
+        answer: 2,
+        explanation: "The inner loop starts fresh every time the outer loop repeats."
+      },
+      {
+        topic: "Rows and columns",
+        question: "In pattern problems, what does the outer loop often control?",
+        options: [
+          "Columns",
+          "Rows",
+          "Only printing spaces",
+          "Variable declarations only"
+        ],
+        answer: 1,
+        explanation: "In many pattern programs, the outer loop controls rows."
+      },
+      {
+        topic: "Rows and columns",
+        question: "In pattern problems, what does the inner loop often control?",
+        options: [
+          "Rows",
+          "Columns or items in one row",
+          "Main method",
+          "Scanner input only"
+        ],
+        answer: 1,
+        explanation: "The inner loop often controls how many items are printed in each row."
+      },
+      {
+        topic: "Patterns",
+        question: "Which loop condition is suitable for printing a triangle where the number of columns equals the row number?",
+        options: [
+          "for (int col = 1; col <= row; col++)",
+          "for (int col = row; col <= 1; col++)",
+          "for (int col = 1; col <= 10; col++)",
+          "for (int col = 0; col < 0; col++)"
+        ],
+        answer: 0,
+        explanation: "In a triangle, the number of columns often depends on the current row."
+      },
+      {
+        topic: "break",
+        question: "What does break do inside the inner loop of a nested loop?",
+        options: [
+          "Stops both loops automatically",
+          "Stops only the inner loop",
+          "Restarts the outer loop",
+          "Skips the whole program"
+        ],
+        answer: 1,
+        explanation: "A normal break stops only the loop in which it appears."
+      },
+      {
+        topic: "continue",
+        question: "What does continue do inside the inner loop?",
+        options: [
+          "Stops the outer loop",
+          "Stops both loops",
+          "Skips the current inner iteration",
+          "Ends the method"
+        ],
+        answer: 2,
+        explanation: "continue skips the current iteration of the loop where it appears."
+      },
+      {
+        topic: "2D arrays",
+        question: "Why are nested loops commonly used with 2D arrays?",
+        options: [
+          "Because 2D arrays cannot be printed",
+          "Because one loop handles rows and the other handles columns",
+          "Because Java requires three loops for arrays",
+          "Because 2D arrays work only with strings"
+        ],
+        answer: 1,
+        explanation: "Nested loops are natural for 2D arrays because they have rows and columns."
+      },
+      {
+        topic: "Output",
+        question: "Why do many pattern programs place System.out.println() after the inner loop?",
+        options: [
+          "To move to the next line after completing one row",
+          "To stop the outer loop",
+          "To restart the program",
+          "To create a variable"
+        ],
+        answer: 0,
+        explanation: "After one row is printed by the inner loop, println moves output to the next line."
+      },
+      {
+        topic: "Advanced",
+        question: "What is a labeled break useful for?",
+        options: [
+          "Breaking out of an outer loop from inside an inner loop",
+          "Skipping one column",
+          "Making the loop faster",
+          "Printing labels in output"
+        ],
+        answer: 0,
+        explanation: "A labeled break can exit an outer loop from inside a nested loop."
+      },
+      {
+        topic: "Performance",
+        question: "A double loop that runs n times inside n times is often thought of as:",
+        options: [
+          "O(1)",
+          "O(log n)",
+          "O(n)",
+          "O(n²)"
+        ],
+        answer: 3,
+        explanation: "If one loop runs n times inside another n times, the total work is often O(n²)."
+      },
+      {
+        topic: "Tracing",
+        question: "How many total times does the inner loop body run here? outer 3 times, inner 4 times each.",
+        options: [
+          "7",
+          "12",
+          "3",
+          "4"
+        ],
+        answer: 1,
+        explanation: "The total is 3 × 4 = 12."
+      }
+    ];
 
-  </main>
+    const quizContainer = document.getElementById("quizContainer");
+    const totalQuestions = document.getElementById("totalQuestions");
+    const resultBox = document.getElementById("resultBox");
+    const scoreText = document.getElementById("scoreText");
+    const resultNote = document.getElementById("resultNote");
+    const checkBtn = document.getElementById("checkBtn");
+    const resetBtn = document.getElementById("resetBtn");
 
-  <footer class="page">
-    <p>
-      <strong>Programmers Picnic AI-ML Classes by Champak Roy</strong><br />
-      CBSE Java • Programming • Logic Building • Exam Practice
-    </p>
-  </footer>
+    function createQuiz() {
+      quizContainer.innerHTML = "";
+      totalQuestions.textContent = quizData.length;
 
-  <script>
-    const navLinks = document.querySelectorAll('a[href^="#"]');
+      quizData.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.dataset.answer = item.answer;
 
-    navLinks.forEach(link => {
-      link.addEventListener("click", function (event) {
-        const targetId = this.getAttribute("href");
-        const target = document.querySelector(targetId);
+        const optionsHtml = item.options.map((option, optionIndex) => `
+          <label class="option" data-option-index="${optionIndex}">
+            <input type="radio" name="question-${index}" value="${optionIndex}">
+            <span>${option}</span>
+          </label>
+        `).join("");
 
-        if (target) {
-          event.preventDefault();
-          target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
+        card.innerHTML = `
+          <div class="question-head">
+            <div class="question-number">Question ${index + 1}</div>
+            <div class="topic-tag">${item.topic}</div>
+          </div>
+          <p class="question-text">${item.question}</p>
+          <div class="options">${optionsHtml}</div>
+          <div class="feedback" id="feedback-${index}"></div>
+        `;
+
+        quizContainer.appendChild(card);
+      });
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      const cards = quizContainer.querySelectorAll(".question-card");
+
+      cards.forEach((card, index) => {
+        const selected = card.querySelector(`input[name="question-${index}"]:checked`);
+        const correctIndex = Number(card.dataset.answer);
+        const feedback = card.querySelector(".feedback");
+        const optionLabels = card.querySelectorAll(".option");
+
+        optionLabels.forEach(label => {
+          label.classList.remove("correct", "incorrect");
+        });
+
+        if (selected) {
+          const selectedIndex = Number(selected.value);
+
+          if (selectedIndex === correctIndex) {
+            score++;
+            optionLabels[selectedIndex].classList.add("correct");
+            feedback.className = "feedback show correct";
+            feedback.textContent = "Correct. " + quizData[index].explanation;
+          } else {
+            optionLabels[selectedIndex].classList.add("incorrect");
+            optionLabels[correctIndex].classList.add("correct");
+            feedback.className = "feedback show incorrect";
+            feedback.textContent = "Incorrect. " + quizData[index].explanation;
+          }
+        } else {
+          optionLabels[correctIndex].classList.add("correct");
+          feedback.className = "feedback show incorrect";
+          feedback.textContent = "No answer selected. " + quizData[index].explanation;
         }
       });
-    });
-  </script>
 
-</body>
+      scoreText.textContent = `${score} / ${quizData.length}`;
+      resultNote.textContent = getResultMessage(score, quizData.length);
+      resultBox.classList.add("show");
+      resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function getResultMessage(score, total) {
+      const percent = (score / total) * 100;
+
+      if (percent === 100) return "Excellent. You understood nested loops very well.";
+      if (percent >= 80) return "Very good. Your understanding is strong.";
+      if (percent >= 60) return "Good effort. Revise a few points and try again.";
+      if (percent >= 40) return "You know the basics, but more practice will help.";
+      return "Please revise the lesson carefully and try the quiz again.";
+    }
+
+    function resetQuiz() {
+      createQuiz();
+      resultBox.classList.remove("show");
+      scoreText.textContent = "0 / 0";
+      resultNote.textContent = "Your result will appear here.";
+      window.scrollTo({ top: quizContainer.offsetTop - 20, behavior: "smooth" });
+    }
+
+    checkBtn.addEventListener("click", checkAnswers);
+    resetBtn.addEventListener("click", resetQuiz);
+
+    createQuiz();
+  </script>
+<div data-root="../../../" id="site-footer"></div><script defer="True" src="../../../assets/js/include.js"></script></body>
 </html>

@@ -1,30 +1,20 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>One Thread Per Drag Canvas Simulation</title>
-
-    <meta name="description"
-        content="One drag creates one animated drawing thread. Direction and speed come from the mouse drag, and the thread reflects from canvas borders." />
-    <meta name="keywords"
-        content="HTML Canvas, JavaScript, drag animation, threaded drawing, canvas reflection, Programmer's Picnic" />
-    <meta name="author" content="Champak Roy" />
-
-    <meta property="og:title" content="One Thread Per Drag Canvas Simulation" />
-    <meta property="og:description"
-        content="Drag and release to create one animated thread. Direction and speed come from the drag." />
-    <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://learnwithchampak.live/images/one-thread-per-drag-canvas-og.png" />
-
-    <script async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
-        crossorigin="anonymous">
-        </script>
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>One Thread Per Drag Canvas Simulation</title>
+<meta content="One drag creates one animated drawing thread. Direction and speed come from the mouse drag, and the thread reflects from canvas borders." name="description"/>
+<meta content="HTML Canvas, JavaScript, drag animation, threaded drawing, canvas reflection, Programmer's Picnic" name="keywords"/>
+<meta content="Champak Roy" name="author"/>
+<meta content="One Thread Per Drag Canvas Simulation" property="og:title"/>
+<meta content="Drag and release to create one animated thread. Direction and speed come from the drag." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://learnwithchampak.live/images/one-thread-per-drag-canvas-og.png" property="og:image"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&amp;host=ca-host-pub-1556223355139109">
+</script>
+<style>
         :root {
             --saffron: #ff8c00;
             --saffron-light: #ffb347;
@@ -268,79 +258,64 @@
             }
         }
     </style>
-</head>
-
-<body>
-    <header>
-        <h1>One Thread Per Drag</h1>
-        <p>
+<link href="../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../"><div data-root="../../" id="site-header"></div>
+<header>
+<h1>One Thread Per Drag</h1>
+<p>
             Drag on the canvas and release. One moving thread starts from the drag start point.
             Its direction and speed come from your drag.
         </p>
-    </header>
-
-    <main>
-        <section class="panel">
-            <div class="canvas-wrap" id="canvasWrap">
-                <canvas id="drawingCanvas"></canvas>
-
-                <!-- <div class="hint">Drag and release to launch one thread</div> -->
-
-                <div class="fullscreen-controls">
-                    <button id="exitFullscreenBtn">Exit Fullscreen</button>
-                </div>
-            </div>
-
-            <div class="controls">
-                <button id="startBtn">Start</button>
-                <button id="pauseBtn" class="secondary">Pause</button>
-                <button id="clearBtn" class="secondary">Clear</button>
-                <button id="fullscreenBtn">Fullscreen</button>
-
-                <label for="speedRange">Speed</label>
-                <input id="speedRange" type="range" min="1" max="10" value="4" />
-
-                <!-- <label for="modeSelect">Mode</label> -->
-                <select id="modeSelect" style="visibility: hidden;">
-                    <option value="lines">Lines</option>
-                    <option selected value="circles">Circles</option>
-                    <option value="mixed">Mixed</option>
-                    <option value="web">Web Pattern</option>
-                    <option value="spark">Spark</option>
-                </select>
-            </div>
-        </section>
-
-        <div class="ad-box">
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494"
-                data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        </div>
-
-        <section class="panel info">
-            <h2>How this works</h2>
-
-            <p>
+</header>
+<main id="main-content">
+<section class="panel">
+<div class="canvas-wrap" id="canvasWrap">
+<canvas id="drawingCanvas"></canvas>
+<!-- <div class="hint">Drag and release to launch one thread</div> -->
+<div class="fullscreen-controls">
+<button id="exitFullscreenBtn">Exit Fullscreen</button>
+</div>
+</div>
+<div class="controls">
+<button id="startBtn">Start</button>
+<button class="secondary" id="pauseBtn">Pause</button>
+<button class="secondary" id="clearBtn">Clear</button>
+<button id="fullscreenBtn">Fullscreen</button>
+<label for="speedRange">Speed</label>
+<input id="speedRange" max="10" min="1" type="range" value="4"/>
+<!-- <label for="modeSelect">Mode</label> -->
+<select id="modeSelect" style="visibility: hidden;">
+<option value="lines">Lines</option>
+<option selected="" value="circles">Circles</option>
+<option value="mixed">Mixed</option>
+<option value="web">Web Pattern</option>
+<option value="spark">Spark</option>
+</select>
+</div>
+</section>
+<div class="ad-box">
+<ins class="adsbygoogle" data-ad-client="ca-pub-8321261883090494" data-ad-format="auto" data-ad-slot="7782388330" data-full-width-responsive="true" style="display:block"></ins>
+</div>
+<section class="panel info">
+<h2>How this works</h2>
+<p>
                 One drag creates exactly one animated object. The drag start point becomes the thread's starting point.
                 The drag direction decides the movement direction. The drag length decides the initial speed.
             </p>
-
-            <p>
+<p>
                 When the thread touches the left or right wall, its horizontal velocity is reversed.
                 When it touches the top or bottom wall, its vertical velocity is reversed.
             </p>
-
-            <p>
+<p>
                 This is similar to a ball reflecting from a wall. The JavaScript animation is handled by
                 <code>requestAnimationFrame()</code>.
             </p>
-        </section>
-    </main>
-
-    <footer>
+</section>
+</main>
+<footer>
         Programmer's Picnic AI-ML classes by Champak Roy
     </footer>
-
-    <script>
+<script>
         const canvasWrap = document.getElementById("canvasWrap");
         const canvas = document.getElementById("drawingCanvas");
         const ctx = canvas.getContext("2d");
@@ -823,6 +798,5 @@
             console.log("AdSense not loaded yet.");
         }
     </script>
-</body>
-
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>

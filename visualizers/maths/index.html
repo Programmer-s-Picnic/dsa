@@ -1,16 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> Math Visualizer     – Saffron Edition</title>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109" crossorigin="anonymous"></script>
-  <meta name="description" content="A   interactive math visualizer for arithmetic, factorials, permutations, combinations, repeated elements, and powers using pebbles." />
-  <meta name="theme-color" content="#f4a623" />
-
-  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title> Math Visualizer     – Saffron Edition</title>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&amp;host=ca-host-pub-1556223355139109"></script>
+<meta content="A   interactive math visualizer for arithmetic, factorials, permutations, combinations, repeated elements, and powers using pebbles." name="description"/>
+<meta content="#0b67b2" name="theme-color"/>
+<script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+<style>
     :root {
       --bg-light: #fff7e0;
       --bg-card: #fffaf0;
@@ -764,302 +763,274 @@
     .animate-pop { animation: popPebble .35s ease-out forwards; }
     .animate-pulse-once { animation: pulseHighlight .7s ease-out 1; }
   </style>
-</head>
-<body>
-  <div class="wrapper">
-    <section class="hero">
-      <div class="avatar-wrap" aria-hidden="true">
-        <div class="avatar-ring"></div>
-        <img alt="Champak Roy / Brand" src="https://programmer-s-picnic.github.io/json-images/mee.jpg" class="avatar" />
-      </div>
-      <div>
-        <h1 data-pp-speak-title id="speak0">🪨  Math Visualizer        </h1>
-        <p id="speak1">A stronger teaching version of the pebble model. This edition improves clarity, mobile usability, instructional depth, and conceptual honesty. It now distinguishes physical intuition from formal mathematics, adds better summaries, supports step-by-step views, and keeps your last-opened tab.</p>
-        <div class="hero-badges">
-          <span class="badge">Interactive learning</span>
-          <span class="badge">Concept-first explanations</span>
-          <span class="badge">Saffron UI</span>
-          <span class="badge">Speak-tag ready</span>
-        </div>
-      </div>
-    </section>
-
-    <main class="card" aria-label="Math visualizer">
-      <div class="top-toolbar">
-        <div class="toolbar-group">
-          <label class="toggle-pill" for="stepModeToggle">
-            <input type="checkbox" id="stepModeToggle" />
+<link href="../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../"><div data-root="../../" id="site-header"></div>
+<div class="wrapper">
+<section class="hero">
+<div aria-hidden="true" class="avatar-wrap">
+<div class="avatar-ring"></div>
+<img alt="Champak Roy / Brand" class="avatar" src="https://programmer-s-picnic.github.io/json-images/mee.jpg"/>
+</div>
+<div>
+<h1 data-pp-speak-title="" id="speak0">🪨  Math Visualizer        </h1>
+<p id="speak1">A stronger teaching version of the pebble model. This edition improves clarity, mobile usability, instructional depth, and conceptual honesty. It now distinguishes physical intuition from formal mathematics, adds better summaries, supports step-by-step views, and keeps your last-opened tab.</p>
+<div class="hero-badges">
+<span class="badge">Interactive learning</span>
+<span class="badge">Concept-first explanations</span>
+<span class="badge">Saffron UI</span>
+<span class="badge">Speak-tag ready</span>
+</div>
+</div>
+</section>
+<main aria-label="Math visualizer" class="card" id="main-content">
+<div class="top-toolbar">
+<div class="toolbar-group">
+<label class="toggle-pill" for="stepModeToggle">
+<input id="stepModeToggle" type="checkbox"/>
             Show step-by-step where supported
           </label>
-          <label class="toggle-pill" for="subModeSelect">
+<label class="toggle-pill" for="subModeSelect">
             Subtraction mode
-            <select id="subModeSelect" aria-label="Subtraction mode">
-              <option value="positive-only">+ve only</option>
-              <option value="signed">+ve and -ve</option>
-            </select>
-          </label>
-        </div>
-        <div class="status-box" id="lastTabStatus" aria-live="polite">Ready.</div>
-      </div>
-
-      <div class="legend" aria-label="Legend">
-        <span class="legend-item"><span class="pebble" style="width:14px;height:14px;"></span> normal pebble</span>
-        <span class="legend-item"><span class="pebble pebble-result" style="width:14px;height:14px;"></span> highlighted / selected</span>
-        <span class="legend-item"><span class="pebble pebble-muted" style="width:14px;height:14px;"></span> empty slot / removed</span>
-        <span class="legend-item"><span class="pebble pebble-negative" style="width:14px;height:14px;">−</span> negative pebble</span>
-        <span class="legend-item"><span class="pebble pebble-remainder" style="width:14px;height:14px;">R</span> remainder</span>
-      </div>
-
-      <div class="tabs" role="tablist" aria-label="Math topics">
-        <button class="tab-btn active" data-tab="add" role="tab" aria-selected="true" aria-controls="tab-add" id="tab-btn-add"><span aria-hidden="true">➕</span> Addition</button>
-        <button class="tab-btn" data-tab="sub" role="tab" aria-selected="false" aria-controls="tab-sub" id="tab-btn-sub"><span aria-hidden="true">➖</span> Subtraction</button>
-        <button class="tab-btn" data-tab="mul" role="tab" aria-selected="false" aria-controls="tab-mul" id="tab-btn-mul"><span aria-hidden="true">✖️</span> Multiplication</button>
-        <button class="tab-btn" data-tab="div" role="tab" aria-selected="false" aria-controls="tab-div" id="tab-btn-div"><span aria-hidden="true">➗</span> Division</button>
-        <button class="tab-btn" data-tab="fact" role="tab" aria-selected="false" aria-controls="tab-fact" id="tab-btn-fact"><span aria-hidden="true">!</span> Factorial</button>
-        <button class="tab-btn" data-tab="perm" role="tab" aria-selected="false" aria-controls="tab-perm" id="tab-btn-perm"><span aria-hidden="true">🔀</span> Permutations</button>
-        <button class="tab-btn" data-tab="comb" role="tab" aria-selected="false" aria-controls="tab-comb" id="tab-btn-comb"><span aria-hidden="true">🎯</span> Combinations</button>
-        <button class="tab-btn" data-tab="pow" role="tab" aria-selected="false" aria-controls="tab-pow" id="tab-btn-pow"><span aria-hidden="true">🌿</span> Powers</button>
-      </div>
-
-      <!-- ADDITION -->
-      <section class="tab-content active" id="tab-add" role="tabpanel" aria-labelledby="tab-btn-add">
-        <div class="panel-shell">
-          <div class="section-head">
-            <div>
-              <h2 id="speak10">Addition as joining piles</h2>
-              <p id="speak11">Addition is the most concrete pebble action: take one pile, add another pile, and count the total.     can also show the merge in stages.</p>
-            </div>
-          </div>
-
-          <div class="controls">
-            <div class="control-group">
-              <label for="add-a">a (first pile)</label>
-              <input type="number" id="add-a" min="0" max="40" value="3" />
-            </div>
-            <div class="control-group">
-              <label for="add-b">b (second pile)</label>
-              <input type="number" id="add-b" min="0" max="40" value="4" />
-            </div>
-            <button class="btn-primary" id="btn-add">Visualize ➕</button>
-            <button class="btn-secondary" id="btn-add-reset">Reset</button>
-          </div>
-
-          <div class="hint" id="speak12">Strongest idea: addition means combining quantities. Step mode shows the story in three parts: first pile, second pile, then total.</div>
-          <div class="visual-area" id="vis-add"></div>
-        </div>
-      </section>
-
-      <!-- SUBTRACTION -->
-      <section class="tab-content" id="tab-sub" role="tabpanel" aria-labelledby="tab-btn-sub">
-        <div class="panel-shell">
-          <div class="section-head">
-            <div>
-              <h2 id="speak20">Subtraction as removing pebbles</h2>
-              <p id="speak21">This section now separates two learning modes: +ve only, where the visual model stops at zero, and +ve and -ve, where extra removal is shown using negative pebbles.</p>
-            </div>
-          </div>
-
-          <div class="controls">
-            <div class="control-group">
-              <label for="sub-a">a (starting pile)</label>
-              <input type="number" id="sub-a" min="0" max="40" value="7" />
-            </div>
-            <div class="control-group">
-              <label for="sub-b">b (remove this many)</label>
-              <input type="number" id="sub-b" min="0" max="40" value="3" />
-            </div>
-            <button class="btn-primary" id="btn-sub">Visualize ➖</button>
-            <button class="btn-secondary" id="btn-sub-reset">Reset</button>
-          </div>
-
-          <div class="hint" id="speak22">+ve only is best for beginners. +ve and -ve helps bridge toward integers and negative results.</div>
-          <div class="visual-area" id="vis-sub"></div>
-        </div>
-      </section>
-
-      <!-- MULTIPLICATION -->
-      <section class="tab-content" id="tab-mul" role="tabpanel" aria-labelledby="tab-btn-mul">
-        <div class="panel-shell">
-          <div class="section-head">
-            <div>
-              <h2 id="speak30">Multiplication as repeated groups</h2>
-              <p id="speak31">Multiplication is shown both as rows and as repeated addition. This makes the array model and the arithmetic model support each other.</p>
-            </div>
-          </div>
-
-          <div class="controls">
-            <div class="control-group">
-              <label for="mul-a">a (pebbles per row)</label>
-              <input type="number" id="mul-a" min="0" max="18" value="4" />
-            </div>
-            <div class="control-group">
-              <label for="mul-b">b (number of rows)</label>
-              <input type="number" id="mul-b" min="0" max="18" value="3" />
-            </div>
-            <div class="control-group">
-              <label for="mul-view">view</label>
-              <select id="mul-view">
-                <option value="both">Rows + repeated addition</option>
-                <option value="rows">Rows only</option>
-                <option value="repeat">Repeated addition only</option>
-              </select>
-            </div>
-            <button class="btn-primary" id="btn-mul">Visualize ✖️</button>
-            <button class="btn-secondary" id="btn-mul-reset">Reset</button>
-          </div>
-
-          <div class="hint" id="speak32">Key idea: a × b can be read as b rows of a, or a added to itself b times.</div>
-          <div class="visual-area" id="vis-mul"></div>
-        </div>
-      </section>
-
-      <!-- DIVISION -->
-      <section class="tab-content" id="tab-div" role="tabpanel" aria-labelledby="tab-btn-div">
-        <div class="panel-shell">
-          <div class="section-head">
-            <div>
-              <h2 id="speak40">Division as equal grouping</h2>
-              <p id="speak41">Division now emphasizes the inverse link with multiplication and highlights the remainder more clearly.</p>
-            </div>
-          </div>
-
-          <div class="controls">
-            <div class="control-group">
-              <label for="div-a">a (total pebbles)</label>
-              <input type="number" id="div-a" min="0" max="72" value="14" />
-            </div>
-            <div class="control-group">
-              <label for="div-b">b (pebbles per group)</label>
-              <input type="number" id="div-b" min="0" max="20" value="3" />
-            </div>
-            <button class="btn-primary" id="btn-div">Visualize ÷</button>
-            <button class="btn-secondary" id="btn-div-reset">Reset</button>
-          </div>
-
-          <div class="hint" id="speak42">The quotient counts full groups. The remainder is what cannot be packed into one more full group.</div>
-          <div class="visual-area" id="vis-div"></div>
-        </div>
-      </section>
-
-      <!-- FACTORIAL -->
-      <section class="tab-content" id="tab-fact" role="tabpanel" aria-labelledby="tab-btn-fact">
-        <div class="panel-shell">
-          <div class="section-head">
-            <div>
-              <h2 id="speak50">Factorial as growing arrangements</h2>
-              <p id="speak51">This builds 1!, 2!, 3!, and 4! by inserting the new pebble into every slot. Each stage now includes clearer summaries.</p>
-            </div>
-          </div>
-
-          <div class="controls">
-            <div class="control-group">
-              <label for="fact-n">n (distinct pebbles)</label>
-              <input type="number" id="fact-n" min="0" max="8" value="4" />
-            </div>
-            <button class="btn-primary" id="btn-fact">Build factorial stages</button>
-            <button class="btn-secondary" id="btn-fact-reset">Reset</button>
-          </div>
-
-          <div class="hint" id="speak52">Interpretation: n! is the number of ways to arrange n distinct things in order.</div>
-          <div class="visual-area" id="vis-fact"></div>
-        </div>
-      </section>
-
-      <!-- PERMUTATIONS -->
-      <section class="tab-content" id="tab-perm" role="tabpanel" aria-labelledby="tab-btn-perm">
-        <div class="panel-shell">
-          <div class="section-head">
-            <div>
-              <h2 id="speak60">Permutations as ordered arrangements</h2>
-              <p id="speak61">This now explicitly states the difference from combinations: in permutations, order matters.</p>
-            </div>
-          </div>
-
-          <div class="controls">
-            <div class="control-group">
-              <label for="perm-n">n (distinct pebbles)</label>
-              <input type="number" id="perm-n" min="0" max="8" value="3" />
-            </div>
-            <div class="control-group" style="min-width:220px;">
-              <label for="perm-elements">repeated elements (e.g. AABC or A,A,B,C) — not just a number</label>
-              <input type="text" id="perm-elements" value="" placeholder="Examples: AABC or A,A,B,C" />
-              <div class="parse-helper">  input help: type symbols or comma-separated labels. Example: AABC gives A×2, B×1, C×1.</div>
-              <div class="parse-preview" id="perm-preview" aria-live="polite"></div>
-            </div>
-            <button class="btn-primary" id="btn-perm">Show permutations</button>
-            <button class="btn-secondary" id="btn-perm-reset">Reset</button>
-          </div>
-
-          <div class="hint" id="speak62">Example: 1,2,3 and 3,2,1 are different permutations because the order changed. If some elements repeat, only unique orders are counted.</div>
-          <div class="visual-area" id="vis-perm"></div>
-        </div>
-      </section>
-
-      <!-- COMBINATIONS -->
-      <section class="tab-content" id="tab-comb" role="tabpanel" aria-labelledby="tab-btn-comb">
-        <div class="panel-shell">
-          <div class="section-head">
-            <div>
-              <h2 id="speak70">Combinations as choosing without order</h2>
-              <p id="speak71">This version makes the no-order rule more explicit and adds the factorial formula directly to the explanation.</p>
-            </div>
-          </div>
-
-          <div class="controls">
-            <div class="control-group">
-              <label for="comb-n">n (total pebbles)</label>
-              <input type="number" id="comb-n" min="0" max="15" value="5" />
-            </div>
-            <div class="control-group">
-              <label for="comb-k">k (selected pebbles)</label>
-              <input type="number" id="comb-k" min="0" max="15" value="3" />
-            </div>
-            <div class="control-group" style="min-width:220px;">
-              <label for="comb-elements">repeated elements (e.g. AABC or A,A,B,C) — not just a number</label>
-              <input type="text" id="comb-elements" value="" placeholder="Examples: AABC or A,A,B,C" />
-              <div class="parse-helper">  input help: order will be ignored here, but available copies still matter.</div>
-              <div class="parse-preview" id="comb-preview" aria-live="polite"></div>
-            </div>
-            <button class="btn-primary" id="btn-comb">Visualize C(n, k)</button>
-            <button class="btn-secondary" id="btn-comb-reset">Reset</button>
-          </div>
-
-          <div class="hint" id="speak72">If order does not matter, {1,4,5} and {5,1,4} count as the same choice. With repeated elements, only unique selections allowed by available counts are kept.</div>
-          <div class="visual-area" id="vis-comb"></div>
-        </div>
-      </section>
-
-      <!-- POWERS -->
-      <section class="tab-content" id="tab-pow" role="tabpanel" aria-labelledby="tab-btn-pow">
-        <div class="panel-shell">
-          <div class="section-head">
-            <div>
-              <h2 id="speak80">Powers as repeated choice or repeated multiplication</h2>
-              <p id="speak81">This connects exponentiation to both choice trees and repeated multiplication so the symbol a^b feels less mysterious.</p>
-            </div>
-          </div>
-
-          <div class="controls">
-            <div class="control-group">
-              <label for="pow-a">a (choices each step)</label>
-              <input type="number" id="pow-a" min="0" max="8" value="3" />
-            </div>
-            <div class="control-group">
-              <label for="pow-b">b (steps / positions)</label>
-              <input type="number" id="pow-b" min="0" max="8" value="2" />
-            </div>
-            <button class="btn-primary" id="btn-pow">Visualize a^b</button>
-            <button class="btn-secondary" id="btn-pow-reset">Reset</button>
-          </div>
-
-          <div class="hint" id="speak82">Interpret it in two ways: a multiplied by itself b times, or b positions each with a choices.</div>
-          <div class="visual-area" id="vis-pow"></div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script>
+            <select aria-label="Subtraction mode" id="subModeSelect">
+<option value="positive-only">+ve only</option>
+<option value="signed">+ve and -ve</option>
+</select>
+</label>
+</div>
+<div aria-live="polite" class="status-box" id="lastTabStatus">Ready.</div>
+</div>
+<div aria-label="Legend" class="legend">
+<span class="legend-item"><span class="pebble" style="width:14px;height:14px;"></span> normal pebble</span>
+<span class="legend-item"><span class="pebble pebble-result" style="width:14px;height:14px;"></span> highlighted / selected</span>
+<span class="legend-item"><span class="pebble pebble-muted" style="width:14px;height:14px;"></span> empty slot / removed</span>
+<span class="legend-item"><span class="pebble pebble-negative" style="width:14px;height:14px;">−</span> negative pebble</span>
+<span class="legend-item"><span class="pebble pebble-remainder" style="width:14px;height:14px;">R</span> remainder</span>
+</div>
+<div aria-label="Math topics" class="tabs" role="tablist">
+<button aria-controls="tab-add" aria-selected="true" class="tab-btn active" data-tab="add" id="tab-btn-add" role="tab"><span aria-hidden="true">➕</span> Addition</button>
+<button aria-controls="tab-sub" aria-selected="false" class="tab-btn" data-tab="sub" id="tab-btn-sub" role="tab"><span aria-hidden="true">➖</span> Subtraction</button>
+<button aria-controls="tab-mul" aria-selected="false" class="tab-btn" data-tab="mul" id="tab-btn-mul" role="tab"><span aria-hidden="true">✖️</span> Multiplication</button>
+<button aria-controls="tab-div" aria-selected="false" class="tab-btn" data-tab="div" id="tab-btn-div" role="tab"><span aria-hidden="true">➗</span> Division</button>
+<button aria-controls="tab-fact" aria-selected="false" class="tab-btn" data-tab="fact" id="tab-btn-fact" role="tab"><span aria-hidden="true">!</span> Factorial</button>
+<button aria-controls="tab-perm" aria-selected="false" class="tab-btn" data-tab="perm" id="tab-btn-perm" role="tab"><span aria-hidden="true">🔀</span> Permutations</button>
+<button aria-controls="tab-comb" aria-selected="false" class="tab-btn" data-tab="comb" id="tab-btn-comb" role="tab"><span aria-hidden="true">🎯</span> Combinations</button>
+<button aria-controls="tab-pow" aria-selected="false" class="tab-btn" data-tab="pow" id="tab-btn-pow" role="tab"><span aria-hidden="true">🌿</span> Powers</button>
+</div>
+<!-- ADDITION -->
+<section aria-labelledby="tab-btn-add" class="tab-content active" id="tab-add" role="tabpanel">
+<div class="panel-shell">
+<div class="section-head">
+<div>
+<h2 id="speak10">Addition as joining piles</h2>
+<p id="speak11">Addition is the most concrete pebble action: take one pile, add another pile, and count the total.     can also show the merge in stages.</p>
+</div>
+</div>
+<div class="controls">
+<div class="control-group">
+<label for="add-a">a (first pile)</label>
+<input id="add-a" max="40" min="0" type="number" value="3"/>
+</div>
+<div class="control-group">
+<label for="add-b">b (second pile)</label>
+<input id="add-b" max="40" min="0" type="number" value="4"/>
+</div>
+<button class="btn-primary" id="btn-add">Visualize ➕</button>
+<button class="btn-secondary" id="btn-add-reset">Reset</button>
+</div>
+<div class="hint" id="speak12">Strongest idea: addition means combining quantities. Step mode shows the story in three parts: first pile, second pile, then total.</div>
+<div class="visual-area" id="vis-add"></div>
+</div>
+</section>
+<!-- SUBTRACTION -->
+<section aria-labelledby="tab-btn-sub" class="tab-content" id="tab-sub" role="tabpanel">
+<div class="panel-shell">
+<div class="section-head">
+<div>
+<h2 id="speak20">Subtraction as removing pebbles</h2>
+<p id="speak21">This section now separates two learning modes: +ve only, where the visual model stops at zero, and +ve and -ve, where extra removal is shown using negative pebbles.</p>
+</div>
+</div>
+<div class="controls">
+<div class="control-group">
+<label for="sub-a">a (starting pile)</label>
+<input id="sub-a" max="40" min="0" type="number" value="7"/>
+</div>
+<div class="control-group">
+<label for="sub-b">b (remove this many)</label>
+<input id="sub-b" max="40" min="0" type="number" value="3"/>
+</div>
+<button class="btn-primary" id="btn-sub">Visualize ➖</button>
+<button class="btn-secondary" id="btn-sub-reset">Reset</button>
+</div>
+<div class="hint" id="speak22">+ve only is best for beginners. +ve and -ve helps bridge toward integers and negative results.</div>
+<div class="visual-area" id="vis-sub"></div>
+</div>
+</section>
+<!-- MULTIPLICATION -->
+<section aria-labelledby="tab-btn-mul" class="tab-content" id="tab-mul" role="tabpanel">
+<div class="panel-shell">
+<div class="section-head">
+<div>
+<h2 id="speak30">Multiplication as repeated groups</h2>
+<p id="speak31">Multiplication is shown both as rows and as repeated addition. This makes the array model and the arithmetic model support each other.</p>
+</div>
+</div>
+<div class="controls">
+<div class="control-group">
+<label for="mul-a">a (pebbles per row)</label>
+<input id="mul-a" max="18" min="0" type="number" value="4"/>
+</div>
+<div class="control-group">
+<label for="mul-b">b (number of rows)</label>
+<input id="mul-b" max="18" min="0" type="number" value="3"/>
+</div>
+<div class="control-group">
+<label for="mul-view">view</label>
+<select id="mul-view">
+<option value="both">Rows + repeated addition</option>
+<option value="rows">Rows only</option>
+<option value="repeat">Repeated addition only</option>
+</select>
+</div>
+<button class="btn-primary" id="btn-mul">Visualize ✖️</button>
+<button class="btn-secondary" id="btn-mul-reset">Reset</button>
+</div>
+<div class="hint" id="speak32">Key idea: a × b can be read as b rows of a, or a added to itself b times.</div>
+<div class="visual-area" id="vis-mul"></div>
+</div>
+</section>
+<!-- DIVISION -->
+<section aria-labelledby="tab-btn-div" class="tab-content" id="tab-div" role="tabpanel">
+<div class="panel-shell">
+<div class="section-head">
+<div>
+<h2 id="speak40">Division as equal grouping</h2>
+<p id="speak41">Division now emphasizes the inverse link with multiplication and highlights the remainder more clearly.</p>
+</div>
+</div>
+<div class="controls">
+<div class="control-group">
+<label for="div-a">a (total pebbles)</label>
+<input id="div-a" max="72" min="0" type="number" value="14"/>
+</div>
+<div class="control-group">
+<label for="div-b">b (pebbles per group)</label>
+<input id="div-b" max="20" min="0" type="number" value="3"/>
+</div>
+<button class="btn-primary" id="btn-div">Visualize ÷</button>
+<button class="btn-secondary" id="btn-div-reset">Reset</button>
+</div>
+<div class="hint" id="speak42">The quotient counts full groups. The remainder is what cannot be packed into one more full group.</div>
+<div class="visual-area" id="vis-div"></div>
+</div>
+</section>
+<!-- FACTORIAL -->
+<section aria-labelledby="tab-btn-fact" class="tab-content" id="tab-fact" role="tabpanel">
+<div class="panel-shell">
+<div class="section-head">
+<div>
+<h2 id="speak50">Factorial as growing arrangements</h2>
+<p id="speak51">This builds 1!, 2!, 3!, and 4! by inserting the new pebble into every slot. Each stage now includes clearer summaries.</p>
+</div>
+</div>
+<div class="controls">
+<div class="control-group">
+<label for="fact-n">n (distinct pebbles)</label>
+<input id="fact-n" max="8" min="0" type="number" value="4"/>
+</div>
+<button class="btn-primary" id="btn-fact">Build factorial stages</button>
+<button class="btn-secondary" id="btn-fact-reset">Reset</button>
+</div>
+<div class="hint" id="speak52">Interpretation: n! is the number of ways to arrange n distinct things in order.</div>
+<div class="visual-area" id="vis-fact"></div>
+</div>
+</section>
+<!-- PERMUTATIONS -->
+<section aria-labelledby="tab-btn-perm" class="tab-content" id="tab-perm" role="tabpanel">
+<div class="panel-shell">
+<div class="section-head">
+<div>
+<h2 id="speak60">Permutations as ordered arrangements</h2>
+<p id="speak61">This now explicitly states the difference from combinations: in permutations, order matters.</p>
+</div>
+</div>
+<div class="controls">
+<div class="control-group">
+<label for="perm-n">n (distinct pebbles)</label>
+<input id="perm-n" max="8" min="0" type="number" value="3"/>
+</div>
+<div class="control-group" style="min-width:220px;">
+<label for="perm-elements">repeated elements (e.g. AABC or A,A,B,C) — not just a number</label>
+<input id="perm-elements" placeholder="Examples: AABC or A,A,B,C" type="text" value=""/>
+<div class="parse-helper">  input help: type symbols or comma-separated labels. Example: AABC gives A×2, B×1, C×1.</div>
+<div aria-live="polite" class="parse-preview" id="perm-preview"></div>
+</div>
+<button class="btn-primary" id="btn-perm">Show permutations</button>
+<button class="btn-secondary" id="btn-perm-reset">Reset</button>
+</div>
+<div class="hint" id="speak62">Example: 1,2,3 and 3,2,1 are different permutations because the order changed. If some elements repeat, only unique orders are counted.</div>
+<div class="visual-area" id="vis-perm"></div>
+</div>
+</section>
+<!-- COMBINATIONS -->
+<section aria-labelledby="tab-btn-comb" class="tab-content" id="tab-comb" role="tabpanel">
+<div class="panel-shell">
+<div class="section-head">
+<div>
+<h2 id="speak70">Combinations as choosing without order</h2>
+<p id="speak71">This version makes the no-order rule more explicit and adds the factorial formula directly to the explanation.</p>
+</div>
+</div>
+<div class="controls">
+<div class="control-group">
+<label for="comb-n">n (total pebbles)</label>
+<input id="comb-n" max="15" min="0" type="number" value="5"/>
+</div>
+<div class="control-group">
+<label for="comb-k">k (selected pebbles)</label>
+<input id="comb-k" max="15" min="0" type="number" value="3"/>
+</div>
+<div class="control-group" style="min-width:220px;">
+<label for="comb-elements">repeated elements (e.g. AABC or A,A,B,C) — not just a number</label>
+<input id="comb-elements" placeholder="Examples: AABC or A,A,B,C" type="text" value=""/>
+<div class="parse-helper">  input help: order will be ignored here, but available copies still matter.</div>
+<div aria-live="polite" class="parse-preview" id="comb-preview"></div>
+</div>
+<button class="btn-primary" id="btn-comb">Visualize C(n, k)</button>
+<button class="btn-secondary" id="btn-comb-reset">Reset</button>
+</div>
+<div class="hint" id="speak72">If order does not matter, {1,4,5} and {5,1,4} count as the same choice. With repeated elements, only unique selections allowed by available counts are kept.</div>
+<div class="visual-area" id="vis-comb"></div>
+</div>
+</section>
+<!-- POWERS -->
+<section aria-labelledby="tab-btn-pow" class="tab-content" id="tab-pow" role="tabpanel">
+<div class="panel-shell">
+<div class="section-head">
+<div>
+<h2 id="speak80">Powers as repeated choice or repeated multiplication</h2>
+<p id="speak81">This connects exponentiation to both choice trees and repeated multiplication so the symbol a^b feels less mysterious.</p>
+</div>
+</div>
+<div class="controls">
+<div class="control-group">
+<label for="pow-a">a (choices each step)</label>
+<input id="pow-a" max="8" min="0" type="number" value="3"/>
+</div>
+<div class="control-group">
+<label for="pow-b">b (steps / positions)</label>
+<input id="pow-b" max="8" min="0" type="number" value="2"/>
+</div>
+<button class="btn-primary" id="btn-pow">Visualize a^b</button>
+<button class="btn-secondary" id="btn-pow-reset">Reset</button>
+</div>
+<div class="hint" id="speak82">Interpret it in two ways: a multiplied by itself b times, or b positions each with a choices.</div>
+<div class="visual-area" id="vis-pow"></div>
+</div>
+</section>
+</main>
+</div>
+<script>
     (() => {
       "use strict";
 
@@ -2346,5 +2317,5 @@
       init();
     })();
   </script>
-</body>
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>

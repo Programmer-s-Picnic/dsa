@@ -1,11 +1,11 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Sorting Algorithm Identifier | Programmer's Picnic</title>
+<!DOCTYPE html>
 
-    <style>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Sorting Algorithm Identifier | Programmer's Picnic</title>
+<style>
       :root {
         --bg: #fffaf0;
         --bg2: #fff4d6;
@@ -210,110 +210,95 @@
         outline: 4px solid rgba(245, 158, 11, 0.35);
       }
     </style>
-  </head>
-
-  <body>
-    <div class="wrap">
-      <div class="hero">
-        <h1>Sorting Algorithm Identifier —</h1>
-        <p class="subtitle">
+<link href="../../assets/css/theme.css" rel="stylesheet"/><meta content="Sorting Algorithm Identifier - practical learning page from DSA with Champak." name="description"/></head>
+<body data-root="../../"><div data-root="../../" id="site-header"></div><div id="main-content"></div>
+<div class="wrap">
+<div class="hero">
+<h1>Sorting Algorithm Identifier —</h1>
+<p class="subtitle">
           Paste the array changes step by step. This page checks whether the
           pattern looks like Bubble Sort, Selection Sort, Insertion Sort,
           Counting Sort, or Radix Sort.
         </p>
-
-        <div class="controls">
-          <select id="exampleSelect"></select>
-          <button onclick="loadExample(1)">Load Example</button>
-          <button class="secondary" onclick="identify()">
+<div class="controls">
+<select id="exampleSelect"></select>
+<button onclick="loadExample(1)">Load Example</button>
+<button class="secondary" onclick="identify()">
             Identify Algorithm
           </button>
-          <button class="secondary" onclick="playAnimation()">
+<button class="secondary" onclick="playAnimation()">
             Play Animation
           </button>
-          <button class="secondary" onclick="clearInput()">Clear</button>
-        </div>
-
-        <textarea id="input">
+<button class="secondary" onclick="clearInput()">Clear</button>
+</div>
+<textarea id="input">
 Start:  [5, 1, 4, 2, 8]
 Pass 1: [1, 4, 2, 5, 8]
 Pass 2: [1, 2, 4, 5, 8]
-Pass 3: [1, 2, 4, 5, 8]</textarea
-        >
-
-        <div class="grid">
-          <div class="card">
-            <h2>Detected Algorithm</h2>
-            <div id="result" class="result">Bubble Sort</div>
-            <p id="reason" class="subtitle"></p>
-            <div id="badges"></div>
-          </div>
-
-          <div class="card">
-            <h2>Confidence Scores</h2>
-            <div id="scores"></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>Step Visualization</h2>
-          <div id="viz"></div>
-        </div>
-
-        <div class="card">
-          <h2>Example Library</h2>
-          <div id="exampleList"></div>
-        </div>
-
-        <div class="card">
-          <h2>Help Section</h2>
-
-          <details open>
-            <summary>How to enter data</summary>
-            <p class="subtitle">
+Pass 3: [1, 2, 4, 5, 8]</textarea>
+<div class="grid">
+<div class="card">
+<h2>Detected Algorithm</h2>
+<div class="result" id="result">Bubble Sort</div>
+<p class="subtitle" id="reason"></p>
+<div id="badges"></div>
+</div>
+<div class="card">
+<h2>Confidence Scores</h2>
+<div id="scores"></div>
+</div>
+</div>
+<div class="card">
+<h2>Step Visualization</h2>
+<div id="viz"></div>
+</div>
+<div class="card">
+<h2>Example Library</h2>
+<div id="exampleList"></div>
+</div>
+<div class="card">
+<h2>Help Section</h2>
+<details open="">
+<summary>How to enter data</summary>
+<p class="subtitle">
               Write one array per line. The label can be anything, but the array
               must be inside square brackets.
             </p>
-            <pre>
+<pre>
 Start:  [5, 1, 4, 2, 8]
 Pass 1: [1, 4, 2, 5, 8]
-Pass 2: [1, 2, 4, 5, 8]</pre
-            >
-          </details>
-
-          <details>
-            <summary>How detection works</summary>
-            <p class="subtitle">
+Pass 2: [1, 2, 4, 5, 8]</pre>
+</details>
+<details>
+<summary>How detection works</summary>
+<p class="subtitle">
               The tool simulates each sorting algorithm from the starting array
               and compares its generated passes with the passes entered by the
               user. The closest match gets the highest score.
             </p>
-          </details>
-
-          <details>
-            <summary>Important limitations</summary>
-            <p class="subtitle">
+</details>
+<details>
+<summary>Important limitations</summary>
+<p class="subtitle">
               Some algorithms can produce the same intermediate array for small
               inputs. In that case, the page shows the best match with
               confidence scores. More passes usually improve accuracy.
             </p>
-          </details>
-
-          <details>
-            <summary>Supported algorithms</summary>
-            <p>
-              <span class="badge">Bubble Sort</span>
-              <span class="badge">Selection Sort</span>
-              <span class="badge">Insertion Sort</span>
-              <span class="badge">Counting Sort</span>
-              <span class="badge">Radix Sort</span>
-            </p>
-          </details>
-        </div>
-      </div>
-    </div>
-
-    <script>
+</details>
+<details>
+<summary>Supported algorithms</summary>
+<p>
+<span class="badge">Bubble Sort</span>
+<span class="badge">Selection Sort</span>
+<span class="badge">Insertion Sort</span>
+<span class="badge">Counting Sort</span>
+<span class="badge">Radix Sort</span>
+</p>
+</details>
+</div>
+</div>
+</div>
+<script>
       const EXAMPLES = [
         {
           name: "Bubble Sort Example 1",
@@ -647,5 +632,5 @@ Pass 3: [329, 355, 436, 457, 657, 720, 839]`,
       initExamples();
       identify();
     </script>
-  </body>
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>

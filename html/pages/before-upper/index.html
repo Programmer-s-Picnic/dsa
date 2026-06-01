@@ -1,14 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>CSS :root, ::before, ::after and All :: Pseudo Elements | Level 0 to Infinity</title>
-
-  <meta name="description" content="A complete beginner to advanced CSS lesson on :root, ::before, ::after, pseudo-classes and all important :: pseudo-elements." />
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CSS :root, ::before, ::after and All :: Pseudo Elements | Level 0 to Infinity</title>
+<meta content="A complete beginner to advanced CSS lesson on :root, ::before, ::after, pseudo-classes and all important :: pseudo-elements." name="description"/>
+<style>
     :root {
       --bg: #fff7ed;
       --bg2: #ffedd5;
@@ -765,95 +763,80 @@
       }
     }
   </style>
-</head>
-
-<body id="top">
-  <a class="top-link" href="#top"><span>Back to top</span></a>
-
-  <header class="page hero">
-    <div class="brand">Programmers Picnic by Champak Roy</div>
-
-    <h1>CSS <span>:root</span>, <span>::before</span>, <span>::after</span> and All Important <span>::</span> Pseudo Elements</h1>
-
-    <p class="subtitle">
+<link href="../../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../../" id="top"><div data-root="../../../" id="site-header"></div>
+<a class="top-link" href="#top"><span>Back to top</span></a>
+<header class="page hero">
+<div class="brand">Programmers Picnic by Champak Roy</div>
+<h1>CSS <span>:root</span>, <span>::before</span>, <span>::after</span> and All Important <span>::</span> Pseudo Elements</h1>
+<p class="subtitle">
       A complete Level 0 to Infinity lesson for total beginners. We will start with ordinary CSS selectors, then learn
       CSS variables, pseudo-classes, pseudo-elements, decorations, badges, tooltips, forms, lists, selections, dialogs,
       and professional design patterns.
     </p>
-
-    <div class="hero-actions">
-      <a class="btn" href="#level0">Start from Level 0</a>
-      <a class="btn secondary" href="#reference">Jump to :: Reference</a>
-    </div>
-  </header>
-
-  <main class="page layout">
-    <nav class="toc">
-      <h2>Lesson Map</h2>
-      <a href="#level0">0. What is CSS?</a>
-      <a href="#selectors">1. Selectors</a>
-      <a href="#root">2. :root</a>
-      <a href="#variables">3. CSS Variables</a>
-      <a href="#pseudo-class">4. Pseudo-classes</a>
-      <a href="#pseudo-element">5. Pseudo-elements</a>
-      <a href="#before-after">6. ::before and ::after</a>
-      <a href="#content">7. content property</a>
-      <a href="#decorations">8. Decorations</a>
-      <a href="#all-tags">9. All :: pseudo-elements</a>
-      <a href="#forms">10. Forms</a>
-      <a href="#tooltip">11. Tooltips</a>
-      <a href="#mistakes">12. Common mistakes</a>
-      <a href="#projects">13. Mini projects</a>
-      <a href="#reference">14. Final reference</a>
-      <a href="#assignments">15. Assignments</a>
-    </nav>
-
-    <div>
-      <section id="level0">
-        <h2>0. Level 0: What is CSS?</h2>
-
-        <p>
+<div class="hero-actions">
+<a class="btn" href="#level0">Start from Level 0</a>
+<a class="btn secondary" href="#reference">Jump to :: Reference</a>
+</div>
+</header>
+<main class="page layout" id="main-content">
+<nav class="toc">
+<h2>Lesson Map</h2>
+<a href="#level0">0. What is CSS?</a>
+<a href="#selectors">1. Selectors</a>
+<a href="#root">2. :root</a>
+<a href="#variables">3. CSS Variables</a>
+<a href="#pseudo-class">4. Pseudo-classes</a>
+<a href="#pseudo-element">5. Pseudo-elements</a>
+<a href="#before-after">6. ::before and ::after</a>
+<a href="#content">7. content property</a>
+<a href="#decorations">8. Decorations</a>
+<a href="#all-tags">9. All :: pseudo-elements</a>
+<a href="#forms">10. Forms</a>
+<a href="#tooltip">11. Tooltips</a>
+<a href="#mistakes">12. Common mistakes</a>
+<a href="#projects">13. Mini projects</a>
+<a href="#reference">14. Final reference</a>
+<a href="#assignments">15. Assignments</a>
+</nav>
+<div>
+<section id="level0">
+<h2>0. Level 0: What is CSS?</h2>
+<p>
           HTML creates the structure of a page. CSS controls the look of the page.
         </p>
-
-        <div class="grid">
-          <div class="mini-card">
-            <h3>HTML</h3>
-            <p>HTML says what exists on the page.</p>
-            <pre data-label="HTML"><code>&lt;h1&gt;Learn CSS&lt;/h1&gt;
+<div class="grid">
+<div class="mini-card">
+<h3>HTML</h3>
+<p>HTML says what exists on the page.</p>
+<pre data-label="HTML"><code>&lt;h1&gt;Learn CSS&lt;/h1&gt;
 &lt;p&gt;CSS makes pages beautiful.&lt;/p&gt;</code></pre>
-          </div>
-
-          <div class="mini-card">
-            <h3>CSS</h3>
-            <p>CSS says how those things should look.</p>
-            <pre data-label="CSS"><code>h1 {
+</div>
+<div class="mini-card">
+<h3>CSS</h3>
+<p>CSS says how those things should look.</p>
+<pre data-label="CSS"><code>h1 {
   color: orange;
 }
 
 p {
   color: #333;
 }</code></pre>
-          </div>
-        </div>
-
-        <p class="success">
+</div>
+</div>
+<p class="success">
           CSS is like the dress, decoration, lighting, spacing, and animation system of a webpage.
         </p>
-      </section>
-
-      <section id="selectors">
-        <h2>1. What is a selector?</h2>
-
-        <p>
+</section>
+<section id="selectors">
+<h2>1. What is a selector?</h2>
+<p>
           A CSS selector selects something from HTML.
         </p>
-
-        <pre data-label="HTML"><code>&lt;h1&gt;Programmers Picnic&lt;/h1&gt;
+<pre data-label="HTML"><code>&lt;h1&gt;Programmers Picnic&lt;/h1&gt;
 &lt;p class="intro"&gt;Learn step by step.&lt;/p&gt;
 &lt;button id="startBtn"&gt;Start&lt;/button&gt;</code></pre>
-
-        <pre data-label="CSS"><code>h1 {
+<pre data-label="CSS"><code>h1 {
   color: orange;
 }
 
@@ -864,76 +847,67 @@ p {
 #startBtn {
   background: orange;
 }</code></pre>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Selector</th>
-              <th>Meaning</th>
-              <th>Example</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>h1</code></td>
-              <td>Selects all h1 tags</td>
-              <td><code>h1 { color: orange; }</code></td>
-            </tr>
-            <tr>
-              <td><code>.intro</code></td>
-              <td>Selects class intro</td>
-              <td><code>.intro { color: brown; }</code></td>
-            </tr>
-            <tr>
-              <td><code>#startBtn</code></td>
-              <td>Selects id startBtn</td>
-              <td><code>#startBtn { background: orange; }</code></td>
-            </tr>
-            <tr>
-              <td><code>:hover</code></td>
-              <td>Selects a state</td>
-              <td><code>button:hover { ... }</code></td>
-            </tr>
-            <tr>
-              <td><code>::before</code></td>
-              <td>Selects a virtual part before content</td>
-              <td><code>h1::before { ... }</code></td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section id="root">
-        <h2>2. What is <code>:root</code>?</h2>
-
-        <p>
-          <code>:root</code> means the top-level element of the webpage. In normal HTML pages, it usually means the
+<table>
+<thead>
+<tr>
+<th>Selector</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>h1</code></td>
+<td>Selects all h1 tags</td>
+<td><code>h1 { color: orange; }</code></td>
+</tr>
+<tr>
+<td><code>.intro</code></td>
+<td>Selects class intro</td>
+<td><code>.intro { color: brown; }</code></td>
+</tr>
+<tr>
+<td><code>#startBtn</code></td>
+<td>Selects id startBtn</td>
+<td><code>#startBtn { background: orange; }</code></td>
+</tr>
+<tr>
+<td><code>:hover</code></td>
+<td>Selects a state</td>
+<td><code>button:hover { ... }</code></td>
+</tr>
+<tr>
+<td><code>::before</code></td>
+<td>Selects a virtual part before content</td>
+<td><code>h1::before { ... }</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="root">
+<h2>2. What is <code>:root</code>?</h2>
+<p>
+<code>:root</code> means the top-level element of the webpage. In normal HTML pages, it usually means the
           <code>&lt;html&gt;</code> element.
         </p>
-
-        <pre data-label="CSS"><code>:root {
+<pre data-label="CSS"><code>:root {
   --primary: #d97706;
   --background: #fff7ed;
   --text: #241407;
 }</code></pre>
-
-        <p>
+<p>
           The most common use of <code>:root</code> is to store CSS variables.
         </p>
-
-        <div class="note">
-          <code>:root</code> uses one colon because it is a pseudo-class, not a pseudo-element.
+<div class="note">
+<code>:root</code> uses one colon because it is a pseudo-class, not a pseudo-element.
         </div>
-      </section>
-
-      <section id="variables">
-        <h2>3. CSS Variables</h2>
-
-        <p>
+</section>
+<section id="variables">
+<h2>3. CSS Variables</h2>
+<p>
           CSS variables are reusable values. You define them once and use them many times.
         </p>
-
-        <pre data-label="CSS"><code>:root {
+<pre data-label="CSS"><code>:root {
   --bg: #fff7ed;
   --card: #ffffff;
   --primary: #d97706;
@@ -954,30 +928,24 @@ body {
 button {
   background: var(--primary);
 }</code></pre>
-
-        <p class="success">
+<p class="success">
           Change the value in one place and the whole design changes everywhere.
         </p>
-
-        <h3>Why professionals use CSS variables</h3>
-
-        <ul class="list-demo">
-          <li>Easy theme control</li>
-          <li>Dark mode and light mode</li>
-          <li>Consistent colors</li>
-          <li>Consistent spacing</li>
-          <li>Better maintainability</li>
-        </ul>
-      </section>
-
-      <section id="pseudo-class">
-        <h2>4. Pseudo-classes use one colon</h2>
-
-        <p>
+<h3>Why professionals use CSS variables</h3>
+<ul class="list-demo">
+<li>Easy theme control</li>
+<li>Dark mode and light mode</li>
+<li>Consistent colors</li>
+<li>Consistent spacing</li>
+<li>Better maintainability</li>
+</ul>
+</section>
+<section id="pseudo-class">
+<h2>4. Pseudo-classes use one colon</h2>
+<p>
           A pseudo-class selects an element in a special state or condition.
         </p>
-
-        <pre data-label="CSS"><code>button:hover {
+<pre data-label="CSS"><code>button:hover {
   background: black;
 }
 
@@ -996,51 +964,47 @@ li:last-child {
 li:nth-child(even) {
   background: #fff7ed;
 }</code></pre>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Pseudo-class</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>:hover</code></td>
-              <td>When mouse is over the element</td>
-            </tr>
-            <tr>
-              <td><code>:focus</code></td>
-              <td>When input or button is focused</td>
-            </tr>
-            <tr>
-              <td><code>:first-child</code></td>
-              <td>Selects the first child</td>
-            </tr>
-            <tr>
-              <td><code>:last-child</code></td>
-              <td>Selects the last child</td>
-            </tr>
-            <tr>
-              <td><code>:nth-child()</code></td>
-              <td>Selects by position or pattern</td>
-            </tr>
-            <tr>
-              <td><code>:root</code></td>
-              <td>Selects the root element</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section id="pseudo-element">
-        <h2>5. Pseudo-elements use double colon</h2>
-
-        <p>
+<table>
+<thead>
+<tr>
+<th>Pseudo-class</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:hover</code></td>
+<td>When mouse is over the element</td>
+</tr>
+<tr>
+<td><code>:focus</code></td>
+<td>When input or button is focused</td>
+</tr>
+<tr>
+<td><code>:first-child</code></td>
+<td>Selects the first child</td>
+</tr>
+<tr>
+<td><code>:last-child</code></td>
+<td>Selects the last child</td>
+</tr>
+<tr>
+<td><code>:nth-child()</code></td>
+<td>Selects by position or pattern</td>
+</tr>
+<tr>
+<td><code>:root</code></td>
+<td>Selects the root element</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pseudo-element">
+<h2>5. Pseudo-elements use double colon</h2>
+<p>
           A pseudo-element selects a special part of an element or creates a virtual part of an element.
         </p>
-
-        <pre data-label="CSS"><code>h1::before {
+<pre data-label="CSS"><code>h1::before {
   content: "Start ";
 }
 
@@ -1055,31 +1019,24 @@ p::first-letter {
 p::first-line {
   font-weight: bold;
 }</code></pre>
-
-        <div class="demo-box">
-          <div class="demo-title">Real Text</div>
-        </div>
-
-        <p>
+<div class="demo-box">
+<div class="demo-title">Real Text</div>
+</div>
+<p>
           In the demo above, the HTML contains only <code>Real Text</code>. The words before and after are added by CSS.
         </p>
-
-        <div class="note">
+<div class="note">
           Pseudo-elements are not real HTML tags. They are CSS-created or CSS-selected parts.
         </div>
-      </section>
-
-      <section id="before-after">
-        <h2>6. Deep lesson: <code>::before</code> and <code>::after</code></h2>
-
-        <p>
-          <code>::before</code> creates a virtual element before the actual content.
+</section>
+<section id="before-after">
+<h2>6. Deep lesson: <code>::before</code> and <code>::after</code></h2>
+<p>
+<code>::before</code> creates a virtual element before the actual content.
           <code>::after</code> creates a virtual element after the actual content.
         </p>
-
-        <pre data-label="HTML"><code>&lt;h2 class="lesson-title"&gt;CSS Lesson&lt;/h2&gt;</code></pre>
-
-        <pre data-label="CSS"><code>.lesson-title::before {
+<pre data-label="HTML"><code>&lt;h2 class="lesson-title"&gt;CSS Lesson&lt;/h2&gt;</code></pre>
+<pre data-label="CSS"><code>.lesson-title::before {
   content: "Start: ";
   color: orange;
 }
@@ -1088,14 +1045,11 @@ p::first-line {
   content: " Done!";
   color: green;
 }</code></pre>
-
-        <h3>Visual example</h3>
-
-        <div class="demo-box">
-          <div class="underline-demo">Professional Heading</div>
-        </div>
-
-        <pre data-label="CSS"><code>.underline-demo::after {
+<h3>Visual example</h3>
+<div class="demo-box">
+<div class="underline-demo">Professional Heading</div>
+</div>
+<pre data-label="CSS"><code>.underline-demo::after {
   content: "";
   display: block;
   height: 6px;
@@ -1104,15 +1058,12 @@ p::first-line {
   border-radius: 999px;
   margin-top: 8px;
 }</code></pre>
-
-        <h3>Badge example</h3>
-
-        <div class="badge-demo">
-          <h3>Python Beginner Course</h3>
-          <p>This card has a badge created by <code>::before</code>. No extra HTML was needed for the badge.</p>
-        </div>
-
-        <pre data-label="CSS"><code>.badge-demo {
+<h3>Badge example</h3>
+<div class="badge-demo">
+<h3>Python Beginner Course</h3>
+<p>This card has a badge created by <code>::before</code>. No extra HTML was needed for the badge.</p>
+</div>
+<pre data-label="CSS"><code>.badge-demo {
   position: relative;
 }
 
@@ -1126,311 +1077,280 @@ p::first-line {
   padding: 5px 10px;
   border-radius: 999px;
 }</code></pre>
-      </section>
-
-      <section id="content">
-        <h2>7. The <code>content</code> property</h2>
-
-        <p>
+</section>
+<section id="content">
+<h2>7. The <code>content</code> property</h2>
+<p>
           For <code>::before</code> and <code>::after</code>, the <code>content</code> property is extremely important.
           Without it, the pseudo-element usually will not appear.
         </p>
-
-        <div class="compare">
-          <div class="wrong">
-            <h3>No content</h3>
-            <pre data-label="CSS"><code>.box::after {
+<div class="compare">
+<div class="wrong">
+<h3>No content</h3>
+<pre data-label="CSS"><code>.box::after {
   width: 100px;
   height: 5px;
   background: orange;
 }</code></pre>
-          </div>
-
-          <div class="right">
-            <h3>With content</h3>
-            <pre data-label="CSS"><code>.box::after {
+</div>
+<div class="right">
+<h3>With content</h3>
+<pre data-label="CSS"><code>.box::after {
   content: "";
   display: block;
   width: 100px;
   height: 5px;
   background: orange;
 }</code></pre>
-          </div>
-        </div>
-
-        <h3>Different types of content</h3>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Code</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>content: "";</code></td>
-              <td>Empty content, useful for shapes and decorations</td>
-            </tr>
-            <tr>
-              <td><code>content: "New";</code></td>
-              <td>Text content</td>
-            </tr>
-            <tr>
-              <td><code>content: "→";</code></td>
-              <td>Symbol content</td>
-            </tr>
-            <tr>
-              <td><code>content: attr(data-tip);</code></td>
-              <td>Content from an HTML attribute</td>
-            </tr>
-            <tr>
-              <td><code>content: counter(item);</code></td>
-              <td>Content from CSS counters</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section id="decorations">
-        <h2>8. Professional uses of <code>::before</code> and <code>::after</code></h2>
-
-        <div class="three">
-          <div class="mini-card">
-            <h3>Icons</h3>
-            <p>Add symbols before links, buttons, or list items.</p>
-            <pre data-label="CSS"><code>a::before {
+</div>
+</div>
+<h3>Different types of content</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>content: "";</code></td>
+<td>Empty content, useful for shapes and decorations</td>
+</tr>
+<tr>
+<td><code>content: "New";</code></td>
+<td>Text content</td>
+</tr>
+<tr>
+<td><code>content: "→";</code></td>
+<td>Symbol content</td>
+</tr>
+<tr>
+<td><code>content: attr(data-tip);</code></td>
+<td>Content from an HTML attribute</td>
+</tr>
+<tr>
+<td><code>content: counter(item);</code></td>
+<td>Content from CSS counters</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="decorations">
+<h2>8. Professional uses of <code>::before</code> and <code>::after</code></h2>
+<div class="three">
+<div class="mini-card">
+<h3>Icons</h3>
+<p>Add symbols before links, buttons, or list items.</p>
+<pre data-label="CSS"><code>a::before {
   content: "🔗 ";
 }</code></pre>
-          </div>
-
-          <div class="mini-card">
-            <h3>Underline</h3>
-            <p>Create modern animated underlines.</p>
-            <pre data-label="CSS"><code>h2::after {
+</div>
+<div class="mini-card">
+<h3>Underline</h3>
+<p>Create modern animated underlines.</p>
+<pre data-label="CSS"><code>h2::after {
   content: "";
   display: block;
   height: 4px;
 }</code></pre>
-          </div>
-
-          <div class="mini-card">
-            <h3>Badges</h3>
-            <p>Add labels like New, Featured, Popular.</p>
-            <pre data-label="CSS"><code>.card::before {
+</div>
+<div class="mini-card">
+<h3>Badges</h3>
+<p>Add labels like New, Featured, Popular.</p>
+<pre data-label="CSS"><code>.card::before {
   content: "New";
 }</code></pre>
-          </div>
-
-          <div class="mini-card">
-            <h3>Background layers</h3>
-            <p>Create decorative circles, gradients, and glows.</p>
-            <pre data-label="CSS"><code>.hero::before {
+</div>
+<div class="mini-card">
+<h3>Background layers</h3>
+<p>Create decorative circles, gradients, and glows.</p>
+<pre data-label="CSS"><code>.hero::before {
   content: "";
   position: absolute;
 }</code></pre>
-          </div>
-
-          <div class="mini-card">
-            <h3>Tooltips</h3>
-            <p>Show small help text on hover.</p>
-            <pre data-label="CSS"><code>.help::after {
+</div>
+<div class="mini-card">
+<h3>Tooltips</h3>
+<p>Show small help text on hover.</p>
+<pre data-label="CSS"><code>.help::after {
   content: attr(data-tip);
 }</code></pre>
-          </div>
-
-          <div class="mini-card">
-            <h3>Watermarks</h3>
-            <p>Add faint background text.</p>
-            <pre data-label="CSS"><code>.card::after {
+</div>
+<div class="mini-card">
+<h3>Watermarks</h3>
+<p>Add faint background text.</p>
+<pre data-label="CSS"><code>.card::after {
   content: "CSS";
 }</code></pre>
-          </div>
-        </div>
-      </section>
-
-      <section id="all-tags">
-        <h2>9. All important <code>::</code> pseudo-elements</h2>
-
-        <p>
+</div>
+</div>
+</section>
+<section id="all-tags">
+<h2>9. All important <code>::</code> pseudo-elements</h2>
+<p>
           These are not HTML tags. They are CSS pseudo-elements. Some work everywhere, some work only in special cases,
           and some have limited browser support.
         </p>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Pseudo-element</th>
-              <th>Use</th>
-              <th>Simple example</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>::before</code></td>
-              <td>Adds virtual content before element content</td>
-              <td><code>h1::before { content: "★ "; }</code></td>
-            </tr>
-            <tr>
-              <td><code>::after</code></td>
-              <td>Adds virtual content after element content</td>
-              <td><code>h1::after { content: " ✓"; }</code></td>
-            </tr>
-            <tr>
-              <td><code>::first-letter</code></td>
-              <td>Styles the first letter of text</td>
-              <td><code>p::first-letter { font-size: 50px; }</code></td>
-            </tr>
-            <tr>
-              <td><code>::first-line</code></td>
-              <td>Styles the first visible line of text</td>
-              <td><code>p::first-line { font-weight: bold; }</code></td>
-            </tr>
-            <tr>
-              <td><code>::selection</code></td>
-              <td>Styles text when selected by mouse</td>
-              <td><code>::selection { background: orange; }</code></td>
-            </tr>
-            <tr>
-              <td><code>::marker</code></td>
-              <td>Styles list bullets or numbers</td>
-              <td><code>li::marker { color: orange; }</code></td>
-            </tr>
-            <tr>
-              <td><code>::placeholder</code></td>
-              <td>Styles input placeholder text</td>
-              <td><code>input::placeholder { color: orange; }</code></td>
-            </tr>
-            <tr>
-              <td><code>::file-selector-button</code></td>
-              <td>Styles the button inside file input</td>
-              <td><code>input::file-selector-button { ... }</code></td>
-            </tr>
-            <tr>
-              <td><code>::backdrop</code></td>
-              <td>Styles the background behind a dialog or fullscreen element</td>
-              <td><code>dialog::backdrop { background: black; }</code></td>
-            </tr>
-            <tr>
-              <td><code>::cue</code></td>
-              <td>Styles captions in video tracks</td>
-              <td><code>::cue { color: yellow; }</code></td>
-            </tr>
-            <tr>
-              <td><code>::part()</code></td>
-              <td>Styles exposed parts of Web Components</td>
-              <td><code>my-card::part(title) { ... }</code></td>
-            </tr>
-            <tr>
-              <td><code>::slotted()</code></td>
-              <td>Styles slotted content inside Shadow DOM</td>
-              <td><code>::slotted(span) { ... }</code></td>
-            </tr>
-            <tr>
-              <td><code>::spelling-error</code></td>
-              <td>Styles browser spelling errors where supported</td>
-              <td><code>::spelling-error { color: red; }</code></td>
-            </tr>
-            <tr>
-              <td><code>::grammar-error</code></td>
-              <td>Styles browser grammar errors where supported</td>
-              <td><code>::grammar-error { color: blue; }</code></td>
-            </tr>
-            <tr>
-              <td><code>::view-transition</code></td>
-              <td>Used in View Transitions API</td>
-              <td><code>::view-transition { ... }</code></td>
-            </tr>
-            <tr>
-              <td><code>::view-transition-group()</code></td>
-              <td>Styles a transition group</td>
-              <td><code>::view-transition-group(root) { ... }</code></td>
-            </tr>
-            <tr>
-              <td><code>::view-transition-image-pair()</code></td>
-              <td>Styles old and new transition image pair</td>
-              <td><code>::view-transition-image-pair(root) { ... }</code></td>
-            </tr>
-            <tr>
-              <td><code>::view-transition-old()</code></td>
-              <td>Styles old visual snapshot in a transition</td>
-              <td><code>::view-transition-old(root) { ... }</code></td>
-            </tr>
-            <tr>
-              <td><code>::view-transition-new()</code></td>
-              <td>Styles new visual snapshot in a transition</td>
-              <td><code>::view-transition-new(root) { ... }</code></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="note">
+<table>
+<thead>
+<tr>
+<th>Pseudo-element</th>
+<th>Use</th>
+<th>Simple example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>::before</code></td>
+<td>Adds virtual content before element content</td>
+<td><code>h1::before { content: "★ "; }</code></td>
+</tr>
+<tr>
+<td><code>::after</code></td>
+<td>Adds virtual content after element content</td>
+<td><code>h1::after { content: " ✓"; }</code></td>
+</tr>
+<tr>
+<td><code>::first-letter</code></td>
+<td>Styles the first letter of text</td>
+<td><code>p::first-letter { font-size: 50px; }</code></td>
+</tr>
+<tr>
+<td><code>::first-line</code></td>
+<td>Styles the first visible line of text</td>
+<td><code>p::first-line { font-weight: bold; }</code></td>
+</tr>
+<tr>
+<td><code>::selection</code></td>
+<td>Styles text when selected by mouse</td>
+<td><code>::selection { background: orange; }</code></td>
+</tr>
+<tr>
+<td><code>::marker</code></td>
+<td>Styles list bullets or numbers</td>
+<td><code>li::marker { color: orange; }</code></td>
+</tr>
+<tr>
+<td><code>::placeholder</code></td>
+<td>Styles input placeholder text</td>
+<td><code>input::placeholder { color: orange; }</code></td>
+</tr>
+<tr>
+<td><code>::file-selector-button</code></td>
+<td>Styles the button inside file input</td>
+<td><code>input::file-selector-button { ... }</code></td>
+</tr>
+<tr>
+<td><code>::backdrop</code></td>
+<td>Styles the background behind a dialog or fullscreen element</td>
+<td><code>dialog::backdrop { background: black; }</code></td>
+</tr>
+<tr>
+<td><code>::cue</code></td>
+<td>Styles captions in video tracks</td>
+<td><code>::cue { color: yellow; }</code></td>
+</tr>
+<tr>
+<td><code>::part()</code></td>
+<td>Styles exposed parts of Web Components</td>
+<td><code>my-card::part(title) { ... }</code></td>
+</tr>
+<tr>
+<td><code>::slotted()</code></td>
+<td>Styles slotted content inside Shadow DOM</td>
+<td><code>::slotted(span) { ... }</code></td>
+</tr>
+<tr>
+<td><code>::spelling-error</code></td>
+<td>Styles browser spelling errors where supported</td>
+<td><code>::spelling-error { color: red; }</code></td>
+</tr>
+<tr>
+<td><code>::grammar-error</code></td>
+<td>Styles browser grammar errors where supported</td>
+<td><code>::grammar-error { color: blue; }</code></td>
+</tr>
+<tr>
+<td><code>::view-transition</code></td>
+<td>Used in View Transitions API</td>
+<td><code>::view-transition { ... }</code></td>
+</tr>
+<tr>
+<td><code>::view-transition-group()</code></td>
+<td>Styles a transition group</td>
+<td><code>::view-transition-group(root) { ... }</code></td>
+</tr>
+<tr>
+<td><code>::view-transition-image-pair()</code></td>
+<td>Styles old and new transition image pair</td>
+<td><code>::view-transition-image-pair(root) { ... }</code></td>
+</tr>
+<tr>
+<td><code>::view-transition-old()</code></td>
+<td>Styles old visual snapshot in a transition</td>
+<td><code>::view-transition-old(root) { ... }</code></td>
+</tr>
+<tr>
+<td><code>::view-transition-new()</code></td>
+<td>Styles new visual snapshot in a transition</td>
+<td><code>::view-transition-new(root) { ... }</code></td>
+</tr>
+</tbody>
+</table>
+<div class="note">
           For daily web design, the most important ones are <code>::before</code>, <code>::after</code>,
           <code>::first-letter</code>, <code>::first-line</code>, <code>::selection</code>,
           <code>::marker</code>, <code>::placeholder</code>, <code>::file-selector-button</code>, and
           <code>::backdrop</code>.
         </div>
-      </section>
-
-      <section>
-        <h2>10. Live examples of important <code>::</code> pseudo-elements</h2>
-
-        <h3><code>::first-letter</code></h3>
-        <p class="first-letter-demo">
+</section>
+<section>
+<h2>10. Live examples of important <code>::</code> pseudo-elements</h2>
+<h3><code>::first-letter</code></h3>
+<p class="first-letter-demo">
           Cascading Style Sheets can turn plain writing into a professional article layout. The first letter here is
           designed using CSS only.
         </p>
-
-        <pre data-label="CSS"><code>.first-letter-demo::first-letter {
+<pre data-label="CSS"><code>.first-letter-demo::first-letter {
   font-size: 3.4rem;
   float: left;
   padding-right: 8px;
   color: orange;
   font-weight: 900;
 }</code></pre>
-
-        <h3><code>::first-line</code></h3>
-        <p class="first-line-demo">
+<h3><code>::first-line</code></h3>
+<p class="first-line-demo">
           This paragraph has a first line that looks different from the rest of the paragraph. Resize the browser and
           observe that the first visible line can change.
         </p>
-
-        <pre data-label="CSS"><code>.first-line-demo::first-line {
+<pre data-label="CSS"><code>.first-line-demo::first-line {
   color: orange;
   font-weight: 900;
 }</code></pre>
-
-        <h3><code>::marker</code></h3>
-        <ul class="marker-demo">
-          <li>CSS variables</li>
-          <li>Pseudo-classes</li>
-          <li>Pseudo-elements</li>
-        </ul>
-
-        <pre data-label="CSS"><code>li::marker {
+<h3><code>::marker</code></h3>
+<ul class="marker-demo">
+<li>CSS variables</li>
+<li>Pseudo-classes</li>
+<li>Pseudo-elements</li>
+</ul>
+<pre data-label="CSS"><code>li::marker {
   color: orange;
   font-size: 1.3em;
   content: "★ ";
 }</code></pre>
-      </section>
-
-      <section id="forms">
-        <h2>11. Form pseudo-elements</h2>
-
-        <h3><code>::placeholder</code></h3>
-
-        <input type="text" placeholder="Enter your name here" />
-
-        <pre data-label="CSS"><code>input::placeholder {
+</section>
+<section id="forms">
+<h2>11. Form pseudo-elements</h2>
+<h3><code>::placeholder</code></h3>
+<input placeholder="Enter your name here" type="text"/>
+<pre data-label="CSS"><code>input::placeholder {
   color: orange;
   opacity: 0.7;
 }</code></pre>
-
-        <h3><code>::file-selector-button</code></h3>
-
-        <input type="file" />
-
-        <pre data-label="CSS"><code>input[type="file"]::file-selector-button {
+<h3><code>::file-selector-button</code></h3>
+<input type="file"/>
+<pre data-label="CSS"><code>input[type="file"]::file-selector-button {
   border: 0;
   padding: 10px 14px;
   margin-right: 12px;
@@ -1439,24 +1359,19 @@ p::first-line {
   color: white;
   font-weight: 800;
 }</code></pre>
-      </section>
-
-      <section id="tooltip">
-        <h2>12. Tooltip using <code>::after</code> and <code>attr()</code></h2>
-
-        <p>
+</section>
+<section id="tooltip">
+<h2>12. Tooltip using <code>::after</code> and <code>attr()</code></h2>
+<p>
           Move your mouse over this button:
         </p>
-
-        <p>
-          <span class="tooltip-demo" data-tip="This text comes from data-tip">Hover me</span>
-        </p>
-
-        <pre data-label="HTML"><code>&lt;span class="tooltip-demo" data-tip="This text comes from data-tip"&gt;
+<p>
+<span class="tooltip-demo" data-tip="This text comes from data-tip">Hover me</span>
+</p>
+<pre data-label="HTML"><code>&lt;span class="tooltip-demo" data-tip="This text comes from data-tip"&gt;
   Hover me
 &lt;/span&gt;</code></pre>
-
-        <pre data-label="CSS"><code>.tooltip-demo {
+<pre data-label="CSS"><code>.tooltip-demo {
   position: relative;
 }
 
@@ -1477,77 +1392,65 @@ p::first-line {
 .tooltip-demo:hover::after {
   opacity: 1;
 }</code></pre>
-      </section>
-
-      <section>
-        <h2>13. Dialog and <code>::backdrop</code></h2>
-
-        <p>
-          <code>::backdrop</code> styles the area behind a dialog box.
+</section>
+<section>
+<h2>13. Dialog and <code>::backdrop</code></h2>
+<p>
+<code>::backdrop</code> styles the area behind a dialog box.
         </p>
-
-        <button class="dialog-btn" onclick="document.querySelector('#demoDialog').showModal()">
+<button class="dialog-btn" onclick="document.querySelector('#demoDialog').showModal()">
           Open Dialog
         </button>
-
-        <dialog id="demoDialog">
-          <h3>Dialog Box</h3>
-          <p>The dark blurry background behind this box is styled with <code>dialog::backdrop</code>.</p>
-          <button class="dialog-btn" onclick="document.querySelector('#demoDialog').close()">
+<dialog id="demoDialog">
+<h3>Dialog Box</h3>
+<p>The dark blurry background behind this box is styled with <code>dialog::backdrop</code>.</p>
+<button class="dialog-btn" onclick="document.querySelector('#demoDialog').close()">
             Close
           </button>
-        </dialog>
-
-        <pre data-label="CSS"><code>dialog::backdrop {
+</dialog>
+<pre data-label="CSS"><code>dialog::backdrop {
   background: rgba(36, 20, 7, 0.55);
   backdrop-filter: blur(5px);
 }</code></pre>
-      </section>
-
-      <section id="mistakes">
-        <h2>14. Common mistakes</h2>
-
-        <h3> Mistake 1: Forgetting <code>content</code></h3>
-
-        <div class="compare">
-          <div class="wrong">
-            <h3>Bad</h3>
-            <pre data-label="CSS"><code>.box::after {
+</section>
+<section id="mistakes">
+<h2>14. Common mistakes</h2>
+<h3> Mistake 1: Forgetting <code>content</code></h3>
+<div class="compare">
+<div class="wrong">
+<h3>Bad</h3>
+<pre data-label="CSS"><code>.box::after {
   display: block;
   width: 100px;
   height: 5px;
   background: orange;
 }</code></pre>
-          </div>
-
-          <div class="right">
-            <h3>Good</h3>
-            <pre data-label="CSS"><code>.box::after {
+</div>
+<div class="right">
+<h3>Good</h3>
+<pre data-label="CSS"><code>.box::after {
   content: "";
   display: block;
   width: 100px;
   height: 5px;
   background: orange;
 }</code></pre>
-          </div>
-        </div>
-
-        <h3>Mistake 2: Forgetting <code>position: relative</code></h3>
-
-        <div class="compare">
-          <div class="wrong">
-            <h3>Bad</h3>
-            <pre data-label="CSS"><code>.card::before {
+</div>
+</div>
+<h3>Mistake 2: Forgetting <code>position: relative</code></h3>
+<div class="compare">
+<div class="wrong">
+<h3>Bad</h3>
+<pre data-label="CSS"><code>.card::before {
   content: "";
   position: absolute;
   top: 0;
   right: 0;
 }</code></pre>
-          </div>
-
-          <div class="right">
-            <h3>Good</h3>
-            <pre data-label="CSS"><code>.card {
+</div>
+<div class="right">
+<h3>Good</h3>
+<pre data-label="CSS"><code>.card {
   position: relative;
 }
 
@@ -1557,26 +1460,21 @@ p::first-line {
   top: 0;
   right: 0;
 }</code></pre>
-          </div>
-        </div>
-
-        <h3>Mistake 3: Expecting <code>::before</code> and <code>::after</code> on every tag</h3>
-
-        <p>
+</div>
+</div>
+<h3>Mistake 3: Expecting <code>::before</code> and <code>::after</code> on every tag</h3>
+<p>
           Pseudo-elements may not work reliably on replaced elements like <code>img</code>, <code>input</code>, and
           <code>br</code>.
         </p>
-
-        <div class="success">
+<div class="success">
           Better method: wrap the element inside a normal element, then apply <code>::before</code> or <code>::after</code>
           to the wrapper.
         </div>
-
-        <pre data-label="HTML"><code>&lt;div class="image-wrap"&gt;
+<pre data-label="HTML"><code>&lt;div class="image-wrap"&gt;
   &lt;img src="photo.jpg" alt="Photo"&gt;
 &lt;/div&gt;</code></pre>
-
-        <pre data-label="CSS"><code>.image-wrap {
+<pre data-label="CSS"><code>.image-wrap {
   position: relative;
 }
 
@@ -1586,16 +1484,12 @@ p::first-line {
   inset: 0;
   border: 4px solid orange;
 }</code></pre>
-      </section>
-
-      <section id="projects">
-        <h2>15. Mini projects</h2>
-
-        <h3>Project 1: Heading underline</h3>
-
-        <pre data-label="HTML"><code>&lt;h2 class="heading"&gt;Learn Python&lt;/h2&gt;</code></pre>
-
-        <pre data-label="CSS"><code>.heading::after {
+</section>
+<section id="projects">
+<h2>15. Mini projects</h2>
+<h3>Project 1: Heading underline</h3>
+<pre data-label="HTML"><code>&lt;h2 class="heading"&gt;Learn Python&lt;/h2&gt;</code></pre>
+<pre data-label="CSS"><code>.heading::after {
   content: "";
   display: block;
   width: 90px;
@@ -1604,23 +1498,17 @@ p::first-line {
   border-radius: 999px;
   margin-top: 10px;
 }</code></pre>
-
-        <h3>Project 2: Button arrow</h3>
-
-        <pre data-label="HTML"><code>&lt;a class="arrow-btn" href="#"&gt;Start Learning&lt;/a&gt;</code></pre>
-
-        <pre data-label="CSS"><code>.arrow-btn::after {
+<h3>Project 2: Button arrow</h3>
+<pre data-label="HTML"><code>&lt;a class="arrow-btn" href="#"&gt;Start Learning&lt;/a&gt;</code></pre>
+<pre data-label="CSS"><code>.arrow-btn::after {
   content: " →";
 }</code></pre>
-
-        <h3>Project 3: Course card badge</h3>
-
-        <pre data-label="HTML"><code>&lt;div class="course-card"&gt;
+<h3>Project 3: Course card badge</h3>
+<pre data-label="HTML"><code>&lt;div class="course-card"&gt;
   &lt;h2&gt;AI Beginner Course&lt;/h2&gt;
   &lt;p&gt;Start from zero.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
-
-        <pre data-label="CSS"><code>.course-card {
+<pre data-label="CSS"><code>.course-card {
   position: relative;
 }
 
@@ -1634,117 +1522,111 @@ p::first-line {
   padding: 5px 10px;
   border-radius: 999px;
 }</code></pre>
-      </section>
-
-      <section id="reference">
-        <h2>16. Final memory map</h2>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Selector</th>
-              <th>Colon type</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>:root</code></td>
-              <td>Single colon</td>
-              <td>Root element, usually used for CSS variables</td>
-            </tr>
-            <tr>
-              <td><code>:hover</code></td>
-              <td>Single colon</td>
-              <td>Mouse is over the element</td>
-            </tr>
-            <tr>
-              <td><code>:focus</code></td>
-              <td>Single colon</td>
-              <td>Element is focused</td>
-            </tr>
-            <tr>
-              <td><code>:nth-child()</code></td>
-              <td>Single colon</td>
-              <td>Selects children by position or pattern</td>
-            </tr>
-            <tr>
-              <td><code>::before</code></td>
-              <td>Double colon</td>
-              <td>Creates virtual content before</td>
-            </tr>
-            <tr>
-              <td><code>::after</code></td>
-              <td>Double colon</td>
-              <td>Creates virtual content after</td>
-            </tr>
-            <tr>
-              <td><code>::first-letter</code></td>
-              <td>Double colon</td>
-              <td>Styles first letter</td>
-            </tr>
-            <tr>
-              <td><code>::first-line</code></td>
-              <td>Double colon</td>
-              <td>Styles first visible line</td>
-            </tr>
-            <tr>
-              <td><code>::selection</code></td>
-              <td>Double colon</td>
-              <td>Styles selected text</td>
-            </tr>
-            <tr>
-              <td><code>::marker</code></td>
-              <td>Double colon</td>
-              <td>Styles list marker</td>
-            </tr>
-            <tr>
-              <td><code>::placeholder</code></td>
-              <td>Double colon</td>
-              <td>Styles placeholder text</td>
-            </tr>
-            <tr>
-              <td><code>::file-selector-button</code></td>
-              <td>Double colon</td>
-              <td>Styles file input button</td>
-            </tr>
-            <tr>
-              <td><code>::backdrop</code></td>
-              <td>Double colon</td>
-              <td>Styles background behind dialog/fullscreen</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="success">
+</section>
+<section id="reference">
+<h2>16. Final memory map</h2>
+<table>
+<thead>
+<tr>
+<th>Selector</th>
+<th>Colon type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:root</code></td>
+<td>Single colon</td>
+<td>Root element, usually used for CSS variables</td>
+</tr>
+<tr>
+<td><code>:hover</code></td>
+<td>Single colon</td>
+<td>Mouse is over the element</td>
+</tr>
+<tr>
+<td><code>:focus</code></td>
+<td>Single colon</td>
+<td>Element is focused</td>
+</tr>
+<tr>
+<td><code>:nth-child()</code></td>
+<td>Single colon</td>
+<td>Selects children by position or pattern</td>
+</tr>
+<tr>
+<td><code>::before</code></td>
+<td>Double colon</td>
+<td>Creates virtual content before</td>
+</tr>
+<tr>
+<td><code>::after</code></td>
+<td>Double colon</td>
+<td>Creates virtual content after</td>
+</tr>
+<tr>
+<td><code>::first-letter</code></td>
+<td>Double colon</td>
+<td>Styles first letter</td>
+</tr>
+<tr>
+<td><code>::first-line</code></td>
+<td>Double colon</td>
+<td>Styles first visible line</td>
+</tr>
+<tr>
+<td><code>::selection</code></td>
+<td>Double colon</td>
+<td>Styles selected text</td>
+</tr>
+<tr>
+<td><code>::marker</code></td>
+<td>Double colon</td>
+<td>Styles list marker</td>
+</tr>
+<tr>
+<td><code>::placeholder</code></td>
+<td>Double colon</td>
+<td>Styles placeholder text</td>
+</tr>
+<tr>
+<td><code>::file-selector-button</code></td>
+<td>Double colon</td>
+<td>Styles file input button</td>
+</tr>
+<tr>
+<td><code>::backdrop</code></td>
+<td>Double colon</td>
+<td>Styles background behind dialog/fullscreen</td>
+</tr>
+</tbody>
+</table>
+<div class="success">
           Main rule: one colon usually means a state or condition. Double colon usually means a part of an element or
           a virtual element.
         </div>
-      </section>
-
-      <section id="assignments">
-        <h2>17. Practice assignments</h2>
-
-        <ol class="marker-demo">
-          <li>Create a page theme using <code>:root</code> variables.</li>
-          <li>Create a heading underline using <code>::after</code>.</li>
-          <li>Create a card badge using <code>::before</code>.</li>
-          <li>Create a list with check marks using <code>li::before</code>.</li>
-          <li>Create an input with styled <code>::placeholder</code>.</li>
-          <li>Create a file upload button using <code>::file-selector-button</code>.</li>
-          <li>Create a tooltip using <code>attr(data-tip)</code> and <code>::after</code>.</li>
-          <li>Create a quote paragraph using <code>::first-letter</code>.</li>
-          <li>Create custom bullet points using <code>::marker</code>.</li>
-          <li>Create a dialog with styled <code>::backdrop</code>.</li>
-        </ol>
-      </section>
-    </div>
-  </main>
-
-  <footer class="page footer">
+</section>
+<section id="assignments">
+<h2>17. Practice assignments</h2>
+<ol class="marker-demo">
+<li>Create a page theme using <code>:root</code> variables.</li>
+<li>Create a heading underline using <code>::after</code>.</li>
+<li>Create a card badge using <code>::before</code>.</li>
+<li>Create a list with check marks using <code>li::before</code>.</li>
+<li>Create an input with styled <code>::placeholder</code>.</li>
+<li>Create a file upload button using <code>::file-selector-button</code>.</li>
+<li>Create a tooltip using <code>attr(data-tip)</code> and <code>::after</code>.</li>
+<li>Create a quote paragraph using <code>::first-letter</code>.</li>
+<li>Create custom bullet points using <code>::marker</code>.</li>
+<li>Create a dialog with styled <code>::backdrop</code>.</li>
+</ol>
+</section>
+</div>
+</main>
+<footer class="page footer">
     CSS Level 0 to Infinity Lesson.
-    <br />
+    <br/>
     Learn clean design, clean HTML, and powerful CSS step by step.
   </footer>
-</body>
+<div data-root="../../../" id="site-footer"></div><script defer="True" src="../../../assets/js/include.js"></script></body>
 </html>

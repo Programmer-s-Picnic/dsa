@@ -1,11 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>JSON + HTML UI Builder Wizard V1</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>JSON + HTML UI Builder Wizard V1</title>
+<style>
     :root{
       --bg:#fffaf0;
       --card:#ffffff;
@@ -46,57 +46,55 @@
     .small{font-size:13px;color:var(--muted)}
     @media(max-width:1000px){.grid,.split{grid-template-columns:1fr}}
   </style>
-</head>
-<body>
-  <div class="wrap">
-    <section class="hero">
-      <h1>JSON + HTML UI Builder Wizard</h1>
-      <p>Create a JSON structure and an HTML UI for displaying it. Start simple, then we can grow it into a schema-driven builder.</p>
-    </section><section class="grid">
-  <section class="panel">
-    <div class="head"><h2>Wizard</h2></div>
-    <div class="body">
-      <div id="stepInfo" class="small"></div>
-      <div class="progress"><span id="progressBar"></span></div>
-      <h3 class="question" id="question"></h3>
-      <p class="help" id="help"></p>
-      <div id="stepArea"></div>
-      <div class="toolbar">
-        <button class="secondary" id="backBtn">Back</button>
-        <button id="nextBtn">Next</button>
-        <button class="secondary" id="resetBtn">Reset</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <div class="head"><h2>Generated Output</h2></div>
-    <div class="body output">
-      <div class="split">
-        <div>
-          <h3>JSON Text</h3>
-          <textarea id="jsonOut"></textarea>
-          <div class="toolbar">
-            <button id="copyJsonBtn">Copy JSON</button>
-            <button id="downloadJsonBtn">Download JSON</button>
-          </div>
-        </div>
-        <div>
-          <h3>HTML UI Code</h3>
-          <textarea id="htmlOut"></textarea>
-          <div class="toolbar">
-            <button id="copyHtmlBtn">Copy HTML</button>
-            <button id="downloadHtmlBtn">Download HTML</button>
-          </div>
-        </div>
-      </div>
-      <h3>Live UI Preview</h3>
-      <iframe id="preview"></iframe>
-    </div>
-  </section>
+<link href="../../assets/css/theme.css" rel="stylesheet"/><meta content="JSON + HTML UI Builder Wizard V1 - practical learning page from DSA with Champak." name="description"/></head>
+<body data-root="../../"><div data-root="../../" id="site-header"></div><div id="main-content"></div>
+<div class="wrap">
+<section class="hero">
+<h1>JSON + HTML UI Builder Wizard</h1>
+<p>Create a JSON structure and an HTML UI for displaying it. Start simple, then we can grow it into a schema-driven builder.</p>
+</section><section class="grid">
+<section class="panel">
+<div class="head"><h2>Wizard</h2></div>
+<div class="body">
+<div class="small" id="stepInfo"></div>
+<div class="progress"><span id="progressBar"></span></div>
+<h3 class="question" id="question"></h3>
+<p class="help" id="help"></p>
+<div id="stepArea"></div>
+<div class="toolbar">
+<button class="secondary" id="backBtn">Back</button>
+<button id="nextBtn">Next</button>
+<button class="secondary" id="resetBtn">Reset</button>
+</div>
+</div>
 </section>
-
-  </div>  <script>
+<section class="panel">
+<div class="head"><h2>Generated Output</h2></div>
+<div class="body output">
+<div class="split">
+<div>
+<h3>JSON Text</h3>
+<textarea id="jsonOut"></textarea>
+<div class="toolbar">
+<button id="copyJsonBtn">Copy JSON</button>
+<button id="downloadJsonBtn">Download JSON</button>
+</div>
+</div>
+<div>
+<h3>HTML UI Code</h3>
+<textarea id="htmlOut"></textarea>
+<div class="toolbar">
+<button id="copyHtmlBtn">Copy HTML</button>
+<button id="downloadHtmlBtn">Download HTML</button>
+</div>
+</div>
+</div>
+<h3>Live UI Preview</h3>
+<iframe id="preview"></iframe>
+</div>
+</section>
+</section>
+</div> <script>
     const steps = [
       {
         key:'projectName',
@@ -349,5 +347,5 @@ document.getElementById('downloadHtmlBtn').addEventListener('click', () => downl
 render();
 
   </script>
-</body>
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>

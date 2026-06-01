@@ -1,18 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Java Lesson — Nested Loops in Detail</title>
-  <meta
-    name="description"
-    content="A complete beginner-to-advanced Java lesson on nested loops with syntax, flow, tables, patterns, arrays, break, continue, assignments, and interactive MCQ quiz."
-  />
-  <meta name="theme-color" content="#d97706" />
-
-  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Java Lesson — Nested Loops in Detail</title>
+<meta content="A complete beginner-to-advanced Java lesson on nested loops with syntax, flow, tables, patterns, arrays, break, continue, assignments, and interactive MCQ quiz." name="description"/>
+<meta content="#0b67b2" name="theme-color"/>
+<script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+<style>
     :root{
       --bg:#fff8eb;
       --card:#ffffff;
@@ -344,402 +340,345 @@
       .quiz-toolbar{align-items:flex-start}
     }
   </style>
-</head>
-<body>
-  <header>
-    <h1 id="speak0">Java Lesson — Nested Loops in Detail</h1>
-    <p id="speak1">A complete lesson on loops inside loops, from level zero to advanced pattern building.</p>
-  </header>
-
-  <main class="container">
-    <section class="card hero-grid">
-      <div>
-        <h2 id="speak2">What this lesson covers</h2>
-        <p id="speak3">
+<link href="../../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../../"><div data-root="../../../" id="site-header"></div>
+<header>
+<h1 id="speak0">Java Lesson — Nested Loops in Detail</h1>
+<p id="speak1">A complete lesson on loops inside loops, from level zero to advanced pattern building.</p>
+</header>
+<main class="container" id="main-content">
+<section class="card hero-grid">
+<div>
+<h2 id="speak2">What this lesson covers</h2>
+<p id="speak3">
           In this lesson, you will learn what a nested loop is, how the outer loop and inner loop work together, how to trace nested loop execution, and how nested loops are used for tables, patterns, grids, arrays, and matrix-like logic.
         </p>
-        <p id="speak4">
+<p id="speak4">
           We will begin with the simple idea of one loop inside another, then move to pattern printing, rectangular grids, multiplication tables, searching combinations, break and continue in nested loops, and best practices for writing clean nested loop code.
         </p>
-      </div>
-
-      <div class="mini-grid">
-        <div class="mini">
-          <strong id="speak5">Outer Loop</strong>
-          <p class="muted" id="speak6">Controls rows or major repetitions</p>
-        </div>
-        <div class="mini">
-          <strong id="speak7">Inner Loop</strong>
-          <p class="muted" id="speak8">Runs fully for each outer step</p>
-        </div>
-        <div class="mini">
-          <strong id="speak9">Patterns</strong>
-          <p class="muted" id="speak10">Stars, numbers, grids, shapes</p>
-        </div>
-        <div class="mini">
-          <strong id="speak11">Tables</strong>
-          <p class="muted" id="speak12">Useful for multiplication and 2D work</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak13">What is a nested loop?</h2>
-      <p id="speak14">
+</div>
+<div class="mini-grid">
+<div class="mini">
+<strong id="speak5">Outer Loop</strong>
+<p class="muted" id="speak6">Controls rows or major repetitions</p>
+</div>
+<div class="mini">
+<strong id="speak7">Inner Loop</strong>
+<p class="muted" id="speak8">Runs fully for each outer step</p>
+</div>
+<div class="mini">
+<strong id="speak9">Patterns</strong>
+<p class="muted" id="speak10">Stars, numbers, grids, shapes</p>
+</div>
+<div class="mini">
+<strong id="speak11">Tables</strong>
+<p class="muted" id="speak12">Useful for multiplication and 2D work</p>
+</div>
+</div>
+</section>
+<section class="card">
+<h2 id="speak13">What is a nested loop?</h2>
+<p id="speak14">
         A nested loop means one loop written inside another loop. The outer loop runs one time, and for each of its iterations, the inner loop runs completely.
       </p>
-
-      <pre id="speak15">for (int i = 1; i <= 3; i++) {
-    for (int j = 1; j <= 2; j++) {
+<pre id="speak15">for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 2; j++) {
         System.out.println("i = " + i + ", j = " + j);
     }
 }</pre>
-
-      <p id="speak16">
+<p id="speak16">
         Here, the outer loop uses <code>i</code> and the inner loop uses <code>j</code>. For each value of <code>i</code>, the inner loop starts again from its beginning.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak17">How nested loops execute</h2>
-      <p id="speak18">
+</section>
+<section class="card">
+<h2 id="speak17">How nested loops execute</h2>
+<p id="speak18">
         Let us trace this code carefully:
       </p>
-
-      <pre id="speak19">for (int i = 1; i <= 2; i++) {
-    for (int j = 1; j <= 3; j++) {
+<pre id="speak19">for (int i = 1; i &lt;= 2; i++) {
+    for (int j = 1; j &lt;= 3; j++) {
         System.out.println("i = " + i + ", j = " + j);
     }
 }</pre>
-
-      <ol>
-        <li id="speak20">The outer loop starts with <code>i = 1</code>.</li>
-        <li id="speak21">Then the inner loop runs with <code>j = 1</code>, <code>j = 2</code>, and <code>j = 3</code>.</li>
-        <li id="speak22">After the inner loop finishes, the outer loop changes <code>i</code> to 2.</li>
-        <li id="speak23">Then the inner loop starts again from <code>j = 1</code>.</li>
-        <li id="speak24">This continues until the outer loop condition becomes false.</li>
-      </ol>
-
-      <p id="speak25">
+<ol>
+<li id="speak20">The outer loop starts with <code>i = 1</code>.</li>
+<li id="speak21">Then the inner loop runs with <code>j = 1</code>, <code>j = 2</code>, and <code>j = 3</code>.</li>
+<li id="speak22">After the inner loop finishes, the outer loop changes <code>i</code> to 2.</li>
+<li id="speak23">Then the inner loop starts again from <code>j = 1</code>.</li>
+<li id="speak24">This continues until the outer loop condition becomes false.</li>
+</ol>
+<p id="speak25">
         So the inner loop does not continue from its old value. It starts fresh every time the outer loop repeats.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak26">Output of a basic nested loop</h2>
-      <pre id="speak27">for (int i = 1; i <= 2; i++) {
-    for (int j = 1; j <= 3; j++) {
+</section>
+<section class="card">
+<h2 id="speak26">Output of a basic nested loop</h2>
+<pre id="speak27">for (int i = 1; i &lt;= 2; i++) {
+    for (int j = 1; j &lt;= 3; j++) {
         System.out.println("i = " + i + ", j = " + j);
     }
 }</pre>
-
-      <pre id="speak28">i = 1, j = 1
+<pre id="speak28">i = 1, j = 1
 i = 1, j = 2
 i = 1, j = 3
 i = 2, j = 1
 i = 2, j = 2
 i = 2, j = 3</pre>
-
-      <p id="speak29">
+<p id="speak29">
         Notice that for every outer loop value, the inner loop runs all of its values.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak30">Rows and columns thinking</h2>
-      <p id="speak31">
+</section>
+<section class="card">
+<h2 id="speak30">Rows and columns thinking</h2>
+<p id="speak31">
         Nested loops are often understood in terms of rows and columns.
       </p>
-
-      <ul>
-        <li id="speak32">The outer loop often controls the row.</li>
-        <li id="speak33">The inner loop often controls the column.</li>
-      </ul>
-
-      <pre id="speak34">for (int row = 1; row <= 3; row++) {
-    for (int col = 1; col <= 4; col++) {
+<ul>
+<li id="speak32">The outer loop often controls the row.</li>
+<li id="speak33">The inner loop often controls the column.</li>
+</ul>
+<pre id="speak34">for (int row = 1; row &lt;= 3; row++) {
+    for (int col = 1; col &lt;= 4; col++) {
         System.out.print("* ");
     }
     System.out.println();
 }</pre>
-
-      <p id="speak35">
+<p id="speak35">
         This prints 3 rows, and in each row it prints 4 stars.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak36">Printing a rectangle</h2>
-      <pre id="speak37">for (int row = 1; row <= 3; row++) {
-    for (int col = 1; col <= 5; col++) {
+</section>
+<section class="card">
+<h2 id="speak36">Printing a rectangle</h2>
+<pre id="speak37">for (int row = 1; row &lt;= 3; row++) {
+    for (int col = 1; col &lt;= 5; col++) {
         System.out.print("* ");
     }
     System.out.println();
 }</pre>
-
-      <pre id="speak38">* * * * *
+<pre id="speak38">* * * * *
 * * * * *
 * * * * *</pre>
-
-      <p id="speak39">
+<p id="speak39">
         The outer loop controls the number of lines. The inner loop controls how many symbols appear in each line.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak40">Printing a square</h2>
-      <pre id="speak41">for (int row = 1; row <= 4; row++) {
-    for (int col = 1; col <= 4; col++) {
+</section>
+<section class="card">
+<h2 id="speak40">Printing a square</h2>
+<pre id="speak41">for (int row = 1; row &lt;= 4; row++) {
+    for (int col = 1; col &lt;= 4; col++) {
         System.out.print("# ");
     }
     System.out.println();
 }</pre>
-
-      <p id="speak42">
+<p id="speak42">
         When rows and columns are equal, you get a square shape.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak43">Printing a right triangle</h2>
-      <p id="speak44">
+</section>
+<section class="card">
+<h2 id="speak43">Printing a right triangle</h2>
+<p id="speak44">
         In this pattern, the number of columns depends on the current row.
       </p>
-
-      <pre id="speak45">for (int row = 1; row <= 5; row++) {
-    for (int col = 1; col <= row; col++) {
+<pre id="speak45">for (int row = 1; row &lt;= 5; row++) {
+    for (int col = 1; col &lt;= row; col++) {
         System.out.print("* ");
     }
     System.out.println();
 }</pre>
-
-      <pre id="speak46">*
+<pre id="speak46">*
 * *
 * * *
 * * * *
 * * * * *</pre>
-
-      <p id="speak47">
+<p id="speak47">
         Here, the inner loop limit is not a fixed number. It depends on <code>row</code>.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak48">Printing an inverted triangle</h2>
-      <pre id="speak49">for (int row = 5; row >= 1; row--) {
-    for (int col = 1; col <= row; col++) {
+</section>
+<section class="card">
+<h2 id="speak48">Printing an inverted triangle</h2>
+<pre id="speak49">for (int row = 5; row &gt;= 1; row--) {
+    for (int col = 1; col &lt;= row; col++) {
         System.out.print("* ");
     }
     System.out.println();
 }</pre>
-
-      <pre id="speak50">* * * * *
+<pre id="speak50">* * * * *
 * * * *
 * * *
 * *
 *</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak51">Number patterns with nested loops</h2>
-
-      <h3 id="speak52">Pattern 1</h3>
-      <pre id="speak53">for (int row = 1; row <= 5; row++) {
-    for (int col = 1; col <= row; col++) {
+</section>
+<section class="card">
+<h2 id="speak51">Number patterns with nested loops</h2>
+<h3 id="speak52">Pattern 1</h3>
+<pre id="speak53">for (int row = 1; row &lt;= 5; row++) {
+    for (int col = 1; col &lt;= row; col++) {
         System.out.print(col + " ");
     }
     System.out.println();
 }</pre>
-
-      <pre id="speak54">1
+<pre id="speak54">1
 1 2
 1 2 3
 1 2 3 4
 1 2 3 4 5</pre>
-
-      <h3 id="speak55">Pattern 2</h3>
-      <pre id="speak56">for (int row = 1; row <= 5; row++) {
-    for (int col = 1; col <= row; col++) {
+<h3 id="speak55">Pattern 2</h3>
+<pre id="speak56">for (int row = 1; row &lt;= 5; row++) {
+    for (int col = 1; col &lt;= row; col++) {
         System.out.print(row + " ");
     }
     System.out.println();
 }</pre>
-
-      <pre id="speak57">1
+<pre id="speak57">1
 2 2
 3 3 3
 4 4 4 4
 5 5 5 5 5</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak58">Multiplication table grid</h2>
-      <p id="speak59">
+</section>
+<section class="card">
+<h2 id="speak58">Multiplication table grid</h2>
+<p id="speak59">
         Nested loops are very useful for multiplication tables.
       </p>
-
-      <pre id="speak60">for (int i = 1; i <= 5; i++) {
-    for (int j = 1; j <= 5; j++) {
+<pre id="speak60">for (int i = 1; i &lt;= 5; i++) {
+    for (int j = 1; j &lt;= 5; j++) {
         System.out.print((i * j) + "\t");
     }
     System.out.println();
 }</pre>
-
-      <p id="speak61">
+<p id="speak61">
         This creates a 5 by 5 multiplication grid.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak62">Nested loops with arrays</h2>
-      <p id="speak63">
+</section>
+<section class="card">
+<h2 id="speak62">Nested loops with arrays</h2>
+<p id="speak63">
         Nested loops are very common when working with 2D arrays or matrix-like data.
       </p>
-
-      <pre id="speak64">int[][] matrix = {
+<pre id="speak64">int[][] matrix = {
     {1, 2, 3},
     {4, 5, 6},
     {7, 8, 9}
 };
 
-for (int row = 0; row < matrix.length; row++) {
-    for (int col = 0; col < matrix[row].length; col++) {
+for (int row = 0; row &lt; matrix.length; row++) {
+    for (int col = 0; col &lt; matrix[row].length; col++) {
         System.out.print(matrix[row][col] + " ");
     }
     System.out.println();
 }</pre>
-
-      <p id="speak65">
+<p id="speak65">
         The outer loop moves through rows, and the inner loop moves through the elements inside one row.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak66">Searching pairs with nested loops</h2>
-      <p id="speak67">
+</section>
+<section class="card">
+<h2 id="speak66">Searching pairs with nested loops</h2>
+<p id="speak67">
         Sometimes you want to check all possible pairs of values. Nested loops are perfect for that.
       </p>
+<pre id="speak68">int[] arr = {2, 4, 6, 8};
 
-      <pre id="speak68">int[] arr = {2, 4, 6, 8};
-
-for (int i = 0; i < arr.length; i++) {
-    for (int j = i + 1; j < arr.length; j++) {
+for (int i = 0; i &lt; arr.length; i++) {
+    for (int j = i + 1; j &lt; arr.length; j++) {
         System.out.println(arr[i] + " " + arr[j]);
     }
 }</pre>
-
-      <p id="speak69">
+<p id="speak69">
         This prints every unique pair from the array.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak70">break inside nested loops</h2>
-      <p id="speak71">
+</section>
+<section class="card">
+<h2 id="speak70">break inside nested loops</h2>
+<p id="speak71">
         A <code>break</code> only stops the loop in which it appears.
       </p>
-
-      <pre id="speak72">for (int i = 1; i <= 3; i++) {
-    for (int j = 1; j <= 5; j++) {
+<pre id="speak72">for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 5; j++) {
         if (j == 3) {
             break;
         }
         System.out.println("i = " + i + ", j = " + j);
     }
 }</pre>
-
-      <p id="speak73">
+<p id="speak73">
         Here, the inner loop stops when <code>j == 3</code>, but the outer loop continues.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak74">continue inside nested loops</h2>
-      <p id="speak75">
+</section>
+<section class="card">
+<h2 id="speak74">continue inside nested loops</h2>
+<p id="speak75">
         A <code>continue</code> skips the current iteration of the loop in which it appears.
       </p>
-
-      <pre id="speak76">for (int i = 1; i <= 3; i++) {
-    for (int j = 1; j <= 4; j++) {
+<pre id="speak76">for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 4; j++) {
         if (j == 2) {
             continue;
         }
         System.out.println("i = " + i + ", j = " + j);
     }
 }</pre>
-
-      <p id="speak77">
+<p id="speak77">
         This skips the inner loop step whenever <code>j == 2</code>.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak78">Using labels with break</h2>
-      <p id="speak79">
+</section>
+<section class="card">
+<h2 id="speak78">Using labels with break</h2>
+<p id="speak79">
         Java also supports labeled breaks, which can stop an outer loop from inside an inner loop.
       </p>
-
-      <pre id="speak80">outerLoop:
-for (int i = 1; i <= 3; i++) {
-    for (int j = 1; j <= 4; j++) {
-        if (i == 2 && j == 3) {
+<pre id="speak80">outerLoop:
+for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 4; j++) {
+        if (i == 2 &amp;&amp; j == 3) {
             break outerLoop;
         }
         System.out.println("i = " + i + ", j = " + j);
     }
 }</pre>
-
-      <p id="speak81">
+<p id="speak81">
         This breaks out of both loops together. It is powerful, but should be used carefully.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak82">Common mistakes in nested loops</h2>
-      <ul>
-        <li id="speak83">Using the same variable name in both loops.</li>
-        <li id="speak84">Forgetting that the inner loop restarts every time the outer loop repeats.</li>
-        <li id="speak85">Using the wrong loop limits, causing extra output or missing output.</li>
-        <li id="speak86">Forgetting <code>System.out.println()</code> after each row in pattern problems.</li>
-        <li id="speak87">Confusing row logic with column logic.</li>
-      </ul>
-
-      <h3 id="speak88">Wrong pattern example</h3>
-      <pre id="speak89">for (int row = 1; row <= 3; row++) {
-    for (int col = 1; col <= 4; col++) {
+</section>
+<section class="card">
+<h2 id="speak82">Common mistakes in nested loops</h2>
+<ul>
+<li id="speak83">Using the same variable name in both loops.</li>
+<li id="speak84">Forgetting that the inner loop restarts every time the outer loop repeats.</li>
+<li id="speak85">Using the wrong loop limits, causing extra output or missing output.</li>
+<li id="speak86">Forgetting <code>System.out.println()</code> after each row in pattern problems.</li>
+<li id="speak87">Confusing row logic with column logic.</li>
+</ul>
+<h3 id="speak88">Wrong pattern example</h3>
+<pre id="speak89">for (int row = 1; row &lt;= 3; row++) {
+    for (int col = 1; col &lt;= 4; col++) {
         System.out.print("* ");
     }
 }</pre>
-
-      <p id="speak90">
+<p id="speak90">
         This prints all stars in one long line because there is no <code>System.out.println()</code> after the inner loop.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak91">Time complexity idea</h2>
-      <p id="speak92">
+</section>
+<section class="card">
+<h2 id="speak91">Time complexity idea</h2>
+<p id="speak92">
         A single loop may run <code>n</code> times. A nested loop may run about <code>n × n</code> times in many cases. That is why nested loops can be much more expensive than a single loop.
       </p>
-
-      <pre id="speak93">for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
+<pre id="speak93">for (int i = 0; i &lt; n; i++) {
+    for (int j = 0; j &lt; n; j++) {
         // work
     }
 }</pre>
-
-      <p id="speak94">
+<p id="speak94">
         This kind of pattern is often called <code>O(n²)</code> time.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak95">Complete example</h2>
-      <pre id="speak96">public class Main {
+</section>
+<section class="card">
+<h2 id="speak95">Complete example</h2>
+<pre id="speak96">public class Main {
     public static void main(String[] args) {
         // Rectangle
-        for (int row = 1; row <= 3; row++) {
-            for (int col = 1; col <= 5; col++) {
+        for (int row = 1; row &lt;= 3; row++) {
+            for (int col = 1; col &lt;= 5; col++) {
                 System.out.print("* ");
             }
             System.out.println();
@@ -748,8 +687,8 @@ for (int i = 1; i <= 3; i++) {
         System.out.println();
 
         // Triangle
-        for (int row = 1; row <= 4; row++) {
-            for (int col = 1; col <= row; col++) {
+        for (int row = 1; row &lt;= 4; row++) {
+            for (int col = 1; col &lt;= row; col++) {
                 System.out.print(row + " ");
             }
             System.out.println();
@@ -758,99 +697,81 @@ for (int i = 1; i <= 3; i++) {
         System.out.println();
 
         // Multiplication grid
-        for (int i = 1; i <= 4; i++) {
-            for (int j = 1; j <= 4; j++) {
+        for (int i = 1; i &lt;= 4; i++) {
+            for (int j = 1; j &lt;= 4; j++) {
                 System.out.print((i * j) + "\t");
             }
             System.out.println();
         }
     }
 }</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak97">Assignments</h2>
-
-      <div class="assignment" id="speak98">
-        <strong>Assignment 1:</strong> Print a rectangle of stars with 4 rows and 6 columns.
+</section>
+<section class="card">
+<h2 id="speak97">Assignments</h2>
+<div class="assignment" id="speak98">
+<strong>Assignment 1:</strong> Print a rectangle of stars with 4 rows and 6 columns.
       </div>
-
-      <div class="assignment" id="speak99">
-        <strong>Assignment 2:</strong> Print a square pattern of size 5 using nested loops.
+<div class="assignment" id="speak99">
+<strong>Assignment 2:</strong> Print a square pattern of size 5 using nested loops.
       </div>
-
-      <div class="assignment" id="speak100">
-        <strong>Assignment 3:</strong> Print a right triangle of stars with 5 rows.
+<div class="assignment" id="speak100">
+<strong>Assignment 3:</strong> Print a right triangle of stars with 5 rows.
       </div>
-
-      <div class="assignment" id="speak101">
-        <strong>Assignment 4:</strong> Print an inverted right triangle of stars.
+<div class="assignment" id="speak101">
+<strong>Assignment 4:</strong> Print an inverted right triangle of stars.
       </div>
-
-      <div class="assignment" id="speak102">
-        <strong>Assignment 5:</strong> Print the pattern 1, then 1 2, then 1 2 3, and so on up to 5 rows.
+<div class="assignment" id="speak102">
+<strong>Assignment 5:</strong> Print the pattern 1, then 1 2, then 1 2 3, and so on up to 5 rows.
       </div>
-
-      <div class="assignment" id="speak103">
-        <strong>Assignment 6:</strong> Print a 10 by 10 multiplication grid.
+<div class="assignment" id="speak103">
+<strong>Assignment 6:</strong> Print a 10 by 10 multiplication grid.
       </div>
-
-      <div class="assignment" id="speak104">
-        <strong>Assignment 7:</strong> Take a 2D array and print all elements row by row.
+<div class="assignment" id="speak104">
+<strong>Assignment 7:</strong> Take a 2D array and print all elements row by row.
       </div>
-
-      <div class="assignment" id="speak105">
-        <strong>Assignment 8:</strong> Print all unique pairs from an array of numbers.
+<div class="assignment" id="speak105">
+<strong>Assignment 8:</strong> Print all unique pairs from an array of numbers.
       </div>
-
-      <div class="assignment" id="speak106">
-        <strong>Assignment 9:</strong> Use break inside the inner loop and observe what happens.
+<div class="assignment" id="speak106">
+<strong>Assignment 9:</strong> Use break inside the inner loop and observe what happens.
       </div>
-
-      <div class="assignment" id="speak107">
-        <strong>Assignment 10:</strong> Use a labeled break to stop both loops together.
+<div class="assignment" id="speak107">
+<strong>Assignment 10:</strong> Use a labeled break to stop both loops together.
       </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak108">Interactive MCQ Quiz</h2>
-      <p id="speak109">
+</section>
+<section class="card">
+<h2 id="speak108">Interactive MCQ Quiz</h2>
+<p id="speak109">
         Choose one answer for each question and click <strong>Check Answers</strong>.
       </p>
-
-      <div class="quiz-toolbar">
-        <div id="speak110"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
-        <div class="quiz-actions">
-          <button id="checkBtn" type="button">Check Answers</button>
-          <button id="resetBtn" type="button" class="secondary">Reset Quiz</button>
-        </div>
-      </div>
-
-      <div id="quizContainer"></div>
-
-      <div id="resultBox" class="result-box" aria-live="polite">
-        <p class="score-big" id="scoreText">0 / 0</p>
-        <p id="resultNote">Your result will appear here.</p>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak111">Quick revision</h2>
-      <ul>
-        <li id="speak112">A nested loop is a loop inside another loop.</li>
-        <li id="speak113">The inner loop runs fully for each outer loop iteration.</li>
-        <li id="speak114">Outer loops often control rows and inner loops control columns.</li>
-        <li id="speak115">Nested loops are heavily used in patterns and 2D arrays.</li>
-        <li id="speak116">A normal break stops only the loop where it appears.</li>
-        <li id="speak117">A labeled break can stop an outer loop too.</li>
-        <li id="speak118">Nested loops can be powerful but may be expensive for large input sizes.</li>
-      </ul>
-    </section>
-
-    <p class="footer-note" id="speak119">Programmer’s Picnic Java lesson page — Nested loops in detail.</p>
-  </main>
-
-  <script>
+<div class="quiz-toolbar">
+<div id="speak110"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
+<div class="quiz-actions">
+<button id="checkBtn" type="button">Check Answers</button>
+<button class="secondary" id="resetBtn" type="button">Reset Quiz</button>
+</div>
+</div>
+<div id="quizContainer"></div>
+<div aria-live="polite" class="result-box" id="resultBox">
+<p class="score-big" id="scoreText">0 / 0</p>
+<p id="resultNote">Your result will appear here.</p>
+</div>
+</section>
+<section class="card">
+<h2 id="speak111">Quick revision</h2>
+<ul>
+<li id="speak112">A nested loop is a loop inside another loop.</li>
+<li id="speak113">The inner loop runs fully for each outer loop iteration.</li>
+<li id="speak114">Outer loops often control rows and inner loops control columns.</li>
+<li id="speak115">Nested loops are heavily used in patterns and 2D arrays.</li>
+<li id="speak116">A normal break stops only the loop where it appears.</li>
+<li id="speak117">A labeled break can stop an outer loop too.</li>
+<li id="speak118">Nested loops can be powerful but may be expensive for large input sizes.</li>
+</ul>
+</section>
+<p class="footer-note" id="speak119">Programmer’s Picnic Java lesson page — Nested loops in detail.</p>
+</main>
+<script>
     const quizData = [
       {
         topic: "Basics",
@@ -1100,5 +1021,5 @@ for (int i = 1; i <= 3; i++) {
 
     createQuiz();
   </script>
-</body>
+<div data-root="../../../" id="site-footer"></div><script defer="True" src="../../../assets/js/include.js"></script></body>
 </html>

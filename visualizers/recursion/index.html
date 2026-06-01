@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Programmer’s Picnic — Recursion Visualizer</title>
-
 <style>
 :root{
   --bg:#fffaf2;
@@ -174,110 +174,85 @@ button{cursor:pointer;font-weight:800;background:#fff}
   border:1px dashed var(--brand);
 }
 </style>
-</head>
-
-<body>
-
+<link href="../../assets/css/theme.css" rel="stylesheet"/><meta content="Programmer’s Picnic — Recursion Visualizer - practical learning page from DSA with Champak." name="description"/></head>
+<body data-root="../../"><div data-root="../../" id="site-header"></div>
 <header>
-  <div class="wrap">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div class="badge"><span class="dot"></span> Programmer’s Picnic</div>
-      <div class="badge">Champak Roy</div>
-    </div>
-    <h1 style="margin:8px 0 0">Recursion Visualizer</h1>
-    <p class="dim">Call Stack + Recursion Tree (baby steps)</p>
-  </div>
+<div class="wrap">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div class="badge"><span class="dot"></span> Programmer’s Picnic</div>
+<div class="badge">Champak Roy</div>
+</div>
+<h1 style="margin:8px 0 0">Recursion Visualizer</h1>
+<p class="dim">Call Stack + Recursion Tree (baby steps)</p>
+</div>
 </header>
-
-<main class="wrap">
+<main class="wrap" id="main-content">
 <div class="grid">
-
 <section class="card">
 <h2>Controls</h2>
 <div class="pad">
-
 <label>Example</label>
 <select id="example">
-  <option value="fact">Factorial</option>
-  <option value="sum">Sum to N</option>
-  <option value="fib">Fibonacci</option>
+<option value="fact">Factorial</option>
+<option value="sum">Sum to N</option>
+<option value="fib">Fibonacci</option>
 </select>
-
 <label style="margin-top:10px">n</label>
-<input id="n" type="number" value="5" min="0" max="10" />
-
+<input id="n" max="10" min="0" type="number" value="5"/>
 <div class="row">
-  <button class="primary" id="build">Build</button>
-  <button id="play">Play</button>
-  <button id="step">Step</button>
-  <button id="reset">Reset</button>
+<button class="primary" id="build">Build</button>
+<button id="play">Play</button>
+<button id="step">Step</button>
+<button id="reset">Reset</button>
 </div>
-
 <div class="row">
-  <button class="help-btn" id="helpBtn">Help ❓</button>
+<button class="help-btn" id="helpBtn">Help ❓</button>
 </div>
-
-<p id="status" class="dim">Status: idle</p>
+<p class="dim" id="status">Status: idle</p>
 </div>
 </section>
-
 <section class="card">
 <h2>Visualization</h2>
 <div class="pad">
-
 <h4>Recursion Tree</h4>
 <div class="tree-scroll">
-  <svg id="tree"></svg>
+<svg id="tree"></svg>
 </div>
-
 <h4>Call Stack</h4>
 <div class="stack" id="stack"></div>
-
 <h4>Trace</h4>
 <div class="log" id="log"></div>
-
 </div>
 </section>
-
 </div>
 </main>
-
 <!-- HELP MODAL -->
 <div class="modal" id="helpModal">
-  <div class="modal-card">
-    <div class="modal-header">
-      <strong>How to Use This Tool</strong>
-      <button class="close-btn" onclick="closeHelp()">×</button>
-    </div>
-    <div class="modal-body">
-      <p>This visualizer helps you <b>see recursion in action</b>.</p>
-
-      <h4>1️⃣ Build</h4>
-      <p>Creates the recursion tree and prepares all calls.</p>
-
-      <h4>2️⃣ Play</h4>
-      <p>Runs recursion automatically from start to finish.</p>
-
-      <h4>3️⃣ Step ⭐</h4>
-      <p>Executes <b>one call or return at a time</b>. Best for learning.</p>
-
-      <h4>🌳 Recursion Tree</h4>
-      <p>Shows which function calls which. Highlighted node = active call.</p>
-
-      <h4>📚 Call Stack</h4>
-      <p>Shows how functions are stacked in memory.</p>
-
-      <h4>🧾 Trace</h4>
-      <p>Text log of calls (→) and returns (←).</p>
-
-      <hr>
-      <p><i>Tip:</i> Start with <b>Factorial, n = 4</b> and use <b>Step</b>.</p>
-
-      <p><b>Recursion is just a function trusting itself.</b></p>
-    </div>
-  </div>
+<div class="modal-card">
+<div class="modal-header">
+<strong>How to Use This Tool</strong>
+<button class="close-btn" onclick="closeHelp()">×</button>
 </div>
-
+<div class="modal-body">
+<p>This visualizer helps you <b>see recursion in action</b>.</p>
+<h4>1️⃣ Build</h4>
+<p>Creates the recursion tree and prepares all calls.</p>
+<h4>2️⃣ Play</h4>
+<p>Runs recursion automatically from start to finish.</p>
+<h4>3️⃣ Step ⭐</h4>
+<p>Executes <b>one call or return at a time</b>. Best for learning.</p>
+<h4>🌳 Recursion Tree</h4>
+<p>Shows which function calls which. Highlighted node = active call.</p>
+<h4>📚 Call Stack</h4>
+<p>Shows how functions are stacked in memory.</p>
+<h4>🧾 Trace</h4>
+<p>Text log of calls (→) and returns (←).</p>
+<hr/>
+<p><i>Tip:</i> Start with <b>Factorial, n = 4</b> and use <b>Step</b>.</p>
+<p><b>Recursion is just a function trusting itself.</b></p>
+</div>
+</div>
+</div>
 <script>
 const $ = id => document.getElementById(id);
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -437,6 +412,5 @@ $("play").onclick=()=>play(true);
 $("step").onclick=()=>play(false);
 $("reset").onclick=resetAll;
 </script>
-
-</body>
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>

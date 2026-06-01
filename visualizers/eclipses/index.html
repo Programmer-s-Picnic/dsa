@@ -1,25 +1,17 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Programmer’s Picnic — Eclipse Visualizer (Lunar + Solar)</title>
-    <script async
-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
-crossorigin="anonymous"></script>
+<!DOCTYPE html>
 
-    <meta
-      name="description"
-      content="Interactive visualization of lunar and solar eclipses: alignment, umbra/penumbra, and eclipse types. Built for Programmer’s Picnic."
-    />
-    <meta name="theme-color" content="#d97706" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Programmer’s Picnic — Eclipse Visualizer (Lunar + Solar)</title>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<meta content="Interactive visualization of lunar and solar eclipses: alignment, umbra/penumbra, and eclipse types. Built for Programmer’s Picnic." name="description"/>
+<meta content="#0b67b2" name="theme-color"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
       :root {
         --bg: #fff7e6;
         --panel: rgba(255, 255, 255, 0.86);
@@ -413,280 +405,179 @@ crossorigin="anonymous"></script>
         opacity: 0.9;
       }
     </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <div class="topbar">
-        <div class="brand">
-          <div class="logo" aria-hidden="true"></div>
-          <div class="titleblock">
-            <p class="t">Programmer’s Picnic — Eclipse Visualizer</p>
-            <p class="s">
+<link href="../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../"><div data-root="../../" id="site-header"></div><div id="main-content"></div>
+<div class="wrap">
+<div class="topbar">
+<div class="brand">
+<div aria-hidden="true" class="logo"></div>
+<div class="titleblock">
+<p class="t">Programmer’s Picnic — Eclipse Visualizer</p>
+<p class="s">
               Lunar + Solar • umbra/penumbra • types • simple geometry
             </p>
-          </div>
-        </div>
-
-        <div class="controlsRow">
-          <div class="seg" role="group" aria-label="Eclipse type">
-            <button
-              id="btnSolar"
-              aria-pressed="true"
-              title="Solar eclipse (Moon between Sun and Earth)"
-            >
+</div>
+</div>
+<div class="controlsRow">
+<div aria-label="Eclipse type" class="seg" role="group">
+<button aria-pressed="true" id="btnSolar" title="Solar eclipse (Moon between Sun and Earth)">
               Solar
             </button>
-            <button
-              id="btnLunar"
-              aria-pressed="false"
-              title="Lunar eclipse (Earth between Sun and Moon)"
-            >
+<button aria-pressed="false" id="btnLunar" title="Lunar eclipse (Earth between Sun and Moon)">
               Lunar
             </button>
-          </div>
-          <div
-            class="chip"
-            title="What the simulator currently thinks the eclipse type is"
-          >
-            <span>Result:</span> <strong id="resultLabel">—</strong>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid">
-        <!-- LEFT: VISUAL -->
-        <div class="card">
-          <div class="cardHeader">
-            <h2>Alignment + Shadows</h2>
-            <div class="mini">Not to scale • interactive</div>
-          </div>
-          <div class="cardBody">
-            <div class="stage">
-              <canvas
-                id="cv"
-                width="1200"
-                height="675"
-                aria-label="Eclipse simulation canvas"
-              ></canvas>
-            </div>
-
-            <div class="legend" aria-label="Legend">
-              <span class="sw"
-                ><span
-                  class="dot"
-                  style="background: rgba(255, 190, 60, 0.95)"
-                ></span>
-                Sun</span
-              >
-              <span class="sw"
-                ><span
-                  class="dot"
-                  style="background: rgba(130, 170, 255, 0.92)"
-                ></span>
-                Earth</span
-              >
-              <span class="sw"
-                ><span
-                  class="dot"
-                  style="background: rgba(230, 230, 235, 0.95)"
-                ></span>
-                Moon</span
-              >
-              <span class="sw"
-                ><span
-                  class="dot"
-                  style="background: rgba(31, 35, 40, 0.4)"
-                ></span>
-                Umbra</span
-              >
-              <span class="sw"
-                ><span
-                  class="dot"
-                  style="background: rgba(31, 35, 40, 0.18)"
-                ></span>
-                Penumbra</span
-              >
-            </div>
-
-            <div class="help">
-              <details>
-                <summary>Help: how to use this</summary>
-                <div style="margin-top: 8px">
-                  <ul style="margin: 0; padding-left: 18px">
-                    <li>Pick <b>Solar</b> or <b>Lunar</b> on the top right.</li>
-                    <li>
+</div>
+<div class="chip" title="What the simulator currently thinks the eclipse type is">
+<span>Result:</span> <strong id="resultLabel">—</strong>
+</div>
+</div>
+</div>
+<div class="grid">
+<!-- LEFT: VISUAL -->
+<div class="card">
+<div class="cardHeader">
+<h2>Alignment + Shadows</h2>
+<div class="mini">Not to scale • interactive</div>
+</div>
+<div class="cardBody">
+<div class="stage">
+<canvas aria-label="Eclipse simulation canvas" height="675" id="cv" width="1200"></canvas>
+</div>
+<div aria-label="Legend" class="legend">
+<span class="sw"><span class="dot" style="background: rgba(255, 190, 60, 0.95)"></span>
+                Sun</span>
+<span class="sw"><span class="dot" style="background: rgba(130, 170, 255, 0.92)"></span>
+                Earth</span>
+<span class="sw"><span class="dot" style="background: rgba(230, 230, 235, 0.95)"></span>
+                Moon</span>
+<span class="sw"><span class="dot" style="background: rgba(31, 35, 40, 0.4)"></span>
+                Umbra</span>
+<span class="sw"><span class="dot" style="background: rgba(31, 35, 40, 0.18)"></span>
+                Penumbra</span>
+</div>
+<div class="help">
+<details>
+<summary>Help: how to use this</summary>
+<div style="margin-top: 8px">
+<ul style="margin: 0; padding-left: 18px">
+<li>Pick <b>Solar</b> or <b>Lunar</b> on the top right.</li>
+<li>
                       Use <b>Offset</b> to move the Moon up/down from perfect
                       alignment (the “eclipse line”).
                     </li>
-                    <li>
+<li>
                       Change <b>Moon distance</b> to see why some solar eclipses
                       are <b>total</b> vs <b>annular</b>.
                     </li>
-                    <li>
+<li>
                       Use <span class="kbd">Space</span> to play/pause,
                       <span class="kbd">R</span> to reset,
                       <span class="kbd">←</span>/<span class="kbd">→</span> to
                       step.
                     </li>
-                  </ul>
-                </div>
-              </details>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT: CONTROLS + READOUT -->
-        <div class="card">
-          <div class="cardHeader">
-            <h2>Controls</h2>
-            <div class="mini">Try small offsets first</div>
-          </div>
-          <div class="cardBody">
-            <div class="twoCols">
-              <div class="field">
-                <label for="offset">Offset (alignment) • px</label>
-                <input
-                  id="offset"
-                  type="range"
-                  min="-160"
-                  max="160"
-                  step="1"
-                  value="0"
-                />
-                <div
-                  style="
+</ul>
+</div>
+</details>
+</div>
+</div>
+</div>
+<!-- RIGHT: CONTROLS + READOUT -->
+<div class="card">
+<div class="cardHeader">
+<h2>Controls</h2>
+<div class="mini">Try small offsets first</div>
+</div>
+<div class="cardBody">
+<div class="twoCols">
+<div class="field">
+<label for="offset">Offset (alignment) • px</label>
+<input id="offset" max="160" min="-160" step="1" type="range" value="0"/>
+<div style="
                     display: flex;
                     justify-content: space-between;
                     font-size: 12px;
                     color: var(--muted);
                     margin-top: 6px;
-                  "
-                >
-                  <span>-160</span
-                  ><span id="offsetVal" style="font-family: var(--mono)"></span
-                  ><span>+160</span>
-                </div>
-              </div>
-
-              <div class="field">
-                <label for="moonDist"
-                  >Moon distance (affects apparent size)</label
-                >
-                <input
-                  id="moonDist"
-                  type="range"
-                  min="0.82"
-                  max="1.18"
-                  step="0.01"
-                  value="1.00"
-                />
-                <div
-                  style="
+                  ">
+<span>-160</span><span id="offsetVal" style="font-family: var(--mono)"></span><span>+160</span>
+</div>
+</div>
+<div class="field">
+<label for="moonDist">Moon distance (affects apparent size)</label>
+<input id="moonDist" max="1.18" min="0.82" step="0.01" type="range" value="1.00"/>
+<div style="
                     display: flex;
                     justify-content: space-between;
                     font-size: 12px;
                     color: var(--muted);
                     margin-top: 6px;
-                  "
-                >
-                  <span>Near</span
-                  ><span
-                    id="moonDistVal"
-                    style="font-family: var(--mono)"
-                  ></span
-                  ><span>Far</span>
-                </div>
-              </div>
-
-              <div class="field">
-                <label for="speed">Animation speed</label>
-                <input
-                  id="speed"
-                  type="range"
-                  min="0"
-                  max="3.0"
-                  step="0.05"
-                  value="1.00"
-                />
-                <div
-                  style="
+                  ">
+<span>Near</span><span id="moonDistVal" style="font-family: var(--mono)"></span><span>Far</span>
+</div>
+</div>
+<div class="field">
+<label for="speed">Animation speed</label>
+<input id="speed" max="3.0" min="0" step="0.05" type="range" value="1.00"/>
+<div style="
                     display: flex;
                     justify-content: space-between;
                     font-size: 12px;
                     color: var(--muted);
                     margin-top: 6px;
-                  "
-                >
-                  <span>Pause</span
-                  ><span id="speedVal" style="font-family: var(--mono)"></span
-                  ><span>Fast</span>
-                </div>
-              </div>
-
-              <div class="field">
-                <label for="viewMode">View</label>
-                <select id="viewMode">
-                  <option value="diagram" selected>
+                  ">
+<span>Pause</span><span id="speedVal" style="font-family: var(--mono)"></span><span>Fast</span>
+</div>
+</div>
+<div class="field">
+<label for="viewMode">View</label>
+<select id="viewMode">
+<option selected="" value="diagram">
                     Diagram (with shadow cones)
                   </option>
-                  <option value="cross">Cross-section (impact test)</option>
-                  <option value="both">Both (diagram + cross-section)</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="btnRow">
-              <button class="btn primary" id="btnPlay">Play</button>
-              <button
-                class="btn"
-                id="btnStepBack"
-                title="Step back (left arrow)"
-              >
+<option value="cross">Cross-section (impact test)</option>
+<option value="both">Both (diagram + cross-section)</option>
+</select>
+</div>
+</div>
+<div class="btnRow">
+<button class="btn primary" id="btnPlay">Play</button>
+<button class="btn" id="btnStepBack" title="Step back (left arrow)">
                 Step ◀
               </button>
-              <button
-                class="btn"
-                id="btnStepFwd"
-                title="Step forward (right arrow)"
-              >
+<button class="btn" id="btnStepFwd" title="Step forward (right arrow)">
                 Step ▶
               </button>
-              <button class="btn" id="btnReset" title="Reset (R)">Reset</button>
-            </div>
-
-            <div class="hint">
-              <b>What this sim checks:</b> it draws umbra/penumbra as cones from
+<button class="btn" id="btnReset" title="Reset (R)">Reset</button>
+</div>
+<div class="hint">
+<b>What this sim checks:</b> it draws umbra/penumbra as cones from
               the “occluder” (Moon for solar, Earth for lunar), then tests
               whether the “target” (Earth for solar, Moon for lunar) intersects
               the umbra or penumbra near the target plane.
             </div>
-
-            <div style="height: 10px"></div>
-
-            <div class="readout">
-              <div class="pill">
-                <p class="k">Eclipse classification</p>
-                <p class="v" id="classOut">—</p>
-              </div>
-              <div class="pill">
-                <p class="k">Shadow hit (target)</p>
-                <p class="v" id="hitOut">—</p>
-              </div>
-              <div class="pill">
-                <p class="k">Notes</p>
-                <p class="v" id="noteOut">—</p>
-              </div>
-            </div>
-
-            <div class="footer">
+<div style="height: 10px"></div>
+<div class="readout">
+<div class="pill">
+<p class="k">Eclipse classification</p>
+<p class="v" id="classOut">—</p>
+</div>
+<div class="pill">
+<p class="k">Shadow hit (target)</p>
+<p class="v" id="hitOut">—</p>
+</div>
+<div class="pill">
+<p class="k">Notes</p>
+<p class="v" id="noteOut">—</p>
+</div>
+</div>
+<div class="footer">
               Built for Programmer’s Picnic • Champak Roy
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script>
+</div>
+</div>
+</div>
+</div>
+<script>
       (function () {
         "use strict";
 
@@ -1559,5 +1450,5 @@ crossorigin="anonymous"></script>
         requestAnimationFrame(loop);
       })();
     </script>
-  </body>
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>

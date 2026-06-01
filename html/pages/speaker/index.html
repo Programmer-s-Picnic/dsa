@@ -1,11 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Programmer's Picnic — Talking</title>
-    <meta name="theme-color" content="#d97706" />
-    <style>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Programmer's Picnic — Talking</title>
+<meta content="#0b67b2" name="theme-color"/>
+<style>
       :root {
         --bg: #fff8ef;
         --panel: #ffffff;
@@ -559,95 +560,83 @@
         }
       }
     </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <section class="hero">
-        <span class="kicker">Programmer's Picnic</span>
-        <h1>Talking Avatar Demo</h1>
-        <p class="lead">
+<link href="../../../assets/css/theme.css" rel="stylesheet"/><meta content="Programmer's Picnic — Talking - practical learning page from DSA with Champak." name="description"/></head>
+<body data-root="../../../"><div data-root="../../../" id="site-header"></div><div id="main-content"></div>
+<div class="wrap">
+<section class="hero">
+<span class="kicker">Programmer's Picnic</span>
+<h1>Talking Avatar Demo</h1>
+<p class="lead">
           This version fixes the hidden mouth and makes the animation clearly
           visible on mobile too.
         </p>
-      </section>
-
-      <section class="grid">
-        <div class="card">
-          <h2>Speaker Paragraphs</h2>
-
-          <div class="speak-block" id="speak0">
+</section>
+<section class="grid">
+<div class="card">
+<h2>Speaker Paragraphs</h2>
+<div class="speak-block" id="speak0">
             Welcome to Programmer's Picnic. This is the introduction paragraph.
             In this demo, the avatar will start speaking, the mouth will
             animate, and the active paragraph will be highlighted.
           </div>
-
-          <div class="speak-block" id="speak1">
+<div class="speak-block" id="speak1">
             The main idea is simple. We use browser speech synthesis for
             narration, and while the narration runs, the avatar enters speaking
             mode. This gives a lively teaching experience.
           </div>
-
-          <div class="speak-block" id="speak2">
+<div class="speak-block" id="speak2">
             Later, we will replace this demo face with our own photo based
             avatar, or even build a more advanced version that looks like a real
             speaking presenter.
           </div>
-
-          <div class="controls">
-            <button class="btn-primary" id="startBtn">Start</button>
-            <button class="btn-secondary" id="pauseBtn">Pause</button>
-            <button class="btn-secondary" id="nextBtn">Next</button>
-            <button class="btn-secondary" id="stopBtn">Stop</button>
-          </div>
-
-          <div class="status" id="statusBox">Ready.</div>
-        </div>
-
-        <div class="avatar-shell">
-          <div class="avatar-card" id="avatarCard">
-            <div class="avatar-top">
-              <div>
-                <h3>Speaking Avatar</h3>
-                <p>Demo floating narrator</p>
-              </div>
-              <div class="live-dot" id="liveDot"></div>
-            </div>
-
-            <div class="avatar-stage">
-              <div class="avatar-glow"></div>
-
-              <div class="avatar">
-                <div class="head">
-                  <div class="hair"></div>
-                  <div class="face">
-                    <div class="brow left"></div>
-                    <div class="brow right"></div>
-                    <div class="eye left"></div>
-                    <div class="eye right"></div>
-                    <div class="nose"></div>
-                    <div class="smile"></div>
-                    <div class="mouth"></div>
-                  </div>
-                </div>
-                <div class="neck"></div>
-                <div class="shoulders"></div>
-              </div>
-            </div>
-
-            <div class="avatar-caption" id="avatarCaption">
-              <strong>Status</strong>
+<div class="controls">
+<button class="btn-primary" id="startBtn">Start</button>
+<button class="btn-secondary" id="pauseBtn">Pause</button>
+<button class="btn-secondary" id="nextBtn">Next</button>
+<button class="btn-secondary" id="stopBtn">Stop</button>
+</div>
+<div class="status" id="statusBox">Ready.</div>
+</div>
+<div class="avatar-shell">
+<div class="avatar-card" id="avatarCard">
+<div class="avatar-top">
+<div>
+<h3>Speaking Avatar</h3>
+<p>Demo floating narrator</p>
+</div>
+<div class="live-dot" id="liveDot"></div>
+</div>
+<div class="avatar-stage">
+<div class="avatar-glow"></div>
+<div class="avatar">
+<div class="head">
+<div class="hair"></div>
+<div class="face">
+<div class="brow left"></div>
+<div class="brow right"></div>
+<div class="eye left"></div>
+<div class="eye right"></div>
+<div class="nose"></div>
+<div class="smile"></div>
+<div class="mouth"></div>
+</div>
+</div>
+<div class="neck"></div>
+<div class="shoulders"></div>
+</div>
+</div>
+<div class="avatar-caption" id="avatarCaption">
+<strong>Status</strong>
               Waiting to start narration.
             </div>
-
-            <div class="wave" aria-hidden="true">
-              <span></span><span></span><span></span><span></span><span></span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <script>
+<div aria-hidden="true" class="wave">
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script>
       (() => {
         "use strict";
 
@@ -810,5 +799,5 @@
         setAvatarText("Status", "Waiting to start narration.");
       })();
     </script>
-  </body>
+<div data-root="../../../" id="site-footer"></div><script defer="True" src="../../../assets/js/include.js"></script></body>
 </html>

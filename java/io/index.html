@@ -1,28 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Java Lesson — Scanner, stdin, stdout, and stderr</title>
-  <meta
-    name="description"
-    content="A complete beginner-friendly Java lesson on Scanner, standard input, standard output, and standard error with examples, assignments, and interactive MCQ quiz."
-  />
-  <meta name="theme-color" content="#d97706" />
-
-
-
-<script
-      async=""
-      crossorigin="anonymous"
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
-    ></script>
-
-  
-  <script src="https://programmer-s-picnic.github.io/json-images/pwd.js"></script>
-  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Java Lesson — Scanner, stdin, stdout, and stderr</title>
+<meta content="A complete beginner-friendly Java lesson on Scanner, standard input, standard output, and standard error with examples, assignments, and interactive MCQ quiz." name="description"/>
+<meta content="#0b67b2" name="theme-color"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<script src="https://programmer-s-picnic.github.io/json-images/pwd.js"></script>
+<script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+<style>
     :root{
       --bg:#fff8eb;
       --card:#ffffff;
@@ -355,108 +343,100 @@
       .quiz-toolbar{align-items:flex-start}
     }
   </style>
-</head>
-<body>
-  <header>
-    <h1 id="speak0">Java Lesson — Scanner, stdin, stdout, and stderr</h1>
-    <p id="speak1">Learn how Java reads input, prints normal output, and prints error output.</p>
-  </header>
-
-  <main class="container">
-    <section class="card hero-grid">
-      <div>
-        <h2 id="speak2">What this lesson covers</h2>
-        <p id="speak3">
+<link href="../../assets/css/theme.css" rel="stylesheet"/></head>
+<body data-root="../../"><div data-root="../../" id="site-header"></div>
+<header>
+<h1 id="speak0">Java Lesson — Scanner, stdin, stdout, and stderr</h1>
+<p id="speak1">Learn how Java reads input, prints normal output, and prints error output.</p>
+</header>
+<main class="container" id="main-content">
+<section class="card hero-grid">
+<div>
+<h2 id="speak2">What this lesson covers</h2>
+<p id="speak3">
           In this lesson, you will learn how a Java program reads data from the user using
           <code>Scanner</code>, how it prints normal output using <code>System.out</code>,
           and how it prints error messages using <code>System.err</code>. You will also
           learn the idea of <code>stdin</code>, <code>stdout</code>, and <code>stderr</code>.
         </p>
-        <p id="speak4">
+<p id="speak4">
           These ideas are very important because almost every console Java program uses them.
           If you understand this lesson well, you will be able to make interactive Java programs
           that ask the user for values and then respond with useful output.
         </p>
-      </div>
-
-      <div class="mini-grid">
-        <div class="mini">
-          <strong id="speak5">stdin</strong>
-          <p class="muted" id="speak6">Standard input, usually the keyboard</p>
-        </div>
-        <div class="mini">
-          <strong id="speak7">stdout</strong>
-          <p class="muted" id="speak8">Standard output, normal program output</p>
-        </div>
-        <div class="mini">
-          <strong id="speak9">stderr</strong>
-          <p class="muted" id="speak10">Standard error, error messages</p>
-        </div>
-        <div class="mini">
-          <strong id="speak11">Scanner</strong>
-          <p class="muted" id="speak12">Java class used to read input</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak13">What are stdin, stdout, and stderr?</h2>
-      <p id="speak14">
+</div>
+<div class="mini-grid">
+<div class="mini">
+<strong id="speak5">stdin</strong>
+<p class="muted" id="speak6">Standard input, usually the keyboard</p>
+</div>
+<div class="mini">
+<strong id="speak7">stdout</strong>
+<p class="muted" id="speak8">Standard output, normal program output</p>
+</div>
+<div class="mini">
+<strong id="speak9">stderr</strong>
+<p class="muted" id="speak10">Standard error, error messages</p>
+</div>
+<div class="mini">
+<strong id="speak11">Scanner</strong>
+<p class="muted" id="speak12">Java class used to read input</p>
+</div>
+</div>
+</section>
+<section class="card">
+<h2 id="speak13">What are stdin, stdout, and stderr?</h2>
+<p id="speak14">
         Many programming languages use three standard streams for communication.
         Java also uses them.
       </p>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th id="speak15">Name</th>
-              <th id="speak16">Full form</th>
-              <th id="speak17">Meaning</th>
-              <th id="speak18">Java form</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>stdin</td>
-              <td id="speak19">Standard input</td>
-              <td id="speak20">Data coming into the program, usually from keyboard</td>
-              <td><code>System.in</code></td>
-            </tr>
-            <tr>
-              <td>stdout</td>
-              <td id="speak21">Standard output</td>
-              <td id="speak22">Normal output shown by the program</td>
-              <td><code>System.out</code></td>
-            </tr>
-            <tr>
-              <td>stderr</td>
-              <td id="speak23">Standard error</td>
-              <td id="speak24">Error output shown separately from normal output</td>
-              <td><code>System.err</code></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p id="speak25">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th id="speak15">Name</th>
+<th id="speak16">Full form</th>
+<th id="speak17">Meaning</th>
+<th id="speak18">Java form</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stdin</td>
+<td id="speak19">Standard input</td>
+<td id="speak20">Data coming into the program, usually from keyboard</td>
+<td><code>System.in</code></td>
+</tr>
+<tr>
+<td>stdout</td>
+<td id="speak21">Standard output</td>
+<td id="speak22">Normal output shown by the program</td>
+<td><code>System.out</code></td>
+</tr>
+<tr>
+<td>stderr</td>
+<td id="speak23">Standard error</td>
+<td id="speak24">Error output shown separately from normal output</td>
+<td><code>System.err</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p id="speak25">
         In simple classroom programs, stdout and stderr may both appear on the same console,
         but they are conceptually different streams.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak26">Using Scanner with System.in</h2>
-      <p id="speak27">
+</section>
+<section class="card">
+<h2 id="speak26">Using Scanner with System.in</h2>
+<p id="speak27">
         To read input from the keyboard in Java, we usually use the <code>Scanner</code> class.
         The scanner reads from <code>System.in</code>, which represents standard input.
       </p>
-
-      <h3 id="speak28">Import Scanner</h3>
-      <pre id="speak29">import java.util.Scanner;</pre>
-
-      <h3 id="speak30">Basic example</h3>
-      <pre id="speak31">import java.util.Scanner;
+<h3 id="speak28">Import Scanner</h3>
+<pre id="speak29">import java.util.Scanner;</pre>
+<h3 id="speak30">Basic example</h3>
+<pre id="speak31">import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -470,60 +450,56 @@ public class Main {
         sc.close();
     }
 }</pre>
-
-      <p id="speak32">
+<p id="speak32">
         In this example, the program asks for a name, reads the full line using
         <code>nextLine()</code>, and then prints a greeting.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak33">Common Scanner methods</h2>
-      <p id="speak34">
+</section>
+<section class="card">
+<h2 id="speak33">Common Scanner methods</h2>
+<p id="speak34">
         Scanner provides different methods for different kinds of input.
       </p>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th id="speak35">Method</th>
-              <th id="speak36">Reads</th>
-              <th id="speak37">Example input</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>next()</code></td>
-              <td id="speak38">One word</td>
-              <td>Java</td>
-            </tr>
-            <tr>
-              <td><code>nextLine()</code></td>
-              <td id="speak39">Full line</td>
-              <td>Hello Java World</td>
-            </tr>
-            <tr>
-              <td><code>nextInt()</code></td>
-              <td id="speak40">Integer</td>
-              <td>25</td>
-            </tr>
-            <tr>
-              <td><code>nextDouble()</code></td>
-              <td id="speak41">Decimal number</td>
-              <td>78.5</td>
-            </tr>
-            <tr>
-              <td><code>nextBoolean()</code></td>
-              <td id="speak42">Boolean value</td>
-              <td>true</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3 id="speak43">Reading numbers</h3>
-      <pre id="speak44">import java.util.Scanner;
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th id="speak35">Method</th>
+<th id="speak36">Reads</th>
+<th id="speak37">Example input</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>next()</code></td>
+<td id="speak38">One word</td>
+<td>Java</td>
+</tr>
+<tr>
+<td><code>nextLine()</code></td>
+<td id="speak39">Full line</td>
+<td>Hello Java World</td>
+</tr>
+<tr>
+<td><code>nextInt()</code></td>
+<td id="speak40">Integer</td>
+<td>25</td>
+</tr>
+<tr>
+<td><code>nextDouble()</code></td>
+<td id="speak41">Decimal number</td>
+<td>78.5</td>
+</tr>
+<tr>
+<td><code>nextBoolean()</code></td>
+<td id="speak42">Boolean value</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="speak43">Reading numbers</h3>
+<pre id="speak44">import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -542,49 +518,40 @@ public class Main {
         sc.close();
     }
 }</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak45">stdout with System.out</h2>
-      <p id="speak46">
-        <code>System.out</code> is used for normal output. It sends output to the standard output stream.
+</section>
+<section class="card">
+<h2 id="speak45">stdout with System.out</h2>
+<p id="speak46">
+<code>System.out</code> is used for normal output. It sends output to the standard output stream.
         Two very common methods are <code>print()</code> and <code>println()</code>.
       </p>
-
-      <pre id="speak47">System.out.print("Hello ");
+<pre id="speak47">System.out.print("Hello ");
 System.out.println("World");</pre>
-
-      <p id="speak48">
-        <code>print()</code> keeps the cursor on the same line.
+<p id="speak48">
+<code>print()</code> keeps the cursor on the same line.
         <code>println()</code> prints and then moves to the next line.
       </p>
-
-      <h3 id="speak49">Formatted output</h3>
-      <pre id="speak50">String name = "Aman";
+<h3 id="speak49">Formatted output</h3>
+<pre id="speak50">String name = "Aman";
 int marks = 92;
 
 System.out.printf("Student: %s, Marks: %d%n", name, marks);</pre>
-
-      <p id="speak51">
-        <code>printf()</code> is useful when you want cleaner formatted output.
+<p id="speak51">
+<code>printf()</code> is useful when you want cleaner formatted output.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak52">stderr with System.err</h2>
-      <p id="speak53">
-        <code>System.err</code> is used for error messages. It sends output to the standard error stream.
+</section>
+<section class="card">
+<h2 id="speak52">stderr with System.err</h2>
+<p id="speak53">
+<code>System.err</code> is used for error messages. It sends output to the standard error stream.
         This is helpful when you want to separate normal program output from warnings or errors.
       </p>
-
-      <pre id="speak54">System.err.println("Invalid input. Please enter a positive number.");</pre>
-
-      <p id="speak55">
+<pre id="speak54">System.err.println("Invalid input. Please enter a positive number.");</pre>
+<p id="speak55">
         In some IDEs and terminals, error output may appear in a different color or may be handled separately.
       </p>
-
-      <h3 id="speak56">Example using stdout and stderr together</h3>
-      <pre id="speak57">import java.util.Scanner;
+<h3 id="speak56">Example using stdout and stderr together</h3>
+<pre id="speak57">import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -593,7 +560,7 @@ public class Main {
         System.out.print("Enter age: ");
         int age = sc.nextInt();
 
-        if (age < 0) {
+        if (age &lt; 0) {
             System.err.println("Error: age cannot be negative.");
         } else {
             System.out.println("Your age is " + age);
@@ -602,17 +569,15 @@ public class Main {
         sc.close();
     }
 }</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak58">Important note about nextInt() and nextLine()</h2>
-      <p id="speak59">
+</section>
+<section class="card">
+<h2 id="speak58">Important note about nextInt() and nextLine()</h2>
+<p id="speak59">
         One common beginner problem happens when we use <code>nextInt()</code> and then immediately
         use <code>nextLine()</code>. After reading the integer, the newline character is still left
         in the input buffer.
       </p>
-
-      <pre id="speak60">import java.util.Scanner;
+<pre id="speak60">import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -632,15 +597,13 @@ public class Main {
         sc.close();
     }
 }</pre>
-
-      <p id="speak61">
+<p id="speak61">
         That extra <code>sc.nextLine()</code> is used to consume the leftover newline before reading the actual text line.
       </p>
-    </section>
-
-    <section class="card">
-      <h2 id="speak62">Complete example</h2>
-      <pre id="speak63">import java.util.Scanner;
+</section>
+<section class="card">
+<h2 id="speak62">Complete example</h2>
+<pre id="speak63">import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -657,7 +620,7 @@ public class Main {
         System.out.print("Enter your marks: ");
         double marks = sc.nextDouble();
 
-        if (age < 0) {
+        if (age &lt; 0) {
             System.err.println("Error: age cannot be negative.");
         } else {
             System.out.println();
@@ -670,81 +633,67 @@ public class Main {
         sc.close();
     }
 }</pre>
-    </section>
-
-    <section class="card">
-      <h2 id="speak64">Assignments</h2>
-
-      <div class="assignment" id="speak65">
-        <strong>Assignment 1:</strong> Write a program that reads a student's name and prints
+</section>
+<section class="card">
+<h2 id="speak64">Assignments</h2>
+<div class="assignment" id="speak65">
+<strong>Assignment 1:</strong> Write a program that reads a student's name and prints
         <code>Hello, &lt;name&gt;</code>.
       </div>
-
-      <div class="assignment" id="speak66">
-        <strong>Assignment 2:</strong> Write a program that reads two integers using Scanner
+<div class="assignment" id="speak66">
+<strong>Assignment 2:</strong> Write a program that reads two integers using Scanner
         and prints their sum using <code>System.out.println()</code>.
       </div>
-
-      <div class="assignment" id="speak67">
-        <strong>Assignment 3:</strong> Write a program that reads an age. If the age is negative,
+<div class="assignment" id="speak67">
+<strong>Assignment 3:</strong> Write a program that reads an age. If the age is negative,
         print an error message using <code>System.err.println()</code>.
       </div>
-
-      <div class="assignment" id="speak68">
-        <strong>Assignment 4:</strong> Write a program that reads a full name using
+<div class="assignment" id="speak68">
+<strong>Assignment 4:</strong> Write a program that reads a full name using
         <code>nextLine()</code> and a city using <code>nextLine()</code>, then prints both values.
       </div>
-
-      <div class="assignment" id="speak69">
-        <strong>Assignment 5:</strong> Write a program that reads an integer and a decimal number
+<div class="assignment" id="speak69">
+<strong>Assignment 5:</strong> Write a program that reads an integer and a decimal number
         and prints them using <code>printf()</code>.
       </div>
-
-      <div class="assignment" id="speak70">
-        <strong>Assignment 6:</strong> Write a program that first reads an integer and then a full
+<div class="assignment" id="speak70">
+<strong>Assignment 6:</strong> Write a program that first reads an integer and then a full
         line of text. Handle the leftover newline correctly.
       </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak71">Interactive MCQ Quiz</h2>
-      <p id="speak72">
+</section>
+<section class="card">
+<h2 id="speak71">Interactive MCQ Quiz</h2>
+<p id="speak72">
         Choose one answer for each question and click <strong>Check Answers</strong>.
       </p>
-
-      <div class="quiz-toolbar">
-        <div id="speak73"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
-        <div class="quiz-actions">
-          <button id="checkBtn" type="button">Check Answers</button>
-          <button id="resetBtn" type="button" class="secondary">Reset Quiz</button>
-        </div>
-      </div>
-
-      <div id="quizContainer"></div>
-
-      <div id="resultBox" class="result-box" aria-live="polite">
-        <p class="score-big" id="scoreText">0 / 0</p>
-        <p id="resultNote">Your result will appear here.</p>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2 id="speak74">Quick revision</h2>
-      <ul>
-        <li id="speak75"><code>System.in</code> is standard input.</li>
-        <li id="speak76"><code>Scanner</code> is commonly used to read input from <code>System.in</code>.</li>
-        <li id="speak77"><code>System.out</code> is used for normal output.</li>
-        <li id="speak78"><code>System.err</code> is used for error messages.</li>
-        <li id="speak79"><code>nextLine()</code> reads a full line.</li>
-        <li id="speak80"><code>nextInt()</code> reads an integer.</li>
-        <li id="speak81">After <code>nextInt()</code>, you may need an extra <code>nextLine()</code> before reading text.</li>
-      </ul>
-    </section>
-
-    <p class="footer-note" id="speak82">Programmer’s Picnic Java lesson page — Scanner, stdin, stdout, and stderr.</p>
-  </main>
-
-  <script>
+<div class="quiz-toolbar">
+<div id="speak73"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
+<div class="quiz-actions">
+<button id="checkBtn" type="button">Check Answers</button>
+<button class="secondary" id="resetBtn" type="button">Reset Quiz</button>
+</div>
+</div>
+<div id="quizContainer"></div>
+<div aria-live="polite" class="result-box" id="resultBox">
+<p class="score-big" id="scoreText">0 / 0</p>
+<p id="resultNote">Your result will appear here.</p>
+</div>
+</section>
+<section class="card">
+<h2 id="speak74">Quick revision</h2>
+<ul>
+<li id="speak75"><code>System.in</code> is standard input.</li>
+<li id="speak76"><code>Scanner</code> is commonly used to read input from <code>System.in</code>.</li>
+<li id="speak77"><code>System.out</code> is used for normal output.</li>
+<li id="speak78"><code>System.err</code> is used for error messages.</li>
+<li id="speak79"><code>nextLine()</code> reads a full line.</li>
+<li id="speak80"><code>nextInt()</code> reads an integer.</li>
+<li id="speak81">After <code>nextInt()</code>, you may need an extra <code>nextLine()</code> before reading text.</li>
+</ul>
+</section>
+<p class="footer-note" id="speak82">Programmer’s Picnic Java lesson page — Scanner, stdin, stdout, and stderr.</p>
+</main>
+<script>
     const quizData = [
       {
         topic: "Scanner",
@@ -994,5 +943,5 @@ public class Main {
 
     createQuiz();
   </script>
-</body>
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>

@@ -1,11 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>DNS Entries — V3 Premium | Programmer's Picnic</title>
-<meta name="theme-color" content="#f59e0b"/>
-
+<meta content="#0b67b2" name="theme-color"/>
 <style>
 :root{
   --bg:#fff7e6; --card:#fff; --text:#1f1608; --muted:#6b4a1d;
@@ -216,170 +216,157 @@ footer{
   nav{position:static}
 }
 </style>
-</head>
-
-<body>
-
+<link href="../../assets/css/theme.css" rel="stylesheet"/><meta content="DNS Entries — V3 Premium - practical learning page from DSA with Champak." name="description"/></head>
+<body data-root="../../"><div data-root="../../" id="site-header"></div>
 <header>
-  <div class="wrap hero">
-    <section>
-      <div class="badge">🌐 Programmer's Picnic | V3 Premium</div>
-      <h1 id="speak01">DNS Entries from Ground Zero to Expert</h1>
-      <p id="speak02">
+<div class="wrap hero">
+<section>
+<div class="badge">🌐 Programmer's Picnic | V3 Premium</div>
+<h1 id="speak01">DNS Entries from Ground Zero to Expert</h1>
+<p id="speak02">
         This lesson uses only <b>DUMMY</b> names and <b>DUMMY</b> IP addresses:
         <b>champakhavingprogrammerspicnic.now</b>,
         <b>champakspicnicdummyhub</b>, and
         <b>203.0.113.10</b>.
       </p>
-    </section>
-
-    <section class="hero-card">
-      <h3 style="color:white">Today’s Goal</h3>
-      <p>
+</section>
+<section class="hero-card">
+<h3 style="color:white">Today’s Goal</h3>
+<p>
         Understand DNS records, nameservers, subdomains, HTTPS flow, email records,
         debugging, and safe DNS planning without using any real hosting provider example.
       </p>
-    </section>
-  </div>
+</section>
+</div>
 </header>
-
 <nav>
-  <div class="wrap">
-    <a href="#zero">Zero</a>
-    <a href="#records">Records</a>
-    <a href="#hosting">Hosting</a>
-    <a href="#https">HTTPS</a>
-    <a href="#lab">Lab</a>
-    <a href="#quiz">Quiz</a>
-    <button class="btn" onclick="window.print()">Print</button>
-  </div>
+<div class="wrap">
+<a href="#zero">Zero</a>
+<a href="#records">Records</a>
+<a href="#hosting">Hosting</a>
+<a href="#https">HTTPS</a>
+<a href="#lab">Lab</a>
+<a href="#quiz">Quiz</a>
+<button class="btn" onclick="window.print()">Print</button>
+</div>
 </nav>
-
-<main class="wrap">
-
-<section id="zero" class="grid">
-  <article class="card">
-    <span class="level">Level 0</span>
-    <h2 id="speak03">What is DNS?</h2>
-    <p>
+<main class="wrap" id="main-content">
+<section class="grid" id="zero">
+<article class="card">
+<span class="level">Level 0</span>
+<h2 id="speak03">What is DNS?</h2>
+<p>
       DNS means <b>Domain Name System</b>. It converts a human-friendly name into
       a server address.
     </p>
-    <pre><code>You type:
+<pre><code>You type:
 champakhavingprogrammerspicnic.now
 
 DNS answers:
 Go to DUMMY IP 203.0.113.10
 
 Website opens.</code></pre>
-    <div class="note">
+<div class="note">
       DUMMY means this is only for learning. Do not copy dummy IP addresses into a live production domain.
     </div>
-  </article>
-
-  <article class="card">
-    <span class="level">Animated Mental Model</span>
-    <h2>Browser to Website Flow</h2>
-    <div class="diagram">
-      <div class="node">Browser</div>
-      <div class="arrow">→</div>
-      <div class="node">DNS</div>
-      <div class="arrow">→</div>
-      <div class="node">DUMMY Web Server<br>203.0.113.10</div>
-    </div>
-  </article>
+</article>
+<article class="card">
+<span class="level">Animated Mental Model</span>
+<h2>Browser to Website Flow</h2>
+<div class="diagram">
+<div class="node">Browser</div>
+<div class="arrow">→</div>
+<div class="node">DNS</div>
+<div class="arrow">→</div>
+<div class="node">DUMMY Web Server<br/>203.0.113.10</div>
+</div>
+</article>
 </section>
-
-<section id="records" class="grid">
-  <article class="card">
-    <span class="level">Level 1 to 4</span>
-    <h2 id="speak04">Important DNS Record Types</h2>
-    <table>
-      <tr>
-        <th>Record</th>
-        <th>Meaning</th>
-        <th>DUMMY Example</th>
-        <th>Used For</th>
-      </tr>
-      <tr>
-        <td><b>A</b></td>
-        <td>Domain to IPv4 address</td>
-        <td>@ → 203.0.113.10</td>
-        <td>Website hosting</td>
-      </tr>
-      <tr>
-        <td><b>AAAA</b></td>
-        <td>Domain to IPv6 address</td>
-        <td>@ → 2001:db8::10</td>
-        <td>IPv6 hosting</td>
-      </tr>
-      <tr>
-        <td><b>CNAME</b></td>
-        <td>Name to another domain name</td>
-        <td>www → champakspicnicdummyhub.example</td>
-        <td>Subdomain mapping</td>
-      </tr>
-      <tr>
-        <td><b>MX</b></td>
-        <td>Email routing</td>
-        <td>@ → mail.champakhavingprogrammerspicnic.now</td>
-        <td>Business email</td>
-      </tr>
-      <tr>
-        <td><b>TXT</b></td>
-        <td>Verification and security text</td>
-        <td>dummy-site-verification=abc123</td>
-        <td>Verification, SPF, DKIM, DMARC</td>
-      </tr>
-      <tr>
-        <td><b>NS</b></td>
-        <td>Nameserver</td>
-        <td>ns1.dummy-dns-provider.example</td>
-        <td>Who controls DNS</td>
-      </tr>
-      <tr>
-        <td><b>SOA</b></td>
-        <td>Zone authority info</td>
-        <td>Primary DNS admin info</td>
-        <td>DNS system management</td>
-      </tr>
-    </table>
-  </article>
-
-  <article class="card third">
-    <h3>A Record</h3>
-    <pre><code>Type: A
+<section class="grid" id="records">
+<article class="card">
+<span class="level">Level 1 to 4</span>
+<h2 id="speak04">Important DNS Record Types</h2>
+<table>
+<tr>
+<th>Record</th>
+<th>Meaning</th>
+<th>DUMMY Example</th>
+<th>Used For</th>
+</tr>
+<tr>
+<td><b>A</b></td>
+<td>Domain to IPv4 address</td>
+<td>@ → 203.0.113.10</td>
+<td>Website hosting</td>
+</tr>
+<tr>
+<td><b>AAAA</b></td>
+<td>Domain to IPv6 address</td>
+<td>@ → 2001:db8::10</td>
+<td>IPv6 hosting</td>
+</tr>
+<tr>
+<td><b>CNAME</b></td>
+<td>Name to another domain name</td>
+<td>www → champakspicnicdummyhub.example</td>
+<td>Subdomain mapping</td>
+</tr>
+<tr>
+<td><b>MX</b></td>
+<td>Email routing</td>
+<td>@ → mail.champakhavingprogrammerspicnic.now</td>
+<td>Business email</td>
+</tr>
+<tr>
+<td><b>TXT</b></td>
+<td>Verification and security text</td>
+<td>dummy-site-verification=abc123</td>
+<td>Verification, SPF, DKIM, DMARC</td>
+</tr>
+<tr>
+<td><b>NS</b></td>
+<td>Nameserver</td>
+<td>ns1.dummy-dns-provider.example</td>
+<td>Who controls DNS</td>
+</tr>
+<tr>
+<td><b>SOA</b></td>
+<td>Zone authority info</td>
+<td>Primary DNS admin info</td>
+<td>DNS system management</td>
+</tr>
+</table>
+</article>
+<article class="card third">
+<h3>A Record</h3>
+<pre><code>Type: A
 Host: @
 Value: 203.0.113.10
 Note: DUMMY IP</code></pre>
-    <p>Use it when the domain should point directly to a server IP.</p>
-  </article>
-
-  <article class="card third">
-    <h3>CNAME Record</h3>
-    <pre><code>Type: CNAME
+<p>Use it when the domain should point directly to a server IP.</p>
+</article>
+<article class="card third">
+<h3>CNAME Record</h3>
+<pre><code>Type: CNAME
 Host: www
 Value: champakspicnicdummyhub.example
 Note: DUMMY target</code></pre>
-    <p>Use it when one name should point to another domain name.</p>
-  </article>
-
-  <article class="card third">
-    <h3>TXT Record</h3>
-    <pre><code>Type: TXT
+<p>Use it when one name should point to another domain name.</p>
+</article>
+<article class="card third">
+<h3>TXT Record</h3>
+<pre><code>Type: TXT
 Host: @
 Value: dummy-site-verification=abc123
 Note: DUMMY verification</code></pre>
-    <p>Use it for verification and email security rules.</p>
-  </article>
+<p>Use it for verification and email security rules.</p>
+</article>
 </section>
-
-<section id="hosting" class="grid">
-  <article class="card">
-    <span class="level">Generic Hosting Setup</span>
-    <h2 id="speak05">DUMMY DNS Setup for Any Hosting Platform</h2>
-
-    <pre><code>Domain:
+<section class="grid" id="hosting">
+<article class="card">
+<span class="level">Generic Hosting Setup</span>
+<h2 id="speak05">DUMMY DNS Setup for Any Hosting Platform</h2>
+<pre><code>Domain:
 champakhavingprogrammerspicnic.now
 
 DUMMY Root Domain A Records:
@@ -394,89 +381,75 @@ app → champakspicnicdummyhub.example
 
 DUMMY API Subdomain:
 api → 203.0.113.20</code></pre>
-
-    <div class="warn">
+<div class="warn">
       This is not provider-specific. Replace DUMMY IPs and DUMMY hostnames with the real values given by your actual hosting provider.
     </div>
-  </article>
-
-  <article class="card half">
-    <h2>Correct Generic Setup</h2>
-    <p class="note">
+</article>
+<article class="card half">
+<h2>Correct Generic Setup</h2>
+<p class="note">
       Root domain points to hosting IPs. Subdomains can point to hostnames or different servers.
     </p>
-  </article>
-
-  <article class="card half">
-    <h2>Wrong Generic Setup</h2>
-    <p class="warn">
+</article>
+<article class="card half">
+<h2>Wrong Generic Setup</h2>
+<p class="warn">
       Do not guess IP addresses. Always use the values from your hosting control panel or DNS provider.
     </p>
-  </article>
+</article>
 </section>
-
-<section id="https" class="grid">
-  <article class="card">
-    <span class="level">HTTPS Flow</span>
-    <h2 id="speak06">Why HTTPS Takes Time</h2>
-
-    <pre><code>1. DNS records are added
+<section class="grid" id="https">
+<article class="card">
+<span class="level">HTTPS Flow</span>
+<h2 id="speak06">Why HTTPS Takes Time</h2>
+<pre><code>1. DNS records are added
 2. DNS starts propagating
 3. Hosting platform verifies the domain
 4. SSL certificate is created
 5. HTTPS option becomes available
 6. Website opens with lock icon</code></pre>
-
-    <p class="note">
+<p class="note">
       HTTP may work before HTTPS. That is normal during setup.
     </p>
-  </article>
-
-  <article class="card half">
-    <h2>TTL</h2>
-    <pre><code>TTL = Time To Live
+</article>
+<article class="card half">
+<h2>TTL</h2>
+<pre><code>TTL = Time To Live
 Example: 1 Hour</code></pre>
-    <p>TTL controls how long DNS answers stay cached.</p>
-  </article>
-
-  <article class="card half">
-    <h2>Propagation</h2>
-    <pre><code>Fast: 5 minutes
+<p>TTL controls how long DNS answers stay cached.</p>
+</article>
+<article class="card half">
+<h2>Propagation</h2>
+<pre><code>Fast: 5 minutes
 Normal: 30 minutes to 6 hours
 Sometimes: 24 to 48 hours</code></pre>
-  </article>
+</article>
 </section>
-
-<section id="lab" class="grid">
-  <article class="card">
-    <span class="level">Interactive Practice Lab</span>
-    <h2 id="speak07">DUMMY DNS Record Builder</h2>
-    <div class="lab">
-      <label>Record Type</label>
-      <select id="rtype">
-        <option>A</option>
-        <option>AAAA</option>
-        <option>CNAME</option>
-        <option>MX</option>
-        <option>TXT</option>
-        <option>NS</option>
-      </select>
-
-      <label>Host / Name</label>
-      <input id="host" value="@"/>
-
-      <label>Value / Target</label>
-      <input id="value" value="203.0.113.10"/>
-
-      <button class="btn" onclick="buildRecord()">Generate DUMMY Record</button>
-
-      <div class="output" id="recordOutput">Your DUMMY DNS record will appear here.</div>
-    </div>
-  </article>
-
-  <article class="card half">
-    <h2>Debug Commands</h2>
-    <pre><code>nslookup champakhavingprogrammerspicnic.now
+<section class="grid" id="lab">
+<article class="card">
+<span class="level">Interactive Practice Lab</span>
+<h2 id="speak07">DUMMY DNS Record Builder</h2>
+<div class="lab">
+<label>Record Type</label>
+<select id="rtype">
+<option>A</option>
+<option>AAAA</option>
+<option>CNAME</option>
+<option>MX</option>
+<option>TXT</option>
+<option>NS</option>
+</select>
+<label>Host / Name</label>
+<input id="host" value="@"/>
+<label>Value / Target</label>
+<input id="value" value="203.0.113.10"/>
+<button class="btn" onclick="buildRecord()">Generate DUMMY Record</button>
+<div class="output" id="recordOutput">Your DUMMY DNS record will appear here.</div>
+</div>
+</article>
+<article class="card half">
+<h2>Debug Commands</h2>
+<pre><code>nslookup champakhavingprogrammerspicnic.now
 
 nslookup www.champakhavingprogrammerspicnic.now
 
@@ -485,99 +458,82 @@ nslookup -type=ns champakhavingprogrammerspicnic.now
 nslookup -type=mx champakhavingprogrammerspicnic.now
 
 nslookup -type=txt champakhavingprogrammerspicnic.now</code></pre>
-  </article>
-
-  <article class="card half">
-    <h2>Common Mistakes</h2>
-    <p>❌ Missing A records</p>
-    <p>❌ Wrong CNAME target</p>
-    <p>❌ Wrong nameservers</p>
-    <p>❌ Expecting instant HTTPS</p>
-    <p>❌ Deleting MX records accidentally</p>
-    <p>❌ Copying DUMMY IPs into a real domain</p>
-  </article>
+</article>
+<article class="card half">
+<h2>Common Mistakes</h2>
+<p>❌ Missing A records</p>
+<p>❌ Wrong CNAME target</p>
+<p>❌ Wrong nameservers</p>
+<p>❌ Expecting instant HTTPS</p>
+<p>❌ Deleting MX records accidentally</p>
+<p>❌ Copying DUMMY IPs into a real domain</p>
+</article>
 </section>
-
 <section class="grid">
-  <article class="card">
-    <span class="level">Expert Level</span>
-    <h2>Advanced DNS Concepts</h2>
-
-    <h3>1. Authoritative DNS</h3>
-    <p>The DNS provider that actually controls your records.</p>
-
-    <h3>2. Recursive Resolver</h3>
-    <p>The resolver that asks DNS servers and returns the final answer to your browser.</p>
-
-    <h3>3. Wildcard DNS</h3>
-    <pre><code>*.champakhavingprogrammerspicnic.now → 203.0.113.10
+<article class="card">
+<span class="level">Expert Level</span>
+<h2>Advanced DNS Concepts</h2>
+<h3>1. Authoritative DNS</h3>
+<p>The DNS provider that actually controls your records.</p>
+<h3>2. Recursive Resolver</h3>
+<p>The resolver that asks DNS servers and returns the final answer to your browser.</p>
+<h3>3. Wildcard DNS</h3>
+<pre><code>*.champakhavingprogrammerspicnic.now → 203.0.113.10
 Note: DUMMY wildcard setup</code></pre>
-
-    <h3>4. Email DNS Security</h3>
-    <p>SPF, DKIM, and DMARC protect email from spoofing.</p>
-
-    <h3>5. CDN DNS</h3>
-    <p>A CDN can sit between visitors and your website to improve speed and security.</p>
-  </article>
+<h3>4. Email DNS Security</h3>
+<p>SPF, DKIM, and DMARC protect email from spoofing.</p>
+<h3>5. CDN DNS</h3>
+<p>A CDN can sit between visitors and your website to improve speed and security.</p>
+</article>
 </section>
-
-<section id="quiz" class="grid">
-  <article class="card">
-    <span class="level">MCQ Quiz</span>
-    <h2 id="speak08">Test Your DNS Knowledge</h2>
-
-    <div class="quiz" data-answer="A Record">
-      <h3>1. Which DNS record points a domain to an IPv4 address?</h3>
-      <button class="quiz-option">CNAME</button>
-      <button class="quiz-option">A Record</button>
-      <button class="quiz-option">MX</button>
-      <div class="result"></div>
-    </div>
-
-    <div class="quiz" data-answer="CNAME">
-      <h3>2. Which record points one name to another domain name?</h3>
-      <button class="quiz-option">TXT</button>
-      <button class="quiz-option">CNAME</button>
-      <button class="quiz-option">SOA</button>
-      <div class="result"></div>
-    </div>
-
-    <div class="quiz" data-answer="MX">
-      <h3>3. Which record handles email routing?</h3>
-      <button class="quiz-option">A</button>
-      <button class="quiz-option">MX</button>
-      <button class="quiz-option">NS</button>
-      <div class="result"></div>
-    </div>
-
-    <div class="quiz" data-answer="TXT">
-      <h3>4. Which record is commonly used for verification?</h3>
-      <button class="quiz-option">TXT</button>
-      <button class="quiz-option">AAAA</button>
-      <button class="quiz-option">SOA</button>
-      <div class="result"></div>
-    </div>
-
-    <div class="quiz" data-answer="Time To Live">
-      <h3>5. What does TTL mean?</h3>
-      <button class="quiz-option">Total Traffic Link</button>
-      <button class="quiz-option">Time To Live</button>
-      <button class="quiz-option">Text Transfer Level</button>
-      <div class="result"></div>
-    </div>
-
-    <button class="btn" onclick="showScore()">Show Score</button>
-    <div class="output" id="scoreBox">Score will appear here.</div>
-  </article>
+<section class="grid" id="quiz">
+<article class="card">
+<span class="level">MCQ Quiz</span>
+<h2 id="speak08">Test Your DNS Knowledge</h2>
+<div class="quiz" data-answer="A Record">
+<h3>1. Which DNS record points a domain to an IPv4 address?</h3>
+<button class="quiz-option">CNAME</button>
+<button class="quiz-option">A Record</button>
+<button class="quiz-option">MX</button>
+<div class="result"></div>
+</div>
+<div class="quiz" data-answer="CNAME">
+<h3>2. Which record points one name to another domain name?</h3>
+<button class="quiz-option">TXT</button>
+<button class="quiz-option">CNAME</button>
+<button class="quiz-option">SOA</button>
+<div class="result"></div>
+</div>
+<div class="quiz" data-answer="MX">
+<h3>3. Which record handles email routing?</h3>
+<button class="quiz-option">A</button>
+<button class="quiz-option">MX</button>
+<button class="quiz-option">NS</button>
+<div class="result"></div>
+</div>
+<div class="quiz" data-answer="TXT">
+<h3>4. Which record is commonly used for verification?</h3>
+<button class="quiz-option">TXT</button>
+<button class="quiz-option">AAAA</button>
+<button class="quiz-option">SOA</button>
+<div class="result"></div>
+</div>
+<div class="quiz" data-answer="Time To Live">
+<h3>5. What does TTL mean?</h3>
+<button class="quiz-option">Total Traffic Link</button>
+<button class="quiz-option">Time To Live</button>
+<button class="quiz-option">Text Transfer Level</button>
+<div class="result"></div>
+</div>
+<button class="btn" onclick="showScore()">Show Score</button>
+<div class="output" id="scoreBox">Score will appear here.</div>
+</article>
 </section>
-
 </main>
-
 <footer>
-  <p>Programmer's Picnic | Champak Roy</p>
-  <p>DNS Entries V3 Premium Lesson — DUMMY examples only</p>
+<p>Programmer's Picnic | Champak Roy</p>
+<p>DNS Entries V3 Premium Lesson — DUMMY examples only</p>
 </footer>
-
 <script>
 let score = 0;
 let answered = new WeakSet();
@@ -626,6 +582,5 @@ function showScore(){
     "Your score: <b>" + score + " / 5</b>";
 }
 </script>
-
-</body>
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>

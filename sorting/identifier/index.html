@@ -1,17 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Sorting Variations Lab | Programmer's Picnic</title>
-
-    <script
-      async=""
-      crossorigin="anonymous"
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"
-    ></script>
-
-    <style>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Sorting Variations Lab | Programmer's Picnic</title>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<style>
       :root {
         --bg: #fffaf0;
         --bg2: #fff4d6;
@@ -206,133 +201,121 @@
         outline: 3px solid rgba(245, 158, 11, 0.45);
       }
     </style>
-  </head>
-
-  <body>
-    <div class="wrap">
-      <div class="hero">
-        <h1 data-pp-speak-title>Sorting Variations Lab | Champak Roy</h1>
-        <p id="speak0" class="subtitle">
+<link href="../../assets/css/theme.css" rel="stylesheet"/><meta content="Sorting Variations Lab - practical learning page from DSA with Champak." name="description"/></head>
+<body data-root="../../"><div data-root="../../" id="site-header"></div><div id="main-content"></div>
+<div class="wrap">
+<div class="hero">
+<h1 data-pp-speak-title="">Sorting Variations Lab | Champak Roy</h1>
+<p class="subtitle" id="speak0">
           Focused classroom tool for Bubble Sort, Selection Sort, Insertion
           Sort, and their important variations.
         </p>
-
-        <div class="controls">
-          <select id="exampleSelect"></select>
-          <button onclick="loadExample()">Load Example</button>
-          <select id="difficulty">
-            <option value="easy">Easy</option>
-            <option value="medium" selected>Medium</option>
-            <option value="hard">Hard</option>
-          </select>
-          <button class="secondary" onclick="generateQuestion()">
+<div class="controls">
+<select id="exampleSelect"></select>
+<button onclick="loadExample()">Load Example</button>
+<select id="difficulty">
+<option value="easy">Easy</option>
+<option selected="" value="medium">Medium</option>
+<option value="hard">Hard</option>
+</select>
+<button class="secondary" onclick="generateQuestion()">
             Generate Question
           </button>
-          <button class="secondary" onclick="identify()">Identify</button>
-          <button class="secondary" onclick="playAnimation()">
+<button class="secondary" onclick="identify()">Identify</button>
+<button class="secondary" onclick="playAnimation()">
             Play Animation
           </button>
-          <button class="secondary" onclick="clearInput()">Clear</button>
-        </div>
-
-        <textarea id="input">
+<button class="secondary" onclick="clearInput()">Clear</button>
+</div>
+<textarea id="input">
 Start: [5,1,4,2,8]
 Pass 1: [1,4,2,5,8]
 Pass 2: [1,2,4,5,8]
-Pass 3: [1,2,4,5,8]</textarea
-        >
-
-        <div class="grid">
-          <div class="card">
-            <h2>Detected Pattern</h2>
-            <div id="result" class="result">Waiting...</div>
-            <p id="reason" class="subtitle"></p>
-            <div id="badges"></div>
-          </div>
-
-          <div class="card">
-            <h2>Confidence Scores</h2>
-            <div id="scores"></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>Step Visualization</h2>
-          <div id="viz"></div>
-        </div>
-
-        <div class="card">
-          <h2>Step Feedback</h2>
-          <div id="feedback" class="subtitle"></div>
-        </div>
-
-        <div class="card">
-          <h2>Step Prediction Quiz</h2>
-          <p class="subtitle">
+Pass 3: [1,2,4,5,8]</textarea>
+<div class="grid">
+<div class="card">
+<h2>Detected Pattern</h2>
+<div class="result" id="result">Waiting...</div>
+<p class="subtitle" id="reason"></p>
+<div id="badges"></div>
+</div>
+<div class="card">
+<h2>Confidence Scores</h2>
+<div id="scores"></div>
+</div>
+</div>
+<div class="card">
+<h2>Step Visualization</h2>
+<div id="viz"></div>
+</div>
+<div class="card">
+<h2>Step Feedback</h2>
+<div class="subtitle" id="feedback"></div>
+</div>
+<div class="card">
+<h2>Step Prediction Quiz</h2>
+<p class="subtitle">
             Generate a question, predict the next pass, then check your answer.
           </p>
-          <div class="controls">
-            <select id="quizAlgo">
-              <option>Bubble Sort</option>
-              <!-- <option>Optimized Bubble Sort</option> -->
-              <!-- <option>Cocktail Shaker Sort</option> -->
-              <option>Selection Sort</option>
-              <option>Double Selection Sort</option>
-              <option>Insertion Sort</option>
-              <!-- <option>Binary Insertion Sort</option> -->
-              <!-- <option>Gnome Sort</option> -->
-            </select>
-            <button onclick="makeStepQuiz()">Make Step Quiz</button>
-            <button class="secondary" onclick="checkStepQuiz()">
+<div class="controls">
+<select id="quizAlgo">
+<option>Bubble Sort</option>
+<!-- <option>Optimized Bubble Sort</option> -->
+<!-- <option>Cocktail Shaker Sort</option> -->
+<option>Selection Sort</option>
+<option>Double Selection Sort</option>
+<option>Insertion Sort</option>
+<!-- <option>Binary Insertion Sort</option> -->
+<!-- <option>Gnome Sort</option> -->
+</select>
+<button onclick="makeStepQuiz()">Make Step Quiz</button>
+<button class="secondary" onclick="checkStepQuiz()">
               Check Answer
             </button>
-          </div>
-          <div id="quizBox"></div>
-        </div>
-
-        <div class="card">
-          <h2>Example Library</h2>
-          <div id="exampleList"></div>
-        </div>
-
-        <div class="card">
-          <h2>Help Section</h2>
-          <details open>
-            <summary>Families covered</summary>
-            <p>
-              <span class="badge">Bubble Sort</span>
-              <!-- <span class="badge">Optimized Bubble</span> -->
-              <!-- <span class="badge">Cocktail Shaker</span> -->
-              <span class="badge">Selection Sort</span>
-              <!-- <span class="badge">Double Selection</span> -->
-              <span class="badge">Insertion Sort</span>
-              <!-- <span class="badge">Binary Insertion</span> -->
-              <!-- <span class="badge">Gnome Sort</span> -->
-            </p>
-          </details>
-          <details>
-            <summary>Input format</summary>
-            <pre>
+</div>
+<div id="quizBox"></div>
+</div>
+<div class="card">
+<h2>Example Library</h2>
+<div id="exampleList"></div>
+</div>
+<div class="card">
+<h2>Help Section</h2>
+<details open="">
+<summary>Families covered</summary>
+<p>
+<span class="badge">Bubble Sort</span>
+<!-- <span class="badge">Optimized Bubble</span> -->
+<!-- <span class="badge">Cocktail Shaker</span> -->
+<span class="badge">Selection Sort</span>
+<!-- <span class="badge">Double Selection</span> -->
+<span class="badge">Insertion Sort</span>
+<!-- <span class="badge">Binary Insertion</span> -->
+<!-- <span class="badge">Gnome Sort</span> -->
+</p>
+</details>
+<details>
+<summary>Input format</summary>
+<pre>
 Start: [5,1,4,2,8]
 Pass 1: [1,4,2,5,8]
-Pass 2: [1,2,4,5,8]</pre
-            >
-          </details>
-          <details>
-            <summary>Important note</summary>
-            <p class="subtitle">
+Pass 2: [1,2,4,5,8]</pre>
+</details>
+<details>
+<summary>Important note</summary>
+<p class="subtitle">
               Some variations produce identical visible passes. For example,
               standard insertion and binary insertion often look the same in
               array snapshots.
             </p>
-          </details>
-        </div>
-      </div>
-    </div>
-    <script src="https://varanasi-software-junction.github.io/search/branding/branding.js"></script>
-    <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
-    <script src="https://programmer-s-picnic.github.io/json-images/contact_champak.js"></script>
-    <script>
+</details>
+</div>
+</div>
+</div>
+<script src="https://varanasi-software-junction.github.io/search/branding/branding.js"></script>
+<script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+<script src="https://programmer-s-picnic.github.io/json-images/contact_champak.js"></script>
+<script>
       const EXAMPLES = [
         {
           name: "Bubble Sort — Example 1",
@@ -772,5 +755,5 @@ Pass 3: [2,3,6,9]`,
       initExamples();
       loadExample(0);
     </script>
-  </body>
+<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
 </html>
