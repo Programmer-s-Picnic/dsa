@@ -1,19 +1,557 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>DSA with Champak — Student Learning Hub</title><meta name="description" content="A cleaned, professional, light-blue learning hub for Data Structures, Algorithms, Java, Python sorting, visualizers, and practical coding lessons." /><meta name="keywords" content="DSA, data structures, algorithms, Python sorting, Java, coding visualizers, Learn With Champak" /><meta name="author" content="Champak Roy" /><meta name="theme-color" content="#0b67b2" /><link rel="canonical" href="https://dsa.learnwithchampak.live/" /><meta property="og:type" content="website" /><meta property="og:title" content="DSA with Champak — Student Learning Hub" /><meta property="og:description" content="Practice-focused DSA lessons with clean navigation, search, breadcrumbs, and visual learning tools." /><link rel="stylesheet" href="assets/css/theme.css" /></head>
-<body><div id="site-header" data-root=""></div><main id="main-content"><section class="pp-hero"><div class="pp-hero-card"><span class="pp-kicker">Cleaned learning site</span><h1>Practice DSA without getting lost.</h1><p>This version adds a professional light-blue theme, reusable header and footer, detected navigation, search, breadcrumbs, sitemap pages, and cleaner student-focused structure.</p><div class="pp-actions"><a class="pp-btn pp-btn-primary" href="python/sorting/index.html">Start Sorting</a><a class="pp-btn pp-btn-ghost" href="visualizers/searching/index.html">Open Visualizers</a><a class="pp-btn pp-btn-ghost" href="sitemap.html">Browse Sitemap</a></div></div><aside class="pp-panel"><h2>What changed</h2><p>Header/footer are now shared, assets are organized, all pages are searchable, and students can move through the site using breadcrumbs and a complete sitemap.</p><div class="pp-topic-list"><a href="sitemap.html#beginner"><span>Beginner</span><small>1 pages</small></a>
-<a href="sitemap.html#flutter"><span>Flutter</span><small>2 pages</small></a>
-<a href="sitemap.html#html-web"><span>HTML / Web</span><small>19 pages</small></a>
-<a href="sitemap.html#java"><span>Java</span><small>11 pages</small></a>
-<a href="sitemap.html#python"><span>Python</span><small>12 pages</small></a>
-<a href="sitemap.html#sorting"><span>Sorting</span><small>2 pages</small></a>
-<a href="sitemap.html#spring-boot"><span>Spring Boot</span><small>2 pages</small></a>
-<a href="sitemap.html#videos"><span>Videos</span><small>1 pages</small></a>
-<a href="sitemap.html#visualizers"><span>Visualizers</span><small>13 pages</small></a></div></aside></section><section class="pp-grid" aria-label="Featured lessons"><article class="pp-card"><h3>Bubble Sort • Sorting Platform V2</h3><p>Python · python/sorting/bubble-sort/index.html</p><a href="python/sorting/bubble-sort/index.html">Open lesson →</a></article>
-<article class="pp-card"><h3>Champak Roy • Programmer&#x27;s Picnic • V6 Smiling, Blinking, Waving</h3><p>Python · python/sorting/bubble-sort/test.html</p><a href="python/sorting/bubble-sort/test.html">Open lesson →</a></article>
-<article class="pp-card"><h3>Bucket Sort • Sorting Platform V2</h3><p>Python · python/sorting/bucket-sort/index.html</p><a href="python/sorting/bucket-sort/index.html">Open lesson →</a></article>
-<article class="pp-card"><h3>Java Arithmetic Operators and Math Class Methods — Lesson, Assignments, and MCQ</h3><p>Java · java/arithmetic/index.html</p><a href="java/arithmetic/index.html">Open lesson →</a></article>
-<article class="pp-card"><h3>Java Lesson — Boolean, Relational Operators, and Logical Operators</h3><p>Java · java/boolean/index.html</p><a href="java/boolean/index.html">Open lesson →</a></article>
-<article class="pp-card"><h3>Installing Java IDEs | Eclipse, NetBeans, VS Code, IntelliJ IDEA | CBSE Java</h3><p>Java · java/ides/index.html</p><a href="java/ides/index.html">Open lesson →</a></article>
-<article class="pp-card"><h3>Python Monthly Calendar Program | Print Sun Mon Tue Wed Thu Fri Sat Calendar</h3><p>Visualizers · visualizers/calendar/index.html</p><a href="visualizers/calendar/index.html">Open lesson →</a></article>
-<article class="pp-card"><h3>Programmer’s Picnic — Eclipse Visualizer (Lunar + Solar)</h3><p>Visualizers · visualizers/eclipses/index.html</p><a href="visualizers/eclipses/index.html">Open lesson →</a></article>
-<article class="pp-card"><h3>Vision Screening &amp; Spectacles Power Estimator</h3><p>Visualizers · visualizers/eyepower/index.html</p><a href="visualizers/eyepower/index.html">Open lesson →</a></article></section></main><div id="site-footer" data-root=""></div><script src="assets/js/include.js" defer></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>DSA with Champak — Student Learning Hub</title>
+
+  <meta name="description" content="A cleaned, professional, light-blue learning hub for Data Structures, Algorithms, Java, Python sorting, visualizers, and practical coding lessons." />
+  <meta name="keywords" content="DSA, data structures, algorithms, Python sorting, Java, coding visualizers, Learn With Champak" />
+  <meta name="author" content="Champak Roy" />
+  <meta name="theme-color" content="#0b67b2" />
+
+  <link rel="canonical" href="https://dsa.learnwithchampak.live/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DSA with Champak — Student Learning Hub" />
+  <meta property="og:description" content="Practice-focused DSA lessons with clean navigation, search, breadcrumbs, and visual learning tools." />
+
+  <link rel="stylesheet" href="assets/css/theme.css" />
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      -webkit-tap-highlight-color: transparent;
+      overscroll-behavior: contain;
+    }
+
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    [tabindex] {
+      outline: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 4px solid #f59e0b;
+      outline-offset: 5px;
+      box-shadow:
+        0 0 0 8px rgba(245, 158, 11, 0.25),
+        0 12px 30px rgba(2, 8, 23, 0.22);
+      border-radius: 14px;
+    }
+
+    .pp-tv-mode a:focus,
+    .pp-tv-mode button:focus,
+    .pp-tv-mode input:focus,
+    .pp-tv-mode textarea:focus,
+    .pp-tv-mode select:focus,
+    .pp-tv-mode [tabindex]:focus {
+      outline: 5px solid #f59e0b !important;
+      outline-offset: 5px !important;
+      box-shadow:
+        0 0 0 9px rgba(245, 158, 11, 0.28),
+        0 14px 34px rgba(2, 8, 23, 0.28) !important;
+      border-radius: 16px;
+      transform: scale(1.035);
+      z-index: 20;
+      position: relative;
+    }
+
+    .pp-tv-mode a,
+    .pp-tv-mode button,
+    .pp-tv-mode input,
+    .pp-tv-mode textarea,
+    .pp-tv-mode select,
+    .pp-tv-mode [tabindex] {
+      transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        outline-color 160ms ease;
+    }
+
+    .pp-tv-mode .pp-card,
+    .pp-tv-mode .pp-topic-list a,
+    .pp-tv-mode .pp-btn {
+      min-height: 52px;
+    }
+
+    .pp-tv-mode .pp-card a,
+    .pp-tv-mode .pp-topic-list a,
+    .pp-tv-mode .pp-actions a {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .pp-tv-hint {
+      display: none;
+    }
+
+    .pp-tv-mode .pp-tv-hint {
+      display: block;
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      background: #0b67b2;
+      color: #ffffff;
+      font: 600 15px/1.4 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      padding: 10px 16px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(2, 8, 23, 0.18);
+    }
+
+    .pp-tv-mode .pp-card:focus-within,
+    .pp-tv-mode .pp-hero-card:focus-within,
+    .pp-tv-mode .pp-panel:focus-within {
+      box-shadow:
+        0 0 0 3px rgba(11, 103, 178, 0.20),
+        0 18px 40px rgba(2, 8, 23, 0.16);
+    }
+
+    @media (hover: none) {
+      .pp-btn:hover,
+      .pp-card:hover,
+      .pp-topic-list a:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pp-tv-hint">
+    Android TV mode: use Up, Down, Left, Right and OK / Enter to open lessons.
+  </div>
+
+  <div id="site-header" data-root=""></div>
+
+  <main id="main-content">
+    <section class="pp-hero">
+      <div class="pp-hero-card">
+        <span class="pp-kicker">Cleaned learning site</span>
+
+        <h1>Practice DSA without getting lost.</h1>
+
+        <p>
+          This version adds a professional light-blue theme, reusable header and footer,
+          detected navigation, search, breadcrumbs, sitemap pages, and cleaner
+          student-focused structure.
+        </p>
+
+        <div class="pp-actions">
+          <a class="pp-btn pp-btn-primary" href="python/sorting/index.html">Start Sorting</a>
+          <a class="pp-btn pp-btn-ghost" href="visualizers/searching/index.html">Open Visualizers</a>
+          <a class="pp-btn pp-btn-ghost" href="sitemap.html">Browse Sitemap</a>
+        </div>
+      </div>
+
+      <aside class="pp-panel">
+        <h2>What changed</h2>
+
+        <p>
+          Header/footer are now shared, assets are organized, all pages are searchable,
+          and students can move through the site using breadcrumbs and a complete sitemap.
+        </p>
+
+        <div class="pp-topic-list">
+          <a href="sitemap.html#beginner"><span>Beginner</span><small>1 pages</small></a>
+          <a href="sitemap.html#flutter"><span>Flutter</span><small>2 pages</small></a>
+          <a href="sitemap.html#html-web"><span>HTML / Web</span><small>19 pages</small></a>
+          <a href="sitemap.html#java"><span>Java</span><small>11 pages</small></a>
+          <a href="sitemap.html#python"><span>Python</span><small>12 pages</small></a>
+          <a href="sitemap.html#sorting"><span>Sorting</span><small>2 pages</small></a>
+          <a href="sitemap.html#spring-boot"><span>Spring Boot</span><small>2 pages</small></a>
+          <a href="sitemap.html#videos"><span>Videos</span><small>1 pages</small></a>
+          <a href="sitemap.html#visualizers"><span>Visualizers</span><small>13 pages</small></a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="pp-grid" aria-label="Featured lessons">
+      <article class="pp-card">
+        <h3>Bubble Sort • Sorting Platform V2</h3>
+        <p>Python · python/sorting/bubble-sort/index.html</p>
+        <a href="python/sorting/bubble-sort/index.html">Open lesson →</a>
+      </article>
+
+      <article class="pp-card">
+        <h3>Champak Roy • Programmer&#x27;s Picnic • V6 Smiling, Blinking, Waving</h3>
+        <p>Python · python/sorting/bubble-sort/test.html</p>
+        <a href="python/sorting/bubble-sort/test.html">Open lesson →</a>
+      </article>
+
+      <article class="pp-card">
+        <h3>Bucket Sort • Sorting Platform V2</h3>
+        <p>Python · python/sorting/bucket-sort/index.html</p>
+        <a href="python/sorting/bucket-sort/index.html">Open lesson →</a>
+      </article>
+
+      <article class="pp-card">
+        <h3>Java Arithmetic Operators and Math Class Methods — Lesson, Assignments, and MCQ</h3>
+        <p>Java · java/arithmetic/index.html</p>
+        <a href="java/arithmetic/index.html">Open lesson →</a>
+      </article>
+
+      <article class="pp-card">
+        <h3>Java Lesson — Boolean, Relational Operators, and Logical Operators</h3>
+        <p>Java · java/boolean/index.html</p>
+        <a href="java/boolean/index.html">Open lesson →</a>
+      </article>
+
+      <article class="pp-card">
+        <h3>Installing Java IDEs | Eclipse, NetBeans, VS Code, IntelliJ IDEA | CBSE Java</h3>
+        <p>Java · java/ides/index.html</p>
+        <a href="java/ides/index.html">Open lesson →</a>
+      </article>
+
+      <article class="pp-card">
+        <h3>Python Monthly Calendar Program | Print Sun Mon Tue Wed Thu Fri Sat Calendar</h3>
+        <p>Visualizers · visualizers/calendar/index.html</p>
+        <a href="visualizers/calendar/index.html">Open lesson →</a>
+      </article>
+
+      <article class="pp-card">
+        <h3>Programmer’s Picnic — Eclipse Visualizer Lunar + Solar</h3>
+        <p>Visualizers · visualizers/eclipses/index.html</p>
+        <a href="visualizers/eclipses/index.html">Open lesson →</a>
+      </article>
+
+      <article class="pp-card">
+        <h3>Vision Screening &amp; Spectacles Power Estimator</h3>
+        <p>Visualizers · visualizers/eyepower/index.html</p>
+        <a href="visualizers/eyepower/index.html">Open lesson →</a>
+      </article>
+    </section>
+  </main>
+
+  <div id="site-footer" data-root=""></div>
+
+  <script src="assets/js/include.js" defer></script>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const TV_KEY_CODES = new Set([
+        19,   // DPAD_UP
+        20,   // DPAD_DOWN
+        21,   // DPAD_LEFT
+        22,   // DPAD_RIGHT
+        23,   // DPAD_CENTER
+        66,   // ENTER
+        4,    // BACK
+        82    // MENU
+      ]);
+
+      const SELECTOR = [
+        "a[href]",
+        "button:not([disabled])",
+        "input:not([disabled])",
+        "textarea:not([disabled])",
+        "select:not([disabled])",
+        "[tabindex]:not([tabindex='-1'])"
+      ].join(",");
+
+      let tvMode = false;
+
+      function looksLikeAndroidTV() {
+        const ua = navigator.userAgent || "";
+        const platform = navigator.platform || "";
+
+        return (
+          /Android/i.test(ua) &&
+          (
+            /TV/i.test(ua) ||
+            /AFT/i.test(ua) ||
+            /BRAVIA/i.test(ua) ||
+            /MiBOX/i.test(ua) ||
+            /SHIELD/i.test(ua) ||
+            /SmartTV/i.test(ua) ||
+            /TCL/i.test(ua) ||
+            /WebView/i.test(ua) ||
+            /Linux arm/i.test(platform)
+          )
+        );
+      }
+
+      function enableTvMode() {
+        if (tvMode) return;
+        tvMode = true;
+        document.documentElement.classList.add("pp-tv-mode");
+        document.body.classList.add("pp-tv-mode");
+        prepareFocusableItems();
+        focusFirstUsefulItem();
+      }
+
+      function prepareFocusableItems() {
+        const items = document.querySelectorAll(SELECTOR);
+
+        items.forEach(function (el) {
+          if (!el.hasAttribute("tabindex")) {
+            el.setAttribute("tabindex", "0");
+          }
+
+          if (el.tagName === "A") {
+            el.setAttribute("role", "link");
+          }
+        });
+      }
+
+      function getFocusableItems() {
+        return Array.from(document.querySelectorAll(SELECTOR)).filter(function (el) {
+          const rect = el.getBoundingClientRect();
+          const style = window.getComputedStyle(el);
+
+          return (
+            rect.width > 0 &&
+            rect.height > 0 &&
+            style.display !== "none" &&
+            style.visibility !== "hidden" &&
+            !el.closest("[hidden]")
+          );
+        });
+      }
+
+      function focusFirstUsefulItem() {
+        window.setTimeout(function () {
+          prepareFocusableItems();
+
+          const preferred =
+            document.querySelector(".pp-btn-primary") ||
+            document.querySelector(".pp-actions a") ||
+            document.querySelector("main a") ||
+            document.querySelector("a[href]");
+
+          if (preferred) {
+            preferred.focus({ preventScroll: true });
+            scrollFocusedIntoView(preferred, true);
+          }
+        }, 350);
+      }
+
+      function scrollFocusedIntoView(el, instant) {
+        if (!el) return;
+
+        const behavior = instant ? "auto" : "smooth";
+
+        try {
+          el.scrollIntoView({
+            behavior: behavior,
+            block: "center",
+            inline: "center"
+          });
+        } catch (e) {
+          el.scrollIntoView(true);
+        }
+      }
+
+      function getDirectionFromKey(event) {
+        const key = event.key;
+        const code = event.keyCode || event.which;
+
+        if (key === "ArrowUp" || code === 19) return "up";
+        if (key === "ArrowDown" || code === 20) return "down";
+        if (key === "ArrowLeft" || code === 21) return "left";
+        if (key === "ArrowRight" || code === 22) return "right";
+        return "";
+      }
+
+      function findNearest(direction) {
+        const items = getFocusableItems();
+        const active = document.activeElement;
+
+        if (!items.length) return null;
+
+        if (!active || !items.includes(active)) {
+          return items[0];
+        }
+
+        const activeRect = active.getBoundingClientRect();
+        const ax = activeRect.left + activeRect.width / 2;
+        const ay = activeRect.top + activeRect.height / 2;
+
+        let best = null;
+        let bestScore = Infinity;
+
+        items.forEach(function (candidate) {
+          if (candidate === active) return;
+
+          const rect = candidate.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+
+          const dx = cx - ax;
+          const dy = cy - ay;
+
+          let valid = false;
+          let primary = 0;
+          let secondary = 0;
+
+          if (direction === "up" && dy < -8) {
+            valid = true;
+            primary = Math.abs(dy);
+            secondary = Math.abs(dx);
+          }
+
+          if (direction === "down" && dy > 8) {
+            valid = true;
+            primary = Math.abs(dy);
+            secondary = Math.abs(dx);
+          }
+
+          if (direction === "left" && dx < -8) {
+            valid = true;
+            primary = Math.abs(dx);
+            secondary = Math.abs(dy);
+          }
+
+          if (direction === "right" && dx > 8) {
+            valid = true;
+            primary = Math.abs(dx);
+            secondary = Math.abs(dy);
+          }
+
+          if (!valid) return;
+
+          const score = primary * 1.4 + secondary;
+
+          if (score < bestScore) {
+            bestScore = score;
+            best = candidate;
+          }
+        });
+
+        return best;
+      }
+
+      function activateElement(el) {
+        if (!el) return;
+
+        const tag = el.tagName.toLowerCase();
+
+        if (tag === "a" && el.href) {
+          window.location.href = el.href;
+          return;
+        }
+
+        if (tag === "button") {
+          el.click();
+          return;
+        }
+
+        if (tag === "input" || tag === "textarea" || tag === "select") {
+          el.focus();
+          return;
+        }
+
+        el.click();
+      }
+
+      document.addEventListener("keydown", function (event) {
+        const code = event.keyCode || event.which;
+
+        if (TV_KEY_CODES.has(code)) {
+          enableTvMode();
+        }
+
+        if (!tvMode) return;
+
+        const direction = getDirectionFromKey(event);
+
+        if (direction) {
+          event.preventDefault();
+
+          prepareFocusableItems();
+
+          const next = findNearest(direction);
+
+          if (next) {
+            next.focus({ preventScroll: true });
+            scrollFocusedIntoView(next, false);
+          }
+
+          return;
+        }
+
+        if (
+          event.key === "Enter" ||
+          code === 23 ||
+          code === 66
+        ) {
+          const active = document.activeElement;
+
+          if (
+            active &&
+            active.matches(SELECTOR) &&
+            !["INPUT", "TEXTAREA", "SELECT"].includes(active.tagName)
+          ) {
+            event.preventDefault();
+            activateElement(active);
+          }
+        }
+      }, true);
+
+      document.addEventListener("focusin", function (event) {
+        if (!tvMode) return;
+        scrollFocusedIntoView(event.target, false);
+      });
+
+      document.addEventListener("click", function (event) {
+        const link = event.target.closest("a[href]");
+
+        if (!link) return;
+
+        const href = link.getAttribute("href");
+
+        if (!href || href.startsWith("#")) return;
+
+        if (
+          link.target === "_blank" ||
+          link.getAttribute("target") === "_blank"
+        ) {
+          event.preventDefault();
+          window.location.href = link.href;
+        }
+      }, true);
+
+      const observer = new MutationObserver(function () {
+        if (tvMode) {
+          prepareFocusableItems();
+        }
+      });
+
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+
+      window.addEventListener("load", function () {
+        prepareFocusableItems();
+
+        if (looksLikeAndroidTV()) {
+          enableTvMode();
+        }
+      });
+
+      window.addEventListener("pageshow", function () {
+        prepareFocusableItems();
+
+        if (tvMode) {
+          focusFirstUsefulItem();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
