@@ -29,6 +29,10 @@
       overscroll-behavior: contain;
     }
 
+    body:focus {
+      outline: none;
+    }
+
     a,
     button,
     input,
@@ -84,7 +88,7 @@
     .pp-tv-mode .pp-card,
     .pp-tv-mode .pp-topic-list a,
     .pp-tv-mode .pp-btn {
-      min-height: 52px;
+      min-height: 56px;
     }
 
     .pp-tv-mode .pp-card a,
@@ -129,7 +133,7 @@
   </style>
 </head>
 
-<body>
+<body tabindex="0">
   <div class="pp-tv-hint">
     Android TV mode: use Up, Down, Left, Right and OK / Enter to open lessons.
   </div>
@@ -243,18 +247,7 @@
     (function () {
       "use strict";
 
-      const TV_KEY_CODES = new Set([
-        19,   // DPAD_UP
-        20,   // DPAD_DOWN
-        21,   // DPAD_LEFT
-        22,   // DPAD_RIGHT
-        23,   // DPAD_CENTER
-        66,   // ENTER
-        4,    // BACK
-        82    // MENU
-      ]);
-
-      const SELECTOR = [
+      const FOCUS_SELECTOR = [
         "a[href]",
         "button:not([disabled])",
         "input:not([disabled])",
@@ -263,39 +256,28 @@
         "[tabindex]:not([tabindex='-1'])"
       ].join(",");
 
-      let tvMode = false;
+      const KEY = {
+        LEFT: [21, 37],
+        UP: [19, 38],
+        RIGHT: [22, 39],
+        DOWN: [20, 40],
+        ENTER: [23, 66, 13]
+      };
 
-      function looksLikeAndroidTV() {
-        const ua = navigator.userAgent || "";
-        const platform = navigator.platform || "";
+      let lastMoveTime = 0;
+      const MOVE_DELAY = 120;
 
-        return (
-          /Android/i.test(ua) &&
-          (
-            /TV/i.test(ua) ||
-            /AFT/i.test(ua) ||
-            /BRAVIA/i.test(ua) ||
-            /MiBOX/i.test(ua) ||
-            /SHIELD/i.test(ua) ||
-            /SmartTV/i.test(ua) ||
-            /TCL/i.test(ua) ||
-            /WebView/i.test(ua) ||
-            /Linux arm/i.test(platform)
-          )
-        );
-      }
+      document.documentElement.classList.add("pp-tv-mode");
 
       function enableTvMode() {
-        if (tvMode) return;
-        tvMode = true;
         document.documentElement.classList.add("pp-tv-mode");
         document.body.classList.add("pp-tv-mode");
-        prepareFocusableItems();
-        focusFirstUsefulItem();
       }
 
       function prepareFocusableItems() {
-        const items = document.querySelectorAll(SELECTOR);
+        document.body.setAttribute("tabindex", "0");
+
+        const items = document.querySelectorAll("a[href], button, input, textarea, select");
 
         items.forEach(function (el) {
           if (!el.hasAttribute("tabindex")) {
@@ -308,140 +290,168 @@
         });
       }
 
-      function getFocusableItems() {
-        return Array.from(document.querySelectorAll(SELECTOR)).filter(function (el) {
-          const rect = el.getBoundingClientRect();
-          const style = window.getComputedStyle(el);
+      function isVisible(el) {
+        if (!el) return false;
 
-          return (
-            rect.width > 0 &&
-            rect.height > 0 &&
-            style.display !== "none" &&
-            style.visibility !== "hidden" &&
-            !el.closest("[hidden]")
-          );
-        });
+        const rect = el.getBoundingClientRect();
+        const style = window.getComputedStyle(el);
+
+        return (
+          rect.width > 0 &&
+          rect.height > 0 &&
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          !el.hidden &&
+          !el.closest("[hidden]")
+        );
       }
 
-      function focusFirstUsefulItem() {
-        window.setTimeout(function () {
-          prepareFocusableItems();
+      function getItems() {
+        prepareFocusableItems();
 
-          const preferred =
-            document.querySelector(".pp-btn-primary") ||
-            document.querySelector(".pp-actions a") ||
-            document.querySelector("main a") ||
-            document.querySelector("a[href]");
-
-          if (preferred) {
-            preferred.focus({ preventScroll: true });
-            scrollFocusedIntoView(preferred, true);
-          }
-        }, 350);
+        return Array.from(document.querySelectorAll(FOCUS_SELECTOR))
+          .filter(isVisible);
       }
 
-      function scrollFocusedIntoView(el, instant) {
+      function focusItem(el, instant) {
         if (!el) return;
 
-        const behavior = instant ? "auto" : "smooth";
+        enableTvMode();
 
         try {
-          el.scrollIntoView({
-            behavior: behavior,
-            block: "center",
-            inline: "center"
-          });
+          el.focus({ preventScroll: true });
         } catch (e) {
-          el.scrollIntoView(true);
+          el.focus();
         }
+
+        setTimeout(function () {
+          try {
+            el.scrollIntoView({
+              behavior: instant ? "auto" : "smooth",
+              block: "center",
+              inline: "center"
+            });
+          } catch (e) {
+            el.scrollIntoView(true);
+          }
+        }, 20);
       }
 
-      function getDirectionFromKey(event) {
-        const key = event.key;
-        const code = event.keyCode || event.which;
-
-        if (key === "ArrowUp" || code === 19) return "up";
-        if (key === "ArrowDown" || code === 20) return "down";
-        if (key === "ArrowLeft" || code === 21) return "left";
-        if (key === "ArrowRight" || code === 22) return "right";
-        return "";
+      function currentIndex(items) {
+        const active = document.activeElement;
+        const index = items.indexOf(active);
+        return index >= 0 ? index : 0;
       }
 
-      function findNearest(direction) {
-        const items = getFocusableItems();
+      function moveLinear(direction) {
+        const items = getItems();
+
+        if (!items.length) return;
+
+        let index = currentIndex(items);
+
+        if (direction === "next") {
+          index++;
+          if (index >= items.length) index = 0;
+        }
+
+        if (direction === "prev") {
+          index--;
+          if (index < 0) index = items.length - 1;
+        }
+
+        focusItem(items[index], false);
+      }
+
+      function moveSpatial(direction) {
+        const now = Date.now();
+
+        if (now - lastMoveTime < MOVE_DELAY) {
+          return;
+        }
+
+        lastMoveTime = now;
+
+        const items = getItems();
+
+        if (!items.length) return;
+
         const active = document.activeElement;
 
-        if (!items.length) return null;
-
         if (!active || !items.includes(active)) {
-          return items[0];
+          focusItem(items[0], false);
+          return;
         }
 
-        const activeRect = active.getBoundingClientRect();
-        const ax = activeRect.left + activeRect.width / 2;
-        const ay = activeRect.top + activeRect.height / 2;
+        const ar = active.getBoundingClientRect();
+        const ax = ar.left + ar.width / 2;
+        const ay = ar.top + ar.height / 2;
 
         let best = null;
         let bestScore = Infinity;
 
-        items.forEach(function (candidate) {
-          if (candidate === active) return;
+        items.forEach(function (el) {
+          if (el === active) return;
 
-          const rect = candidate.getBoundingClientRect();
-          const cx = rect.left + rect.width / 2;
-          const cy = rect.top + rect.height / 2;
+          const r = el.getBoundingClientRect();
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
 
           const dx = cx - ax;
           const dy = cy - ay;
 
           let valid = false;
-          let primary = 0;
-          let secondary = 0;
 
-          if (direction === "up" && dy < -8) {
-            valid = true;
-            primary = Math.abs(dy);
-            secondary = Math.abs(dx);
-          }
-
-          if (direction === "down" && dy > 8) {
-            valid = true;
-            primary = Math.abs(dy);
-            secondary = Math.abs(dx);
-          }
-
-          if (direction === "left" && dx < -8) {
-            valid = true;
-            primary = Math.abs(dx);
-            secondary = Math.abs(dy);
-          }
-
-          if (direction === "right" && dx > 8) {
-            valid = true;
-            primary = Math.abs(dx);
-            secondary = Math.abs(dy);
-          }
+          if (direction === "left" && dx < -5) valid = true;
+          if (direction === "right" && dx > 5) valid = true;
+          if (direction === "up" && dy < -5) valid = true;
+          if (direction === "down" && dy > 5) valid = true;
 
           if (!valid) return;
 
-          const score = primary * 1.4 + secondary;
+          let score;
+
+          if (direction === "left" || direction === "right") {
+            score = Math.abs(dx) + Math.abs(dy) * 2.5;
+          } else {
+            score = Math.abs(dy) + Math.abs(dx) * 2.5;
+          }
 
           if (score < bestScore) {
             bestScore = score;
-            best = candidate;
+            best = el;
           }
         });
 
-        return best;
+        if (best) {
+          focusItem(best, false);
+        } else {
+          if (direction === "right" || direction === "down") {
+            moveLinear("next");
+          } else {
+            moveLinear("prev");
+          }
+        }
       }
 
-      function activateElement(el) {
-        if (!el) return;
+      function activateCurrent() {
+        const el = document.activeElement;
+
+        if (!el || el === document.body || el === document.documentElement) {
+          const items = getItems();
+          focusItem(items[0], false);
+          return;
+        }
 
         const tag = el.tagName.toLowerCase();
 
-        if (tag === "a" && el.href) {
-          window.location.href = el.href;
+        if (tag === "a") {
+          const href = el.getAttribute("href");
+
+          if (href) {
+            window.location.href = el.href;
+          }
+
           return;
         }
 
@@ -458,53 +468,43 @@
         el.click();
       }
 
-      document.addEventListener("keydown", function (event) {
-        const code = event.keyCode || event.which;
+      function getCode(event) {
+        return event.which || event.keyCode || event.charCode || 0;
+      }
 
-        if (TV_KEY_CODES.has(code)) {
+      function handleRemoteEvent(event) {
+        const code = getCode(event);
+        const key = event.key || "";
+
+        let handled = true;
+
+        if (KEY.LEFT.includes(code) || key === "ArrowLeft" || key === "Left") {
+          moveSpatial("left");
+        } else if (KEY.RIGHT.includes(code) || key === "ArrowRight" || key === "Right") {
+          moveSpatial("right");
+        } else if (KEY.UP.includes(code) || key === "ArrowUp" || key === "Up") {
+          moveSpatial("up");
+        } else if (KEY.DOWN.includes(code) || key === "ArrowDown" || key === "Down") {
+          moveSpatial("down");
+        } else if (KEY.ENTER.includes(code) || key === "Enter" || key === "OK") {
+          activateCurrent();
+        } else {
+          handled = false;
+        }
+
+        if (handled) {
           enableTvMode();
-        }
-
-        if (!tvMode) return;
-
-        const direction = getDirectionFromKey(event);
-
-        if (direction) {
           event.preventDefault();
-
-          prepareFocusableItems();
-
-          const next = findNearest(direction);
-
-          if (next) {
-            next.focus({ preventScroll: true });
-            scrollFocusedIntoView(next, false);
-          }
-
-          return;
+          event.stopPropagation();
+          return false;
         }
 
-        if (
-          event.key === "Enter" ||
-          code === 23 ||
-          code === 66
-        ) {
-          const active = document.activeElement;
+        return true;
+      }
 
-          if (
-            active &&
-            active.matches(SELECTOR) &&
-            !["INPUT", "TEXTAREA", "SELECT"].includes(active.tagName)
-          ) {
-            event.preventDefault();
-            activateElement(active);
-          }
-        }
-      }, true);
-
-      document.addEventListener("focusin", function (event) {
-        if (!tvMode) return;
-        scrollFocusedIntoView(event.target, false);
+      ["keydown", "keyup", "keypress"].forEach(function (eventName) {
+        window.addEventListener(eventName, handleRemoteEvent, true);
+        document.addEventListener(eventName, handleRemoteEvent, true);
       });
 
       document.addEventListener("click", function (event) {
@@ -512,44 +512,77 @@
 
         if (!link) return;
 
-        const href = link.getAttribute("href");
-
-        if (!href || href.startsWith("#")) return;
-
-        if (
-          link.target === "_blank" ||
-          link.getAttribute("target") === "_blank"
-        ) {
+        if (link.target === "_blank" || link.getAttribute("target") === "_blank") {
           event.preventDefault();
           window.location.href = link.href;
         }
       }, true);
 
+      document.addEventListener("focusin", function (event) {
+        enableTvMode();
+
+        const el = event.target;
+
+        setTimeout(function () {
+          try {
+            el.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+              inline: "center"
+            });
+          } catch (e) {
+            el.scrollIntoView(true);
+          }
+        }, 30);
+      });
+
+      window.addEventListener("load", function () {
+        enableTvMode();
+        prepareFocusableItems();
+
+        setTimeout(function () {
+          const first =
+            document.querySelector(".pp-btn-primary") ||
+            document.querySelector(".pp-actions a") ||
+            document.querySelector("main a") ||
+            document.querySelector("a[href]");
+
+          if (first) {
+            focusItem(first, true);
+          } else {
+            document.body.focus();
+          }
+        }, 600);
+      });
+
+      window.addEventListener("pageshow", function () {
+        enableTvMode();
+        prepareFocusableItems();
+
+        setTimeout(function () {
+          const active = document.activeElement;
+
+          if (!active || active === document.body || active === document.documentElement) {
+            const first =
+              document.querySelector(".pp-btn-primary") ||
+              document.querySelector(".pp-actions a") ||
+              document.querySelector("main a") ||
+              document.querySelector("a[href]");
+
+            if (first) {
+              focusItem(first, true);
+            }
+          }
+        }, 300);
+      });
+
       const observer = new MutationObserver(function () {
-        if (tvMode) {
-          prepareFocusableItems();
-        }
+        prepareFocusableItems();
       });
 
       observer.observe(document.documentElement, {
         childList: true,
         subtree: true
-      });
-
-      window.addEventListener("load", function () {
-        prepareFocusableItems();
-
-        if (looksLikeAndroidTV()) {
-          enableTvMode();
-        }
-      });
-
-      window.addEventListener("pageshow", function () {
-        prepareFocusableItems();
-
-        if (tvMode) {
-          focusFirstUsefulItem();
-        }
       });
     })();
   </script>
