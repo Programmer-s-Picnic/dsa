@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java 0 to Infinity: OOP Terms for CBSE Class 9 Students</title>
+  <meta name="description"
+    content="A beginner-friendly Java 0 to Infinity lesson for CBSE Class 9 students explaining OOP terms using realistic school examples: marks, fees, attendance, library and transport." />
+  <meta name="keywords"
+    content="Java for Class 9, CBSE Java, OOP terms, object oriented programming, class object Java, Java beginner lesson, Programmers Picnic" />
+  <meta name="author" content="Programmers Picnic AI-ML Classes by Champak Roy" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Java 0 to Infinity: OOP Terms for Class 9" />
+  <meta property="og:description"
+    content="Learn Java and OOP terms through realistic school examples: student records, report cards, fees, attendance, library and transport." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="assets/images/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Java 0 to Infinity: OOP Terms for Class 9" />
+  <meta name="twitter:description" content="A realistic, beginner-friendly Java OOP lesson for school students." />
+  <meta name="twitter:image" content="assets/images/og-image.svg" />
+  <link rel="preload" as="image" href="assets/images/og-image.svg" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+    crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"LearningResource",
+    "name":"Java 0 to Infinity: OOP Terms for CBSE Class 9 Students",
+    "description":"A beginner-friendly Java lesson explaining OOP terms using realistic school examples.",
+    "educationalLevel":"Class 9",
+    "learningResourceType":"Lesson",
+    "author":{"@type":"Person","name":"Champak Roy"},
+    "publisher":{"@type":"Organization","name":"Programmers Picnic AI-ML Classes"}
+  }
+  </script>
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <div class="brand">Programmers Picnic Java Class 9</div>
+      <div class="nav-links">
+        <a href="#oop">OOP</a>
+        <a href="#terms">Terms</a>
+        <a href="#java-parts">Java Parts</a>
+        <a href="#projects">Projects</a>
+        <a href="#revision">Revision</a>
+        <button class="btn" onclick="window.print()">Print</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">Java 0 to Infinity</div>
+        <h1>OOP Terms and Java Language Basics for CBSE Class 9</h1>
+        <p>This lesson avoids weak examples like “dog barks”. Instead, we use realistic school examples: student marks,
+          attendance, fee receipts, library books, timetable periods, bus routes and report cards.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#start">Start Lesson</a>
+          <a class="btn" href="#one-page">One-page revision</a>
+        </div>
+      </div>
+      <aside class="panel" style="padding:22px">
+        <div class="stats">
+          <div class="stat"><b>0</b>Start from zero</div>
+          <div class="stat"><b>9</b>Class-friendly examples</div>
+          <div class="stat"><b>OOP</b>Object thinking</div>
+          <div class="stat"><b>∞</b>Project path</div>
+        </div>
+        <p class="note"><strong>Teacher note:</strong> This is a Java foundation lesson suitable for students moving
+          beyond basic ICT (Information and Communication Technology) toward programming.</p>
+      </aside>
+    </section>
+
+    <div class="layout">
+      <aside class="toc panel">
+        <h2>Lesson Menu</h2>
+        <input id="lessonSearch" class="searchbox" type="search" placeholder="Search inside lesson"
+          aria-label="Search lesson" />
+        <a href="#start">1. Before Java</a>
+        <a href="#oop">2. What OOP means</a>
+        <a href="#terms">3. OOP terms</a>
+        <a href="#pillars">4. Four pillars</a>
+        <a href="#java-parts">5. Java language parts</a>
+        <a href="#examples">6. Real examples</a>
+        <a href="#mistakes">7. Common mistakes</a>
+        <a href="#projects">8. Practice projects</a>
+        <a href="#revision">9. Revision</a>
+      </aside>
+
+      <article id="lessonContent" class="content">
+        <section id="start" class="section">
+          <h2>1. Before Java: What are we trying to learn?</h2>
+          <p>Java is a programming language. But in school-level learning, the first target is not to memorize syntax.
+            The first target is to understand how to convert a real-life situation into a program.</p>
+          <div class="grid">
+            <div class="card">
+              <h3>Real problem</h3>
+              <p>A school wants to store student name, roll number, marks and attendance percentage.</p>
+            </div>
+            <div class="card">
+              <h3>Program thinking</h3>
+              <p>Create a <code>Student</code> class. Each student object will store the data of one real student.</p>
+            </div>
+          </div>
+          <p>So Java is not only about typing commands. Java is about building clear models of real things.</p>
+        </section>
+
+        <section id="oop" class="section">
+          <h2>2. What is OOP?</h2>
+          <p>OOP means <strong>Object-Oriented Programming</strong>. It is a style of programming where we divide the
+            program into objects.</p>
+          <p>A school itself can be understood through objects:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Real school item</th>
+                <th>Java object idea</th>
+                <th>Useful data</th>
+                <th>Useful behaviour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Student</td>
+                <td><code>Student</code> object</td>
+                <td>name, roll number, marks</td>
+                <td>calculate percentage, display report</td>
+              </tr>
+              <tr>
+                <td>Fee receipt</td>
+                <td><code>FeeReceipt</code> object</td>
+                <td>receipt number, amount, date</td>
+                <td>print receipt, check due amount</td>
+              </tr>
+              <tr>
+                <td>Library book</td>
+                <td><code>LibraryBook</code> object</td>
+                <td>title, accession number, issued status</td>
+                <td>issue book, return book</td>
+              </tr>
+              <tr>
+                <td>Bus route</td>
+                <td><code>BusRoute</code> object</td>
+                <td>route number, driver, stops</td>
+                <td>show route, count stops</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="teacher"><strong>Class 9 idea:</strong> If a noun is important in the problem, it may become a
+            class. If an action is important, it may become a method.</div>
+        </section>
+
+        <section id="terms" class="section">
+          <h2>3. OOP Terms with Realistic Examples</h2>
+          <div class="term"><b>Class</b><span>A blueprint. Example: <code>Student</code> is the design of a student
+              record.</span></div>
+          <div class="term"><b>Object</b><span>A real item made from a class. Example: <code>riya</code> can be one
+              student object.</span></div>
+          <div class="term"><b>Field</b><span>A variable inside a class. Example: <code>rollNo</code>,
+              <code>name</code>, <code>marks</code>.</span></div>
+          <div class="term"><b>Method</b><span>A function inside a class. Example:
+              <code>calculatePercentage()</code>.</span></div>
+          <div class="term"><b>Constructor</b><span>A special method used to set up a new object.</span></div>
+          <div class="term"><b>State</b><span>The current data of an object. Example: Riya has roll number 12 and 91
+              marks.</span></div>
+          <div class="term"><b>Behaviour</b><span>What the object can do. Example: a report card can print the final
+              result.</span></div>
+          <div class="term"><b>Reference variable</b><span>The name through which we access an object. Example:
+              <code>Student s1</code>.</span></div>
+
+          <h3>First realistic class: Student record</h3>
+          <pre class="code-block"><code>class Student {
+    int rollNo;
+    String name;
+    int maths;
+    int computer;
+
+    int totalMarks() {
+        return maths + computer;
+    }
+
+    double percentage() {
+        return totalMarks() / 2.0;
+    }
+
+    void printReport() {
+        System.out.println("Roll No: " + rollNo);
+        System.out.println("Name: " + name);
+        System.out.println("Total: " + totalMarks());
+        System.out.println("Percentage: " + percentage());
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Student s1 = new Student();
+        s1.rollNo = 12;
+        s1.name = "Riya Sharma";
+        s1.maths = 88;
+        s1.computer = 96;
+
+        s1.printReport();
+    }
+}</code></pre>
+          <p>Here, <code>Student</code> is the class. <code>s1</code> is the object reference. <code>rollNo</code>,
+            <code>name</code>, <code>maths</code> and <code>computer</code> are fields. <code>totalMarks()</code>,
+            <code>percentage()</code> and <code>printReport()</code> are methods.
+          </p>
+        </section>
+
+        <section id="pillars" class="section">
+          <h2>4. Four Pillars of OOP with School Examples</h2>
+          <h3>4.1 Encapsulation</h3>
+          <p>Encapsulation means keeping related data and methods together inside one class.</p>
+          <pre class="code-block"><code>class FeeAccount {
+    private int totalFee;
+    private int paidFee;
+
+    FeeAccount(int totalFee, int paidFee) {
+        this.totalFee = totalFee;
+        this.paidFee = paidFee;
+    }
+
+    int dueAmount() {
+        return totalFee - paidFee;
+    }
+
+    void printStatus() {
+        System.out.println("Total Fee: " + totalFee);
+        System.out.println("Paid Fee: " + paidFee);
+        System.out.println("Due Amount: " + dueAmount());
+    }
+}</code></pre>
+          <p>The fee data and fee calculations are packed together. That is encapsulation.</p>
+
+          <h3>4.2 Abstraction</h3>
+          <p>Abstraction means showing only what is needed and hiding unnecessary details.</p>
+          <p>When the school office prints a fee due report, the operator does not need to know every internal formula.
+            The operator only calls:</p>
+          <pre class="code-block"><code>account.printStatus();</code></pre>
+          <p>The internal calculation is hidden inside the class.</p>
+
+          <h3>4.3 Inheritance</h3>
+          <p>Inheritance means creating a new class from an existing class. Use it when the new thing is a special type
+            of the old thing.</p>
+          <pre class="code-block"><code>class Person {
+    String name;
+    String phone;
+
+    void printContact() {
+        System.out.println(name + " - " + phone);
+    }
+}
+
+class Student extends Person {
+    int rollNo;
+
+    void printStudentCard() {
+        System.out.println("Roll No: " + rollNo);
+        printContact();
+    }
+}
+
+class Teacher extends Person {
+    String subject;
+
+    void printTeacherCard() {
+        System.out.println("Subject: " + subject);
+        printContact();
+    }
+}</code></pre>
+          <p>A student and a teacher are both persons, so common information like name and phone can stay in the
+            <code>Person</code> class.
+          </p>
+
+          <h3>4.4 Polymorphism</h3>
+          <p>Polymorphism means one name can have different forms.</p>
+          <p>In a school marks system, the word <code>average</code> may be used for two subjects, three subjects, or
+            five subjects.</p>
+          <pre class="code-block"><code>class MarksCalculator {
+    double average(int a, int b) {
+        return (a + b) / 2.0;
+    }
+
+    double average(int a, int b, int c) {
+        return (a + b + c) / 3.0;
+    }
+
+    double average(int a, int b, int c, int d, int e) {
+        return (a + b + c + d + e) / 5.0;
+    }
+}</code></pre>
+          <p>This is called <strong>method overloading</strong>. The method name is the same, but the number of inputs
+            is different.</p>
+        </section>
+
+        <section id="java-parts" class="section">
+          <h2>5. Other Important Parts of Java Language</h2>
+          <h3>5.1 Basic program structure</h3>
+          <pre class="code-block"><code>class Main {
+    public static void main(String[] args) {
+        System.out.println("Welcome to Java");
+    }
+}</code></pre>
+          <table>
+            <thead>
+              <tr>
+                <th>Part</th>
+                <th>Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>class</code></td>
+                <td>Used to create a class.</td>
+              </tr>
+              <tr>
+                <td><code>Main</code></td>
+                <td>Name of the class.</td>
+              </tr>
+              <tr>
+                <td><code>main()</code></td>
+                <td>Starting point of the program.</td>
+              </tr>
+              <tr>
+                <td><code>System.out.println()</code></td>
+                <td>Prints output on screen.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>5.2 Variables and data types</h3>
+          <pre class="code-block"><code>int rollNo = 15;
+double percentage = 89.5;
+char section = 'A';
+boolean passed = true;
+String studentName = "Arjun Verma";</code></pre>
+          <p><code>int</code> stores whole numbers, <code>double</code> stores decimal numbers, <code>char</code> stores
+            one character, <code>boolean</code> stores true or false, and <code>String</code> stores text.</p>
+
+          <h3>5.3 Input using Scanner</h3>
+          <pre class="code-block"><code>import java.util.Scanner;
+
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter roll number: ");
+        int rollNo = sc.nextInt();
+
+        System.out.print("Enter marks: ");
+        int marks = sc.nextInt();
+
+        System.out.println("Roll No " + rollNo + " scored " + marks);
+    }
+}</code></pre>
+
+          <h3>5.4 Conditions</h3>
+          <pre class="code-block"><code>int attendance = 78;
+
+if (attendance >= 75) {
+    System.out.println("Allowed to appear in exam");
+} else {
+    System.out.println("Attendance shortage");
+}</code></pre>
+
+          <h3>5.5 Loops</h3>
+          <pre class="code-block"><code>for (int rollNo = 1; rollNo <= 5; rollNo++) {
+    System.out.println("Printing admit card for roll no " + rollNo);
+}</code></pre>
+
+          <h3>5.6 Arrays</h3>
+          <pre class="code-block"><code>int[] marks = {82, 91, 76, 88, 95};
+
+int total = 0;
+for (int i = 0; i < marks.length; i++) {
+    total = total + marks[i];
+}
+
+System.out.println("Total marks = " + total);</code></pre>
+        </section>
+
+        <section id="examples" class="section">
+          <h2>6. Realistic Complete Examples</h2>
+          <h3>Example 1: Library book issue system</h3>
+          <pre class="code-block"><code>class LibraryBook {
+    String title;
+    String accessionNo;
+    boolean issued;
+
+    LibraryBook(String title, String accessionNo) {
+        this.title = title;
+        this.accessionNo = accessionNo;
+        this.issued = false;
+    }
+
+    void issueBook() {
+        if (issued) {
+            System.out.println(title + " is already issued.");
+        } else {
+            issued = true;
+            System.out.println(title + " has been issued.");
+        }
+    }
+
+    void returnBook() {
+        issued = false;
+        System.out.println(title + " has been returned.");
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        LibraryBook book = new LibraryBook("Introduction to Java", "LIB-1021");
+        book.issueBook();
+        book.issueBook();
+        book.returnBook();
+    }
+}</code></pre>
+
+          <h3>Example 2: Attendance checker</h3>
+          <pre class="code-block"><code>class AttendanceRecord {
+    String studentName;
+    int totalDays;
+    int presentDays;
+
+    AttendanceRecord(String studentName, int totalDays, int presentDays) {
+        this.studentName = studentName;
+        this.totalDays = totalDays;
+        this.presentDays = presentDays;
+    }
+
+    double attendancePercentage() {
+        return presentDays * 100.0 / totalDays;
+    }
+
+    void printEligibility() {
+        System.out.println("Student: " + studentName);
+        System.out.println("Attendance: " + attendancePercentage() + "%");
+
+        if (attendancePercentage() >= 75) {
+            System.out.println("Exam status: Allowed");
+        } else {
+            System.out.println("Exam status: Shortage");
+        }
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        AttendanceRecord a = new AttendanceRecord("Meera", 200, 160);
+        a.printEligibility();
+    }
+}</code></pre>
+
+          <h3>Example 3: School transport route</h3>
+          <pre class="code-block"><code>class BusRoute {
+    int routeNo;
+    String driverName;
+    String[] stops;
+
+    BusRoute(int routeNo, String driverName, String[] stops) {
+        this.routeNo = routeNo;
+        this.driverName = driverName;
+        this.stops = stops;
+    }
+
+    void printRoute() {
+        System.out.println("Route No: " + routeNo);
+        System.out.println("Driver: " + driverName);
+        System.out.println("Stops:");
+
+        for (int i = 0; i < stops.length; i++) {
+            System.out.println((i + 1) + ". " + stops[i]);
+        }
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        String[] stops = {"Gate No. 1", "City Library", "Railway Crossing", "Main Market"};
+        BusRoute route = new BusRoute(7, "Mr. Singh", stops);
+        route.printRoute();
+    }
+}</code></pre>
+        </section>
+
+        <section id="mistakes" class="section">
+          <h2>7. Common Mistakes Students Make</h2>
+          <div class="warning"><strong>Mistake:</strong> Using <code>=</code> instead of <code>==</code> in conditions.
+            <code>=</code> assigns a value. <code>==</code> compares values.
+          </div>
+          <pre class="code-block"><code>int marks = 90;
+
+if (marks == 90) {
+    System.out.println("Excellent");
+}</code></pre>
+          <div class="warning"><strong>Mistake:</strong> Comparing strings with <code>==</code>. Use
+            <code>equals()</code>.
+          </div>
+          <pre class="code-block"><code>String house = "Blue";
+
+if (house.equals("Blue")) {
+    System.out.println("Blue house student");
+}</code></pre>
+          <div class="warning"><strong>Mistake:</strong> Forgetting that array index starts from 0.</div>
+          <pre class="code-block"><code>String[] subjects = {"English", "Maths", "Computer"};
+System.out.println(subjects[0]); // English</code></pre>
+        </section>
+
+        <section id="projects" class="section">
+          <h2>8. Practice Projects: From 0 to Infinity</h2>
+          <div class="grid">
+            <div class="card">
+              <h3>Level 0</h3>
+              <p>Print student name, class and school name.</p>
+            </div>
+            <div class="card">
+              <h3>Level 1</h3>
+              <p>Take marks input and print pass/fail.</p>
+            </div>
+            <div class="card">
+              <h3>Level 2</h3>
+              <p>Use a loop to print admit cards for roll numbers 1 to 40.</p>
+            </div>
+            <div class="card">
+              <h3>Level 3</h3>
+              <p>Use an array to store marks of five subjects and calculate total.</p>
+            </div>
+            <div class="card">
+              <h3>Level 4</h3>
+              <p>Create a <code>Student</code> class and print report card.</p>
+            </div>
+            <div class="card">
+              <h3>Level 5</h3>
+              <p>Create <code>FeeAccount</code>, <code>LibraryBook</code> and <code>BusRoute</code> classes.</p>
+            </div>
+            <div class="card">
+              <h3>Level 6</h3>
+              <p>Use encapsulation with private fields and public getters/setters.</p>
+            </div>
+            <div class="card">
+              <h3>Infinity</h3>
+              <p>Build a mini school management system using multiple classes.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="revision" class="section">
+          <h2>9. Revision and Quick Quiz</h2>
+          <div id="one-page" class="task">
+            <h3>One-page revision</h3>
+            <p><strong>Class:</strong> blueprint. <strong>Object:</strong> real record made from class.
+              <strong>Field:</strong> data inside class. <strong>Method:</strong> action inside class.
+              <strong>Constructor:</strong> object setup method. <strong>Encapsulation:</strong> data and methods
+              together. <strong>Abstraction:</strong> show useful part, hide internal work.
+              <strong>Inheritance:</strong> reuse common features. <strong>Polymorphism:</strong> one method name,
+              multiple forms.
+            </p>
+          </div>
+
+          <h3>Quiz 1</h3>
+          <div class="quiz" data-answer="b">
+            <p>In a report card program, what should <code>Student</code> usually be?</p>
+            <button data-option="a">A method</button>
+            <button data-option="b">A class</button>
+            <button data-option="c">A loop</button>
+          </div>
+
+          <h3>Quiz 2</h3>
+          <div class="quiz" data-answer="c">
+            <p>Which one is a realistic method for a <code>FeeAccount</code> class?</p>
+            <button data-option="a">blueHouse()</button>
+            <button data-option="b">studentName</button>
+            <button data-option="c">dueAmount()</button>
+          </div>
+
+          <h3>Quiz 3</h3>
+          <div class="quiz" data-answer="a">
+            <p>Which keyword creates an object in Java?</p>
+            <button data-option="a">new</button>
+            <button data-option="b">make</button>
+            <button data-option="c">object</button>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Programmers Picnic AI-ML Classes by Champak Roy</p>
+    <p>Java 0 to Infinity lesson for school students. Built with realistic classroom examples.</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Java Keywords 0 to Infinity — CBSE Class 9 Lesson</title>
+  <meta name="description" content="A CBSE Class 9 friendly Java 0 to Infinity lesson covering all 68 Java reserved and contextual keywords with at least two realistic examples per keyword." />
+  <meta name="keywords" content="Java keywords, CBSE class 9 Java, OOP Java, Java lesson, Java reserved words, Java contextual keywords" />
+  <meta name="author" content="Programmers Picnic AI-ML Classes by Champak Roy" />
+  <meta name="theme-color" content="#d97706" />
+  <meta property="og:title" content="Java Keywords 0 to Infinity" />
+  <meta property="og:description" content="All Java keywords explained with realistic school-level examples for CBSE Class 9 students." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="assets/img/java-keywords-og.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preload" as="image" href="assets/img/java-keywords-og.svg" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar">
+      <a class="brand" href="#top">Programmers Picnic</a>
+      <a href="#keywords">Keywords</a>
+      <a href="#practice">Practice</a>
+      <a href="#revision">Revision</a>
+    </nav>
+    <section class="hero-body" id="top">
+      <p class="eyebrow">Java 0 to Infinity • CBSE Class 9 Friendly</p>
+      <h1>All Java Keywords Explained With Realistic Examples</h1>
+      <p class="lead">This lesson explains every Java keyword using school records, fee systems, attendance, library, report cards, transport, modules, and modern Java examples. Every keyword has at least two examples.</p>
+      <div class="stats">
+        <div><strong>68</strong><span>Total keywords covered</span></div>
+        <div><strong>51</strong><span>Reserved keywords</span></div>
+        <div><strong>17</strong><span>Contextual keywords</span></div>
+        <div><strong>136+</strong><span>Code examples</span></div>
+      </div>
+      <div class="hero-actions">
+        <a href="#keywords" class="btn primary">Start Lesson</a>
+        <button class="btn" id="printBtn" type="button">Print / Save PDF</button>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="notice">
+      <h2>Important note for students</h2>
+      <p>In Java SE 25, the official Java Language Specification lists <strong>51 reserved keywords</strong> and <strong>17 contextual keywords</strong>. Reserved keywords cannot be used as names. Contextual keywords act like keywords only in special places. <code>true</code>, <code>false</code>, and <code>null</code> are important literals, but they are not technically keywords.</p>
+      <p class="source">Source note: based on Java Language Specification, Java SE 25, Section 3.9 Keywords.</p>
+    </section>
+
+    <section class="lesson-intro">
+      <h2>What is a keyword?</h2>
+      <p>A keyword is a word that Java has already reserved for a special job. You cannot use a reserved keyword as a class name, variable name, or method name.</p>
+      <div class="grid-two">
+        <div class="mini-card">
+          <h3>Wrong</h3>
+          <pre><button class="copy-btn" type="button">Copy</button><code>int class = 9;  // error because class is a keyword</code></pre>
+        </div>
+        <div class="mini-card">
+          <h3>Correct</h3>
+          <pre><button class="copy-btn" type="button">Copy</button><code>int classNumber = 9;
+System.out.println(classNumber);</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="filters" id="keywords">
+      <h2>Keyword Dictionary</h2>
+      <p>Search any keyword or filter by kind/category. Use the copy button on any code block.</p>
+      <div class="filter-row">
+        <input id="searchBox" type="search" placeholder="Search keyword, category, or example..." aria-label="Search keywords" />
+        <select id="kindFilter" aria-label="Filter by kind">
+          <option value="all">All kinds</option>
+          <option value="Reserved">Reserved</option>
+          <option value="Contextual">Contextual</option>
+          <option value="Reserved but unused">Reserved but unused</option>
+          <option value="Reserved but obsolete">Reserved but obsolete</option>
+        </select>
+      </div>
+    </section>
+
+    <div class="ad-box" aria-label="Advertisement area">
+      <p>Advertisement</p>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <section class="keyword-list" id="keywordList">
+      
+    <article class="keyword-card" id="kw-_" data-keyword="_" data-kind="Reserved" data-category="Special identifier">
+      <div class="kw-head">
+        <span class="kw-number">01</span>
+        <h3><code>_</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Special identifier</span>
+      </div>
+      <p>The underscore is a keyword. It cannot be used as a normal one-character variable name. In modern Java it can be used as an unnamed variable in special places.</p>
+      <div class="example"><h4>Example 1: Wrong: underscore as normal variable</h4><pre><button class="copy-btn" type="button">Copy</button><code>// Wrong in Java:
+// int _ = 10;
+
+int ignoredValue = 10;</code></pre></div><div class="example"><h4>Example 2: Unnamed variable idea in a loop</h4><pre><button class="copy-btn" type="button">Copy</button><code>// Modern Java idea:
+// for (String _ : names) {
+//     count++;
+// }
+
+for (String name : names) {
+    count++;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-abstract" data-keyword="abstract" data-kind="Reserved" data-category="OOP">
+      <div class="kw-head">
+        <span class="kw-number">02</span>
+        <h3><code>abstract</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">OOP</span>
+      </div>
+      <p>Used when a class is incomplete or a method is declared without body. A child class must complete the missing method.</p>
+      <div class="example"><h4>Example 1: Fee rule for different students</h4><pre><button class="copy-btn" type="button">Copy</button><code>abstract class FeeRule {
+    abstract int calculateFee(int baseFee);
+}
+class DayScholarFee extends FeeRule {
+    int calculateFee(int baseFee) {
+        return baseFee;
+    }
+}</code></pre></div><div class="example"><h4>Example 2: Report card format to be completed by classes</h4><pre><button class="copy-btn" type="button">Copy</button><code>abstract class ReportCard {
+    abstract void printResult();
+}
+class Class9ReportCard extends ReportCard {
+    void printResult() {
+        System.out.println(&quot;Class 9 result printed&quot;);
+    }
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-assert" data-keyword="assert" data-kind="Reserved" data-category="Testing / checking">
+      <div class="kw-head">
+        <span class="kw-number">03</span>
+        <h3><code>assert</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Testing / checking</span>
+      </div>
+      <p>Checks whether a condition is true while testing. It is normally used by programmers to catch mistakes during development.</p>
+      <div class="example"><h4>Example 1: Marks should not be negative</h4><pre><button class="copy-btn" type="button">Copy</button><code>int marks = 82;
+assert marks &gt;= 0 : &quot;Marks cannot be negative&quot;;
+System.out.println(&quot;Marks accepted&quot;);</code></pre></div><div class="example"><h4>Example 2: Attendance cannot cross total days</h4><pre><button class="copy-btn" type="button">Copy</button><code>int present = 180;
+int totalDays = 200;
+assert present &lt;= totalDays : &quot;Present days cannot be more than total days&quot;;</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-boolean" data-keyword="boolean" data-kind="Reserved" data-category="Data type">
+      <div class="kw-head">
+        <span class="kw-number">04</span>
+        <h3><code>boolean</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Data type</span>
+      </div>
+      <p>Stores only true or false.</p>
+      <div class="example"><h4>Example 1: Check pass status</h4><pre><button class="copy-btn" type="button">Copy</button><code>int marks = 56;
+boolean passed = marks &gt;= 33;
+System.out.println(passed);</code></pre></div><div class="example"><h4>Example 2: Check if library fine exists</h4><pre><button class="copy-btn" type="button">Copy</button><code>int fine = 0;
+boolean hasFine = fine &gt; 0;
+System.out.println(&quot;Fine pending: &quot; + hasFine);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-break" data-keyword="break" data-kind="Reserved" data-category="Control flow">
+      <div class="kw-head">
+        <span class="kw-number">05</span>
+        <h3><code>break</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Control flow</span>
+      </div>
+      <p>Stops a loop or a switch case immediately.</p>
+      <div class="example"><h4>Example 1: Stop search when roll number is found</h4><pre><button class="copy-btn" type="button">Copy</button><code>int[] rolls = {11, 12, 13, 14};
+int search = 13;
+for (int roll : rolls) {
+    if (roll == search) {
+        System.out.println(&quot;Found&quot;);
+        break;
+    }
+}</code></pre></div><div class="example"><h4>Example 2: Stop switch after selected subject</h4><pre><button class="copy-btn" type="button">Copy</button><code>int subjectCode = 2;
+switch (subjectCode) {
+    case 1: System.out.println(&quot;Maths&quot;); break;
+    case 2: System.out.println(&quot;Computer&quot;); break;
+    default: System.out.println(&quot;Unknown&quot;);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-byte" data-keyword="byte" data-kind="Reserved" data-category="Data type">
+      <div class="kw-head">
+        <span class="kw-number">06</span>
+        <h3><code>byte</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Data type</span>
+      </div>
+      <p>Stores a very small whole number from -128 to 127.</p>
+      <div class="example"><h4>Example 1: Store class number</h4><pre><button class="copy-btn" type="button">Copy</button><code>byte classNumber = 9;
+System.out.println(&quot;Class &quot; + classNumber);</code></pre></div><div class="example"><h4>Example 2: Store section count</h4><pre><button class="copy-btn" type="button">Copy</button><code>byte totalSections = 4;
+byte currentSection = 2;
+System.out.println(&quot;Section number: &quot; + currentSection + &quot; of &quot; + totalSections);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-case" data-keyword="case" data-kind="Reserved" data-category="Control flow">
+      <div class="kw-head">
+        <span class="kw-number">07</span>
+        <h3><code>case</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Control flow</span>
+      </div>
+      <p>Used inside switch to represent one possible value.</p>
+      <div class="example"><h4>Example 1: Choose house by number</h4><pre><button class="copy-btn" type="button">Copy</button><code>int houseCode = 1;
+switch (houseCode) {
+    case 1: System.out.println(&quot;Ganga House&quot;); break;
+    case 2: System.out.println(&quot;Yamuna House&quot;); break;
+}</code></pre></div><div class="example"><h4>Example 2: Choose fee category</h4><pre><button class="copy-btn" type="button">Copy</button><code>String category = &quot;transport&quot;;
+switch (category) {
+    case &quot;tuition&quot;: System.out.println(&quot;Tuition fee selected&quot;); break;
+    case &quot;transport&quot;: System.out.println(&quot;Transport fee selected&quot;); break;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-catch" data-keyword="catch" data-kind="Reserved" data-category="Exception handling">
+      <div class="kw-head">
+        <span class="kw-number">08</span>
+        <h3><code>catch</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Exception handling</span>
+      </div>
+      <p>Handles an error that happened inside try.</p>
+      <div class="example"><h4>Example 1: Handle wrong number input</h4><pre><button class="copy-btn" type="button">Copy</button><code>try {
+    int marks = Integer.parseInt(&quot;eighty&quot;);
+} catch (NumberFormatException e) {
+    System.out.println(&quot;Please enter marks as a number&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Handle division by zero</h4><pre><button class="copy-btn" type="button">Copy</button><code>try {
+    int average = 500 / 0;
+} catch (ArithmeticException e) {
+    System.out.println(&quot;Cannot divide by zero students&quot;);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-char" data-keyword="char" data-kind="Reserved" data-category="Data type">
+      <div class="kw-head">
+        <span class="kw-number">09</span>
+        <h3><code>char</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Data type</span>
+      </div>
+      <p>Stores one character.</p>
+      <div class="example"><h4>Example 1: Store grade</h4><pre><button class="copy-btn" type="button">Copy</button><code>char grade = &#x27;A&#x27;;
+System.out.println(&quot;Grade: &quot; + grade);</code></pre></div><div class="example"><h4>Example 2: Store section</h4><pre><button class="copy-btn" type="button">Copy</button><code>char section = &#x27;B&#x27;;
+System.out.println(&quot;Section: &quot; + section);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-class" data-keyword="class" data-kind="Reserved" data-category="OOP">
+      <div class="kw-head">
+        <span class="kw-number">10</span>
+        <h3><code>class</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">OOP</span>
+      </div>
+      <p>Used to create a class, the blueprint for objects.</p>
+      <div class="example"><h4>Example 1: Student class</h4><pre><button class="copy-btn" type="button">Copy</button><code>class Student {
+    String name;
+    int rollNo;
+}</code></pre></div><div class="example"><h4>Example 2: LibraryBook class</h4><pre><button class="copy-btn" type="button">Copy</button><code>class LibraryBook {
+    String title;
+    boolean issued;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-const" data-keyword="const" data-kind="Reserved but unused" data-category="Reserved word">
+      <div class="kw-head">
+        <span class="kw-number">11</span>
+        <h3><code>const</code></h3>
+        <span class="pill">Reserved but unused</span>
+        <span class="pill soft">Reserved word</span>
+      </div>
+      <p>Reserved in Java but not used. Do not use it as a variable name. Use final for constants.</p>
+      <div class="example"><h4>Example 1: Wrong use of const</h4><pre><button class="copy-btn" type="button">Copy</button><code>// Wrong in Java:
+// const int MAX_MARKS = 100;
+
+final int MAX_MARKS = 100;</code></pre></div><div class="example"><h4>Example 2: Constant school name</h4><pre><button class="copy-btn" type="button">Copy</button><code>final String SCHOOL_NAME = &quot;Programmers Picnic School&quot;;
+System.out.println(SCHOOL_NAME);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-continue" data-keyword="continue" data-kind="Reserved" data-category="Control flow">
+      <div class="kw-head">
+        <span class="kw-number">12</span>
+        <h3><code>continue</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Control flow</span>
+      </div>
+      <p>Skips the current loop turn and moves to the next turn.</p>
+      <div class="example"><h4>Example 1: Skip absent students while calculating attendance message</h4><pre><button class="copy-btn" type="button">Copy</button><code>String[] names = {&quot;Riya&quot;, &quot;Absent&quot;, &quot;Amit&quot;};
+for (String name : names) {
+    if (name.equals(&quot;Absent&quot;)) {
+        continue;
+    }
+    System.out.println(&quot;Marking work for &quot; + name);
+}</code></pre></div><div class="example"><h4>Example 2: Skip zero marks while finding bonus candidates</h4><pre><button class="copy-btn" type="button">Copy</button><code>int[] marks = {80, 0, 92, 76};
+for (int m : marks) {
+    if (m == 0) continue;
+    System.out.println(&quot;Checked marks: &quot; + m);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-default" data-keyword="default" data-kind="Reserved" data-category="Control flow / interface">
+      <div class="kw-head">
+        <span class="kw-number">13</span>
+        <h3><code>default</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Control flow / interface</span>
+      </div>
+      <p>Used in switch when no case matches, and also for default methods in interfaces.</p>
+      <div class="example"><h4>Example 1: Default in switch</h4><pre><button class="copy-btn" type="button">Copy</button><code>int route = 7;
+switch (route) {
+    case 1: System.out.println(&quot;City route&quot;); break;
+    case 2: System.out.println(&quot;Village route&quot;); break;
+    default: System.out.println(&quot;Route not found&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Default method in interface</h4><pre><button class="copy-btn" type="button">Copy</button><code>interface PrintableReport {
+    default void printHeader() {
+        System.out.println(&quot;School Report&quot;);
+    }
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-do" data-keyword="do" data-kind="Reserved" data-category="Loop">
+      <div class="kw-head">
+        <span class="kw-number">14</span>
+        <h3><code>do</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Loop</span>
+      </div>
+      <p>Starts a do-while loop, which runs at least once.</p>
+      <div class="example"><h4>Example 1: Ask at least once for PIN attempt count simulation</h4><pre><button class="copy-btn" type="button">Copy</button><code>int attempt = 1;
+do {
+    System.out.println(&quot;Checking login attempt &quot; + attempt);
+    attempt++;
+} while (attempt &lt;= 3);</code></pre></div><div class="example"><h4>Example 2: Print one page even if page count starts at 1</h4><pre><button class="copy-btn" type="button">Copy</button><code>int page = 1;
+do {
+    System.out.println(&quot;Printing page &quot; + page);
+    page++;
+} while (page &lt;= 2);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-double" data-keyword="double" data-kind="Reserved" data-category="Data type">
+      <div class="kw-head">
+        <span class="kw-number">15</span>
+        <h3><code>double</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Data type</span>
+      </div>
+      <p>Stores decimal numbers with good precision.</p>
+      <div class="example"><h4>Example 1: Store percentage</h4><pre><button class="copy-btn" type="button">Copy</button><code>double percentage = 87.5;
+System.out.println(&quot;Percentage: &quot; + percentage);</code></pre></div><div class="example"><h4>Example 2: Calculate average fee</h4><pre><button class="copy-btn" type="button">Copy</button><code>double totalFee = 15250.50;
+int students = 5;
+double averageFee = totalFee / students;
+System.out.println(averageFee);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-else" data-keyword="else" data-kind="Reserved" data-category="Control flow">
+      <div class="kw-head">
+        <span class="kw-number">16</span>
+        <h3><code>else</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Control flow</span>
+      </div>
+      <p>Runs when the if condition is false.</p>
+      <div class="example"><h4>Example 1: Pass or improve</h4><pre><button class="copy-btn" type="button">Copy</button><code>int marks = 29;
+if (marks &gt;= 33) {
+    System.out.println(&quot;Pass&quot;);
+} else {
+    System.out.println(&quot;Needs improvement&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Fine or no fine</h4><pre><button class="copy-btn" type="button">Copy</button><code>int daysLate = 0;
+if (daysLate &gt; 0) {
+    System.out.println(&quot;Fine required&quot;);
+} else {
+    System.out.println(&quot;No fine&quot;);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-enum" data-keyword="enum" data-kind="Reserved" data-category="OOP / fixed choices">
+      <div class="kw-head">
+        <span class="kw-number">17</span>
+        <h3><code>enum</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">OOP / fixed choices</span>
+      </div>
+      <p>Creates a fixed set of named values.</p>
+      <div class="example"><h4>Example 1: School houses</h4><pre><button class="copy-btn" type="button">Copy</button><code>enum House {
+    GANGA, YAMUNA, NARMADA, KAVERI
+}
+House myHouse = House.GANGA;
+System.out.println(myHouse);</code></pre></div><div class="example"><h4>Example 2: Exam status</h4><pre><button class="copy-btn" type="button">Copy</button><code>enum ExamStatus {
+    NOT_STARTED, RUNNING, COMPLETED
+}
+ExamStatus status = ExamStatus.RUNNING;
+System.out.println(status);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-exports" data-keyword="exports" data-kind="Contextual" data-category="Modules">
+      <div class="kw-head">
+        <span class="kw-number">18</span>
+        <h3><code>exports</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Modules</span>
+      </div>
+      <p>In a module, makes a package available to other modules. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Export student records package</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.app {
+    exports school.records;
+}</code></pre></div><div class="example"><h4>Example 2: Export library package</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.library.app {
+    exports school.library;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-extends" data-keyword="extends" data-kind="Reserved" data-category="OOP">
+      <div class="kw-head">
+        <span class="kw-number">19</span>
+        <h3><code>extends</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">OOP</span>
+      </div>
+      <p>Used when one class inherits from another class.</p>
+      <div class="example"><h4>Example 1: Scholarship student extends student</h4><pre><button class="copy-btn" type="button">Copy</button><code>class Student {
+    String name;
+}
+class ScholarshipStudent extends Student {
+    int scholarshipAmount;
+}</code></pre></div><div class="example"><h4>Example 2: Online quiz extends basic quiz</h4><pre><button class="copy-btn" type="button">Copy</button><code>class Quiz {
+    int totalQuestions;
+}
+class OnlineQuiz extends Quiz {
+    String loginCode;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-final" data-keyword="final" data-kind="Reserved" data-category="Modifier">
+      <div class="kw-head">
+        <span class="kw-number">20</span>
+        <h3><code>final</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Modifier</span>
+      </div>
+      <p>Prevents changing a variable, overriding a method, or extending a class.</p>
+      <div class="example"><h4>Example 1: Constant pass marks</h4><pre><button class="copy-btn" type="button">Copy</button><code>final int PASS_MARKS = 33;
+System.out.println(&quot;Pass marks: &quot; + PASS_MARKS);</code></pre></div><div class="example"><h4>Example 2: Final method cannot be changed by child class</h4><pre><button class="copy-btn" type="button">Copy</button><code>class SchoolRule {
+    final void showSchoolName() {
+        System.out.println(&quot;Programmers Picnic School&quot;);
+    }
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-finally" data-keyword="finally" data-kind="Reserved" data-category="Exception handling">
+      <div class="kw-head">
+        <span class="kw-number">21</span>
+        <h3><code>finally</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Exception handling</span>
+      </div>
+      <p>Runs after try/catch, whether error happened or not.</p>
+      <div class="example"><h4>Example 1: Close fee receipt process</h4><pre><button class="copy-btn" type="button">Copy</button><code>try {
+    System.out.println(&quot;Printing receipt&quot;);
+} catch (Exception e) {
+    System.out.println(&quot;Printer problem&quot;);
+} finally {
+    System.out.println(&quot;Receipt process finished&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Always show end message</h4><pre><button class="copy-btn" type="button">Copy</button><code>try {
+    int result = 10 / 2;
+    System.out.println(result);
+} finally {
+    System.out.println(&quot;Calculation ended&quot;);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-float" data-keyword="float" data-kind="Reserved" data-category="Data type">
+      <div class="kw-head">
+        <span class="kw-number">22</span>
+        <h3><code>float</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Data type</span>
+      </div>
+      <p>Stores decimal numbers with less precision than double. Use f at the end.</p>
+      <div class="example"><h4>Example 1: Store height</h4><pre><button class="copy-btn" type="button">Copy</button><code>float height = 5.6f;
+System.out.println(&quot;Height: &quot; + height);</code></pre></div><div class="example"><h4>Example 2: Store discount rate</h4><pre><button class="copy-btn" type="button">Copy</button><code>float discount = 12.5f;
+System.out.println(&quot;Discount: &quot; + discount + &quot;%&quot;);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-for" data-keyword="for" data-kind="Reserved" data-category="Loop">
+      <div class="kw-head">
+        <span class="kw-number">23</span>
+        <h3><code>for</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Loop</span>
+      </div>
+      <p>Repeats code a known number of times.</p>
+      <div class="example"><h4>Example 1: Print roll numbers</h4><pre><button class="copy-btn" type="button">Copy</button><code>for (int roll = 1; roll &lt;= 5; roll++) {
+    System.out.println(&quot;Roll No: &quot; + roll);
+}</code></pre></div><div class="example"><h4>Example 2: Add marks</h4><pre><button class="copy-btn" type="button">Copy</button><code>int[] marks = {80, 75, 90};
+int total = 0;
+for (int m : marks) {
+    total += m;
+}
+System.out.println(total);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-goto" data-keyword="goto" data-kind="Reserved but unused" data-category="Reserved word">
+      <div class="kw-head">
+        <span class="kw-number">24</span>
+        <h3><code>goto</code></h3>
+        <span class="pill">Reserved but unused</span>
+        <span class="pill soft">Reserved word</span>
+      </div>
+      <p>Reserved in Java but not used. Use loops, break, continue, and methods instead.</p>
+      <div class="example"><h4>Example 1: Wrong use of goto</h4><pre><button class="copy-btn" type="button">Copy</button><code>// Wrong in Java:
+// goto start;
+
+System.out.println(&quot;Use loops instead of goto&quot;);</code></pre></div><div class="example"><h4>Example 2: Use break instead of goto</h4><pre><button class="copy-btn" type="button">Copy</button><code>for (int i = 1; i &lt;= 10; i++) {
+    if (i == 4) break;
+    System.out.println(i);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-if" data-keyword="if" data-kind="Reserved" data-category="Control flow">
+      <div class="kw-head">
+        <span class="kw-number">25</span>
+        <h3><code>if</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Control flow</span>
+      </div>
+      <p>Runs code only when a condition is true.</p>
+      <div class="example"><h4>Example 1: Check pass marks</h4><pre><button class="copy-btn" type="button">Copy</button><code>int marks = 45;
+if (marks &gt;= 33) {
+    System.out.println(&quot;Student passed&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Check bus eligibility</h4><pre><button class="copy-btn" type="button">Copy</button><code>int distanceKm = 8;
+if (distanceKm &gt; 5) {
+    System.out.println(&quot;Bus facility recommended&quot;);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-implements" data-keyword="implements" data-kind="Reserved" data-category="OOP">
+      <div class="kw-head">
+        <span class="kw-number">26</span>
+        <h3><code>implements</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">OOP</span>
+      </div>
+      <p>Used when a class promises to follow an interface.</p>
+      <div class="example"><h4>Example 1: Printable fee receipt</h4><pre><button class="copy-btn" type="button">Copy</button><code>interface Printable {
+    void print();
+}
+class FeeReceipt implements Printable {
+    public void print() {
+        System.out.println(&quot;Fee receipt printed&quot;);
+    }
+}</code></pre></div><div class="example"><h4>Example 2: Scorable quiz</h4><pre><button class="copy-btn" type="button">Copy</button><code>interface Scorable {
+    int score();
+}
+class WeeklyQuiz implements Scorable {
+    public int score() { return 10; }
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-import" data-keyword="import" data-kind="Reserved" data-category="Packages">
+      <div class="kw-head">
+        <span class="kw-number">27</span>
+        <h3><code>import</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Packages</span>
+      </div>
+      <p>Brings another class or package into your program.</p>
+      <div class="example"><h4>Example 1: Import Scanner</h4><pre><button class="copy-btn" type="button">Copy</button><code>import java.util.Scanner;
+
+Scanner sc = new Scanner(System.in);
+System.out.println(&quot;Scanner is ready&quot;);</code></pre></div><div class="example"><h4>Example 2: Import ArrayList</h4><pre><button class="copy-btn" type="button">Copy</button><code>import java.util.ArrayList;
+
+ArrayList&lt;String&gt; students = new ArrayList&lt;&gt;();
+students.add(&quot;Riya&quot;);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-instanceof" data-keyword="instanceof" data-kind="Reserved" data-category="Type checking">
+      <div class="kw-head">
+        <span class="kw-number">28</span>
+        <h3><code>instanceof</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Type checking</span>
+      </div>
+      <p>Checks whether an object belongs to a class or interface.</p>
+      <div class="example"><h4>Example 1: Check report type</h4><pre><button class="copy-btn" type="button">Copy</button><code>Object report = &quot;Class 9 Report&quot;;
+if (report instanceof String) {
+    System.out.println(&quot;This report is text&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Check fee object type</h4><pre><button class="copy-btn" type="button">Copy</button><code>class FeeReceipt {}
+Object item = new FeeReceipt();
+if (item instanceof FeeReceipt) {
+    System.out.println(&quot;Valid fee receipt&quot;);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-int" data-keyword="int" data-kind="Reserved" data-category="Data type">
+      <div class="kw-head">
+        <span class="kw-number">29</span>
+        <h3><code>int</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Data type</span>
+      </div>
+      <p>Stores whole numbers.</p>
+      <div class="example"><h4>Example 1: Store marks</h4><pre><button class="copy-btn" type="button">Copy</button><code>int marks = 88;
+System.out.println(marks);</code></pre></div><div class="example"><h4>Example 2: Store roll number</h4><pre><button class="copy-btn" type="button">Copy</button><code>int rollNo = 23;
+System.out.println(&quot;Roll No: &quot; + rollNo);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-interface" data-keyword="interface" data-kind="Reserved" data-category="OOP">
+      <div class="kw-head">
+        <span class="kw-number">30</span>
+        <h3><code>interface</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">OOP</span>
+      </div>
+      <p>Creates a contract of methods that classes can implement.</p>
+      <div class="example"><h4>Example 1: Printable interface</h4><pre><button class="copy-btn" type="button">Copy</button><code>interface Printable {
+    void print();
+}</code></pre></div><div class="example"><h4>Example 2: Payable interface</h4><pre><button class="copy-btn" type="button">Copy</button><code>interface Payable {
+    void payFee(int amount);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-long" data-keyword="long" data-kind="Reserved" data-category="Data type">
+      <div class="kw-head">
+        <span class="kw-number">31</span>
+        <h3><code>long</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Data type</span>
+      </div>
+      <p>Stores very large whole numbers.</p>
+      <div class="example"><h4>Example 1: Store admission ID</h4><pre><button class="copy-btn" type="button">Copy</button><code>long admissionId = 202600001234L;
+System.out.println(admissionId);</code></pre></div><div class="example"><h4>Example 2: Store population-like large number</h4><pre><button class="copy-btn" type="button">Copy</button><code>long totalWebsiteViews = 9876543210L;
+System.out.println(totalWebsiteViews);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-module" data-keyword="module" data-kind="Contextual" data-category="Modules">
+      <div class="kw-head">
+        <span class="kw-number">32</span>
+        <h3><code>module</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Modules</span>
+      </div>
+      <p>Declares a Java module. Advanced topic.</p>
+      <div class="example"><h4>Example 1: School app module</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.app {
+    requires java.base;
+}</code></pre></div><div class="example"><h4>Example 2: Library module</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.library.app {
+    exports school.library;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-native" data-keyword="native" data-kind="Reserved" data-category="Advanced">
+      <div class="kw-head">
+        <span class="kw-number">33</span>
+        <h3><code>native</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Advanced</span>
+      </div>
+      <p>Used when a method is written in another language such as C/C++. Class 9 students only need to recognize it.</p>
+      <div class="example"><h4>Example 1: Native method declaration</h4><pre><button class="copy-btn" type="button">Copy</button><code>class DeviceAccess {
+    native void readSmartCard();
+}</code></pre></div><div class="example"><h4>Example 2: Native library loading pattern</h4><pre><button class="copy-btn" type="button">Copy</button><code>class FingerprintDevice {
+    static {
+        System.loadLibrary(&quot;fingerprint&quot;);
+    }
+    native boolean verifyStudent();
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-new" data-keyword="new" data-kind="Reserved" data-category="OOP">
+      <div class="kw-head">
+        <span class="kw-number">34</span>
+        <h3><code>new</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">OOP</span>
+      </div>
+      <p>Creates a new object.</p>
+      <div class="example"><h4>Example 1: Create student object</h4><pre><button class="copy-btn" type="button">Copy</button><code>Student s1 = new Student();</code></pre></div><div class="example"><h4>Example 2: Create array object</h4><pre><button class="copy-btn" type="button">Copy</button><code>int[] marks = new int[5];
+marks[0] = 90;</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-non-sealed" data-keyword="non-sealed" data-kind="Contextual" data-category="OOP / sealed classes">
+      <div class="kw-head">
+        <span class="kw-number">35</span>
+        <h3><code>non-sealed</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">OOP / sealed classes</span>
+      </div>
+      <p>Allows a child of a sealed class to be extended normally. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Non-sealed fee account branch</h4><pre><button class="copy-btn" type="button">Copy</button><code>sealed class Account permits FeeAccount {}
+non-sealed class FeeAccount extends Account {}
+class MonthlyFeeAccount extends FeeAccount {}</code></pre></div><div class="example"><h4>Example 2: Non-sealed report branch</h4><pre><button class="copy-btn" type="button">Copy</button><code>sealed interface Report permits AcademicReport {}
+non-sealed class AcademicReport implements Report {}
+class UnitTestReport extends AcademicReport {}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-open" data-keyword="open" data-kind="Contextual" data-category="Modules">
+      <div class="kw-head">
+        <span class="kw-number">36</span>
+        <h3><code>open</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Modules</span>
+      </div>
+      <p>Declares an open module, mainly useful for frameworks that inspect classes. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Open school module</h4><pre><button class="copy-btn" type="button">Copy</button><code>open module school.app {
+    requires java.base;
+}</code></pre></div><div class="example"><h4>Example 2: Open reports module</h4><pre><button class="copy-btn" type="button">Copy</button><code>open module school.reports {
+    exports school.reports;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-opens" data-keyword="opens" data-kind="Contextual" data-category="Modules">
+      <div class="kw-head">
+        <span class="kw-number">37</span>
+        <h3><code>opens</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Modules</span>
+      </div>
+      <p>Opens a package for deep reflection. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Open records package</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.app {
+    opens school.records;
+}</code></pre></div><div class="example"><h4>Example 2: Open reports only to a framework module</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.app {
+    opens school.reports to report.framework;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-package" data-keyword="package" data-kind="Reserved" data-category="Packages">
+      <div class="kw-head">
+        <span class="kw-number">38</span>
+        <h3><code>package</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Packages</span>
+      </div>
+      <p>Declares that a class belongs to a named package.</p>
+      <div class="example"><h4>Example 1: School package</h4><pre><button class="copy-btn" type="button">Copy</button><code>package school.records;
+
+class StudentRecord {
+}</code></pre></div><div class="example"><h4>Example 2: Library package</h4><pre><button class="copy-btn" type="button">Copy</button><code>package school.library;
+
+class BookIssue {
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-permits" data-keyword="permits" data-kind="Contextual" data-category="OOP / sealed classes">
+      <div class="kw-head">
+        <span class="kw-number">39</span>
+        <h3><code>permits</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">OOP / sealed classes</span>
+      </div>
+      <p>Lists which classes may extend a sealed class or interface. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Permitted fee account types</h4><pre><button class="copy-btn" type="button">Copy</button><code>sealed class FeeAccount permits MonthlyFeeAccount, AnnualFeeAccount {}
+final class MonthlyFeeAccount extends FeeAccount {}
+final class AnnualFeeAccount extends FeeAccount {}</code></pre></div><div class="example"><h4>Example 2: Permitted report types</h4><pre><button class="copy-btn" type="button">Copy</button><code>sealed interface Report permits MarksReport, AttendanceReport {}
+final class MarksReport implements Report {}
+final class AttendanceReport implements Report {}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-private" data-keyword="private" data-kind="Reserved" data-category="Access modifier">
+      <div class="kw-head">
+        <span class="kw-number">40</span>
+        <h3><code>private</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Access modifier</span>
+      </div>
+      <p>Allows access only inside the same class.</p>
+      <div class="example"><h4>Example 1: Private marks field</h4><pre><button class="copy-btn" type="button">Copy</button><code>class Student {
+    private int marks;
+}</code></pre></div><div class="example"><h4>Example 2: Private password field</h4><pre><button class="copy-btn" type="button">Copy</button><code>class LoginAccount {
+    private String password;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-protected" data-keyword="protected" data-kind="Reserved" data-category="Access modifier">
+      <div class="kw-head">
+        <span class="kw-number">41</span>
+        <h3><code>protected</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Access modifier</span>
+      </div>
+      <p>Allows access in the same package and in child classes.</p>
+      <div class="example"><h4>Example 1: Protected school code</h4><pre><button class="copy-btn" type="button">Copy</button><code>class SchoolMember {
+    protected String schoolCode = &quot;PPS&quot;;
+}</code></pre></div><div class="example"><h4>Example 2: Protected method for child class</h4><pre><button class="copy-btn" type="button">Copy</button><code>class Report {
+    protected void printHeader() {
+        System.out.println(&quot;School Report&quot;);
+    }
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-provides" data-keyword="provides" data-kind="Contextual" data-category="Modules">
+      <div class="kw-head">
+        <span class="kw-number">42</span>
+        <h3><code>provides</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Modules</span>
+      </div>
+      <p>Says that a module provides an implementation of a service. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Provide SMS service</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.notification {
+    provides MessageService with SmsMessageService;
+}</code></pre></div><div class="example"><h4>Example 2: Provide report generator</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.reports {
+    provides ReportGenerator with PdfReportGenerator;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-public" data-keyword="public" data-kind="Reserved" data-category="Access modifier">
+      <div class="kw-head">
+        <span class="kw-number">43</span>
+        <h3><code>public</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Access modifier</span>
+      </div>
+      <p>Allows access from outside.</p>
+      <div class="example"><h4>Example 1: Public class</h4><pre><button class="copy-btn" type="button">Copy</button><code>public class Main {
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello&quot;);
+    }
+}</code></pre></div><div class="example"><h4>Example 2: Public method</h4><pre><button class="copy-btn" type="button">Copy</button><code>class NoticeBoard {
+    public void showNotice() {
+        System.out.println(&quot;Holiday tomorrow&quot;);
+    }
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-record" data-keyword="record" data-kind="Contextual" data-category="Data class">
+      <div class="kw-head">
+        <span class="kw-number">44</span>
+        <h3><code>record</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Data class</span>
+      </div>
+      <p>Creates a compact class mainly for storing data.</p>
+      <div class="example"><h4>Example 1: Student record</h4><pre><button class="copy-btn" type="button">Copy</button><code>record StudentRecord(String name, int rollNo) {}
+StudentRecord s = new StudentRecord(&quot;Riya&quot;, 12);
+System.out.println(s.name());</code></pre></div><div class="example"><h4>Example 2: Book issue record</h4><pre><button class="copy-btn" type="button">Copy</button><code>record BookIssue(String title, int rollNo) {}
+BookIssue issue = new BookIssue(&quot;Java Basics&quot;, 23);
+System.out.println(issue.title());</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-requires" data-keyword="requires" data-kind="Contextual" data-category="Modules">
+      <div class="kw-head">
+        <span class="kw-number">45</span>
+        <h3><code>requires</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Modules</span>
+      </div>
+      <p>Says that one module depends on another module. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Require SQL module</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.fees {
+    requires java.sql;
+}</code></pre></div><div class="example"><h4>Example 2: Require logging module</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.app {
+    requires java.logging;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-return" data-keyword="return" data-kind="Reserved" data-category="Methods">
+      <div class="kw-head">
+        <span class="kw-number">46</span>
+        <h3><code>return</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Methods</span>
+      </div>
+      <p>Sends a value back from a method, or exits a method.</p>
+      <div class="example"><h4>Example 1: Return total marks</h4><pre><button class="copy-btn" type="button">Copy</button><code>int total(int maths, int science) {
+    return maths + science;
+}</code></pre></div><div class="example"><h4>Example 2: Return early if fee is paid</h4><pre><button class="copy-btn" type="button">Copy</button><code>void checkFee(boolean paid) {
+    if (paid) return;
+    System.out.println(&quot;Fee pending&quot;);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-sealed" data-keyword="sealed" data-kind="Contextual" data-category="OOP">
+      <div class="kw-head">
+        <span class="kw-number">47</span>
+        <h3><code>sealed</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">OOP</span>
+      </div>
+      <p>Restricts which classes may extend a class or implement an interface. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Sealed account type</h4><pre><button class="copy-btn" type="button">Copy</button><code>sealed class Account permits FeeAccount, LibraryAccount {}
+final class FeeAccount extends Account {}
+final class LibraryAccount extends Account {}</code></pre></div><div class="example"><h4>Example 2: Sealed report interface</h4><pre><button class="copy-btn" type="button">Copy</button><code>sealed interface SchoolReport permits MarksReport, AttendanceReport {}
+final class MarksReport implements SchoolReport {}
+final class AttendanceReport implements SchoolReport {}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-short" data-keyword="short" data-kind="Reserved" data-category="Data type">
+      <div class="kw-head">
+        <span class="kw-number">48</span>
+        <h3><code>short</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Data type</span>
+      </div>
+      <p>Stores a small whole number, larger than byte but smaller than int.</p>
+      <div class="example"><h4>Example 1: Store number of students</h4><pre><button class="copy-btn" type="button">Copy</button><code>short totalStudents = 1200;
+System.out.println(totalStudents);</code></pre></div><div class="example"><h4>Example 2: Store library book count</h4><pre><button class="copy-btn" type="button">Copy</button><code>short bookCount = 2500;
+System.out.println(bookCount);</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-static" data-keyword="static" data-kind="Reserved" data-category="Modifier">
+      <div class="kw-head">
+        <span class="kw-number">49</span>
+        <h3><code>static</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Modifier</span>
+      </div>
+      <p>Belongs to the class, not to one object.</p>
+      <div class="example"><h4>Example 1: Static school name shared by all students</h4><pre><button class="copy-btn" type="button">Copy</button><code>class Student {
+    static String schoolName = &quot;Programmers Picnic School&quot;;
+    String name;
+}</code></pre></div><div class="example"><h4>Example 2: Static method called without object</h4><pre><button class="copy-btn" type="button">Copy</button><code>class MathHelper {
+    static int square(int n) {
+        return n * n;
+    }
+}
+System.out.println(MathHelper.square(5));</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-strictfp" data-keyword="strictfp" data-kind="Reserved but obsolete" data-category="Advanced">
+      <div class="kw-head">
+        <span class="kw-number">50</span>
+        <h3><code>strictfp</code></h3>
+        <span class="pill">Reserved but obsolete</span>
+        <span class="pill soft">Advanced</span>
+      </div>
+      <p>Obsolete keyword. It was used to make floating-point calculations strict across platforms. Do not use it in new code.</p>
+      <div class="example"><h4>Example 1: Old-style strict floating calculation class</h4><pre><button class="copy-btn" type="button">Copy</button><code>strictfp class OldCalculator {
+    double average(double a, double b) {
+        return (a + b) / 2;
+    }
+}</code></pre></div><div class="example"><h4>Example 2: Old-style strict method</h4><pre><button class="copy-btn" type="button">Copy</button><code>class MarksCalculator {
+    strictfp double percentage(double marks, double total) {
+        return marks * 100 / total;
+    }
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-super" data-keyword="super" data-kind="Reserved" data-category="OOP">
+      <div class="kw-head">
+        <span class="kw-number">51</span>
+        <h3><code>super</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">OOP</span>
+      </div>
+      <p>Refers to the parent class.</p>
+      <div class="example"><h4>Example 1: Call parent constructor</h4><pre><button class="copy-btn" type="button">Copy</button><code>class Person {
+    Person(String name) {
+        System.out.println(name);
+    }
+}
+class Student extends Person {
+    Student(String name) {
+        super(name);
+    }
+}</code></pre></div><div class="example"><h4>Example 2: Call parent method</h4><pre><button class="copy-btn" type="button">Copy</button><code>class Report {
+    void printHeader() { System.out.println(&quot;Report&quot;); }
+}
+class MarksReport extends Report {
+    void printHeader() {
+        super.printHeader();
+        System.out.println(&quot;Marks Section&quot;);
+    }
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-switch" data-keyword="switch" data-kind="Reserved" data-category="Control flow">
+      <div class="kw-head">
+        <span class="kw-number">52</span>
+        <h3><code>switch</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Control flow</span>
+      </div>
+      <p>Selects one path from many choices.</p>
+      <div class="example"><h4>Example 1: Choose grade message</h4><pre><button class="copy-btn" type="button">Copy</button><code>char grade = &#x27;A&#x27;;
+switch (grade) {
+    case &#x27;A&#x27;: System.out.println(&quot;Excellent&quot;); break;
+    case &#x27;B&#x27;: System.out.println(&quot;Good&quot;); break;
+    default: System.out.println(&quot;Keep trying&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Choose month fee notice</h4><pre><button class="copy-btn" type="button">Copy</button><code>int month = 4;
+switch (month) {
+    case 4: System.out.println(&quot;April fee due&quot;); break;
+    case 5: System.out.println(&quot;May fee due&quot;); break;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-synchronized" data-keyword="synchronized" data-kind="Reserved" data-category="Concurrency">
+      <div class="kw-head">
+        <span class="kw-number">53</span>
+        <h3><code>synchronized</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Concurrency</span>
+      </div>
+      <p>Allows only one thread at a time to use a method or block. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Synchronized fee deposit method</h4><pre><button class="copy-btn" type="button">Copy</button><code>class FeeCounter {
+    synchronized void deposit(int amount) {
+        System.out.println(&quot;Deposited: &quot; + amount);
+    }
+}</code></pre></div><div class="example"><h4>Example 2: Synchronized block for seat booking</h4><pre><button class="copy-btn" type="button">Copy</button><code>class BusSeatBooking {
+    void bookSeat() {
+        synchronized (this) {
+            System.out.println(&quot;Seat booked safely&quot;);
+        }
+    }
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-this" data-keyword="this" data-kind="Reserved" data-category="OOP">
+      <div class="kw-head">
+        <span class="kw-number">54</span>
+        <h3><code>this</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">OOP</span>
+      </div>
+      <p>Refers to the current object.</p>
+      <div class="example"><h4>Example 1: Separate field and parameter</h4><pre><button class="copy-btn" type="button">Copy</button><code>class Student {
+    String name;
+    Student(String name) {
+        this.name = name;
+    }
+}</code></pre></div><div class="example"><h4>Example 2: Pass current object</h4><pre><button class="copy-btn" type="button">Copy</button><code>class Student {
+    void print() {
+        System.out.println(this);
+    }
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-throw" data-keyword="throw" data-kind="Reserved" data-category="Exception handling">
+      <div class="kw-head">
+        <span class="kw-number">55</span>
+        <h3><code>throw</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Exception handling</span>
+      </div>
+      <p>Throws an error manually.</p>
+      <div class="example"><h4>Example 1: Reject negative marks</h4><pre><button class="copy-btn" type="button">Copy</button><code>int marks = -5;
+if (marks &lt; 0) {
+    throw new IllegalArgumentException(&quot;Marks cannot be negative&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Reject empty student name</h4><pre><button class="copy-btn" type="button">Copy</button><code>String name = &quot;&quot;;
+if (name.isEmpty()) {
+    throw new IllegalArgumentException(&quot;Name required&quot;);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-throws" data-keyword="throws" data-kind="Reserved" data-category="Exception handling">
+      <div class="kw-head">
+        <span class="kw-number">56</span>
+        <h3><code>throws</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Exception handling</span>
+      </div>
+      <p>Declares that a method may throw an error.</p>
+      <div class="example"><h4>Example 1: Method may throw exception</h4><pre><button class="copy-btn" type="button">Copy</button><code>void readMarks() throws Exception {
+    System.out.println(&quot;Reading marks file&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Fee method may fail</h4><pre><button class="copy-btn" type="button">Copy</button><code>void printReceipt() throws java.io.IOException {
+    System.out.println(&quot;Printing receipt&quot;);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-to" data-keyword="to" data-kind="Contextual" data-category="Modules">
+      <div class="kw-head">
+        <span class="kw-number">57</span>
+        <h3><code>to</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Modules</span>
+      </div>
+      <p>Used with exports or opens to target specific modules. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Export only to reports module</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.records {
+    exports school.records.internal to school.reports;
+}</code></pre></div><div class="example"><h4>Example 2: Open only to testing module</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.app {
+    opens school.data to school.tests;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-transient" data-keyword="transient" data-kind="Reserved" data-category="Serialization">
+      <div class="kw-head">
+        <span class="kw-number">58</span>
+        <h3><code>transient</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Serialization</span>
+      </div>
+      <p>Prevents a field from being saved during serialization. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Do not save password</h4><pre><button class="copy-btn" type="button">Copy</button><code>class LoginData implements java.io.Serializable {
+    String username;
+    transient String password;
+}</code></pre></div><div class="example"><h4>Example 2: Do not save temporary OTP</h4><pre><button class="copy-btn" type="button">Copy</button><code>class FeeLogin implements java.io.Serializable {
+    String studentId;
+    transient int otp;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-transitive" data-keyword="transitive" data-kind="Contextual" data-category="Modules">
+      <div class="kw-head">
+        <span class="kw-number">59</span>
+        <h3><code>transitive</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Modules</span>
+      </div>
+      <p>Used with requires so other modules also read the required module. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Transitive requirement for reports</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.reports {
+    requires transitive school.records;
+}</code></pre></div><div class="example"><h4>Example 2: Transitive requirement for common utilities</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.app {
+    requires transitive school.common;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-try" data-keyword="try" data-kind="Reserved" data-category="Exception handling">
+      <div class="kw-head">
+        <span class="kw-number">60</span>
+        <h3><code>try</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Exception handling</span>
+      </div>
+      <p>Contains code that might cause an error.</p>
+      <div class="example"><h4>Example 1: Try reading number</h4><pre><button class="copy-btn" type="button">Copy</button><code>try {
+    int marks = Integer.parseInt(&quot;95&quot;);
+    System.out.println(marks);
+} catch (Exception e) {
+    System.out.println(&quot;Invalid marks&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Try risky division</h4><pre><button class="copy-btn" type="button">Copy</button><code>try {
+    int average = 300 / 3;
+    System.out.println(average);
+} catch (Exception e) {
+    System.out.println(&quot;Problem in calculation&quot;);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-uses" data-keyword="uses" data-kind="Contextual" data-category="Modules">
+      <div class="kw-head">
+        <span class="kw-number">61</span>
+        <h3><code>uses</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Modules</span>
+      </div>
+      <p>Says that a module uses a service. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Use message service</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.app {
+    uses MessageService;
+}</code></pre></div><div class="example"><h4>Example 2: Use report generator service</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.dashboard {
+    uses ReportGenerator;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-var" data-keyword="var" data-kind="Contextual" data-category="Local variables">
+      <div class="kw-head">
+        <span class="kw-number">62</span>
+        <h3><code>var</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Local variables</span>
+      </div>
+      <p>Lets Java infer the local variable type from the value.</p>
+      <div class="example"><h4>Example 1: Infer marks type</h4><pre><button class="copy-btn" type="button">Copy</button><code>var marks = 92;
+System.out.println(marks);</code></pre></div><div class="example"><h4>Example 2: Infer student name type</h4><pre><button class="copy-btn" type="button">Copy</button><code>var studentName = &quot;Riya&quot;;
+System.out.println(studentName.toUpperCase());</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-void" data-keyword="void" data-kind="Reserved" data-category="Return type">
+      <div class="kw-head">
+        <span class="kw-number">63</span>
+        <h3><code>void</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Return type</span>
+      </div>
+      <p>Means a method returns no value.</p>
+      <div class="example"><h4>Example 1: Print notice</h4><pre><button class="copy-btn" type="button">Copy</button><code>void showNotice() {
+    System.out.println(&quot;Bring your notebook tomorrow&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Display marks</h4><pre><button class="copy-btn" type="button">Copy</button><code>void displayMarks(int marks) {
+    System.out.println(&quot;Marks: &quot; + marks);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-volatile" data-keyword="volatile" data-kind="Reserved" data-category="Concurrency">
+      <div class="kw-head">
+        <span class="kw-number">64</span>
+        <h3><code>volatile</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Concurrency</span>
+      </div>
+      <p>Tells Java that a variable may be changed by different threads. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Shared notice update flag</h4><pre><button class="copy-btn" type="button">Copy</button><code>class NoticeUpdater {
+    volatile boolean newNoticeAvailable = false;
+}</code></pre></div><div class="example"><h4>Example 2: Stop background task safely</h4><pre><button class="copy-btn" type="button">Copy</button><code>class BackgroundTask {
+    volatile boolean running = true;
+    void stop() { running = false; }
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-when" data-keyword="when" data-kind="Contextual" data-category="Pattern matching guard">
+      <div class="kw-head">
+        <span class="kw-number">65</span>
+        <h3><code>when</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Pattern matching guard</span>
+      </div>
+      <p>Used in guarded pattern matching in modern Java. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Guard a switch case by marks</h4><pre><button class="copy-btn" type="button">Copy</button><code>Object value = 92;
+switch (value) {
+    case Integer marks when marks &gt;= 90 -&gt; System.out.println(&quot;Excellent&quot;);
+    case Integer marks -&gt; System.out.println(&quot;Marks entered&quot;);
+    default -&gt; System.out.println(&quot;Not marks&quot;);
+}</code></pre></div><div class="example"><h4>Example 2: Guard student name length</h4><pre><button class="copy-btn" type="button">Copy</button><code>Object data = &quot;Riya&quot;;
+switch (data) {
+    case String name when name.length() &gt; 0 -&gt; System.out.println(&quot;Valid name&quot;);
+    default -&gt; System.out.println(&quot;Invalid data&quot;);
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-while" data-keyword="while" data-kind="Reserved" data-category="Loop">
+      <div class="kw-head">
+        <span class="kw-number">66</span>
+        <h3><code>while</code></h3>
+        <span class="pill">Reserved</span>
+        <span class="pill soft">Loop</span>
+      </div>
+      <p>Repeats while a condition remains true.</p>
+      <div class="example"><h4>Example 1: Print first five roll numbers</h4><pre><button class="copy-btn" type="button">Copy</button><code>int roll = 1;
+while (roll &lt;= 5) {
+    System.out.println(roll);
+    roll++;
+}</code></pre></div><div class="example"><h4>Example 2: Count fee installments</h4><pre><button class="copy-btn" type="button">Copy</button><code>int installment = 1;
+while (installment &lt;= 3) {
+    System.out.println(&quot;Installment &quot; + installment);
+    installment++;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-with" data-keyword="with" data-kind="Contextual" data-category="Modules">
+      <div class="kw-head">
+        <span class="kw-number">67</span>
+        <h3><code>with</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Modules</span>
+      </div>
+      <p>Used with provides to name the implementation class. Advanced topic.</p>
+      <div class="example"><h4>Example 1: Provide service with implementation</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.notification {
+    provides MessageService with EmailMessageService;
+}</code></pre></div><div class="example"><h4>Example 2: Provide payment service with implementation</h4><pre><button class="copy-btn" type="button">Copy</button><code>module school.fees {
+    provides PaymentService with UpiPaymentService;
+}</code></pre></div>
+    </article>
+    <article class="keyword-card" id="kw-yield" data-keyword="yield" data-kind="Contextual" data-category="Switch expressions">
+      <div class="kw-head">
+        <span class="kw-number">68</span>
+        <h3><code>yield</code></h3>
+        <span class="pill">Contextual</span>
+        <span class="pill soft">Switch expressions</span>
+      </div>
+      <p>Returns a value from a switch expression block.</p>
+      <div class="example"><h4>Example 1: Yield grade message</h4><pre><button class="copy-btn" type="button">Copy</button><code>int marks = 85;
+String message = switch (marks / 10) {
+    case 10, 9 -&gt; &quot;Excellent&quot;;
+    case 8 -&gt; &quot;Very Good&quot;;
+    default -&gt; {
+        yield &quot;Keep improving&quot;;
+    }
+};
+System.out.println(message);</code></pre></div><div class="example"><h4>Example 2: Yield fee category text</h4><pre><button class="copy-btn" type="button">Copy</button><code>int feeCode = 2;
+String feeType = switch (feeCode) {
+    case 1 -&gt; &quot;Tuition Fee&quot;;
+    case 2 -&gt; &quot;Transport Fee&quot;;
+    default -&gt; {
+        yield &quot;Other Fee&quot;;
+    }
+};</code></pre></div>
+    </article>
+    </section>
+
+    <section class="practice" id="practice">
+      <h2>Practice Tasks</h2>
+      <div class="task-grid">
+        <article><h3>Task 1</h3><p>Create a <code>Student</code> class using <code>private</code> fields and <code>public</code> methods.</p></article>
+        <article><h3>Task 2</h3><p>Use <code>if</code>, <code>else</code>, and <code>switch</code> to print a grade message.</p></article>
+        <article><h3>Task 3</h3><p>Use <code>for</code>, <code>while</code>, <code>break</code>, and <code>continue</code> in an attendance checker.</p></article>
+        <article><h3>Task 4</h3><p>Use <code>try</code>, <code>catch</code>, <code>finally</code>, <code>throw</code>, and <code>throws</code> in a marks entry program.</p></article>
+      </div>
+    </section>
+
+    <section class="revision" id="revision">
+      <h2>One-page Revision</h2>
+      <p><strong>Beginner keywords:</strong> <code>class</code>, <code>public</code>, <code>static</code>, <code>void</code>, <code>main</code> is not a keyword, <code>int</code>, <code>double</code>, <code>char</code>, <code>boolean</code>, <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>return</code>, <code>new</code>, <code>this</code>.</p>
+      <p><strong>OOP keywords:</strong> <code>class</code>, <code>abstract</code>, <code>extends</code>, <code>implements</code>, <code>interface</code>, <code>super</code>, <code>this</code>, <code>final</code>, <code>enum</code>, <code>record</code>, <code>sealed</code>, <code>permits</code>, <code>non-sealed</code>.</p>
+      <p><strong>Advanced keywords:</strong> <code>native</code>, <code>transient</code>, <code>volatile</code>, <code>synchronized</code>, <code>module</code>, <code>requires</code>, <code>exports</code>, <code>opens</code>, <code>uses</code>, <code>provides</code>.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Created for CBSE Class 9 students by Programmers Picnic AI-ML Classes by Champak Roy.</p>
+    <p>Java keyword reference: Java Language Specification, Java SE 25, Section 3.9.</p>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
