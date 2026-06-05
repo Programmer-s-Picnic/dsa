@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>HTML Anchor Tag From 0 to Infinity | Learn With Champak</title>
+
+    <meta name="description"
+        content="A complete beginner-to-advanced lesson on the HTML anchor tag, links, href, target, download, mailto, tel, page navigation, accessibility, SEO, and practical examples." />
+    <meta name="keywords"
+        content="HTML a tag, anchor tag, href, target blank, HTML links, mailto link, tel link, download link, internal links, external links, SEO links, web development for beginners" />
+    <meta name="author" content="Champak Roy" />
+    <meta name="theme-color" content="#f59e0b" />
+
+    <!-- SEO: Search Engine Optimization -->
+    <link rel="canonical" href="https://www.learnwithchampak.live/html-anchor-tag-lesson/" />
+
+    <!-- Open Graph image for social sharing -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="HTML Anchor Tag From 0 to Infinity" />
+    <meta property="og:description"
+        content="Learn the HTML anchor tag from basic links to advanced accessibility, SEO, download links, mail links, and mini projects." />
+    <meta property="og:image" content="https://www.learnwithchampak.live/images/html-a-tag-og.png" />
+    <meta property="og:url" content="https://www.learnwithchampak.live/html-anchor-tag-lesson/" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HTML Anchor Tag From 0 to Infinity" />
+    <meta name="twitter:description" content="A complete practical lesson on the HTML anchor tag." />
+    <meta name="twitter:image" content="https://www.learnwithchampak.live/images/html-a-tag-og.png" />
+
+    <!-- Google AdSense -->
+    <script async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+        crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --bg: #fff7ed;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #5b6472;
+            --brand: #d97706;
+            --brand-dark: #92400e;
+            --soft: #ffedd5;
+            --line: #fed7aa;
+            --code-bg: #111827;
+            --code-text: #f9fafb;
+            --good: #166534;
+            --bad: #991b1b;
+            --focus: #2563eb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        header {
+            background:
+                radial-gradient(circle at top left, #fde68a, transparent 35%),
+                linear-gradient(135deg, #fff7ed, #ffedd5);
+            border-bottom: 1px solid var(--line);
+            padding: 42px 18px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--brand-dark);
+        }
+
+        header p {
+            max-width: 850px;
+            margin: 0 auto;
+            font-size: 1.12rem;
+            color: var(--muted);
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #fff;
+            border-bottom: 1px solid var(--line);
+            padding: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        nav a {
+            display: inline-block;
+            color: var(--brand-dark);
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 999px;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            background: var(--soft);
+            outline: 3px solid transparent;
+        }
+
+        main {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+        }
+
+        section {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 24px;
+            margin: 22px 0;
+            box-shadow: 0 10px 30px rgba(146, 64, 14, 0.08);
+        }
+
+        h2 {
+            color: var(--brand-dark);
+            margin-top: 0;
+            font-size: 1.7rem;
+        }
+
+        h3 {
+            color: #7c2d12;
+            margin-top: 28px;
+        }
+
+        .note {
+            background: #fff7ed;
+            border-left: 6px solid var(--brand);
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin: 16px 0;
+        }
+
+        .checkpoint {
+            background: #ecfdf5;
+            border-left: 6px solid var(--good);
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin: 16px 0;
+        }
+
+        .warning {
+            background: #fef2f2;
+            border-left: 6px solid var(--bad);
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin: 16px 0;
+        }
+
+        code {
+            background: #fff1d6;
+            color: #7c2d12;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 16px;
+            border-radius: 14px;
+            overflow-x: auto;
+            border: 1px solid #374151;
+            line-height: 1.55;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            font-weight: 400;
+        }
+
+        .demo-box {
+            border: 2px dashed var(--line);
+            background: #fffaf0;
+            padding: 16px;
+            border-radius: 14px;
+            margin: 12px 0;
+        }
+
+        .demo-box a {
+            color: #1d4ed8;
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            background: #fff;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--line);
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--soft);
+            color: var(--brand-dark);
+        }
+
+        .btn {
+            border: none;
+            background: var(--brand);
+            color: white;
+            font-weight: 700;
+            padding: 10px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 4px;
+        }
+
+        .btn:hover,
+        .btn:focus {
+            background: var(--brand-dark);
+            outline: 3px solid var(--focus);
+            outline-offset: 2px;
+        }
+
+        .copy-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: -8px;
+            margin-bottom: 8px;
+        }
+
+        .mini-output {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 14px;
+            border-radius: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px 16px;
+            background: #431407;
+            color: #fff7ed;
+        }
+
+        footer a {
+            color: #fde68a;
+            font-weight: 700;
+        }
+
+        :focus {
+            outline: 3px solid var(--focus);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>HTML <code>&lt;a&gt;</code> Tag From 0 to Infinity</h1>
+        <p>
+            The <code>&lt;a&gt;</code> tag creates links. Links are the roads of the web.
+            Without links, websites become isolated pages. With links, they become connected learning systems.
+        </p>
+    </header>
+
+    <nav aria-label="Lesson navigation">
+        <a href="#zero">0. Meaning</a>
+        <a href="#basic">1. Basic Link</a>
+        <a href="#href">2. href</a>
+        <a href="#internal">3. Internal Links</a>
+        <a href="#external">4. External Links</a>
+        <a href="#target">5. target</a>
+        <a href="#special">6. Special Links</a>
+        <a href="#download">7. Download</a>
+        <a href="#accessibility">8. Accessibility</a>
+        <a href="#seo">9. SEO</a>
+        <a href="#mistakes">10. Mistakes</a>
+        <a href="#project">11. Mini Project</a>
+        <a href="#quiz">12. Quiz</a>
+    </nav>
+
+    <main>
+
+        <section id="zero">
+            <h2>0. What is the <code>&lt;a&gt;</code> Tag?</h2>
+
+            <p>
+                The <code>&lt;a&gt;</code> tag is called the <strong>anchor tag</strong>.
+                It is used to create a hyperlink.
+            </p>
+
+            <p>
+                A hyperlink can take the user to:
+            </p>
+
+            <ul>
+                <li>another website,</li>
+                <li>another page of the same website,</li>
+                <li>a section on the same page,</li>
+                <li>an email application,</li>
+                <li>a phone dialer,</li>
+                <li>a downloadable file,</li>
+                <li>or another resource.</li>
+            </ul>
+
+            <div class="note">
+                <strong>Full form:</strong> URL means Uniform Resource Locator. It is the address of a resource on the
+                web.
+            </div>
+
+            <h3>Basic syntax</h3>
+
+            <div class="copy-row">
+                <button class="btn" onclick="copyCode('code-basic-syntax')">Copy</button>
+            </div>
+
+            <pre><code id="code-basic-syntax">&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;</code></pre>
+
+            <div class="demo-box">
+                <strong>Output:</strong><br>
+                <a href="https://example.com">Visit Example</a>
+            </div>
+
+            <div class="checkpoint">
+                <strong>Checkpoint:</strong> The text between opening and closing anchor tags becomes clickable.
+            </div>
+        </section>
+
+        <section id="basic">
+            <h2>1. The Simplest Link</h2>
+
+            <p>
+                The most important attribute of the anchor tag is <code>href</code>.
+                It tells the browser where the link should go.
+            </p>
+
+            <div class="copy-row">
+                <button class="btn" onclick="copyCode('code-simple-link')">Copy</button>
+            </div>
+
+            <pre><code id="code-simple-link">&lt;a href="https://www.learnwithchampak.live"&gt;
+  Learn With Champak
+&lt;/a&gt;</code></pre>
+
+            <div class="demo-box">
+                <a href="https://www.learnwithchampak.live">Learn With Champak</a>
+            </div>
+
+            <h3>Important parts</h3>
+
+            <table>
+                <tr>
+                    <th>Part</th>
+                    <th>Meaning</th>
+                </tr>
+                <tr>
+                    <td><code>&lt;a&gt;</code></td>
+                    <td>Opening anchor tag</td>
+                </tr>
+                <tr>
+                    <td><code>href</code></td>
+                    <td>Destination address</td>
+                </tr>
+                <tr>
+                    <td><code>Learn With Champak</code></td>
+                    <td>Clickable text</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;/a&gt;</code></td>
+                    <td>Closing anchor tag</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="href">
+            <h2>2. Understanding <code>href</code></h2>
+
+            <p>
+                The <code>href</code> attribute is the heart of the anchor tag.
+                Without <code>href</code>, the anchor may look like text but it does not behave like a real link.
+            </p>
+
+            <h3>Example with full web address</h3>
+
+            <pre><code>&lt;a href="https://developer.mozilla.org"&gt;
+  MDN Web Docs
+&lt;/a&gt;</code></pre>
+
+            <h3>Example with same-site page</h3>
+
+            <pre><code>&lt;a href="about.html"&gt;About Us&lt;/a&gt;</code></pre>
+
+            <h3>Example with folder page</h3>
+
+            <pre><code>&lt;a href="lessons/html/index.html"&gt;HTML Lesson&lt;/a&gt;</code></pre>
+
+            <div class="note">
+                Use complete URLs for external websites. Use relative paths for pages inside your own website.
+            </div>
+        </section>
+
+        <section id="internal">
+            <h2>3. Internal Page Links</h2>
+
+            <p>
+                You can link to a section on the same page by using an <code>id</code>.
+            </p>
+
+            <h3>Step 1: Give an element an id</h3>
+
+            <pre><code>&lt;section id="contact"&gt;
+  &lt;h2&gt;Contact Us&lt;/h2&gt;
+&lt;/section&gt;</code></pre>
+
+            <h3>Step 2: Link to that id</h3>
+
+            <pre><code>&lt;a href="#contact"&gt;Go to Contact Section&lt;/a&gt;</code></pre>
+
+            <div class="demo-box">
+                <a href="#project">Jump to Mini Project</a>
+            </div>
+
+            <div class="checkpoint">
+                <strong>Checkpoint:</strong> The hash symbol <code>#</code> means “go to the element with this id”.
+            </div>
+        </section>
+
+        <section id="external">
+            <h2>4. External Links</h2>
+
+            <p>
+                External links take users to another website.
+            </p>
+
+            <pre><code>&lt;a href="https://www.wikipedia.org"&gt;
+  Visit Wikipedia
+&lt;/a&gt;</code></pre>
+
+            <div class="demo-box">
+                <a href="https://www.wikipedia.org">Visit Wikipedia</a>
+            </div>
+
+            <p>
+                External links are useful, but do not send students away from your site unnecessarily.
+                Use them when they add learning value.
+            </p>
+        </section>
+
+        <section id="target">
+            <h2>5. Opening Links in a New Tab</h2>
+
+            <p>
+                Use <code>target="_blank"</code> to open a link in a new tab.
+            </p>
+
+            <pre><code>&lt;a href="https://www.learnwithchampak.live" target="_blank"&gt;
+  Open in New Tab
+&lt;/a&gt;</code></pre>
+
+            <div class="demo-box">
+                <a href="https://www.learnwithchampak.live" target="_blank">Open in New Tab</a>
+            </div>
+
+            <h3>Security improvement</h3>
+
+            <p>
+                When using <code>target="_blank"</code>, also use <code>rel="noopener noreferrer"</code>.
+            </p>
+
+            <pre><code>&lt;a 
+  href="https://www.learnwithchampak.live"
+  target="_blank"
+  rel="noopener noreferrer"&gt;
+  Safe New Tab Link
+&lt;/a&gt;</code></pre>
+
+            <div class="warning">
+                <strong>Important:</strong> Do not use <code>target="_blank"</code> everywhere.
+                Use it mainly for external links, documents, or tools.
+            </div>
+        </section>
+
+        <section id="special">
+            <h2>6. Special Types of Links</h2>
+
+            <h3>6.1 Email link</h3>
+
+            <p>
+                Use <code>mailto:</code> to open the user’s email application.
+            </p>
+
+            <pre><code>&lt;a href="mailto:teacher@example.com"&gt;
+  Email the Teacher
+&lt;/a&gt;</code></pre>
+
+            <div class="demo-box">
+                <a href="mailto:teacher@example.com">Email the Teacher</a>
+            </div>
+
+            <h3>6.2 Email with subject</h3>
+
+            <pre><code>&lt;a href="mailto:teacher@example.com?subject=HTML Doubt"&gt;
+  Send HTML Doubt
+&lt;/a&gt;</code></pre>
+
+            <h3>6.3 Phone link</h3>
+
+            <p>
+                Use <code>tel:</code> to open the phone dialer on supported devices.
+            </p>
+
+            <pre><code>&lt;a href="tel:+919335874326"&gt;
+  Call Now
+&lt;/a&gt;</code></pre>
+
+            <div class="demo-box">
+                <a href="tel:+919335874326">Call Now</a>
+            </div>
+
+            <h3>6.4 WhatsApp link</h3>
+
+            <pre><code>&lt;a href="https://wa.me/919335874326"&gt;
+  Message on WhatsApp
+&lt;/a&gt;</code></pre>
+
+            <div class="demo-box">
+                <a href="https://wa.me/919335874326">Message on WhatsApp</a>
+            </div>
+        </section>
+
+        <section id="download">
+            <h2>7. Download Links</h2>
+
+            <p>
+                The <code>download</code> attribute tells the browser to download the file instead of opening it.
+            </p>
+
+            <pre><code>&lt;a href="notes/html-a-tag.pdf" download&gt;
+  Download Notes
+&lt;/a&gt;</code></pre>
+
+            <h3>Download with a custom file name</h3>
+
+            <pre><code>&lt;a href="notes/html-a-tag.pdf" download="anchor-tag-notes.pdf"&gt;
+  Download Anchor Tag Notes
+&lt;/a&gt;</code></pre>
+
+            <div class="warning">
+                Some browsers may ignore <code>download</code> for cross-origin files.
+                It works best for files hosted on your own site.
+            </div>
+        </section>
+
+        <section id="accessibility">
+            <h2>8. Accessibility: Make Links Clear for Everyone</h2>
+
+            <p>
+                Accessibility means making the page usable for all users, including people using screen readers,
+                keyboards, mobile devices, and TV remotes.
+            </p>
+
+            <h3>Bad link text</h3>
+
+            <pre><code>&lt;a href="lesson.html"&gt;Click here&lt;/a&gt;</code></pre>
+
+            <p>
+                “Click here” does not explain where the link goes.
+            </p>
+
+            <h3>Good link text</h3>
+
+            <pre><code>&lt;a href="lesson.html"&gt;Read the HTML Anchor Tag Lesson&lt;/a&gt;</code></pre>
+
+            <div class="checkpoint">
+                <strong>Checkpoint:</strong> Link text should make sense even when read alone.
+            </div>
+
+            <h3>Keyboard focus</h3>
+
+            <p>
+                A user should be able to press the Tab key and clearly see which link is selected.
+                This page uses a visible focus outline for that reason.
+            </p>
+        </section>
+
+        <section id="seo">
+            <h2>9. Anchor Tags and SEO</h2>
+
+            <p>
+                SEO means Search Engine Optimization. Search engines use links to understand pages,
+                relationships, and importance.
+            </p>
+
+            <h3>Good SEO link</h3>
+
+            <pre><code>&lt;a href="/html/forms/"&gt;
+  Learn HTML Forms
+&lt;/a&gt;</code></pre>
+
+            <h3>Weak SEO link</h3>
+
+            <pre><code>&lt;a href="/html/forms/"&gt;
+  Click here
+&lt;/a&gt;</code></pre>
+
+            <h3>Use descriptive anchor text</h3>
+
+            <p>
+                Instead of this:
+            </p>
+
+            <pre><code>To learn forms, &lt;a href="/html/forms/"&gt;click here&lt;/a&gt;.</code></pre>
+
+            <p>
+                Write this:
+            </p>
+
+            <pre><code>Read our &lt;a href="/html/forms/"&gt;complete HTML forms lesson&lt;/a&gt;.</code></pre>
+
+            <h3>Use <code>rel="nofollow"</code> when needed</h3>
+
+            <p>
+                If a link is sponsored, paid, or user-generated, use proper <code>rel</code> values.
+            </p>
+
+            <pre><code>&lt;a href="https://example.com" rel="sponsored"&gt;
+  Sponsored Link
+&lt;/a&gt;</code></pre>
+
+            <pre><code>&lt;a href="https://example.com" rel="nofollow"&gt;
+  Untrusted External Link
+&lt;/a&gt;</code></pre>
+        </section>
+
+        <section id="mistakes">
+            <h2>10. Common Mistakes</h2>
+
+            <table>
+                <tr>
+                    <th>Mistake</th>
+                    <th>Problem</th>
+                    <th>Correction</th>
+                </tr>
+                <tr>
+                    <td><code>&lt;a&gt;Google&lt;/a&gt;</code></td>
+                    <td>No destination</td>
+                    <td>Add <code>href</code></td>
+                </tr>
+                <tr>
+                    <td><code>&lt;a href=google.com&gt;</code></td>
+                    <td>Incomplete and unquoted URL</td>
+                    <td>Use <code>href="https://google.com"</code></td>
+                </tr>
+                <tr>
+                    <td><code>target="blank"</code></td>
+                    <td>Wrong value</td>
+                    <td>Use <code>target="_blank"</code></td>
+                </tr>
+                <tr>
+                    <td><code>Click here</code></td>
+                    <td>Poor link text</td>
+                    <td>Use descriptive text</td>
+                </tr>
+                <tr>
+                    <td>Too many new-tab links</td>
+                    <td>Bad user experience</td>
+                    <td>Use new tab only where useful</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="project">
+            <h2>11. Mini Project: Student Resource Card</h2>
+
+            <p>
+                Now we will create a small resource card using different types of anchor tags.
+            </p>
+
+            <div class="copy-row">
+                <button class="btn" onclick="copyCode('code-mini-project')">Copy</button>
+            </div>
+
+            <pre><code id="code-mini-project">&lt;div class="student-card"&gt;
+  &lt;h2&gt;HTML Learning Resources&lt;/h2&gt;
+
+  &lt;p&gt;
+    Start with the 
+    &lt;a href="https://www.learnwithchampak.live"&gt;
+      Learn With Champak homepage
+    &lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Read the 
+    &lt;a href="/html/index.html"&gt;
+      HTML lesson index
+    &lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    &lt;a href="notes/html-basics.pdf" download&gt;
+      Download HTML notes
+    &lt;/a&gt;
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    &lt;a href="mailto:teacher@example.com?subject=HTML Question"&gt;
+      Ask a question by email
+    &lt;/a&gt;
+  &lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+            <div class="mini-output">
+                <h3>HTML Learning Resources</h3>
+
+                <p>
+                    Start with the
+                    <a href="https://www.learnwithchampak.live">
+                        Learn With Champak homepage
+                    </a>.
+                </p>
+
+                <p>
+                    Read the
+                    <a href="/html/index.html">
+                        HTML lesson index
+                    </a>.
+                </p>
+
+                <p>
+                    <a href="notes/html-basics.pdf" download>
+                        Download HTML notes
+                    </a>
+                </p>
+
+                <p>
+                    <a href="mailto:teacher@example.com?subject=HTML Question">
+                        Ask a question by email
+                    </a>
+                </p>
+            </div>
+        </section>
+
+        <section id="quiz">
+            <h2>12. Practice Questions</h2>
+
+            <ol>
+                <li>Create a link to your homepage.</li>
+                <li>Create a link that opens Google in a new tab.</li>
+                <li>Create a link that jumps to the contact section of the same page.</li>
+                <li>Create an email link with subject “Website Doubt”.</li>
+                <li>Create a download link for a file named <code>notes.pdf</code>.</li>
+                <li>Write one good anchor text and one bad anchor text.</li>
+            </ol>
+
+            <h3>Answers</h3>
+
+            <button class="btn" onclick="toggleAnswers()">Show / Hide Answers</button>
+
+            <div id="answers" hidden>
+                <pre><code>&lt;a href="index.html"&gt;Home&lt;/a&gt;
+
+&lt;a href="https://www.google.com" target="_blank" rel="noopener noreferrer"&gt;
+  Open Google
+&lt;/a&gt;
+
+&lt;a href="#contact"&gt;Go to Contact Section&lt;/a&gt;
+
+&lt;a href="mailto:teacher@example.com?subject=Website Doubt"&gt;
+  Email Website Doubt
+&lt;/a&gt;
+
+&lt;a href="notes.pdf" download&gt;Download Notes&lt;/a&gt;
+
+Bad: &lt;a href="html.html"&gt;Click here&lt;/a&gt;
+
+Good: &lt;a href="html.html"&gt;Read the HTML beginner lesson&lt;/a&gt;</code></pre>
+            </div>
+        </section>
+
+        <section>
+            <h2>13. Final Summary</h2>
+
+            <ul>
+                <li>The <code>&lt;a&gt;</code> tag creates links.</li>
+                <li>The <code>href</code> attribute gives the destination.</li>
+                <li>Use <code>#id</code> for same-page section links.</li>
+                <li>Use <code>target="_blank"</code> carefully.</li>
+                <li>Use <code>rel="noopener noreferrer"</code> with new-tab external links.</li>
+                <li>Use meaningful link text for accessibility and SEO.</li>
+                <li>Use <code>mailto:</code>, <code>tel:</code>, and <code>download</code> for special links.</li>
+            </ul>
+
+            <div class="checkpoint">
+                <strong>Infinity point:</strong> A good link is not just clickable.
+                It is meaningful, safe, accessible, search-friendly, and useful.
+            </div>
+        </section>
+
+        <section aria-label="Advertisement">
+            <h2>Support This Lesson</h2>
+            <p>This space can show a Google ad when the page is published.</p>
+
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494"
+                data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true"></ins>
+
+            <script>
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (error) {
+                    console.warn("AdSense could not load:", error);
+                }
+            </script>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>
+            HTML Anchor Tag Lesson by Champak Roy |
+            <a href="https://www.learnwithchampak.live">Learn With Champak</a>
+        </p>
+    </footer>
+
+    <script>
+        function copyCode(id) {
+            const element = document.getElementById(id);
+            if (!element) return;
+
+            const text = element.innerText;
+
+            navigator.clipboard.writeText(text)
+                .then(function () {
+                    alert("Code copied.");
+                })
+                .catch(function () {
+                    alert("Could not copy automatically. Please select and copy manually.");
+                });
+        }
+
+        function toggleAnswers() {
+            const answers = document.getElementById("answers");
+            answers.hidden = !answers.hidden;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const firstLink = document.querySelector("nav a");
+            if (firstLink) {
+                firstLink.focus();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
