@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>WebSocket Client | Cloudflare Worker Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+        :root {
+            --bg: #fff7ed;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --line: #fed7aa;
+            --saffron: #f59e0b;
+            --saffron-dark: #d97706;
+            --green: #16a34a;
+            --red: #dc2626;
+            --dark: #111827;
+            --code: #fef3c7;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top left, #ffedd5, transparent 35%),
+                linear-gradient(135deg, #fff7ed, #fffbeb);
+            color: var(--text);
+            padding: 20px;
+        }
+
+        .wrap {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #f59e0b, #fb923c);
+            color: white;
+            padding: 28px;
+            border-radius: 28px;
+            margin-bottom: 18px;
+            box-shadow: 0 18px 45px rgba(146, 64, 14, 0.18);
+        }
+
+        .hero h1 {
+            margin: 0 0 8px;
+            font-size: clamp(32px, 6vw, 56px);
+            line-height: 1;
+        }
+
+        .hero p {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 14px 34px rgba(146, 64, 14, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #7c2d12;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid #fdba74;
+            border-radius: 16px;
+            padding: 14px;
+            font: inherit;
+            outline: none;
+            background: white;
+            color: var(--text);
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--saffron-dark);
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        button {
+            border: 0;
+            border-radius: 999px;
+            padding: 12px 17px;
+            font-weight: 800;
+            cursor: pointer;
+            color: white;
+            background: var(--saffron);
+        }
+
+        button:hover {
+            background: var(--saffron-dark);
+        }
+
+        button.secondary {
+            background: #fff7ed;
+            color: #9a3412;
+            border: 1px solid #fdba74;
+        }
+
+        button.danger {
+            background: var(--red);
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 9px 13px;
+            border-radius: 999px;
+            background: #fee2e2;
+            color: var(--red);
+            font-weight: 800;
+        }
+
+        .status.open {
+            background: #dcfce7;
+            color: var(--green);
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        pre {
+            background: var(--dark);
+            color: var(--code);
+            padding: 18px;
+            border-radius: 20px;
+            min-height: 300px;
+            max-height: 520px;
+            overflow: auto;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .small {
+            color: var(--muted);
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="wrap">
+        <section class="hero">
+            <h1>WebSocket Client</h1>
+            <p>Connect to your Cloudflare Worker WebSocket server.</p>
+        </section>
+
+        <section class="card">
+            <label for="wsUrl">WebSocket URL</label>
+            <input id="wsUrl" value="wss://shy-meadow-f207.champaksworld.workers.dev/" autocomplete="off" />
+
+            <div id="status" class="status">
+                <span class="dot"></span>
+                <span>Disconnected</span>
+            </div>
+
+            <div class="row">
+                <button onclick="connectWS()">Connect</button>
+                <button onclick="sendMessage()">Send Message</button>
+                <button class="danger" onclick="closeWS()">Close</button>
+                <button class="secondary" onclick="clearLog()">Clear Log</button>
+            </div>
+
+            <p class="small">
+                The page uses <strong>wss://</strong>, which is the secure WebSocket version of your Cloudflare Worker
+                URL.
+            </p>
+        </section>
+
+        <section class="card">
+            <label for="message">Message</label>
+            <textarea id="message">Champak</textarea>
+
+            <div class="row">
+                <button class="secondary" onclick="setTextMessage()">Text Test</button>
+                <button class="secondary" onclick="setJsonMessage()">JSON Test</button>
+                <button class="secondary" onclick="autoTest()">Auto Test</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <label for="log">Log</label>
+            <pre id="log"></pre>
+        </section>
+    </main>
+
+    <script>
+        let ws = null;
+
+        const statusBox = document.getElementById("status");
+        const logBox = document.getElementById("log");
+
+        function log(title, data) {
+            const time = new Date().toLocaleTimeString();
+            let output = "[" + time + "] " + title;
+
+            if (data !== undefined) {
+                if (typeof data === "string") {
+                    output += "\n" + data;
+                } else {
+                    try {
+                        output += "\n" + JSON.stringify(data, null, 2);
+                    } catch {
+                        output += "\n" + String(data);
+                    }
+                }
+            }
+
+            logBox.textContent += output + "\n\n";
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        function setStatus(text, connected) {
+            statusBox.className = "status" + (connected ? " open" : "");
+            statusBox.querySelector("span:last-child").textContent = text;
+        }
+
+        function connectWS() {
+            const url = document.getElementById("wsUrl").value.trim();
+
+            if (!url) {
+                log("Please enter a WebSocket URL.");
+                return;
+            }
+
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                log("Already connected.");
+                return;
+            }
+
+            try {
+                ws = new WebSocket(url);
+
+                log("Connecting to", url);
+
+                ws.onopen = function () {
+                    setStatus("Connected", true);
+                    log("Connection opened.");
+                };
+
+                ws.onmessage = function (event) {
+                    log("Message received", event.data);
+                };
+
+                ws.onerror = function (event) {
+                    log("WebSocket error", {
+                        eventType: event.type,
+                        readyState: ws ? ws.readyState : "no socket"
+                    });
+                };
+
+                ws.onclose = function (event) {
+                    setStatus("Disconnected", false);
+
+                    log("Connection closed", {
+                        code: event.code,
+                        reason: event.reason || "No reason given",
+                        wasClean: event.wasClean
+                    });
+                };
+            } catch (error) {
+                log("Failed to create WebSocket", {
+                    message: error.message
+                });
+            }
+        }
+
+        function sendMessage() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                log("Not connected. Click Connect first.");
+                return;
+            }
+
+            const message = document.getElementById("message").value;
+            ws.send(message);
+            log("Message sent", message);
+        }
+
+        function closeWS() {
+            if (!ws) {
+                log("No WebSocket object exists.");
+                return;
+            }
+
+            ws.close(1000, "Closed by client");
+            log("Close requested.");
+        }
+
+        function clearLog() {
+            logBox.textContent = "";
+        }
+
+        function setTextMessage() {
+            document.getElementById("message").value = "Champak";
+            log("Text message prepared", "Champak");
+        }
+
+        function setJsonMessage() {
+            const payload = {
+                name: "Champak Roy",
+                test: "Cloudflare Worker WebSocket",
+                url: document.getElementById("wsUrl").value,
+                time: new Date().toISOString()
+            };
+
+            document.getElementById("message").value = JSON.stringify(payload, null, 2);
+            log("JSON message prepared", payload);
+        }
+
+        function autoTest() {
+            clearLog();
+            connectWS();
+
+            setTimeout(function () {
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    sendMessage();
+                } else {
+                    log("Auto test failed: socket did not open in time.");
+                }
+            }, 1500);
+        }
+
+        window.addEventListener("beforeunload", function () {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.close(1000, "Page closed");
+            }
+        });
+    </script>
+</body>
+
+</html>
