@@ -4,36 +4,18 @@
 <head>
     <meta charset="utf-8" />
 
-    <title>Two Way Chat | Server Learn With Champak</title>
+    <title>Two Way Chat | Champak Roy WebSocket</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <meta name="description"
-        content="A two-way WebSocket chat client for Cloudflare Workers and Durable Objects by Champak Roy." />
+        content="A two-way WebSocket chat page using Cloudflare Workers and Durable Objects by Champak Roy." />
 
     <meta name="keywords"
-        content="WebSocket chat, Cloudflare Durable Objects, Cloudflare Workers, WSS chat, Champak Roy, Programmers Picnic" />
+        content="WebSocket chat, Cloudflare Worker, Durable Objects, WSS chat, Champak Roy, Programmers Picnic" />
     <meta name="author" content="Champak Roy" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="theme-color" content="#f59e0b" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Two Way Chat | Server Learn With Champak" />
-    <meta property="og:description"
-        content="A two-way WebSocket chat client using Cloudflare Workers and Durable Objects." />
-    <meta property="og:image" content="https://server.learnwithchampak.live/seo-server-learnwithchampak.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Two Way Chat | Server Learn With Champak" />
-    <meta name="twitter:description"
-        content="A two-way WebSocket chat client using Cloudflare Workers and Durable Objects." />
-    <meta name="twitter:image" content="https://server.learnwithchampak.live/seo-server-learnwithchampak.png" />
-
-    <!-- Google AdSense -->
-    <script async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
-        crossorigin="anonymous">
-        </script>
 
     <style>
         :root {
@@ -126,8 +108,7 @@
             margin: 12px 0 8px;
         }
 
-        input,
-        textarea {
+        input {
             width: 100%;
             border: 1px solid #fdba74;
             border-radius: 16px;
@@ -138,13 +119,7 @@
             color: var(--text);
         }
 
-        textarea {
-            min-height: 88px;
-            resize: vertical;
-        }
-
-        input:focus,
-        textarea:focus {
+        input:focus {
             border-color: var(--saffron-dark);
             box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
         }
@@ -289,7 +264,7 @@
             color: var(--code);
             padding: 16px;
             border-radius: 18px;
-            max-height: 230px;
+            max-height: 250px;
             overflow: auto;
             white-space: pre-wrap;
             font-size: 13px;
@@ -299,17 +274,6 @@
         .small {
             color: var(--muted);
             font-size: 14px;
-        }
-
-        .ad-wrap {
-            margin: 22px 0;
-            padding: 14px;
-            border: 1px dashed #fdba74;
-            border-radius: 22px;
-            background: rgba(255, 255, 255, 0.65);
-            text-align: center;
-            color: var(--muted);
-            font-size: 13px;
         }
 
         @media (max-width: 900px) {
@@ -346,18 +310,8 @@
     <main class="wrap">
         <section class="hero">
             <h1>Two Way Chat</h1>
-            <p>Cloudflare Worker + Durable Object + WebSocket client.</p>
+            <p>Same WebSocket URL. Message content decides echo or chat.</p>
         </section>
-
-        <div class="ad-wrap">
-            Advertisement
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494"
-                data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true">
-            </ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
 
         <section class="grid">
             <aside>
@@ -365,8 +319,7 @@
                     <h2>Connection</h2>
 
                     <label for="serverUrl">WebSocket URL</label>
-                    <input id="serverUrl" value="wss://shy-meadow-f207.champaksworld.workers.dev/chat"
-                        autocomplete="off" />
+                    <input id="serverUrl" value="wss://shy-meadow-f207.champaksworld.workers.dev/" autocomplete="off" />
 
                     <label for="roomName">Room</label>
                     <input id="roomName" value="main" autocomplete="off" />
@@ -386,8 +339,7 @@
                     </div>
 
                     <p class="small">
-                        Open this same page in two browser tabs. Use the same room name. Messages from one tab should
-                        appear in the other.
+                        Open this page in two browser tabs. Use the same room, but different names.
                     </p>
                 </article>
 
@@ -397,6 +349,17 @@
                         <button class="secondary" onclick="setRoom('main')">main</button>
                         <button class="secondary" onclick="setRoom('class')">class</button>
                         <button class="secondary" onclick="setRoom('test')">test</button>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h2>Echo Test</h2>
+                    <p class="small">
+                        This sends plain text. The server will echo it only to you.
+                    </p>
+                    <div class="row">
+                        <button class="secondary" onclick="sendEchoTest()">Send plain echo</button>
+                        <button class="secondary" onclick="sendPing()">Ping</button>
                     </div>
                 </article>
 
@@ -457,63 +420,13 @@
             logBox.scrollTop = logBox.scrollHeight;
         }
 
-        function addMessage(data) {
-            const div = document.createElement("div");
+        function connectChat() {
+            const url = document.getElementById("serverUrl").value.trim();
 
-            if (data.type === "system" || data.type === "pong") {
-                div.className = "msg system";
-                div.innerHTML =
-                    escapeHtml(data.message || "System message") +
-                    "<small>" +
-                    formatTime(data.time) +
-                    "</small>";
-            } else {
-                const isMine = data.clientId && data.clientId === myClientId;
-
-                div.className = "msg" + (isMine ? " mine" : "");
-
-                div.innerHTML =
-                    "<strong>" +
-                    escapeHtml(data.name || "Guest") +
-                    "</strong>" +
-                    escapeHtml(data.message || "") +
-                    "<small>" +
-                    formatTime(data.time) +
-                    "</small>";
-            }
-
-            messagesBox.appendChild(div);
-            messagesBox.scrollTop = messagesBox.scrollHeight;
-        }
-
-        function updateUsers(users) {
-            if (!Array.isArray(users) || users.length === 0) {
-                usersBox.textContent = "Users: none";
+            if (!url) {
+                log("Please enter a WebSocket URL.");
                 return;
             }
-
-            usersBox.textContent = "Users: " + users.join(", ");
-        }
-
-        function buildChatUrl() {
-            const base = document.getElementById("serverUrl").value.trim();
-            const room = document.getElementById("roomName").value.trim() || "main";
-            const name = document.getElementById("userName").value.trim() || "Guest";
-
-            const separator = base.includes("?") ? "&" : "?";
-
-            return (
-                base +
-                separator +
-                "room=" +
-                encodeURIComponent(room) +
-                "&name=" +
-                encodeURIComponent(name)
-            );
-        }
-
-        function connectChat() {
-            const url = buildChatUrl();
 
             if (ws && ws.readyState === WebSocket.OPEN) {
                 log("Already connected.");
@@ -528,34 +441,13 @@
                 ws.onopen = function () {
                     setStatus("Connected", true);
                     log("Connected.");
+
+                    sendRename();
                     messageInput.focus();
                 };
 
                 ws.onmessage = function (event) {
-                    let data;
-
-                    try {
-                        data = JSON.parse(event.data);
-                    } catch {
-                        data = {
-                            type: "chat",
-                            name: "Server",
-                            message: event.data,
-                            time: new Date().toISOString()
-                        };
-                    }
-
-                    if (data.clientId && !myClientId && data.type === "system") {
-                        myClientId = data.clientId;
-                    }
-
-                    if (data.clientId && data.message === "Connected to chat room") {
-                        myClientId = data.clientId;
-                    }
-
-                    updateUsers(data.users);
-                    addMessage(data);
-                    log("Received", data);
+                    handleIncoming(event.data);
                 };
 
                 ws.onerror = function (event) {
@@ -580,6 +472,31 @@
             }
         }
 
+        function handleIncoming(raw) {
+            let data;
+
+            try {
+                data = JSON.parse(raw);
+            } catch {
+                data = {
+                    mode: "echo",
+                    message: raw,
+                    time: new Date().toISOString()
+                };
+            }
+
+            if (data.clientId && data.type === "connected") {
+                myClientId = data.clientId;
+            }
+
+            if (data.users) {
+                updateUsers(data.users);
+            }
+
+            addMessage(data);
+            log("Received", data);
+        }
+
         function disconnectChat() {
             if (!ws) {
                 log("No socket exists.");
@@ -589,6 +506,21 @@
             ws.close(1000, "Closed by user");
             ws = null;
             setStatus("Disconnected", false);
+        }
+
+        function sendRename() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                return;
+            }
+
+            const payload = {
+                mode: "rename",
+                room: getRoom(),
+                name: getName()
+            };
+
+            ws.send(JSON.stringify(payload));
+            log("Rename sent", payload);
         }
 
         function sendChatMessage() {
@@ -604,13 +536,87 @@
             }
 
             const payload = {
-                type: "chat",
-                message
+                mode: "chat",
+                room: getRoom(),
+                name: getName(),
+                message: message
             };
 
             ws.send(JSON.stringify(payload));
+
             messageInput.value = "";
             messageInput.focus();
+
+            log("Chat sent", payload);
+        }
+
+        function sendEchoTest() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                log("Not connected. Click Connect first.");
+                return;
+            }
+
+            ws.send("Plain echo test from " + getName());
+            log("Plain echo sent.");
+        }
+
+        function sendPing() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                log("Not connected. Click Connect first.");
+                return;
+            }
+
+            const payload = {
+                mode: "ping"
+            };
+
+            ws.send(JSON.stringify(payload));
+            log("Ping sent", payload);
+        }
+
+        function addMessage(data) {
+            const div = document.createElement("div");
+
+            if (data.mode === "system" || data.type === "connected" || data.type === "rename" || data.type === "leave" || data.mode === "pong") {
+                div.className = "msg system";
+                div.innerHTML =
+                    escapeHtml(data.message || data.note || "System message") +
+                    "<small>" +
+                    formatTime(data.time) +
+                    "</small>";
+            } else if (data.mode === "chat") {
+                const isMine = data.clientId && data.clientId === myClientId;
+
+                div.className = "msg" + (isMine ? " mine" : "");
+
+                div.innerHTML =
+                    "<strong>" +
+                    escapeHtml(data.name || "Guest") +
+                    "</strong>" +
+                    escapeHtml(data.message || "") +
+                    "<small>" +
+                    escapeHtml(data.room || "") +
+                    " · " +
+                    formatTime(data.time) +
+                    "</small>";
+            } else {
+                div.className = "msg system";
+                div.innerHTML =
+                    escapeHtml(data.message || String(data)) +
+                    "<small>Echo / server reply</small>";
+            }
+
+            messagesBox.appendChild(div);
+            messagesBox.scrollTop = messagesBox.scrollHeight;
+        }
+
+        function updateUsers(users) {
+            if (!Array.isArray(users) || users.length === 0) {
+                usersBox.textContent = "Users: none";
+                return;
+            }
+
+            usersBox.textContent = "Users: " + users.join(", ");
         }
 
         function clearChat() {
@@ -621,6 +627,18 @@
         function setRoom(room) {
             document.getElementById("roomName").value = room;
             log("Room set", room);
+
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                sendRename();
+            }
+        }
+
+        function getRoom() {
+            return document.getElementById("roomName").value.trim() || "main";
+        }
+
+        function getName() {
+            return document.getElementById("userName").value.trim() || "Guest";
         }
 
         function escapeHtml(value) {
