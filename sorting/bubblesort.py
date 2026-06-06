@@ -1,12 +1,11 @@
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
-
-# Original data
-a = [3, 2, 16, 28, 1, 7, 27, 20, 3]
+filename = "sorting\\bubsort.gif"
+a = [5,4,3,2,1]
 n = len(a)
 x = [i + 1 for i in range(n)]
 
-# Store every round of bubble sort
+
 frames = []
 
 frames.append(a.copy())  # round 0
@@ -23,6 +22,7 @@ fig, ax = plt.subplots(figsize=(8, 5))
 
 max_value = max(max(frame) for frame in frames)
 
+
 def update(frame_no):
     ax.clear()
 
@@ -34,11 +34,12 @@ def update(frame_no):
     ax.set_xlabel("index")
     ax.set_ylabel("value")
     ax.set_xticks(x)
-    ax.set_ylim(0, max_value + 5)
+    # ax.set_ylim(0, max_value + 5)
     ax.grid(True)
 
     for index, value in enumerate(current_array):
         ax.text(x[index], value + 0.5, str(value), ha="center")
+
 
 # Animation
 animation = FuncAnimation(
@@ -51,10 +52,10 @@ animation = FuncAnimation(
 
 # Save as GIF
 animation.save(
-    "bubble_sort_plot_video.gif",
+    filename,
     writer=PillowWriter(fps=1)
 )
 
 plt.close()
 
-print("GIF saved successfully as bubble_sort_plot_video.gif")
+print(f"GIF saved successfully as {filename}")
