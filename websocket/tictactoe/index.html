@@ -1,25 +1,24 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
 
   <title>Tic Tac Toe over Cloudflare Durable Object WebSocket</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="A two-player Tic Tac Toe game using a Cloudflare Durable Object WebSocket chat server without changing the Worker."
-  />
-  <meta name="keywords" content="Tic Tac Toe, WebSocket game, Cloudflare Durable Objects, JavaScript game, Champak Roy, Programmer's Picnic" />
+  <meta name="description"
+    content="A two-player Tic Tac Toe game using a Cloudflare Durable Object WebSocket chat server without changing the Worker." />
+  <meta name="keywords"
+    content="Tic Tac Toe, WebSocket game, Cloudflare Durable Objects, JavaScript game, Champak Roy, Programmer's Picnic" />
   <meta name="author" content="Champak Roy" />
   <meta name="theme-color" content="#f59e0b" />
 
   <!-- Google AdSense -->
-  <script
-    async
+  <script async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
     crossorigin="anonymous">
-  </script>
+    </script>
 
   <style>
     :root {
@@ -41,6 +40,11 @@
 
     * {
       box-sizing: border-box;
+    }
+
+    #serverUrl,
+    #serverUrlLabel {
+      visibility: hidden;
     }
 
     body {
@@ -344,6 +348,7 @@
     }
 
     @media (max-width: 980px) {
+
       .grid,
       .game-area {
         grid-template-columns: 1fr;
@@ -383,13 +388,8 @@
 
     <div class="ad-wrap">
       Advertisement
-      <ins
-        class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-8321261883090494"
-        data-ad-slot="7782388330"
-        data-ad-format="auto"
-        data-full-width-responsive="true">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
+        data-ad-format="auto" data-full-width-responsive="true">
       </ins>
       <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
@@ -401,12 +401,8 @@
         <article class="card">
           <h2>Connection</h2>
 
-          <label for="serverUrl">WebSocket Base URL</label>
-          <input
-            id="serverUrl"
-            value="wss://champak-durable-chat.champaksworld.workers.dev/chat"
-            autocomplete="off"
-          />
+          <label id="serverUrlLabel" for="serverUrl">WebSocket Base URL</label>
+          <input id="serverUrl" value="wss://champak-durable-chat.champaksworld.workers.dev/chat" autocomplete="off" />
 
           <label for="roomName">Game Room</label>
           <input id="roomName" value="tictactoe-main" autocomplete="off" />
@@ -1041,4 +1037,5 @@
     setStatus("Disconnected", false);
   </script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
 
@@ -7,12 +8,11 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta
-    name="description"
-    content="A WebSocket chat client for Cloudflare Durable Objects by Champak Roy and Programmer's Picnic."
-  />
+  <meta name="description"
+    content="A WebSocket chat client for Cloudflare Durable Objects by Champak Roy and Programmer's Picnic." />
 
-  <meta name="keywords" content="Cloudflare Durable Object chat, WebSocket chat, WSS chat, Cloudflare Workers, Champak Roy, Programmer's Picnic" />
+  <meta name="keywords"
+    content="Cloudflare Durable Object chat, WebSocket chat, WSS chat, Cloudflare Workers, Champak Roy, Programmer's Picnic" />
   <meta name="author" content="Champak Roy" />
   <meta name="theme-color" content="#f59e0b" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -38,6 +38,11 @@
 
     * {
       box-sizing: border-box;
+    }
+
+    #serverUrl,
+    #serverUrlLabel {
+      visibility: hidden;
     }
 
     body {
@@ -334,26 +339,14 @@
         <article class="card">
           <h2>Connection</h2>
 
-          <label for="serverUrl">WebSocket URL</label>
-          <input
-            id="serverUrl"
-            value="wss://champak-durable-chat.champaksworld.workers.dev/"
-            autocomplete="off"
-          />
+          <label id="serverUrlLabel" for="serverUrl">WebSocket URL</label>
+          <input id="serverUrl" value="wss://champak-durable-chat.champaksworld.workers.dev/" autocomplete="off" />
 
           <label for="userName">Your name</label>
-          <input
-            id="userName"
-            value="Champak"
-            autocomplete="off"
-          />
+          <input id="userName" value="Champak" autocomplete="off" />
 
           <label for="roomName">Room name</label>
-          <input
-            id="roomName"
-            value="main"
-            autocomplete="off"
-          />
+          <input id="roomName" value="main" autocomplete="off" />
 
           <div id="status" class="status">
             <span class="dot"></span>
@@ -367,7 +360,8 @@
           </div>
 
           <p class="small">
-            Open this page in two browser tabs. Connect both. If your Worker broadcasts messages, both tabs will receive each other’s messages. If your Worker is still echo-only, each tab will receive its own echo.
+            Open this page in two browser tabs. Connect both. If your Worker broadcasts messages, both tabs will receive
+            each other’s messages. If your Worker is still echo-only, each tab will receive its own echo.
           </p>
         </article>
 
@@ -410,11 +404,7 @@
         <div id="messages" class="messages" aria-live="polite"></div>
 
         <div class="composer">
-          <input
-            id="messageInput"
-            placeholder="Type your message and press Enter..."
-            autocomplete="off"
-          />
+          <input id="messageInput" placeholder="Type your message and press Enter..." autocomplete="off" />
           <button onclick="sendChatMessage()">Send</button>
         </div>
       </section>
@@ -716,4 +706,5 @@
     });
   </script>
 </body>
+
 </html>
