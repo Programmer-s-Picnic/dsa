@@ -114,8 +114,7 @@
       margin: 12px 0 8px;
     }
 
-    input,
-    select {
+    input {
       width: 100%;
       border: 1px solid #fdba74;
       border-radius: 16px;
@@ -126,10 +125,43 @@
       color: var(--text);
     }
 
-    input:focus,
-    select:focus {
+    input:focus {
       border-color: var(--saffron-dark);
       box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
+    }
+
+
+    .symbol-options {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .symbol-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      margin: 0;
+      padding: 12px 13px;
+      border: 1px solid #fdba74;
+      border-radius: 16px;
+      background: white;
+      color: #7c2d12;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .symbol-option input {
+      width: auto;
+      margin: 0;
+      accent-color: var(--saffron);
+    }
+
+    .symbol-option:has(input:checked) {
+      background: #ffedd5;
+      border-color: var(--saffron-dark);
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.12);
     }
 
     .row {
@@ -410,12 +442,23 @@
           <label for="playerName">Your Name</label>
           <input id="playerName" value="Champak" autocomplete="off" />
 
-          <label for="playerSymbol">Your Side</label>
-          <select id="playerSymbol">
-            <option value="X">X - First player</option>
-            <option value="O">O - Second player</option>
-            <option value="spectator">Spectator</option>
-          </select>
+          <label>Your Side</label>
+          <div class="symbol-options" role="radiogroup" aria-label="Choose your side">
+            <label class="symbol-option">
+              <input type="radio" name="playerSymbol" value="X" checked />
+              <span>X - First player</span>
+            </label>
+
+            <label class="symbol-option">
+              <input type="radio" name="playerSymbol" value="O" />
+              <span>O - Second player</span>
+            </label>
+
+            <label class="symbol-option">
+              <input type="radio" name="playerSymbol" value="spectator" />
+              <span>Spectator</span>
+            </label>
+          </div>
 
           <div id="status" class="status">
             <span class="dot"></span>
@@ -582,7 +625,8 @@
     }
 
     function getSymbol() {
-      return document.getElementById("playerSymbol").value;
+      const selected = document.querySelector('input[name="playerSymbol"]:checked');
+      return selected ? selected.value : "spectator";
     }
 
     function getRoom() {
