@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>Beginning JavaScript: From Zero to First Program | Programmer's Picnic</title>
+
+    <meta name="description"
+        content="A beginner-friendly JavaScript lesson by Champak Roy covering script tags, console.log, variables, strings, arithmetic, and first small JavaScript programs." />
+    <meta name="keywords"
+        content="Beginning JavaScript, JavaScript for beginners, learn JavaScript, JavaScript variables, console.log, JavaScript arithmetic, JavaScript lesson, Programmer's Picnic, Champak Roy" />
+    <meta name="author" content="Champak Roy" />
+    <meta name="theme-color" content="#d97706" />
+
+    <link rel="canonical" href="https://learnwithchampak.live/beginning-javascript-lesson" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Beginning JavaScript: From Zero to First Program" />
+    <meta property="og:description"
+        content="Start learning JavaScript from the absolute beginning with examples, practice questions, and a mini assignment." />
+    <meta property="og:image" content="https://learnwithchampak.live/assets/og/beginning-javascript.png" />
+    <meta property="og:url" content="https://learnwithchampak.live/beginning-javascript-lesson" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Beginning JavaScript: From Zero to First Program" />
+    <meta name="twitter:description"
+        content="A beginner-friendly JavaScript lesson with examples, practice questions, and a mini assignment." />
+    <meta name="twitter:image" content="https://learnwithchampak.live/assets/og/beginning-javascript.png" />
+
+    <script async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+        crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --bg: #fff7ed;
+            --bg-soft: #ffedd5;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --primary: #d97706;
+            --primary-dark: #92400e;
+            --border: #fed7aa;
+            --code-bg: #111827;
+            --code-text: #f9fafb;
+            --code-border: #374151;
+            --success: #166534;
+            --shadow: 0 18px 40px rgba(146, 64, 14, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(251, 191, 36, 0.28), transparent 34rem),
+                linear-gradient(180deg, #fff7ed 0%, #fffbeb 100%);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f97316, #f59e0b);
+            color: #fff;
+            padding: 3.5rem 1.25rem;
+            text-align: center;
+        }
+
+        header .brand {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        header h1 {
+            margin: 0 auto 1rem;
+            max-width: 900px;
+            font-size: clamp(2rem, 5vw, 4.1rem);
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+        }
+
+        header p {
+            max-width: 760px;
+            margin: 0 auto;
+            font-size: 1.15rem;
+            color: #fff7ed;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(255, 247, 237, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 0.75rem 1rem;
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .nav-inner a,
+        .btn {
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--primary-dark);
+            border-radius: 999px;
+            padding: 0.55rem 0.9rem;
+            font-size: 0.92rem;
+            cursor: pointer;
+            box-shadow: 0 5px 14px rgba(146, 64, 14, 0.08);
+        }
+
+        .nav-inner a:hover,
+        .btn:hover,
+        .btn:focus,
+        a:focus {
+            outline: 3px solid rgba(217, 119, 6, 0.32);
+            outline-offset: 2px;
+            text-decoration: none;
+        }
+
+        main {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 310px;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        article,
+        aside {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        article {
+            padding: clamp(1rem, 3vw, 2.25rem);
+        }
+
+        aside {
+            position: sticky;
+            top: 5.25rem;
+            padding: 1.25rem;
+        }
+
+        section {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid #fde7c7;
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            line-height: 1.15;
+            margin: 0 0 0.75rem;
+        }
+
+        h3 {
+            color: #7c2d12;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin: 0.6rem 0;
+        }
+
+        .lead {
+            font-size: 1.12rem;
+            color: #374151;
+        }
+
+        .goal-box,
+        .note,
+        .assignment,
+        .output-box {
+            border-radius: 18px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .goal-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+        }
+
+        .note {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+        }
+
+        .assignment {
+            background: #ecfdf5;
+            border: 1px solid #bbf7d0;
+        }
+
+        .output-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            white-space: pre-wrap;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.35rem;
+        }
+
+        li {
+            margin: 0.35rem 0;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            border: 1px solid var(--code-border);
+            border-radius: 18px;
+            padding: 1rem;
+            overflow-x: auto;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin: 1rem 0;
+        }
+
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        :not(pre)>code {
+            background: #ffedd5;
+            color: #7c2d12;
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.4rem;
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        th,
+        td {
+            padding: 0.8rem;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        th {
+            background: #ffedd5;
+            color: #7c2d12;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .lesson-card {
+            background: #fffaf0;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .try-panel {
+            background: #fff7ed;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .try-panel input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #fdba74;
+            border-radius: 12px;
+            margin: 0.4rem 0 0.75rem;
+            font: inherit;
+        }
+
+        .try-panel input:focus {
+            outline: 3px solid rgba(217, 119, 6, 0.28);
+            border-color: var(--primary);
+        }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.8rem;
+        }
+
+        .btn.primary {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            font-weight: 800;
+        }
+
+        .toc-title {
+            margin-top: 0;
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin: 0.35rem 0;
+        }
+
+        .toc-list a {
+            display: block;
+            padding: 0.55rem 0.65rem;
+            border-radius: 12px;
+            color: #7c2d12;
+            font-weight: 650;
+        }
+
+        .toc-list a:hover,
+        .toc-list a:focus {
+            background: #ffedd5;
+        }
+
+        .ad-box {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border: 1px dashed #f59e0b;
+            border-radius: 18px;
+            background: #fffaf0;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        footer {
+            background: #7c2d12;
+            color: #ffedd5;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        footer p {
+            margin: 0.35rem 0;
+        }
+
+        .small {
+            font-size: 0.92rem;
+            color: var(--muted);
+        }
+
+        @media (max-width: 900px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: static;
+                order: -1;
+            }
+        }
+
+        @media print {
+
+            nav,
+            aside,
+            .ad-box,
+            .btn-row,
+            footer {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            main {
+                display: block;
+                padding: 0;
+            }
+
+            article {
+                box-shadow: none;
+                border: none;
+            }
+
+            pre {
+                white-space: pre-wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="brand">Programmer's Picnic by Champak Roy</div>
+        <h1>Beginning JavaScript: From Zero to First Program</h1>
+        <p>
+            A simple beginner lesson for students who are starting JavaScript for the first time.
+            Learn what JavaScript does, how to add it to an HTML page, and how to write your first small programs.
+        </p>
+    </header>
+
+    <nav aria-label="Lesson navigation">
+        <div class="nav-inner">
+            <a href="#goal">Goal</a>
+            <a href="#what-is-js">What is JavaScript?</a>
+            <a href="#where-runs">Where It Runs</a>
+            <a href="#script-tag">Script Tag</a>
+            <a href="#output">Output</a>
+            <a href="#variables">Variables</a>
+            <a href="#arithmetic">Arithmetic</a>
+            <a href="#strings">Strings</a>
+            <a href="#program">First Program</a>
+            <a href="#practice">Practice</a>
+            <button class="btn" type="button" id="printBtn">Print Lesson</button>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <section id="goal">
+                <h2>Lesson Goal</h2>
+                <p class="lead">
+                    By the end of this lesson, students should be able to write simple JavaScript code,
+                    connect it with an HTML page, and understand basic values, variables, strings, and arithmetic.
+                </p>
+
+                <div class="goal-box">
+                    <strong>In this lesson, we will learn:</strong>
+                    <ol>
+                        <li>What JavaScript is</li>
+                        <li>Where JavaScript runs</li>
+                        <li>How JavaScript is added to an HTML page</li>
+                        <li>Variables using <code>let</code> and <code>const</code></li>
+                        <li>Output using <code>console.log()</code></li>
+                        <li>Basic arithmetic</li>
+                        <li>Strings and template literals</li>
+                        <li>A first small student marks program</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="what-is-js">
+                <h2>1. What is JavaScript?</h2>
+                <p>
+                    JavaScript is a programming language used mainly to make web pages interactive.
+                </p>
+
+                <div class="lesson-card">
+                    <p><strong>HTML</strong> gives the page structure.</p>
+                    <p><strong>CSS</strong> gives the page design.</p>
+                    <p><strong>JavaScript</strong> gives the page behavior.</p>
+                </div>
+
+                <h3>Example</h3>
+
+                <p>This button exists because of HTML:</p>
+
+                <pre><code>&lt;button&gt;Click Me&lt;/button&gt;</code></pre>
+
+                <p>This button looks better because of CSS:</p>
+
+                <pre><code>button {
+  background: orange;
+}</code></pre>
+
+                <p>This button can respond because of JavaScript:</p>
+
+                <pre><code>alert("Button clicked");</code></pre>
+
+                <div class="try-panel">
+                    <h3>Try It</h3>
+                    <p>Click the button to see JavaScript behavior.</p>
+                    <button class="btn primary" type="button" id="demoAlertBtn">Click Me</button>
+                </div>
+            </section>
+
+            <div class="ad-box">
+                <p>Advertisement</p>
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494"
+                    data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            </div>
+
+            <section id="where-runs">
+                <h2>2. Where does JavaScript run?</h2>
+
+                <h3>In the browser</h3>
+                <p>
+                    JavaScript runs in browsers such as Chrome, Firefox, Edge, and Safari.
+                    Browser JavaScript is used for websites and web applications.
+                </p>
+
+                <h3>On the server</h3>
+                <p>
+                    JavaScript can also run outside the browser using Node.js.
+                    Node.js is useful for backend programming, application programming interfaces,
+                    servers, tools, and full-stack applications.
+                </p>
+
+                <div class="note">
+                    For this first lesson, we will begin with browser JavaScript.
+                </div>
+            </section>
+
+            <section id="script-tag">
+                <h2>3. How to write JavaScript in HTML</h2>
+
+                <h3>Method 1: Inside the HTML page</h3>
+
+                <pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Beginning JavaScript&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;h1&gt;Hello JavaScript&lt;/h1&gt;
+
+  &lt;script&gt;
+    console.log("JavaScript has started");
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                <p>
+                    The JavaScript code is written inside the <code>&lt;script&gt;</code> tag.
+                </p>
+
+                <h3>Method 2: External JavaScript file</h3>
+
+                <p>Create two files:</p>
+
+                <pre><code>index.html
+script.js</code></pre>
+
+                <p><strong>index.html</strong></p>
+
+                <pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;External JavaScript&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;h1&gt;External JavaScript File&lt;/h1&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                <p><strong>script.js</strong></p>
+
+                <pre><code>console.log("This code is coming from script.js");</code></pre>
+
+                <div class="note">
+                    External JavaScript files are better for real projects because the HTML and JavaScript remain
+                    separate and easier to maintain.
+                </div>
+            </section>
+
+            <section id="output">
+                <h2>4. First JavaScript Output</h2>
+
+                <h3>Using console.log()</h3>
+
+                <pre><code>console.log("Hello JavaScript");</code></pre>
+
+                <p>
+                    This prints output in the browser console.
+                </p>
+
+                <div class="note">
+                    To open the console: right click on the page, click <strong>Inspect</strong>, and open the
+                    <strong>Console</strong> tab.
+                </div>
+
+                <h3>Using alert()</h3>
+
+                <pre><code>alert("Welcome to JavaScript");</code></pre>
+
+                <p>
+                    This shows a popup message.
+                </p>
+
+                <h3>Writing into the page</h3>
+
+                <pre><code>&lt;p id="message"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  document.getElementById("message").innerText = "Hello from JavaScript";
+&lt;/script&gt;</code></pre>
+
+                <div class="try-panel">
+                    <h3>Live Page Output</h3>
+                    <p id="liveMessage">This text will be changed by JavaScript.</p>
+                    <button class="btn primary" type="button" id="changeMessageBtn">Change Text</button>
+                </div>
+            </section>
+
+            <section id="variables">
+                <h2>5. Variables</h2>
+
+                <p>
+                    A variable stores a value.
+                </p>
+
+                <pre><code>let name = "Champak";
+let age = 25;
+
+console.log(name);
+console.log(age);</code></pre>
+
+                <p>Output:</p>
+
+                <div class="output-box">Champak
+                    25</div>
+
+                <h3>Common ways to create variables</h3>
+
+                <pre><code>let city = "Varanasi";
+const country = "India";
+var oldStyle = "This is older JavaScript";</code></pre>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Keyword</th>
+                            <th>Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>let</code></td>
+                            <td>Use when the value may change.</td>
+                        </tr>
+                        <tr>
+                            <td><code>const</code></td>
+                            <td>Use when the value should not be reassigned.</td>
+                        </tr>
+                        <tr>
+                            <td><code>var</code></td>
+                            <td>Older JavaScript style. Avoid it in the beginning.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Changing variable values</h3>
+
+                <pre><code>let marks = 80;
+
+console.log(marks);
+
+marks = 90;
+
+console.log(marks);</code></pre>
+
+                <p>Output:</p>
+
+                <div class="output-box">80
+                    90</div>
+
+                <p>But this is not allowed:</p>
+
+                <pre><code>const pi = 3.14;
+
+pi = 3.14159;</code></pre>
+
+                <p>
+                    This gives an error because <code>const</code> values cannot be reassigned.
+                </p>
+            </section>
+
+            <section id="arithmetic">
+                <h2>6. Numbers and Arithmetic</h2>
+
+                <p>
+                    JavaScript can do calculations.
+                </p>
+
+                <pre><code>let a = 10;
+let b = 5;
+
+console.log(a + b);
+console.log(a - b);
+console.log(a * b);
+console.log(a / b);</code></pre>
+
+                <p>Output:</p>
+
+                <div class="output-box">15
+                    5
+                    50
+                    2</div>
+
+                <h3>Arithmetic operators</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operator</th>
+                            <th>Meaning</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>+</code></td>
+                            <td>Addition</td>
+                            <td><code>10 + 5</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>-</code></td>
+                            <td>Subtraction</td>
+                            <td><code>10 - 5</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>*</code></td>
+                            <td>Multiplication</td>
+                            <td><code>10 * 5</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>/</code></td>
+                            <td>Division</td>
+                            <td><code>10 / 5</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>%</code></td>
+                            <td>Remainder</td>
+                            <td><code>10 % 3</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <pre><code>let remainder = 10 % 3;
+
+console.log(remainder);</code></pre>
+
+                <p>Output:</p>
+
+                <div class="output-box">1</div>
+
+                <div class="try-panel">
+                    <h3>Try Addition</h3>
+
+                    <label for="numA">First number</label>
+                    <input id="numA" type="number" value="10" />
+
+                    <label for="numB">Second number</label>
+                    <input id="numB" type="number" value="5" />
+
+                    <button class="btn primary" type="button" id="addBtn">Add Numbers</button>
+
+                    <div class="output-box" id="sumOutput">Result will appear here.</div>
+                </div>
+            </section>
+
+            <section id="strings">
+                <h2>7. Strings</h2>
+
+                <p>
+                    A string is text.
+                </p>
+
+                <pre><code>let firstName = "Champak";
+let lastName = "Roy";
+
+console.log(firstName);
+console.log(lastName);</code></pre>
+
+                <h3>Joining strings</h3>
+
+                <pre><code>let firstName = "Champak";
+let lastName = "Roy";
+
+let fullName = firstName + " " + lastName;
+
+console.log(fullName);</code></pre>
+
+                <p>Output:</p>
+
+                <div class="output-box">Champak Roy</div>
+
+                <h3>Template literals</h3>
+
+                <p>
+                    Template literals are a modern way to place variables inside text.
+                </p>
+
+                <pre><code>let name = "Champak";
+let subject = "JavaScript";
+
+let message = `Hello ${name}, welcome to ${subject}`;
+
+console.log(message);</code></pre>
+
+                <p>Output:</p>
+
+                <div class="output-box">Hello Champak, welcome to JavaScript</div>
+
+                <div class="try-panel">
+                    <h3>Try a Greeting</h3>
+
+                    <label for="studentNameInput">Student name</label>
+                    <input id="studentNameInput" type="text" value="Ravi" />
+
+                    <label for="subjectInput">Subject</label>
+                    <input id="subjectInput" type="text" value="JavaScript" />
+
+                    <button class="btn primary" type="button" id="greetBtn">Create Greeting</button>
+
+                    <div class="output-box" id="greetOutput">Greeting will appear here.</div>
+                </div>
+            </section>
+
+            <section id="program">
+                <h2>8. First Small Program</h2>
+
+                <p>
+                    Let us calculate total marks and percentage.
+                </p>
+
+                <pre><code>let math = 80;
+let science = 75;
+let english = 85;
+
+let total = math + science + english;
+let percentage = total / 3;
+
+console.log("Total marks:", total);
+console.log("Percentage:", percentage);</code></pre>
+
+                <p>Output:</p>
+
+                <div class="output-box">Total marks: 240
+                    Percentage: 80</div>
+
+                <h3>Full HTML Page Example</h3>
+
+                <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Beginning JavaScript Lesson&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;h1&gt;Beginning JavaScript&lt;/h1&gt;
+  &lt;p id="result"&gt;&lt;/p&gt;
+
+  &lt;script&gt;
+    let math = 80;
+    let science = 75;
+    let english = 85;
+
+    let total = math + science + english;
+    let percentage = total / 3;
+
+    console.log("Total marks:", total);
+    console.log("Percentage:", percentage);
+
+    document.getElementById("result").innerText =
+      `Total marks: ${total}, Percentage: ${percentage}`;
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                <div class="try-panel">
+                    <h3>Student Marks Calculator</h3>
+
+                    <label for="mathMarks">Math marks</label>
+                    <input id="mathMarks" type="number" value="80" />
+
+                    <label for="scienceMarks">Science marks</label>
+                    <input id="scienceMarks" type="number" value="75" />
+
+                    <label for="englishMarks">English marks</label>
+                    <input id="englishMarks" type="number" value="85" />
+
+                    <button class="btn primary" type="button" id="marksBtn">Calculate</button>
+
+                    <div class="output-box" id="marksOutput">Total and percentage will appear here.</div>
+                </div>
+            </section>
+
+            <section id="practice">
+                <h2>9. Practice Questions</h2>
+
+                <h3>Question 1</h3>
+                <p>Create variables for your name, city, and subject. Print them using <code>console.log()</code>.</p>
+
+                <pre><code>let name = "Amit";
+let city = "Varanasi";
+let subject = "JavaScript";
+
+console.log(name);
+console.log(city);
+console.log(subject);</code></pre>
+
+                <h3>Question 2</h3>
+                <p>Create two numbers and print their sum.</p>
+
+                <pre><code>let a = 15;
+let b = 20;
+
+let sum = a + b;
+
+console.log(sum);</code></pre>
+
+                <h3>Question 3</h3>
+                <p>Calculate the area of a rectangle.</p>
+
+                <pre><code>let length = 10;
+let breadth = 5;
+
+let area = length * breadth;
+
+console.log("Area:", area);</code></pre>
+
+                <h3>Question 4</h3>
+                <p>Calculate simple interest.</p>
+
+                <pre><code>let principal = 1000;
+let rate = 5;
+let time = 2;
+
+let simpleInterest = principal * rate * time / 100;
+
+console.log("Simple Interest:", simpleInterest);</code></pre>
+            </section>
+
+            <section id="assignment">
+                <h2>10. Mini Assignment</h2>
+
+                <div class="assignment">
+                    <p>
+                        Create a JavaScript program for a student report.
+                    </p>
+
+                    <p>It should store:</p>
+
+                    <ul>
+                        <li>Student name</li>
+                        <li>Marks in 3 subjects</li>
+                        <li>Total marks</li>
+                        <li>Percentage</li>
+                    </ul>
+                </div>
+
+                <h3>Starter code</h3>
+
+                <pre><code>let studentName = "Ravi";
+
+let subject1 = 70;
+let subject2 = 80;
+let subject3 = 90;
+
+let total = subject1 + subject2 + subject3;
+let percentage = total / 3;
+
+console.log("Student Name:", studentName);
+console.log("Total Marks:", total);
+console.log("Percentage:", percentage);</code></pre>
+            </section>
+
+            <section id="summary">
+                <h2>Summary</h2>
+
+                <p>
+                    JavaScript is used to make web pages interactive.
+                </p>
+
+                <p>In this first lesson, we learned:</p>
+
+                <ul>
+                    <li><code>&lt;script&gt;</code> tag</li>
+                    <li><code>console.log()</code></li>
+                    <li><code>alert()</code></li>
+                    <li><code>document.getElementById()</code></li>
+                    <li><code>let</code></li>
+                    <li><code>const</code></li>
+                    <li>Numbers</li>
+                    <li>Strings</li>
+                    <li>Arithmetic</li>
+                    <li>Template literals</li>
+                </ul>
+
+                <div class="note">
+                    The most important habit now is simple: write small code, run it, see the output, change it, and run
+                    it again.
+                </div>
+            </section>
+        </article>
+
+        <aside>
+            <h2 class="toc-title">Lesson Contents</h2>
+            <ul class="toc-list">
+                <li><a href="#goal">Goal</a></li>
+                <li><a href="#what-is-js">What is JavaScript?</a></li>
+                <li><a href="#where-runs">Where JavaScript Runs</a></li>
+                <li><a href="#script-tag">Script Tag</a></li>
+                <li><a href="#output">Output</a></li>
+                <li><a href="#variables">Variables</a></li>
+                <li><a href="#arithmetic">Arithmetic</a></li>
+                <li><a href="#strings">Strings</a></li>
+                <li><a href="#program">First Program</a></li>
+                <li><a href="#practice">Practice</a></li>
+                <li><a href="#assignment">Mini Assignment</a></li>
+            </ul>
+
+            <div class="note">
+                <strong>Teacher Tip:</strong>
+                Ask students to open the browser console and type every example themselves.
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <p><strong>Programmer's Picnic</strong></p>
+        <p>JavaScript Lesson by Champak Roy</p>
+    </footer>
+
+    <script>
+        const demoAlertBtn = document.getElementById("demoAlertBtn");
+        const changeMessageBtn = document.getElementById("changeMessageBtn");
+        const liveMessage = document.getElementById("liveMessage");
+        const addBtn = document.getElementById("addBtn");
+        const sumOutput = document.getElementById("sumOutput");
+        const greetBtn = document.getElementById("greetBtn");
+        const greetOutput = document.getElementById("greetOutput");
+        const marksBtn = document.getElementById("marksBtn");
+        const marksOutput = document.getElementById("marksOutput");
+        const printBtn = document.getElementById("printBtn");
+
+        demoAlertBtn.addEventListener("click", function () {
+            alert("Button clicked. This response is created by JavaScript.");
+        });
+
+        changeMessageBtn.addEventListener("click", function () {
+            liveMessage.innerText = "Hello from JavaScript. The page text has changed.";
+        });
+
+        addBtn.addEventListener("click", function () {
+            const a = Number(document.getElementById("numA").value);
+            const b = Number(document.getElementById("numB").value);
+            const sum = a + b;
+
+            sumOutput.innerText = `${a} + ${b} = ${sum}`;
+        });
+
+        greetBtn.addEventListener("click", function () {
+            const name = document.getElementById("studentNameInput").value.trim();
+            const subject = document.getElementById("subjectInput").value.trim();
+
+            if (name === "" || subject === "") {
+                greetOutput.innerText = "Please enter both name and subject.";
+                return;
+            }
+
+            greetOutput.innerText = `Hello ${name}, welcome to ${subject}.`;
+        });
+
+        marksBtn.addEventListener("click", function () {
+            const math = Number(document.getElementById("mathMarks").value);
+            const science = Number(document.getElementById("scienceMarks").value);
+            const english = Number(document.getElementById("englishMarks").value);
+
+            const total = math + science + english;
+            const percentage = total / 3;
+
+            marksOutput.innerText =
+                `Total marks: ${total}\nPercentage: ${percentage.toFixed(2)}`;
+        });
+
+        printBtn.addEventListener("click", function () {
+            window.print();
+        });
+
+        try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (error) {
+            console.log("AdSense could not be loaded:", error);
+        }
+    </script>
+</body>
+
+</html>
