@@ -1,0 +1,1593 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Cloudflare WebSocket Chat with Durable Objects | 0 to Infinity Lesson</title>
+
+  <meta
+    name="description"
+    content="A complete 0 to Infinity lesson on building a real-time chat system using WebSockets, Cloudflare Workers, and Durable Objects."
+  />
+  <meta
+    name="keywords"
+    content="Cloudflare Workers, Durable Objects, WebSocket chat, WSS, real time chat, JavaScript WebSocket, Cloudflare chat app, Programmer's Picnic, Champak Roy"
+  />
+  <meta name="author" content="Champak Roy" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#f59e0b" />
+
+  <link rel="canonical" href="https://server.learnwithchampak.live/cloudflare-durable-chat-lesson/" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Cloudflare WebSocket Chat with Durable Objects | 0 to Infinity Lesson" />
+  <meta
+    property="og:description"
+    content="Learn how to build a real-time chat system using WebSockets, Cloudflare Workers, and Durable Objects."
+  />
+  <meta property="og:url" content="https://server.learnwithchampak.live/cloudflare-durable-chat-lesson/" />
+  <meta property="og:image" content="https://server.learnwithchampak.live/seo-server-learnwithchampak.png" />
+  <meta property="og:image:alt" content="Cloudflare Durable Object WebSocket chat lesson by Champak Roy" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@champaksworld" />
+  <meta name="twitter:creator" content="@champaksworld" />
+  <meta name="twitter:title" content="Cloudflare WebSocket Chat with Durable Objects" />
+  <meta
+    name="twitter:description"
+    content="A 0 to Infinity lesson on WebSocket chat using Cloudflare Workers and Durable Objects."
+  />
+  <meta name="twitter:image" content="https://server.learnwithchampak.live/seo-server-learnwithchampak.png" />
+
+  <!-- Google AdSense -->
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+    crossorigin="anonymous">
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Cloudflare WebSocket Chat with Durable Objects | 0 to Infinity Lesson",
+    "description": "A complete beginner-to-advanced lesson on building a real-time chat system with WebSockets, Cloudflare Workers, and Durable Objects.",
+    "author": {
+      "@type": "Person",
+      "name": "Champak Roy",
+      "url": "https://learnwithchampak.live/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Programmer's Picnic",
+      "url": "https://learnwithchampak.live/"
+    },
+    "image": "https://server.learnwithchampak.live/seo-server-learnwithchampak.png",
+    "mainEntityOfPage": "https://server.learnwithchampak.live/cloudflare-durable-chat-lesson/"
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #fff7ed;
+      --bg2: #fffbeb;
+      --card: #ffffff;
+      --soft: #ffedd5;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #fed7aa;
+      --saffron: #f59e0b;
+      --saffron-dark: #d97706;
+      --green: #16a34a;
+      --red: #dc2626;
+      --dark: #111827;
+      --code: #fef3c7;
+      --shadow: 0 18px 45px rgba(146, 64, 14, 0.12);
+      --radius: 26px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #ffedd5 0, transparent 34%),
+        radial-gradient(circle at bottom right, #fde68a 0, transparent 30%),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 12px;
+      background: var(--dark);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 12px;
+      z-index: 999;
+    }
+
+    .skip-link:focus {
+      left: 12px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 247, 237, 0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      max-width: var(--max);
+      margin: auto;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 900;
+      color: #7c2d12;
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--saffron), #fb923c);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .navlinks a {
+      text-decoration: none;
+      font-weight: 800;
+      color: #7c2d12;
+      padding: 9px 12px;
+      border-radius: 999px;
+    }
+
+    .navlinks a:hover,
+    .navlinks a:focus {
+      background: var(--soft);
+      outline: none;
+    }
+
+    main {
+      max-width: var(--max);
+      margin: auto;
+      padding: 28px 18px 70px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 24px;
+      align-items: center;
+      padding: 32px 0 20px;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.75);
+      color: #92400e;
+      font-weight: 900;
+    }
+
+    h1 {
+      margin: 16px 0 14px;
+      font-size: clamp(38px, 7vw, 72px);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+    }
+
+    .gradient {
+      background: linear-gradient(135deg, #d97706, #ea580c, #92400e);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      font-size: clamp(18px, 2vw, 22px);
+      color: #4b5563;
+      max-width: 780px;
+    }
+
+    .hero-card,
+    .card,
+    .toc a {
+      background: rgba(255,255,255,0.94);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 22px;
+      overflow: hidden;
+    }
+
+    .diagram {
+      background: #111827;
+      color: #fef3c7;
+      border-radius: 22px;
+      padding: 18px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .toc a {
+      display: block;
+      text-decoration: none;
+      padding: 14px;
+      font-weight: 900;
+      color: #7c2d12;
+    }
+
+    .toc a:hover {
+      background: #ffedd5;
+    }
+
+    section {
+      margin-top: 36px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .card {
+      padding: 22px;
+      margin: 14px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 16px;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: 16px;
+    }
+
+    .callout {
+      border-left: 6px solid var(--saffron);
+      background: #fffbeb;
+      padding: 16px 18px;
+      border-radius: 18px;
+      margin: 16px 0;
+    }
+
+    .callout.good {
+      border-left-color: var(--green);
+      background: #ecfdf5;
+    }
+
+    .callout.warn {
+      border-left-color: var(--red);
+      background: #fff1f2;
+    }
+
+    code,
+    pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    code {
+      background: #111827;
+      color: #fef3c7;
+      padding: 3px 7px;
+      border-radius: 8px;
+      font-size: 0.92em;
+    }
+
+    pre {
+      margin: 14px 0 0;
+      background: #111827;
+      color: #fef3c7;
+      border-radius: 20px;
+      padding: 18px;
+      overflow: auto;
+      white-space: pre-wrap;
+      line-height: 1.5;
+      font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      margin-top: 14px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #ffedd5;
+      color: #7c2d12;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 12px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 18px 18px 18px 68px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 10px 24px rgba(120,53,15,0.06);
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--saffron);
+      color: white;
+      font-weight: 900;
+    }
+
+    .ad-wrap {
+      margin: 28px 0;
+      padding: 14px;
+      border: 1px dashed #fdba74;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.65);
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .quiz details {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+
+    .quiz summary {
+      cursor: pointer;
+      color: #7c2d12;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 18px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    footer strong {
+      color: #7c2d12;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .two {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .section-title {
+        display: block;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .navlinks {
+        justify-content: flex-start;
+      }
+
+      .toc {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        padding-inline: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to lesson</a>
+
+  <header>
+    <nav class="nav">
+      <a class="brand" href="#">
+        <span class="logo">WS</span>
+        <span>
+          Durable Object Chat
+          <small>Programmer's Picnic by Champak Roy</small>
+        </span>
+      </a>
+
+      <div class="navlinks">
+        <a href="#idea">Idea</a>
+        <a href="#files">Files</a>
+        <a href="#worker">Worker</a>
+        <a href="#client">Client</a>
+        <a href="#test">Test</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div>
+        <span class="badge">0 to Infinity Lesson</span>
+        <h1>
+          Make a real-time chat system with
+          <span class="gradient">WebSockets and Durable Objects.</span>
+        </h1>
+        <p class="lead">
+          In this lesson we build a real two-way chat system using a static HTML page,
+          a Cloudflare Worker, WebSockets, and a Cloudflare Durable Object that behaves
+          like a live chat room.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <div class="diagram">Browser A
+   ↓ WebSocket
+Cloudflare Worker
+   ↓ room lookup
+Durable Object: ChatRoom("main")
+   ↑ broadcast
+Browser B</div>
+      </aside>
+    </section>
+
+    <nav class="toc">
+      <a href="#zero">0. Goal</a>
+      <a href="#idea">1. Big idea</a>
+      <a href="#files">2. Files</a>
+      <a href="#wrangler">3. Wrangler</a>
+      <a href="#worker">4. Worker code</a>
+      <a href="#client">5. Client page</a>
+      <a href="#test">6. Testing</a>
+      <a href="#troubleshoot">7. Troubleshooting</a>
+    </nav>
+
+    <div class="ad-wrap">
+      Advertisement
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true">
+      </ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <section id="zero">
+      <div class="section-title">
+        <h2>0. What are we building?</h2>
+        <p>A browser-based chat room where two users can exchange messages live.</p>
+      </div>
+
+      <div class="card">
+        <p>
+          We want this:
+        </p>
+
+        <pre>Tab 1: Champak joins room main
+Tab 2: Student joins room main
+
+Champak sends: Hello
+Student receives: Champak: Hello
+
+Student sends: Working!
+Champak receives: Student: Working!</pre>
+
+        <p>
+          The final WebSocket URL will look like this:
+        </p>
+
+        <pre>wss://champak-durable-chat.champaksworld.workers.dev/chat?room=main</pre>
+      </div>
+    </section>
+
+    <section id="idea">
+      <div class="section-title">
+        <h2>1. The big idea</h2>
+        <p>Plain Workers can echo. Durable Objects can coordinate rooms.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Cloudflare Worker</h3>
+          <p>
+            The Worker receives the request. It checks whether the request is for
+            <code>/chat</code> and then forwards it to the correct room.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Durable Object</h3>
+          <p>
+            The Durable Object is the actual chat room. It keeps the live WebSocket
+            connections and broadcasts messages.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>WebSocket</h3>
+          <p>
+            WebSocket keeps a live connection open, so messages can move instantly
+            between browser and server.
+          </p>
+        </article>
+      </div>
+
+      <div class="callout good">
+        <strong>Mental model:</strong>
+        Worker = reception desk. Durable Object = chat room. WebSocket = live wire.
+      </div>
+    </section>
+
+    <section id="files">
+      <div class="section-title">
+        <h2>2. Project files</h2>
+        <p>We will use one Worker file, one Wrangler config file, and one static HTML page.</p>
+      </div>
+
+      <div class="card">
+        <pre>champak-durable-chat/
+  worker.js
+  wrangler.toml
+  chat.html</pre>
+
+        <table>
+          <thead>
+            <tr>
+              <th>File</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>worker.js</code></td>
+              <td>Cloudflare Worker plus Durable Object class.</td>
+            </tr>
+            <tr>
+              <td><code>wrangler.toml</code></td>
+              <td>Configuration file that declares the Durable Object binding and migration.</td>
+            </tr>
+            <tr>
+              <td><code>chat.html</code></td>
+              <td>Browser client page that connects to the WebSocket server.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="wrangler">
+      <div class="section-title">
+        <h2>3. Install and use Wrangler</h2>
+        <p>Wrangler is the cleanest way to create Durable Object projects.</p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <strong>Install Node.js.</strong>
+          Open terminal and check:
+          <pre>node -v
+npm -v</pre>
+        </li>
+
+        <li>
+          <strong>Login to Cloudflare.</strong>
+          <pre>npx wrangler login</pre>
+        </li>
+
+        <li>
+          <strong>Create a folder.</strong>
+          <pre>mkdir champak-durable-chat
+cd champak-durable-chat</pre>
+        </li>
+      </ol>
+    </section>
+
+    <section id="config">
+      <div class="section-title">
+        <h2>4. Create wrangler.toml</h2>
+        <p>This file creates the binding between the Worker and Durable Object class.</p>
+      </div>
+
+      <div class="card">
+        <pre><code>name = "champak-durable-chat"
+main = "worker.js"
+compatibility_date = "2026-06-07"
+
+[[durable_objects.bindings]]
+name = "CHAT_ROOM"
+class_name = "ChatRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ChatRoom"]</code></pre>
+      </div>
+
+      <div class="callout">
+        <p>
+          <code>CHAT_ROOM</code> is the binding name. In JavaScript it becomes
+          <code>env.CHAT_ROOM</code>.
+        </p>
+        <p>
+          <code>ChatRoom</code> is the exported class name in <code>worker.js</code>.
+        </p>
+      </div>
+    </section>
+
+    <section id="worker">
+      <div class="section-title">
+        <h2>5. Create worker.js</h2>
+        <p>This is the complete WebSocket chat server.</p>
+      </div>
+
+      <div class="card">
+        <pre><code>const hostName = "Champak Roy Programmer's Picnic";
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/chat") {
+      const upgradeHeader = request.headers.get("Upgrade");
+
+      if (!upgradeHeader || upgradeHeader.toLowerCase() !== "websocket") {
+        return new Response("Expected WebSocket request at /chat", {
+          status: 426,
+          headers: {
+            "content-type": "text/plain; charset=utf-8",
+            "cache-control": "no-store"
+          }
+        });
+      }
+
+      const roomName = url.searchParams.get("room") || "main";
+      const id = env.CHAT_ROOM.idFromName(roomName);
+      const room = env.CHAT_ROOM.get(id);
+
+      return room.fetch(request);
+    }
+
+    const origin = url.origin;
+    const wssOrigin = origin.replace("https://", "wss://");
+
+    return new Response(
+      "HTTP is working.\\n" +
+        "Host: " + hostName + "\\n" +
+        "Chat WebSocket URL: " + wssOrigin + "/chat?room=main\\n",
+      {
+        headers: {
+          "content-type": "text/plain; charset=utf-8",
+          "cache-control": "no-store"
+        }
+      }
+    );
+  }
+};
+
+export class ChatRoom {
+  constructor(state, env) {
+    this.state = state;
+    this.env = env;
+    this.clients = new Map();
+  }
+
+  async fetch(request) {
+    const url = new URL(request.url);
+    const upgradeHeader = request.headers.get("Upgrade");
+
+    if (!upgradeHeader || upgradeHeader.toLowerCase() !== "websocket") {
+      return new Response("Expected WebSocket request", {
+        status: 426,
+        headers: {
+          "content-type": "text/plain; charset=utf-8"
+        }
+      });
+    }
+
+    const roomName = url.searchParams.get("room") || "main";
+    const name = cleanName(url.searchParams.get("name") || "Guest");
+
+    const pair = new WebSocketPair();
+    const client = pair[0];
+    const server = pair[1];
+
+    server.accept();
+
+    const clientId = crypto.randomUUID();
+
+    this.clients.set(clientId, {
+      socket: server,
+      name,
+      joinedAt: new Date().toISOString()
+    });
+
+    server.send(
+      JSON.stringify({
+        type: "system",
+        room: roomName,
+        clientId,
+        message: "Connected to " + hostName + " chat room",
+        users: this.getUsers(),
+        time: new Date().toISOString()
+      })
+    );
+
+    this.broadcast(
+      {
+        type: "system",
+        room: roomName,
+        message: name + " joined the chat",
+        users: this.getUsers(),
+        time: new Date().toISOString()
+      },
+      clientId
+    );
+
+    server.addEventListener("message", (event) => {
+      let incoming;
+
+      try {
+        incoming = JSON.parse(event.data);
+      } catch {
+        incoming = {
+          type: "chat",
+          message: String(event.data)
+        };
+      }
+
+      const current = this.clients.get(clientId);
+
+      if (!current) {
+        return;
+      }
+
+      const message = cleanMessage(incoming.message || "");
+
+      if (!message) {
+        return;
+      }
+
+      this.broadcast({
+        type: "chat",
+        room: roomName,
+        clientId,
+        name: current.name,
+        message,
+        users: this.getUsers(),
+        time: new Date().toISOString()
+      });
+    });
+
+    server.addEventListener("close", () => {
+      const current = this.clients.get(clientId);
+      const leavingName = current ? current.name : "A user";
+
+      this.clients.delete(clientId);
+
+      this.broadcast({
+        type: "system",
+        room: roomName,
+        message: leavingName + " left the chat",
+        users: this.getUsers(),
+        time: new Date().toISOString()
+      });
+    });
+
+    server.addEventListener("error", () => {
+      this.clients.delete(clientId);
+    });
+
+    return new Response(null, {
+      status: 101,
+      webSocket: client
+    });
+  }
+
+  broadcast(data, exceptClientId = null) {
+    const text = JSON.stringify(data);
+
+    for (const [clientId, client] of this.clients.entries()) {
+      if (clientId === exceptClientId) {
+        continue;
+      }
+
+      try {
+        client.socket.send(text);
+      } catch {
+        this.clients.delete(clientId);
+      }
+    }
+  }
+
+  getUsers() {
+    return Array.from(this.clients.values()).map((client) => client.name);
+  }
+}
+
+function cleanName(name) {
+  return String(name || "Guest")
+    .replace(/[&lt;&gt;]/g, "")
+    .trim()
+    .slice(0, 30) || "Guest";
+}
+
+function cleanMessage(message) {
+  return String(message || "")
+    .replace(/[&lt;&gt;]/g, "")
+    .trim()
+    .slice(0, 1000);
+}</code></pre>
+      </div>
+    </section>
+
+    <div class="ad-wrap">
+      Advertisement
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true">
+      </ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <section id="deploy">
+      <div class="section-title">
+        <h2>6. Deploy the Worker</h2>
+        <p>Deploy with Wrangler so the Durable Object migration is applied correctly.</p>
+      </div>
+
+      <div class="card">
+        <pre>npx wrangler deploy</pre>
+
+        <p>
+          After deployment you will get a URL like:
+        </p>
+
+        <pre>https://champak-durable-chat.champaksworld.workers.dev/</pre>
+
+        <p>
+          The WebSocket URL becomes:
+        </p>
+
+        <pre>wss://champak-durable-chat.champaksworld.workers.dev/chat?room=main</pre>
+      </div>
+    </section>
+
+    <section id="client">
+      <div class="section-title">
+        <h2>7. Create chat.html</h2>
+        <p>This is the static browser page that connects to your WebSocket server.</p>
+      </div>
+
+      <div class="card">
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;title&gt;Cloudflare Durable Object Chat&lt;/title&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
+
+  &lt;style&gt;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, Arial, sans-serif;
+      background: #fff7ed;
+      color: #1f2937;
+      padding: 18px;
+    }
+
+    .wrap {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #f59e0b, #fb923c);
+      color: white;
+      border-radius: 26px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #fed7aa;
+      border-radius: 22px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: 800;
+      margin: 12px 0 6px;
+      color: #7c2d12;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #fdba74;
+      border-radius: 14px;
+      padding: 12px;
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 800;
+      cursor: pointer;
+      background: #f59e0b;
+      color: white;
+      margin-top: 10px;
+    }
+
+    button.danger {
+      background: #dc2626;
+    }
+
+    .status {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fee2e2;
+      color: #dc2626;
+      font-weight: 800;
+    }
+
+    .status.open {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .messages {
+      height: 480px;
+      overflow: auto;
+      background: white;
+      border: 1px solid #fed7aa;
+      border-radius: 22px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .msg {
+      max-width: 80%;
+      background: #f3f4f6;
+      padding: 10px 12px;
+      border-radius: 16px;
+    }
+
+    .msg.mine {
+      align-self: flex-end;
+      background: #ffedd5;
+      border: 1px solid #fdba74;
+    }
+
+    .msg.system {
+      align-self: center;
+      background: #ecfdf5;
+      color: #166534;
+      text-align: center;
+    }
+
+    .msg strong {
+      display: block;
+      color: #7c2d12;
+      margin-bottom: 4px;
+    }
+
+    .composer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    pre {
+      background: #111827;
+      color: #fef3c7;
+      padding: 14px;
+      border-radius: 16px;
+      white-space: pre-wrap;
+      max-height: 220px;
+      overflow: auto;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;main class="wrap"&gt;
+    &lt;section class="hero"&gt;
+      &lt;h1&gt;Durable Object Chat&lt;/h1&gt;
+      &lt;p&gt;Cloudflare Worker + Durable Object + WebSocket&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section class="grid"&gt;
+      &lt;aside&gt;
+        &lt;div class="card"&gt;
+          &lt;h2&gt;Connection&lt;/h2&gt;
+
+          &lt;label for="serverUrl"&gt;WebSocket Base URL&lt;/label&gt;
+          &lt;input
+            id="serverUrl"
+            value="wss://champak-durable-chat.champaksworld.workers.dev/chat"
+          /&gt;
+
+          &lt;label for="roomName"&gt;Room&lt;/label&gt;
+          &lt;input id="roomName" value="main" /&gt;
+
+          &lt;label for="userName"&gt;Your name&lt;/label&gt;
+          &lt;input id="userName" value="Champak" /&gt;
+
+          &lt;div id="status" class="status"&gt;Disconnected&lt;/div&gt;
+
+          &lt;br /&gt;
+          &lt;button onclick="connectChat()"&gt;Connect&lt;/button&gt;
+          &lt;button class="danger" onclick="disconnectChat()"&gt;Disconnect&lt;/button&gt;
+          &lt;button onclick="clearChat()"&gt;Clear&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;div class="card"&gt;
+          &lt;h2&gt;Debug Log&lt;/h2&gt;
+          &lt;pre id="log"&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/aside&gt;
+
+      &lt;section class="card"&gt;
+        &lt;h2&gt;Chat Room&lt;/h2&gt;
+        &lt;div id="users"&gt;Users: none&lt;/div&gt;
+        &lt;div id="messages" class="messages"&gt;&lt;/div&gt;
+
+        &lt;div class="composer"&gt;
+          &lt;input
+            id="messageInput"
+            placeholder="Type your message and press Enter..."
+          /&gt;
+          &lt;button onclick="sendChatMessage()"&gt;Send&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;script&gt;
+    let ws = null;
+    let myClientId = null;
+
+    const statusBox = document.getElementById("status");
+    const logBox = document.getElementById("log");
+    const messagesBox = document.getElementById("messages");
+    const usersBox = document.getElementById("users");
+    const messageInput = document.getElementById("messageInput");
+
+    function setStatus(text, connected) {
+      statusBox.textContent = text;
+      statusBox.className = "status" + (connected ? " open" : "");
+    }
+
+    function log(title, data) {
+      const time = new Date().toLocaleTimeString();
+      let output = "[" + time + "] " + title;
+
+      if (data !== undefined) {
+        try {
+          output += "\\n" + JSON.stringify(data, null, 2);
+        } catch {
+          output += "\\n" + String(data);
+        }
+      }
+
+      logBox.textContent += output + "\\n\\n";
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function buildChatUrl() {
+      const base = document.getElementById("serverUrl").value.trim();
+      const room = document.getElementById("roomName").value.trim() || "main";
+      const name = document.getElementById("userName").value.trim() || "Guest";
+
+      return (
+        base +
+        "?room=" +
+        encodeURIComponent(room) +
+        "&name=" +
+        encodeURIComponent(name)
+      );
+    }
+
+    function connectChat() {
+      const url = buildChatUrl();
+
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        log("Already connected.");
+        return;
+      }
+
+      ws = new WebSocket(url);
+
+      log("Connecting", url);
+
+      ws.onopen = function () {
+        setStatus("Connected", true);
+        log("Connected.");
+        messageInput.focus();
+      };
+
+      ws.onmessage = function (event) {
+        let data;
+
+        try {
+          data = JSON.parse(event.data);
+        } catch {
+          data = {
+            type: "chat",
+            name: "Server",
+            message: event.data,
+            time: new Date().toISOString()
+          };
+        }
+
+        if (data.clientId) {
+          myClientId = data.clientId;
+        }
+
+        updateUsers(data.users);
+        addMessage(data);
+        log("Received", data);
+      };
+
+      ws.onerror = function (event) {
+        log("WebSocket error", {
+          eventType: event.type,
+          readyState: ws ? ws.readyState : "no socket"
+        });
+      };
+
+      ws.onclose = function (event) {
+        setStatus("Disconnected", false);
+        log("Disconnected", {
+          code: event.code,
+          reason: event.reason || "No reason given",
+          wasClean: event.wasClean
+        });
+      };
+    }
+
+    function disconnectChat() {
+      if (!ws) {
+        log("No socket exists.");
+        return;
+      }
+
+      ws.close(1000, "Closed by user");
+      ws = null;
+      setStatus("Disconnected", false);
+    }
+
+    function sendChatMessage() {
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        log("Not connected. Click Connect first.");
+        return;
+      }
+
+      const message = messageInput.value.trim();
+
+      if (!message) {
+        return;
+      }
+
+      ws.send(
+        JSON.stringify({
+          type: "chat",
+          message
+        })
+      );
+
+      messageInput.value = "";
+      messageInput.focus();
+    }
+
+    function addMessage(data) {
+      const div = document.createElement("div");
+
+      if (data.type === "system") {
+        div.className = "msg system";
+        div.textContent = data.message || "System message";
+      } else {
+        const isMine = data.clientId && data.clientId === myClientId;
+        div.className = "msg" + (isMine ? " mine" : "");
+        div.innerHTML =
+          "&lt;strong&gt;" +
+          escapeHtml(data.name || "Guest") +
+          "&lt;/strong&gt;" +
+          escapeHtml(data.message || "");
+      }
+
+      messagesBox.appendChild(div);
+      messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+
+    function updateUsers(users) {
+      if (!Array.isArray(users) || users.length === 0) {
+        usersBox.textContent = "Users: none";
+        return;
+      }
+
+      usersBox.textContent = "Users: " + users.join(", ");
+    }
+
+    function clearChat() {
+      messagesBox.innerHTML = "";
+      logBox.textContent = "";
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("&lt;", "&amp;lt;")
+        .replaceAll("&gt;", "&amp;gt;")
+        .replaceAll('"', "&amp;quot;")
+        .replaceAll("'", "&amp;#039;");
+    }
+
+    messageInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendChatMessage();
+      }
+    });
+
+    window.addEventListener("beforeunload", function () {
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.close(1000, "Page closed");
+      }
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+    </section>
+
+    <section id="test">
+      <div class="section-title">
+        <h2>8. Test the system</h2>
+        <p>Open the client in two tabs or two devices.</p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          In tab 1, set name as <code>Champak</code>.
+        </li>
+        <li>
+          In tab 2, set name as <code>Student</code>.
+        </li>
+        <li>
+          Use the same room name: <code>main</code>.
+        </li>
+        <li>
+          Click <strong>Connect</strong> in both tabs.
+        </li>
+        <li>
+          Send a message from tab 1. It should appear in tab 2.
+        </li>
+        <li>
+          Send a reply from tab 2. It should appear in tab 1.
+        </li>
+      </ol>
+    </section>
+
+    <section id="understanding">
+      <div class="section-title">
+        <h2>9. Understanding the important lines</h2>
+        <p>The Durable Object binding is the most important concept.</p>
+      </div>
+
+      <div class="card">
+        <h3>Binding</h3>
+        <pre><code>[[durable_objects.bindings]]
+name = "CHAT_ROOM"
+class_name = "ChatRoom"</code></pre>
+
+        <p>
+          This creates <code>env.CHAT_ROOM</code> in your Worker.
+        </p>
+
+        <h3>Room selection</h3>
+        <pre><code>const roomName = url.searchParams.get("room") || "main";
+const id = env.CHAT_ROOM.idFromName(roomName);
+const room = env.CHAT_ROOM.get(id);
+return room.fetch(request);</code></pre>
+
+        <p>
+          This sends each room to its own Durable Object instance.
+        </p>
+
+        <h3>Broadcast</h3>
+        <pre><code>for (const [clientId, client] of this.clients.entries()) {
+  client.socket.send(text);
+}</code></pre>
+
+        <p>
+          This sends the message to connected users.
+        </p>
+      </div>
+    </section>
+
+    <section id="troubleshoot">
+      <div class="section-title">
+        <h2>10. Troubleshooting</h2>
+        <p>Common errors and fixes.</p>
+      </div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Problem</th>
+              <th>Meaning</th>
+              <th>Fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>env.CHAT_ROOM is undefined</code></td>
+              <td>Binding missing.</td>
+              <td>Check <code>wrangler.toml</code> durable object binding.</td>
+            </tr>
+            <tr>
+              <td>Durable Object class not found</td>
+              <td>Migration missing or wrong class name.</td>
+              <td>Check <code>new_sqlite_classes = ["ChatRoom"]</code>.</td>
+            </tr>
+            <tr>
+              <td>WebSocket closes with code 1006</td>
+              <td>Worker crashed during connection.</td>
+              <td>Check binding, route, path, and Worker logs.</td>
+            </tr>
+            <tr>
+              <td>HTTP works but WSS fails</td>
+              <td>Wrong path or no WebSocket upgrade handling.</td>
+              <td>Use <code>wss://your-worker/chat?room=main</code>.</td>
+            </tr>
+            <tr>
+              <td>One tab does not receive messages</td>
+              <td>Different room names.</td>
+              <td>Use same <code>room</code> in both tabs.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warn">
+        <strong>Important:</strong>
+        Use <code>wss://</code> from HTTPS pages. Do not use <code>ws://</code> on a secure page.
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="section-title">
+        <h2>11. From 0 to Infinity roadmap</h2>
+        <p>How to improve this chat system step by step.</p>
+      </div>
+
+      <div class="card">
+        <pre>Level 0: Plain Worker echo WebSocket
+Level 1: Durable Object echo WebSocket
+Level 2: Two-tab chat
+Level 3: Room names with ?room=main
+Level 4: User names with ?name=Champak
+Level 5: Join and leave messages
+Level 6: Online user list
+Level 7: Save last 20 messages
+Level 8: Add login
+Level 9: Add moderation
+Level 10: Use WebSocket hibernation for production</pre>
+      </div>
+    </section>
+
+    <section id="quiz" class="quiz">
+      <div class="section-title">
+        <h2>12. Revision questions</h2>
+        <p>Use these questions to test understanding.</p>
+      </div>
+
+      <details>
+        <summary><strong>Q1. Why do we need Durable Objects for chat?</strong></summary>
+        <p>
+          Because a chat room needs a single place to remember connected users and broadcast messages to them.
+        </p>
+      </details>
+
+      <details>
+        <summary><strong>Q2. What is <code>CHAT_ROOM</code>?</strong></summary>
+        <p>
+          It is the Durable Object binding name. In JavaScript it appears as <code>env.CHAT_ROOM</code>.
+        </p>
+      </details>
+
+      <details>
+        <summary><strong>Q3. What is <code>ChatRoom</code>?</strong></summary>
+        <p>
+          It is the exported Durable Object class that handles the WebSocket room.
+        </p>
+      </details>
+
+      <details>
+        <summary><strong>Q4. What does <code>idFromName("main")</code> do?</strong></summary>
+        <p>
+          It gets the Durable Object identity for the room named <code>main</code>.
+        </p>
+      </details>
+
+      <details>
+        <summary><strong>Q5. What should the WebSocket URL start with?</strong></summary>
+        <p>
+          It should start with <code>wss://</code>.
+        </p>
+      </details>
+    </section>
+
+    <div class="ad-wrap">
+      Advertisement
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true">
+      </ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </main>
+
+  <footer>
+    <strong>Cloudflare WebSocket Chat with Durable Objects</strong>
+    <div>Programmer's Picnic by Champak Roy</div>
+    <div>Learn WebSockets, Workers, Durable Objects, and real-time systems from 0 to Infinity.</div>
+  </footer>
+</body>
+</html>
