@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+
+  <title>Tic Tac Toe over Cloudflare Durable Object WebSocket</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="A two-player Tic Tac Toe game using a Cloudflare Durable Object WebSocket chat server without changing the Worker."
+  />
+  <meta name="keywords" content="Tic Tac Toe, WebSocket game, Cloudflare Durable Objects, JavaScript game, Champak Roy, Programmer's Picnic" />
+  <meta name="author" content="Champak Roy" />
+  <meta name="theme-color" content="#f59e0b" />
+
+  <!-- Google AdSense -->
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+    crossorigin="anonymous">
+  </script>
+
+  <style>
+    :root {
+      --bg: #fff7ed;
+      --bg2: #fffbeb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #fed7aa;
+      --saffron: #f59e0b;
+      --saffron-dark: #d97706;
+      --green: #16a34a;
+      --red: #dc2626;
+      --blue: #2563eb;
+      --dark: #111827;
+      --code: #fef3c7;
+      --shadow: 0 18px 45px rgba(146, 64, 14, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, #ffedd5 0, transparent 34%),
+        radial-gradient(circle at bottom right, #fde68a 0, transparent 30%),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      color: var(--text);
+      padding: 18px;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #f59e0b, #fb923c);
+      color: white;
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 18px;
+      opacity: 0.96;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 340px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      color: #9a3412;
+      margin: 0 0 12px;
+    }
+
+    label {
+      display: block;
+      font-weight: 900;
+      color: #7c2d12;
+      margin: 12px 0 8px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid #fdba74;
+      border-radius: 16px;
+      padding: 13px;
+      font: inherit;
+      outline: none;
+      background: white;
+      color: var(--text);
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--saffron-dark);
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 15px;
+      font-weight: 900;
+      cursor: pointer;
+      background: var(--saffron);
+      color: white;
+      box-shadow: 0 8px 18px rgba(217, 119, 6, 0.2);
+    }
+
+    button:hover {
+      background: var(--saffron-dark);
+    }
+
+    button.secondary {
+      background: #fff7ed;
+      color: #9a3412;
+      border: 1px solid #fdba74;
+      box-shadow: none;
+    }
+
+    button.danger {
+      background: var(--red);
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      background: #fee2e2;
+      color: var(--red);
+      margin-top: 12px;
+    }
+
+    .status.open {
+      background: #dcfce7;
+      color: var(--green);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+    .game-area {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .board-wrap {
+      display: grid;
+      place-items: center;
+      padding: 12px;
+    }
+
+    .board {
+      width: min(520px, 88vw);
+      aspect-ratio: 1 / 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      background: #fed7aa;
+      padding: 10px;
+      border-radius: 28px;
+      box-shadow: inset 0 0 0 1px rgba(124, 45, 18, 0.1);
+    }
+
+    .cell {
+      border: 0;
+      border-radius: 22px;
+      background: white;
+      color: #1f2937;
+      font-size: clamp(52px, 10vw, 92px);
+      font-weight: 1000;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(120, 53, 15, 0.08);
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+
+    .cell:hover {
+      transform: translateY(-2px);
+      background: #fff7ed;
+    }
+
+    .cell.x {
+      color: var(--blue);
+    }
+
+    .cell.o {
+      color: var(--saffron-dark);
+    }
+
+    .cell.win {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .panel {
+      display: grid;
+      gap: 12px;
+    }
+
+    .score {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .score div {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 18px;
+      padding: 12px;
+      text-align: center;
+      font-weight: 900;
+      color: #7c2d12;
+    }
+
+    .score strong {
+      display: block;
+      color: #1f2937;
+      font-size: 28px;
+    }
+
+    .game-state {
+      background: #111827;
+      color: #fef3c7;
+      padding: 16px;
+      border-radius: 20px;
+      line-height: 1.5;
+      min-height: 120px;
+      white-space: pre-wrap;
+    }
+
+    .chat-log,
+    .debug-log {
+      background: #111827;
+      color: var(--code);
+      padding: 16px;
+      border-radius: 18px;
+      max-height: 260px;
+      overflow: auto;
+      white-space: pre-wrap;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .messages {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 12px;
+      height: 250px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .msg {
+      background: #f3f4f6;
+      padding: 9px 11px;
+      border-radius: 14px;
+      font-size: 14px;
+    }
+
+    .msg.system {
+      background: #ecfdf5;
+      color: #166534;
+      text-align: center;
+    }
+
+    .msg.mine {
+      background: #ffedd5;
+      align-self: flex-end;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .ad-wrap {
+      margin: 22px 0;
+      padding: 14px;
+      border: 1px dashed #fdba74;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.65);
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .grid,
+      .game-area {
+        grid-template-columns: 1fr;
+      }
+
+      .board {
+        width: min(520px, 94vw);
+      }
+    }
+
+    @media (max-width: 540px) {
+      body {
+        padding: 12px;
+      }
+
+      .hero {
+        padding: 22px;
+      }
+
+      .score {
+        grid-template-columns: 1fr;
+      }
+
+      .cell {
+        border-radius: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Tic Tac Toe over WebSocket</h1>
+      <p>Frontend-only game using your existing Cloudflare Durable Object chat Worker.</p>
+    </section>
+
+    <div class="ad-wrap">
+      Advertisement
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true">
+      </ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <section class="grid">
+      <aside>
+        <article class="card">
+          <h2>Connection</h2>
+
+          <label for="serverUrl">WebSocket Base URL</label>
+          <input
+            id="serverUrl"
+            value="wss://champak-durable-chat.champaksworld.workers.dev/chat"
+            autocomplete="off"
+          />
+
+          <label for="roomName">Game Room</label>
+          <input id="roomName" value="tictactoe-main" autocomplete="off" />
+
+          <label for="playerName">Your Name</label>
+          <input id="playerName" value="Champak" autocomplete="off" />
+
+          <label for="playerSymbol">Your Side</label>
+          <select id="playerSymbol">
+            <option value="X">X - First player</option>
+            <option value="O">O - Second player</option>
+            <option value="spectator">Spectator</option>
+          </select>
+
+          <div id="status" class="status">
+            <span class="dot"></span>
+            <span>Disconnected</span>
+          </div>
+
+          <div class="row">
+            <button onclick="connectGame()">Connect</button>
+            <button class="danger" onclick="disconnectGame()">Disconnect</button>
+            <button class="secondary" onclick="clearLogs()">Clear Logs</button>
+          </div>
+
+          <p class="small">
+            Open this same file in two browser tabs. Use the same room. Choose X in one tab and O in the other.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Game Controls</h2>
+          <div class="row">
+            <button onclick="newGame()">New Game</button>
+            <button class="secondary" onclick="syncGame()">Sync Game</button>
+            <button class="secondary" onclick="resetScore()">Reset Score</button>
+          </div>
+          <p class="small">
+            “New Game” is broadcast to everyone in the room.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Debug Log</h2>
+          <pre id="debugLog" class="debug-log"></pre>
+        </article>
+      </aside>
+
+      <section>
+        <article class="card">
+          <div class="game-area">
+            <div>
+              <h2>Board</h2>
+              <div class="board-wrap">
+                <div id="board" class="board" aria-label="Tic Tac Toe board"></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div>
+                <h2>Status</h2>
+                <div id="gameState" class="game-state">Not connected.</div>
+              </div>
+
+              <div>
+                <h2>Score</h2>
+                <div class="score">
+                  <div>X <strong id="xScore">0</strong></div>
+                  <div>O <strong id="oScore">0</strong></div>
+                  <div>Draw <strong id="drawScore">0</strong></div>
+                </div>
+              </div>
+
+              <div>
+                <h2>Room Messages</h2>
+                <div id="messages" class="messages"></div>
+
+                <div class="row">
+                  <input id="chatInput" placeholder="Optional room message..." autocomplete="off" />
+                  <button onclick="sendRoomChat()">Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const GAME_PREFIX = "__TICTACTOE__:";
+
+    let ws = null;
+    let myClientId = null;
+
+    let game = {
+      board: ["", "", "", "", "", "", "", "", ""],
+      turn: "X",
+      status: "waiting",
+      winner: "",
+      winningLine: [],
+      moveNumber: 0,
+      lastMoveBy: "",
+      gameId: Date.now().toString()
+    };
+
+    let score = {
+      X: 0,
+      O: 0,
+      draw: 0
+    };
+
+    const boardBox = document.getElementById("board");
+    const statusBox = document.getElementById("status");
+    const gameStateBox = document.getElementById("gameState");
+    const debugLogBox = document.getElementById("debugLog");
+    const messagesBox = document.getElementById("messages");
+    const chatInput = document.getElementById("chatInput");
+
+    const xScoreBox = document.getElementById("xScore");
+    const oScoreBox = document.getElementById("oScore");
+    const drawScoreBox = document.getElementById("drawScore");
+
+    function buildBoard() {
+      boardBox.innerHTML = "";
+
+      for (let i = 0; i < 9; i++) {
+        const button = document.createElement("button");
+        button.className = "cell";
+        button.type = "button";
+        button.setAttribute("aria-label", "Cell " + (i + 1));
+        button.dataset.index = String(i);
+        button.addEventListener("click", function () {
+          makeMove(i);
+        });
+        boardBox.appendChild(button);
+      }
+
+      renderGame();
+    }
+
+    function setStatus(text, connected) {
+      statusBox.className = "status" + (connected ? " open" : "");
+      statusBox.querySelector("span:last-child").textContent = text;
+    }
+
+    function log(title, data) {
+      const time = new Date().toLocaleTimeString();
+      let output = "[" + time + "] " + title;
+
+      if (data !== undefined) {
+        if (typeof data === "string") {
+          output += "\n" + data;
+        } else {
+          try {
+            output += "\n" + JSON.stringify(data, null, 2);
+          } catch {
+            output += "\n" + String(data);
+          }
+        }
+      }
+
+      debugLogBox.textContent += output + "\n\n";
+      debugLogBox.scrollTop = debugLogBox.scrollHeight;
+    }
+
+    function addRoomMessage(text, type) {
+      const div = document.createElement("div");
+      div.className = "msg" + (type ? " " + type : "");
+      div.textContent = text;
+      messagesBox.appendChild(div);
+      messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+
+    function getName() {
+      return document.getElementById("playerName").value.trim() || "Guest";
+    }
+
+    function getSymbol() {
+      return document.getElementById("playerSymbol").value;
+    }
+
+    function getRoom() {
+      return document.getElementById("roomName").value.trim() || "tictactoe-main";
+    }
+
+    function buildWebSocketUrl() {
+      const base = document.getElementById("serverUrl").value.trim();
+      const separator = base.includes("?") ? "&" : "?";
+
+      return (
+        base +
+        separator +
+        "room=" +
+        encodeURIComponent(getRoom()) +
+        "&name=" +
+        encodeURIComponent(getName())
+      );
+    }
+
+    function connectGame() {
+      const url = buildWebSocketUrl();
+
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        log("Already connected.");
+        return;
+      }
+
+      try {
+        ws = new WebSocket(url);
+
+        log("Connecting", url);
+
+        ws.onopen = function () {
+          setStatus("Connected", true);
+          log("Connected.");
+          addRoomMessage(getName() + " connected as " + getSymbol(), "system");
+          announcePresence();
+        };
+
+        ws.onmessage = function (event) {
+          let data;
+
+          try {
+            data = JSON.parse(event.data);
+          } catch {
+            data = {
+              type: "chat",
+              name: "Server",
+              message: event.data
+            };
+          }
+
+          if (data.clientId) {
+            myClientId = data.clientId;
+          }
+
+          handleServerMessage(data);
+        };
+
+        ws.onerror = function (event) {
+          log("WebSocket error", {
+            eventType: event.type,
+            readyState: ws ? ws.readyState : "no socket"
+          });
+        };
+
+        ws.onclose = function (event) {
+          setStatus("Disconnected", false);
+          log("Disconnected", {
+            code: event.code,
+            reason: event.reason || "No reason given",
+            wasClean: event.wasClean
+          });
+        };
+      } catch (error) {
+        log("Connection failed", {
+          message: error.message
+        });
+      }
+    }
+
+    function disconnectGame() {
+      if (!ws) {
+        log("No socket exists.");
+        return;
+      }
+
+      ws.close(1000, "Closed by user");
+      ws = null;
+      setStatus("Disconnected", false);
+    }
+
+    function sendPayload(payload) {
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        log("Not connected. Cannot send.", payload);
+        return false;
+      }
+
+      ws.send(
+        JSON.stringify({
+          type: "chat",
+          message: GAME_PREFIX + JSON.stringify(payload)
+        })
+      );
+
+      return true;
+    }
+
+    function announcePresence() {
+      sendPayload({
+        kind: "presence",
+        name: getName(),
+        symbol: getSymbol(),
+        room: getRoom(),
+        gameId: game.gameId,
+        time: new Date().toISOString()
+      });
+    }
+
+    function syncGame() {
+      sendPayload({
+        kind: "sync",
+        from: getName(),
+        game,
+        score,
+        time: new Date().toISOString()
+      });
+
+      log("Sync sent.");
+    }
+
+    function newGame() {
+      game = {
+        board: ["", "", "", "", "", "", "", "", ""],
+        turn: "X",
+        status: "playing",
+        winner: "",
+        winningLine: [],
+        moveNumber: 0,
+        lastMoveBy: "",
+        gameId: Date.now().toString()
+      };
+
+      renderGame();
+
+      sendPayload({
+        kind: "new-game",
+        from: getName(),
+        game,
+        score,
+        time: new Date().toISOString()
+      });
+
+      addRoomMessage(getName() + " started a new game.", "system");
+    }
+
+    function resetScore() {
+      score = {
+        X: 0,
+        O: 0,
+        draw: 0
+      };
+
+      renderScore();
+
+      sendPayload({
+        kind: "reset-score",
+        from: getName(),
+        score,
+        time: new Date().toISOString()
+      });
+
+      addRoomMessage(getName() + " reset the score.", "system");
+    }
+
+    function makeMove(index) {
+      const symbol = getSymbol();
+
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        alert("Connect first.");
+        return;
+      }
+
+      if (symbol !== "X" && symbol !== "O") {
+        alert("Spectators cannot play.");
+        return;
+      }
+
+      if (game.status !== "playing") {
+        alert("Start a new game first.");
+        return;
+      }
+
+      if (game.turn !== symbol) {
+        alert("It is " + game.turn + "'s turn.");
+        return;
+      }
+
+      if (game.board[index]) {
+        return;
+      }
+
+      game.board[index] = symbol;
+      game.moveNumber += 1;
+      game.lastMoveBy = getName();
+
+      const result = checkResult(game.board);
+
+      if (result.winner) {
+        game.status = "finished";
+        game.winner = result.winner;
+        game.winningLine = result.line;
+        score[result.winner] += 1;
+      } else if (result.draw) {
+        game.status = "finished";
+        game.winner = "draw";
+        game.winningLine = [];
+        score.draw += 1;
+      } else {
+        game.turn = symbol === "X" ? "O" : "X";
+      }
+
+      renderGame();
+      renderScore();
+
+      sendPayload({
+        kind: "move",
+        from: getName(),
+        symbol,
+        index,
+        game,
+        score,
+        time: new Date().toISOString()
+      });
+    }
+
+    function sendRoomChat() {
+      const text = chatInput.value.trim();
+
+      if (!text) {
+        return;
+      }
+
+      sendPayload({
+        kind: "room-chat",
+        from: getName(),
+        text,
+        time: new Date().toISOString()
+      });
+
+      addRoomMessage("You: " + text, "mine");
+      chatInput.value = "";
+      chatInput.focus();
+    }
+
+    function handleServerMessage(data) {
+      log("Received", data);
+
+      if (data.type === "system") {
+        addRoomMessage(data.message || "System message", "system");
+        return;
+      }
+
+      if (!data.message || typeof data.message !== "string") {
+        return;
+      }
+
+      if (!data.message.startsWith(GAME_PREFIX)) {
+        const sender = data.name || "User";
+        addRoomMessage(sender + ": " + data.message);
+        return;
+      }
+
+      let payload;
+
+      try {
+        payload = JSON.parse(data.message.slice(GAME_PREFIX.length));
+      } catch (error) {
+        log("Bad game payload", error.message);
+        return;
+      }
+
+      handleGamePayload(payload, data);
+    }
+
+    function handleGamePayload(payload, serverData) {
+      if (!payload || !payload.kind) {
+        return;
+      }
+
+      if (payload.from === getName() && payload.kind !== "sync") {
+        return;
+      }
+
+      if (payload.kind === "presence") {
+        addRoomMessage(
+          payload.name + " joined as " + payload.symbol,
+          "system"
+        );
+        return;
+      }
+
+      if (payload.kind === "new-game") {
+        game = payload.game;
+        score = payload.score || score;
+        renderGame();
+        renderScore();
+        addRoomMessage(payload.from + " started a new game.", "system");
+        return;
+      }
+
+      if (payload.kind === "reset-score") {
+        score = payload.score || { X: 0, O: 0, draw: 0 };
+        renderScore();
+        addRoomMessage(payload.from + " reset the score.", "system");
+        return;
+      }
+
+      if (payload.kind === "sync") {
+        if (payload.game) {
+          game = payload.game;
+        }
+
+        if (payload.score) {
+          score = payload.score;
+        }
+
+        renderGame();
+        renderScore();
+        addRoomMessage("Game synced from " + payload.from, "system");
+        return;
+      }
+
+      if (payload.kind === "move") {
+        game = payload.game;
+        score = payload.score || score;
+        renderGame();
+        renderScore();
+        addRoomMessage(
+          payload.from + " played " + payload.symbol + " at cell " + (payload.index + 1),
+          "system"
+        );
+        return;
+      }
+
+      if (payload.kind === "room-chat") {
+        addRoomMessage(payload.from + ": " + payload.text);
+      }
+    }
+
+    function checkResult(board) {
+      const wins = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ];
+
+      for (const line of wins) {
+        const [a, b, c] = line;
+
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+          return {
+            winner: board[a],
+            line
+          };
+        }
+      }
+
+      if (board.every(Boolean)) {
+        return {
+          winner: "",
+          draw: true,
+          line: []
+        };
+      }
+
+      return {
+        winner: "",
+        draw: false,
+        line: []
+      };
+    }
+
+    function renderGame() {
+      const cells = Array.from(boardBox.querySelectorAll(".cell"));
+
+      cells.forEach((cell, index) => {
+        const value = game.board[index];
+        cell.textContent = value;
+        cell.className = "cell" + (value ? " " + value.toLowerCase() : "");
+
+        if (game.winningLine && game.winningLine.includes(index)) {
+          cell.classList.add("win");
+        }
+      });
+
+      let text = "";
+
+      text += "Room: " + getRoom() + "\n";
+      text += "You: " + getName() + " (" + getSymbol() + ")\n";
+      text += "Game ID: " + game.gameId + "\n";
+      text += "Move number: " + game.moveNumber + "\n\n";
+
+      if (game.status === "waiting") {
+        text += "Status: Waiting. Click New Game.";
+      } else if (game.status === "playing") {
+        text += "Status: Playing\n";
+        text += "Turn: " + game.turn;
+      } else if (game.status === "finished") {
+        if (game.winner === "draw") {
+          text += "Status: Draw game.";
+        } else {
+          text += "Status: " + game.winner + " wins!";
+        }
+      }
+
+      gameStateBox.textContent = text;
+    }
+
+    function renderScore() {
+      xScoreBox.textContent = String(score.X || 0);
+      oScoreBox.textContent = String(score.O || 0);
+      drawScoreBox.textContent = String(score.draw || 0);
+    }
+
+    function clearLogs() {
+      debugLogBox.textContent = "";
+      messagesBox.innerHTML = "";
+    }
+
+    chatInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendRoomChat();
+      }
+    });
+
+    window.addEventListener("beforeunload", function () {
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.close(1000, "Page closed");
+      }
+    });
+
+    buildBoard();
+    renderScore();
+    setStatus("Disconnected", false);
+  </script>
+</body>
+</html>
