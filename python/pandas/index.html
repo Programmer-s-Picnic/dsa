@@ -337,6 +337,24 @@
             color: var(--muted);
         }
 
+        .editor-frame-wrap {
+            width: 100%;
+            height: 720px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: var(--shadow);
+            margin-top: 18px;
+        }
+
+        .editor-frame-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
         .button-row {
             display: flex;
             flex-wrap: wrap;
@@ -409,13 +427,18 @@
             nav {
                 position: static;
             }
+
+            .editor-frame-wrap {
+                height: 620px;
+            }
         }
 
         @media print {
 
             nav,
             .button-row,
-            .ad-box {
+            .ad-box,
+            .editor-frame-wrap {
                 display: none;
             }
 
@@ -466,6 +489,7 @@
             <a href="#presentation">Presentation</a>
             <a href="#saving">Saving</a>
             <a href="#project">Full Project</a>
+            <a href="#python-editor">Python Editor</a>
             <a href="#practice">Practice</a>
         </nav>
 
@@ -609,9 +633,7 @@ from sklearn.linear_model import LinearRegression</code></pre>
                     </tbody>
                 </table>
 
-                <p>
-                    In this table:
-                </p>
+                <p>In this table:</p>
 
                 <ul>
                     <li><code>name</code>, <code>hours</code>, <code>attendance</code> and <code>marks</code> are
@@ -741,15 +763,9 @@ print(selected_columns)</code></pre>
                     whether the data has loaded properly.
                 </p>
 
-                <p>
-                    You can also choose the number of rows:
-                </p>
-
                 <pre><code>print(df.head(10))</code></pre>
 
-                <p>
-                    This shows the first 10 rows.
-                </p>
+                <p>This shows the first 10 rows.</p>
 
                 <div class="success">
                     <strong>When to use:</strong>
@@ -767,15 +783,9 @@ print(selected_columns)</code></pre>
                     rows may contain empty lines, totals, notes or unwanted data.
                 </p>
 
-                <p>
-                    You can also choose the number of rows:
-                </p>
-
                 <pre><code>print(df.tail(3))</code></pre>
 
-                <p>
-                    This shows the last 3 rows.
-                </p>
+                <p>This shows the last 3 rows.</p>
 
                 <div class="note">
                     <strong>Example use:</strong>
@@ -869,8 +879,6 @@ Data columns (total 4 columns):
                     It is useful for understanding the spread and range of data.
                 </p>
 
-                <h4>Typical output columns</h4>
-
                 <table>
                     <thead>
                         <tr>
@@ -931,15 +939,7 @@ Data columns (total 4 columns):
 
                 <pre><code>(rows, columns)</code></pre>
 
-                <p>
-                    Example:
-                </p>
-
-                <pre><code>(8, 4)</code></pre>
-
-                <p>
-                    This means 8 rows and 4 columns.
-                </p>
+                <p>Example: <code>(8, 4)</code> means 8 rows and 4 columns.</p>
 
                 <h3>3.6 <code>df.columns</code></h3>
 
@@ -964,13 +964,7 @@ Data columns (total 4 columns):
 
                 <pre><code>print(df.isnull().sum())</code></pre>
 
-                <p>
-                    This command checks missing values column by column.
-                </p>
-
-                <p>
-                    It works in two stages:
-                </p>
+                <p>This command checks missing values column by column.</p>
 
                 <ul>
                     <li><code>df.isnull()</code> checks every cell and returns <code>True</code> if the value is
@@ -1012,9 +1006,7 @@ Data columns (total 4 columns):
     "student marks": "marks"
 })</code></pre>
 
-                <p>
-                    This changes column names. Clean column names make code easier to write.
-                </p>
+                <p>This changes column names. Clean column names make code easier to write.</p>
 
                 <h3>3.13 <code>astype()</code></h3>
 
@@ -1050,10 +1042,6 @@ df["marks"] = df["marks"].astype(int)</code></pre>
                 <pre><code>df.to_csv("final_result.csv", index=False)
 df.to_excel("final_result.xlsx", index=False)
 df.to_json("final_result.json", orient="records", indent=4)</code></pre>
-
-                <p>
-                    These commands save the DataFrame in different formats.
-                </p>
 
                 <table>
                     <thead>
@@ -1124,9 +1112,7 @@ print(df.head())</code></pre>
 print(df.head())
 print(df.info())</code></pre>
 
-                <p>
-                    <code>read_csv()</code> reads a CSV file and returns a DataFrame.
-                </p>
+                <p><code>read_csv()</code> reads a CSV file and returns a DataFrame.</p>
 
                 <h3>4.3 Pull data from Excel</h3>
 
@@ -1134,9 +1120,7 @@ print(df.info())</code></pre>
 
 print(df.head())</code></pre>
 
-                <p>
-                    <code>read_excel()</code> reads an Excel file.
-                </p>
+                <p><code>read_excel()</code> reads an Excel file.</p>
 
                 <h3>4.4 Pull data from JSON</h3>
 
@@ -1144,9 +1128,7 @@ print(df.head())</code></pre>
 
 print(df.head())</code></pre>
 
-                <p>
-                    <code>read_json()</code> reads JSON data and converts it into a DataFrame.
-                </p>
+                <p><code>read_json()</code> reads JSON data and converts it into a DataFrame.</p>
             </section>
 
             <section id="cleaning">
@@ -1164,9 +1146,7 @@ print(df.info())
 print(df.describe())
 print(df.isnull().sum())</code></pre>
 
-                <p>
-                    This group of commands is the basic health check of a DataFrame.
-                </p>
+                <p>This group of commands is the basic health check of a DataFrame.</p>
 
                 <table>
                     <thead>
@@ -1203,25 +1183,19 @@ print(df.isnull().sum())</code></pre>
 
                 <pre><code>df = df.drop_duplicates()</code></pre>
 
-                <p>
-                    This removes rows that are exactly repeated.
-                </p>
+                <p>This removes rows that are exactly repeated.</p>
 
                 <h3>5.3 Fill missing attendance</h3>
 
                 <pre><code>df["attendance"] = df["attendance"].fillna(df["attendance"].mean())</code></pre>
 
-                <p>
-                    If attendance is missing, this fills it with the average attendance.
-                </p>
+                <p>If attendance is missing, this fills it with the average attendance.</p>
 
                 <h3>5.4 Remove remaining missing values</h3>
 
                 <pre><code>df = df.dropna()</code></pre>
 
-                <p>
-                    This removes rows where any missing value still remains.
-                </p>
+                <p>This removes rows where any missing value still remains.</p>
 
                 <h3>5.5 Convert columns to numbers</h3>
 
@@ -1229,9 +1203,7 @@ print(df.isnull().sum())</code></pre>
 df["attendance"] = df["attendance"].astype(float)
 df["marks"] = df["marks"].astype(float)</code></pre>
 
-                <p>
-                    This ensures that the model receives numeric data.
-                </p>
+                <p>This ensures that the model receives numeric data.</p>
             </section>
 
             <section id="querying">
@@ -1246,17 +1218,13 @@ df["marks"] = df["marks"].astype(float)</code></pre>
 
                 <pre><code>print(df["marks"])</code></pre>
 
-                <p>
-                    This returns one column as a Series.
-                </p>
+                <p>This returns one column as a Series.</p>
 
                 <h3>6.2 Select multiple columns</h3>
 
                 <pre><code>print(df[["hours", "attendance", "marks"]])</code></pre>
 
-                <p>
-                    This returns a smaller DataFrame with selected columns.
-                </p>
+                <p>This returns a smaller DataFrame with selected columns.</p>
 
                 <h3>6.3 Filter rows</h3>
 
@@ -1264,9 +1232,7 @@ df["marks"] = df["marks"].astype(float)</code></pre>
 
 print(high_marks)</code></pre>
 
-                <p>
-                    This selects only those rows where marks are 70 or more.
-                </p>
+                <p>This selects only those rows where marks are 70 or more.</p>
 
                 <h3>6.4 Multiple conditions</h3>
 
@@ -1293,9 +1259,7 @@ print(good_students)</code></pre>
 
 print(sorted_df)</code></pre>
 
-                <p>
-                    This shows the highest scoring students first.
-                </p>
+                <p>This shows the highest scoring students first.</p>
             </section>
 
             <section id="training">
@@ -1390,9 +1354,7 @@ prediction = model.predict(new_student)
 
 print("Predicted marks:", prediction[0])</code></pre>
 
-                <p>
-                    <code>predict()</code> asks the trained model to make a prediction.
-                </p>
+                <p><code>predict()</code> asks the trained model to make a prediction.</p>
 
                 <div class="note">
                     <strong>Why <code>[[7, 92]]</code>?</strong>
@@ -1657,8 +1619,33 @@ joblib.dump(model, "student_marks_model.pkl")
 print("Data and model saved successfully.")</code></pre>
             </section>
 
+            <section id="python-editor">
+                <h2>11. Practice in Our Python Editor</h2>
+
+                <p>
+                    Use the embedded Python editor below to run the pandas examples from this lesson.
+                    You can copy any code from the lesson and test it directly.
+                </p>
+
+                <div class="note">
+                    <strong>Tip:</strong>
+                    If the embedded editor does not load on some browser, open it directly:
+                    <a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank"
+                        rel="noopener">
+                        Python Editor by Learn With Champak
+                    </a>
+                </div>
+
+                <div class="editor-frame-wrap">
+                    <iframe src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1"
+                        title="Python Editor by Learn With Champak" loading="lazy"
+                        allow="clipboard-read; clipboard-write; fullscreen" allowfullscreen>
+                    </iframe>
+                </div>
+            </section>
+
             <section id="practice">
-                <h2>11. Practice Tasks</h2>
+                <h2>12. Practice Tasks</h2>
 
                 <ol>
                     <li>Create a DataFrame for shop sales.</li>
@@ -1715,7 +1702,7 @@ print("Data and model saved successfully.")</code></pre>
             </section>
 
             <section id="summary">
-                <h2>12. Final Summary</h2>
+                <h2>13. Final Summary</h2>
 
                 <pre><code>DataFrame understanding
         ↓
