@@ -1,0 +1,1777 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>Complete Pandas Data Pipeline Lesson: DataFrame, Cleaning, Querying, Training and Saving</title>
+
+    <meta name="description"
+        content="A complete beginner-friendly lesson on pandas DataFrame, data pulling, data cleaning, data querying, model training, presentation and data saving." />
+    <meta name="keywords"
+        content="pandas dataframe lesson, python data pipeline, df.head, df.tail, df.info, df.describe, data cleaning, machine learning with pandas" />
+    <meta name="author" content="Champak Roy" />
+    <meta name="theme-color" content="#0f766e" />
+
+    <meta property="og:title" content="Complete Pandas Data Pipeline Lesson" />
+    <meta property="og:description"
+        content="Learn pandas DataFrame, data pulling, cleaning, querying, training, presentation and saving from 0 to infinity." />
+    <meta property="og:type" content="article" />
+
+    <!-- Google AdSense -->
+    <script async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+        crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --bg: #f3fffb;
+            --card: #ffffff;
+            --ink: #10201d;
+            --muted: #52635f;
+            --brand: #0f766e;
+            --brand-dark: #0b4f49;
+            --soft: #dffaf4;
+            --line: #b9e5dc;
+            --code-bg: #101827;
+            --code-ink: #f8fafc;
+            --warn-bg: #fff7df;
+            --warn-line: #eab308;
+            --ok-bg: #ecfdf5;
+            --ok-line: #10b981;
+            --danger-bg: #fff1f2;
+            --danger-line: #f43f5e;
+            --shadow: 0 14px 35px rgba(15, 118, 110, 0.14);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top left, #ccfbf1 0, transparent 34%),
+                linear-gradient(180deg, #f3fffb, #eefbf7);
+            color: var(--ink);
+            line-height: 1.65;
+        }
+
+        a {
+            color: var(--brand-dark);
+            text-decoration-thickness: 2px;
+        }
+
+        .page {
+            width: min(1160px, calc(100% - 28px));
+            margin: 0 auto;
+        }
+
+        header {
+            padding: 28px 0 18px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f766e, #115e59);
+            color: white;
+            border-radius: 28px;
+            padding: 38px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            right: -80px;
+            top: -90px;
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 5vw, 4.2rem);
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            max-width: 920px;
+        }
+
+        .hero p {
+            max-width: 780px;
+            font-size: 1.15rem;
+            margin: 0;
+            color: #e8fffb;
+        }
+
+        .hero .tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 7px 12px;
+            border-radius: 999px;
+            margin-bottom: 18px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        nav {
+            margin: 18px 0 26px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 12px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 8px;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        nav a {
+            padding: 9px 12px;
+            border-radius: 12px;
+            background: var(--soft);
+            text-decoration: none;
+            color: var(--brand-dark);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        nav a:focus,
+        nav a:hover,
+        button:focus {
+            outline: 3px solid #facc15;
+            outline-offset: 3px;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding-bottom: 50px;
+        }
+
+        section,
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 26px;
+            box-shadow: var(--shadow);
+        }
+
+        h2 {
+            color: var(--brand-dark);
+            font-size: clamp(1.55rem, 3vw, 2.2rem);
+            line-height: 1.15;
+            margin: 0 0 14px;
+        }
+
+        h3 {
+            margin-top: 26px;
+            color: #134e4a;
+            font-size: 1.28rem;
+        }
+
+        h4 {
+            color: #115e59;
+            margin-bottom: 6px;
+        }
+
+        .lead {
+            font-size: 1.08rem;
+            color: #243d39;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin: 18px 0;
+        }
+
+        .grid.two {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .mini {
+            background: #f8fffd;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .mini strong {
+            display: block;
+            color: var(--brand-dark);
+            margin-bottom: 6px;
+            font-size: 1.03rem;
+        }
+
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(130px, 1fr));
+            gap: 12px;
+            margin: 18px 0;
+        }
+
+        .step {
+            background: linear-gradient(180deg, #ecfffb, #ffffff);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 16px 14px;
+            text-align: center;
+            min-height: 112px;
+        }
+
+        .step .num {
+            width: 34px;
+            height: 34px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--brand);
+            color: white;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .step b {
+            display: block;
+            color: var(--brand-dark);
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-ink);
+            border-radius: 16px;
+            padding: 18px;
+            overflow-x: auto;
+            border: 1px solid #334155;
+            line-height: 1.55;
+            font-size: 0.95rem;
+        }
+
+        code {
+            font-family: Consolas, Monaco, "Courier New", monospace;
+        }
+
+        p code,
+        li code,
+        td code {
+            background: #e7fff8;
+            color: #063b35;
+            padding: 2px 6px;
+            border-radius: 7px;
+            border: 1px solid #b9e5dc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            overflow: hidden;
+            border-radius: 14px;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--line);
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #dffaf4;
+            color: #0b4f49;
+        }
+
+        tr:nth-child(even) td {
+            background: #f8fffd;
+        }
+
+        .note,
+        .warning,
+        .success {
+            border-radius: 16px;
+            padding: 16px;
+            margin: 18px 0;
+        }
+
+        .note {
+            background: var(--warn-bg);
+            border: 1px solid var(--warn-line);
+        }
+
+        .success {
+            background: var(--ok-bg);
+            border: 1px solid var(--ok-line);
+        }
+
+        .warning {
+            background: var(--danger-bg);
+            border: 1px solid var(--danger-line);
+        }
+
+        .ad-box {
+            background: #ffffff;
+            border: 1px dashed #8bbdb4;
+            border-radius: 16px;
+            padding: 12px;
+            margin: 22px 0;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        button {
+            border: 0;
+            background: var(--brand);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        button.secondary {
+            background: #134e4a;
+        }
+
+        details {
+            background: #f8fffd;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 14px;
+            margin: 10px 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 800;
+            color: var(--brand-dark);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            padding: 28px 0 45px;
+        }
+
+        @media (max-width: 980px) {
+
+            .grid,
+            .grid.two {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pipeline {
+                grid-template-columns: repeat(2, minmax(130px, 1fr));
+            }
+        }
+
+        @media (max-width: 620px) {
+            .hero {
+                padding: 26px;
+            }
+
+            section,
+            .card {
+                padding: 20px;
+            }
+
+            .grid,
+            .grid.two,
+            .pipeline {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                position: static;
+            }
+        }
+
+        @media print {
+
+            nav,
+            .button-row,
+            .ad-box {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            section,
+            .card,
+            .hero {
+                box-shadow: none;
+            }
+
+            .hero {
+                color: black;
+                background: white;
+                border: 1px solid #999;
+            }
+
+            .hero p {
+                color: black;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header>
+            <div class="hero">
+                <span class="tag">0 to Infinity Lesson</span>
+                <h1>Complete Data Pipeline Using Pandas</h1>
+                <p>
+                    Learn the complete journey of data: DataFrame, data pulling,
+                    data cleaning, data querying, training, presentation and saving.
+                </p>
+            </div>
+        </header>
+
+        <nav aria-label="Lesson navigation">
+            <a href="#overview">Overview</a>
+            <a href="#dataframe">DataFrame</a>
+            <a href="#features">Pandas Features</a>
+            <a href="#pulling">Data Pulling</a>
+            <a href="#cleaning">Data Cleaning</a>
+            <a href="#querying">Data Querying</a>
+            <a href="#training">Training</a>
+            <a href="#presentation">Presentation</a>
+            <a href="#saving">Saving</a>
+            <a href="#project">Full Project</a>
+            <a href="#practice">Practice</a>
+        </nav>
+
+        <main>
+            <section id="overview">
+                <h2>1. The Big Picture</h2>
+                <p class="lead">
+                    A machine learning project is not only about training a model.
+                    Training is only one stage. Before training, we must collect,
+                    understand and clean data. After training, we must present and save
+                    the result.
+                </p>
+
+                <div class="pipeline">
+                    <div class="step">
+                        <span class="num">1</span>
+                        <b>Data Pulling</b>
+                        <small>Bring data into Python</small>
+                    </div>
+                    <div class="step">
+                        <span class="num">2</span>
+                        <b>Data Cleaning</b>
+                        <small>Fix missing and wrong data</small>
+                    </div>
+                    <div class="step">
+                        <span class="num">3</span>
+                        <b>Data Querying</b>
+                        <small>Ask questions from data</small>
+                    </div>
+                    <div class="step">
+                        <span class="num">4</span>
+                        <b>Training</b>
+                        <small>Teach the model</small>
+                    </div>
+                    <div class="step">
+                        <span class="num">5</span>
+                        <b>Presentation</b>
+                        <small>Show results clearly</small>
+                    </div>
+                    <div class="step">
+                        <span class="num">6</span>
+                        <b>Data Saving</b>
+                        <small>Save data and model</small>
+                    </div>
+                </div>
+
+                <div class="success">
+                    <strong>Main idea:</strong>
+                    pandas helps us manage data. scikit-learn helps us train the model.
+                </div>
+
+                <h3>Libraries used</h3>
+                <pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+import joblib
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression</code></pre>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Library</th>
+                            <th>Why we use it</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>pandas</code></td>
+                            <td>For working with data tables called DataFrames.</td>
+                        </tr>
+                        <tr>
+                            <td><code>matplotlib</code></td>
+                            <td>For making charts and visual presentation.</td>
+                        </tr>
+                        <tr>
+                            <td><code>scikit-learn</code></td>
+                            <td>For machine learning models and training.</td>
+                        </tr>
+                        <tr>
+                            <td><code>joblib</code></td>
+                            <td>For saving and loading trained models.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="ad-box">
+                    Advertisement
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494"
+                        data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                </div>
+            </section>
+
+            <section id="dataframe">
+                <h2>2. What is a DataFrame?</h2>
+
+                <p>
+                    A <strong>DataFrame</strong> is the most important object in pandas.
+                    It is a table-like structure with rows and columns.
+                </p>
+
+                <p>
+                    You can think of a DataFrame as an Excel sheet inside Python.
+                    Each column has a name. Each row has an index number.
+                </p>
+
+                <h3>Example table</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>name</th>
+                            <th>hours</th>
+                            <th>attendance</th>
+                            <th>marks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>Amit</td>
+                            <td>1</td>
+                            <td>55</td>
+                            <td>35</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Ravi</td>
+                            <td>2</td>
+                            <td>60</td>
+                            <td>42</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Sita</td>
+                            <td>3</td>
+                            <td>65</td>
+                            <td>50</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>
+                    In this table:
+                </p>
+
+                <ul>
+                    <li><code>name</code>, <code>hours</code>, <code>attendance</code> and <code>marks</code> are
+                        columns.</li>
+                    <li><code>0</code>, <code>1</code>, <code>2</code> are index values.</li>
+                    <li>One full horizontal line is called a row.</li>
+                    <li>One vertical field is called a column.</li>
+                </ul>
+
+                <h3>Creating a DataFrame</h3>
+
+                <pre><code>import pandas as pd
+
+data = {
+    "name": ["Amit", "Ravi", "Sita"],
+    "hours": [1, 2, 3],
+    "attendance": [55, 60, 65],
+    "marks": [35, 42, 50]
+}
+
+df = pd.DataFrame(data)
+
+print(df)</code></pre>
+
+                <h3>Output</h3>
+
+                <pre><code>   name  hours  attendance  marks
+0  Amit      1          55     35
+1  Ravi      2          60     42
+2  Sita      3          65     50</code></pre>
+
+                <h3>Understanding <code>df</code></h3>
+
+                <p>
+                    <code>df</code> is only a variable name. It is short for DataFrame.
+                    We could also write:
+                </p>
+
+                <pre><code>students = pd.DataFrame(data)</code></pre>
+
+                <p>
+                    But most programmers use <code>df</code> because it is short and common.
+                </p>
+
+                <div class="note">
+                    <strong>Important:</strong>
+                    <code>pd.DataFrame(data)</code> converts dictionary data into a pandas table.
+                    The keys of the dictionary become column names.
+                    The list values become column data.
+                </div>
+
+                <h3>DataFrame, Series and value</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Meaning</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>DataFrame</td>
+                            <td>A full table with rows and columns.</td>
+                            <td><code>df</code></td>
+                        </tr>
+                        <tr>
+                            <td>Series</td>
+                            <td>One column from a DataFrame.</td>
+                            <td><code>df["marks"]</code></td>
+                        </tr>
+                        <tr>
+                            <td>Value</td>
+                            <td>One single cell.</td>
+                            <td>Marks of Amit = <code>35</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Single column gives a Series</h3>
+
+                <pre><code>marks_column = df["marks"]
+
+print(marks_column)</code></pre>
+
+                <p>
+                    This gives one column. In pandas, one column is called a
+                    <strong>Series</strong>.
+                </p>
+
+                <h3>Multiple columns give a DataFrame</h3>
+
+                <pre><code>selected_columns = df[["hours", "marks"]]
+
+print(selected_columns)</code></pre>
+
+                <p>
+                    Double square brackets return a DataFrame because we are selecting
+                    a list of columns.
+                </p>
+
+                <div class="warning">
+                    <strong>Very important for machine learning:</strong>
+                    For input <code>X</code>, use double square brackets:
+                    <code>df[["hours"]]</code>.
+                    For output <code>y</code>, single square brackets are usually fine:
+                    <code>df["marks"]</code>.
+                </div>
+            </section>
+
+            <section id="features">
+                <h2>3. Every pandas Feature Used in This Lesson</h2>
+
+                <p>
+                    Before we build the full pipeline, we must understand the pandas
+                    commands that appear again and again.
+                </p>
+
+                <h3>3.1 <code>df.head()</code></h3>
+
+                <pre><code>print(df.head())</code></pre>
+
+                <p>
+                    <code>df.head()</code> shows the first 5 rows of the DataFrame.
+                    It is used immediately after loading data so that we can check
+                    whether the data has loaded properly.
+                </p>
+
+                <p>
+                    You can also choose the number of rows:
+                </p>
+
+                <pre><code>print(df.head(10))</code></pre>
+
+                <p>
+                    This shows the first 10 rows.
+                </p>
+
+                <div class="success">
+                    <strong>When to use:</strong>
+                    Use <code>df.head()</code> after data pulling.
+                    It quickly tells you whether the columns and first few records look correct.
+                </div>
+
+                <h3>3.2 <code>df.tail()</code></h3>
+
+                <pre><code>print(df.tail())</code></pre>
+
+                <p>
+                    <code>df.tail()</code> shows the last 5 rows of the DataFrame.
+                    This is useful because sometimes the top rows look fine but the bottom
+                    rows may contain empty lines, totals, notes or unwanted data.
+                </p>
+
+                <p>
+                    You can also choose the number of rows:
+                </p>
+
+                <pre><code>print(df.tail(3))</code></pre>
+
+                <p>
+                    This shows the last 3 rows.
+                </p>
+
+                <div class="note">
+                    <strong>Example use:</strong>
+                    If a CSV file was exported from Excel, the last row may contain
+                    "Total" or "Generated by software". <code>df.tail()</code> helps catch that.
+                </div>
+
+                <h3>3.3 <code>df.info()</code></h3>
+
+                <pre><code>print(df.info())</code></pre>
+
+                <p>
+                    <code>df.info()</code> gives technical information about the DataFrame.
+                    It tells us:
+                </p>
+
+                <ul>
+                    <li>How many rows are present.</li>
+                    <li>How many columns are present.</li>
+                    <li>Column names.</li>
+                    <li>How many non-empty values each column has.</li>
+                    <li>Data type of each column.</li>
+                    <li>Memory usage.</li>
+                </ul>
+
+                <h4>Example output</h4>
+
+                <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 8 entries, 0 to 7
+Data columns (total 4 columns):
+ #   Column      Non-Null Count  Dtype
+---  ------      --------------  -----
+ 0   name        8 non-null      object
+ 1   hours       8 non-null      int64
+ 2   attendance  8 non-null      int64
+ 3   marks       8 non-null      int64</code></pre>
+
+                <h4>How to read this output</h4>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Part</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>RangeIndex: 8 entries</code></td>
+                            <td>The DataFrame has 8 rows.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Data columns (total 4 columns)</code></td>
+                            <td>The DataFrame has 4 columns.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Non-Null Count</code></td>
+                            <td>How many non-missing values are present.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Dtype</code></td>
+                            <td>The data type of the column.</td>
+                        </tr>
+                        <tr>
+                            <td><code>object</code></td>
+                            <td>Usually text/string data.</td>
+                        </tr>
+                        <tr>
+                            <td><code>int64</code></td>
+                            <td>Integer number data.</td>
+                        </tr>
+                        <tr>
+                            <td><code>float64</code></td>
+                            <td>Decimal number data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning">
+                    <strong>Important:</strong>
+                    If a numeric column appears as <code>object</code>, it may mean
+                    the numbers are stored as text. This can create problems during training.
+                </div>
+
+                <h3>3.4 <code>df.describe()</code></h3>
+
+                <pre><code>print(df.describe())</code></pre>
+
+                <p>
+                    <code>df.describe()</code> gives statistical summary of numeric columns.
+                    It is useful for understanding the spread and range of data.
+                </p>
+
+                <h4>Typical output columns</h4>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Statistic</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>count</code></td>
+                            <td>Number of non-empty values.</td>
+                        </tr>
+                        <tr>
+                            <td><code>mean</code></td>
+                            <td>Average value.</td>
+                        </tr>
+                        <tr>
+                            <td><code>std</code></td>
+                            <td>Standard deviation. It shows how spread out the values are.</td>
+                        </tr>
+                        <tr>
+                            <td><code>min</code></td>
+                            <td>Smallest value.</td>
+                        </tr>
+                        <tr>
+                            <td><code>25%</code></td>
+                            <td>First quartile. 25% of values are below this.</td>
+                        </tr>
+                        <tr>
+                            <td><code>50%</code></td>
+                            <td>Median. Half the values are below this.</td>
+                        </tr>
+                        <tr>
+                            <td><code>75%</code></td>
+                            <td>Third quartile. 75% of values are below this.</td>
+                        </tr>
+                        <tr>
+                            <td><code>max</code></td>
+                            <td>Largest value.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="success">
+                    <strong>When to use:</strong>
+                    Use <code>df.describe()</code> before training.
+                    If minimum, maximum or average values look strange, clean the data first.
+                </div>
+
+                <h3>3.5 <code>df.shape</code></h3>
+
+                <pre><code>print(df.shape)</code></pre>
+
+                <p>
+                    <code>df.shape</code> tells the size of the DataFrame.
+                    It returns two numbers:
+                </p>
+
+                <pre><code>(rows, columns)</code></pre>
+
+                <p>
+                    Example:
+                </p>
+
+                <pre><code>(8, 4)</code></pre>
+
+                <p>
+                    This means 8 rows and 4 columns.
+                </p>
+
+                <h3>3.6 <code>df.columns</code></h3>
+
+                <pre><code>print(df.columns)</code></pre>
+
+                <p>
+                    <code>df.columns</code> shows all column names.
+                    It is useful when we are not sure about exact spelling of column names.
+                </p>
+
+                <h3>3.7 <code>df.dtypes</code></h3>
+
+                <pre><code>print(df.dtypes)</code></pre>
+
+                <p>
+                    <code>df.dtypes</code> shows the data type of each column.
+                    This is a shorter version of the data type information shown by
+                    <code>df.info()</code>.
+                </p>
+
+                <h3>3.8 <code>df.isnull().sum()</code></h3>
+
+                <pre><code>print(df.isnull().sum())</code></pre>
+
+                <p>
+                    This command checks missing values column by column.
+                </p>
+
+                <p>
+                    It works in two stages:
+                </p>
+
+                <ul>
+                    <li><code>df.isnull()</code> checks every cell and returns <code>True</code> if the value is
+                        missing.</li>
+                    <li><code>.sum()</code> counts how many missing values are present in each column.</li>
+                </ul>
+
+                <h3>3.9 <code>df.dropna()</code></h3>
+
+                <pre><code>df = df.dropna()</code></pre>
+
+                <p>
+                    <code>dropna()</code> removes rows that contain missing values.
+                    This is simple but sometimes dangerous because useful data may be removed.
+                </p>
+
+                <h3>3.10 <code>df.fillna()</code></h3>
+
+                <pre><code>df["attendance"] = df["attendance"].fillna(df["attendance"].mean())</code></pre>
+
+                <p>
+                    <code>fillna()</code> fills missing values.
+                    In this example, missing attendance values are filled with the average attendance.
+                </p>
+
+                <h3>3.11 <code>df.drop_duplicates()</code></h3>
+
+                <pre><code>df = df.drop_duplicates()</code></pre>
+
+                <p>
+                    This removes duplicate rows. Duplicate rows can make the model biased
+                    because the same record gets counted more than once.
+                </p>
+
+                <h3>3.12 <code>df.rename()</code></h3>
+
+                <pre><code>df = df.rename(columns={
+    "study hours": "hours",
+    "student marks": "marks"
+})</code></pre>
+
+                <p>
+                    This changes column names. Clean column names make code easier to write.
+                </p>
+
+                <h3>3.13 <code>astype()</code></h3>
+
+                <pre><code>df["hours"] = df["hours"].astype(float)
+df["marks"] = df["marks"].astype(int)</code></pre>
+
+                <p>
+                    <code>astype()</code> changes the data type of a column.
+                    Machine learning models need numeric columns to be actual numbers,
+                    not text.
+                </p>
+
+                <h3>3.14 <code>sort_values()</code></h3>
+
+                <pre><code>df = df.sort_values(by="marks", ascending=False)</code></pre>
+
+                <p>
+                    This sorts the DataFrame using one column.
+                    <code>ascending=False</code> means largest value first.
+                </p>
+
+                <h3>3.15 <code>groupby()</code></h3>
+
+                <pre><code>city_average = df.groupby("city")["marks"].mean()</code></pre>
+
+                <p>
+                    <code>groupby()</code> groups rows by a column and then applies a calculation.
+                    This example finds average marks city by city.
+                </p>
+
+                <h3>3.16 <code>to_csv()</code>, <code>to_excel()</code>, <code>to_json()</code></h3>
+
+                <pre><code>df.to_csv("final_result.csv", index=False)
+df.to_excel("final_result.xlsx", index=False)
+df.to_json("final_result.json", orient="records", indent=4)</code></pre>
+
+                <p>
+                    These commands save the DataFrame in different formats.
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Command</th>
+                            <th>Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>to_csv()</code></td>
+                            <td>Saves data as CSV.</td>
+                        </tr>
+                        <tr>
+                            <td><code>to_excel()</code></td>
+                            <td>Saves data as Excel file.</td>
+                        </tr>
+                        <tr>
+                            <td><code>to_json()</code></td>
+                            <td>Saves data as JSON.</td>
+                        </tr>
+                        <tr>
+                            <td><code>index=False</code></td>
+                            <td>Prevents pandas from saving the index as an extra column.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="pulling">
+                <h2>4. Data Pulling</h2>
+
+                <p>
+                    Data pulling means bringing data into your Python program.
+                    Data may come from a dictionary, CSV file, Excel file, JSON file,
+                    database or online source.
+                </p>
+
+                <h3>4.1 Pull data from a Python dictionary</h3>
+
+                <pre><code>import pandas as pd
+
+data = {
+    "name": ["Amit", "Ravi", "Sita", "Meena", "Kabir", "Anu", "Farhan", "Pooja"],
+    "hours": [1, 2, 3, 4, 5, 6, 7, 8],
+    "attendance": [55, 60, 65, 70, 78, 85, 90, 95],
+    "marks": [35, 42, 50, 58, 70, 80, 88, 96]
+}
+
+df = pd.DataFrame(data)
+
+print(df.head())</code></pre>
+
+                <h4>Explanation</h4>
+
+                <ul>
+                    <li><code>data</code> is a Python dictionary.</li>
+                    <li>Each key becomes a column name.</li>
+                    <li>Each list becomes values of that column.</li>
+                    <li><code>pd.DataFrame(data)</code> creates the DataFrame.</li>
+                    <li><code>df.head()</code> checks the first few rows.</li>
+                </ul>
+
+                <h3>4.2 Pull data from CSV</h3>
+
+                <pre><code>df = pd.read_csv("students.csv")
+
+print(df.head())
+print(df.info())</code></pre>
+
+                <p>
+                    <code>read_csv()</code> reads a CSV file and returns a DataFrame.
+                </p>
+
+                <h3>4.3 Pull data from Excel</h3>
+
+                <pre><code>df = pd.read_excel("students.xlsx")
+
+print(df.head())</code></pre>
+
+                <p>
+                    <code>read_excel()</code> reads an Excel file.
+                </p>
+
+                <h3>4.4 Pull data from JSON</h3>
+
+                <pre><code>df = pd.read_json("students.json")
+
+print(df.head())</code></pre>
+
+                <p>
+                    <code>read_json()</code> reads JSON data and converts it into a DataFrame.
+                </p>
+            </section>
+
+            <section id="cleaning">
+                <h2>5. Data Cleaning</h2>
+
+                <p>
+                    Raw data is often imperfect. Data cleaning means making the data usable.
+                </p>
+
+                <h3>5.1 Inspect before cleaning</h3>
+
+                <pre><code>print(df.head())
+print(df.tail())
+print(df.info())
+print(df.describe())
+print(df.isnull().sum())</code></pre>
+
+                <p>
+                    This group of commands is the basic health check of a DataFrame.
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Command</th>
+                            <th>What it tells us</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>df.head()</code></td>
+                            <td>Are the first rows correct?</td>
+                        </tr>
+                        <tr>
+                            <td><code>df.tail()</code></td>
+                            <td>Are the last rows correct?</td>
+                        </tr>
+                        <tr>
+                            <td><code>df.info()</code></td>
+                            <td>Are data types and non-null counts correct?</td>
+                        </tr>
+                        <tr>
+                            <td><code>df.describe()</code></td>
+                            <td>Do numeric values look reasonable?</td>
+                        </tr>
+                        <tr>
+                            <td><code>df.isnull().sum()</code></td>
+                            <td>How many missing values are there?</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>5.2 Remove duplicate rows</h3>
+
+                <pre><code>df = df.drop_duplicates()</code></pre>
+
+                <p>
+                    This removes rows that are exactly repeated.
+                </p>
+
+                <h3>5.3 Fill missing attendance</h3>
+
+                <pre><code>df["attendance"] = df["attendance"].fillna(df["attendance"].mean())</code></pre>
+
+                <p>
+                    If attendance is missing, this fills it with the average attendance.
+                </p>
+
+                <h3>5.4 Remove remaining missing values</h3>
+
+                <pre><code>df = df.dropna()</code></pre>
+
+                <p>
+                    This removes rows where any missing value still remains.
+                </p>
+
+                <h3>5.5 Convert columns to numbers</h3>
+
+                <pre><code>df["hours"] = df["hours"].astype(float)
+df["attendance"] = df["attendance"].astype(float)
+df["marks"] = df["marks"].astype(float)</code></pre>
+
+                <p>
+                    This ensures that the model receives numeric data.
+                </p>
+            </section>
+
+            <section id="querying">
+                <h2>6. Data Querying</h2>
+
+                <p>
+                    Data querying means asking questions from the DataFrame.
+                    Before training, we should understand the data.
+                </p>
+
+                <h3>6.1 Select one column</h3>
+
+                <pre><code>print(df["marks"])</code></pre>
+
+                <p>
+                    This returns one column as a Series.
+                </p>
+
+                <h3>6.2 Select multiple columns</h3>
+
+                <pre><code>print(df[["hours", "attendance", "marks"]])</code></pre>
+
+                <p>
+                    This returns a smaller DataFrame with selected columns.
+                </p>
+
+                <h3>6.3 Filter rows</h3>
+
+                <pre><code>high_marks = df[df["marks"] &gt;= 70]
+
+print(high_marks)</code></pre>
+
+                <p>
+                    This selects only those rows where marks are 70 or more.
+                </p>
+
+                <h3>6.4 Multiple conditions</h3>
+
+                <pre><code>good_students = df[
+    (df["hours"] &gt;= 4) &amp; (df["attendance"] &gt;= 75)
+]
+
+print(good_students)</code></pre>
+
+                <p>
+                    This selects students who studied at least 4 hours and had attendance
+                    of at least 75.
+                </p>
+
+                <div class="warning">
+                    <strong>Important:</strong>
+                    In pandas filtering, use <code>&amp;</code> for AND and wrap each condition
+                    in brackets.
+                </div>
+
+                <h3>6.5 Sorting</h3>
+
+                <pre><code>sorted_df = df.sort_values(by="marks", ascending=False)
+
+print(sorted_df)</code></pre>
+
+                <p>
+                    This shows the highest scoring students first.
+                </p>
+            </section>
+
+            <section id="training">
+                <h2>7. Training</h2>
+
+                <p>
+                    Training means teaching a model to learn the relationship between
+                    input columns and the target column.
+                </p>
+
+                <h3>7.1 Choose input and output</h3>
+
+                <pre><code>X = df[["hours", "attendance"]]
+y = df["marks"]</code></pre>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>X</code></td>
+                            <td>Input data. These are the columns given to the model.</td>
+                        </tr>
+                        <tr>
+                            <td><code>y</code></td>
+                            <td>Target data. This is the answer the model should learn to predict.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>7.2 Split into training and testing data</h3>
+
+                <pre><code>X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.25,
+    random_state=42
+)</code></pre>
+
+                <p>
+                    <code>train_test_split()</code> divides data into two parts:
+                </p>
+
+                <ul>
+                    <li>Training data: used to teach the model.</li>
+                    <li>Testing data: used to check the model.</li>
+                </ul>
+
+                <p>
+                    <code>test_size=0.25</code> means 25% data is used for testing.
+                    <code>random_state=42</code> makes the split repeatable.
+                </p>
+
+                <h3>7.3 Create model</h3>
+
+                <pre><code>model = LinearRegression()</code></pre>
+
+                <p>
+                    <code>LinearRegression()</code> creates a model that tries to learn
+                    a straight-line relationship between input and output.
+                </p>
+
+                <h3>7.4 Train model</h3>
+
+                <pre><code>model.fit(X_train, y_train)</code></pre>
+
+                <p>
+                    <code>fit()</code> trains the model. It means:
+                    learn from <code>X_train</code> and <code>y_train</code>.
+                </p>
+
+                <h3>7.5 Test model</h3>
+
+                <pre><code>score = model.score(X_test, y_test)
+
+print("Model score:", score)</code></pre>
+
+                <p>
+                    <code>score()</code> checks how well the model performs on test data.
+                    For Linear Regression, this is usually the R² score.
+                </p>
+
+                <h3>7.6 Predict new result</h3>
+
+                <pre><code>new_student = [[7, 92]]
+
+prediction = model.predict(new_student)
+
+print("Predicted marks:", prediction[0])</code></pre>
+
+                <p>
+                    <code>predict()</code> asks the trained model to make a prediction.
+                </p>
+
+                <div class="note">
+                    <strong>Why <code>[[7, 92]]</code>?</strong>
+                    The model expects input as a table. One row with two columns is written
+                    as <code>[[7, 92]]</code>.
+                </div>
+            </section>
+
+            <section id="presentation">
+                <h2>8. Presentation</h2>
+
+                <p>
+                    Presentation means showing the result in a clear and useful way.
+                </p>
+
+                <h3>8.1 Add prediction column</h3>
+
+                <pre><code>df["predicted_marks"] = model.predict(X)
+
+print(df)</code></pre>
+
+                <p>
+                    This creates a new column in the DataFrame.
+                    Now the table contains both actual marks and predicted marks.
+                </p>
+
+                <h3>8.2 Plot actual marks</h3>
+
+                <pre><code>plt.scatter(df["hours"], df["marks"])
+plt.xlabel("Study Hours")
+plt.ylabel("Marks")
+plt.title("Study Hours vs Marks")
+plt.show()</code></pre>
+
+                <p>
+                    <code>scatter()</code> makes a dot chart.
+                    It helps us see the relationship between study hours and marks.
+                </p>
+
+                <h3>8.3 Plot actual and predicted marks</h3>
+
+                <pre><code>plt.scatter(df["hours"], df["marks"], label="Actual Marks")
+plt.plot(df["hours"], df["predicted_marks"], label="Predicted Marks")
+
+plt.xlabel("Study Hours")
+plt.ylabel("Marks")
+plt.title("Actual vs Predicted Marks")
+plt.legend()
+plt.show()</code></pre>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>plt.scatter()</code></td>
+                            <td>Draws points.</td>
+                        </tr>
+                        <tr>
+                            <td><code>plt.plot()</code></td>
+                            <td>Draws a line.</td>
+                        </tr>
+                        <tr>
+                            <td><code>plt.xlabel()</code></td>
+                            <td>Sets the x-axis label.</td>
+                        </tr>
+                        <tr>
+                            <td><code>plt.ylabel()</code></td>
+                            <td>Sets the y-axis label.</td>
+                        </tr>
+                        <tr>
+                            <td><code>plt.title()</code></td>
+                            <td>Sets chart title.</td>
+                        </tr>
+                        <tr>
+                            <td><code>plt.legend()</code></td>
+                            <td>Shows labels for chart items.</td>
+                        </tr>
+                        <tr>
+                            <td><code>plt.show()</code></td>
+                            <td>Displays the chart.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="saving">
+                <h2>9. Data Saving</h2>
+
+                <p>
+                    Saving is important because we do not want to repeat all work again.
+                    We should save cleaned data, final prediction data and the trained model.
+                </p>
+
+                <h3>9.1 Save cleaned or final data as CSV</h3>
+
+                <pre><code>df.to_csv("final_student_result.csv", index=False)</code></pre>
+
+                <p>
+                    <code>to_csv()</code> saves the DataFrame as a CSV file.
+                    <code>index=False</code> prevents pandas from adding index as an extra column.
+                </p>
+
+                <h3>9.2 Save as JSON</h3>
+
+                <pre><code>df.to_json("final_student_result.json", orient="records", indent=4)</code></pre>
+
+                <p>
+                    <code>orient="records"</code> saves each row as one JSON object.
+                    <code>indent=4</code> makes the file readable.
+                </p>
+
+                <h3>9.3 Save trained model</h3>
+
+                <pre><code>joblib.dump(model, "student_marks_model.pkl")</code></pre>
+
+                <p>
+                    <code>joblib.dump()</code> saves the trained model.
+                    The saved file can be loaded later without retraining.
+                </p>
+
+                <h3>9.4 Load trained model</h3>
+
+                <pre><code>loaded_model = joblib.load("student_marks_model.pkl")
+
+prediction = loaded_model.predict([[7, 92]])
+
+print(prediction[0])</code></pre>
+            </section>
+
+            <section id="project">
+                <h2>10. Complete Mini Project</h2>
+
+                <p>
+                    This project uses every important idea from the lesson.
+                </p>
+
+                <pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+import joblib
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+# -------------------------------------------------
+# 1. DATA PULLING
+# -------------------------------------------------
+
+data = {
+    "name": ["Amit", "Ravi", "Sita", "Meena", "Kabir", "Anu", "Farhan", "Pooja"],
+    "hours": [1, 2, 3, 4, 5, 6, 7, 8],
+    "attendance": [55, 60, 65, 70, 78, 85, 90, 95],
+    "marks": [35, 42, 50, 58, 70, 80, 88, 96]
+}
+
+df = pd.DataFrame(data)
+
+# -------------------------------------------------
+# 2. UNDERSTANDING THE DATAFRAME
+# -------------------------------------------------
+
+print("First five rows:")
+print(df.head())
+
+print("Last five rows:")
+print(df.tail())
+
+print("DataFrame information:")
+print(df.info())
+
+print("Statistical summary:")
+print(df.describe())
+
+print("Shape of DataFrame:")
+print(df.shape)
+
+print("Column names:")
+print(df.columns)
+
+print("Data types:")
+print(df.dtypes)
+
+# -------------------------------------------------
+# 3. DATA CLEANING
+# -------------------------------------------------
+
+print("Missing values:")
+print(df.isnull().sum())
+
+df = df.drop_duplicates()
+
+df["hours"] = df["hours"].astype(float)
+df["attendance"] = df["attendance"].astype(float)
+df["marks"] = df["marks"].astype(float)
+
+# -------------------------------------------------
+# 4. DATA QUERYING
+# -------------------------------------------------
+
+print("Students who scored 70 or more:")
+print(df[df["marks"] &gt;= 70])
+
+print("Average marks:")
+print(df["marks"].mean())
+
+print("Data sorted by marks:")
+print(df.sort_values(by="marks", ascending=False))
+
+# -------------------------------------------------
+# 5. TRAINING
+# -------------------------------------------------
+
+X = df[["hours", "attendance"]]
+y = df["marks"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.25,
+    random_state=42
+)
+
+model = LinearRegression()
+
+model.fit(X_train, y_train)
+
+score = model.score(X_test, y_test)
+
+print("Model score:", score)
+
+# -------------------------------------------------
+# 6. PRESENTATION
+# -------------------------------------------------
+
+df["predicted_marks"] = model.predict(X)
+
+print("Final DataFrame with Predictions:")
+print(df)
+
+plt.scatter(df["hours"], df["marks"], label="Actual Marks")
+plt.plot(df["hours"], df["predicted_marks"], label="Predicted Marks")
+
+plt.xlabel("Study Hours")
+plt.ylabel("Marks")
+plt.title("Actual Marks vs Predicted Marks")
+plt.legend()
+plt.show()
+
+# -------------------------------------------------
+# 7. DATA SAVING
+# -------------------------------------------------
+
+df.to_csv("final_student_result.csv", index=False)
+df.to_json("final_student_result.json", orient="records", indent=4)
+
+joblib.dump(model, "student_marks_model.pkl")
+
+print("Data and model saved successfully.")</code></pre>
+            </section>
+
+            <section id="practice">
+                <h2>11. Practice Tasks</h2>
+
+                <ol>
+                    <li>Create a DataFrame for shop sales.</li>
+                    <li>Use columns: <code>day</code>, <code>visitors</code>, <code>advertising_budget</code>,
+                        <code>sales</code>.</li>
+                    <li>Print <code>df.head()</code>, <code>df.tail()</code>, <code>df.info()</code> and
+                        <code>df.describe()</code>.</li>
+                    <li>Check missing values using <code>df.isnull().sum()</code>.</li>
+                    <li>Sort the data by sales.</li>
+                    <li>Select only rows where sales are above average.</li>
+                    <li>Train a Linear Regression model.</li>
+                    <li>Add a prediction column.</li>
+                    <li>Save the final DataFrame as CSV.</li>
+                </ol>
+
+                <h3>Self Test</h3>
+
+                <details>
+                    <summary>What is a DataFrame?</summary>
+                    <p>A DataFrame is a pandas table with rows and columns.</p>
+                </details>
+
+                <details>
+                    <summary>What does <code>df.head()</code> do?</summary>
+                    <p>It shows the first five rows of the DataFrame by default.</p>
+                </details>
+
+                <details>
+                    <summary>What does <code>df.tail()</code> do?</summary>
+                    <p>It shows the last five rows of the DataFrame by default.</p>
+                </details>
+
+                <details>
+                    <summary>What does <code>df.info()</code> tell us?</summary>
+                    <p>It tells us row count, column count, column names, non-null values, data types and memory usage.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>What does <code>df.describe()</code> tell us?</summary>
+                    <p>It gives statistical summary of numeric columns, including count, mean, standard deviation,
+                        minimum, quartiles and maximum.</p>
+                </details>
+
+                <details>
+                    <summary>Why do we use <code>index=False</code> while saving CSV?</summary>
+                    <p>To avoid saving the DataFrame index as an extra column in the CSV file.</p>
+                </details>
+
+                <div class="button-row">
+                    <button onclick="window.print()">Print Lesson</button>
+                    <button class="secondary" onclick="scrollToTop()">Back to Top</button>
+                </div>
+            </section>
+
+            <section id="summary">
+                <h2>12. Final Summary</h2>
+
+                <pre><code>DataFrame understanding
+        ↓
+Data pulling
+        ↓
+Data cleaning
+        ↓
+Data querying
+        ↓
+Training
+        ↓
+Presentation
+        ↓
+Data saving</code></pre>
+
+                <div class="success">
+                    <strong>Final lesson:</strong>
+                    The DataFrame is the heart of pandas.
+                    Once students understand rows, columns, index, Series,
+                    <code>head()</code>, <code>tail()</code>, <code>info()</code> and
+                    <code>describe()</code>, they can start handling real data confidently.
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Complete Pandas Data Pipeline Lesson by Programmer's Picnic.</p>
+        </footer>
+    </div>
+
+    <script>
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        window.addEventListener("load", function () {
+            try {
+                const ads = document.querySelectorAll(".adsbygoogle");
+                ads.forEach(function () {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                });
+            } catch (error) {
+                console.log("AdSense could not be initialized:", error);
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Home") {
+                event.preventDefault();
+                scrollToTop();
+            }
+        });
+    </script>
+</body>
+
+</html>
