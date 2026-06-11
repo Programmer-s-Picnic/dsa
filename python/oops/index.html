@@ -1,43 +1,48 @@
 <!doctype html>
 <html lang="en">
-
 <head>
+<!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F22HP86FYK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-F22HP86FYK');
+  </script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Python OOPs from 0 to Infinity | Programmer's Picnic</title>
+  <title>Python OOP Magic Methods: 0 to Infinity Lesson | Programmer's Picnic</title>
 
-  <meta name="description"
-    content="A beginner-friendly 0 to infinity lesson on Object-Oriented Programming System in Python with class, object, self, constructor, inheritance, encapsulation, polymorphism, and practice code." />
-  <meta name="keywords"
-    content="Python OOPs, Object Oriented Programming in Python, Python class object, Python inheritance, Python encapsulation, Python polymorphism, Python tutorial, Programmer's Picnic, Champak Roy" />
+  <meta name="description" content="A complete 0 to infinity lesson on Python OOP magic methods, also called dunder methods. Learn __init__, __str__, __repr__, __len__, __add__, comparisons, indexing, containers, and callable objects." />
+  <meta name="keywords" content="Python OOP, magic methods, dunder methods, __init__, __str__, __repr__, __len__, __add__, operator overloading, Python classes, Python objects, Champak Roy, Programmer's Picnic" />
   <meta name="author" content="Champak Roy" />
-  <meta name="theme-color" content="#f59e0b" />
+  <meta name="theme-color" content="#d97706" />
+  <link rel="canonical" href="https://learnwithchampak.live/python-oop-magic-methods" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Python OOPs from 0 to Infinity" />
-  <meta property="og:description"
-    content="Learn Object-Oriented Programming System in Python from the beginning with realistic examples and an embedded Python editor." />
-  <meta property="og:image" content="https://programmer-s-picnic.github.io/json-images/og/python-oops-og.png" />
-  <meta property="og:site_name" content="Programmer's Picnic" />
+  <meta property="og:title" content="Python OOP Magic Methods: 0 to Infinity Lesson" />
+  <meta property="og:description" content="Learn Python OOP magic methods from zero to practical mastery with examples, exercises, and an embedded Python editor." />
+  <meta property="og:image" content="https://programmer-s-picnic.github.io/json-images/og/python-oop-magic-methods.png" />
+  <meta property="og:url" content="https://learnwithchampak.live/python-oop-magic-methods" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Python OOPs from 0 to Infinity" />
-  <meta name="twitter:description"
-    content="A complete beginner-friendly lesson on Python OOPs with an embedded Python editor." />
-  <meta name="twitter:image" content="https://programmer-s-picnic.github.io/json-images/og/python-oops-og.png" />
+  <meta name="twitter:title" content="Python OOP Magic Methods: 0 to Infinity Lesson" />
+  <meta name="twitter:description" content="A complete beginner-friendly Python OOP lesson on magic methods." />
+  <meta name="twitter:image" content="https://programmer-s-picnic.github.io/json-images/og/python-oop-magic-methods.png" />
 
   <!-- Google AdSense -->
-  <script async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
-    crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109" crossorigin="anonymous"></script>
 
   <style>
     :root {
       --bg: #fff7ed;
+      --bg2: #fffbeb;
       --card: #ffffff;
       --soft: #ffedd5;
-      --soft-2: #fef3c7;
+      --soft2: #fef3c7;
       --text: #1f2937;
       --muted: #6b7280;
       --brand: #d97706;
@@ -45,10 +50,14 @@
       --line: #fed7aa;
       --code-bg: #111827;
       --code-text: #f9fafb;
-      --focus: #2563eb;
-      --success: #15803d;
-      --danger: #b91c1c;
-      --shadow: 0 18px 50px rgba(120, 53, 15, 0.13);
+      --code-border: #374151;
+      --green-bg: #f0fdf4;
+      --green-line: #bbf7d0;
+      --blue-bg: #eff6ff;
+      --blue-line: #bfdbfe;
+      --red-bg: #fef2f2;
+      --red-line: #fecaca;
+      --shadow: 0 18px 45px rgba(146, 64, 14, 0.13);
       --radius: 22px;
     }
 
@@ -63,17 +72,16 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, #ffedd5 0, transparent 32%),
-        linear-gradient(180deg, #fff7ed 0%, #fffaf0 55%, #ffffff 100%);
       color: var(--text);
-      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(251, 191, 36, 0.28), transparent 30rem),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 48%, #ffffff 100%);
+      line-height: 1.65;
     }
 
     a {
       color: var(--brand-dark);
       text-decoration: none;
-      font-weight: 700;
     }
 
     a:hover,
@@ -81,1043 +89,1178 @@
       text-decoration: underline;
     }
 
-    :focus {
-      outline: 4px solid rgba(37, 99, 235, 0.35);
+    :focus-visible {
+      outline: 4px solid rgba(217, 119, 6, 0.4);
       outline-offset: 3px;
       border-radius: 10px;
     }
 
-    header {
-      background: linear-gradient(135deg, #f59e0b, #f97316, #b45309);
-      color: white;
-      padding: 42px 18px 34px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::after {
-      content: "";
-      position: absolute;
-      width: 360px;
-      height: 360px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-      right: -110px;
-      top: -150px;
-    }
-
-    .wrap {
-      width: min(1180px, calc(100% - 32px));
+    .container {
+      width: min(1180px, calc(100% - 28px));
       margin: 0 auto;
     }
 
-    .hero {
-      position: relative;
-      z-index: 1;
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 28px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--brand-dark);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.28);
+      place-items: center;
+      border-radius: 16px;
       color: white;
-      padding: 7px 13px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.92rem;
-    }
-
-    h1 {
-      margin: 18px 0 12px;
-      font-size: clamp(2rem, 5vw, 4.4rem);
-      line-height: 1.02;
-      letter-spacing: -0.05em;
-    }
-
-    .hero p {
-      font-size: 1.12rem;
-      max-width: 760px;
-      margin: 0 0 22px;
-      color: #fff7ed;
-    }
-
-    .hero-card {
-      background: rgba(255, 255, 255, 0.16);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      backdrop-filter: blur(12px);
-      border-radius: var(--radius);
-      padding: 22px;
+      background: linear-gradient(135deg, #f59e0b, #f97316);
       box-shadow: var(--shadow);
-    }
-
-    .hero-card strong {
-      display: block;
-      font-size: 1.15rem;
-      margin-bottom: 10px;
-    }
-
-    .hero-card ul {
-      margin: 0;
-      padding-left: 20px;
-    }
-
-    .hero-card li {
-      margin: 8px 0;
+      font-weight: 950;
     }
 
     .top-actions {
       display: flex;
+      gap: 10px;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 20px;
+      justify-content: flex-end;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 11px 17px;
-      border-radius: 999px;
       border: 0;
-      cursor: pointer;
-      background: #ffffff;
-      color: var(--brand-dark);
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: var(--brand);
+      color: #ffffff;
       font-weight: 800;
-      box-shadow: 0 10px 25px rgba(120, 53, 15, 0.16);
-      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(217, 119, 6, 0.24);
     }
 
     .btn.secondary {
-      background: #431407;
-      color: white;
-    }
-
-    .btn.ghost {
-      background: var(--soft);
+      background: #ffffff;
       color: var(--brand-dark);
+      border: 1px solid var(--line);
       box-shadow: none;
-      border: 1px solid var(--line);
     }
 
-    nav {
-      background: rgba(255, 251, 235, 0.94);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .nav-inner {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 12px 0;
-    }
-
-    .nav-inner a {
-      white-space: nowrap;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: #fff;
-      border: 1px solid var(--line);
-      color: var(--brand-dark);
-      font-size: 0.94rem;
-    }
-
-    main {
-      padding: 26px 0 60px;
-    }
-
-    .layout {
+    .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 360px;
+      grid-template-columns: 1.35fr 0.65fr;
       gap: 24px;
-      align-items: start;
+      align-items: stretch;
+      margin-bottom: 24px;
     }
 
-    section,
-    aside,
-    .editor-box,
-    .ad-box {
-      background: var(--card);
+    .hero-card,
+    .toc-card,
+    .lesson-card {
+      background: rgba(255, 255, 255, 0.94);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
 
-    section {
-      padding: 26px;
-      margin-bottom: 22px;
-    }
-
-    h2 {
-      margin: 0 0 12px;
-      color: #78350f;
-      font-size: clamp(1.55rem, 3vw, 2.2rem);
-      line-height: 1.15;
-      letter-spacing: -0.025em;
-    }
-
-    h3 {
-      color: #92400e;
-      margin-top: 28px;
-      margin-bottom: 8px;
-      font-size: 1.25rem;
-    }
-
-    p {
-      margin: 10px 0;
-    }
-
-    .note {
-      background: var(--soft-2);
-      border-left: 6px solid var(--brand);
-      padding: 14px 16px;
-      border-radius: 14px;
-      margin: 16px 0;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin: 18px 0;
-    }
-
-    .mini-card {
-      background: #fff7ed;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-    }
-
-    .mini-card strong {
-      color: var(--brand-dark);
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    pre {
-      background: var(--code-bg);
-      color: var(--code-text);
-      padding: 18px;
-      border-radius: 18px;
-      overflow-x: auto;
-      border: 1px solid #374151;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-    }
-
-    code {
-      font-family: Consolas, Monaco, "Courier New", monospace;
-      font-size: 0.95rem;
-    }
-
-    :not(pre)>code {
-      background: #ffedd5;
-      color: #7c2d12;
-      padding: 2px 6px;
-      border-radius: 8px;
-      font-weight: 700;
-    }
-
-    .editor-box {
+    .hero-card {
+      position: relative;
       overflow: hidden;
-      margin-bottom: 22px;
+      padding: clamp(24px, 4vw, 48px);
     }
 
-    .editor-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 16px 18px;
-      background: linear-gradient(135deg, #fff7ed, #ffedd5);
-      border-bottom: 1px solid var(--line);
+    .hero-card::after {
+      content: "__magic__";
+      position: absolute;
+      right: -35px;
+      bottom: -26px;
+      color: rgba(217, 119, 6, 0.08);
+      font-size: clamp(56px, 9vw, 122px);
+      font-weight: 950;
+      transform: rotate(-6deg);
+      pointer-events: none;
     }
 
-    .editor-head h2 {
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 12px;
+      background: var(--soft2);
+      color: var(--brand-dark);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 0.92rem;
+    }
+
+    h1 {
+      margin: 18px 0;
+      font-size: clamp(2.2rem, 5vw, 4.6rem);
+      line-height: 1.02;
+      letter-spacing: -0.07em;
+      color: #111827;
+    }
+
+    .lead {
       margin: 0;
-      font-size: 1.35rem;
+      max-width: 780px;
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      color: #374151;
     }
 
-    .editor-frame {
-      width: 100%;
-      height: 680px;
-      border: 0;
-      display: block;
-      background: white;
+    .pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 24px;
     }
 
-    aside {
-      padding: 20px;
-      position: sticky;
-      top: 78px;
+    .pill {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff7ed;
+      color: var(--brand-dark);
+      font-weight: 800;
+      font-size: 0.94rem;
     }
 
-    aside h2 {
-      font-size: 1.35rem;
+    .toc-card {
+      padding: 22px;
+    }
+
+    .toc-card h2 {
+      margin-top: 0;
+      font-size: 1.22rem;
+      color: var(--brand-dark);
     }
 
     .toc {
-      list-style: none;
+      display: grid;
+      gap: 8px;
       padding: 0;
       margin: 0;
-    }
-
-    .toc li {
-      margin: 8px 0;
+      list-style: none;
     }
 
     .toc a {
       display: block;
       padding: 9px 11px;
+      border: 1px solid #fde68a;
       border-radius: 12px;
-      background: #fff7ed;
-      border: 1px solid var(--line);
-    }
-
-    .ad-box {
-      padding: 16px;
-      margin: 22px 0;
-      text-align: center;
       background: #fffaf0;
+      color: #78350f;
+      font-weight: 800;
     }
 
-    .summary-table {
+    main {
+      padding: 8px 0 50px;
+    }
+
+    .lesson-card {
+      padding: clamp(20px, 4vw, 36px);
+      margin: 22px 0;
+    }
+
+    .lesson-card h2 {
+      margin-top: 0;
+      color: #111827;
+      font-size: clamp(1.55rem, 3vw, 2.3rem);
+      letter-spacing: -0.04em;
+    }
+
+    .lesson-card h3 {
+      margin-top: 28px;
+      color: var(--brand-dark);
+      font-size: 1.28rem;
+    }
+
+    .note,
+    .warning,
+    .task,
+    .checkpoint {
+      margin: 18px 0;
+      padding: 16px 18px;
+      border: 1px solid;
+      border-radius: 18px;
+    }
+
+    .note {
+      background: #fffbeb;
+      border-color: #fcd34d;
+    }
+
+    .warning {
+      background: var(--red-bg);
+      border-color: var(--red-line);
+      color: #7f1d1d;
+    }
+
+    .task {
+      background: var(--green-bg);
+      border-color: var(--green-line);
+    }
+
+    .checkpoint {
+      background: var(--blue-bg);
+      border-color: var(--blue-line);
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background: #fff7ed;
+      color: #7c2d12;
+      padding: 0.12rem 0.35rem;
+      border: 1px solid #fed7aa;
+      border-radius: 7px;
+    }
+
+    pre {
+      position: relative;
+      overflow: auto;
+      padding: 18px;
+      border: 1px solid var(--code-border);
+      border-radius: 18px;
+      background: var(--code-bg);
+      color: var(--code-text);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    pre code {
+      display: block;
+      min-width: max-content;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: inherit;
+      line-height: 1.6;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 6px 10px;
+      border: 1px solid #4b5563;
+      border-radius: 999px;
+      background: #1f2937;
+      color: #f9fafb;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    table {
       width: 100%;
+      margin: 18px 0;
       border-collapse: collapse;
-      margin-top: 15px;
       overflow: hidden;
       border-radius: 16px;
+      background: #ffffff;
     }
 
-    .summary-table th,
-    .summary-table td {
-      border: 1px solid var(--line);
-      padding: 12px;
+    th,
+    td {
+      padding: 11px 12px;
+      border: 1px solid #fed7aa;
       text-align: left;
       vertical-align: top;
     }
 
-    .summary-table th {
+    th {
       background: #ffedd5;
-      color: #78350f;
+      color: #7c2d12;
     }
 
-    .summary-table td {
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .mini-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
       background: #fffaf0;
     }
 
-    .practice-list li {
-      margin: 10px 0;
+    .mini-card h3 {
+      margin-top: 0;
+    }
+
+    details {
+      margin: 12px 0;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fffaf0;
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--brand-dark);
+      font-weight: 900;
+    }
+
+    .ad-box {
+      margin: 24px 0;
+      padding: 14px;
+      border: 1px dashed #f59e0b;
+      border-radius: 18px;
+      background: #ffffff;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .editor-frame {
+      width: 100%;
+      min-height: 620px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #ffffff;
     }
 
     footer {
-      background: #431407;
-      color: #ffedd5;
-      padding: 28px 18px;
+      padding: 34px 0 52px;
       text-align: center;
+      color: #78350f;
     }
 
-    footer a {
-      color: #fde68a;
-    }
-
-    .read-panel {
+    .floating-tools {
       position: fixed;
       right: 16px;
       bottom: 16px;
-      z-index: 30;
-      background: #ffffff;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      padding: 10px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      max-width: calc(100% - 32px);
+      z-index: 10;
+      display: grid;
+      gap: 10px;
     }
 
-    .read-panel button {
-      border: 0;
-      border-radius: 999px;
-      padding: 9px 12px;
-      background: var(--brand);
-      color: white;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .read-panel button.stop {
-      background: var(--danger);
-    }
-
-    @media (max-width: 980px) {
-
+    @media (max-width: 900px) {
       .hero,
-      .layout {
+      .grid-2 {
         grid-template-columns: 1fr;
       }
 
-      aside {
-        position: static;
-      }
-
-      .editor-frame {
-        height: 620px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .wrap {
-        width: min(100% - 22px, 1180px);
-      }
-
-      section {
-        padding: 20px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .editor-frame {
-        height: 560px;
-      }
-
-      .editor-head {
-        flex-direction: column;
+      .topbar {
         align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .top-actions {
+        justify-content: flex-start;
       }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="wrap hero">
-      <div>
-        <span class="badge">Programmer's Picnic by Champak Roy</span>
-        <h1>Python OOPs from 0 to Infinity</h1>
-        <p>
-          Learn Object-Oriented Programming System in Python from the beginning.
-          We will start with class and object, then move to constructor, self,
-          encapsulation, abstraction, inheritance, polymorphism, composition,
-          and a complete student-result mini project.
-        </p>
+  <div class="container">
+    <header>
+      <div class="topbar">
+        <a class="brand" href="#top" aria-label="Programmer's Picnic home">
+          <span class="brand-mark">PP</span>
+          <span>Programmer's Picnic</span>
+        </a>
 
         <div class="top-actions">
-          <a class="btn" href="#editor">Open Python Editor</a>
-          <a class="btn secondary" href="#lesson">Start Lesson</a>
-          <a class="btn" href="#practice">Practice Questions</a>
+          <button class="btn secondary" type="button" id="readPageBtn">Read Lesson</button>
+          <button class="btn secondary" type="button" id="stopReadBtn">Stop Reading</button>
+          <a class="btn" href="#editor">Open Practice Editor</a>
         </div>
       </div>
 
-      <div class="hero-card">
-        <strong>What you will build</strong>
-        <ul>
-          <li>Student objects</li>
-          <li>Bank account class</li>
-          <li>Shopping cart system</li>
-          <li>Student result project</li>
-          <li>Reusable Python OOP design</li>
-        </ul>
-      </div>
-    </div>
-  </header>
+      <section class="hero" id="top">
+        <div class="hero-card">
+          <span class="eyebrow">Python OOPs: 0 to Infinity</span>
+          <h1>Magic Methods in Python OOP</h1>
+          <p class="lead">
+            Learn how special double-underscore methods such as <code>__init__</code>,
+            <code>__str__</code>, <code>__len__</code>, <code>__add__</code>,
+            and <code>__getitem__</code> allow your own classes to behave like natural Python objects.
+          </p>
 
-  <nav aria-label="Lesson navigation">
-    <div class="wrap nav-inner">
-      <a href="#meaning">Meaning</a>
-      <a href="#class-object">Class and Object</a>
-      <a href="#self-init">self and __init__</a>
-      <a href="#pillars">Four Pillars</a>
-      <a href="#inheritance">Inheritance</a>
-      <a href="#polymorphism">Polymorphism</a>
-      <a href="#composition">Composition</a>
-      <a href="#project">Project</a>
-      <a href="#editor">Editor</a>
-    </div>
-  </nav>
-
-  <main class="wrap">
-    <div class="layout">
-      <div>
-        <div class="ad-box" aria-label="Advertisement">
-          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494"
-            data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <div class="pills">
+            <span class="pill">Beginner friendly</span>
+            <span class="pill">Operator overloading</span>
+            <span class="pill">Real examples</span>
+            <span class="pill">Practice project</span>
+          </div>
         </div>
 
-        <section id="lesson">
-          <h2>Lesson Goal</h2>
-          <p>
-            OOPs means <strong>Object-Oriented Programming System</strong>.
-            It is a way of writing programs by grouping related data and related
-            actions together.
-          </p>
+        <aside class="toc-card">
+          <h2>Lesson Map</h2>
+          <ol class="toc">
+            <li><a href="#meaning">1. Meaning</a></li>
+            <li><a href="#init">2. Object creation</a></li>
+            <li><a href="#string">3. String output</a></li>
+            <li><a href="#operators">4. Operators</a></li>
+            <li><a href="#comparisons">5. Comparisons</a></li>
+            <li><a href="#containers">6. Containers</a></li>
+            <li><a href="#advanced">7. Advanced methods</a></li>
+            <li><a href="#project">8. Mini project</a></li>
+            <li><a href="#practice">9. Practice</a></li>
+            <li><a href="#editor">10. Python editor</a></li>
+          </ol>
+        </aside>
+      </section>
+    </header>
 
-          <div class="note">
-            In simple words: an object has data and can perform actions.
-            A student has a name and marks. A bank account has a balance and can
-            deposit or withdraw money.
-          </div>
-        </section>
+    <div class="ad-box" aria-label="Advertisement">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    </div>
 
-        <section id="meaning">
-          <h2>1. Why do we need OOPs?</h2>
+    <main id="lessonText">
+      <section class="lesson-card" id="meaning">
+        <h2>1. What are magic methods?</h2>
 
-          <p>
-            Suppose we are creating a program for students. Without OOPs, we may
-            write many separate variables.
-          </p>
+        <p>
+          In Python Object-Oriented Programming, magic methods are special methods whose names start and end with double underscores.
+          They are also called <strong>dunder methods</strong>.
+        </p>
 
-          <pre><code>student1_name = "Ravi"
-student1_marks = 85
+        <pre><code>__init__
+__str__
+__repr__
+__len__
+__add__
+__getitem__</code></pre>
 
-student2_name = "Raveena"
-student2_marks = 92
+        <p>
+          We usually do not call these methods directly. Python calls them automatically when we perform normal actions.
+        </p>
 
-def show_student(name, marks):
-    print(name, marks)
+        <table>
+          <thead>
+            <tr>
+              <th>Normal action</th>
+              <th>Magic method Python calls</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>print(obj)</code></td>
+              <td><code>obj.__str__()</code></td>
+            </tr>
+            <tr>
+              <td><code>len(obj)</code></td>
+              <td><code>obj.__len__()</code></td>
+            </tr>
+            <tr>
+              <td><code>obj1 + obj2</code></td>
+              <td><code>obj1.__add__(obj2)</code></td>
+            </tr>
+            <tr>
+              <td><code>obj[index]</code></td>
+              <td><code>obj.__getitem__(index)</code></td>
+            </tr>
+          </tbody>
+        </table>
 
-show_student(student1_name, student1_marks)
-show_student(student2_name, student2_marks)</code></pre>
+        <div class="note">
+          <strong>Simple idea:</strong> Magic methods teach Python how your own objects should behave when used with ordinary Python syntax.
+        </div>
+      </section>
 
-          <p>
-            This works, but as the program grows, it becomes difficult to manage.
-            OOPs allows us to create proper student objects.
-          </p>
+      <section class="lesson-card" id="init">
+        <h2>2. <code>__init__</code>: the object setup method</h2>
 
-          <pre><code>class Student:
-    def show(self):
-        print(self.name, self.marks)
+        <p>
+          The <code>__init__</code> method runs automatically when a new object is created.
+          It is used to store the first values inside an object.
+        </p>
 
-s1 = Student()
-s1.name = "Ravi"
-s1.marks = 85
+        <pre><code>class Student:
+    def __init__(self, name, marks):
+        self.name = name
+        self.marks = marks
 
-s2 = Student()
-s2.name = "Raveena"
-s2.marks = 92
 
-s1.show()
-s2.show()</code></pre>
-        </section>
-
-        <section id="class-object">
-          <h2>2. Class and Object</h2>
-
-          <div class="grid">
-            <div class="mini-card">
-              <strong>Class</strong>
-              A class is a blueprint. It defines what kind of data and actions an
-              object will have.
-            </div>
-
-            <div class="mini-card">
-              <strong>Object</strong>
-              An object is a real item created from a class.
-            </div>
-          </div>
-
-          <pre><code>class Student:
-    pass
-
-s1 = Student()
-s2 = Student()
-
-print(type(s1))
-print(type(s2))</code></pre>
-
-          <h3>Attributes</h3>
-          <p>Attributes are data stored inside an object.</p>
-
-          <pre><code>class Student:
-    pass
-
-s1 = Student()
-s1.name = "Ravi"
-s1.marks = 85
+s1 = Student("Amit", 85)
 
 print(s1.name)
 print(s1.marks)</code></pre>
 
-          <h3>Methods</h3>
-          <p>Methods are functions written inside a class.</p>
+        <p>Output:</p>
 
-          <pre><code>class Student:
-    def show(self):
-        print("Student details")
+        <pre><code>Amit
+85</code></pre>
 
-s1 = Student()
-s1.show()</code></pre>
-        </section>
+        <div class="checkpoint">
+          <strong>Checkpoint:</strong> When we write <code>Student("Amit", 85)</code>, Python automatically calls <code>__init__</code>.
+        </div>
 
-        <section id="self-init">
-          <h2>3. The self Keyword and Constructor</h2>
+        <h3>Common beginner confusion</h3>
 
-          <h3>What is self?</h3>
-          <p>
-            <code>self</code> means the current object. It allows a method to use
-            the data of the object that called it.
-          </p>
+        <p>
+          <code>__init__</code> is not the object itself. It is the method that prepares the object after it is created.
+        </p>
+      </section>
 
-          <pre><code>class Student:
-    def show(self):
-        print(self.name, self.marks)
+      <section class="lesson-card" id="string">
+        <h2>3. <code>__str__</code> and <code>__repr__</code>: showing objects properly</h2>
 
-s1 = Student()
-s1.name = "Ravi"
-s1.marks = 85
+        <h3>Without <code>__str__</code></h3>
 
-s1.show()</code></pre>
-
-          <h3>What is __init__()?</h3>
-          <p>
-            <code>__init__()</code> is a constructor. It runs automatically when
-            a new object is created.
-          </p>
-
-          <pre><code>class Student:
+        <pre><code>class Student:
     def __init__(self, name, marks):
         self.name = name
         self.marks = marks
 
-    def show(self):
-        print(self.name, self.marks)
 
-s1 = Student("Ravi", 85)
-s2 = Student("Raveena", 92)
+s1 = Student("Amit", 85)
+print(s1)</code></pre>
 
-s1.show()
-s2.show()</code></pre>
-        </section>
+        <p>Output may look like this:</p>
 
-        <section id="pillars">
-          <h2>4. Four Pillars of OOPs</h2>
+        <pre><code>&lt;__main__.Student object at 0x000001A2...&gt;</code></pre>
 
-          <table class="summary-table">
-            <thead>
-              <tr>
-                <th>Pillar</th>
-                <th>Meaning</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Encapsulation</td>
-                <td>Keeping data and methods together inside a class.</td>
-              </tr>
-              <tr>
-                <td>Abstraction</td>
-                <td>Showing only what is needed and hiding internal details.</td>
-              </tr>
-              <tr>
-                <td>Inheritance</td>
-                <td>Creating a new class from an existing class.</td>
-              </tr>
-              <tr>
-                <td>Polymorphism</td>
-                <td>Same name, different behavior.</td>
-              </tr>
-            </tbody>
-          </table>
+        <p>
+          This output is not useful for a student or a normal user.
+        </p>
 
-          <h3>Encapsulation Example</h3>
+        <h3>With <code>__str__</code></h3>
 
-          <pre><code>class Student:
+        <pre><code>class Student:
     def __init__(self, name, marks):
         self.name = name
-        self.__marks = marks
-
-    def get_marks(self):
-        return self.__marks
-
-    def set_marks(self, marks):
-        if marks >= 0 and marks <= 100:
-            self.__marks = marks
-        else:
-            print("Invalid marks")
-
-s1 = Student("Ravi", 85)
-
-print(s1.get_marks())
-s1.set_marks(95)
-print(s1.get_marks())</code></pre>
-
-          <h3>Abstraction Example</h3>
-
-          <pre><code>class Remote:
-    def press_power_button(self):
-        self.__connect_circuit()
-        print("TV turned on")
-
-    def __connect_circuit(self):
-        print("Internal circuit connected")
-
-remote = Remote()
-remote.press_power_button()</code></pre>
-        </section>
-
-        <section id="inheritance">
-          <h2>5. Inheritance</h2>
-
-          <p>
-            Inheritance means creating a new class from an existing class.
-            The existing class is the parent class. The new class is the child class.
-          </p>
-
-          <pre><code>class Person:
-    def __init__(self, name):
-        self.name = name
-
-    def show_name(self):
-        print("Name:", self.name)
-
-class Student(Person):
-    def __init__(self, name, marks):
-        super().__init__(name)
         self.marks = marks
 
-    def show_marks(self):
-        print("Marks:", self.marks)
-
-s1 = Student("Ravi", 85)
-
-s1.show_name()
-s1.show_marks()</code></pre>
-
-          <h3>Types of Inheritance</h3>
-
-          <pre><code># Single inheritance
-class A:
-    pass
-
-class B(A):
-    pass
+    def __str__(self):
+        return f"{self.name} scored {self.marks} marks"
 
 
-# Multilevel inheritance
-class A:
-    pass
+s1 = Student("Amit", 85)
+print(s1)</code></pre>
 
-class B(A):
-    pass
+        <p>Output:</p>
 
-class C(B):
-    pass
+        <pre><code>Amit scored 85 marks</code></pre>
+
+        <h3>Using <code>__repr__</code></h3>
+
+        <p>
+          <code>__repr__</code> is generally used for programmer-friendly output.
+        </p>
+
+        <pre><code>class Student:
+    def __init__(self, name, marks):
+        self.name = name
+        self.marks = marks
+
+    def __repr__(self):
+        return f"Student(name='{self.name}', marks={self.marks})"
 
 
-# Multiple inheritance
-class Father:
-    def skill1(self):
-        print("Driving")
+s1 = Student("Amit", 85)
+print(repr(s1))</code></pre>
 
-class Mother:
-    def skill2(self):
-        print("Cooking")
+        <p>Output:</p>
 
-class Child(Father, Mother):
-    pass
+        <pre><code>Student(name='Amit', marks=85)</code></pre>
 
-c = Child()
-c.skill1()
-c.skill2()</code></pre>
-        </section>
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>__str__</code></td>
+              <td>Friendly output for users</td>
+            </tr>
+            <tr>
+              <td><code>__repr__</code></td>
+              <td>Clear output for programmers and debugging</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-        <section id="polymorphism">
-          <h2>6. Polymorphism</h2>
+      <section class="lesson-card" id="operators">
+        <h2>4. Operator overloading with magic methods</h2>
 
-          <p>
-            Polymorphism means one name having many forms.
-          </p>
+        <p>
+          Operator overloading means giving special meaning to operators such as <code>+</code>, <code>-</code>, <code>*</code>, and <code>&gt;</code> for our own classes.
+        </p>
 
-          <pre><code>print(len("Python"))
-print(len([10, 20, 30]))
-print(len({"a": 1, "b": 2}))</code></pre>
+        <h3>Problem first</h3>
 
-          <h3>Method Overriding</h3>
+        <pre><code>class Money:
+    def __init__(self, amount):
+        self.amount = amount
 
-          <pre><code>class Animal:
-    def speak(self):
-        print("Animal makes sound")
 
-class Human(Animal):
-    def speak(self):
-        print("Human speaks language")
+m1 = Money(100)
+m2 = Money(200)
 
-h = Human()
-h.speak()</code></pre>
+print(m1 + m2)</code></pre>
 
-          <h3>Operator Overloading</h3>
+        <p>
+          Python does not automatically know how to add two <code>Money</code> objects.
+          So we define <code>__add__</code>.
+        </p>
 
-          <pre><code>class Number:
-    def __init__(self, value):
-        self.value = value
+        <h3>Solution with <code>__add__</code></h3>
+
+        <pre><code>class Money:
+    def __init__(self, amount):
+        self.amount = amount
 
     def __add__(self, other):
-        return self.value + other.value
+        return Money(self.amount + other.amount)
 
-n1 = Number(10)
-n2 = Number(20)
+    def __str__(self):
+        return f"₹{self.amount}"
 
-print(n1 + n2)</code></pre>
-        </section>
 
-        <section id="composition">
-          <h2>7. Composition</h2>
+m1 = Money(100)
+m2 = Money(250)
 
-          <p>
-            Composition means one object contains another object. It represents a
-            <strong>has-a</strong> relationship.
-          </p>
+m3 = m1 + m2
 
-          <pre><code>class Engine:
-    def start(self):
-        print("Engine started")
+print(m3)</code></pre>
 
-class Car:
-    def __init__(self):
-        self.engine = Engine()
+        <p>Output:</p>
 
-    def start_car(self):
-        self.engine.start()
-        print("Car started")
+        <pre><code>₹350</code></pre>
 
-car = Car()
-car.start_car()</code></pre>
+        <div class="checkpoint">
+          <strong>Checkpoint:</strong> When we write <code>m1 + m2</code>, Python internally calls <code>m1.__add__(m2)</code>.
+        </div>
 
-          <div class="note">
-            Inheritance means <strong>is-a</strong>. Composition means
-            <strong>has-a</strong>. A student is a person. A car has an engine.
-          </div>
-        </section>
+        <h3>Common operator magic methods</h3>
 
-        <section id="project">
-          <h2>8. Complete Mini Project: Student Result System</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Operator</th>
+              <th>Magic method</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>+</code></td><td><code>__add__</code></td></tr>
+            <tr><td><code>-</code></td><td><code>__sub__</code></td></tr>
+            <tr><td><code>*</code></td><td><code>__mul__</code></td></tr>
+            <tr><td><code>/</code></td><td><code>__truediv__</code></td></tr>
+            <tr><td><code>//</code></td><td><code>__floordiv__</code></td></tr>
+            <tr><td><code>%</code></td><td><code>__mod__</code></td></tr>
+            <tr><td><code>**</code></td><td><code>__pow__</code></td></tr>
+          </tbody>
+        </table>
 
-          <pre><code>class Student:
-    def __init__(self, roll, name, marks):
-        self.roll = roll
+        <h3>Example with boxes</h3>
+
+        <pre><code>class Box:
+    def __init__(self, chocolates):
+        self.chocolates = chocolates
+
+    def __add__(self, other):
+        return Box(self.chocolates + other.chocolates)
+
+    def __sub__(self, other):
+        return Box(self.chocolates - other.chocolates)
+
+    def __str__(self):
+        return f"Box has {self.chocolates} chocolates"
+
+
+b1 = Box(20)
+b2 = Box(5)
+
+print(b1 + b2)
+print(b1 - b2)</code></pre>
+
+        <p>Output:</p>
+
+        <pre><code>Box has 25 chocolates
+Box has 15 chocolates</code></pre>
+      </section>
+
+      <section class="lesson-card" id="comparisons">
+        <h2>5. Comparison magic methods</h2>
+
+        <p>
+          Comparison magic methods allow us to compare two objects using normal comparison operators.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Comparison</th>
+              <th>Magic method</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>==</code></td><td><code>__eq__</code></td></tr>
+            <tr><td><code>!=</code></td><td><code>__ne__</code></td></tr>
+            <tr><td><code>&gt;</code></td><td><code>__gt__</code></td></tr>
+            <tr><td><code>&lt;</code></td><td><code>__lt__</code></td></tr>
+            <tr><td><code>&gt;=</code></td><td><code>__ge__</code></td></tr>
+            <tr><td><code>&lt;=</code></td><td><code>__le__</code></td></tr>
+          </tbody>
+        </table>
+
+        <h3>Student marks comparison</h3>
+
+        <pre><code>class Student:
+    def __init__(self, name, marks):
         self.name = name
         self.marks = marks
 
-    def total(self):
-        return sum(self.marks)
+    def __gt__(self, other):
+        return self.marks &gt; other.marks
 
-    def percentage(self):
-        return self.total() / len(self.marks)
+    def __eq__(self, other):
+        return self.marks == other.marks
 
-    def grade(self):
-        percent = self.percentage()
 
-        if percent >= 90:
-            return "A"
-        elif percent >= 75:
-            return "B"
-        elif percent >= 60:
-            return "C"
-        elif percent >= 40:
-            return "D"
-        else:
-            return "Fail"
+s1 = Student("Amit", 85)
+s2 = Student("Ravi", 90)
+s3 = Student("Sita", 85)
 
-    def show_report(self):
-        print("Roll:", self.roll)
-        print("Name:", self.name)
-        print("Marks:", self.marks)
-        print("Total:", self.total())
-        print("Percentage:", self.percentage())
-        print("Grade:", self.grade())
-        print("----------------------")
+print(s1 &gt; s2)
+print(s1 == s3)</code></pre>
 
-s1 = Student(1, "Ravi", [80, 85, 90])
-s2 = Student(2, "Raveena", [95, 92, 96])
-s3 = Student(3, "Sohan", [35, 40, 38])
+        <p>Output:</p>
 
-students = [s1, s2, s3]
-
-for student in students:
-    student.show_report()</code></pre>
-        </section>
-
-        <section id="practice">
-          <h2>9. Practice Questions</h2>
-
-          <h3>Beginner</h3>
-          <ol class="practice-list">
-            <li>Create a class <code>Book</code> with title, author, and price.</li>
-            <li>Create a class <code>Rectangle</code> with area and perimeter methods.</li>
-            <li>Create a class <code>Student</code> that stores name and marks and prints pass or fail.</li>
-          </ol>
-
-          <h3>Intermediate</h3>
-          <ol class="practice-list">
-            <li>Create a <code>BankAccount</code> class with deposit and withdraw methods.</li>
-            <li>Create a <code>ShoppingCart</code> class that stores products and calculates total bill.</li>
-            <li>Create an <code>Employee</code> class with salary and bonus calculation.</li>
-          </ol>
-
-          <h3>Advanced</h3>
-          <ol class="practice-list">
-            <li>Create parent class <code>Person</code> and child classes <code>Student</code> and <code>Teacher</code>.
-            </li>
-            <li>Create a <code>Shape</code> class and child classes <code>Circle</code>, <code>Rectangle</code>, and
-              <code>Triangle</code>.</li>
-            <li>Create a mini school management system using classes.</li>
-          </ol>
-        </section>
-
-        <section id="summary">
-          <h2>10. Final Summary</h2>
-
-          <table class="summary-table">
-            <tbody>
-              <tr>
-                <th>Class</th>
-                <td>Blueprint for creating objects.</td>
-              </tr>
-              <tr>
-                <th>Object</th>
-                <td>Real item created from a class.</td>
-              </tr>
-              <tr>
-                <th>Attribute</th>
-                <td>Data stored inside an object.</td>
-              </tr>
-              <tr>
-                <th>Method</th>
-                <td>Function written inside a class.</td>
-              </tr>
-              <tr>
-                <th>self</th>
-                <td>Current object.</td>
-              </tr>
-              <tr>
-                <th>__init__()</th>
-                <td>Constructor that runs when an object is created.</td>
-              </tr>
-              <tr>
-                <th>Inheritance</th>
-                <td>Child class gets features from parent class.</td>
-              </tr>
-              <tr>
-                <th>Polymorphism</th>
-                <td>Same name, different behavior.</td>
-              </tr>
-              <tr>
-                <th>Composition</th>
-                <td>One object contains another object.</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-
-        <div id="editor" class="editor-box">
-          <div class="editor-head">
-            <h2>Practice in Our Python Editor</h2>
-            <a class="btn ghost" href="https://editor.learnwithchampak.live/python-starter/editor/super/"
-              target="_blank" rel="noopener">Open in New Tab</a>
-          </div>
-
-          <iframe class="editor-frame" title="Programmer's Picnic Python Editor"
-            src="https://editor.learnwithchampak.live/python-starter/editor/super/"
-            allow="clipboard-read; clipboard-write; fullscreen; web-share" allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-
-      <aside>
-        <h2>Lesson Menu</h2>
-        <ul class="toc">
-          <li><a href="#lesson">Lesson Goal</a></li>
-          <li><a href="#meaning">Why OOPs?</a></li>
-          <li><a href="#class-object">Class and Object</a></li>
-          <li><a href="#self-init">self and Constructor</a></li>
-          <li><a href="#pillars">Four Pillars</a></li>
-          <li><a href="#inheritance">Inheritance</a></li>
-          <li><a href="#polymorphism">Polymorphism</a></li>
-          <li><a href="#composition">Composition</a></li>
-          <li><a href="#project">Mini Project</a></li>
-          <li><a href="#practice">Practice</a></li>
-          <li><a href="#editor">Python Editor</a></li>
-        </ul>
+        <pre><code>False
+True</code></pre>
 
         <div class="note">
-          Tip: Read one section, then immediately try the code in the editor.
+          We compared students by marks, but we could also compare them by age, rank, fees, attendance, or any other data.
         </div>
-      </aside>
-    </div>
-  </main>
+      </section>
 
-  <div class="read-panel" aria-label="Reading controls">
-    <button type="button" onclick="speakLesson()">Speak Lesson</button>
-    <button type="button" onclick="stopSpeaking()" class="stop">Stop</button>
+      <section class="lesson-card" id="containers">
+        <h2>6. Making objects behave like containers</h2>
+
+        <p>
+          Python lists, tuples, dictionaries, and strings support operations such as <code>len()</code>,
+          indexing, assignment by index, and <code>in</code>. Magic methods allow our own objects to support these actions too.
+        </p>
+
+        <h3><code>__len__</code>: support for <code>len()</code></h3>
+
+        <pre><code>class Classroom:
+    def __init__(self, students):
+        self.students = students
+
+    def __len__(self):
+        return len(self.students)
+
+
+c1 = Classroom(["Amit", "Ravi", "Sita"])
+
+print(len(c1))</code></pre>
+
+        <p>Output:</p>
+
+        <pre><code>3</code></pre>
+
+        <h3><code>__getitem__</code>: support for indexing</h3>
+
+        <pre><code>class Marksheet:
+    def __init__(self, marks):
+        self.marks = marks
+
+    def __getitem__(self, index):
+        return self.marks[index]
+
+
+m = Marksheet([80, 75, 90, 88])
+
+print(m[0])
+print(m[2])</code></pre>
+
+        <p>Output:</p>
+
+        <pre><code>80
+90</code></pre>
+
+        <h3><code>__setitem__</code>: support for changing values by index</h3>
+
+        <pre><code>class Marksheet:
+    def __init__(self, marks):
+        self.marks = marks
+
+    def __getitem__(self, index):
+        return self.marks[index]
+
+    def __setitem__(self, index, value):
+        self.marks[index] = value
+
+
+m = Marksheet([80, 75, 90])
+
+print(m[1])
+m[1] = 95
+print(m[1])</code></pre>
+
+        <p>Output:</p>
+
+        <pre><code>75
+95</code></pre>
+
+        <h3><code>__contains__</code>: support for <code>in</code></h3>
+
+        <pre><code>class Classroom:
+    def __init__(self, students):
+        self.students = students
+
+    def __contains__(self, name):
+        return name in self.students
+
+
+c = Classroom(["Amit", "Ravi", "Sita"])
+
+print("Amit" in c)
+print("Mohan" in c)</code></pre>
+
+        <p>Output:</p>
+
+        <pre><code>True
+False</code></pre>
+      </section>
+
+      <section class="lesson-card" id="advanced">
+        <h2>7. Advanced but useful magic methods</h2>
+
+        <div class="grid-2">
+          <article class="mini-card">
+            <h3><code>__call__</code></h3>
+            <p>
+              This method makes an object behave like a function.
+            </p>
+
+            <pre><code>class Greeter:
+    def __call__(self, name):
+        return f"Hello, {name}!"
+
+
+g = Greeter()
+
+print(g("Amit"))
+print(g("Sita"))</code></pre>
+
+            <p>Output:</p>
+
+            <pre><code>Hello, Amit!
+Hello, Sita!</code></pre>
+          </article>
+
+          <article class="mini-card">
+            <h3><code>__bool__</code></h3>
+            <p>
+              This method controls truth testing with <code>if object:</code>.
+            </p>
+
+            <pre><code>class Wallet:
+    def __init__(self, money):
+        self.money = money
+
+    def __bool__(self):
+        return self.money &gt; 0
+
+
+w1 = Wallet(500)
+w2 = Wallet(0)
+
+print(bool(w1))
+print(bool(w2))</code></pre>
+
+            <p>Output:</p>
+
+            <pre><code>True
+False</code></pre>
+          </article>
+        </div>
+
+        <h3><code>__del__</code>: object destruction</h3>
+
+        <p>
+          The method <code>__del__</code> may run when an object is about to be destroyed.
+          However, in real projects we should not depend on its exact timing.
+        </p>
+
+        <pre><code>class Demo:
+    def __init__(self):
+        print("Object created")
+
+    def __del__(self):
+        print("Object destroyed")
+
+
+d = Demo()
+del d</code></pre>
+
+        <div class="warning">
+          <strong>Important:</strong> Do not use <code>__del__</code> as your main cleanup plan in serious programs.
+          Python controls memory automatically, and destruction time may not always be exactly when you expect.
+        </div>
+      </section>
+
+      <section class="lesson-card" id="project">
+        <h2>8. Mini project: Shopping Cart with magic methods</h2>
+
+        <p>
+          This project shows how magic methods make our own class feel natural, like a normal Python container.
+        </p>
+
+        <pre><code>class ShoppingCart:
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item):
+        self.items.append(item)
+
+    def __len__(self):
+        return len(self.items)
+
+    def __contains__(self, item):
+        return item in self.items
+
+    def __getitem__(self, index):
+        return self.items[index]
+
+    def __str__(self):
+        return f"Cart contains: {self.items}"
+
+
+cart = ShoppingCart()
+
+cart.add_item("Laptop")
+cart.add_item("Mouse")
+cart.add_item("Keyboard")
+
+print(cart)
+print(len(cart))
+print("Mouse" in cart)
+print(cart[0])</code></pre>
+
+        <p>Output:</p>
+
+        <pre><code>Cart contains: ['Laptop', 'Mouse', 'Keyboard']
+3
+True
+Laptop</code></pre>
+
+        <div class="checkpoint">
+          <strong>Checkpoint:</strong> This object supports <code>print(cart)</code>, <code>len(cart)</code>,
+          <code>"Mouse" in cart</code>, and <code>cart[0]</code>.
+        </div>
+      </section>
+
+      <section class="lesson-card" id="practice">
+        <h2>9. Practice questions</h2>
+
+        <details open>
+          <summary>Question 1: Book class</summary>
+          <p>
+            Create a class called <code>Book</code>. It should have <code>title</code> and <code>pages</code>.
+            Use <code>__str__</code> to print this:
+          </p>
+
+          <pre><code>Python Basics has 250 pages</code></pre>
+        </details>
+
+        <details>
+          <summary>Question 2: Box class</summary>
+          <p>
+            Create a class called <code>Box</code>. It should store items.
+            Use <code>__len__</code> so that <code>len(box)</code> works.
+          </p>
+        </details>
+
+        <details>
+          <summary>Question 3: Product class</summary>
+          <p>
+            Create a class called <code>Product</code>. It should have <code>name</code> and <code>price</code>.
+            Use <code>__gt__</code> to compare products by price.
+          </p>
+        </details>
+
+        <details>
+          <summary>Question 4: Wallet class</summary>
+          <p>
+            Create a class called <code>Wallet</code>. It should have <code>money</code>.
+            Use <code>__add__</code> to add two wallets.
+          </p>
+
+          <pre><code>w1 = Wallet(100)
+w2 = Wallet(200)
+
+print(w1 + w2)</code></pre>
+
+          <p>Expected output:</p>
+
+          <pre><code>300</code></pre>
+        </details>
+
+        <details>
+          <summary>Question 5: Marksheet class</summary>
+          <p>
+            Create a class called <code>Marksheet</code> that stores a list of marks.
+            Add <code>__len__</code>, <code>__getitem__</code>, and <code>__setitem__</code>.
+          </p>
+        </details>
+      </section>
+
+      <section class="lesson-card" id="editor">
+        <h2>10. Practice in the Python editor</h2>
+
+        <p>
+          Use the embedded editor below to run the examples.
+          Start by copying the <code>ShoppingCart</code> project, then modify it.
+        </p>
+
+        <iframe
+          class="editor-frame"
+          title="Embedded Python Editor"
+          src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1"
+          allow="clipboard-read; clipboard-write; fullscreen"
+          loading="lazy">
+        </iframe>
+      </section>
+
+      <section class="lesson-card">
+        <h2>11. Final summary</h2>
+
+        <p>
+          Magic methods are special double-underscore methods that allow your objects to behave like Python’s built-in objects.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Method Python looks for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>print(obj)</code></td><td><code>__str__</code></td></tr>
+            <tr><td><code>repr(obj)</code></td><td><code>__repr__</code></td></tr>
+            <tr><td><code>len(obj)</code></td><td><code>__len__</code></td></tr>
+            <tr><td><code>obj1 + obj2</code></td><td><code>__add__</code></td></tr>
+            <tr><td><code>obj1 &gt; obj2</code></td><td><code>__gt__</code></td></tr>
+            <tr><td><code>obj[index]</code></td><td><code>__getitem__</code></td></tr>
+            <tr><td><code>obj[index] = value</code></td><td><code>__setitem__</code></td></tr>
+            <tr><td><code>value in obj</code></td><td><code>__contains__</code></td></tr>
+            <tr><td><code>obj()</code></td><td><code>__call__</code></td></tr>
+            <tr><td><code>if obj:</code></td><td><code>__bool__</code></td></tr>
+          </tbody>
+        </table>
+
+        <div class="task">
+          <strong>Final line:</strong> Magic methods teach Python how your own objects should respond to normal Python actions.
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <strong>Programmer's Picnic</strong><br />
+      Python OOPs lesson by Champak Roy
+    </footer>
   </div>
 
-  <footer>
-    <p>
-      Python OOPs from 0 to Infinity | Programmer's Picnic by Champak Roy
-    </p>
-    <p>
-      Practice more at
-      <a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">
-        editor.learnwithchampak.live
-      </a>
-    </p>
-  </footer>
+  <div class="floating-tools" aria-label="Floating tools">
+    <button class="btn secondary" type="button" id="topBtn">Top</button>
+  </div>
 
   <script>
     (function () {
-      try {
-        var ads = document.querySelectorAll(".adsbygoogle");
-        ads.forEach(function () {
+      const ad = document.querySelector(".adsbygoogle");
+
+      if (ad && window.adsbygoogle) {
+        try {
           (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (error) {
+          console.warn("AdSense could not be initialized:", error);
+        }
+      }
+
+      document.querySelectorAll("pre").forEach((pre) => {
+        const button = document.createElement("button");
+        button.className = "copy-btn";
+        button.type = "button";
+        button.textContent = "Copy";
+
+        button.addEventListener("click", async () => {
+          const code = pre.innerText.replace(/^Copy\n?/, "");
+
+          try {
+            await navigator.clipboard.writeText(code);
+            button.textContent = "Copied";
+            setTimeout(() => {
+              button.textContent = "Copy";
+            }, 1200);
+          } catch (error) {
+            button.textContent = "Select manually";
+          }
         });
-      } catch (error) {
-        console.log("AdSense not loaded yet.");
+
+        pre.appendChild(button);
+      });
+
+      const topBtn = document.getElementById("topBtn");
+
+      topBtn.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
+
+      const readBtn = document.getElementById("readPageBtn");
+      const stopBtn = document.getElementById("stopReadBtn");
+      const lessonText = document.getElementById("lessonText");
+
+      function cleanText(text) {
+        return text
+          .replace(/__/g, " double underscore ")
+          .replace(/\s+/g, " ")
+          .trim();
       }
-    })();
 
-    function speakLesson() {
-      stopSpeaking();
+      readBtn.addEventListener("click", () => {
+        if (!("speechSynthesis" in window)) {
+          alert("Speech reading is not supported in this browser.");
+          return;
+        }
 
-      var main = document.querySelector("main");
-      if (!main) return;
-
-      var text = main.innerText
-        .replace(/\s+/g, " ")
-        .trim();
-
-      var speech = new SpeechSynthesisUtterance(text);
-      speech.lang = "en-IN";
-      speech.rate = 0.92;
-      speech.pitch = 1;
-
-      window.speechSynthesis.speak(speech);
-    }
-
-    function stopSpeaking() {
-      if ("speechSynthesis" in window) {
         window.speechSynthesis.cancel();
-      }
-    }
 
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
-        stopSpeaking();
-      }
-    });
+        const utterance = new SpeechSynthesisUtterance(
+          cleanText(lessonText.innerText)
+        );
+
+        utterance.rate = 0.92;
+        utterance.pitch = 1;
+
+        window.speechSynthesis.speak(utterance);
+      });
+
+      stopBtn.addEventListener("click", () => {
+        if ("speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
+        }
+      });
+    })();
   </script>
 </body>
-
 </html>

@@ -1,50 +1,135 @@
 <!doctype html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F22HP86FYK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-F22HP86FYK');
+  </script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Android PIN Login Demo</title>
-  <meta name="description" content="Login using Android screen lock PIN, pattern, fingerprint, or passkey using WebAuthn." />
+  <title>Android PIN Login with WebAuthn and Passkeys — 0 to Infinity Lesson</title>
+
+  <meta name="description" content="A complete beginner-to-advanced lesson on Android PIN login using WebAuthn, passkeys, platform authenticators, and secure browser authentication." />
+  <meta name="keywords" content="Android PIN login, WebAuthn, passkeys, JavaScript authentication, passwordless login, platform authenticator, biometric login, secure login" />
+  <meta name="author" content="Champak Roy" />
   <meta name="theme-color" content="#d97706" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Android PIN Login with WebAuthn and Passkeys" />
+  <meta property="og:description" content="Learn how websites can use Android screen lock, PIN, fingerprint, or passkeys safely through WebAuthn." />
+  <meta property="og:image" content="android-pin-webauthn-og.png" />
 
   <style>
     :root {
       --bg: #fff7ed;
+      --bg2: #fffbeb;
       --card: #ffffff;
+      --soft: #ffedd5;
+      --soft2: #fef3c7;
       --text: #1f2937;
       --muted: #6b7280;
       --accent: #d97706;
       --accent-dark: #92400e;
       --border: #fed7aa;
+      --code-bg: #111827;
+      --code-text: #f9fafb;
       --success: #047857;
       --danger: #b91c1c;
+      --blue: #1d4ed8;
     }
 
     * {
       box-sizing: border-box;
     }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, #ffedd5, transparent 35%),
-        linear-gradient(135deg, #fff7ed, #fffbeb);
-      color: var(--text);
-      display: grid;
-      place-items: center;
-      padding: 20px;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .box {
-      width: min(100%, 440px);
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, #ffedd5, transparent 34%),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 247, 237, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: auto;
+      padding: 14px 18px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-weight: 900;
+      color: var(--accent-dark);
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 8px 11px;
+      border-radius: 999px;
+      font-size: 14px;
+    }
+
+    .hero {
+      max-width: 1180px;
+      margin: auto;
+      padding: 54px 18px 26px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .hero-card,
+    .lesson-card,
+    .demo-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 24px 70px rgba(146, 64, 14, 0.15);
+      box-shadow: 0 22px 70px rgba(146, 64, 14, 0.12);
+    }
+
+    .hero-card {
+      padding: 34px;
     }
 
     .badge {
@@ -53,29 +138,214 @@
       gap: 8px;
       padding: 8px 12px;
       border-radius: 999px;
-      background: #ffedd5;
+      background: var(--soft);
       color: var(--accent-dark);
-      font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 18px;
     }
 
     h1 {
-      margin: 0 0 10px;
-      font-size: clamp(28px, 6vw, 42px);
-      line-height: 1.05;
+      margin: 0 0 14px;
+      color: var(--accent-dark);
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 1.02;
+      letter-spacing: -1.5px;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--accent-dark);
+      font-size: clamp(25px, 4vw, 38px);
+      line-height: 1.14;
+    }
+
+    h3 {
+      color: #7c2d12;
+      margin-top: 28px;
+    }
+
+    .lead {
+      font-size: 19px;
+      color: var(--muted);
+    }
+
+    .hero-visual {
+      padding: 28px;
+      text-align: center;
+    }
+
+    .phone {
+      width: min(100%, 280px);
+      min-height: 460px;
+      margin: auto;
+      background: #111827;
+      border-radius: 38px;
+      padding: 18px;
+      border: 8px solid #1f2937;
+      box-shadow: inset 0 0 0 1px #374151, 0 28px 80px rgba(0,0,0,0.25);
+    }
+
+    .phone-screen {
+      height: 100%;
+      min-height: 410px;
+      border-radius: 28px;
+      background: linear-gradient(145deg, #fff7ed, #fef3c7);
+      padding: 20px;
+      display: grid;
+      place-items: center;
+    }
+
+    .pin-pad {
+      width: 100%;
+    }
+
+    .lock-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 36px;
+      font-weight: 900;
+    }
+
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .pin-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-dark);
+    }
+
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .key {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
       color: var(--accent-dark);
     }
 
-    p {
-      margin: 0 0 18px;
-      color: var(--muted);
+    .wrap {
+      max-width: 1180px;
+      margin: auto;
+      padding: 22px 18px 70px;
+    }
+
+    .lesson-card,
+    .demo-card {
+      padding: clamp(22px, 4vw, 38px);
+      margin: 22px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .mini-card {
+      background: #fffaf0;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .mini-card strong {
+      color: var(--accent-dark);
+    }
+
+    .warning {
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      color: #881337;
+      padding: 16px;
+      border-radius: 16px;
+      font-weight: 700;
+    }
+
+    .success {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      padding: 16px;
+      border-radius: 16px;
+      font-weight: 700;
+    }
+
+    .info {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e3a8a;
+      padding: 16px;
+      border-radius: 16px;
+      font-weight: 700;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: 18px;
+      padding: 18px;
+      overflow: auto;
+      font-size: 14px;
       line-height: 1.6;
+      border: 1px solid #374151;
+    }
+
+    code {
+      background: #fff7ed;
+      color: #7c2d12;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      font-weight: 400;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .toc a {
+      display: block;
+      text-decoration: none;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 14px;
     }
 
     label {
       display: block;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 8px;
     }
 
@@ -87,6 +357,13 @@
       font-size: 16px;
       outline: none;
       margin-bottom: 14px;
+    }
+
+    input:focus,
+    button:focus,
+    a:focus {
+      outline: 4px solid rgba(217, 119, 6, 0.25);
+      outline-offset: 3px;
     }
 
     input:focus {
@@ -105,7 +382,7 @@
       border-radius: 14px;
       padding: 14px 16px;
       font-size: 16px;
-      font-weight: 800;
+      font-weight: 900;
       cursor: pointer;
       background: var(--accent);
       color: white;
@@ -121,9 +398,9 @@
       color: var(--danger);
     }
 
-    button:focus {
-      outline: 4px solid rgba(217, 119, 6, 0.25);
-      outline-offset: 2px;
+    button.blue {
+      background: var(--blue);
+      color: white;
     }
 
     .status {
@@ -133,64 +410,708 @@
       background: #f9fafb;
       border: 1px solid #e5e7eb;
       color: var(--text);
-      line-height: 1.5;
       min-height: 52px;
     }
 
     .ok {
       color: var(--success);
-      font-weight: 800;
+      font-weight: 900;
     }
 
     .bad {
       color: var(--danger);
-      font-weight: 800;
+      font-weight: 900;
     }
 
-    .note {
-      font-size: 13px;
-      margin-top: 16px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      background: white;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--soft);
+      color: var(--accent-dark);
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      background: #fff7ed;
+      text-align: center;
+      padding: 24px 18px;
       color: var(--muted);
     }
 
-    code {
-      background: #fff7ed;
-      padding: 2px 6px;
-      border-radius: 6px;
+    .copy-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: -8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .copy-btn {
+      width: auto;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: #374151;
+      color: white;
+      font-size: 13px;
+    }
+
+    .quiz-question {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fffaf0;
+      margin: 12px 0;
+    }
+
+    .quiz-question button {
+      margin-top: 8px;
+      width: auto;
+    }
+
+    .answer {
+      display: none;
+      margin-top: 10px;
       color: var(--accent-dark);
+      font-weight: 800;
+    }
+
+    @media (max-width: 860px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="box">
-    <div class="badge">Android PIN / Passkey Login</div>
+  <header class="site-header">
+    <nav class="nav">
+      <div class="brand">Learn With Champak</div>
+      <div class="nav-links">
+        <a href="#meaning">Meaning</a>
+        <a href="#webauthn">WebAuthn</a>
+        <a href="#demo">Demo</a>
+        <a href="#server">Server</a>
+        <a href="#quiz">Quiz</a>
+      </div>
+    </nav>
+  </header>
 
-    <h1>Secure Login</h1>
+  <section class="hero">
+    <div class="hero-card">
+      <div class="badge">0 to Infinity Lesson</div>
+      <h1>Android PIN Login with WebAuthn and Passkeys</h1>
+      <p class="lead">
+        Learn how a website can let users sign in with Android screen lock,
+        PIN, pattern, password, fingerprint, or face unlock without ever seeing
+        the actual Android PIN.
+      </p>
 
-    <p>
-      Register once, then login using your Android screen lock.
-      Android may ask for PIN, pattern, password, fingerprint, or face unlock.
-    </p>
-
-    <label for="username">Username</label>
-    <input id="username" value="champak" autocomplete="username" />
-
-    <div class="actions">
-      <button onclick="registerPasskey()">Register Android PIN Login</button>
-      <button class="secondary" onclick="loginWithPasskey()">Login Using Android PIN</button>
-      <button class="danger" onclick="clearLogin()">Clear Saved Demo Login</button>
+      <div class="toc">
+        <a href="#level0">Level 0: Basic idea</a>
+        <a href="#level1">Level 1: Why HTML cannot read PIN</a>
+        <a href="#level2">Level 2: WebAuthn flow</a>
+        <a href="#level3">Level 3: Working demo</a>
+        <a href="#level4">Level 4: Real server design</a>
+        <a href="#level5">Level 5: Production checklist</a>
+      </div>
     </div>
 
-    <div id="status" class="status">
-      Ready.
+    <div class="hero-card hero-visual">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="pin-pad">
+            <div class="lock-icon">L</div>
+            <strong>Android Screen Lock</strong>
+            <div class="pin-dots">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <p style="font-size:14px;color:#6b7280">
+              The browser asks Android to verify the user. The website never gets the PIN.
+            </p>
+            <div class="keys">
+              <div class="key">1</div><div class="key">2</div><div class="key">3</div>
+              <div class="key">4</div><div class="key">5</div><div class="key">6</div>
+              <div class="key">7</div><div class="key">8</div><div class="key">9</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <p class="note">
-      Important: this must run on <code>https://</code> or <code>localhost</code>.
-      It will not work properly from a plain <code>file://</code> page.
-    </p>
+  <main class="wrap">
+
+    <section id="meaning" class="lesson-card">
+      <h2 id="level0">Level 0: What does “login using Android PIN” mean?</h2>
+
+      <p>
+        It does not mean that the web page asks the user to type the Android PIN
+        into an HTML input box. That would be unsafe and Android does not allow it.
+      </p>
+
+      <div class="warning">
+        A website cannot read the Android PIN, pattern, password, fingerprint, or face data.
+      </div>
+
+      <p>
+        The correct meaning is this:
+      </p>
+
+      <div class="success">
+        The website asks the browser to authenticate the user. The browser asks Android.
+        Android verifies the user with screen lock. The website receives a secure result.
+      </div>
+
+      <h3>Simple classroom example</h3>
+
+      <p>
+        Imagine a school gate. The class teacher does not ask for your house key.
+        The gatekeeper checks your identity and tells the teacher, “Yes, this is the right student.”
+        Similarly, the website does not get your Android PIN. Android checks it and tells the browser
+        whether the authentication succeeded.
+      </p>
+    </section>
+
+    <section id="level1" class="lesson-card">
+      <h2>Level 1: Why plain HTML cannot do this</h2>
+
+      <p>
+        HTML can create forms, buttons, inputs, and layouts. JavaScript can respond to clicks and run browser APIs.
+        But the Android PIN belongs to the operating system security layer. A normal website must not be allowed
+        to read it.
+      </p>
+
+      <div class="grid">
+        <div class="mini-card">
+          <strong>Wrong approach</strong>
+          <p>Create an input field and ask the user to enter the Android PIN.</p>
+          <p>This is not real Android PIN login. It is only a normal password field.</p>
+        </div>
+
+        <div class="mini-card">
+          <strong>Correct approach</strong>
+          <p>Use WebAuthn and passkeys.</p>
+          <p>Android verifies the user locally and the website receives cryptographic proof.</p>
+        </div>
+      </div>
+
+      <h3>Bad example</h3>
+
+      <pre><code>&lt;input type="password" placeholder="Enter Android PIN"&gt;</code></pre>
+
+      <p>
+        This is not Android PIN login. This only creates a password box. The browser has no permission
+        to compare this value with the real Android screen lock.
+      </p>
+    </section>
+
+    <section id="webauthn" class="lesson-card">
+      <h2 id="level2">Level 2: WebAuthn, passkeys, and platform authenticators</h2>
+
+      <p>
+        WebAuthn means <strong>Web Authentication</strong>. It allows websites to use public-key credentials
+        for secure login. In normal passwords, the same secret is typed by the user and stored or verified by
+        the server. In WebAuthn, the private key stays with the authenticator, and the server stores a public key.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Term</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>WebAuthn</td>
+            <td>Web Authentication API used for passwordless and strong login.</td>
+          </tr>
+          <tr>
+            <td>Passkey</td>
+            <td>A user-friendly credential that can be unlocked using screen lock or biometrics.</td>
+          </tr>
+          <tr>
+            <td>Platform authenticator</td>
+            <td>The built-in authenticator on the device, such as Android device security.</td>
+          </tr>
+          <tr>
+            <td>Relying Party</td>
+            <td>The website or app that wants to authenticate the user.</td>
+          </tr>
+          <tr>
+            <td>Challenge</td>
+            <td>A random value generated during registration or login to prevent replay attacks.</td>
+          </tr>
+          <tr>
+            <td>Public key</td>
+            <td>Stored by the server and used to verify signatures.</td>
+          </tr>
+          <tr>
+            <td>Private key</td>
+            <td>Kept safely by the authenticator. The website never receives it.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>The registration flow</h3>
+
+      <ol>
+        <li>User clicks “Register Android PIN Login”.</li>
+        <li>Website creates a random challenge.</li>
+        <li>Browser calls <code>navigator.credentials.create()</code>.</li>
+        <li>Android asks for PIN, pattern, password, fingerprint, or face unlock.</li>
+        <li>Authenticator creates a key pair.</li>
+        <li>Website stores the credential ID and public key.</li>
+      </ol>
+
+      <h3>The login flow</h3>
+
+      <ol>
+        <li>User clicks “Login Using Android PIN”.</li>
+        <li>Website creates a fresh challenge.</li>
+        <li>Browser calls <code>navigator.credentials.get()</code>.</li>
+        <li>Android verifies the user locally.</li>
+        <li>Authenticator signs the challenge using the private key.</li>
+        <li>Server verifies the signature using the stored public key.</li>
+      </ol>
+    </section>
+
+    <section id="demo" class="demo-card">
+      <h2 id="level3">Level 3: Working browser-side demo</h2>
+
+      <p>
+        This is a learning demo. It stores only a simplified credential reference in <code>localStorage</code>.
+        A production website must use a server to generate challenges and verify responses.
+      </p>
+
+      <div class="info">
+        Run this page on HTTPS or localhost. WebAuthn usually does not work from a plain file opened as file://.
+      </div>
+
+      <br />
+
+      <label for="username">Username</label>
+      <input id="username" value="champak" autocomplete="username webauthn" />
+
+      <div class="actions">
+        <button onclick="registerPasskey()">Register Android PIN Login</button>
+        <button class="secondary" onclick="loginWithPasskey()">Login Using Android PIN</button>
+        <button class="blue" onclick="checkSupportButton()">Check Browser Support</button>
+        <button class="danger" onclick="clearLogin()">Clear Saved Demo Login</button>
+      </div>
+
+      <div id="status" class="status">
+        Ready.
+      </div>
+    </section>
+
+    <section class="lesson-card">
+      <h2>Level 3A: JavaScript used in the demo</h2>
+
+      <p>
+        The important browser objects are <code>PublicKeyCredential</code>,
+        <code>navigator.credentials.create()</code>, and
+        <code>navigator.credentials.get()</code>.
+      </p>
+
+      <div class="copy-row">
+        <button class="copy-btn" onclick="copyCode('demoCode')">Copy code</button>
+      </div>
+
+      <pre><code id="demoCode">const statusBox = document.getElementById("status");
+const usernameInput = document.getElementById("username");
+
+function setStatus(message, type = "") {
+  statusBox.innerHTML = type
+    ? `&lt;span class="${type}"&gt;${message}&lt;/span&gt;`
+    : message;
+}
+
+function bufferToBase64Url(buffer) {
+  const bytes = new Uint8Array(buffer);
+  let binary = "";
+
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte);
+  }
+
+  return btoa(binary)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=/g, "");
+}
+
+function base64UrlToBuffer(base64url) {
+  const base64 = base64url
+    .replace(/-/g, "+")
+    .replace(/_/g, "/");
+
+  const padded = base64.padEnd(
+    base64.length + (4 - base64.length % 4) % 4,
+    "="
+  );
+
+  const binary = atob(padded);
+  const bytes = new Uint8Array(binary.length);
+
+  for (let i = 0; i &lt; binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+
+  return bytes.buffer;
+}
+
+function randomChallenge(length = 32) {
+  const array = new Uint8Array(length);
+  crypto.getRandomValues(array);
+  return array;
+}
+
+async function checkSupport() {
+  if (!window.PublicKeyCredential) {
+    throw new Error("WebAuthn is not supported in this browser.");
+  }
+
+  const available =
+    await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+
+  if (!available) {
+    throw new Error(
+      "No user-verifying platform authenticator was found. Set a PIN, pattern, password, or biometric lock first."
+    );
+  }
+}
+
+async function registerPasskey() {
+  try {
+    await checkSupport();
+
+    const username = usernameInput.value.trim();
+
+    if (!username) {
+      setStatus("Please enter a username.", "bad");
+      return;
+    }
+
+    const userId = new TextEncoder().encode(username);
+
+    const publicKeyOptions = {
+      challenge: randomChallenge(),
+
+      rp: {
+        name: "Learn With Champak Demo"
+      },
+
+      user: {
+        id: userId,
+        name: username,
+        displayName: username
+      },
+
+      pubKeyCredParams: [
+        { type: "public-key", alg: -7 },
+        { type: "public-key", alg: -257 }
+      ],
+
+      authenticatorSelection: {
+        authenticatorAttachment: "platform",
+        userVerification: "required",
+        residentKey: "preferred"
+      },
+
+      timeout: 60000,
+      attestation: "none"
+    };
+
+    setStatus("Android will now ask for screen lock confirmation...");
+
+    const credential = await navigator.credentials.create({
+      publicKey: publicKeyOptions
+    });
+
+    const savedCredential = {
+      id: credential.id,
+      rawId: bufferToBase64Url(credential.rawId),
+      type: credential.type,
+      username
+    };
+
+    localStorage.setItem("androidPinCredential", JSON.stringify(savedCredential));
+
+    setStatus("Android PIN login registered successfully.", "ok");
+  } catch (error) {
+    setStatus(error.message || "Registration failed.", "bad");
+  }
+}
+
+async function loginWithPasskey() {
+  try {
+    await checkSupport();
+
+    const saved = localStorage.getItem("androidPinCredential");
+
+    if (!saved) {
+      setStatus("No saved login found. Register first.", "bad");
+      return;
+    }
+
+    const credentialData = JSON.parse(saved);
+
+    const publicKeyOptions = {
+      challenge: randomChallenge(),
+
+      allowCredentials: [
+        {
+          id: base64UrlToBuffer(credentialData.rawId),
+          type: "public-key",
+          transports: ["internal"]
+        }
+      ],
+
+      userVerification: "required",
+      timeout: 60000
+    };
+
+    setStatus("Android will now ask for PIN, pattern, password, fingerprint, or face unlock...");
+
+    const assertion = await navigator.credentials.get({
+      publicKey: publicKeyOptions
+    });
+
+    if (assertion) {
+      setStatus(`Login successful. Welcome, ${credentialData.username}.`, "ok");
+    } else {
+      setStatus("Login failed.", "bad");
+    }
+  } catch (error) {
+    setStatus(error.message || "Login failed.", "bad");
+  }
+}</code></pre>
+    </section>
+
+    <section id="server" class="lesson-card">
+      <h2 id="level4">Level 4: What changes in a real website?</h2>
+
+      <p>
+        The browser demo is useful for learning, but real authentication needs a backend.
+        The server must create the challenge, store the public key, and verify the signed response.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Demo page</th>
+            <th>Real website</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Challenge generated in browser</td>
+            <td>Challenge generated on server</td>
+          </tr>
+          <tr>
+            <td>Credential reference saved in localStorage</td>
+            <td>Credential ID and public key saved in database</td>
+          </tr>
+          <tr>
+            <td>Login accepted after browser returns assertion</td>
+            <td>Server verifies signature, origin, challenge, counter, and user</td>
+          </tr>
+          <tr>
+            <td>Good for classroom demo</td>
+            <td>Required for production</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Server-side registration endpoints</h3>
+
+      <pre><code>POST /webauthn/register/options
+Server returns:
+{
+  "challenge": "...",
+  "rp": "...",
+  "user": "...",
+  "pubKeyCredParams": [...]
+}
+
+POST /webauthn/register/verify
+Browser sends credential response.
+Server verifies it and stores the public key.</code></pre>
+
+      <h3>Server-side login endpoints</h3>
+
+      <pre><code>POST /webauthn/login/options
+Server returns a fresh challenge.
+
+POST /webauthn/login/verify
+Browser sends assertion.
+Server verifies the signature using the stored public key.</code></pre>
+    </section>
+
+    <section class="lesson-card">
+      <h2 id="level5">Level 5: Production checklist</h2>
+
+      <div class="grid">
+        <div class="mini-card">
+          <strong>Use HTTPS</strong>
+          <p>Passkeys and WebAuthn require secure browser conditions.</p>
+        </div>
+
+        <div class="mini-card">
+          <strong>Verify on server</strong>
+          <p>Never trust only browser-side success for real login.</p>
+        </div>
+
+        <div class="mini-card">
+          <strong>Use fresh challenges</strong>
+          <p>Every registration and login attempt should use a new random challenge.</p>
+        </div>
+
+        <div class="mini-card">
+          <strong>Check origin</strong>
+          <p>Verify that the response came from your real domain.</p>
+        </div>
+
+        <div class="mini-card">
+          <strong>Offer recovery</strong>
+          <p>Users may lose a phone, reset Android, or change devices.</p>
+        </div>
+
+        <div class="mini-card">
+          <strong>Keep fallback login</strong>
+          <p>During transition, keep email login, password login, or one-time code login.</p>
+        </div>
+      </div>
+
+      <h3>Common mistakes</h3>
+
+      <ul>
+        <li>Asking users to type their Android PIN into your own form.</li>
+        <li>Saving authentication only in localStorage for a real website.</li>
+        <li>Using the same challenge again and again.</li>
+        <li>Testing from <code>file://</code> and thinking the code is broken.</li>
+        <li>Expecting Android to reveal the PIN to JavaScript.</li>
+      </ul>
+    </section>
+
+    <section class="lesson-card">
+      <h2>Level 6: How to explain this to students</h2>
+
+      <p>
+        Use this simple sentence:
+      </p>
+
+      <div class="success">
+        Android PIN login on the web means Android confirms the user, not that the website reads the PIN.
+      </div>
+
+      <h3>Analogy</h3>
+
+      <p>
+        Your phone is like a locked cupboard. The website asks, “Can the real owner unlock this cupboard?”
+        Android checks the owner locally. If the owner succeeds, Android gives the website a signed proof.
+        The website never sees the cupboard key.
+      </p>
+    </section>
+
+    <section id="quiz" class="lesson-card">
+      <h2>Practice Quiz</h2>
+
+      <div class="quiz-question">
+        <strong>1. Can HTML directly read the Android PIN?</strong>
+        <br />
+        <button onclick="toggleAnswer('a1')">Show answer</button>
+        <div class="answer" id="a1">No. Android does not expose the real screen lock PIN to websites.</div>
+      </div>
+
+      <div class="quiz-question">
+        <strong>2. Which API is used for passkey login?</strong>
+        <br />
+        <button onclick="toggleAnswer('a2')">Show answer</button>
+        <div class="answer" id="a2">WebAuthn, using the browser Credential Management API.</div>
+      </div>
+
+      <div class="quiz-question">
+        <strong>3. What stays on the device: public key or private key?</strong>
+        <br />
+        <button onclick="toggleAnswer('a3')">Show answer</button>
+        <div class="answer" id="a3">The private key stays protected by the device or authenticator.</div>
+      </div>
+
+      <div class="quiz-question">
+        <strong>4. What should the server store?</strong>
+        <br />
+        <button onclick="toggleAnswer('a4')">Show answer</button>
+        <div class="answer" id="a4">The credential ID and public key, not the Android PIN.</div>
+      </div>
+
+      <div class="quiz-question">
+        <strong>5. Why is localStorage not enough for real login?</strong>
+        <br />
+        <button onclick="toggleAnswer('a5')">Show answer</button>
+        <div class="answer" id="a5">Because real authentication must be verified by the server, not trusted only in the browser.</div>
+      </div>
+    </section>
+
+    <section class="lesson-card">
+      <h2>Mini Project</h2>
+
+      <p>
+        Build a small login page with three buttons:
+      </p>
+
+      <ol>
+        <li>Check WebAuthn support.</li>
+        <li>Register passkey.</li>
+        <li>Login with passkey.</li>
+      </ol>
+
+      <p>
+        Then improve it by adding a Node.js backend with four routes:
+      </p>
+
+      <pre><code>POST /register/options
+POST /register/verify
+POST /login/options
+POST /login/verify</code></pre>
+
+      <p>
+        The browser should only start the authentication process. The backend should make the final login decision.
+      </p>
+    </section>
+
   </main>
+
+  <footer class="footer">
+    <strong>Programmer's Picnic by Champak Roy</strong>
+    <br />
+    Android PIN Login with WebAuthn and Passkeys — 0 to Infinity Lesson
+  </footer>
 
   <script>
     const statusBox = document.getElementById("status");
@@ -205,6 +1126,7 @@
     function bufferToBase64Url(buffer) {
       const bytes = new Uint8Array(buffer);
       let binary = "";
+
       for (const byte of bytes) {
         binary += String.fromCharCode(byte);
       }
@@ -251,8 +1173,19 @@
 
       if (!available) {
         throw new Error(
-          "No Android screen-lock authenticator was found. Set a PIN, pattern, password, or biometric lock first."
+          "No user-verifying platform authenticator was found. Set a PIN, pattern, password, or biometric lock first."
         );
+      }
+
+      return true;
+    }
+
+    async function checkSupportButton() {
+      try {
+        await checkSupport();
+        setStatus("WebAuthn and platform authentication appear to be available on this device.", "ok");
+      } catch (error) {
+        setStatus(error.message || "Support check failed.", "bad");
       }
     }
 
@@ -365,6 +1298,22 @@
     function clearLogin() {
       localStorage.removeItem("androidPinCredential");
       setStatus("Saved demo login cleared.");
+    }
+
+    function toggleAnswer(id) {
+      const box = document.getElementById(id);
+      box.style.display = box.style.display === "block" ? "none" : "block";
+    }
+
+    async function copyCode(id) {
+      const text = document.getElementById(id).innerText;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("Code copied.");
+      } catch {
+        alert("Copy failed. Select and copy manually.");
+      }
     }
   </script>
 </body>
