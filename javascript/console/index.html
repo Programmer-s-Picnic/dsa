@@ -1,0 +1,1895 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>Using the JavaScript Console: 0 to Infinity Lesson | Programmer's Picnic</title>
+
+    <meta name="description"
+        content="A complete beginner-to-advanced JavaScript console lesson by Champak Roy. Learn console.log, console.warn, console.error, console.table, console.group, console.time, debugging, errors, DOM debugging, and professional console habits." />
+    <meta name="keywords"
+        content="JavaScript console, console.log, console.warn, console.error, console.table, JavaScript debugging, browser console, JavaScript for beginners, Programmer's Picnic, Champak Roy" />
+    <meta name="author" content="Champak Roy" />
+    <meta name="theme-color" content="#d97706" />
+
+    <link rel="canonical" href="https://learnwithchampak.live/javascript-console-lesson" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Using the JavaScript Console: 0 to Infinity Lesson" />
+    <meta property="og:description"
+        content="Learn the JavaScript console from zero: output, warnings, errors, tables, groups, timers, debugging, and professional habits." />
+    <meta property="og:image" content="https://learnwithchampak.live/assets/og/javascript-console-lesson.png" />
+    <meta property="og:url" content="https://learnwithchampak.live/javascript-console-lesson" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Using the JavaScript Console: 0 to Infinity Lesson" />
+    <meta name="twitter:description"
+        content="A complete beginner-friendly lesson on using the JavaScript console for learning and debugging." />
+    <meta name="twitter:image" content="https://learnwithchampak.live/assets/og/javascript-console-lesson.png" />
+
+    <script async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+        crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --bg: #fff7ed;
+            --bg2: #fffbeb;
+            --card: #ffffff;
+            --soft: #ffedd5;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --primary: #d97706;
+            --primary-dark: #92400e;
+            --primary-deep: #7c2d12;
+            --border: #fed7aa;
+            --code-bg: #111827;
+            --code-text: #f9fafb;
+            --code-border: #374151;
+            --good: #166534;
+            --warn: #92400e;
+            --danger: #991b1b;
+            --shadow: 0 20px 48px rgba(146, 64, 14, 0.14);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(251, 191, 36, 0.30), transparent 34rem),
+                radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 30rem),
+                linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 750;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background:
+                linear-gradient(135deg, rgba(124, 45, 18, 0.92), rgba(217, 119, 6, 0.92)),
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.20), transparent 20rem);
+            color: #fff;
+            padding: 4rem 1.25rem 3.25rem;
+            text-align: center;
+        }
+
+        .brand {
+            display: inline-block;
+            padding: 0.38rem 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 999px;
+            margin-bottom: 1rem;
+            font-size: 0.92rem;
+            color: #fffbeb;
+        }
+
+        header h1 {
+            margin: 0 auto 1rem;
+            max-width: 950px;
+            font-size: clamp(2.1rem, 5.4vw, 4.5rem);
+            line-height: 1.04;
+            letter-spacing: -0.045em;
+        }
+
+        header p {
+            max-width: 830px;
+            margin: 0 auto;
+            color: #fff7ed;
+            font-size: 1.14rem;
+        }
+
+        .hero-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background: rgba(255, 247, 237, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0.72rem 1rem;
+            display: flex;
+            gap: 0.65rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .pill,
+        .btn {
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--primary-dark);
+            border-radius: 999px;
+            padding: 0.58rem 0.9rem;
+            font-size: 0.92rem;
+            cursor: pointer;
+            box-shadow: 0 7px 16px rgba(146, 64, 14, 0.08);
+            font-weight: 750;
+            font-family: inherit;
+        }
+
+        .btn.primary {
+            background: #fff7ed;
+            color: #7c2d12;
+            border-color: rgba(255, 255, 255, 0.55);
+        }
+
+        .btn.dark {
+            background: var(--primary-deep);
+            color: #fff;
+            border-color: var(--primary-deep);
+        }
+
+        .pill:hover,
+        .btn:hover,
+        .pill:focus,
+        .btn:focus,
+        a:focus,
+        input:focus {
+            outline: 3px solid rgba(217, 119, 6, 0.32);
+            outline-offset: 2px;
+            text-decoration: none;
+        }
+
+        main {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 320px;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        article,
+        aside {
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            box-shadow: var(--shadow);
+        }
+
+        article {
+            padding: clamp(1rem, 3vw, 2.35rem);
+        }
+
+        aside {
+            position: sticky;
+            top: 5.25rem;
+            padding: 1.25rem;
+        }
+
+        section {
+            padding: 1.35rem 0;
+            border-bottom: 1px solid #fde7c7;
+            scroll-margin-top: 5rem;
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            line-height: 1.15;
+            margin: 0 0 0.7rem;
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            color: var(--primary-deep);
+            margin: 1.35rem 0 0.5rem;
+            font-size: 1.18rem;
+        }
+
+        p {
+            margin: 0.6rem 0;
+        }
+
+        .lead {
+            font-size: 1.11rem;
+            color: #374151;
+        }
+
+        .goal-box,
+        .note,
+        .assignment,
+        .output-box,
+        .console-box,
+        .warning-box,
+        .error-box {
+            border-radius: 18px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .goal-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+        }
+
+        .note {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+        }
+
+        .assignment {
+            background: #ecfdf5;
+            border: 1px solid #bbf7d0;
+        }
+
+        .warning-box {
+            background: #fffbeb;
+            border: 1px solid #facc15;
+            color: #713f12;
+        }
+
+        .error-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #7f1d1d;
+        }
+
+        .console-box,
+        .output-box {
+            background: #0f172a;
+            color: #e5e7eb;
+            border: 1px solid #334155;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .console-box::before {
+            content: "Console Output";
+            display: block;
+            color: #fbbf24;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.35rem;
+        }
+
+        li {
+            margin: 0.35rem 0;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            border: 1px solid var(--code-border);
+            border-radius: 18px;
+            padding: 1rem;
+            overflow-x: auto;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin: 1rem 0;
+        }
+
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        :not(pre)>code {
+            background: #ffedd5;
+            color: #7c2d12;
+            padding: 0.12rem 0.35rem;
+            border-radius: 0.4rem;
+            font-weight: 750;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: #fff;
+        }
+
+        th,
+        td {
+            padding: 0.8rem;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #ffedd5;
+            color: var(--primary-deep);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .lesson-card {
+            background: #fffaf0;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .try-panel {
+            background: #fff7ed;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .try-panel input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #fdba74;
+            border-radius: 12px;
+            margin: 0.4rem 0 0.75rem;
+            font: inherit;
+            background: #fff;
+            color: var(--text);
+        }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.8rem;
+        }
+
+        .toc-title {
+            margin-top: 0;
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin: 0.3rem 0;
+        }
+
+        .toc-list a {
+            display: block;
+            padding: 0.55rem 0.65rem;
+            border-radius: 12px;
+            color: #7c2d12;
+            font-weight: 700;
+        }
+
+        .toc-list a:hover,
+        .toc-list a:focus {
+            background: #ffedd5;
+        }
+
+        .ad-box {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border: 1px dashed #f59e0b;
+            border-radius: 18px;
+            background: #fffaf0;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .mini-card {
+            background: #fffaf0;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 1rem;
+        }
+
+        .small {
+            font-size: 0.92rem;
+            color: var(--muted);
+        }
+
+        footer {
+            background: #7c2d12;
+            color: #ffedd5;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        footer p {
+            margin: 0.35rem 0;
+        }
+
+        @media (max-width: 900px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: static;
+                order: -1;
+            }
+
+            .mini-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+
+            nav,
+            aside,
+            .ad-box,
+            .hero-actions,
+            .btn-row,
+            footer {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            main {
+                display: block;
+                padding: 0;
+            }
+
+            article {
+                box-shadow: none;
+                border: none;
+            }
+
+            pre {
+                white-space: pre-wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="brand">Programmer's Picnic by Champak Roy</div>
+        <h1>Using the JavaScript Console: 0 to Infinity Lesson</h1>
+        <p>
+            Learn the browser console from the absolute beginning: printing messages,
+            checking variables, finding errors, debugging functions, inspecting arrays and objects,
+            timing code, and developing professional debugging habits.
+        </p>
+
+        <div class="hero-actions">
+            <button class="btn primary" type="button" id="openConsoleHintBtn">How to Open Console</button>
+            <button class="btn primary" type="button" id="heroDemoBtn">Run Demo Message</button>
+            <button class="btn primary" type="button" id="printTopBtn">Print Lesson</button>
+        </div>
+    </header>
+
+    <nav aria-label="Lesson navigation">
+        <div class="nav-inner">
+            <a class="pill" href="#goal">Goal</a>
+            <a class="pill" href="#what-console">Console</a>
+            <a class="pill" href="#open-console">Open</a>
+            <a class="pill" href="#basic-output">Output</a>
+            <a class="pill" href="#calculator">Calculator</a>
+            <a class="pill" href="#messages">Messages</a>
+            <a class="pill" href="#debugging">Debugging</a>
+            <a class="pill" href="#arrays-objects">Data</a>
+            <a class="pill" href="#timing">Timing</a>
+            <a class="pill" href="#errors">Errors</a>
+            <a class="pill" href="#dom">DOM</a>
+            <a class="pill" href="#practice">Practice</a>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <section id="goal">
+                <h2>Lesson Goal</h2>
+                <p class="lead">
+                    The console is one of the first tools that turns a beginner into a real programmer.
+                    It helps you check what your code is doing instead of guessing.
+                </p>
+
+                <div class="goal-box">
+                    <strong>By the end of this lesson, students will understand:</strong>
+                    <ol>
+                        <li>What the browser console is</li>
+                        <li>How to open the console</li>
+                        <li>How to use <code>console.log()</code></li>
+                        <li>How to print numbers, strings, variables, arrays, and objects</li>
+                        <li>How to use <code>console.warn()</code>, <code>console.error()</code>, and
+                            <code>console.info()</code></li>
+                        <li>How to debug variables, conditions, loops, and functions</li>
+                        <li>How to use <code>console.table()</code>, <code>console.group()</code>, and
+                            <code>console.count()</code></li>
+                        <li>How to measure performance using <code>console.time()</code></li>
+                        <li>How to understand common JavaScript errors</li>
+                        <li>How to use the console professionally</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="what-console">
+                <h2>1. What is the Console?</h2>
+                <p>
+                    The console is a tool inside the browser where JavaScript can show messages,
+                    errors, warnings, values, objects, arrays, and debugging information.
+                </p>
+
+                <div class="lesson-card">
+                    <p>
+                        Think of the console as a programmer’s notebook while the program is running.
+                    </p>
+                </div>
+
+                <p>JavaScript can talk to the console using:</p>
+
+                <pre><code>console.log("Hello JavaScript");</code></pre>
+
+                <p>The console is mainly used for:</p>
+
+                <ul>
+                    <li>Checking output</li>
+                    <li>Finding mistakes</li>
+                    <li>Testing small code</li>
+                    <li>Debugging variables</li>
+                    <li>Understanding program flow</li>
+                    <li>Inspecting objects</li>
+                    <li>Measuring performance</li>
+                </ul>
+            </section>
+
+            <section id="open-console">
+                <h2>2. How to Open the Console</h2>
+
+                <h3>In Google Chrome</h3>
+
+                <div class="note">
+                    <p><strong>Method 1:</strong> Right click on the web page, click <strong>Inspect</strong>, then open
+                        the <strong>Console</strong> tab.</p>
+                    <p><strong>Method 2:</strong> Press <code>Ctrl + Shift + J</code>.</p>
+                    <p><strong>On Mac:</strong> Press <code>Command + Option + J</code>.</p>
+                </div>
+
+                <p>
+                    After opening the console, you can type JavaScript directly there.
+                </p>
+
+                <pre><code>10 + 20</code></pre>
+
+                <div class="console-box">30</div>
+            </section>
+
+            <div class="ad-box">
+                <p>Advertisement</p>
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494"
+                    data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            </div>
+
+            <section id="basic-output">
+                <h2>3. Your First Console Output</h2>
+
+                <p>Create a simple HTML file:</p>
+
+                <pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Console Lesson&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;h1&gt;Open the Console&lt;/h1&gt;
+
+  &lt;script&gt;
+    console.log("Hello JavaScript");
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                <p>When you open the page and check the console, you will see:</p>
+
+                <div class="console-box">Hello JavaScript</div>
+
+                <h3>Printing Numbers</h3>
+
+                <pre><code>console.log(10);
+console.log(25.5);
+console.log(100 + 50);</code></pre>
+
+                <div class="console-box">10
+                    25.5
+                    150</div>
+
+                <h3>Printing Variables</h3>
+
+                <pre><code>let name = "Champak";
+let age = 25;
+
+console.log(name);
+console.log(age);</code></pre>
+
+                <div class="console-box">Champak
+                    25</div>
+
+                <h3>Printing Text with Variables</h3>
+
+                <pre><code>let student = "Ravi";
+let marks = 87;
+
+console.log("Student name:", student);
+console.log("Marks:", marks);</code></pre>
+
+                <div class="console-box">Student name: Ravi
+                    Marks: 87</div>
+
+                <h3>Using Template Literals</h3>
+
+                <pre><code>let name = "Ravi";
+let subject = "JavaScript";
+
+console.log(`Hello ${name}, welcome to ${subject}`);</code></pre>
+
+                <div class="console-box">Hello Ravi, welcome to JavaScript</div>
+
+                <div class="try-panel">
+                    <h3>Live Console Demo</h3>
+                    <p>Click the button, then open your browser console to see the message.</p>
+                    <button class="btn dark" type="button" id="logDemoBtn">Run console.log()</button>
+                    <div class="output-box" id="logDemoOutput">The page will also show a copy of the console message
+                        here.</div>
+                </div>
+            </section>
+
+            <section id="calculator">
+                <h2>4. Console as a Calculator</h2>
+
+                <p>
+                    You can write JavaScript directly inside the console.
+                </p>
+
+                <pre><code>10 + 20</code></pre>
+                <div class="console-box">30</div>
+
+                <pre><code>100 - 40</code></pre>
+                <div class="console-box">60</div>
+
+                <pre><code>12 * 5</code></pre>
+                <div class="console-box">60</div>
+
+                <pre><code>100 / 4</code></pre>
+                <div class="console-box">25</div>
+
+                <h3>Remainder Operator</h3>
+
+                <pre><code>10 % 3</code></pre>
+
+                <div class="console-box">1</div>
+
+                <p>
+                    This gives <code>1</code> because 10 divided by 3 leaves remainder 1.
+                </p>
+
+                <h3>Testing Variables Directly</h3>
+
+                <pre><code>let a = 10;
+let b = 20;
+a + b;</code></pre>
+
+                <div class="console-box">30</div>
+
+                <div class="try-panel">
+                    <h3>Try Console-style Calculation</h3>
+
+                    <label for="calcA">First number</label>
+                    <input id="calcA" type="number" value="10" />
+
+                    <label for="calcB">Second number</label>
+                    <input id="calcB" type="number" value="20" />
+
+                    <div class="btn-row">
+                        <button class="btn dark" type="button" data-op="+">+</button>
+                        <button class="btn dark" type="button" data-op="-">-</button>
+                        <button class="btn dark" type="button" data-op="*">*</button>
+                        <button class="btn dark" type="button" data-op="/">/</button>
+                        <button class="btn dark" type="button" data-op="%">%</button>
+                    </div>
+
+                    <div class="output-box" id="calcOutput">Result will appear here.</div>
+                </div>
+            </section>
+
+            <section id="messages">
+                <h2>5. Different Types of Console Messages</h2>
+
+                <h3><code>console.log()</code></h3>
+                <p>Used for normal messages.</p>
+
+                <pre><code>console.log("This is a normal message");</code></pre>
+
+                <h3><code>console.warn()</code></h3>
+                <p>Used when something is not broken yet, but the programmer should notice it.</p>
+
+                <pre><code>let age = 15;
+
+if (age &lt; 18) {
+  console.warn("User is below 18");
+}</code></pre>
+
+                <h3><code>console.error()</code></h3>
+                <p>Used to show an error message.</p>
+
+                <pre><code>let password = "";
+
+if (password === "") {
+  console.error("Password cannot be empty");
+}</code></pre>
+
+                <div class="warning-box">
+                    <strong>Important:</strong> <code>console.error()</code> shows an error message.
+                    It does not automatically stop the program.
+                </div>
+
+                <h3><code>console.info()</code></h3>
+
+                <pre><code>console.info("Application started successfully");</code></pre>
+
+                <h3>Comparison</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>console.log()</code></td>
+                            <td>Normal output</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.info()</code></td>
+                            <td>Information</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.warn()</code></td>
+                            <td>Warning</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.error()</code></td>
+                            <td>Error message</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="try-panel">
+                    <h3>Run Message Types</h3>
+                    <p>Open the browser console first, then click these buttons.</p>
+                    <div class="btn-row">
+                        <button class="btn dark" type="button" id="runLogBtn">console.log()</button>
+                        <button class="btn dark" type="button" id="runInfoBtn">console.info()</button>
+                        <button class="btn dark" type="button" id="runWarnBtn">console.warn()</button>
+                        <button class="btn dark" type="button" id="runErrorBtn">console.error()</button>
+                    </div>
+                    <div class="output-box" id="messageOutput">Clicked message type will appear here also.</div>
+                </div>
+            </section>
+
+            <section id="debugging">
+                <h2>6. Debugging with the Console</h2>
+
+                <p>
+                    Debugging means finding and fixing mistakes in a program.
+                </p>
+
+                <div class="lesson-card">
+                    <strong>The console helps us answer:</strong>
+                    <ul>
+                        <li>Did this line run?</li>
+                        <li>What is the value of this variable?</li>
+                        <li>Why is this condition not working?</li>
+                        <li>Why is this function returning the wrong result?</li>
+                        <li>Where did the program stop?</li>
+                    </ul>
+                </div>
+
+                <h3>Checking Whether Code Runs</h3>
+
+                <pre><code>console.log("Program started");
+
+let a = 10;
+let b = 20;
+
+console.log("Before addition");
+
+let sum = a + b;
+
+console.log("After addition");
+console.log(sum);</code></pre>
+
+                <div class="console-box">Program started
+                    Before addition
+                    After addition
+                    30</div>
+
+                <h3>Debugging Variables</h3>
+
+                <pre><code>let price = 100;
+let quantity = 5;
+
+console.log("Price:", price);
+console.log("Quantity:", quantity);
+
+let total = price * quantity;
+
+console.log("Total:", total);</code></pre>
+
+                <h3>Debugging Conditions</h3>
+
+                <pre><code>let marks = 45;
+
+console.log("Marks value:", marks);
+console.log("Is marks &gt;= 33?", marks &gt;= 33);
+
+if (marks &gt;= 33) {
+  console.log("Pass block entered");
+} else {
+  console.log("Fail block entered");
+}</code></pre>
+
+                <h3>Debugging Loops</h3>
+
+                <pre><code>for (let i = 1; i &lt;= 5; i++) {
+  console.log("Loop running. Current i =", i);
+}</code></pre>
+
+                <div class="console-box">Loop running. Current i = 1
+                    Loop running. Current i = 2
+                    Loop running. Current i = 3
+                    Loop running. Current i = 4
+                    Loop running. Current i = 5</div>
+
+                <h3>Debugging Array Loops</h3>
+
+                <pre><code>let marks = [70, 80, 90];
+
+for (let i = 0; i &lt; marks.length; i++) {
+  console.log("Index:", i);
+  console.log("Value:", marks[i]);
+}</code></pre>
+            </section>
+
+            <section id="arrays-objects">
+                <h2>7. Console with Arrays and Objects</h2>
+
+                <h3>Printing Arrays</h3>
+
+                <pre><code>let students = ["Ravi", "Amit", "Sita"];
+
+console.log(students);</code></pre>
+
+                <div class="console-box">["Ravi", "Amit", "Sita"]</div>
+
+                <p>
+                    In the browser console, arrays can be expanded and inspected.
+                </p>
+
+                <h3>Printing Objects</h3>
+
+                <pre><code>let student = {
+  name: "Ravi",
+  age: 16,
+  city: "Varanasi"
+};
+
+console.log(student);</code></pre>
+
+                <h3>Printing Object Properties</h3>
+
+                <pre><code>console.log("Name:", student.name);
+console.log("Age:", student.age);
+console.log("City:", student.city);</code></pre>
+
+                <div class="console-box">Name: Ravi
+                    Age: 16
+                    City: Varanasi</div>
+
+                <h3>Array of Objects</h3>
+
+                <pre><code>let students = [
+  { name: "Ravi", marks: 80 },
+  { name: "Amit", marks: 75 },
+  { name: "Sita", marks: 92 }
+];
+
+console.log(students);</code></pre>
+
+                <h3><code>console.table()</code></h3>
+
+                <pre><code>let students = [
+  { name: "Ravi", marks: 80 },
+  { name: "Amit", marks: 75 },
+  { name: "Sita", marks: 92 }
+];
+
+console.table(students);</code></pre>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>index</th>
+                            <th>name</th>
+                            <th>marks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>Ravi</td>
+                            <td>80</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Amit</td>
+                            <td>75</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Sita</td>
+                            <td>92</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="try-panel">
+                    <h3>Run console.table()</h3>
+                    <p>Open the console, then click the button.</p>
+                    <button class="btn dark" type="button" id="tableBtn">Show Student Table in Console</button>
+                    <div class="output-box" id="tableOutput">The same data will appear here after clicking.</div>
+                </div>
+            </section>
+
+            <section id="groups">
+                <h2>8. Grouping Console Output</h2>
+
+                <h3><code>console.group()</code></h3>
+
+                <pre><code>console.group("Student Report");
+
+console.log("Name: Ravi");
+console.log("Math: 80");
+console.log("Science: 75");
+console.log("English: 85");
+
+console.groupEnd();</code></pre>
+
+                <p>
+                    Output appears under one expandable group in the browser console.
+                </p>
+
+                <h3>Nested Groups</h3>
+
+                <pre><code>console.group("School");
+
+console.log("School Name: ABC School");
+
+console.group("Student");
+console.log("Name: Ravi");
+console.log("Class: 9");
+
+console.groupEnd();
+
+console.groupEnd();</code></pre>
+
+                <div class="try-panel">
+                    <h3>Run Group Demo</h3>
+                    <button class="btn dark" type="button" id="groupBtn">Show Group in Console</button>
+                    <div class="output-box" id="groupOutput">Open the browser console to see the grouped output.</div>
+                </div>
+            </section>
+
+            <section id="timing">
+                <h2>9. Counting and Timing</h2>
+
+                <h3><code>console.count()</code></h3>
+
+                <pre><code>console.count("Button clicked");
+console.count("Button clicked");
+console.count("Button clicked");</code></pre>
+
+                <div class="console-box">Button clicked: 1
+                    Button clicked: 2
+                    Button clicked: 3</div>
+
+                <h3>Counting Inside a Loop</h3>
+
+                <pre><code>for (let i = 1; i &lt;= 5; i++) {
+  console.count("Loop count");
+}</code></pre>
+
+                <h3><code>console.time()</code> and <code>console.timeEnd()</code></h3>
+
+                <p>
+                    These methods measure how long code takes to run.
+                </p>
+
+                <pre><code>console.time("Loop time");
+
+for (let i = 1; i &lt;= 1000000; i++) {
+  // running loop
+}
+
+console.timeEnd("Loop time");</code></pre>
+
+                <div class="console-box">Loop time: 4.52 ms</div>
+
+                <div class="try-panel">
+                    <h3>Run Timer Demo</h3>
+                    <button class="btn dark" type="button" id="timerBtn">Measure Loop Time</button>
+                    <div class="output-box" id="timerOutput">Timer result will appear in the console and here.</div>
+                </div>
+            </section>
+
+            <section id="assert-trace">
+                <h2>10. Assert and Trace</h2>
+
+                <h3><code>console.assert()</code></h3>
+
+                <p>
+                    <code>console.assert()</code> shows a message only if a condition is false.
+                </p>
+
+                <pre><code>console.assert(10 &gt; 5, "This will not show");
+console.assert(10 &lt; 5, "This will show because condition is false");</code></pre>
+
+                <div class="console-box">Assertion failed: This will show because condition is false</div>
+
+                <h3><code>console.trace()</code></h3>
+
+                <p>
+                    <code>console.trace()</code> shows how a function was called.
+                </p>
+
+                <pre><code>function first() {
+  second();
+}
+
+function second() {
+  third();
+}
+
+function third() {
+  console.trace("Trace from third function");
+}
+
+first();</code></pre>
+
+                <p>
+                    This is useful when you do not know how the program reached a function.
+                </p>
+            </section>
+
+            <section id="functions">
+                <h2>11. Console with Functions</h2>
+
+                <h3>Debugging Function Input and Output</h3>
+
+                <pre><code>function add(a, b) {
+  console.log("a:", a);
+  console.log("b:", b);
+
+  let result = a + b;
+
+  console.log("result:", result);
+
+  return result;
+}
+
+add(10, 20);</code></pre>
+
+                <div class="console-box">a: 10
+                    b: 20
+                    result: 30</div>
+
+                <h3>Finding Function Bugs</h3>
+
+                <pre><code>function calculatePercentage(total, maximum) {
+  console.log("Total:", total);
+  console.log("Maximum:", maximum);
+
+  let percentage = total / maximum * 100;
+
+  console.log("Percentage:", percentage);
+
+  return percentage;
+}
+
+let result = calculatePercentage(240, 300);
+console.log("Final result:", result);</code></pre>
+            </section>
+
+            <section id="events">
+                <h2>12. Console with Events</h2>
+
+                <h3>Debugging Button Clicks</h3>
+
+                <pre><code>&lt;button id="myBtn"&gt;Click Me&lt;/button&gt;
+
+&lt;script&gt;
+  let btn = document.getElementById("myBtn");
+
+  btn.addEventListener("click", function () {
+    console.log("Button was clicked");
+  });
+&lt;/script&gt;</code></pre>
+
+                <h3>Checking Input Values</h3>
+
+                <pre><code>&lt;input id="nameInput" type="text" placeholder="Enter name"&gt;
+&lt;button id="showBtn"&gt;Show Name&lt;/button&gt;
+
+&lt;script&gt;
+  let input = document.getElementById("nameInput");
+  let button = document.getElementById("showBtn");
+
+  button.addEventListener("click", function () {
+    console.log("Input value:", input.value);
+  });
+&lt;/script&gt;</code></pre>
+
+                <div class="try-panel">
+                    <h3>Input Debug Demo</h3>
+
+                    <label for="nameDebugInput">Enter name</label>
+                    <input id="nameDebugInput" type="text" value="Ravi" />
+
+                    <button class="btn dark" type="button" id="inputDebugBtn">Debug Input Value</button>
+
+                    <div class="output-box" id="inputDebugOutput">Input value will appear here and in the console.</div>
+                </div>
+            </section>
+
+            <section id="errors">
+                <h2>13. Common Console Errors</h2>
+
+                <h3>Syntax Error</h3>
+
+                <p>Wrong code:</p>
+
+                <pre><code>console.log("Hello"</code></pre>
+
+                <div class="error-box">
+                    <strong>Error:</strong> SyntaxError. The closing bracket is missing.
+                </div>
+
+                <p>Correct code:</p>
+
+                <pre><code>console.log("Hello");</code></pre>
+
+                <h3>Reference Error</h3>
+
+                <p>Wrong code:</p>
+
+                <pre><code>console.log(studentName);</code></pre>
+
+                <div class="error-box">
+                    <strong>Error:</strong> ReferenceError. <code>studentName</code> was never created.
+                </div>
+
+                <p>Correct code:</p>
+
+                <pre><code>let studentName = "Ravi";
+console.log(studentName);</code></pre>
+
+                <h3>Type Error</h3>
+
+                <p>Wrong code:</p>
+
+                <pre><code>let name = "Ravi";
+
+name.push("Amit");</code></pre>
+
+                <div class="error-box">
+                    <strong>Error:</strong> TypeError. <code>push()</code> works on arrays, not normal strings.
+                </div>
+
+                <p>Correct code:</p>
+
+                <pre><code>let names = ["Ravi"];
+
+names.push("Amit");
+
+console.log(names);</code></pre>
+            </section>
+
+            <section id="typeof">
+                <h2>14. Console and <code>typeof</code></h2>
+
+                <p>
+                    <code>typeof</code> helps us check the data type of a value.
+                </p>
+
+                <pre><code>let name = "Ravi";
+let age = 16;
+let isStudent = true;
+
+console.log(typeof name);
+console.log(typeof age);
+console.log(typeof isStudent);</code></pre>
+
+                <div class="console-box">string
+                    number
+                    boolean</div>
+
+                <h3>Common Type Problem</h3>
+
+                <pre><code>let a = "10";
+let b = 20;
+
+console.log(a + b);</code></pre>
+
+                <div class="console-box">1020</div>
+
+                <p>
+                    This happens because <code>"10"</code> is a string.
+                </p>
+
+                <pre><code>console.log(typeof a);
+console.log(typeof b);</code></pre>
+
+                <div class="console-box">string
+                    number</div>
+
+                <p>Fix:</p>
+
+                <pre><code>let a = Number("10");
+let b = 20;
+
+console.log(a + b);</code></pre>
+
+                <div class="console-box">30</div>
+            </section>
+
+            <section id="dom">
+                <h2>15. Console and DOM Debugging</h2>
+
+                <p>
+                    DOM means <strong>Document Object Model</strong>. It is the browser’s object version of the HTML
+                    page.
+                </p>
+
+                <h3>Selecting an Element</h3>
+
+                <pre><code>&lt;h1 id="title"&gt;Hello&lt;/h1&gt;
+
+&lt;script&gt;
+  let title = document.getElementById("title");
+
+  console.log(title);
+&lt;/script&gt;</code></pre>
+
+                <h3>Checking Text Inside an Element</h3>
+
+                <pre><code>let title = document.getElementById("title");
+
+console.log(title.innerText);</code></pre>
+
+                <div class="console-box">Hello</div>
+
+                <h3>Changing Text and Checking It</h3>
+
+                <pre><code>let title = document.getElementById("title");
+
+console.log("Before:", title.innerText);
+
+title.innerText = "Hello JavaScript";
+
+console.log("After:", title.innerText);</code></pre>
+
+                <div class="console-box">Before: Hello
+                    After: Hello JavaScript</div>
+
+                <div class="try-panel">
+                    <h3>DOM Debug Demo</h3>
+                    <p id="domDemoTitle">Original DOM text</p>
+
+                    <button class="btn dark" type="button" id="domDemoBtn">Change and Debug DOM Text</button>
+
+                    <div class="output-box" id="domDemoOutput">DOM debug result will appear here.</div>
+                </div>
+            </section>
+
+            <section id="professional">
+                <h2>16. Professional Console Habits</h2>
+
+                <h3>Bad Console Message</h3>
+
+                <pre><code>console.log(x);</code></pre>
+
+                <p>
+                    This is unclear because we do not know what <code>x</code> means.
+                </p>
+
+                <h3>Good Console Message</h3>
+
+                <pre><code>console.log("Current value of x:", x);</code></pre>
+
+                <h3>Better Debugging Habit</h3>
+
+                <p>Instead of this:</p>
+
+                <pre><code>console.log(a);
+console.log(b);
+console.log(c);</code></pre>
+
+                <p>Write this:</p>
+
+                <pre><code>console.log("Price:", a);
+console.log("Quantity:", b);
+console.log("Total:", c);</code></pre>
+
+                <div class="note">
+                    Meaningful labels save time. They also help you understand your own code after a few days.
+                </div>
+            </section>
+
+            <section id="complete-example">
+                <h2>17. Complete Example: Student Result Debugging Program</h2>
+
+                <pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Console Debugging Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;h1&gt;Student Result&lt;/h1&gt;
+
+  &lt;script&gt;
+    console.clear();
+
+    console.log("Program started");
+
+    let studentName = "Ravi";
+    let math = 80;
+    let science = 75;
+    let english = 85;
+
+    console.group("Student Data");
+    console.log("Name:", studentName);
+    console.log("Math:", math);
+    console.log("Science:", science);
+    console.log("English:", english);
+    console.groupEnd();
+
+    let total = math + science + english;
+    let percentage = total / 3;
+
+    console.group("Result");
+    console.log("Total:", total);
+    console.log("Percentage:", percentage);
+
+    if (percentage &gt;= 33) {
+      console.log("Status: Pass");
+    } else {
+      console.warn("Status: Fail");
+    }
+
+    console.groupEnd();
+
+    console.log("Program ended");
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                <div class="try-panel">
+                    <h3>Run Complete Example</h3>
+                    <button class="btn dark" type="button" id="completeExampleBtn">Run Student Debug Program</button>
+                    <div class="output-box" id="completeExampleOutput">Open the console and click the button.</div>
+                </div>
+            </section>
+
+            <section id="summary-table">
+                <h2>18. Console Methods Summary</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>console.log()</code></td>
+                            <td>Normal message</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.info()</code></td>
+                            <td>Information message</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.warn()</code></td>
+                            <td>Warning message</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.error()</code></td>
+                            <td>Error message</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.table()</code></td>
+                            <td>Display array or object as a table</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.group()</code></td>
+                            <td>Start a group</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.groupEnd()</code></td>
+                            <td>End a group</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.count()</code></td>
+                            <td>Count how many times something happened</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.time()</code></td>
+                            <td>Start timer</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.timeEnd()</code></td>
+                            <td>End timer</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.assert()</code></td>
+                            <td>Show message if condition is false</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.trace()</code></td>
+                            <td>Show function call path</td>
+                        </tr>
+                        <tr>
+                            <td><code>console.clear()</code></td>
+                            <td>Clear console</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="practice">
+                <h2>19. Practice Questions</h2>
+
+                <h3>Question 1</h3>
+                <p>Print your name, city, and subject using <code>console.log()</code>.</p>
+
+                <pre><code>let name = "Amit";
+let city = "Varanasi";
+let subject = "JavaScript";
+
+console.log("Name:", name);
+console.log("City:", city);
+console.log("Subject:", subject);</code></pre>
+
+                <h3>Question 2</h3>
+                <p>Use the console to calculate total marks.</p>
+
+                <pre><code>let math = 80;
+let science = 90;
+let english = 70;
+
+let total = math + science + english;
+
+console.log("Total:", total);</code></pre>
+
+                <h3>Question 3</h3>
+                <p>Use <code>console.warn()</code> when marks are below 33.</p>
+
+                <pre><code>let marks = 25;
+
+if (marks &lt; 33) {
+  console.warn("Student has failed");
+} else {
+  console.log("Student has passed");
+}</code></pre>
+
+                <h3>Question 4</h3>
+                <p>Display student data using <code>console.table()</code>.</p>
+
+                <pre><code>let students = [
+  { name: "Ravi", marks: 80 },
+  { name: "Amit", marks: 75 },
+  { name: "Sita", marks: 92 }
+];
+
+console.table(students);</code></pre>
+
+                <h3>Question 5</h3>
+                <p>Use <code>console.time()</code> to measure a loop.</p>
+
+                <pre><code>console.time("My loop");
+
+for (let i = 1; i &lt;= 100000; i++) {
+  // loop running
+}
+
+console.timeEnd("My loop");</code></pre>
+            </section>
+
+            <section id="assignment">
+                <h2>20. Mini Assignment</h2>
+
+                <div class="assignment">
+                    <p>
+                        Create a student report debugging program.
+                    </p>
+
+                    <p>It should:</p>
+
+                    <ul>
+                        <li>Store student name</li>
+                        <li>Store marks in 3 subjects</li>
+                        <li>Print all values using <code>console.log()</code></li>
+                        <li>Print student data using <code>console.group()</code></li>
+                        <li>Calculate total</li>
+                        <li>Calculate percentage</li>
+                        <li>Show warning if percentage is below 33</li>
+                        <li>Show final result</li>
+                    </ul>
+                </div>
+
+                <h3>Starter Code</h3>
+
+                <pre><code>console.clear();
+
+let studentName = "Ravi";
+let math = 80;
+let science = 70;
+let english = 90;
+
+console.group("Student Information");
+
+console.log("Name:", studentName);
+console.log("Math:", math);
+console.log("Science:", science);
+console.log("English:", english);
+
+console.groupEnd();
+
+let total = math + science + english;
+let percentage = total / 3;
+
+console.group("Result");
+
+console.log("Total:", total);
+console.log("Percentage:", percentage);
+
+if (percentage &lt; 33) {
+  console.warn("Result: Fail");
+} else {
+  console.log("Result: Pass");
+}
+
+console.groupEnd();</code></pre>
+            </section>
+
+            <section id="final-understanding">
+                <h2>Final Understanding</h2>
+
+                <p>
+                    The console is not only for printing messages. It is used for testing,
+                    debugging, checking variables, checking functions, checking loops,
+                    checking arrays, checking objects, checking errors, measuring performance,
+                    and understanding program flow.
+                </p>
+
+                <div class="note">
+                    A beginner writes code and guesses. A better programmer writes code and checks.
+                    The console is the first tool that teaches us how to check.
+                </div>
+            </section>
+        </article>
+
+        <aside>
+            <h2 class="toc-title">Lesson Contents</h2>
+            <ul class="toc-list">
+                <li><a href="#goal">Goal</a></li>
+                <li><a href="#what-console">What is Console?</a></li>
+                <li><a href="#open-console">Open Console</a></li>
+                <li><a href="#basic-output">Basic Output</a></li>
+                <li><a href="#calculator">Console Calculator</a></li>
+                <li><a href="#messages">Message Types</a></li>
+                <li><a href="#debugging">Debugging</a></li>
+                <li><a href="#arrays-objects">Arrays and Objects</a></li>
+                <li><a href="#groups">Groups</a></li>
+                <li><a href="#timing">Counting and Timing</a></li>
+                <li><a href="#assert-trace">Assert and Trace</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#errors">Errors</a></li>
+                <li><a href="#typeof">typeof</a></li>
+                <li><a href="#dom">DOM Debugging</a></li>
+                <li><a href="#professional">Professional Habits</a></li>
+                <li><a href="#practice">Practice</a></li>
+                <li><a href="#assignment">Mini Assignment</a></li>
+            </ul>
+
+            <div class="note">
+                <strong>Teacher Tip:</strong>
+                Ask students to keep the browser console open while reading this lesson.
+            </div>
+
+            <div class="mini-grid" style="grid-template-columns:1fr;">
+                <div class="mini-card">
+                    <strong>Shortcut</strong>
+                    <p class="small">Chrome Windows/Linux: <code>Ctrl + Shift + J</code></p>
+                    <p class="small">Mac: <code>Command + Option + J</code></p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <p><strong>Programmer's Picnic</strong></p>
+        <p>JavaScript Console Lesson by Champak Roy</p>
+    </footer>
+
+    <script>
+        const openConsoleHintBtn = document.getElementById("openConsoleHintBtn");
+        const heroDemoBtn = document.getElementById("heroDemoBtn");
+        const printTopBtn = document.getElementById("printTopBtn");
+        const logDemoBtn = document.getElementById("logDemoBtn");
+        const logDemoOutput = document.getElementById("logDemoOutput");
+        const calcOutput = document.getElementById("calcOutput");
+        const messageOutput = document.getElementById("messageOutput");
+        const tableOutput = document.getElementById("tableOutput");
+        const groupOutput = document.getElementById("groupOutput");
+        const timerOutput = document.getElementById("timerOutput");
+        const inputDebugOutput = document.getElementById("inputDebugOutput");
+        const domDemoOutput = document.getElementById("domDemoOutput");
+        const completeExampleOutput = document.getElementById("completeExampleOutput");
+
+        openConsoleHintBtn.addEventListener("click", function () {
+            alert("Open Console: Right click on page → Inspect → Console tab. Shortcut: Ctrl + Shift + J. On Mac: Command + Option + J.");
+        });
+
+        heroDemoBtn.addEventListener("click", function () {
+            console.log("Hello from Programmer's Picnic. The console is working.");
+            alert("A message was printed in the browser console.");
+        });
+
+        printTopBtn.addEventListener("click", function () {
+            window.print();
+        });
+
+        logDemoBtn.addEventListener("click", function () {
+            const message = "Hello JavaScript. This message came from console.log().";
+            console.log(message);
+            logDemoOutput.innerText = message;
+        });
+
+        document.querySelectorAll("[data-op]").forEach(function (button) {
+            button.addEventListener("click", function () {
+                const a = Number(document.getElementById("calcA").value);
+                const b = Number(document.getElementById("calcB").value);
+                const op = button.getAttribute("data-op");
+                let result;
+
+                if (op === "+") {
+                    result = a + b;
+                } else if (op === "-") {
+                    result = a - b;
+                } else if (op === "*") {
+                    result = a * b;
+                } else if (op === "/") {
+                    result = b === 0 ? "Cannot divide by zero" : a / b;
+                } else if (op === "%") {
+                    result = b === 0 ? "Cannot divide by zero" : a % b;
+                }
+
+                const message = `${a} ${op} ${b} = ${result}`;
+                console.log("Calculator:", message);
+                calcOutput.innerText = message;
+            });
+        });
+
+        document.getElementById("runLogBtn").addEventListener("click", function () {
+            console.log("Normal message from console.log()");
+            messageOutput.innerText = "Normal message from console.log()";
+        });
+
+        document.getElementById("runInfoBtn").addEventListener("click", function () {
+            console.info("Information message from console.info()");
+            messageOutput.innerText = "Information message from console.info()";
+        });
+
+        document.getElementById("runWarnBtn").addEventListener("click", function () {
+            console.warn("Warning message from console.warn()");
+            messageOutput.innerText = "Warning message from console.warn()";
+        });
+
+        document.getElementById("runErrorBtn").addEventListener("click", function () {
+            console.error("Error message from console.error()");
+            messageOutput.innerText = "Error message from console.error()";
+        });
+
+        document.getElementById("tableBtn").addEventListener("click", function () {
+            const students = [
+                { name: "Ravi", marks: 80 },
+                { name: "Amit", marks: 75 },
+                { name: "Sita", marks: 92 }
+            ];
+
+            console.table(students);
+
+            tableOutput.innerText =
+                "Student table printed in console.\n\n" +
+                JSON.stringify(students, null, 2);
+        });
+
+        document.getElementById("groupBtn").addEventListener("click", function () {
+            console.group("Student Report");
+            console.log("Name: Ravi");
+            console.log("Math: 80");
+            console.log("Science: 75");
+            console.log("English: 85");
+            console.groupEnd();
+
+            groupOutput.innerText = "Grouped student report printed in console.";
+        });
+
+        document.getElementById("timerBtn").addEventListener("click", function () {
+            const start = performance.now();
+
+            console.time("Loop time");
+
+            let total = 0;
+
+            for (let i = 1; i <= 1000000; i++) {
+                total += i;
+            }
+
+            console.timeEnd("Loop time");
+
+            const end = performance.now();
+            const duration = (end - start).toFixed(2);
+
+            timerOutput.innerText =
+                `Loop completed.\nTotal: ${total}\nApproximate time: ${duration} ms`;
+
+            console.log("Loop total:", total);
+        });
+
+        document.getElementById("inputDebugBtn").addEventListener("click", function () {
+            const input = document.getElementById("nameDebugInput");
+            console.log("Input element:", input);
+            console.log("Input value:", input.value);
+
+            inputDebugOutput.innerText = `Input value: ${input.value}`;
+        });
+
+        document.getElementById("domDemoBtn").addEventListener("click", function () {
+            const domDemoTitle = document.getElementById("domDemoTitle");
+
+            console.log("Before:", domDemoTitle.innerText);
+
+            domDemoTitle.innerText = "Text changed using JavaScript";
+
+            console.log("After:", domDemoTitle.innerText);
+
+            domDemoOutput.innerText =
+                "Before: Original DOM text\nAfter: Text changed using JavaScript";
+        });
+
+        document.getElementById("completeExampleBtn").addEventListener("click", function () {
+            console.clear();
+
+            console.log("Program started");
+
+            let studentName = "Ravi";
+            let math = 80;
+            let science = 75;
+            let english = 85;
+
+            console.group("Student Data");
+            console.log("Name:", studentName);
+            console.log("Math:", math);
+            console.log("Science:", science);
+            console.log("English:", english);
+            console.groupEnd();
+
+            let total = math + science + english;
+            let percentage = total / 3;
+
+            console.group("Result");
+            console.log("Total:", total);
+            console.log("Percentage:", percentage);
+
+            if (percentage >= 33) {
+                console.log("Status: Pass");
+            } else {
+                console.warn("Status: Fail");
+            }
+
+            console.groupEnd();
+
+            console.log("Program ended");
+
+            completeExampleOutput.innerText =
+                `Program started\nName: ${studentName}\nTotal: ${total}\nPercentage: ${percentage}\nStatus: Pass\nProgram ended`;
+        });
+
+        try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (error) {
+            console.log("AdSense could not be loaded:", error);
+        }
+    </script>
+</body>
+
+</html>
