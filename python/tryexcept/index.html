@@ -1,0 +1,1405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Try Except in Python: 0 to Infinity Lesson</title>
+
+  <meta name="description" content="A complete 0 to infinity HTML lesson on try, except, else, finally, raise, custom exceptions and error handling in Python." />
+  <meta name="keywords" content="python try except, python error handling, try except else finally, raise exception python, custom exception python, beginner python lesson" />
+  <meta name="author" content="Champak Roy" />
+  <meta name="theme-color" content="#0f766e" />
+
+  <meta property="og:title" content="Try Except in Python: 0 to Infinity Lesson" />
+  <meta property="og:description" content="Learn Python error handling from beginner to advanced: try, except, else, finally, raise and custom exceptions." />
+  <meta property="og:type" content="article" />
+
+  <!-- Google AdSense -->
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+    crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --bg: #f3fffb;
+      --card: #ffffff;
+      --ink: #10201d;
+      --muted: #52635f;
+      --brand: #0f766e;
+      --brand-dark: #0b4f49;
+      --soft: #dffaf4;
+      --line: #b9e5dc;
+      --code-bg: #101827;
+      --code-ink: #f8fafc;
+      --warn-bg: #fff7df;
+      --warn-line: #eab308;
+      --ok-bg: #ecfdf5;
+      --ok-line: #10b981;
+      --danger-bg: #fff1f2;
+      --danger-line: #f43f5e;
+      --shadow: 0 14px 35px rgba(15, 118, 110, 0.14);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, #ccfbf1 0, transparent 34%),
+        linear-gradient(180deg, #f3fffb, #eefbf7);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--brand-dark);
+      text-decoration-thickness: 2px;
+    }
+
+    .page {
+      width: min(1160px, calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0 18px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f766e, #115e59);
+      color: white;
+      border-radius: 28px;
+      padding: 38px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      right: -80px;
+      top: -90px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 4.1rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      max-width: 960px;
+    }
+
+    .hero p {
+      max-width: 820px;
+      font-size: 1.15rem;
+      margin: 0;
+      color: #e8fffb;
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.28);
+      padding: 7px 12px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    nav {
+      margin: 18px 0 26px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 8px;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    nav a {
+      padding: 9px 12px;
+      border-radius: 12px;
+      background: var(--soft);
+      text-decoration: none;
+      color: var(--brand-dark);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    nav a:focus,
+    nav a:hover,
+    button:focus {
+      outline: 3px solid #facc15;
+      outline-offset: 3px;
+    }
+
+    main {
+      display: grid;
+      gap: 20px;
+      padding-bottom: 50px;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      color: var(--brand-dark);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+      line-height: 1.15;
+      margin: 0 0 14px;
+    }
+
+    h3 {
+      margin-top: 26px;
+      color: #134e4a;
+      font-size: 1.28rem;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: #243d39;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin: 18px 0;
+    }
+
+    .mini {
+      background: #f8fffd;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .mini strong {
+      display: block;
+      color: var(--brand-dark);
+      margin-bottom: 6px;
+      font-size: 1.03rem;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(120px, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .flow-card {
+      background: linear-gradient(180deg, #ecfffb, #ffffff);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 14px;
+      text-align: center;
+      min-height: 116px;
+    }
+
+    .flow-card .num {
+      width: 34px;
+      height: 34px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--brand);
+      color: white;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .flow-card b {
+      display: block;
+      color: var(--brand-dark);
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-ink);
+      border-radius: 16px;
+      padding: 18px;
+      overflow-x: auto;
+      border: 1px solid #334155;
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    p code,
+    li code,
+    td code {
+      background: #e7fff8;
+      color: #063b35;
+      padding: 2px 6px;
+      border-radius: 7px;
+      border: 1px solid #b9e5dc;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #dffaf4;
+      color: #0b4f49;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fffd;
+    }
+
+    .note,
+    .warning,
+    .success {
+      border-radius: 16px;
+      padding: 16px;
+      margin: 18px 0;
+    }
+
+    .note {
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-line);
+    }
+
+    .success {
+      background: var(--ok-bg);
+      border: 1px solid var(--ok-line);
+    }
+
+    .warning {
+      background: var(--danger-bg);
+      border: 1px solid var(--danger-line);
+    }
+
+    .ad-box {
+      background: #ffffff;
+      border: 1px dashed #8bbdb4;
+      border-radius: 16px;
+      padding: 12px;
+      margin: 22px 0;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .editor-frame-wrap {
+      width: 100%;
+      height: 720px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: var(--shadow);
+      margin-top: 18px;
+    }
+
+    .editor-frame-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    button {
+      border: 0;
+      background: var(--brand);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #134e4a;
+    }
+
+    details {
+      background: #f8fffd;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--brand-dark);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 0 45px;
+    }
+
+    @media (max-width: 980px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .flow {
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .hero {
+        padding: 26px;
+      }
+
+      section {
+        padding: 20px;
+      }
+
+      .grid,
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        position: static;
+      }
+
+      .editor-frame-wrap {
+        height: 620px;
+      }
+    }
+
+    @media print {
+      nav,
+      .button-row,
+      .ad-box,
+      .editor-frame-wrap {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      section,
+      .hero {
+        box-shadow: none;
+      }
+
+      .hero {
+        color: black;
+        background: white;
+        border: 1px solid #999;
+      }
+
+      .hero p {
+        color: black;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header>
+      <div class="hero">
+        <span class="tag">0 to Infinity Lesson</span>
+        <h1>Try, Except in Python</h1>
+        <p>
+          Learn Python error handling from the beginning:
+          runtime errors, <code>try</code>, <code>except</code>, multiple exceptions,
+          <code>else</code>, <code>finally</code>, <code>raise</code>, custom exceptions,
+          and real-world safe programming.
+        </p>
+      </div>
+    </header>
+
+    <nav aria-label="Lesson navigation">
+      <a href="#overview">Overview</a>
+      <a href="#error">Errors</a>
+      <a href="#try-except">try except</a>
+      <a href="#multiple">Multiple except</a>
+      <a href="#else-finally">else finally</a>
+      <a href="#raise">raise</a>
+      <a href="#custom">Custom Exceptions</a>
+      <a href="#files">File Handling</a>
+      <a href="#loops">Loops</a>
+      <a href="#bad-practices">Bad Practices</a>
+      <a href="#project">Mini Project</a>
+      <a href="#editor">Python Editor</a>
+      <a href="#practice">Practice</a>
+    </nav>
+
+    <main>
+      <section id="overview">
+        <h2>1. Big Picture</h2>
+
+        <p class="lead">
+          A program can fail while running. The user may enter wrong data.
+          A file may be missing. Internet may stop. A number may be divided by zero.
+          Error handling helps the program survive such situations.
+        </p>
+
+        <div class="flow">
+          <div class="flow-card">
+            <span class="num">1</span>
+            <b>Risky Code</b>
+            <small>Code that may fail</small>
+          </div>
+
+          <div class="flow-card">
+            <span class="num">2</span>
+            <b>try</b>
+            <small>Run risky code</small>
+          </div>
+
+          <div class="flow-card">
+            <span class="num">3</span>
+            <b>except</b>
+            <small>Handle error</small>
+          </div>
+
+          <div class="flow-card">
+            <span class="num">4</span>
+            <b>else</b>
+            <small>Run if no error</small>
+          </div>
+
+          <div class="flow-card">
+            <span class="num">5</span>
+            <b>finally</b>
+            <small>Always run</small>
+          </div>
+        </div>
+
+        <div class="success">
+          <strong>Main idea:</strong>
+          <code>try</code> protects risky code.
+          <code>except</code> decides what to do when an error happens.
+        </div>
+
+        <h3>Basic structure</h3>
+
+        <pre><code>try:
+    # risky code
+    pass
+except:
+    # what to do if error happens
+    pass</code></pre>
+
+        <div class="ad-box">
+          Advertisement
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-8321261883090494"
+               data-ad-slot="7782388330"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+        </div>
+      </section>
+
+      <section id="error">
+        <h2>2. What is an Error?</h2>
+
+        <p>
+          An error is a problem that stops or disturbs a program.
+          In Python, many runtime problems are called <strong>exceptions</strong>.
+        </p>
+
+        <h3>Example: program crashes</h3>
+
+        <pre><code>a = 10
+b = 0
+
+print(a / b)</code></pre>
+
+        <p>
+          This program fails because division by zero is not allowed.
+        </p>
+
+        <pre><code>ZeroDivisionError: division by zero</code></pre>
+
+        <h3>Common Python exceptions</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Exception</th>
+              <th>When it happens</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>ZeroDivisionError</code></td>
+              <td>Dividing by zero</td>
+              <td><code>10 / 0</code></td>
+            </tr>
+            <tr>
+              <td><code>ValueError</code></td>
+              <td>Wrong value type conversion</td>
+              <td><code>int("abc")</code></td>
+            </tr>
+            <tr>
+              <td><code>TypeError</code></td>
+              <td>Wrong operation between types</td>
+              <td><code>"5" + 2</code></td>
+            </tr>
+            <tr>
+              <td><code>IndexError</code></td>
+              <td>List index does not exist</td>
+              <td><code>items[10]</code></td>
+            </tr>
+            <tr>
+              <td><code>KeyError</code></td>
+              <td>Dictionary key does not exist</td>
+              <td><code>student["age"]</code></td>
+            </tr>
+            <tr>
+              <td><code>FileNotFoundError</code></td>
+              <td>File is missing</td>
+              <td><code>open("missing.txt")</code></td>
+            </tr>
+            <tr>
+              <td><code>NameError</code></td>
+              <td>Variable is not defined</td>
+              <td><code>print(x)</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <strong>Important:</strong>
+          Syntax errors happen before the program runs.
+          Exceptions usually happen while the program is running.
+        </div>
+      </section>
+
+      <section id="try-except">
+        <h2>3. Basic <code>try</code> and <code>except</code></h2>
+
+        <p>
+          The <code>try</code> block contains risky code.
+          The <code>except</code> block contains the rescue plan.
+        </p>
+
+        <h3>Example 1: division by zero</h3>
+
+        <pre><code>try:
+    a = 10
+    b = 0
+    result = a / b
+    print(result)
+except:
+    print("Something went wrong.")</code></pre>
+
+        <p>
+          Instead of crashing, the program prints a friendly message.
+        </p>
+
+        <h3>Better version: catch exact exception</h3>
+
+        <pre><code>try:
+    a = 10
+    b = 0
+    result = a / b
+    print(result)
+except ZeroDivisionError:
+    print("You cannot divide by zero.")</code></pre>
+
+        <div class="success">
+          <strong>Good habit:</strong>
+          Catch specific exceptions whenever possible.
+          It makes the program clearer and safer.
+        </div>
+
+        <h3>Example 2: user input</h3>
+
+        <pre><code>try:
+    age = int(input("Enter your age: "))
+    print("Your age is", age)
+except ValueError:
+    print("Please enter a valid number.")</code></pre>
+
+        <p>
+          If the user enters <code>abc</code>, Python cannot convert it to an integer.
+          So <code>ValueError</code> happens.
+        </p>
+
+        <h3>Example 3: list index</h3>
+
+        <pre><code>numbers = [10, 20, 30]
+
+try:
+    print(numbers[5])
+except IndexError:
+    print("That index does not exist.")</code></pre>
+      </section>
+
+      <section id="multiple">
+        <h2>4. Multiple <code>except</code> Blocks</h2>
+
+        <p>
+          Different errors need different solutions.
+          We can write more than one <code>except</code> block.
+        </p>
+
+        <h3>Example</h3>
+
+        <pre><code>try:
+    x = int(input("Enter first number: "))
+    y = int(input("Enter second number: "))
+
+    result = x / y
+
+    print("Result:", result)
+
+except ValueError:
+    print("Please enter numbers only.")
+
+except ZeroDivisionError:
+    print("Second number cannot be zero.")</code></pre>
+
+        <h3>How Python chooses the except block</h3>
+
+        <p>
+          Python runs the <code>try</code> block. If an error happens, Python
+          searches for a matching <code>except</code> block.
+        </p>
+
+        <pre><code>try:
+    # risky code
+except ValueError:
+    # handles ValueError
+except ZeroDivisionError:
+    # handles ZeroDivisionError</code></pre>
+
+        <h3>Handling multiple exceptions together</h3>
+
+        <pre><code>try:
+    value = int(input("Enter a number: "))
+    result = 100 / value
+    print(result)
+
+except (ValueError, ZeroDivisionError):
+    print("Invalid input or division by zero.")</code></pre>
+
+        <h3>Getting the error message</h3>
+
+        <pre><code>try:
+    number = int("abc")
+except ValueError as error:
+    print("Error happened:", error)</code></pre>
+
+        <p>
+          The variable <code>error</code> stores the original error message.
+        </p>
+
+        <div class="note">
+          <strong>Use case:</strong>
+          During learning or debugging, printing the real error message is helpful.
+        </div>
+      </section>
+
+      <section id="else-finally">
+        <h2>5. <code>else</code> and <code>finally</code></h2>
+
+        <p>
+          Python error handling has two more useful blocks:
+          <code>else</code> and <code>finally</code>.
+        </p>
+
+        <h3>5.1 <code>else</code></h3>
+
+        <p>
+          The <code>else</code> block runs only if no exception happens.
+        </p>
+
+        <pre><code>try:
+    number = int(input("Enter a number: "))
+except ValueError:
+    print("Invalid number.")
+else:
+    print("You entered:", number)</code></pre>
+
+        <h3>5.2 <code>finally</code></h3>
+
+        <p>
+          The <code>finally</code> block always runs.
+          It runs whether an error happens or not.
+        </p>
+
+        <pre><code>try:
+    number = int(input("Enter a number: "))
+    print(100 / number)
+except ValueError:
+    print("Please enter a valid number.")
+except ZeroDivisionError:
+    print("Number cannot be zero.")
+finally:
+    print("Program finished.")</code></pre>
+
+        <h3>Complete structure</h3>
+
+        <pre><code>try:
+    print("Risky code runs here.")
+
+except ValueError:
+    print("Handle ValueError here.")
+
+else:
+    print("Runs only if no exception happens.")
+
+finally:
+    print("Always runs.")</code></pre>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Block</th>
+              <th>When it runs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>try</code></td>
+              <td>First, risky code runs here.</td>
+            </tr>
+            <tr>
+              <td><code>except</code></td>
+              <td>Runs only if matching error happens.</td>
+            </tr>
+            <tr>
+              <td><code>else</code></td>
+              <td>Runs only if no exception happens.</td>
+            </tr>
+            <tr>
+              <td><code>finally</code></td>
+              <td>Always runs.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="success">
+          <strong>Memory trick:</strong>
+          <code>try</code> means attempt.
+          <code>except</code> means rescue.
+          <code>else</code> means success path.
+          <code>finally</code> means cleanup.
+        </div>
+      </section>
+
+      <section id="raise">
+        <h2>6. Raising Exceptions with <code>raise</code></h2>
+
+        <p>
+          Sometimes we want to create an error deliberately.
+          This is done using <code>raise</code>.
+        </p>
+
+        <h3>Example: age validation</h3>
+
+        <pre><code>age = int(input("Enter your age: "))
+
+if age &lt; 0:
+    raise ValueError("Age cannot be negative.")
+
+print("Age:", age)</code></pre>
+
+        <p>
+          If the user enters a negative age, we raise an error because negative
+          age is logically wrong.
+        </p>
+
+        <h3>Handling raised exception</h3>
+
+        <pre><code>try:
+    age = int(input("Enter your age: "))
+
+    if age &lt; 0:
+        raise ValueError("Age cannot be negative.")
+
+    print("Age:", age)
+
+except ValueError as error:
+    print("Problem:", error)</code></pre>
+
+        <h3>Example: marks validation</h3>
+
+        <pre><code>try:
+    marks = float(input("Enter marks: "))
+
+    if marks &lt; 0 or marks &gt; 100:
+        raise ValueError("Marks must be between 0 and 100.")
+
+    print("Valid marks:", marks)
+
+except ValueError as error:
+    print("Invalid marks:", error)</code></pre>
+
+        <div class="note">
+          <strong>Why use <code>raise</code>?</strong>
+          It helps us stop wrong data from moving forward in the program.
+        </div>
+      </section>
+
+      <section id="custom">
+        <h2>7. Custom Exceptions</h2>
+
+        <p>
+          A custom exception is our own error class.
+          It is useful when we want meaningful error names for our project.
+        </p>
+
+        <h3>Basic custom exception</h3>
+
+        <pre><code>class InvalidMarksError(Exception):
+    pass</code></pre>
+
+        <p>
+          This creates a new exception named <code>InvalidMarksError</code>.
+        </p>
+
+        <h3>Using custom exception</h3>
+
+        <pre><code>class InvalidMarksError(Exception):
+    pass
+
+try:
+    marks = float(input("Enter marks: "))
+
+    if marks &lt; 0 or marks &gt; 100:
+        raise InvalidMarksError("Marks must be between 0 and 100.")
+
+    print("Valid marks:", marks)
+
+except InvalidMarksError as error:
+    print("Marks problem:", error)
+
+except ValueError:
+    print("Please enter a number.")</code></pre>
+
+        <h3>Why custom exceptions are useful</h3>
+
+        <ul>
+          <li>They make code easier to understand.</li>
+          <li>They separate project errors from normal Python errors.</li>
+          <li>They help in large applications.</li>
+        </ul>
+      </section>
+
+      <section id="files">
+        <h2>8. Try Except with File Handling</h2>
+
+        <p>
+          File handling is one of the most common places where exceptions happen.
+          A file may not exist. Permission may be denied. Data may be invalid.
+        </p>
+
+        <h3>Example: file not found</h3>
+
+        <pre><code>try:
+    file = open("students.txt", "r")
+    content = file.read()
+    print(content)
+    file.close()
+
+except FileNotFoundError:
+    print("The file was not found.")</code></pre>
+
+        <h3>Better version with <code>finally</code></h3>
+
+        <pre><code>file = None
+
+try:
+    file = open("students.txt", "r")
+    content = file.read()
+    print(content)
+
+except FileNotFoundError:
+    print("The file was not found.")
+
+finally:
+    if file is not None:
+        file.close()
+        print("File closed.")</code></pre>
+
+        <h3>Best common version: use <code>with</code></h3>
+
+        <pre><code>try:
+    with open("students.txt", "r") as file:
+        content = file.read()
+        print(content)
+
+except FileNotFoundError:
+    print("The file was not found.")</code></pre>
+
+        <p>
+          The <code>with</code> statement automatically closes the file.
+        </p>
+
+        <div class="success">
+          <strong>Good habit:</strong>
+          Use <code>with open(...)</code> for file handling.
+          Use <code>try except</code> to handle missing files.
+        </div>
+      </section>
+
+      <section id="loops">
+        <h2>9. Try Except Inside Loops</h2>
+
+        <p>
+          Sometimes we want to keep asking until the user gives correct input.
+        </p>
+
+        <h3>Example: keep asking for a number</h3>
+
+        <pre><code>while True:
+    try:
+        number = int(input("Enter a number: "))
+        break
+    except ValueError:
+        print("Invalid input. Please try again.")
+
+print("You entered:", number)</code></pre>
+
+        <h3>Example: calculator loop</h3>
+
+        <pre><code>while True:
+    try:
+        a = float(input("Enter first number: "))
+        b = float(input("Enter second number: "))
+
+        print("Division:", a / b)
+        break
+
+    except ValueError:
+        print("Please enter numbers only.")
+
+    except ZeroDivisionError:
+        print("Second number cannot be zero.")</code></pre>
+
+        <h3>Example: list index in loop</h3>
+
+        <pre><code>students = ["Amit", "Ravi", "Sita"]
+
+while True:
+    try:
+        index = int(input("Enter index: "))
+        print("Student:", students[index])
+        break
+
+    except ValueError:
+        print("Enter a number only.")
+
+    except IndexError:
+        print("That index is not available.")</code></pre>
+      </section>
+
+      <section id="bad-practices">
+        <h2>10. Bad Practices and Good Practices</h2>
+
+        <h3>Bad practice 1: empty except</h3>
+
+        <pre><code>try:
+    result = 10 / 0
+except:
+    pass</code></pre>
+
+        <p>
+          This hides the error completely. It becomes difficult to debug.
+        </p>
+
+        <h3>Better</h3>
+
+        <pre><code>try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero.")</code></pre>
+
+        <h3>Bad practice 2: catching everything without reason</h3>
+
+        <pre><code>try:
+    number = int(input("Enter number: "))
+    print(100 / number)
+except:
+    print("Error")</code></pre>
+
+        <h3>Better</h3>
+
+        <pre><code>try:
+    number = int(input("Enter number: "))
+    print(100 / number)
+
+except ValueError:
+    print("Please enter a valid number.")
+
+except ZeroDivisionError:
+    print("Number cannot be zero.")</code></pre>
+
+        <h3>Bad practice 3: putting too much code inside try</h3>
+
+        <pre><code>try:
+    a = int(input("A: "))
+    b = int(input("B: "))
+    c = a + b
+    d = c * 10
+    print(d)
+    print("Many more lines...")
+except:
+    print("Something went wrong.")</code></pre>
+
+        <p>
+          If too much code is inside <code>try</code>, it becomes hard to know
+          which line caused the error.
+        </p>
+
+        <h3>Better habit</h3>
+
+        <pre><code>try:
+    a = int(input("A: "))
+    b = int(input("B: "))
+except ValueError:
+    print("Please enter numbers only.")
+else:
+    c = a + b
+    d = c * 10
+    print(d)</code></pre>
+
+        <div class="success">
+          <strong>Professional rule:</strong>
+          Keep the <code>try</code> block as small as possible.
+          Catch specific exceptions.
+          Do not silently hide errors.
+        </div>
+      </section>
+
+      <section id="project">
+        <h2>11. Complete Mini Project: Safe Marks Calculator</h2>
+
+        <p>
+          This project uses input validation, <code>try</code>, <code>except</code>,
+          <code>else</code>, <code>finally</code>, <code>raise</code> and a custom exception.
+        </p>
+
+        <pre><code>class InvalidMarksError(Exception):
+    pass
+
+
+def get_marks(subject_name):
+    while True:
+        try:
+            marks = float(input(f"Enter marks for {subject_name}: "))
+
+            if marks &lt; 0 or marks &gt; 100:
+                raise InvalidMarksError("Marks must be between 0 and 100.")
+
+        except ValueError:
+            print("Please enter a numeric value.")
+
+        except InvalidMarksError as error:
+            print("Invalid marks:", error)
+
+        else:
+            return marks
+
+        finally:
+            print("Input attempt finished.\n")
+
+
+try:
+    python_marks = get_marks("Python")
+    sql_marks = get_marks("SQL")
+    pandas_marks = get_marks("Pandas")
+
+    total = python_marks + sql_marks + pandas_marks
+    average = total / 3
+
+    print("Total:", total)
+    print("Average:", average)
+
+    if average &gt;= 90:
+        grade = "A+"
+    elif average &gt;= 75:
+        grade = "A"
+    elif average &gt;= 60:
+        grade = "B"
+    elif average &gt;= 40:
+        grade = "C"
+    else:
+        grade = "Fail"
+
+    print("Grade:", grade)
+
+except Exception as error:
+    print("Unexpected problem:", error)
+
+finally:
+    print("Program completed.")</code></pre>
+
+        <h3>What this project teaches</h3>
+
+        <ul>
+          <li>How to protect user input.</li>
+          <li>How to repeat input until valid data is entered.</li>
+          <li>How to raise a custom exception.</li>
+          <li>How to use <code>else</code> for successful input.</li>
+          <li>How to use <code>finally</code> for cleanup-style messages.</li>
+        </ul>
+      </section>
+
+      <section id="advanced">
+        <h2>12. Advanced Understanding</h2>
+
+        <h3>12.1 Exception hierarchy</h3>
+
+        <p>
+          Python exceptions are classes. Many exceptions come from a parent class
+          called <code>Exception</code>.
+        </p>
+
+        <pre><code>try:
+    number = int("abc")
+except Exception as error:
+    print("Some exception happened:", error)</code></pre>
+
+        <p>
+          This catches many types of exceptions, but it should be used carefully.
+        </p>
+
+        <h3>12.2 Order of except blocks matters</h3>
+
+        <pre><code>try:
+    number = int("abc")
+
+except Exception:
+    print("General error.")
+
+except ValueError:
+    print("Value error.")</code></pre>
+
+        <p>
+          Here, <code>Exception</code> catches the error first.
+          The <code>ValueError</code> block will not run.
+        </p>
+
+        <h3>Better order</h3>
+
+        <pre><code>try:
+    number = int("abc")
+
+except ValueError:
+    print("Value error.")
+
+except Exception:
+    print("General error.")</code></pre>
+
+        <div class="warning">
+          <strong>Rule:</strong>
+          Put specific exceptions first and general exceptions later.
+        </div>
+
+        <h3>12.3 Re-raising an exception</h3>
+
+        <pre><code>try:
+    number = int("abc")
+except ValueError:
+    print("Logging the error...")
+    raise</code></pre>
+
+        <p>
+          <code>raise</code> without a new exception re-raises the current exception.
+          This is useful when we want to log an error but still stop the program.
+        </p>
+      </section>
+
+      <section id="editor">
+        <h2>13. Practice in Our Python Editor</h2>
+
+        <p>
+          Use the embedded Python editor below to test the examples from this lesson.
+        </p>
+
+        <div class="note">
+          <strong>Tip:</strong>
+          If the embedded editor does not load, open it directly:
+          <a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">
+            Python Editor by Learn With Champak
+          </a>
+        </div>
+
+        <div class="editor-frame-wrap">
+          <iframe
+            src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1"
+            title="Python Editor by Learn With Champak"
+            loading="lazy"
+            allow="clipboard-read; clipboard-write; fullscreen"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </section>
+
+      <section id="practice">
+        <h2>14. Practice Tasks</h2>
+
+        <ol>
+          <li>Write a program that divides two numbers and handles division by zero.</li>
+          <li>Write a program that asks for age and handles invalid input.</li>
+          <li>Write a program that asks for list index and handles <code>IndexError</code>.</li>
+          <li>Write a program that opens a file and handles <code>FileNotFoundError</code>.</li>
+          <li>Write a loop that keeps asking for a number until the user enters a valid number.</li>
+          <li>Write a marks validation program using <code>raise</code>.</li>
+          <li>Create a custom exception named <code>InvalidPasswordError</code>.</li>
+          <li>Write a safe calculator using <code>try</code>, <code>except</code>, <code>else</code> and <code>finally</code>.</li>
+        </ol>
+
+        <h3>Self Test</h3>
+
+        <details>
+          <summary>What is the use of <code>try</code>?</summary>
+          <p><code>try</code> contains risky code that may raise an exception.</p>
+        </details>
+
+        <details>
+          <summary>What is the use of <code>except</code>?</summary>
+          <p><code>except</code> handles the exception if an error happens.</p>
+        </details>
+
+        <details>
+          <summary>When does <code>else</code> run?</summary>
+          <p><code>else</code> runs only when no exception happens in the <code>try</code> block.</p>
+        </details>
+
+        <details>
+          <summary>When does <code>finally</code> run?</summary>
+          <p><code>finally</code> always runs, whether an exception happens or not.</p>
+        </details>
+
+        <details>
+          <summary>What does <code>raise</code> do?</summary>
+          <p><code>raise</code> deliberately creates an exception.</p>
+        </details>
+
+        <details>
+          <summary>Why should we avoid empty <code>except</code> blocks?</summary>
+          <p>Because they hide errors and make debugging difficult.</p>
+        </details>
+
+        <div class="button-row">
+          <button onclick="window.print()">Print Lesson</button>
+          <button class="secondary" onclick="scrollToTop()">Back to Top</button>
+        </div>
+      </section>
+
+      <section id="summary">
+        <h2>15. Final Summary</h2>
+
+        <pre><code>try:
+    risky code
+
+except:
+    handle error
+
+else:
+    run if no error
+
+finally:
+    always run</code></pre>
+
+        <div class="success">
+          <strong>Final lesson:</strong>
+          Error handling is not about hiding errors.
+          It is about controlling errors, guiding the user, protecting data,
+          and making programs reliable.
+        </div>
+
+        <h3>Professional checklist</h3>
+
+        <ul>
+          <li>Catch specific exceptions.</li>
+          <li>Keep <code>try</code> blocks small.</li>
+          <li>Use <code>else</code> for success code.</li>
+          <li>Use <code>finally</code> for cleanup.</li>
+          <li>Use <code>raise</code> for invalid business rules.</li>
+          <li>Use custom exceptions in larger projects.</li>
+          <li>Never silently hide important errors.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>Try Except in Python lesson by Programmer's Picnic.</p>
+    </footer>
+  </div>
+
+  <script>
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    window.addEventListener("load", function () {
+      try {
+        const ads = document.querySelectorAll(".adsbygoogle");
+        ads.forEach(function () {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        });
+      } catch (error) {
+        console.log("AdSense could not be initialized:", error);
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Home") {
+        event.preventDefault();
+        scrollToTop();
+      }
+    });
+  </script>
+</body>
+</html>
