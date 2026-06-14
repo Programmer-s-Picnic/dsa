@@ -8,12 +8,12 @@
 
   <meta
     name="description"
-    content="A complete 0 to infinity interactive HTML lesson on animation using CSS transitions, keyframes, transforms, timing, JavaScript control, scroll animation, and practice exercises."
+    content="A complete interactive 0 to infinity HTML lesson on animation using CSS transitions, keyframes, transforms, JavaScript controls, scroll animation, and full copy-ready examples."
   />
 
   <meta
     name="keywords"
-    content="HTML animation lesson, CSS animation, CSS transition, keyframes, transform, JavaScript animation, beginner web animation, interactive HTML lesson"
+    content="HTML animation lesson, CSS animation, CSS transition, keyframes, transform, JavaScript animation, interactive HTML lesson"
   />
 
   <meta name="author" content="Champak Roy" />
@@ -21,7 +21,7 @@
   <meta property="og:title" content="0 to Infinity HTML Lesson: Animation" />
   <meta
     property="og:description"
-    content="Learn animation from zero to advanced level with interactive demos, sliders, buttons, checkpoints, and practice tasks."
+    content="Learn web animation from zero to advanced with interactive demos and full copy-ready HTML examples."
   />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="animation-lesson-og.png" />
@@ -100,6 +100,7 @@
       from {
         transform: translateY(0) scale(1);
       }
+
       to {
         transform: translateY(35px) scale(1.15);
       }
@@ -117,7 +118,7 @@
     header p {
       position: relative;
       z-index: 1;
-      max-width: 850px;
+      max-width: 880px;
       margin: 18px auto 0;
       font-size: 1.1rem;
     }
@@ -126,7 +127,7 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(255, 248, 237, 0.95);
+      background: rgba(255, 248, 237, 0.96);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 10px;
@@ -233,6 +234,15 @@
       position: relative;
     }
 
+    .editor-frame {
+      width: 100%;
+      height: 620px;
+      border: 3px solid #fb923c;
+      border-radius: 18px;
+      background: #111827;
+      box-shadow: 0 14px 28px rgba(124, 45, 18, 0.18);
+    }
+
     .ball {
       width: 78px;
       height: 78px;
@@ -320,6 +330,7 @@
       border: 1px solid #374151;
       font-size: 0.94rem;
       line-height: 1.55;
+      max-height: 560px;
     }
 
     code {
@@ -332,6 +343,20 @@
       padding: 2px 7px;
       border-radius: 7px;
       font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    .copy-area {
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #2563eb;
+      padding: 7px 12px;
+      font-size: 0.85rem;
+      z-index: 2;
     }
 
     .transition-card {
@@ -367,6 +392,7 @@
       from {
         transform: translateY(60px);
       }
+
       to {
         transform: translateY(-60px);
       }
@@ -385,10 +411,12 @@
       0% {
         transform: rotate(0deg) scale(0.7);
       }
+
       50% {
         transform: rotate(180deg) scale(1.25);
         border-radius: 50%;
       }
+
       100% {
         transform: rotate(360deg) scale(0.7);
       }
@@ -421,6 +449,7 @@
         transform: scale(1);
         box-shadow: 0 0 24px #facc15;
       }
+
       to {
         transform: scale(1.18);
         box-shadow: 0 0 50px #facc15;
@@ -464,6 +493,7 @@
       from {
         transform: translateX(0);
       }
+
       to {
         transform: translateX(calc(100vw + 180px));
       }
@@ -514,6 +544,7 @@
       from {
         transform: translateX(0);
       }
+
       to {
         transform: translateX(calc(100vw - 230px));
       }
@@ -568,9 +599,11 @@
       0% {
         width: 0%;
       }
+
       50% {
         width: 82%;
       }
+
       100% {
         width: 100%;
       }
@@ -607,6 +640,7 @@
       from {
         width: 0;
       }
+
       to {
         width: 34ch;
       }
@@ -673,6 +707,10 @@
         min-height: 190px;
       }
 
+      .editor-frame {
+        height: 520px;
+      }
+
       .car {
         animation-name: driveCarSmall;
       }
@@ -681,6 +719,7 @@
         from {
           transform: translateX(0);
         }
+
         to {
           transform: translateX(170px);
         }
@@ -699,6 +738,7 @@
   </header>
 
   <nav aria-label="Lesson navigation">
+    <a href="#editor">Editor</a>
     <a href="#start">Start</a>
     <a href="#transition">Transitions</a>
     <a href="#keyframes">Keyframes</a>
@@ -708,10 +748,31 @@
     <a href="#scene">Scene</a>
     <a href="#scroll">Scroll</a>
     <a href="#practice">Practice</a>
-    <a href="#fullcode">Full Mini Project</a>
+    <a href="#fullcode">Mini Project</a>
   </nav>
 
   <main>
+    <section id="editor">
+      <h2>Practice Here: Embedded HTML Editor</h2>
+
+      <p class="lead">
+        Copy any full example from this lesson and paste it into the editor below.
+        Then run it and change values like duration, color, movement, rotation, and scale.
+      </p>
+
+      <iframe
+        class="editor-frame"
+        src="https://editor.learnwithchampak.live/html/"
+        title="Programmer's Picnic HTML Editor"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+
+      <div class="checkpoint">
+        <strong>Checkpoint:</strong> First run the examples without changing them. Then change one line at a time.
+      </div>
+    </section>
+
     <section id="start">
       <h2>1. What is Animation?</h2>
 
@@ -740,28 +801,56 @@
         <strong>Checkpoint:</strong> Animation is not only decoration. Good animation explains what is happening.
       </div>
 
-      <h3>The three main web animation tools</h3>
+      <h3>Full Example: Your First Animation Page</h3>
 
-      <div class="grid">
-        <div class="mini-card">
-          <h3>CSS Transition</h3>
-          <p>Best for simple hover, focus, open, close, and state changes.</p>
-        </div>
+      <div class="copy-area">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;My First Animation&lt;/title&gt;
 
-        <div class="mini-card">
-          <h3>CSS Keyframes</h3>
-          <p>Best for repeating animations like bouncing, spinning, loading, and moving objects.</p>
-        </div>
+  &lt;style&gt;
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      margin: 0;
+      background: #fff7ed;
+      font-family: Arial, sans-serif;
+    }
 
-        <div class="mini-card">
-          <h3>JavaScript</h3>
-          <p>Best when the user controls animation through buttons, sliders, data, or logic.</p>
-        </div>
+    .box {
+      width: 120px;
+      height: 120px;
+      border-radius: 24px;
+      background: #ff8a00;
+      animation: moveBox 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes moveBox {
+      from {
+        transform: translateX(-100px);
+      }
+
+      to {
+        transform: translateX(100px);
+      }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class="box"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
       </div>
     </section>
 
     <section id="transition">
-      <h2>2. CSS Transition: The First Animation</h2>
+      <h2>2. CSS Transition: The First Smooth Change</h2>
 
       <p>
         A <span class="inline-code">transition</span> makes a change smooth.
@@ -774,32 +863,57 @@
         </div>
       </div>
 
-      <pre><code>.card {
-  transition: transform 0.5s ease, background 0.5s ease;
-}
+      <h3>Full Example: Hover Transition Card</h3>
 
-.card:hover {
-  transform: scale(1.1) rotate(4deg);
-  background: purple;
-}</code></pre>
+      <div class="copy-area">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;CSS Transition Card&lt;/title&gt;
 
-      <h3>Meaning of the code</h3>
+  &lt;style&gt;
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background: #fff7ed;
+      font-family: Arial, sans-serif;
+    }
 
-      <div class="grid">
-        <div class="mini-card">
-          <h3>transition</h3>
-          <p>Tells the browser which property should change smoothly.</p>
-        </div>
+    .card {
+      width: 220px;
+      height: 150px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #fb923c, #facc15);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      transition:
+        transform 0.5s ease,
+        border-radius 0.5s ease,
+        background 0.5s ease,
+        box-shadow 0.5s ease;
+    }
 
-        <div class="mini-card">
-          <h3>0.5s</h3>
-          <p>The animation duration. Here it takes half a second.</p>
-        </div>
+    .card:hover {
+      transform: translateY(-25px) rotate(4deg) scale(1.08);
+      border-radius: 45px;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      box-shadow: 0 18px 35px rgba(37, 99, 235, 0.35);
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
 
-        <div class="mini-card">
-          <h3>ease</h3>
-          <p>The speed style. It starts slowly, speeds up, then slows down.</p>
-        </div>
+&lt;body&gt;
+  &lt;div class="card"&gt;Hover me&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
       </div>
 
       <div class="checkpoint">
@@ -808,7 +922,7 @@
     </section>
 
     <section id="keyframes">
-      <h2>3. CSS Keyframes: Repeated Animation</h2>
+      <h2>3. CSS Keyframes: Planned Motion</h2>
 
       <p>
         <span class="inline-code">@keyframes</span> lets us describe animation steps.
@@ -819,42 +933,64 @@
         <div class="ball keyframe-ball">CSS</div>
       </div>
 
-      <pre><code>@keyframes bounce {
-  from {
-    transform: translateY(60px);
-  }
+      <h3>Full Example: Bouncing Ball</h3>
 
-  to {
-    transform: translateY(-60px);
-  }
-}
+      <div class="copy-area">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Bouncing Ball Animation&lt;/title&gt;
 
-.ball {
-  animation: bounce 1s ease-in-out infinite alternate;
-}</code></pre>
+  &lt;style&gt;
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background: #fff7ed;
+      font-family: Arial, sans-serif;
+    }
 
-      <h3>Important animation words</h3>
+    .stage {
+      width: 320px;
+      height: 260px;
+      border: 3px dashed #fb923c;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      background: #ffedd5;
+      overflow: hidden;
+    }
 
-      <div class="grid">
-        <div class="mini-card">
-          <h3>animation-name</h3>
-          <p>Name of the keyframe animation.</p>
-        </div>
+    .ball {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, white, #fb923c, #c2410c);
+      animation: bounce 1s ease-in-out infinite alternate;
+    }
 
-        <div class="mini-card">
-          <h3>animation-duration</h3>
-          <p>How long one cycle takes.</p>
-        </div>
+    @keyframes bounce {
+      from {
+        transform: translateY(70px);
+      }
 
-        <div class="mini-card">
-          <h3>animation-iteration-count</h3>
-          <p>How many times it repeats. <span class="inline-code">infinite</span> means forever.</p>
-        </div>
+      to {
+        transform: translateY(-70px);
+      }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
 
-        <div class="mini-card">
-          <h3>animation-direction</h3>
-          <p><span class="inline-code">alternate</span> means go forward, then backward.</p>
-        </div>
+&lt;body&gt;
+  &lt;div class="stage"&gt;
+    &lt;div class="ball"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
       </div>
 
       <div class="checkpoint">
@@ -863,48 +999,73 @@
     </section>
 
     <section id="transform">
-      <h2>4. Transform: Move, Rotate, Scale, Skew</h2>
+      <h2>4. Transform: Move, Rotate, Scale</h2>
 
       <p>
         Most modern animations use <span class="inline-code">transform</span>.
-        It is fast and smooth because browsers optimize it well.
+        It is fast and smooth.
       </p>
 
       <div class="demo-box">
         <div class="spin-square"></div>
       </div>
 
-      <pre><code>transform: translateX(50px);
-transform: translateY(50px);
-transform: rotate(45deg);
-transform: scale(1.5);
-transform: skew(10deg);</code></pre>
+      <h3>Full Example: Spin and Grow</h3>
 
-      <div class="grid">
-        <div class="mini-card">
-          <h3>translate</h3>
-          <p>Moves an element.</p>
-        </div>
+      <div class="copy-area">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Transform Animation&lt;/title&gt;
 
-        <div class="mini-card">
-          <h3>rotate</h3>
-          <p>Turns an element.</p>
-        </div>
+  &lt;style&gt;
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background: #eff6ff;
+      font-family: Arial, sans-serif;
+    }
 
-        <div class="mini-card">
-          <h3>scale</h3>
-          <p>Makes an element bigger or smaller.</p>
-        </div>
+    .shape {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      border-radius: 22px;
+      animation: spinAndGrow 2.2s linear infinite;
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+    }
 
-        <div class="mini-card">
-          <h3>skew</h3>
-          <p>Tilts an element.</p>
-        </div>
+    @keyframes spinAndGrow {
+      0% {
+        transform: rotate(0deg) scale(0.7);
+      }
+
+      50% {
+        transform: rotate(180deg) scale(1.25);
+        border-radius: 50%;
+      }
+
+      100% {
+        transform: rotate(360deg) scale(0.7);
+      }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class="shape"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
       </div>
 
       <div class="warning">
         <strong>Important:</strong> Prefer animating <span class="inline-code">transform</span> and
-        <span class="inline-code">opacity</span>. Avoid heavy animation of width, height, top, and left when possible.
+        <span class="inline-code">opacity</span>. They are usually smoother than animating width, height, top, or left.
       </div>
     </section>
 
@@ -913,7 +1074,6 @@ transform: skew(10deg);</code></pre>
 
       <p>
         Animation is not only about movement. It is also about speed.
-        A robot-like movement feels different from a natural movement.
       </p>
 
       <div class="demo-box">
@@ -935,11 +1095,112 @@ transform: skew(10deg);</code></pre>
         <button class="secondary" onclick="resetTimingDemo()">Reset</button>
       </div>
 
-      <pre><code>element.style.transition = "transform 1s ease";
-element.style.transform = "translateX(220px)";</code></pre>
+      <h3>Full Example: Timing Function Demo</h3>
 
-      <div class="checkpoint">
-        <strong>Checkpoint:</strong> The same distance can feel different when the timing function changes.
+      <div class="copy-area">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Timing Function Demo&lt;/title&gt;
+
+  &lt;style&gt;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #fff7ed;
+      font-family: Arial, sans-serif;
+    }
+
+    .panel {
+      width: min(90vw, 600px);
+      background: white;
+      border: 2px solid #fed7aa;
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .track {
+      height: 160px;
+      border: 3px dashed #fb923c;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      overflow: hidden;
+      background: #ffedd5;
+    }
+
+    .ball {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #ff8a00;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    select,
+    button {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 16px;
+    }
+
+    button {
+      border: none;
+      background: #ff8a00;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class="panel"&gt;
+    &lt;h1&gt;Timing Function Demo&lt;/h1&gt;
+
+    &lt;div class="track"&gt;
+      &lt;div class="ball" id="ball"&gt;Go&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;select id="timing"&gt;
+      &lt;option value="linear"&gt;linear&lt;/option&gt;
+      &lt;option value="ease"&gt;ease&lt;/option&gt;
+      &lt;option value="ease-in"&gt;ease-in&lt;/option&gt;
+      &lt;option value="ease-out"&gt;ease-out&lt;/option&gt;
+      &lt;option value="ease-in-out"&gt;ease-in-out&lt;/option&gt;
+      &lt;option value="cubic-bezier(.68,-0.55,.27,1.55)"&gt;bounce-like&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;button onclick="runDemo()"&gt;Run&lt;/button&gt;
+    &lt;button onclick="resetDemo()"&gt;Reset&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    const ball = document.getElementById("ball");
+    const timing = document.getElementById("timing");
+
+    function runDemo() {
+      ball.style.transition = "transform 1s " + timing.value;
+      ball.style.transform = "translateX(380px) rotate(360deg)";
+    }
+
+    function resetDemo() {
+      ball.style.transition = "transform 0.3s ease";
+      ball.style.transform = "translateX(0) rotate(0)";
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
       </div>
     </section>
 
@@ -947,7 +1208,7 @@ element.style.transform = "translateX(220px)";</code></pre>
       <h2>6. Interactive Animation Playground</h2>
 
       <p>
-        Now control the animation yourself. Change the sliders and see how
+        Change the sliders and see how
         <span class="inline-code">transform</span> changes the object.
       </p>
 
@@ -985,14 +1246,152 @@ element.style.transform = "translateX(220px)";</code></pre>
       <h3>Live CSS</h3>
       <pre><code id="liveCss">transform: translateX(0px) rotate(0deg) scale(1);
 border-radius: 24px;</code></pre>
+
+      <h3>Full Example: Slider Controlled Animation</h3>
+
+      <div class="copy-area">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Interactive Animation Playground&lt;/title&gt;
+
+  &lt;style&gt;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #fff7ed;
+      font-family: Arial, sans-serif;
+      display: grid;
+      place-items: center;
+    }
+
+    .panel {
+      width: min(92vw, 700px);
+      background: white;
+      border: 2px solid #fed7aa;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 14px 30px rgba(124, 45, 18, 0.14);
+    }
+
+    .stage {
+      height: 230px;
+      border: 3px dashed #fb923c;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      background: #ffedd5;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .object {
+      width: 90px;
+      height: 90px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #ff8a00, #dc2626);
+      transition: transform 0.25s ease, border-radius 0.25s ease;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 12px;
+    }
+
+    input {
+      width: 100%;
+    }
+
+    pre {
+      background: #111827;
+      color: #e5e7eb;
+      padding: 16px;
+      border-radius: 14px;
+      overflow-x: auto;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class="panel"&gt;
+    &lt;h1&gt;Animation Playground&lt;/h1&gt;
+
+    &lt;div class="stage"&gt;
+      &lt;div class="object" id="object"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;label&gt;Move X: &lt;span id="moveText"&gt;0&lt;/span&gt;px&lt;/label&gt;
+    &lt;input id="move" type="range" min="-220" max="220" value="0" /&gt;
+
+    &lt;label&gt;Rotate: &lt;span id="rotateText"&gt;0&lt;/span&gt;deg&lt;/label&gt;
+    &lt;input id="rotate" type="range" min="0" max="360" value="0" /&gt;
+
+    &lt;label&gt;Scale: &lt;span id="scaleText"&gt;1&lt;/span&gt;&lt;/label&gt;
+    &lt;input id="scale" type="range" min="0.5" max="2" value="1" step="0.1" /&gt;
+
+    &lt;label&gt;Border Radius: &lt;span id="radiusText"&gt;24&lt;/span&gt;px&lt;/label&gt;
+    &lt;input id="radius" type="range" min="0" max="50" value="24" /&gt;
+
+    &lt;h2&gt;Live CSS&lt;/h2&gt;
+    &lt;pre id="output"&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    const object = document.getElementById("object");
+
+    const move = document.getElementById("move");
+    const rotate = document.getElementById("rotate");
+    const scale = document.getElementById("scale");
+    const radius = document.getElementById("radius");
+
+    const moveText = document.getElementById("moveText");
+    const rotateText = document.getElementById("rotateText");
+    const scaleText = document.getElementById("scaleText");
+    const radiusText = document.getElementById("radiusText");
+    const output = document.getElementById("output");
+
+    function updateAnimation() {
+      const x = move.value;
+      const r = rotate.value;
+      const s = scale.value;
+      const br = radius.value;
+
+      object.style.transform =
+        "translateX(" + x + "px) rotate(" + r + "deg) scale(" + s + ")";
+
+      object.style.borderRadius = br + "px";
+
+      moveText.textContent = x;
+      rotateText.textContent = r;
+      scaleText.textContent = s;
+      radiusText.textContent = br;
+
+      output.textContent =
+        "transform: translateX(" + x + "px) rotate(" + r + "deg) scale(" + s + ");\\n" +
+        "border-radius: " + br + "px;";
+    }
+
+    move.addEventListener("input", updateAnimation);
+    rotate.addEventListener("input", updateAnimation);
+    scale.addEventListener("input", updateAnimation);
+    radius.addEventListener("input", updateAnimation);
+
+    updateAnimation();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
     </section>
 
     <section id="scene">
       <h2>7. Animated Scene: Car, Cloud, Sun</h2>
 
       <p>
-        A scene is just many small animations working together.
-        Here the sun pulses, the cloud moves, the car moves, and the wheels rotate.
+        A scene is many small animations working together.
       </p>
 
       <div class="scene" id="animatedScene">
@@ -1009,16 +1408,173 @@ border-radius: 24px;</code></pre>
         <button class="green" onclick="playScene()">Play Scene</button>
       </div>
 
-      <pre><code>.car {
-  animation: driveCar 5s ease-in-out infinite alternate;
-}
+      <h3>Full Example: Animated Car Scene</h3>
 
-.wheel {
-  animation: wheelSpin 0.7s linear infinite;
-}</code></pre>
+      <div class="copy-area">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Animated Scene&lt;/title&gt;
 
-      <div class="checkpoint">
-        <strong>Checkpoint:</strong> Large animations are usually made from many small animations.
+  &lt;style&gt;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #fff7ed;
+      font-family: Arial, sans-serif;
+    }
+
+    .scene {
+      width: min(92vw, 800px);
+      height: 300px;
+      position: relative;
+      background: linear-gradient(#bfdbfe, #dbeafe 62%, #86efac 62%, #22c55e);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 3px solid #93c5fd;
+    }
+
+    .sun {
+      position: absolute;
+      top: 30px;
+      right: 55px;
+      width: 70px;
+      height: 70px;
+      background: #facc15;
+      border-radius: 50%;
+      box-shadow: 0 0 35px #facc15;
+      animation: pulseSun 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseSun {
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.18);
+      }
+    }
+
+    .cloud {
+      position: absolute;
+      top: 70px;
+      left: -130px;
+      width: 130px;
+      height: 45px;
+      background: white;
+      border-radius: 999px;
+      animation: moveCloud 8s linear infinite;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: "";
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .cloud::before {
+      width: 55px;
+      height: 55px;
+      top: -22px;
+      left: 20px;
+    }
+
+    .cloud::after {
+      width: 70px;
+      height: 70px;
+      top: -35px;
+      left: 55px;
+    }
+
+    @keyframes moveCloud {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(950px);
+      }
+    }
+
+    .car {
+      position: absolute;
+      bottom: 80px;
+      left: 20px;
+      width: 140px;
+      height: 55px;
+      background: #ef4444;
+      border-radius: 28px 36px 12px 12px;
+      animation: driveCar 5s ease-in-out infinite alternate;
+    }
+
+    .car::before {
+      content: "";
+      position: absolute;
+      width: 62px;
+      height: 35px;
+      background: #bfdbfe;
+      top: -24px;
+      left: 36px;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .wheel {
+      position: absolute;
+      bottom: -15px;
+      width: 32px;
+      height: 32px;
+      background: #111827;
+      border-radius: 50%;
+      border: 5px solid #e5e7eb;
+      animation: wheelSpin 0.7s linear infinite;
+    }
+
+    .wheel.one {
+      left: 22px;
+    }
+
+    .wheel.two {
+      right: 22px;
+    }
+
+    @keyframes driveCar {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(600px);
+      }
+    }
+
+    @keyframes wheelSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class="scene"&gt;
+    &lt;div class="sun"&gt;&lt;/div&gt;
+    &lt;div class="cloud"&gt;&lt;/div&gt;
+
+    &lt;div class="car"&gt;
+      &lt;div class="wheel one"&gt;&lt;/div&gt;
+      &lt;div class="wheel two"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
       </div>
     </section>
 
@@ -1051,6 +1607,141 @@ border-radius: 24px;</code></pre>
           </div>
         </div>
       </div>
+
+      <h3>Full Example: Loader, Progress Bar, Typewriter</h3>
+
+      <div class="copy-area">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Useful Animation Patterns&lt;/title&gt;
+
+  &lt;style&gt;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #fff7ed;
+      font-family: Arial, sans-serif;
+    }
+
+    .grid {
+      width: min(92vw, 900px);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border: 2px solid #fed7aa;
+      border-radius: 24px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .loader {
+      width: 82px;
+      height: 82px;
+      border: 10px solid #ffedd5;
+      border-top-color: #ff8a00;
+      border-radius: 50%;
+      margin: 20px auto;
+      animation: loaderSpin 1s linear infinite;
+    }
+
+    @keyframes loaderSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .progress-track {
+      height: 20px;
+      background: #ffedd5;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 38px;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #16a34a, #facc15, #ff8a00);
+      animation: loadingBar 3s ease-in-out infinite;
+    }
+
+    @keyframes loadingBar {
+      0% {
+        width: 0%;
+      }
+
+      50% {
+        width: 82%;
+      }
+
+      100% {
+        width: 100%;
+      }
+    }
+
+    .typewriter {
+      max-width: max-content;
+      overflow: hidden;
+      border-right: 4px solid #c2410c;
+      white-space: nowrap;
+      animation:
+        typing 4s steps(34, end) infinite alternate,
+        blink 0.65s step-end infinite;
+      font-weight: bold;
+      color: #9a3412;
+      margin: 42px auto;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 34ch;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class="grid"&gt;
+    &lt;div class="card"&gt;
+      &lt;h2&gt;Loader&lt;/h2&gt;
+      &lt;div class="loader"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card"&gt;
+      &lt;h2&gt;Progress Bar&lt;/h2&gt;
+      &lt;div class="progress-track"&gt;
+        &lt;div class="progress-fill"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card"&gt;
+      &lt;h2&gt;Typewriter&lt;/h2&gt;
+      &lt;div class="typewriter"&gt;Animation makes websites alive.&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
     </section>
 
     <section id="scroll">
@@ -1058,7 +1749,6 @@ border-radius: 24px;</code></pre>
 
       <p>
         Scroll animation means an element appears when it enters the screen.
-        Scroll down and watch these cards appear.
       </p>
 
       <div class="grid">
@@ -1078,67 +1768,108 @@ border-radius: 24px;</code></pre>
         </div>
       </div>
 
-      <pre><code>const observer = new IntersectionObserver(entries =&gt; {
-  entries.forEach(entry =&gt; {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
+      <h3>Full Example: Scroll Reveal Animation</h3>
+
+      <div class="copy-area">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Scroll Reveal Animation&lt;/title&gt;
+
+  &lt;style&gt;
+    body {
+      margin: 0;
+      background: #fff7ed;
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
     }
-  });
-});
 
-document.querySelectorAll(".scroll-card").forEach(card =&gt; {
-  observer.observe(card);
-});</code></pre>
-    </section>
+    header {
+      min-height: 80vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #ff8a00, #facc15);
+      color: white;
+      padding: 30px;
+    }
 
-    <section>
-      <h2>10. Animation Properties Cheat Sheet</h2>
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 16px;
+    }
 
-      <div class="grid">
-        <div class="mini-card">
-          <h3>animation-name</h3>
-          <p>Name of the keyframes.</p>
-        </div>
+    .card {
+      background: white;
+      border: 2px solid #fed7aa;
+      border-radius: 24px;
+      padding: 24px;
+      margin: 30px 0;
+      box-shadow: 0 14px 30px rgba(124, 45, 18, 0.14);
 
-        <div class="mini-card">
-          <h3>animation-duration</h3>
-          <p>Time taken by one cycle.</p>
-        </div>
+      opacity: 0;
+      transform: translateY(45px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
 
-        <div class="mini-card">
-          <h3>animation-timing-function</h3>
-          <p>Speed curve: linear, ease, ease-in, ease-out.</p>
-        </div>
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
 
-        <div class="mini-card">
-          <h3>animation-delay</h3>
-          <p>Wait before starting.</p>
-        </div>
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;div&gt;
+      &lt;h1&gt;Scroll Down&lt;/h1&gt;
+      &lt;p&gt;Cards will appear when they enter the screen.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
 
-        <div class="mini-card">
-          <h3>animation-iteration-count</h3>
-          <p>Number of repeats.</p>
-        </div>
+  &lt;main&gt;
+    &lt;div class="card"&gt;
+      &lt;h2&gt;Card 1&lt;/h2&gt;
+      &lt;p&gt;This card fades in and moves upward.&lt;/p&gt;
+    &lt;/div&gt;
 
-        <div class="mini-card">
-          <h3>animation-direction</h3>
-          <p>normal, reverse, alternate, alternate-reverse.</p>
-        </div>
+    &lt;div class="card"&gt;
+      &lt;h2&gt;Card 2&lt;/h2&gt;
+      &lt;p&gt;The browser observes when it becomes visible.&lt;/p&gt;
+    &lt;/div&gt;
 
-        <div class="mini-card">
-          <h3>animation-fill-mode</h3>
-          <p>Controls style before and after animation.</p>
-        </div>
+    &lt;div class="card"&gt;
+      &lt;h2&gt;Card 3&lt;/h2&gt;
+      &lt;p&gt;Then JavaScript adds the visible class.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/main&gt;
 
-        <div class="mini-card">
-          <h3>animation-play-state</h3>
-          <p>running or paused.</p>
-        </div>
+  &lt;script&gt;
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.25
+    });
+
+    document.querySelectorAll(".card").forEach(function(card) {
+      observer.observe(card);
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
       </div>
     </section>
 
     <section>
-      <h2>11. Mini Quiz</h2>
+      <h2>10. Mini Quiz</h2>
 
       <p><strong>Question:</strong> Which two CSS properties are usually best for smooth animation?</p>
 
@@ -1150,7 +1881,7 @@ document.querySelectorAll(".scroll-card").forEach(card =&gt; {
     </section>
 
     <section id="practice">
-      <h2>12. Practice Tasks</h2>
+      <h2>11. Practice Tasks</h2>
 
       <div class="grid">
         <div class="mini-card">
@@ -1186,40 +1917,146 @@ document.querySelectorAll(".scroll-card").forEach(card =&gt; {
     </section>
 
     <section id="fullcode">
-      <h2>13. Full Mini Project: Animated Button</h2>
+      <h2>12. Full Mini Project: Animated Landing Page</h2>
 
       <p>
-        Here is a small complete animation project. Copy it into a new HTML file and run it.
+        This final example combines title animation, button hover, floating cards, and repeated motion.
       </p>
 
-      <pre><code>&lt;!doctype html&gt;
-&lt;html&gt;
+      <div class="copy-area">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
 &lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Animated Landing Page&lt;/title&gt;
+
   &lt;style&gt;
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      height: 100vh;
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 138, 0, 0.25), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.18), transparent 30%),
+        #fff7ed;
+      color: #1f2937;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      min-height: 100vh;
       display: grid;
       place-items: center;
-      background: #fff7ed;
-      font-family: Arial, sans-serif;
+      padding: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 760px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 2px solid #fed7aa;
+      border-radius: 30px;
+      padding: 40px;
+      box-shadow: 0 20px 45px rgba(124, 45, 18, 0.14);
+      animation: fadeUp 1s ease both;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 7vw, 5rem);
+      margin: 0;
+      color: #9a3412;
+      animation: titlePop 1.2s ease both;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.7;
     }
 
     button {
-      padding: 18px 30px;
       border: none;
       border-radius: 999px;
       background: #ff8a00;
       color: white;
-      font-size: 22px;
+      padding: 16px 26px;
+      font-size: 18px;
       font-weight: bold;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: softPulse 1.5s ease-in-out infinite alternate;
+      animation: softPulse 1.6s ease-in-out infinite alternate;
     }
 
     button:hover {
-      transform: scale(1.12) rotate(-2deg);
-      box-shadow: 0 16px 30px rgba(249, 115, 22, 0.35);
+      transform: translateY(-5px) scale(1.08);
+      box-shadow: 0 18px 32px rgba(249, 115, 22, 0.35);
+    }
+
+    .floating-card {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.18);
+    }
+
+    .card-one {
+      top: 12%;
+      left: 8%;
+      background: #2563eb;
+      animation: floatOne 3s ease-in-out infinite alternate;
+    }
+
+    .card-two {
+      right: 8%;
+      bottom: 14%;
+      background: #7c3aed;
+      animation: floatTwo 3.4s ease-in-out infinite alternate;
+    }
+
+    .card-three {
+      right: 12%;
+      top: 14%;
+      background: #16a34a;
+      animation: spinSlow 5s linear infinite;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes titlePop {
+      0% {
+        opacity: 0;
+        transform: scale(0.75);
+      }
+
+      70% {
+        transform: scale(1.08);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     @keyframes softPulse {
@@ -1231,22 +2068,68 @@ document.querySelectorAll(".scroll-card").forEach(card =&gt; {
         box-shadow: 0 0 35px rgba(249, 115, 22, 0.65);
       }
     }
+
+    @keyframes floatOne {
+      from {
+        transform: translateY(0) rotate(-5deg);
+      }
+
+      to {
+        transform: translateY(35px) rotate(8deg);
+      }
+    }
+
+    @keyframes floatTwo {
+      from {
+        transform: translateY(0) rotate(5deg);
+      }
+
+      to {
+        transform: translateY(-35px) rotate(-8deg);
+      }
+    }
+
+    @keyframes spinSlow {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .floating-card {
+        display: none;
+      }
+
+      .hero-content {
+        padding: 28px;
+      }
+    }
   &lt;/style&gt;
 &lt;/head&gt;
 
 &lt;body&gt;
-  &lt;button&gt;Start Learning Animation&lt;/button&gt;
+  &lt;main class="hero"&gt;
+    &lt;div class="floating-card card-one"&gt;HTML&lt;/div&gt;
+    &lt;div class="floating-card card-two"&gt;CSS&lt;/div&gt;
+    &lt;div class="floating-card card-three"&gt;JS&lt;/div&gt;
+
+    &lt;section class="hero-content"&gt;
+      &lt;h1&gt;Animation&lt;/h1&gt;
+      &lt;p&gt;
+        Animation makes a web page feel alive.
+        Start with transitions, then learn keyframes,
+        then control motion with JavaScript.
+      &lt;/p&gt;
+      &lt;button&gt;Start Learning&lt;/button&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+      </div>
     </section>
 
     <section>
-      <h2>14. Final Understanding</h2>
-
-      <p>
-        Animation begins with a simple idea: change something over time.
-        In web development, the most important tools are:
-      </p>
+      <h2>13. Final Understanding</h2>
 
       <div class="grid">
         <div class="mini-card">
@@ -1284,6 +2167,18 @@ document.querySelectorAll(".scroll-card").forEach(card =&gt; {
   </footer>
 
   <script>
+    function copyCode(button) {
+      const code = button.parentElement.querySelector("code").innerText;
+
+      navigator.clipboard.writeText(code).then(function () {
+        const oldText = button.textContent;
+        button.textContent = "Copied";
+        setTimeout(function () {
+          button.textContent = oldText;
+        }, 1200);
+      });
+    }
+
     const timingBall = document.getElementById("timingBall");
     const timingSelect = document.getElementById("timingSelect");
 
