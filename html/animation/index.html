@@ -1,0 +1,1402 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>0 to Infinity HTML Lesson: Animation</title>
+
+  <meta
+    name="description"
+    content="A complete 0 to infinity interactive HTML lesson on animation using CSS transitions, keyframes, transforms, timing, JavaScript control, scroll animation, and practice exercises."
+  />
+
+  <meta
+    name="keywords"
+    content="HTML animation lesson, CSS animation, CSS transition, keyframes, transform, JavaScript animation, beginner web animation, interactive HTML lesson"
+  />
+
+  <meta name="author" content="Champak Roy" />
+
+  <meta property="og:title" content="0 to Infinity HTML Lesson: Animation" />
+  <meta
+    property="og:description"
+    content="Learn animation from zero to advanced level with interactive demos, sliders, buttons, checkpoints, and practice tasks."
+  />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="animation-lesson-og.png" />
+
+  <style>
+    :root {
+      --bg: #fff8ed;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --saffron: #ff8a00;
+      --saffron-dark: #d97706;
+      --yellow: #facc15;
+      --green: #16a34a;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --red: #dc2626;
+      --code-bg: #111827;
+      --code-text: #e5e7eb;
+      --border: #fed7aa;
+      --shadow: 0 12px 30px rgba(124, 45, 18, 0.12);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 138, 0, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(250, 204, 21, 0.22), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ff8a00, #f97316, #facc15);
+      color: white;
+      padding: 42px 18px 34px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before,
+    header::after {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      animation: floatBubble 6s ease-in-out infinite alternate;
+    }
+
+    header::before {
+      left: -55px;
+      top: -55px;
+    }
+
+    header::after {
+      right: -70px;
+      bottom: -70px;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes floatBubble {
+      from {
+        transform: translateY(0) scale(1);
+      }
+      to {
+        transform: translateY(35px) scale(1.15);
+      }
+    }
+
+    header h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+
+    header p {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+      margin: 18px auto 0;
+      font-size: 1.1rem;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 248, 237, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    nav a {
+      display: inline-block;
+      color: #7c2d12;
+      text-decoration: none;
+      font-weight: 700;
+      margin: 4px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: #ffedd5;
+      border: 1px solid #fed7aa;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      outline: 3px solid rgba(249, 115, 22, 0.35);
+      background: #fdba74;
+    }
+
+    main {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 24px 14px 70px;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin: 22px 0;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      color: #9a3412;
+      font-size: clamp(1.55rem, 3vw, 2.4rem);
+      margin-top: 0;
+    }
+
+    h3 {
+      color: #c2410c;
+      margin-top: 28px;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: #374151;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .mini-card {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .checkpoint {
+      border-left: 6px solid var(--green);
+      background: #ecfdf5;
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin: 18px 0;
+    }
+
+    .warning {
+      border-left: 6px solid var(--red);
+      background: #fef2f2;
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin: 18px 0;
+    }
+
+    .demo-box {
+      min-height: 230px;
+      background:
+        linear-gradient(135deg, rgba(255, 237, 213, 0.9), rgba(254, 243, 199, 0.9)),
+        repeating-linear-gradient(
+          45deg,
+          rgba(251, 146, 60, 0.08),
+          rgba(251, 146, 60, 0.08) 10px,
+          transparent 10px,
+          transparent 20px
+        );
+      border: 2px dashed #fb923c;
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ball {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff7ed, #fb923c, #c2410c);
+      box-shadow: 0 12px 22px rgba(194, 65, 12, 0.35);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+      user-select: none;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      background: var(--saffron);
+      color: white;
+      padding: 10px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(249, 115, 22, 0.25);
+    }
+
+    button:hover {
+      background: var(--saffron-dark);
+      transform: translateY(-1px);
+    }
+
+    button.secondary {
+      background: #334155;
+    }
+
+    button.green {
+      background: var(--green);
+    }
+
+    button.blue {
+      background: var(--blue);
+    }
+
+    button.purple {
+      background: var(--purple);
+    }
+
+    label {
+      font-weight: 700;
+      display: block;
+      margin: 12px 0 5px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    select,
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #fdba74;
+      background: #fff7ed;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px;
+      border-radius: 16px;
+      overflow-x: auto;
+      border: 1px solid #374151;
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    .inline-code {
+      background: #111827;
+      color: #fef3c7;
+      padding: 2px 7px;
+      border-radius: 7px;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    .transition-card {
+      width: 190px;
+      min-height: 130px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #fb923c, #facc15);
+      color: white;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-weight: 900;
+      padding: 14px;
+      transition:
+        transform 0.5s ease,
+        border-radius 0.5s ease,
+        background 0.5s ease,
+        box-shadow 0.5s ease;
+    }
+
+    .transition-card:hover {
+      transform: translateY(-20px) rotate(4deg) scale(1.08);
+      border-radius: 42px;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      box-shadow: 0 18px 35px rgba(37, 99, 235, 0.35);
+    }
+
+    .keyframe-ball {
+      animation: bounce 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes bounce {
+      from {
+        transform: translateY(60px);
+      }
+      to {
+        transform: translateY(-60px);
+      }
+    }
+
+    .spin-square {
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      border-radius: 22px;
+      animation: spinAndGrow 2.2s linear infinite;
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+    }
+
+    @keyframes spinAndGrow {
+      0% {
+        transform: rotate(0deg) scale(0.7);
+      }
+      50% {
+        transform: rotate(180deg) scale(1.25);
+        border-radius: 50%;
+      }
+      100% {
+        transform: rotate(360deg) scale(0.7);
+      }
+    }
+
+    .scene {
+      width: 100%;
+      height: 230px;
+      position: relative;
+      background: linear-gradient(#bfdbfe, #dbeafe 62%, #86efac 62%, #22c55e);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid #93c5fd;
+    }
+
+    .sun {
+      position: absolute;
+      top: 24px;
+      right: 45px;
+      width: 68px;
+      height: 68px;
+      background: #facc15;
+      border-radius: 50%;
+      box-shadow: 0 0 35px #facc15;
+      animation: pulseSun 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseSun {
+      from {
+        transform: scale(1);
+        box-shadow: 0 0 24px #facc15;
+      }
+      to {
+        transform: scale(1.18);
+        box-shadow: 0 0 50px #facc15;
+      }
+    }
+
+    .cloud {
+      position: absolute;
+      top: 50px;
+      left: -120px;
+      width: 120px;
+      height: 45px;
+      background: white;
+      border-radius: 999px;
+      animation: moveCloud 8s linear infinite;
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: "";
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .cloud::before {
+      width: 55px;
+      height: 55px;
+      top: -22px;
+      left: 20px;
+    }
+
+    .cloud::after {
+      width: 70px;
+      height: 70px;
+      top: -35px;
+      left: 55px;
+    }
+
+    @keyframes moveCloud {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(calc(100vw + 180px));
+      }
+    }
+
+    .car {
+      position: absolute;
+      bottom: 55px;
+      left: 20px;
+      width: 130px;
+      height: 50px;
+      background: #ef4444;
+      border-radius: 28px 36px 12px 12px;
+      animation: driveCar 5s ease-in-out infinite alternate;
+    }
+
+    .car::before {
+      content: "";
+      position: absolute;
+      width: 58px;
+      height: 35px;
+      background: #bfdbfe;
+      top: -24px;
+      left: 34px;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .wheel {
+      position: absolute;
+      bottom: -14px;
+      width: 30px;
+      height: 30px;
+      background: #111827;
+      border-radius: 50%;
+      border: 5px solid #e5e7eb;
+      animation: wheelSpin 0.7s linear infinite;
+    }
+
+    .wheel.one {
+      left: 20px;
+    }
+
+    .wheel.two {
+      right: 20px;
+    }
+
+    @keyframes driveCar {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(calc(100vw - 230px));
+      }
+    }
+
+    @keyframes wheelSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .interactive-ball {
+      transition: transform 0.4s ease, background 0.4s ease, border-radius 0.4s ease;
+    }
+
+    .playground-object {
+      width: 86px;
+      height: 86px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #ff8a00, #dc2626);
+      box-shadow: 0 12px 22px rgba(220, 38, 38, 0.25);
+      transition: transform 0.25s ease, border-radius 0.25s ease, background 0.25s ease;
+    }
+
+    .scroll-card {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .scroll-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .progress-track {
+      height: 18px;
+      background: #ffedd5;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #fdba74;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #16a34a, #facc15, #ff8a00);
+      animation: loadingBar 3s ease-in-out infinite;
+    }
+
+    @keyframes loadingBar {
+      0% {
+        width: 0%;
+      }
+      50% {
+        width: 82%;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+
+    .loader {
+      width: 82px;
+      height: 82px;
+      border: 10px solid #ffedd5;
+      border-top-color: #ff8a00;
+      border-radius: 50%;
+      animation: loaderSpin 1s linear infinite;
+    }
+
+    @keyframes loaderSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .typewriter {
+      max-width: max-content;
+      overflow: hidden;
+      border-right: 4px solid #c2410c;
+      white-space: nowrap;
+      animation:
+        typing 4s steps(34, end) infinite alternate,
+        blink 0.65s step-end infinite;
+      font-weight: 900;
+      color: #9a3412;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 34ch;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+
+    .quiz-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 8px 0;
+      background: #fff7ed;
+      color: #7c2d12;
+      border: 1px solid #fed7aa;
+      box-shadow: none;
+    }
+
+    .quiz-option.correct {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #86efac;
+    }
+
+    .quiz-option.wrong {
+      background: #fee2e2;
+      color: #991b1b;
+      border-color: #fecaca;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 16px;
+      background: #7c2d12;
+      color: white;
+    }
+
+    footer a {
+      color: #fef3c7;
+      font-weight: 800;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: 650px) {
+      section {
+        padding: 18px;
+      }
+
+      .demo-box {
+        min-height: 190px;
+      }
+
+      .car {
+        animation-name: driveCarSmall;
+      }
+
+      @keyframes driveCarSmall {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(170px);
+        }
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>0 to Infinity HTML Lesson: Animation</h1>
+    <p>
+      Learn animation from the first moving box to interactive, controlled, useful web animations.
+      We will use HTML, CSS, and JavaScript.
+    </p>
+  </header>
+
+  <nav aria-label="Lesson navigation">
+    <a href="#start">Start</a>
+    <a href="#transition">Transitions</a>
+    <a href="#keyframes">Keyframes</a>
+    <a href="#transform">Transform</a>
+    <a href="#timing">Timing</a>
+    <a href="#interactive">Interactive</a>
+    <a href="#scene">Scene</a>
+    <a href="#scroll">Scroll</a>
+    <a href="#practice">Practice</a>
+    <a href="#fullcode">Full Mini Project</a>
+  </nav>
+
+  <main>
+    <section id="start">
+      <h2>1. What is Animation?</h2>
+
+      <p class="lead">
+        Animation means changing something slowly over time so that the user sees movement.
+      </p>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>Without animation</h3>
+          <p>A button suddenly changes color. A box suddenly appears. A menu suddenly opens.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>With animation</h3>
+          <p>The color smoothly changes. The box fades in. The menu slides open.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Why use animation?</h3>
+          <p>Animation helps users understand movement, attention, loading, success, error, and interaction.</p>
+        </div>
+      </div>
+
+      <div class="checkpoint">
+        <strong>Checkpoint:</strong> Animation is not only decoration. Good animation explains what is happening.
+      </div>
+
+      <h3>The three main web animation tools</h3>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>CSS Transition</h3>
+          <p>Best for simple hover, focus, open, close, and state changes.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>CSS Keyframes</h3>
+          <p>Best for repeating animations like bouncing, spinning, loading, and moving objects.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>JavaScript</h3>
+          <p>Best when the user controls animation through buttons, sliders, data, or logic.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="transition">
+      <h2>2. CSS Transition: The First Animation</h2>
+
+      <p>
+        A <span class="inline-code">transition</span> makes a change smooth.
+        Move your mouse over the card below.
+      </p>
+
+      <div class="demo-box">
+        <div class="transition-card">
+          Hover me
+        </div>
+      </div>
+
+      <pre><code>.card {
+  transition: transform 0.5s ease, background 0.5s ease;
+}
+
+.card:hover {
+  transform: scale(1.1) rotate(4deg);
+  background: purple;
+}</code></pre>
+
+      <h3>Meaning of the code</h3>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>transition</h3>
+          <p>Tells the browser which property should change smoothly.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>0.5s</h3>
+          <p>The animation duration. Here it takes half a second.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>ease</h3>
+          <p>The speed style. It starts slowly, speeds up, then slows down.</p>
+        </div>
+      </div>
+
+      <div class="checkpoint">
+        <strong>Checkpoint:</strong> Transition needs two states: a starting state and an ending state.
+      </div>
+    </section>
+
+    <section id="keyframes">
+      <h2>3. CSS Keyframes: Repeated Animation</h2>
+
+      <p>
+        <span class="inline-code">@keyframes</span> lets us describe animation steps.
+        Below, the ball moves from one vertical position to another.
+      </p>
+
+      <div class="demo-box">
+        <div class="ball keyframe-ball">CSS</div>
+      </div>
+
+      <pre><code>@keyframes bounce {
+  from {
+    transform: translateY(60px);
+  }
+
+  to {
+    transform: translateY(-60px);
+  }
+}
+
+.ball {
+  animation: bounce 1s ease-in-out infinite alternate;
+}</code></pre>
+
+      <h3>Important animation words</h3>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>animation-name</h3>
+          <p>Name of the keyframe animation.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>animation-duration</h3>
+          <p>How long one cycle takes.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>animation-iteration-count</h3>
+          <p>How many times it repeats. <span class="inline-code">infinite</span> means forever.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>animation-direction</h3>
+          <p><span class="inline-code">alternate</span> means go forward, then backward.</p>
+        </div>
+      </div>
+
+      <div class="checkpoint">
+        <strong>Checkpoint:</strong> Use transition for simple state change. Use keyframes for planned motion.
+      </div>
+    </section>
+
+    <section id="transform">
+      <h2>4. Transform: Move, Rotate, Scale, Skew</h2>
+
+      <p>
+        Most modern animations use <span class="inline-code">transform</span>.
+        It is fast and smooth because browsers optimize it well.
+      </p>
+
+      <div class="demo-box">
+        <div class="spin-square"></div>
+      </div>
+
+      <pre><code>transform: translateX(50px);
+transform: translateY(50px);
+transform: rotate(45deg);
+transform: scale(1.5);
+transform: skew(10deg);</code></pre>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>translate</h3>
+          <p>Moves an element.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>rotate</h3>
+          <p>Turns an element.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>scale</h3>
+          <p>Makes an element bigger or smaller.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>skew</h3>
+          <p>Tilts an element.</p>
+        </div>
+      </div>
+
+      <div class="warning">
+        <strong>Important:</strong> Prefer animating <span class="inline-code">transform</span> and
+        <span class="inline-code">opacity</span>. Avoid heavy animation of width, height, top, and left when possible.
+      </div>
+    </section>
+
+    <section id="timing">
+      <h2>5. Timing Functions: The Feeling of Motion</h2>
+
+      <p>
+        Animation is not only about movement. It is also about speed.
+        A robot-like movement feels different from a natural movement.
+      </p>
+
+      <div class="demo-box">
+        <div class="ball interactive-ball" id="timingBall">Move</div>
+      </div>
+
+      <label for="timingSelect">Choose timing function</label>
+      <select id="timingSelect">
+        <option value="linear">linear</option>
+        <option value="ease">ease</option>
+        <option value="ease-in">ease-in</option>
+        <option value="ease-out">ease-out</option>
+        <option value="ease-in-out">ease-in-out</option>
+        <option value="cubic-bezier(.68,-0.55,.27,1.55)">bounce-like cubic-bezier</option>
+      </select>
+
+      <div class="btn-row">
+        <button onclick="runTimingDemo()">Run Timing Demo</button>
+        <button class="secondary" onclick="resetTimingDemo()">Reset</button>
+      </div>
+
+      <pre><code>element.style.transition = "transform 1s ease";
+element.style.transform = "translateX(220px)";</code></pre>
+
+      <div class="checkpoint">
+        <strong>Checkpoint:</strong> The same distance can feel different when the timing function changes.
+      </div>
+    </section>
+
+    <section id="interactive">
+      <h2>6. Interactive Animation Playground</h2>
+
+      <p>
+        Now control the animation yourself. Change the sliders and see how
+        <span class="inline-code">transform</span> changes the object.
+      </p>
+
+      <div class="demo-box">
+        <div class="playground-object" id="playgroundObject"></div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label for="moveRange">Move X: <span id="moveValue">0</span>px</label>
+          <input id="moveRange" type="range" min="-180" max="180" value="0" />
+        </div>
+
+        <div>
+          <label for="rotateRange">Rotate: <span id="rotateValue">0</span>deg</label>
+          <input id="rotateRange" type="range" min="0" max="360" value="0" />
+        </div>
+
+        <div>
+          <label for="scaleRange">Scale: <span id="scaleValue">1</span></label>
+          <input id="scaleRange" type="range" min="0.5" max="2" value="1" step="0.1" />
+        </div>
+
+        <div>
+          <label for="radiusRange">Border Radius: <span id="radiusValue">24</span>px</label>
+          <input id="radiusRange" type="range" min="0" max="50" value="24" />
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button onclick="randomAnimation()">Random</button>
+        <button class="secondary" onclick="resetPlayground()">Reset</button>
+      </div>
+
+      <h3>Live CSS</h3>
+      <pre><code id="liveCss">transform: translateX(0px) rotate(0deg) scale(1);
+border-radius: 24px;</code></pre>
+    </section>
+
+    <section id="scene">
+      <h2>7. Animated Scene: Car, Cloud, Sun</h2>
+
+      <p>
+        A scene is just many small animations working together.
+        Here the sun pulses, the cloud moves, the car moves, and the wheels rotate.
+      </p>
+
+      <div class="scene" id="animatedScene">
+        <div class="sun"></div>
+        <div class="cloud"></div>
+        <div class="car">
+          <div class="wheel one"></div>
+          <div class="wheel two"></div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button onclick="pauseScene()">Pause Scene</button>
+        <button class="green" onclick="playScene()">Play Scene</button>
+      </div>
+
+      <pre><code>.car {
+  animation: driveCar 5s ease-in-out infinite alternate;
+}
+
+.wheel {
+  animation: wheelSpin 0.7s linear infinite;
+}</code></pre>
+
+      <div class="checkpoint">
+        <strong>Checkpoint:</strong> Large animations are usually made from many small animations.
+      </div>
+    </section>
+
+    <section>
+      <h2>8. Useful Animation Patterns</h2>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>Loader</h3>
+          <div class="demo-box" style="min-height:150px;">
+            <div class="loader"></div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <h3>Progress Bar</h3>
+          <div class="demo-box" style="min-height:150px;">
+            <div style="width:100%;">
+              <div class="progress-track">
+                <div class="progress-fill"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <h3>Typewriter</h3>
+          <div class="demo-box" style="min-height:150px;">
+            <div class="typewriter">Animation makes websites alive.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scroll">
+      <h2>9. Scroll Animation</h2>
+
+      <p>
+        Scroll animation means an element appears when it enters the screen.
+        Scroll down and watch these cards appear.
+      </p>
+
+      <div class="grid">
+        <div class="mini-card scroll-card">
+          <h3>Step 1</h3>
+          <p>The element starts hidden using opacity 0.</p>
+        </div>
+
+        <div class="mini-card scroll-card">
+          <h3>Step 2</h3>
+          <p>JavaScript observes when the element enters the screen.</p>
+        </div>
+
+        <div class="mini-card scroll-card">
+          <h3>Step 3</h3>
+          <p>A class is added. The element fades and moves into place.</p>
+        </div>
+      </div>
+
+      <pre><code>const observer = new IntersectionObserver(entries =&gt; {
+  entries.forEach(entry =&gt; {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+});
+
+document.querySelectorAll(".scroll-card").forEach(card =&gt; {
+  observer.observe(card);
+});</code></pre>
+    </section>
+
+    <section>
+      <h2>10. Animation Properties Cheat Sheet</h2>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>animation-name</h3>
+          <p>Name of the keyframes.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>animation-duration</h3>
+          <p>Time taken by one cycle.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>animation-timing-function</h3>
+          <p>Speed curve: linear, ease, ease-in, ease-out.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>animation-delay</h3>
+          <p>Wait before starting.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>animation-iteration-count</h3>
+          <p>Number of repeats.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>animation-direction</h3>
+          <p>normal, reverse, alternate, alternate-reverse.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>animation-fill-mode</h3>
+          <p>Controls style before and after animation.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>animation-play-state</h3>
+          <p>running or paused.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>11. Mini Quiz</h2>
+
+      <p><strong>Question:</strong> Which two CSS properties are usually best for smooth animation?</p>
+
+      <button class="quiz-option" onclick="checkQuiz(this, false)">width and height</button>
+      <button class="quiz-option" onclick="checkQuiz(this, true)">transform and opacity</button>
+      <button class="quiz-option" onclick="checkQuiz(this, false)">font-size and border-width</button>
+
+      <p id="quizResult"></p>
+    </section>
+
+    <section id="practice">
+      <h2>12. Practice Tasks</h2>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>Level 1</h3>
+          <p>Create a button that becomes bigger on hover.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Level 2</h3>
+          <p>Create a ball that bounces forever.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Level 3</h3>
+          <p>Create a loading spinner using border and rotate.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Level 4</h3>
+          <p>Create a card that fades in when the page scrolls.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Level 5</h3>
+          <p>Create sliders to control move, rotate, and scale.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Infinity Level</h3>
+          <p>Create a small animated story: sun rises, bird flies, car moves, title appears.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="fullcode">
+      <h2>13. Full Mini Project: Animated Button</h2>
+
+      <p>
+        Here is a small complete animation project. Copy it into a new HTML file and run it.
+      </p>
+
+      <pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body {
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #fff7ed;
+      font-family: Arial, sans-serif;
+    }
+
+    button {
+      padding: 18px 30px;
+      border: none;
+      border-radius: 999px;
+      background: #ff8a00;
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: softPulse 1.5s ease-in-out infinite alternate;
+    }
+
+    button:hover {
+      transform: scale(1.12) rotate(-2deg);
+      box-shadow: 0 16px 30px rgba(249, 115, 22, 0.35);
+    }
+
+    @keyframes softPulse {
+      from {
+        box-shadow: 0 0 0 rgba(249, 115, 22, 0.2);
+      }
+
+      to {
+        box-shadow: 0 0 35px rgba(249, 115, 22, 0.65);
+      }
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;button&gt;Start Learning Animation&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>14. Final Understanding</h2>
+
+      <p>
+        Animation begins with a simple idea: change something over time.
+        In web development, the most important tools are:
+      </p>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>Transition</h3>
+          <p>For smooth change between two states.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Keyframes</h3>
+          <p>For planned motion with steps.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Transform</h3>
+          <p>For fast movement, rotation, and scaling.</p>
+        </div>
+
+        <div class="mini-card">
+          <h3>JavaScript</h3>
+          <p>For user-controlled animation.</p>
+        </div>
+      </div>
+
+      <div class="checkpoint">
+        <strong>Infinity Rule:</strong> Do not animate everything. Animate only when it helps the user understand, enjoy, or interact.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Programmer's Picnic by Champak Roy |
+      <a href="https://learnwithchampak.live">learnwithchampak.live</a>
+    </p>
+  </footer>
+
+  <script>
+    const timingBall = document.getElementById("timingBall");
+    const timingSelect = document.getElementById("timingSelect");
+
+    function runTimingDemo() {
+      const timing = timingSelect.value;
+      timingBall.style.transition = "transform 1s " + timing;
+      timingBall.style.transform = "translateX(230px) rotate(360deg)";
+    }
+
+    function resetTimingDemo() {
+      timingBall.style.transition = "transform 0.4s ease";
+      timingBall.style.transform = "translateX(0) rotate(0deg)";
+    }
+
+    const playgroundObject = document.getElementById("playgroundObject");
+    const moveRange = document.getElementById("moveRange");
+    const rotateRange = document.getElementById("rotateRange");
+    const scaleRange = document.getElementById("scaleRange");
+    const radiusRange = document.getElementById("radiusRange");
+
+    const moveValue = document.getElementById("moveValue");
+    const rotateValue = document.getElementById("rotateValue");
+    const scaleValue = document.getElementById("scaleValue");
+    const radiusValue = document.getElementById("radiusValue");
+    const liveCss = document.getElementById("liveCss");
+
+    function updatePlayground() {
+      const move = moveRange.value;
+      const rotate = rotateRange.value;
+      const scale = scaleRange.value;
+      const radius = radiusRange.value;
+
+      playgroundObject.style.transform =
+        "translateX(" + move + "px) rotate(" + rotate + "deg) scale(" + scale + ")";
+
+      playgroundObject.style.borderRadius = radius + "px";
+
+      moveValue.textContent = move;
+      rotateValue.textContent = rotate;
+      scaleValue.textContent = scale;
+      radiusValue.textContent = radius;
+
+      liveCss.textContent =
+        "transform: translateX(" + move + "px) rotate(" + rotate + "deg) scale(" + scale + ");\n" +
+        "border-radius: " + radius + "px;";
+    }
+
+    moveRange.addEventListener("input", updatePlayground);
+    rotateRange.addEventListener("input", updatePlayground);
+    scaleRange.addEventListener("input", updatePlayground);
+    radiusRange.addEventListener("input", updatePlayground);
+
+    function randomAnimation() {
+      moveRange.value = Math.floor(Math.random() * 361) - 180;
+      rotateRange.value = Math.floor(Math.random() * 361);
+      scaleRange.value = (Math.random() * 1.5 + 0.5).toFixed(1);
+      radiusRange.value = Math.floor(Math.random() * 51);
+      updatePlayground();
+    }
+
+    function resetPlayground() {
+      moveRange.value = 0;
+      rotateRange.value = 0;
+      scaleRange.value = 1;
+      radiusRange.value = 24;
+      updatePlayground();
+    }
+
+    const animatedScene = document.getElementById("animatedScene");
+
+    function pauseScene() {
+      animatedScene.querySelectorAll("*").forEach(function (element) {
+        element.style.animationPlayState = "paused";
+      });
+    }
+
+    function playScene() {
+      animatedScene.querySelectorAll("*").forEach(function (element) {
+        element.style.animationPlayState = "running";
+      });
+    }
+
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.25
+    });
+
+    document.querySelectorAll(".scroll-card").forEach(function (card) {
+      observer.observe(card);
+    });
+
+    function checkQuiz(button, isCorrect) {
+      document.querySelectorAll(".quiz-option").forEach(function (option) {
+        option.classList.remove("correct", "wrong");
+      });
+
+      if (isCorrect) {
+        button.classList.add("correct");
+        document.getElementById("quizResult").textContent =
+          "Correct. transform and opacity are usually the smoothest animation properties.";
+      } else {
+        button.classList.add("wrong");
+        document.getElementById("quizResult").textContent =
+          "Not the best answer. Try again. Hint: use properties that do not force heavy layout changes.";
+      }
+    }
+
+    updatePlayground();
+  </script>
+</body>
+</html>
