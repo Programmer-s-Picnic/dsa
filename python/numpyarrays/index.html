@@ -1,0 +1,1567 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Python Numerical Thinking: Indexing, Slicing, Dictionaries, NumPy Arrays, Shape and Axis</title>
+
+  <meta name="description" content="A 0 to infinity Python lesson on indexing, slicing, dictionaries, NumPy arrays, shape, axis, and computing mean, median, min, max, and range using arrays." />
+
+  <meta name="keywords" content="Python indexing, Python slicing, Python dictionaries, NumPy arrays, NumPy shape, NumPy axis, mean median min max range Python, numerical thinking, Python data science basics" />
+
+  <meta name="author" content="Champak Roy" />
+
+  <meta property="og:title" content="Python Numerical Thinking: Indexing, Slicing, Dictionaries, NumPy Arrays, Shape and Axis" />
+  <meta property="og:description" content="Learn Python numerical thinking from zero to infinity with indexing, slicing, dictionaries, NumPy arrays, shape, axis and array statistics." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://programmer-s-picnic.github.io/json-images/mee.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Python Numerical Thinking: Indexing, Slicing, Dictionaries, NumPy Arrays, Shape and Axis" />
+  <meta name="twitter:description" content="A complete Python lesson for numerical thinking using arrays and NumPy." />
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+    crossorigin="anonymous"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-GSTQRQMLEE");
+  </script>
+
+  <style>
+    :root {
+      --bg: #fff8ed;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #5f6472;
+      --brand: #f97316;
+      --brand-dark: #c2410c;
+      --brand-soft: #ffedd5;
+      --line: #fed7aa;
+      --code-bg: #101827;
+      --code-text: #f8fafc;
+      --good: #15803d;
+      --warn: #b45309;
+      --danger: #b91c1c;
+      --blue: #2563eb;
+      --shadow: 0 16px 40px rgba(124, 45, 18, 0.14);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(249, 115, 22, 0.18), transparent 28rem),
+        radial-gradient(circle at top right, rgba(251, 191, 36, 0.18), transparent 26rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--brand-dark);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background:
+        linear-gradient(135deg, rgba(154, 52, 18, 0.94), rgba(249, 115, 22, 0.92)),
+        url("https://programmer-s-picnic.github.io/json-images/mee.jpg");
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 54px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.25), transparent);
+      pointer-events: none;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: auto;
+    }
+
+    .badge {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.35);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      margin: 0 0 18px;
+      max-width: 950px;
+    }
+
+    .subtitle {
+      max-width: 850px;
+      font-size: 1.18rem;
+      color: #fff7ed;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: white;
+      color: var(--brand-dark);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.14);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,248,237,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: auto;
+      padding: 10px 18px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+    }
+
+    .nav-inner a {
+      white-space: nowrap;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--brand-dark);
+      font-size: 0.92rem;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: auto;
+      padding: 28px 18px 70px;
+    }
+
+    section {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 4vw, 34px);
+      margin: 24px 0;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      line-height: 1.15;
+      color: #9a3412;
+      margin-top: 0;
+    }
+
+    h3 {
+      color: #c2410c;
+      font-size: 1.35rem;
+      margin-top: 28px;
+    }
+
+    h4 {
+      color: #7c2d12;
+      margin-bottom: 8px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @media (max-width: 800px) {
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .card strong {
+      color: var(--brand-dark);
+    }
+
+    .note {
+      border-left: 6px solid var(--brand);
+      background: var(--brand-soft);
+      padding: 16px;
+      border-radius: 14px;
+      margin: 18px 0;
+    }
+
+    .success {
+      border-left-color: var(--good);
+      background: #ecfdf5;
+    }
+
+    .warning {
+      border-left-color: var(--warn);
+      background: #fffbeb;
+    }
+
+    .danger {
+      border-left-color: var(--danger);
+      background: #fef2f2;
+    }
+
+    .mini {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: 18px;
+      padding: 18px;
+      overflow-x: auto;
+      border: 1px solid #334155;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    code {
+      font-family: "Consolas", "Monaco", "Courier New", monospace;
+    }
+
+    p code,
+    li code,
+    td code {
+      background: #ffedd5;
+      color: #7c2d12;
+      padding: 2px 6px;
+      border-radius: 7px;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      overflow: hidden;
+      border-radius: 14px;
+      background: white;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #ffedd5;
+      color: #7c2d12;
+    }
+
+    .visual-array {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .cell {
+      min-width: 70px;
+      border: 2px solid var(--brand);
+      background: white;
+      border-radius: 14px;
+      text-align: center;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.12);
+    }
+
+    .cell .index {
+      background: var(--brand-soft);
+      color: #9a3412;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 4px;
+    }
+
+    .cell .value {
+      font-size: 1.35rem;
+      font-weight: 900;
+      padding: 10px;
+    }
+
+    .formula {
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      padding: 16px;
+      border-radius: 14px;
+      font-weight: 700;
+    }
+
+    .practice {
+      background: linear-gradient(135deg, #fff7ed, #ffffff);
+      border: 2px solid #fdba74;
+    }
+
+    .task {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fff;
+      margin: 12px 0;
+    }
+
+    .task-number {
+      display: inline-flex;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      background: var(--brand);
+      color: white;
+      font-weight: 900;
+      margin-right: 8px;
+    }
+
+    .editor-box {
+      border: 2px solid #fb923c;
+      border-radius: 22px;
+      overflow: hidden;
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .editor-title {
+      background: #9a3412;
+      color: white;
+      padding: 12px 16px;
+      font-weight: 900;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    iframe {
+      width: 100%;
+      height: 680px;
+      border: 0;
+      display: block;
+      background: white;
+    }
+
+    .ad-box {
+      margin: 26px 0;
+      padding: 14px;
+      border: 1px dashed #fb923c;
+      border-radius: 16px;
+      background: #fff7ed;
+      text-align: center;
+      color: #9a3412;
+      font-weight: 700;
+    }
+
+    details {
+      background: #fff7ed;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin: 12px 0;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 900;
+      color: #9a3412;
+    }
+
+    .footer {
+      background: #7c2d12;
+      color: #fff7ed;
+      text-align: center;
+      padding: 32px 18px;
+    }
+
+    .footer a {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .top-link {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      background: var(--brand);
+      color: white;
+      border-radius: 999px;
+      padding: 10px 14px;
+      box-shadow: var(--shadow);
+      z-index: 30;
+    }
+  </style>
+</head>
+
+<body id="top">
+
+  <header>
+    <div class="hero">
+      <div class="badge">Python Data Thinking • 0 to Infinity Lesson</div>
+
+      <h1>Indexing, Slicing, Dictionaries, NumPy Arrays, Shape and Axis</h1>
+
+      <p class="subtitle">
+        In this lesson, we move from ordinary Python lists to real numerical thinking.
+        We will learn how data is stored, selected, sliced, organized, converted into arrays,
+        and summarized using mean, median, minimum, maximum, and range.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#editor">Open Practice Editor</a>
+        <a class="btn btn-secondary" href="#notebook">Build the Notebook</a>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#goal">Goal</a>
+      <a href="#indexing">Indexing</a>
+      <a href="#slicing">Slicing</a>
+      <a href="#dict">Dictionaries</a>
+      <a href="#numpy">NumPy Arrays</a>
+      <a href="#shape">Shape</a>
+      <a href="#axis">Axis</a>
+      <a href="#stats">Mean Median Min Max Range</a>
+      <a href="#notebook">Notebook Output</a>
+      <a href="#editor">Editor</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <section id="goal">
+      <h2>1. What are we learning?</h2>
+
+      <p>
+        Before Machine Learning, Artificial Intelligence, data analysis, or prediction,
+        we must become comfortable with numbers. A model does not understand emotion,
+        story, or intention directly. It understands <strong>numbers arranged in structures</strong>.
+      </p>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Data selection</h3>
+          <p>
+            Indexing and slicing help us pick values from a list, string, or array.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Data organization</h3>
+          <p>
+            Dictionaries help us store named values, like marks of students or prices of items.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Numerical thinking</h3>
+          <p>
+            NumPy helps us calculate quickly on arrays of numbers.
+          </p>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Final output of this lesson:</strong>
+        you will create a small numerical thinking notebook that computes
+        mean, median, minimum, maximum, and range from arrays.
+      </div>
+    </section>
+
+    <div class="ad-box">
+      Advertisement
+      <br />
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>
+        try {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {}
+      </script>
+    </div>
+
+    <section id="indexing">
+      <h2>2. Indexing: finding one item</h2>
+
+      <p>
+        Indexing means selecting one item from a sequence. In Python, indexing starts from
+        <code>0</code>, not from <code>1</code>.
+      </p>
+
+      <div class="visual-array">
+        <div class="cell">
+          <div class="index">index 0</div>
+          <div class="value">10</div>
+        </div>
+        <div class="cell">
+          <div class="index">index 1</div>
+          <div class="value">20</div>
+        </div>
+        <div class="cell">
+          <div class="index">index 2</div>
+          <div class="value">30</div>
+        </div>
+        <div class="cell">
+          <div class="index">index 3</div>
+          <div class="value">40</div>
+        </div>
+        <div class="cell">
+          <div class="index">index 4</div>
+          <div class="value">50</div>
+        </div>
+      </div>
+
+      <pre><code>numbers = [10, 20, 30, 40, 50]
+
+print(numbers[0])   # 10
+print(numbers[1])   # 20
+print(numbers[4])   # 50</code></pre>
+
+      <h3>Negative indexing</h3>
+
+      <p>
+        Negative indexing starts from the end. The last item is <code>-1</code>.
+      </p>
+
+      <pre><code>numbers = [10, 20, 30, 40, 50]
+
+print(numbers[-1])  # 50
+print(numbers[-2])  # 40
+print(numbers[-5])  # 10</code></pre>
+
+      <div class="note warning">
+        <strong>Common mistake:</strong>
+        if a list has 5 items, the last positive index is <code>4</code>.
+        <code>numbers[5]</code> will give an error.
+      </div>
+
+      <details>
+        <summary>Checkpoint</summary>
+        <p>
+          For <code>marks = [75, 80, 92, 67]</code>, what is <code>marks[2]</code>?
+        </p>
+        <p>
+          Answer: <strong>92</strong>.
+        </p>
+      </details>
+    </section>
+
+    <section id="slicing">
+      <h2>3. Slicing: taking a part of a sequence</h2>
+
+      <p>
+        Slicing means selecting a range of values.
+      </p>
+
+      <div class="formula">
+        list[start : stop : step]
+      </div>
+
+      <p>
+        Important rule: <code>start</code> is included, but <code>stop</code> is not included.
+      </p>
+
+      <pre><code>numbers = [10, 20, 30, 40, 50, 60]
+
+print(numbers[1:4])    # [20, 30, 40]
+print(numbers[:3])     # [10, 20, 30]
+print(numbers[3:])     # [40, 50, 60]
+print(numbers[::2])    # [10, 30, 50]
+print(numbers[::-1])   # [60, 50, 40, 30, 20, 10]</code></pre>
+
+      <h3>Slicing strings</h3>
+
+      <p>
+        Strings also support indexing and slicing.
+      </p>
+
+      <pre><code>name = "Champak"
+
+print(name[0])      # C
+print(name[1:4])    # ham
+print(name[::-1])   # kapmahC</code></pre>
+
+      <div class="note success">
+        <strong>Beautiful idea:</strong>
+        indexing gives one value, slicing gives a collection of values.
+      </div>
+    </section>
+
+    <section id="dict">
+      <h2>4. Dictionaries: storing data with names</h2>
+
+      <p>
+        A dictionary stores data as <strong>key-value pairs</strong>.
+        Instead of remembering position numbers, we can use meaningful names.
+      </p>
+
+      <pre><code>student = {
+    "name": "Aarav",
+    "math": 86,
+    "science": 91,
+    "english": 78
+}
+
+print(student["name"])
+print(student["math"])</code></pre>
+
+      <h3>Why dictionaries matter in data science</h3>
+
+      <p>
+        Real data usually has labels:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>"name"</code></td>
+            <td><code>"Aarav"</code></td>
+            <td>Name of the student</td>
+          </tr>
+          <tr>
+            <td><code>"math"</code></td>
+            <td><code>86</code></td>
+            <td>Marks in mathematics</td>
+          </tr>
+          <tr>
+            <td><code>"science"</code></td>
+            <td><code>91</code></td>
+            <td>Marks in science</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Dictionary operations</h3>
+
+      <pre><code>student = {
+    "name": "Aarav",
+    "math": 86,
+    "science": 91
+}
+
+# Reading
+print(student["math"])
+
+# Adding
+student["english"] = 78
+
+# Updating
+student["math"] = 90
+
+# Safe reading
+print(student.get("history", "Not found"))
+
+# Looping
+for key, value in student.items():
+    print(key, "=", value)</code></pre>
+
+      <div class="note">
+        Lists are good when order is important. Dictionaries are good when names are important.
+      </div>
+    </section>
+
+    <section id="numpy">
+      <h2>5. NumPy Arrays: lists become powerful</h2>
+
+      <p>
+        NumPy means <strong>Numerical Python</strong>. It gives us arrays that are faster and more powerful
+        than normal Python lists for numerical work.
+      </p>
+
+      <h3>Normal list</h3>
+
+      <pre><code>marks = [70, 80, 90, 60]
+
+print(marks)</code></pre>
+
+      <h3>NumPy array</h3>
+
+      <pre><code>import numpy as np
+
+marks = np.array([70, 80, 90, 60])
+
+print(marks)</code></pre>
+
+      <h3>Why NumPy arrays are useful</h3>
+
+      <p>
+        With normal lists, mathematical operations are not direct.
+      </p>
+
+      <pre><code>numbers = [1, 2, 3]
+
+print(numbers * 2)
+# Output: [1, 2, 3, 1, 2, 3]</code></pre>
+
+      <p>
+        With NumPy arrays, mathematical operations happen value by value.
+      </p>
+
+      <pre><code>import numpy as np
+
+numbers = np.array([1, 2, 3])
+
+print(numbers * 2)
+# Output: [2 4 6]</code></pre>
+
+      <div class="note success">
+        <strong>Important:</strong>
+        NumPy thinks numerically. Lists think generally.
+      </div>
+    </section>
+
+    <section id="shape">
+      <h2>6. Shape: understanding the size of data</h2>
+
+      <p>
+        Shape tells us the structure of an array.
+      </p>
+
+      <h3>One-dimensional array</h3>
+
+      <pre><code>import numpy as np
+
+a = np.array([10, 20, 30, 40])
+
+print(a.shape)</code></pre>
+
+      <p>
+        Output:
+      </p>
+
+      <pre><code>(4,)</code></pre>
+
+      <p>
+        This means: one row-like line with 4 values.
+      </p>
+
+      <h3>Two-dimensional array</h3>
+
+      <pre><code>import numpy as np
+
+marks = np.array([
+    [80, 85, 90],
+    [70, 75, 65],
+    [92, 88, 95]
+])
+
+print(marks.shape)</code></pre>
+
+      <p>
+        Output:
+      </p>
+
+      <pre><code>(3, 3)</code></pre>
+
+      <p>
+        This means: 3 rows and 3 columns.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Shape</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>(4,)</code></td>
+            <td>One-dimensional array with 4 values</td>
+          </tr>
+          <tr>
+            <td><code>(3, 2)</code></td>
+            <td>Two-dimensional array with 3 rows and 2 columns</td>
+          </tr>
+          <tr>
+            <td><code>(2, 3, 4)</code></td>
+            <td>Three-dimensional array</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        Shape is one of the most important ideas in Machine Learning.
+        If the shape is wrong, the model may not train.
+      </div>
+    </section>
+
+    <section id="axis">
+      <h2>7. Axis: direction of calculation</h2>
+
+      <p>
+        Axis tells NumPy which direction to calculate in.
+      </p>
+
+      <pre><code>import numpy as np
+
+marks = np.array([
+    [80, 85, 90],
+    [70, 75, 65],
+    [92, 88, 95]
+])
+
+print(marks)</code></pre>
+
+      <p>
+        Think of this as:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Math</th>
+            <th>Science</th>
+            <th>English</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Student 1</td>
+            <td>80</td>
+            <td>85</td>
+            <td>90</td>
+          </tr>
+          <tr>
+            <td>Student 2</td>
+            <td>70</td>
+            <td>75</td>
+            <td>65</td>
+          </tr>
+          <tr>
+            <td>Student 3</td>
+            <td>92</td>
+            <td>88</td>
+            <td>95</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>axis = 0</h3>
+
+      <p>
+        <code>axis=0</code> means calculate column-wise.
+        It moves down the rows.
+      </p>
+
+      <pre><code>print(np.mean(marks, axis=0))</code></pre>
+
+      <p>
+        This gives the mean of each subject.
+      </p>
+
+      <h3>axis = 1</h3>
+
+      <p>
+        <code>axis=1</code> means calculate row-wise.
+        It moves across the columns.
+      </p>
+
+      <pre><code>print(np.mean(marks, axis=1))</code></pre>
+
+      <p>
+        This gives the mean of each student.
+      </p>
+
+      <div class="note warning">
+        <strong>Memory trick:</strong>
+        <code>axis=0</code> collapses rows and gives column results.
+        <code>axis=1</code> collapses columns and gives row results.
+      </div>
+    </section>
+
+    <section id="stats">
+      <h2>8. Practice: mean, median, min, max, range</h2>
+
+      <p>
+        Now we start thinking numerically.
+      </p>
+
+      <h3>Dataset</h3>
+
+      <pre><code>import numpy as np
+
+data = np.array([12, 18, 20, 25, 30, 35, 40])</code></pre>
+
+      <h3>Mean</h3>
+
+      <p>
+        Mean is the average value.
+      </p>
+
+      <pre><code>mean_value = np.mean(data)
+print("Mean:", mean_value)</code></pre>
+
+      <h3>Median</h3>
+
+      <p>
+        Median is the middle value after sorting.
+      </p>
+
+      <pre><code>median_value = np.median(data)
+print("Median:", median_value)</code></pre>
+
+      <h3>Minimum and Maximum</h3>
+
+      <pre><code>min_value = np.min(data)
+max_value = np.max(data)
+
+print("Minimum:", min_value)
+print("Maximum:", max_value)</code></pre>
+
+      <h3>Range</h3>
+
+      <p>
+        Range means maximum minus minimum.
+      </p>
+
+      <pre><code>range_value = np.max(data) - np.min(data)
+print("Range:", range_value)</code></pre>
+
+      <h3>Full program</h3>
+
+      <pre><code>import numpy as np
+
+data = np.array([12, 18, 20, 25, 30, 35, 40])
+
+mean_value = np.mean(data)
+median_value = np.median(data)
+min_value = np.min(data)
+max_value = np.max(data)
+range_value = max_value - min_value
+
+print("Data:", data)
+print("Mean:", mean_value)
+print("Median:", median_value)
+print("Minimum:", min_value)
+print("Maximum:", max_value)
+print("Range:", range_value)</code></pre>
+
+      <div class="note success">
+        This is the beginning of data analysis. We are not only printing numbers.
+        We are asking questions about the numbers.
+      </div>
+    </section>
+
+    <section>
+      <h2>9. Two-dimensional statistics</h2>
+
+      <p>
+        Now let us use a 2D array. Imagine 4 students and 3 subjects.
+      </p>
+
+      <pre><code>import numpy as np
+
+marks = np.array([
+    [80, 85, 90],
+    [70, 75, 65],
+    [92, 88, 95],
+    [60, 72, 68]
+])
+
+print("Marks:")
+print(marks)
+
+print("Shape:", marks.shape)
+
+print("Overall mean:", np.mean(marks))
+print("Subject-wise mean:", np.mean(marks, axis=0))
+print("Student-wise mean:", np.mean(marks, axis=1))
+
+print("Subject-wise minimum:", np.min(marks, axis=0))
+print("Subject-wise maximum:", np.max(marks, axis=0))
+print("Subject-wise range:", np.max(marks, axis=0) - np.min(marks, axis=0))</code></pre>
+
+      <h3>Meaning of results</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>np.mean(marks)</code></td>
+            <td>Mean of all numbers</td>
+          </tr>
+          <tr>
+            <td><code>np.mean(marks, axis=0)</code></td>
+            <td>Mean of each subject</td>
+          </tr>
+          <tr>
+            <td><code>np.mean(marks, axis=1)</code></td>
+            <td>Mean of each student</td>
+          </tr>
+          <tr>
+            <td><code>np.max(marks, axis=0) - np.min(marks, axis=0)</code></td>
+            <td>Range of each subject</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="notebook" class="practice">
+      <h2>10. Output: basic numerical thinking notebook</h2>
+
+      <p>
+        Copy this notebook-style program into the editor and run it.
+        It combines indexing, slicing, dictionaries, NumPy arrays, shape, axis,
+        mean, median, minimum, maximum, and range.
+      </p>
+
+      <pre><code>"""
+Basic Numerical Thinking Notebook
+Programmer's Picnic by Champak Roy
+
+Topics:
+1. Indexing
+2. Slicing
+3. Dictionaries
+4. NumPy arrays
+5. Shape
+6. Axis
+7. Mean, median, min, max, range
+"""
+
+import numpy as np
+
+print("=" * 60)
+print("BASIC NUMERICAL THINKING NOTEBOOK")
+print("=" * 60)
+
+# ------------------------------------------------------------
+# 1. Indexing
+# ------------------------------------------------------------
+
+numbers = [10, 20, 30, 40, 50]
+
+print("\n1. INDEXING")
+print("Numbers:", numbers)
+print("First value:", numbers[0])
+print("Second value:", numbers[1])
+print("Last value:", numbers[-1])
+
+# ------------------------------------------------------------
+# 2. Slicing
+# ------------------------------------------------------------
+
+print("\n2. SLICING")
+print("First three values:", numbers[:3])
+print("Values from index 1 to 3:", numbers[1:4])
+print("Every second value:", numbers[::2])
+print("Reverse list:", numbers[::-1])
+
+# ------------------------------------------------------------
+# 3. Dictionary
+# ------------------------------------------------------------
+
+student = {
+    "name": "Aarav",
+    "math": 80,
+    "science": 85,
+    "english": 90
+}
+
+print("\n3. DICTIONARY")
+print("Student dictionary:", student)
+print("Name:", student["name"])
+print("Math marks:", student["math"])
+
+# ------------------------------------------------------------
+# 4. NumPy Array
+# ------------------------------------------------------------
+
+marks = np.array([80, 85, 90, 70, 75, 65])
+
+print("\n4. NUMPY ARRAY")
+print("Marks array:", marks)
+print("Marks multiplied by 2:", marks * 2)
+print("Marks plus 5:", marks + 5)
+
+# ------------------------------------------------------------
+# 5. Basic Statistics
+# ------------------------------------------------------------
+
+print("\n5. BASIC STATISTICS")
+print("Mean:", np.mean(marks))
+print("Median:", np.median(marks))
+print("Minimum:", np.min(marks))
+print("Maximum:", np.max(marks))
+print("Range:", np.max(marks) - np.min(marks))
+
+# ------------------------------------------------------------
+# 6. Two-dimensional Array
+# ------------------------------------------------------------
+
+class_marks = np.array([
+    [80, 85, 90],
+    [70, 75, 65],
+    [92, 88, 95],
+    [60, 72, 68]
+])
+
+print("\n6. TWO-DIMENSIONAL ARRAY")
+print("Class marks:")
+print(class_marks)
+
+print("Shape:", class_marks.shape)
+
+# ------------------------------------------------------------
+# 7. Axis
+# ------------------------------------------------------------
+
+print("\n7. AXIS THINKING")
+
+subject_names = np.array(["Math", "Science", "English"])
+
+subject_mean = np.mean(class_marks, axis=0)
+student_mean = np.mean(class_marks, axis=1)
+
+print("Subject names:", subject_names)
+print("Subject-wise mean:", subject_mean)
+print("Student-wise mean:", student_mean)
+
+print("Subject-wise min:", np.min(class_marks, axis=0))
+print("Subject-wise max:", np.max(class_marks, axis=0))
+print("Subject-wise range:", np.max(class_marks, axis=0) - np.min(class_marks, axis=0))
+
+# ------------------------------------------------------------
+# 8. Dictionary + NumPy together
+# ------------------------------------------------------------
+
+report = {
+    "subjects": subject_names,
+    "subject_mean": subject_mean,
+    "student_mean": student_mean,
+    "overall_mean": np.mean(class_marks),
+    "overall_median": np.median(class_marks),
+    "overall_min": np.min(class_marks),
+    "overall_max": np.max(class_marks),
+    "overall_range": np.max(class_marks) - np.min(class_marks)
+}
+
+print("\n8. FINAL REPORT DICTIONARY")
+for key, value in report.items():
+    print(key, ":", value)
+
+print("\n" + "=" * 60)
+print("NOTEBOOK COMPLETE")
+print("=" * 60)</code></pre>
+    </section>
+
+    <section>
+      <h2>11. Practice tasks</h2>
+
+      <div class="task">
+        <h3><span class="task-number">1</span> Indexing practice</h3>
+        <p>
+          Create a list of 7 temperatures. Print the first, third, and last temperature.
+        </p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">2</span> Slicing practice</h3>
+        <p>
+          From the same temperature list, print the first 3 values, last 3 values, and reversed list.
+        </p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">3</span> Dictionary practice</h3>
+        <p>
+          Create a dictionary for one city:
+          <code>city</code>, <code>morning_temp</code>, <code>afternoon_temp</code>, and <code>evening_temp</code>.
+        </p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">4</span> NumPy practice</h3>
+        <p>
+          Convert the temperatures into a NumPy array and compute mean, median, min, max, and range.
+        </p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">5</span> Axis practice</h3>
+        <p>
+          Create a 2D array where rows are days and columns are morning, afternoon, evening temperatures.
+          Compute column-wise mean and row-wise mean.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>12. Solved practice program</h2>
+
+      <pre><code>import numpy as np
+
+temperatures = [24, 26, 29, 31, 30, 28, 25]
+
+print("Temperatures:", temperatures)
+
+print("First:", temperatures[0])
+print("Third:", temperatures[2])
+print("Last:", temperatures[-1])
+
+print("First three:", temperatures[:3])
+print("Last three:", temperatures[-3:])
+print("Reverse:", temperatures[::-1])
+
+city_weather = {
+    "city": "Varanasi",
+    "morning_temp": 24,
+    "afternoon_temp": 31,
+    "evening_temp": 28
+}
+
+print("City weather:", city_weather)
+
+temp_array = np.array(temperatures)
+
+print("Mean:", np.mean(temp_array))
+print("Median:", np.median(temp_array))
+print("Min:", np.min(temp_array))
+print("Max:", np.max(temp_array))
+print("Range:", np.max(temp_array) - np.min(temp_array))
+
+weekly_weather = np.array([
+    [24, 31, 28],
+    [25, 32, 29],
+    [26, 33, 30],
+    [24, 30, 27],
+    [23, 29, 26],
+    [25, 31, 28],
+    [26, 32, 29]
+])
+
+print("Weekly weather:")
+print(weekly_weather)
+
+print("Shape:", weekly_weather.shape)
+
+print("Mean of morning, afternoon, evening:")
+print(np.mean(weekly_weather, axis=0))
+
+print("Mean of each day:")
+print(np.mean(weekly_weather, axis=1))</code></pre>
+    </section>
+
+    <section>
+      <h2>13. Concept map</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Concept</th>
+            <th>Question it answers</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Indexing</td>
+            <td>Which single value do I want?</td>
+            <td><code>data[0]</code></td>
+          </tr>
+          <tr>
+            <td>Slicing</td>
+            <td>Which part of the data do I want?</td>
+            <td><code>data[1:4]</code></td>
+          </tr>
+          <tr>
+            <td>Dictionary</td>
+            <td>How do I name my values?</td>
+            <td><code>student["math"]</code></td>
+          </tr>
+          <tr>
+            <td>NumPy array</td>
+            <td>How do I calculate quickly on many numbers?</td>
+            <td><code>np.array([1, 2, 3])</code></td>
+          </tr>
+          <tr>
+            <td>Shape</td>
+            <td>What is the structure of my data?</td>
+            <td><code>array.shape</code></td>
+          </tr>
+          <tr>
+            <td>Axis</td>
+            <td>Which direction should NumPy calculate?</td>
+            <td><code>np.mean(data, axis=0)</code></td>
+          </tr>
+          <tr>
+            <td>Mean</td>
+            <td>What is the average?</td>
+            <td><code>np.mean(data)</code></td>
+          </tr>
+          <tr>
+            <td>Median</td>
+            <td>What is the middle value?</td>
+            <td><code>np.median(data)</code></td>
+          </tr>
+          <tr>
+            <td>Range</td>
+            <td>How spread out are the values?</td>
+            <td><code>np.max(data) - np.min(data)</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="editor">
+      <h2>14. Practice in the Python editor</h2>
+
+      <p>
+        Use the editor below to run the notebook program and modify the arrays.
+        Try changing marks, temperatures, and the 2D matrix.
+      </p>
+
+      <div class="editor-box">
+        <div class="editor-title">
+          <span>Embedded Python Editor</span>
+          <span>Practice: numerical thinking notebook</span>
+        </div>
+
+        <iframe
+          title="Python Editor"
+          src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1"
+          allow="clipboard-read; clipboard-write">
+        </iframe>
+      </div>
+    </section>
+
+    <section>
+      <h2>15. Final challenge</h2>
+
+      <p>
+        Create a marks analysis notebook for 5 students and 4 subjects.
+      </p>
+
+      <h3>Your program should print:</h3>
+
+      <ul>
+        <li>The full marks array</li>
+        <li>The shape of the array</li>
+        <li>Mean of all marks</li>
+        <li>Median of all marks</li>
+        <li>Minimum marks</li>
+        <li>Maximum marks</li>
+        <li>Range of marks</li>
+        <li>Subject-wise mean using <code>axis=0</code></li>
+        <li>Student-wise mean using <code>axis=1</code></li>
+      </ul>
+
+      <details>
+        <summary>Show starter code</summary>
+
+        <pre><code>import numpy as np
+
+marks = np.array([
+    [80, 85, 90, 88],
+    [70, 75, 65, 72],
+    [92, 88, 95, 91],
+    [60, 72, 68, 70],
+    [85, 89, 84, 87]
+])
+
+# Write your code below</code></pre>
+      </details>
+
+      <details>
+        <summary>Show solution</summary>
+
+        <pre><code>import numpy as np
+
+marks = np.array([
+    [80, 85, 90, 88],
+    [70, 75, 65, 72],
+    [92, 88, 95, 91],
+    [60, 72, 68, 70],
+    [85, 89, 84, 87]
+])
+
+print("Marks:")
+print(marks)
+
+print("Shape:", marks.shape)
+print("Mean:", np.mean(marks))
+print("Median:", np.median(marks))
+print("Minimum:", np.min(marks))
+print("Maximum:", np.max(marks))
+print("Range:", np.max(marks) - np.min(marks))
+
+print("Subject-wise mean:", np.mean(marks, axis=0))
+print("Student-wise mean:", np.mean(marks, axis=1))</code></pre>
+      </details>
+    </section>
+
+    <section>
+      <h2>16. What you now know</h2>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>You can select data</h3>
+          <p>
+            You understand indexing and slicing.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>You can organize data</h3>
+          <p>
+            You understand dictionaries and key-value pairs.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>You can create numerical arrays</h3>
+          <p>
+            You understand NumPy arrays and why they matter.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>You can think in dimensions</h3>
+          <p>
+            You understand shape and axis.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>You can summarize numbers</h3>
+          <p>
+            You can compute mean, median, min, max, and range.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>You are ready for dataframes</h3>
+          <p>
+            This lesson prepares you for pandas, data cleaning, and Machine Learning.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <a class="top-link" href="#top">Top</a>
+
+  <footer class="footer">
+    <p>
+      <strong>Programmer's Picnic by Champak Roy</strong>
+    </p>
+    <p>
+      Learn Python, Data Science, Machine Learning, and Artificial Intelligence from 0 to infinity.
+    </p>
+    <p>
+      <a href="https://www.learnwithchampak.live/">learnwithchampak.live</a>
+      |
+      <a href="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1">Python Editor</a>
+      |
+      <a href="https://wa.me/919335874326">Contact on WhatsApp</a>
+    </p>
+  </footer>
+
+</body>
+</html>
