@@ -1,0 +1,2159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>React File Structure: 0 to Infinity Lesson | Programmer's Picnic</title>
+
+  <meta
+    name="description"
+    content="A complete beginner to advanced HTML lesson explaining the file structure of a React project created with Vite. Learn index.html, src, public, components, pages, hooks, assets, services, routes, package.json, vite.config.js and deployment files."
+  />
+
+  <meta
+    name="keywords"
+    content="React file structure, Vite React project structure, src folder, public folder, package.json, vite.config.js, React components, hooks, pages, routes, GitHub Pages, Programmer's Picnic, Champak Roy"
+  />
+
+  <meta name="author" content="Champak Roy" />
+
+  <link rel="canonical" href="https://react.learnwithchampak.live/react-file-structure/" />
+
+  <meta property="og:title" content="React File Structure: 0 to Infinity Lesson" />
+  <meta
+    property="og:description"
+    content="Learn the complete file structure of a React app created with Vite, from beginner folders to professional scalable architecture."
+  />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://react.learnwithchampak.live/react-file-structure/" />
+  <meta property="og:image" content="https://programmer-s-picnic.github.io/json-images/react-file-structure-og.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="React File Structure: 0 to Infinity Lesson" />
+  <meta
+    name="twitter:description"
+    content="A complete practical lesson on understanding and organizing files in a Vite React project."
+  />
+  <meta name="twitter:image" content="https://programmer-s-picnic.github.io/json-images/react-file-structure-og.png" />
+
+  <!-- Google AdSense -->
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+    crossorigin="anonymous">
+  </script>
+
+  <style>
+    :root {
+      --bg: #f4f9ff;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #5d6b82;
+      --brand: #0b67b2;
+      --brand-dark: #073b6d;
+      --accent: #ff9f1c;
+      --soft: #eaf5ff;
+      --line: #d5e7f7;
+      --success: #147a3f;
+      --warning: #b45309;
+      --danger: #b91c1c;
+      --code-bg: #07111f;
+      --code-text: #ecf8ff;
+      --code-border: #1d3557;
+      --shadow: 0 18px 45px rgba(11, 103, 178, 0.13);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(11, 103, 178, 0.14), transparent 32%),
+        linear-gradient(180deg, #f8fcff 0%, #eef7ff 100%);
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--brand);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+    }
+
+    header {
+      background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.18), transparent 28%),
+        linear-gradient(135deg, #062f59, #0b67b2);
+      color: white;
+      padding: 34px 18px 56px;
+      overflow: hidden;
+    }
+
+    .wrap {
+      width: min(1160px, calc(100% - 28px));
+      margin: auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 1000;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: white;
+      color: var(--brand);
+      box-shadow: var(--shadow);
+      font-weight: 1000;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      border: 1px solid rgba(255,255,255,0.32);
+      background: rgba(255,255,255,0.08);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+    }
+
+    .hero {
+      max-width: 920px;
+      padding-top: 46px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      line-height: 1.05;
+      margin: 0 0 18px;
+      letter-spacing: -1.5px;
+    }
+
+    .hero p {
+      font-size: 1.16rem;
+      color: rgba(255,255,255,0.92);
+      max-width: 850px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 13px;
+      padding: 12px 18px;
+      border: 0;
+      font-weight: 1000;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.16);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #1f1f1f;
+    }
+
+    .btn-light {
+      background: white;
+      color: var(--brand-dark);
+    }
+
+    main {
+      padding: 34px 0 70px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 285px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    aside {
+      position: sticky;
+      top: 14px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    aside h2 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      color: var(--brand-dark);
+    }
+
+    aside a {
+      display: block;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.94rem;
+      font-weight: 800;
+    }
+
+    aside a:hover,
+    aside a:focus {
+      background: var(--soft);
+      color: var(--brand);
+      text-decoration: none;
+    }
+
+    section,
+    .card {
+      background: rgba(255,255,255,0.97);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      color: #092f56;
+      font-size: clamp(1.45rem, 3vw, 2.35rem);
+      line-height: 1.18;
+    }
+
+    h3 {
+      color: #0a4378;
+      font-size: 1.28rem;
+      margin: 24px 0 10px;
+    }
+
+    h4 {
+      color: #123c64;
+      margin: 18px 0 8px;
+      font-size: 1.08rem;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 16px 0 6px;
+    }
+
+    .pill {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--soft);
+      border: 1px solid #cce5ff;
+      color: #064a83;
+      font-weight: 900;
+      font-size: 0.92rem;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border: 1px solid var(--code-border);
+      border-radius: 15px;
+      padding: 16px;
+      overflow-x: auto;
+      line-height: 1.55;
+      font-size: 0.95rem;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      background: #edf7ff;
+      color: #073b6d;
+      padding: 0.16rem 0.34rem;
+      border-radius: 6px;
+      font-weight: 850;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      font-weight: 500;
+    }
+
+    .note,
+    .success,
+    .warning,
+    .danger {
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin: 16px 0;
+      border-left: 6px solid;
+    }
+
+    .note {
+      background: #eef7ff;
+      border-color: var(--brand);
+    }
+
+    .success {
+      background: #ecfdf3;
+      border-color: var(--success);
+    }
+
+    .warning {
+      background: #fff7ed;
+      border-color: var(--warning);
+    }
+
+    .danger {
+      background: #fff1f2;
+      border-color: var(--danger);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin: 16px 0;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--soft);
+      color: var(--brand-dark);
+    }
+
+    .diagram {
+      background: #fbfdff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      margin: 18px 0;
+      overflow-x: auto;
+    }
+
+    .tree {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      line-height: 1.7;
+      white-space: pre;
+      color: #10263f;
+      font-weight: 800;
+    }
+
+    .folder {
+      color: #b45309;
+    }
+
+    .file {
+      color: #0b67b2;
+    }
+
+    .comment {
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .flow div {
+      background: var(--soft);
+      border: 1px solid #cce5ff;
+      border-radius: 15px;
+      color: var(--brand-dark);
+      padding: 14px 10px;
+      text-align: center;
+      font-weight: 1000;
+      position: relative;
+    }
+
+    .flow div:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--brand);
+      font-size: 1.25rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .mini-card {
+      background: #fbfdff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .mini-card h3 {
+      margin-top: 0;
+    }
+
+    .ad-box {
+      background: white;
+      border: 1px dashed #b8c7d9;
+      border-radius: 18px;
+      padding: 12px;
+      text-align: center;
+      color: var(--muted);
+      margin: 22px 0;
+    }
+
+    .quiz details {
+      border: 1px solid var(--line);
+      background: #fbfdff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin: 12px 0;
+    }
+
+    .quiz summary {
+      cursor: pointer;
+      font-weight: 1000;
+      color: var(--brand-dark);
+    }
+
+    .kbd {
+      display: inline-block;
+      border: 1px solid #9fb8d0;
+      background: white;
+      box-shadow: 0 2px 0 #cad5e2;
+      padding: 2px 7px;
+      border-radius: 6px;
+      color: #111827;
+      font-family: Consolas, monospace;
+      font-weight: 1000;
+    }
+
+    footer {
+      background: #07111f;
+      color: #dcecff;
+      padding: 34px 18px;
+      text-align: center;
+    }
+
+    footer a {
+      color: #93d5ff;
+    }
+
+    @media (max-width: 940px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: static;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .flow div:not(:last-child)::after {
+        content: "↓";
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -20px;
+        transform: translateX(-50%);
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo">PP</div>
+          <div>
+            <div>Programmer's Picnic</div>
+            <small>React Lessons by Champak Roy</small>
+          </div>
+        </div>
+
+        <nav aria-label="Main navigation">
+          <a href="#overview">Overview</a>
+          <a href="#root">Root</a>
+          <a href="#src">src</a>
+          <a href="#professional">Professional</a>
+          <a href="#rules">Rules</a>
+        </nav>
+      </div>
+
+      <div class="hero">
+        <div class="eyebrow">React File Structure</div>
+
+        <h1>React File Structure from 0 to Infinity</h1>
+
+        <p>
+          A React project is not just a pile of files. It is a living system.
+          This lesson explains every important file and folder in a Vite React app,
+          then shows how to grow the project into a clean professional structure.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#overview">Start Lesson</a>
+          <a class="btn btn-light" href="#final-structure">See Final Structure</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="layout">
+      <aside>
+        <h2>Lesson Menu</h2>
+        <a href="#overview">1. Big picture</a>
+        <a href="#starter">2. Starter structure</a>
+        <a href="#root">3. Root files</a>
+        <a href="#public">4. public folder</a>
+        <a href="#src">5. src folder</a>
+        <a href="#entry">6. main.jsx</a>
+        <a href="#app">7. App.jsx</a>
+        <a href="#components">8. components</a>
+        <a href="#pages">9. pages</a>
+        <a href="#hooks">10. hooks</a>
+        <a href="#services">11. services</a>
+        <a href="#assets">12. assets</a>
+        <a href="#styles">13. styles</a>
+        <a href="#routing">14. routing</a>
+        <a href="#env">15. environment files</a>
+        <a href="#github">16. GitHub Pages files</a>
+        <a href="#professional">17. Professional structure</a>
+        <a href="#rules">18. Rules</a>
+        <a href="#quiz">19. Quiz</a>
+      </aside>
+
+      <div>
+        <section id="overview">
+          <h2>1. The big picture</h2>
+
+          <p class="lead">
+            React helps us build user interfaces from components. A component is a reusable piece of the screen,
+            such as a header, button, card, menu, form, or page section.
+          </p>
+
+          <div class="flow">
+            <div>HTML Page</div>
+            <div>React Starts</div>
+            <div>Components Load</div>
+            <div>Data Changes</div>
+            <div>Screen Updates</div>
+          </div>
+
+          <p>
+            In a Vite React project, the browser first opens <code>index.html</code>.
+            That file loads <code>src/main.jsx</code>. Then <code>main.jsx</code> starts React and renders
+            <code>App.jsx</code> inside the page.
+          </p>
+
+          <div class="note">
+            <strong>Simple idea:</strong> <code>index.html</code> is the door.
+            <code>main.jsx</code> is the switch.
+            <code>App.jsx</code> is the first React component.
+            Other folders organize the rest of the app.
+          </div>
+
+          <div class="pill-row">
+            <span class="pill">index.html</span>
+            <span class="pill">src/main.jsx</span>
+            <span class="pill">src/App.jsx</span>
+            <span class="pill">components</span>
+            <span class="pill">pages</span>
+            <span class="pill">assets</span>
+            <span class="pill">services</span>
+          </div>
+        </section>
+
+        <div class="ad-box">
+          <ins
+            class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-8321261883090494"
+            data-ad-slot="7782388330"
+            data-ad-format="auto"
+            data-full-width-responsive="true">
+          </ins>
+          <script>
+            try {
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (error) {}
+          </script>
+        </div>
+
+        <section id="starter">
+          <h2>2. Starter Vite React structure</h2>
+
+          <p>
+            After creating a React app using Vite, the starting structure usually looks like this:
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">react/</span>
+├── <span class="folder">node_modules/</span>          <span class="comment">Installed packages. Do not edit manually.</span>
+├── <span class="folder">public/</span>                <span class="comment">Static files copied as they are.</span>
+│   └── <span class="file">vite.svg</span>
+├── <span class="folder">src/</span>                   <span class="comment">Main source code of the React app.</span>
+│   ├── <span class="folder">assets/</span>
+│   │   └── <span class="file">react.svg</span>
+│   ├── <span class="file">App.css</span>
+│   ├── <span class="file">App.jsx</span>
+│   ├── <span class="file">index.css</span>
+│   └── <span class="file">main.jsx</span>
+├── <span class="file">.gitignore</span>
+├── <span class="file">eslint.config.js</span>
+├── <span class="file">index.html</span>
+├── <span class="file">package-lock.json</span>
+├── <span class="file">package.json</span>
+├── <span class="file">README.md</span>
+└── <span class="file">vite.config.js</span></div>
+          </div>
+
+          <div class="success">
+            This structure is enough for learning. As your app grows, you should add folders like
+            <code>components</code>, <code>pages</code>, <code>hooks</code>, <code>services</code>, and
+            <code>styles</code>.
+          </div>
+        </section>
+
+        <section id="root">
+          <h2>3. Root folder files</h2>
+
+          <p>
+            The root folder is the top-level folder of your React project. In your case, it may be:
+          </p>
+
+          <pre><code>D:\react</code></pre>
+
+          <h3>Important root files</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>File / Folder</th>
+                <th>Meaning</th>
+                <th>Should beginners edit it?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>index.html</code></td>
+                <td>The HTML entry file used by Vite.</td>
+                <td>Sometimes</td>
+              </tr>
+              <tr>
+                <td><code>package.json</code></td>
+                <td>Lists commands, dependencies, and project metadata.</td>
+                <td>Carefully</td>
+              </tr>
+              <tr>
+                <td><code>package-lock.json</code></td>
+                <td>Locks exact installed package versions.</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td><code>vite.config.js</code></td>
+                <td>Configuration file for Vite.</td>
+                <td>Sometimes</td>
+              </tr>
+              <tr>
+                <td><code>.gitignore</code></td>
+                <td>Tells Git which files not to upload.</td>
+                <td>Sometimes</td>
+              </tr>
+              <tr>
+                <td><code>node_modules</code></td>
+                <td>Installed packages.</td>
+                <td>Never edit manually</td>
+              </tr>
+              <tr>
+                <td><code>src</code></td>
+                <td>Your main React source code.</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><code>public</code></td>
+                <td>Static files used directly.</td>
+                <td>Yes</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>The most important root idea</h3>
+
+          <p>
+            The root folder is for project-level files. The <code>src</code> folder is for app-level code.
+          </p>
+
+          <div class="warning">
+            Do not put all components directly in the root folder. Keep React code inside <code>src</code>.
+          </div>
+        </section>
+
+        <section id="index-html">
+          <h2>4. Understanding index.html</h2>
+
+          <p>
+            The <code>index.html</code> file is the first page loaded by the browser.
+            In a Vite React app, it normally contains a root element and a module script.
+          </p>
+
+          <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+    &lt;title&gt;React App&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div id="root"&gt;&lt;/div&gt;
+    &lt;script type="module" src="/src/main.jsx"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+          <h3>What is <code>root</code>?</h3>
+
+          <p>
+            The element <code>&lt;div id="root"&gt;&lt;/div&gt;</code> is the empty box where React places the app.
+          </p>
+
+          <h3>What is <code>main.jsx</code> doing here?</h3>
+
+          <p>
+            This line loads the JavaScript module that starts React:
+          </p>
+
+          <pre><code>&lt;script type="module" src="/src/main.jsx"&gt;&lt;/script&gt;</code></pre>
+
+          <div class="danger">
+            On GitHub Pages, you should not deploy raw source files directly. Vite must build them first.
+            Otherwise the browser may try to load <code>main.jsx</code> directly and show a MIME type error.
+          </div>
+        </section>
+
+        <section id="public">
+          <h2>5. The public folder</h2>
+
+          <p>
+            The <code>public</code> folder is for static files that should be copied directly during build.
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">public/</span>
+├── <span class="file">CNAME</span>             <span class="comment">Custom domain for GitHub Pages.</span>
+├── <span class="file">favicon.svg</span>       <span class="comment">Browser tab icon.</span>
+├── <span class="file">robots.txt</span>         <span class="comment">Search engine instruction file.</span>
+├── <span class="file">site.webmanifest</span>   <span class="comment">Progressive Web App metadata.</span>
+└── <span class="folder">images/</span>
+    └── <span class="file">logo.png</span></div>
+          </div>
+
+          <h3>When to use public</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Use public for</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Files that must keep their exact name</td>
+                <td><code>CNAME</code>, <code>robots.txt</code></td>
+              </tr>
+              <tr>
+                <td>Files referenced by full path</td>
+                <td><code>/images/logo.png</code></td>
+              </tr>
+              <tr>
+                <td>SEO files</td>
+                <td><code>sitemap.xml</code>, <code>robots.txt</code></td>
+              </tr>
+              <tr>
+                <td>Browser icons</td>
+                <td><code>favicon.svg</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Example: custom domain file</h3>
+
+          <pre><code>public/CNAME</code></pre>
+
+          <p>Content:</p>
+
+          <pre><code>react.learnwithchampak.live</code></pre>
+
+          <h3>How to use a public image</h3>
+
+          <pre><code>&lt;img src="/images/logo.png" alt="Site logo" /&gt;</code></pre>
+
+          <div class="note">
+            Public files are not imported into components. They are referred to by path.
+          </div>
+        </section>
+
+        <section id="src">
+          <h2>6. The src folder</h2>
+
+          <p>
+            The <code>src</code> folder is the heart of the React app. Most of your actual application code lives here.
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">src/</span>
+├── <span class="file">main.jsx</span>           <span class="comment">Starts React.</span>
+├── <span class="file">App.jsx</span>            <span class="comment">Main app component.</span>
+├── <span class="file">App.css</span>            <span class="comment">Styles for App component.</span>
+├── <span class="file">index.css</span>          <span class="comment">Global styles.</span>
+└── <span class="folder">assets/</span>           <span class="comment">Images and files imported into JavaScript.</span></div>
+          </div>
+
+          <h3>Beginner view</h3>
+
+          <p>
+            At the beginning, you mainly edit:
+          </p>
+
+          <ul>
+            <li><code>src/App.jsx</code></li>
+            <li><code>src/App.css</code></li>
+            <li><code>src/index.css</code></li>
+          </ul>
+
+          <h3>Professional view</h3>
+
+          <p>
+            Later, <code>src</code> becomes a well-organized app structure:
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">src/</span>
+├── <span class="folder">assets/</span>
+├── <span class="folder">components/</span>
+├── <span class="folder">pages/</span>
+├── <span class="folder">layouts/</span>
+├── <span class="folder">hooks/</span>
+├── <span class="folder">services/</span>
+├── <span class="folder">data/</span>
+├── <span class="folder">utils/</span>
+├── <span class="folder">styles/</span>
+├── <span class="file">App.jsx</span>
+└── <span class="file">main.jsx</span></div>
+          </div>
+        </section>
+
+        <section id="entry">
+          <h2>7. Understanding main.jsx</h2>
+
+          <p>
+            <code>main.jsx</code> is the entry point of the React application.
+            It tells React where to place the app.
+          </p>
+
+          <pre><code>import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;,
+)</code></pre>
+
+          <h3>Line-by-line meaning</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Line</th>
+                <th>Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>import { StrictMode } from 'react'</code></td>
+                <td>Imports a helper that checks for possible problems during development.</td>
+              </tr>
+              <tr>
+                <td><code>import { createRoot } from 'react-dom/client'</code></td>
+                <td>Imports the function used to connect React to the browser DOM.</td>
+              </tr>
+              <tr>
+                <td><code>import './index.css'</code></td>
+                <td>Loads global CSS.</td>
+              </tr>
+              <tr>
+                <td><code>import App from './App.jsx'</code></td>
+                <td>Imports the main app component.</td>
+              </tr>
+              <tr>
+                <td><code>document.getElementById('root')</code></td>
+                <td>Finds the root div from index.html.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note">
+            In most projects, you do not edit <code>main.jsx</code> very often after the first setup.
+          </div>
+        </section>
+
+        <section id="app">
+          <h2>8. Understanding App.jsx</h2>
+
+          <p>
+            <code>App.jsx</code> is the first component of your app. It usually controls the main layout.
+          </p>
+
+          <h3>Simple App.jsx</h3>
+
+          <pre><code>function App() {
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Hello React&lt;/h1&gt;
+      &lt;p&gt;Welcome to Programmer's Picnic.&lt;/p&gt;
+    &lt;/main&gt;
+  )
+}
+
+export default App</code></pre>
+
+          <h3>App.jsx with components</h3>
+
+          <pre><code>import Header from './components/Header.jsx'
+import Footer from './components/Footer.jsx'
+import HomePage from './pages/HomePage.jsx'
+
+function App() {
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      &lt;HomePage /&gt;
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App</code></pre>
+
+          <div class="success">
+            The cleaner your <code>App.jsx</code> becomes, the more professional your project structure is becoming.
+          </div>
+        </section>
+
+        <section id="components">
+          <h2>9. The components folder</h2>
+
+          <p>
+            Components are reusable pieces of the user interface.
+            Put reusable things inside <code>src/components</code>.
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">src/components/</span>
+├── <span class="file">Header.jsx</span>
+├── <span class="file">Footer.jsx</span>
+├── <span class="file">Button.jsx</span>
+├── <span class="file">Card.jsx</span>
+├── <span class="file">Navbar.jsx</span>
+└── <span class="file">LessonCard.jsx</span></div>
+          </div>
+
+          <h3>Example: Header component</h3>
+
+          <pre><code>function Header() {
+  return (
+    &lt;header className="site-header"&gt;
+      &lt;h1&gt;Programmer's Picnic&lt;/h1&gt;
+      &lt;p&gt;React lessons by Champak Roy&lt;/p&gt;
+    &lt;/header&gt;
+  )
+}
+
+export default Header</code></pre>
+
+          <h3>Example: Card component with props</h3>
+
+          <pre><code>function LessonCard({ title, description }) {
+  return (
+    &lt;article className="lesson-card"&gt;
+      &lt;h2&gt;{title}&lt;/h2&gt;
+      &lt;p&gt;{description}&lt;/p&gt;
+    &lt;/article&gt;
+  )
+}
+
+export default LessonCard</code></pre>
+
+          <h3>Using the component</h3>
+
+          <pre><code>&lt;LessonCard
+  title="React File Structure"
+  description="Learn how to organize a React app."
+/&gt;</code></pre>
+
+          <div class="note">
+            Use <code>components</code> for things that can be reused in many pages.
+          </div>
+        </section>
+
+        <section id="pages">
+          <h2>10. The pages folder</h2>
+
+          <p>
+            A page is a full screen or major route of your app.
+            Put full pages inside <code>src/pages</code>.
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">src/pages/</span>
+├── <span class="file">HomePage.jsx</span>
+├── <span class="file">AboutPage.jsx</span>
+├── <span class="file">CoursesPage.jsx</span>
+├── <span class="file">ReactLessonPage.jsx</span>
+└── <span class="file">NotFoundPage.jsx</span></div>
+          </div>
+
+          <h3>Example: HomePage.jsx</h3>
+
+          <pre><code>function HomePage() {
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Learn React&lt;/h1&gt;
+      &lt;p&gt;Start with components, props, state, and file structure.&lt;/p&gt;
+    &lt;/main&gt;
+  )
+}
+
+export default HomePage</code></pre>
+
+          <h3>Component vs Page</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Page</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Small reusable part</td>
+                <td>Full route or screen</td>
+              </tr>
+              <tr>
+                <td><code>Button.jsx</code></td>
+                <td><code>HomePage.jsx</code></td>
+              </tr>
+              <tr>
+                <td>Used inside pages</td>
+                <td>Uses many components</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="layouts">
+          <h2>11. The layouts folder</h2>
+
+          <p>
+            Layouts are reusable page skeletons. A layout usually contains common structure such as header,
+            navigation, main area, and footer.
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">src/layouts/</span>
+├── <span class="file">MainLayout.jsx</span>
+├── <span class="file">DashboardLayout.jsx</span>
+└── <span class="file">LessonLayout.jsx</span></div>
+          </div>
+
+          <h3>Example: MainLayout.jsx</h3>
+
+          <pre><code>import Header from '../components/Header.jsx'
+import Footer from '../components/Footer.jsx'
+
+function MainLayout({ children }) {
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      &lt;main&gt;{children}&lt;/main&gt;
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  )
+}
+
+export default MainLayout</code></pre>
+
+          <h3>Using a layout</h3>
+
+          <pre><code>import MainLayout from '../layouts/MainLayout.jsx'
+
+function HomePage() {
+  return (
+    &lt;MainLayout&gt;
+      &lt;h1&gt;Home&lt;/h1&gt;
+      &lt;p&gt;Welcome to the React course.&lt;/p&gt;
+    &lt;/MainLayout&gt;
+  )
+}
+
+export default HomePage</code></pre>
+        </section>
+
+        <section id="hooks">
+          <h2>12. The hooks folder</h2>
+
+          <p>
+            Hooks are functions that let components use React features such as state and effects.
+            Custom hooks help you reuse logic.
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">src/hooks/</span>
+├── <span class="file">useLocalStorage.js</span>
+├── <span class="file">useWindowSize.js</span>
+├── <span class="file">useFetch.js</span>
+└── <span class="file">useTheme.js</span></div>
+          </div>
+
+          <h3>Example: useLocalStorage.js</h3>
+
+          <pre><code>import { useEffect, useState } from 'react'
+
+function useLocalStorage(key, initialValue) {
+  const [value, setValue] = useState(() =&gt; {
+    const saved = localStorage.getItem(key)
+    return saved ? JSON.parse(saved) : initialValue
+  })
+
+  useEffect(() =&gt; {
+    localStorage.setItem(key, JSON.stringify(value))
+  }, [key, value])
+
+  return [value, setValue]
+}
+
+export default useLocalStorage</code></pre>
+
+          <h3>Using the hook</h3>
+
+          <pre><code>import useLocalStorage from '../hooks/useLocalStorage.js'
+
+function ThemeSwitcher() {
+  const [theme, setTheme] = useLocalStorage('theme', 'light')
+
+  return (
+    &lt;button onClick={() =&gt; setTheme(theme === 'light' ? 'dark' : 'light')}&gt;
+      Current theme: {theme}
+    &lt;/button&gt;
+  )
+}</code></pre>
+
+          <div class="warning">
+            Custom hook file names usually start with <code>use</code>, such as
+            <code>useFetch.js</code> or <code>useTheme.js</code>.
+          </div>
+        </section>
+
+        <section id="services">
+          <h2>13. The services folder</h2>
+
+          <p>
+            The <code>services</code> folder is for code that talks to external systems:
+            Application Programming Interfaces, databases, authentication servers, or local storage services.
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">src/services/</span>
+├── <span class="file">api.js</span>
+├── <span class="file">lessonService.js</span>
+├── <span class="file">authService.js</span>
+└── <span class="file">storageService.js</span></div>
+          </div>
+
+          <h3>Example: api.js</h3>
+
+          <pre><code>const API_BASE_URL = 'https://example.com/api'
+
+export async function getLessons() {
+  const response = await fetch(`${API_BASE_URL}/lessons`)
+
+  if (!response.ok) {
+    throw new Error('Could not load lessons')
+  }
+
+  return response.json()
+}</code></pre>
+
+          <h3>Using a service</h3>
+
+          <pre><code>import { getLessons } from '../services/api.js'
+
+async function loadLessons() {
+  try {
+    const lessons = await getLessons()
+    console.log(lessons)
+  } catch (error) {
+    console.error(error.message)
+  }
+}</code></pre>
+
+          <div class="note">
+            Keep network and data-fetching code away from visual components when possible.
+            This makes your components cleaner.
+          </div>
+        </section>
+
+        <section id="assets">
+          <h2>14. The assets folder</h2>
+
+          <p>
+            Use <code>src/assets</code> for images and files that you want to import inside JavaScript or JSX.
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">src/assets/</span>
+├── <span class="folder">images/</span>
+│   ├── <span class="file">hero.png</span>
+│   └── <span class="file">react-logo.svg</span>
+├── <span class="folder">icons/</span>
+│   └── <span class="file">menu.svg</span>
+└── <span class="folder">data/</span>
+    └── <span class="file">lessons.json</span></div>
+          </div>
+
+          <h3>Importing an image</h3>
+
+          <pre><code>import heroImage from '../assets/images/hero.png'
+
+function Hero() {
+  return (
+    &lt;section&gt;
+      &lt;img src={heroImage} alt="React lesson illustration" /&gt;
+      &lt;h1&gt;Learn React&lt;/h1&gt;
+    &lt;/section&gt;
+  )
+}
+
+export default Hero</code></pre>
+
+          <h3>public vs src/assets</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Use public</th>
+                <th>Use src/assets</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Need exact filename?</td>
+                <td>Yes</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td>Want to import in JSX?</td>
+                <td>No</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Example</td>
+                <td><code>/images/logo.png</code></td>
+                <td><code>import logo from './assets/logo.png'</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="styles">
+          <h2>15. Styling files</h2>
+
+          <p>
+            Styling can be organized in many ways. Beginners usually start with <code>App.css</code>
+            and <code>index.css</code>.
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">src/styles/</span>
+├── <span class="file">global.css</span>
+├── <span class="file">variables.css</span>
+├── <span class="file">layout.css</span>
+├── <span class="file">buttons.css</span>
+└── <span class="file">utilities.css</span></div>
+          </div>
+
+          <h3>Beginner structure</h3>
+
+          <pre><code>src/
+├── App.css
+└── index.css</code></pre>
+
+          <h3>Better structure</h3>
+
+          <pre><code>src/
+├── styles/
+│   ├── global.css
+│   ├── variables.css
+│   └── utilities.css
+└── components/
+    └── Button.jsx</code></pre>
+
+          <h3>Example: variables.css</h3>
+
+          <pre><code>:root {
+  --brand: #0b67b2;
+  --text: #172033;
+  --background: #f7fbff;
+}</code></pre>
+
+          <h3>Example: importing styles in main.jsx</h3>
+
+          <pre><code>import './styles/global.css'
+import './styles/variables.css'
+import App from './App.jsx'</code></pre>
+        </section>
+
+        <section id="routing">
+          <h2>16. Routing files</h2>
+
+          <p>
+            Routing means showing different pages for different URLs, such as:
+          </p>
+
+          <pre><code>/           → Home page
+/about      → About page
+/courses    → Courses page
+/contact    → Contact page</code></pre>
+
+          <p>
+            For small apps, routes can stay inside <code>App.jsx</code>.
+            For larger apps, create a separate routes file.
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">src/routes/</span>
+└── <span class="file">AppRoutes.jsx</span></div>
+          </div>
+
+          <h3>Possible AppRoutes.jsx</h3>
+
+          <pre><code>import HomePage from '../pages/HomePage.jsx'
+import AboutPage from '../pages/AboutPage.jsx'
+import NotFoundPage from '../pages/NotFoundPage.jsx'
+
+function AppRoutes() {
+  const path = window.location.pathname
+
+  if (path === '/') return &lt;HomePage /&gt;
+  if (path === '/about') return &lt;AboutPage /&gt;
+
+  return &lt;NotFoundPage /&gt;
+}
+
+export default AppRoutes</code></pre>
+
+          <div class="note">
+            For serious routing, many projects use a routing library. But this lesson focuses on file structure,
+            so the main idea is to keep route-related code in a predictable place.
+          </div>
+        </section>
+
+        <section id="data-utils">
+          <h2>17. data and utils folders</h2>
+
+          <div class="two-col">
+            <div class="mini-card">
+              <h3>data folder</h3>
+              <p>
+                Use <code>data</code> for local JSON-like information used by your app.
+              </p>
+
+              <pre><code>src/data/
+├── lessons.js
+├── menuItems.js
+└── faqs.js</code></pre>
+            </div>
+
+            <div class="mini-card">
+              <h3>utils folder</h3>
+              <p>
+                Use <code>utils</code> for small helper functions.
+              </p>
+
+              <pre><code>src/utils/
+├── formatDate.js
+├── slugify.js
+└── validateEmail.js</code></pre>
+            </div>
+          </div>
+
+          <h3>Example: data file</h3>
+
+          <pre><code>export const lessons = [
+  {
+    id: 1,
+    title: 'React File Structure',
+    level: 'Beginner'
+  },
+  {
+    id: 2,
+    title: 'React Components',
+    level: 'Beginner'
+  }
+]</code></pre>
+
+          <h3>Example: utility function</h3>
+
+          <pre><code>export function slugify(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replaceAll(' ', '-')
+}</code></pre>
+        </section>
+
+        <section id="env">
+          <h2>18. Environment files</h2>
+
+          <p>
+            Environment files store configuration values that may change between local development and production.
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="file">.env</span>
+<span class="file">.env.local</span>
+<span class="file">.env.production</span></div>
+          </div>
+
+          <h3>Example .env file</h3>
+
+          <pre><code>VITE_SITE_NAME=Programmer's Picnic
+VITE_API_URL=https://example.com/api</code></pre>
+
+          <h3>Using environment variables</h3>
+
+          <pre><code>const siteName = import.meta.env.VITE_SITE_NAME
+const apiUrl = import.meta.env.VITE_API_URL</code></pre>
+
+          <div class="warning">
+            In Vite, browser-exposed custom environment variables should start with <code>VITE_</code>.
+            Do not put private passwords or secret keys in frontend environment files.
+          </div>
+        </section>
+
+        <section id="github">
+          <h2>19. GitHub Pages deployment files</h2>
+
+          <p>
+            For your React site on GitHub Pages, these files are important:
+          </p>
+
+          <div class="diagram">
+            <div class="tree"><span class="folder">react/</span>
+├── <span class="folder">public/</span>
+│   └── <span class="file">CNAME</span>
+├── <span class="folder">.github/</span>
+│   └── <span class="folder">workflows/</span>
+│       └── <span class="file">deploy.yml</span>
+└── <span class="file">vite.config.js</span></div>
+          </div>
+
+          <h3>public/CNAME</h3>
+
+          <pre><code>react.learnwithchampak.live</code></pre>
+
+          <h3>vite.config.js for custom domain</h3>
+
+          <pre><code>import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  base: '/',
+})</code></pre>
+
+          <h3>.github/workflows/deploy.yml</h3>
+
+          <pre><code>name: Deploy React site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build React app
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build with Vite
+        run: npm run build
+
+      - name: Upload dist folder
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy site
+        id: deployment
+        uses: actions/deploy-pages@v4</code></pre>
+
+          <div class="danger">
+            GitHub Pages should use <strong>GitHub Actions</strong> as the source.
+            Do not use <code>Deploy from branch → main / root</code> for a Vite React app.
+          </div>
+        </section>
+
+        <section id="professional">
+          <h2>20. Professional React file structure</h2>
+
+          <p>
+            A professional React structure separates responsibilities. Components stay with components,
+            pages stay with pages, data logic stays with services, and helper functions stay with utilities.
+          </p>
+
+          <div id="final-structure" class="diagram">
+            <div class="tree"><span class="folder">react/</span>
+├── <span class="folder">.github/</span>
+│   └── <span class="folder">workflows/</span>
+│       └── <span class="file">deploy.yml</span>
+├── <span class="folder">public/</span>
+│   ├── <span class="file">CNAME</span>
+│   ├── <span class="file">favicon.svg</span>
+│   ├── <span class="file">robots.txt</span>
+│   └── <span class="file">sitemap.xml</span>
+├── <span class="folder">src/</span>
+│   ├── <span class="folder">assets/</span>
+│   │   ├── <span class="folder">images/</span>
+│   │   └── <span class="folder">icons/</span>
+│   ├── <span class="folder">components/</span>
+│   │   ├── <span class="file">Header.jsx</span>
+│   │   ├── <span class="file">Footer.jsx</span>
+│   │   ├── <span class="file">Button.jsx</span>
+│   │   └── <span class="file">LessonCard.jsx</span>
+│   ├── <span class="folder">pages/</span>
+│   │   ├── <span class="file">HomePage.jsx</span>
+│   │   ├── <span class="file">AboutPage.jsx</span>
+│   │   ├── <span class="file">CoursesPage.jsx</span>
+│   │   └── <span class="file">NotFoundPage.jsx</span>
+│   ├── <span class="folder">layouts/</span>
+│   │   └── <span class="file">MainLayout.jsx</span>
+│   ├── <span class="folder">hooks/</span>
+│   │   ├── <span class="file">useFetch.js</span>
+│   │   └── <span class="file">useLocalStorage.js</span>
+│   ├── <span class="folder">services/</span>
+│   │   └── <span class="file">api.js</span>
+│   ├── <span class="folder">data/</span>
+│   │   └── <span class="file">lessons.js</span>
+│   ├── <span class="folder">utils/</span>
+│   │   └── <span class="file">slugify.js</span>
+│   ├── <span class="folder">styles/</span>
+│   │   ├── <span class="file">global.css</span>
+│   │   └── <span class="file">variables.css</span>
+│   ├── <span class="file">App.jsx</span>
+│   └── <span class="file">main.jsx</span>
+├── <span class="file">.gitignore</span>
+├── <span class="file">eslint.config.js</span>
+├── <span class="file">index.html</span>
+├── <span class="file">package-lock.json</span>
+├── <span class="file">package.json</span>
+├── <span class="file">README.md</span>
+└── <span class="file">vite.config.js</span></div>
+          </div>
+
+          <h3>Why this is better</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Folder</th>
+                <th>Responsibility</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>components</code></td>
+                <td>Reusable user interface parts.</td>
+              </tr>
+              <tr>
+                <td><code>pages</code></td>
+                <td>Full screens or route-level views.</td>
+              </tr>
+              <tr>
+                <td><code>layouts</code></td>
+                <td>Common page skeletons.</td>
+              </tr>
+              <tr>
+                <td><code>hooks</code></td>
+                <td>Reusable React logic.</td>
+              </tr>
+              <tr>
+                <td><code>services</code></td>
+                <td>Application Programming Interface and external communication.</td>
+              </tr>
+              <tr>
+                <td><code>utils</code></td>
+                <td>Small helper functions.</td>
+              </tr>
+              <tr>
+                <td><code>data</code></td>
+                <td>Local app data.</td>
+              </tr>
+              <tr>
+                <td><code>styles</code></td>
+                <td>Global styling system.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="naming">
+          <h2>21. Naming rules</h2>
+
+          <h3>Component files</h3>
+
+          <p>
+            Use PascalCase for component file names:
+          </p>
+
+          <pre><code>Header.jsx
+Footer.jsx
+LessonCard.jsx
+CourseList.jsx</code></pre>
+
+          <h3>Hook files</h3>
+
+          <p>
+            Start custom hook names with <code>use</code>:
+          </p>
+
+          <pre><code>useFetch.js
+useTheme.js
+useLocalStorage.js</code></pre>
+
+          <h3>Utility files</h3>
+
+          <p>
+            Use camelCase for helper files:
+          </p>
+
+          <pre><code>formatDate.js
+slugify.js
+validateEmail.js</code></pre>
+
+          <h3>Page files</h3>
+
+          <p>
+            Use clear page names:
+          </p>
+
+          <pre><code>HomePage.jsx
+AboutPage.jsx
+ContactPage.jsx
+NotFoundPage.jsx</code></pre>
+
+          <div class="success">
+            Good names reduce confusion. A developer should understand a file's role before opening it.
+          </div>
+        </section>
+
+        <section id="rules">
+          <h2>22. Practical rules for organizing React files</h2>
+
+          <div class="two-col">
+            <div class="mini-card">
+              <h3>Do this</h3>
+              <ul>
+                <li>Keep reusable user interface pieces in <code>components</code>.</li>
+                <li>Keep full screens in <code>pages</code>.</li>
+                <li>Keep external calls in <code>services</code>.</li>
+                <li>Keep reusable logic in <code>hooks</code>.</li>
+                <li>Keep helpers in <code>utils</code>.</li>
+                <li>Use clear file names.</li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <h3>Avoid this</h3>
+              <ul>
+                <li>Putting everything inside <code>App.jsx</code>.</li>
+                <li>Putting all files directly inside <code>src</code>.</li>
+                <li>Editing <code>node_modules</code>.</li>
+                <li>Uploading <code>node_modules</code> to GitHub.</li>
+                <li>Putting secret passwords in frontend files.</li>
+                <li>Mixing visual components with data-fetching code.</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3>The one-sentence rule</h3>
+
+          <div class="note">
+            A file should have one clear job. A folder should group files with similar jobs.
+          </div>
+        </section>
+
+        <section id="growth">
+          <h2>23. How a React project grows</h2>
+
+          <h3>Level 0: First day</h3>
+
+          <pre><code>src/
+├── App.jsx
+├── App.css
+├── index.css
+└── main.jsx</code></pre>
+
+          <h3>Level 1: Few components</h3>
+
+          <pre><code>src/
+├── components/
+│   ├── Header.jsx
+│   ├── Footer.jsx
+│   └── Card.jsx
+├── App.jsx
+└── main.jsx</code></pre>
+
+          <h3>Level 2: Multiple pages</h3>
+
+          <pre><code>src/
+├── components/
+├── pages/
+│   ├── HomePage.jsx
+│   ├── AboutPage.jsx
+│   └── CoursesPage.jsx
+├── App.jsx
+└── main.jsx</code></pre>
+
+          <h3>Level 3: Real app</h3>
+
+          <pre><code>src/
+├── assets/
+├── components/
+├── pages/
+├── layouts/
+├── hooks/
+├── services/
+├── data/
+├── utils/
+├── styles/
+├── App.jsx
+└── main.jsx</code></pre>
+
+          <h3>Level infinity: Feature-based structure</h3>
+
+          <p>
+            Very large apps may organize by feature:
+          </p>
+
+          <pre><code>src/
+├── features/
+│   ├── auth/
+│   │   ├── LoginPage.jsx
+│   │   ├── authService.js
+│   │   └── useAuth.js
+│   ├── courses/
+│   │   ├── CoursesPage.jsx
+│   │   ├── CourseCard.jsx
+│   │   └── courseService.js
+│   └── dashboard/
+│       ├── DashboardPage.jsx
+│       └── DashboardStats.jsx
+├── shared/
+│   ├── components/
+│   ├── hooks/
+│   └── utils/
+├── App.jsx
+└── main.jsx</code></pre>
+
+          <div class="warning">
+            Do not start with a huge structure on day one. Grow the structure as the app grows.
+          </div>
+        </section>
+
+        <section id="commands">
+          <h2>24. Useful commands</h2>
+
+          <h3>Create app</h3>
+
+          <pre><code>npm create vite@latest react</code></pre>
+
+          <h3>Go inside app</h3>
+
+          <pre><code>cd react</code></pre>
+
+          <h3>Install packages</h3>
+
+          <pre><code>npm install</code></pre>
+
+          <h3>Run locally</h3>
+
+          <pre><code>npm run dev</code></pre>
+
+          <h3>Build for production</h3>
+
+          <pre><code>npm run build</code></pre>
+
+          <h3>Preview production build</h3>
+
+          <pre><code>npm run preview</code></pre>
+
+          <h3>Create useful folders</h3>
+
+          <pre><code>mkdir src\components src\pages src\layouts src\hooks src\services src\data src\utils src\styles</code></pre>
+
+          <h3>Git commands</h3>
+
+          <pre><code>git add .
+git commit -m "Organize React file structure"
+git push</code></pre>
+        </section>
+
+        <section id="mini-project">
+          <h2>25. Mini project: organize the starter app</h2>
+
+          <p>
+            Let us convert a starter React app into a cleaner structure.
+          </p>
+
+          <h3>Step 1: Create folders</h3>
+
+          <pre><code>mkdir src\components src\pages src\layouts src\styles</code></pre>
+
+          <h3>Step 2: Create Header.jsx</h3>
+
+          <pre><code>function Header() {
+  return (
+    &lt;header className="site-header"&gt;
+      &lt;h1&gt;Programmer's Picnic&lt;/h1&gt;
+      &lt;p&gt;React file structure lesson&lt;/p&gt;
+    &lt;/header&gt;
+  )
+}
+
+export default Header</code></pre>
+
+          <h3>Step 3: Create Footer.jsx</h3>
+
+          <pre><code>function Footer() {
+  return (
+    &lt;footer className="site-footer"&gt;
+      &lt;p&gt;Created by Champak Roy&lt;/p&gt;
+    &lt;/footer&gt;
+  )
+}
+
+export default Footer</code></pre>
+
+          <h3>Step 4: Create HomePage.jsx</h3>
+
+          <pre><code>function HomePage() {
+  return (
+    &lt;section className="home-page"&gt;
+      &lt;h2&gt;Learn React File Structure&lt;/h2&gt;
+      &lt;p&gt;Start small. Organize as the app grows.&lt;/p&gt;
+    &lt;/section&gt;
+  )
+}
+
+export default HomePage</code></pre>
+
+          <h3>Step 5: Update App.jsx</h3>
+
+          <pre><code>import Header from './components/Header.jsx'
+import Footer from './components/Footer.jsx'
+import HomePage from './pages/HomePage.jsx'
+
+function App() {
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      &lt;HomePage /&gt;
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  )
+}
+
+export default App</code></pre>
+
+          <div class="success">
+            Now the app is already more organized than the default starter app.
+          </div>
+        </section>
+
+        <section id="quiz" class="quiz">
+          <h2>26. Practice quiz</h2>
+
+          <details>
+            <summary>1. Which file starts the React app?</summary>
+            <p><code>src/main.jsx</code></p>
+          </details>
+
+          <details>
+            <summary>2. Which file contains the root div?</summary>
+            <p><code>index.html</code></p>
+          </details>
+
+          <details>
+            <summary>3. Where should reusable UI pieces go?</summary>
+            <p><code>src/components</code></p>
+          </details>
+
+          <details>
+            <summary>4. Where should full screens go?</summary>
+            <p><code>src/pages</code></p>
+          </details>
+
+          <details>
+            <summary>5. Where should custom hooks go?</summary>
+            <p><code>src/hooks</code></p>
+          </details>
+
+          <details>
+            <summary>6. Where should API calls go?</summary>
+            <p><code>src/services</code></p>
+          </details>
+
+          <details>
+            <summary>7. Should you edit node_modules manually?</summary>
+            <p>No. <code>node_modules</code> is generated by npm.</p>
+          </details>
+
+          <details>
+            <summary>8. What is the purpose of public/CNAME?</summary>
+            <p>It stores the custom domain for GitHub Pages.</p>
+          </details>
+
+          <details>
+            <summary>9. What should GitHub Pages deploy for a Vite React app?</summary>
+            <p>The built <code>dist</code> output through GitHub Actions.</p>
+          </details>
+        </section>
+
+        <section id="checklist">
+          <h2>27. Final checklist</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Correct place</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Main HTML entry</td>
+                <td><code>index.html</code></td>
+              </tr>
+              <tr>
+                <td>React entry</td>
+                <td><code>src/main.jsx</code></td>
+              </tr>
+              <tr>
+                <td>Main app component</td>
+                <td><code>src/App.jsx</code></td>
+              </tr>
+              <tr>
+                <td>Reusable UI</td>
+                <td><code>src/components</code></td>
+              </tr>
+              <tr>
+                <td>Pages</td>
+                <td><code>src/pages</code></td>
+              </tr>
+              <tr>
+                <td>Layouts</td>
+                <td><code>src/layouts</code></td>
+              </tr>
+              <tr>
+                <td>Reusable React logic</td>
+                <td><code>src/hooks</code></td>
+              </tr>
+              <tr>
+                <td>API calls</td>
+                <td><code>src/services</code></td>
+              </tr>
+              <tr>
+                <td>Helper functions</td>
+                <td><code>src/utils</code></td>
+              </tr>
+              <tr>
+                <td>Imported images</td>
+                <td><code>src/assets</code></td>
+              </tr>
+              <tr>
+                <td>Static public files</td>
+                <td><code>public</code></td>
+              </tr>
+              <tr>
+                <td>Custom domain</td>
+                <td><code>public/CNAME</code></td>
+              </tr>
+              <tr>
+                <td>GitHub Actions deployment</td>
+                <td><code>.github/workflows/deploy.yml</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="success">
+            If you understand this checklist, you understand the skeleton of a professional React app.
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><strong>Programmer's Picnic AI-ML Classes by Champak Roy</strong></p>
+      <p>
+        Learn React, JavaScript, Python, Data Structures and Algorithms, Machine Learning, and deployment step by step.
+      </p>
+      <p>
+        Live React site:
+        <a href="https://react.learnwithchampak.live/" target="_blank" rel="noopener">
+          react.learnwithchampak.live
+        </a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        const target = document.querySelector(link.getAttribute('href'))
+
+        if (!target) {
+          return
+        }
+
+        event.preventDefault()
+
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+      })
+    })
+  </script>
+</body>
+</html>
