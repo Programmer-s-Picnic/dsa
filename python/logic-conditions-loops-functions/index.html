@@ -1,0 +1,1989 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Week 2: Python Foundations II | Conditions, Loops, Functions and Collections</title>
+
+  <meta name="description" content="A 0 to infinity Python lesson for Week 2: conditions, loops, functions, lists, tuples, dictionaries, sets, reusable code, and structured problem solving." />
+
+  <meta name="keywords" content="Python foundations, Python conditions, Python loops, Python functions, Python collections, lists tuples dictionaries sets, beginner Python lesson, Python course week 2" />
+
+  <meta name="author" content="Champak Roy" />
+
+  <meta property="og:title" content="Week 2: Python Foundations II" />
+  <meta property="og:description" content="Go deeper into Python logic with conditions, loops, functions, and collections so code becomes structured and reusable." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://programmer-s-picnic.github.io/json-images/mee.jpg" />
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+    crossorigin="anonymous"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-GSTQRQMLEE");
+  </script>
+
+  <style>
+    :root {
+      --bg: #d8fff4;
+      --bg2: #c8f7ee;
+      --hero: #11796f;
+      --hero-dark: #0d5f58;
+      --hero-deep: #0a4f49;
+      --mint: #dffcf7;
+      --mint2: #ccf5ef;
+      --panel: rgba(255, 255, 255, 0.74);
+      --panel-solid: #ffffff;
+      --text: #073b37;
+      --muted: #376763;
+      --line: rgba(15, 118, 110, 0.22);
+      --code-bg: #071f1d;
+      --code-text: #ecfffb;
+      --accent: #0f766e;
+      --accent2: #14b8a6;
+      --warning-bg: #fff7dd;
+      --success-bg: #e8fff6;
+      --danger-bg: #fff0f0;
+      --radius: 28px;
+      --shadow: 0 24px 60px rgba(8, 89, 82, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 15%, rgba(255,255,255,0.75), transparent 24rem),
+        radial-gradient(circle at 90% 8%, rgba(20,184,166,0.18), transparent 28rem),
+        linear-gradient(120deg, var(--bg), var(--bg2));
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--hero-dark);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      width: min(1160px, calc(100% - 36px));
+      margin: auto;
+    }
+
+    header {
+      padding: 16px 0 36px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      margin-top: 0;
+      padding: clamp(34px, 6vw, 72px) clamp(28px, 6vw, 64px);
+      border-radius: 28px;
+      background: linear-gradient(135deg, var(--hero), var(--hero-deep));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: -34px;
+      top: -90px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      right: 84px;
+      bottom: -116px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 960px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: white;
+      font-size: 0.88rem;
+      font-weight: 900;
+      margin-bottom: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.24);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.45rem, 6vw, 4.25rem);
+      line-height: 1.05;
+      letter-spacing: -0.06em;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 930px;
+      color: #f0fffc;
+      font-size: clamp(1.02rem, 2vw, 1.22rem);
+    }
+
+    nav {
+      margin: 36px auto 34px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.62);
+      backdrop-filter: blur(10px);
+      padding: 12px;
+      box-shadow: 0 12px 36px rgba(8, 89, 82, 0.08);
+    }
+
+    .nav-grid {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-grid a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--mint);
+      color: var(--hero-deep);
+      border-radius: 12px;
+      padding: 10px 13px;
+      font-size: 0.9rem;
+      font-weight: 900;
+      transition: 0.18s ease;
+    }
+
+    .nav-grid a:hover {
+      transform: translateY(-2px);
+      text-decoration: none;
+      background: #c9f6ee;
+    }
+
+    main {
+      padding-bottom: 70px;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(22px, 4vw, 42px);
+      margin: 26px 0;
+      box-shadow: 0 18px 50px rgba(8, 89, 82, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      color: var(--hero-deep);
+      font-size: clamp(1.7rem, 4vw, 2.55rem);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+
+    h3 {
+      margin-top: 30px;
+      color: var(--hero-dark);
+      font-size: 1.35rem;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @media (max-width: 850px) {
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .note {
+      margin: 18px 0;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: var(--mint);
+      border-left: 7px solid var(--accent);
+      color: var(--text);
+    }
+
+    .warning {
+      background: var(--warning-bg);
+      border-left-color: #d97706;
+    }
+
+    .success {
+      background: var(--success-bg);
+      border-left-color: #059669;
+    }
+
+    .danger {
+      background: var(--danger-bg);
+      border-left-color: #dc2626;
+    }
+
+    pre {
+      margin: 16px 0;
+      padding: 18px;
+      overflow-x: auto;
+      border-radius: 18px;
+      background: var(--code-bg);
+      color: var(--code-text);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    p code,
+    li code,
+    td code {
+      background: #dffcf7;
+      color: #075e57;
+      padding: 2px 7px;
+      border-radius: 8px;
+      font-weight: 800;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+      background: white;
+      margin: 18px 0;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 13px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: var(--mint);
+      color: var(--hero-deep);
+    }
+
+    details {
+      background: rgba(255,255,255,0.75);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin: 14px 0;
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--hero-dark);
+      font-weight: 950;
+    }
+
+    .task {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      margin: 14px 0;
+    }
+
+    .task-number {
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      margin-right: 8px;
+      border-radius: 999px;
+      background: var(--hero);
+      color: white;
+      font-weight: 950;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .flow div {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      font-weight: 900;
+      color: var(--hero-deep);
+    }
+
+    @media (max-width: 900px) {
+      .flow {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .editor-box {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 2px solid var(--accent);
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .editor-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px 18px;
+      background: var(--hero-deep);
+      color: white;
+      font-weight: 950;
+    }
+
+    iframe {
+      width: 100%;
+      height: 680px;
+      border: 0;
+      display: block;
+      background: white;
+    }
+
+    .ad-box {
+      margin: 28px 0;
+      padding: 16px;
+      text-align: center;
+      border: 1px dashed var(--accent);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.55);
+      color: var(--hero-deep);
+      font-weight: 900;
+    }
+
+    .top-link {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 99;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--hero);
+      color: white;
+      box-shadow: var(--shadow);
+      font-weight: 950;
+    }
+
+    footer {
+      padding: 34px 18px;
+      background: var(--hero-deep);
+      color: #eafffb;
+      text-align: center;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body id="top">
+
+  <header>
+    <div class="wrap">
+      <div class="hero">
+        <div class="hero-content">
+          <div class="pill">0 to Infinity Lesson</div>
+          <h1>Week 2: Python Foundations II</h1>
+          <p class="subtitle">
+            Go deeper into logic with conditions, loops, functions, and collections
+            so your Python code becomes structured, reusable, and ready for real problems.
+          </p>
+        </div>
+      </div>
+
+      <nav>
+        <div class="nav-grid">
+          <a href="#overview">Overview</a>
+          <a href="#weekplan">Week Plan</a>
+          <a href="#conditions">Conditions</a>
+          <a href="#logic">Logic</a>
+          <a href="#loops">Loops</a>
+          <a href="#while">While Loop</a>
+          <a href="#break">Break Continue</a>
+          <a href="#functions">Functions</a>
+          <a href="#parameters">Parameters</a>
+          <a href="#return">Return</a>
+          <a href="#collections">Collections</a>
+          <a href="#lists">Lists</a>
+          <a href="#tuples">Tuples</a>
+          <a href="#dict">Dictionaries</a>
+          <a href="#sets">Sets</a>
+          <a href="#project">Mini Project</a>
+          <a href="#editor">Python Editor</a>
+          <a href="#practice">Practice</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section id="overview">
+      <h2>1. Overview</h2>
+
+      <p class="lead">
+        In Week 1, we usually learn printing, input, variables, datatypes, and simple calculations.
+        In Week 2, we start making Python think. We use decisions, repetition, reusable blocks,
+        and collections of data.
+      </p>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Conditions</h3>
+          <p>
+            Conditions help code decide what to do.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Loops</h3>
+          <p>
+            Loops help code repeat work without writing the same line again and again.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Functions</h3>
+          <p>
+            Functions help us package logic into reusable blocks.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Collections</h3>
+          <p>
+            Collections help us store many values together.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Structure</h3>
+          <p>
+            Code becomes clean, readable, and easy to improve.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Reusable thinking</h3>
+          <p>
+            We stop solving only one example and start building reusable solutions.
+          </p>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Final output:</strong> a student marks analyzer using conditions, loops,
+        functions, lists, dictionaries, and clean program structure.
+      </div>
+    </section>
+
+    <div class="ad-box">
+      Advertisement
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>
+        try {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {}
+      </script>
+    </div>
+
+    <section id="weekplan">
+      <h2>2. Week 2 learning path</h2>
+
+      <p>
+        This week is about moving from simple statements to structured programs.
+      </p>
+
+      <div class="flow">
+        <div>Conditions</div>
+        <div>Loops</div>
+        <div>Functions</div>
+        <div>Collections</div>
+        <div>Mini Project</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Topic</th>
+            <th>Question it answers</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Condition</td>
+            <td>Should this code run?</td>
+            <td><code>if marks >= 40:</code></td>
+          </tr>
+          <tr>
+            <td>Loop</td>
+            <td>How do I repeat this?</td>
+            <td><code>for mark in marks:</code></td>
+          </tr>
+          <tr>
+            <td>Function</td>
+            <td>How do I reuse this logic?</td>
+            <td><code>def find_grade(marks):</code></td>
+          </tr>
+          <tr>
+            <td>List</td>
+            <td>How do I store many values?</td>
+            <td><code>[80, 90, 75]</code></td>
+          </tr>
+          <tr>
+            <td>Dictionary</td>
+            <td>How do I store named values?</td>
+            <td><code>{"name": "Aarav", "marks": 85}</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="conditions">
+      <h2>3. Conditions: if, elif, else</h2>
+
+      <p>
+        Conditions allow Python to choose between different paths.
+      </p>
+
+      <pre><code>marks = 75
+
+if marks >= 40:
+    print("Pass")
+else:
+    print("Fail")</code></pre>
+
+      <h3>Multiple conditions with elif</h3>
+
+      <pre><code>marks = 85
+
+if marks >= 90:
+    print("Grade A+")
+elif marks >= 80:
+    print("Grade A")
+elif marks >= 70:
+    print("Grade B")
+elif marks >= 60:
+    print("Grade C")
+elif marks >= 40:
+    print("Pass")
+else:
+    print("Fail")</code></pre>
+
+      <div class="note success">
+        <strong>Important:</strong> Python checks conditions from top to bottom.
+        As soon as one condition becomes true, that block runs and the rest are skipped.
+      </div>
+
+      <h3>Indentation matters</h3>
+
+      <p>
+        Python uses indentation to understand which lines belong inside a condition.
+      </p>
+
+      <pre><code>age = 18
+
+if age >= 18:
+    print("You can vote")
+    print("This line is inside the if block")
+
+print("This line is outside the if block")</code></pre>
+
+      <div class="note warning">
+        Wrong indentation is one of the most common beginner errors in Python.
+      </div>
+    </section>
+
+    <section id="logic">
+      <h2>4. Logical operators</h2>
+
+      <p>
+        Conditions become more powerful when we combine them using logical operators.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Operator</th>
+            <th>Meaning</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>and</code></td>
+            <td>Both conditions must be true</td>
+            <td><code>age >= 18 and has_id == True</code></td>
+          </tr>
+          <tr>
+            <td><code>or</code></td>
+            <td>At least one condition must be true</td>
+            <td><code>city == "Varanasi" or city == "Lucknow"</code></td>
+          </tr>
+          <tr>
+            <td><code>not</code></td>
+            <td>Reverses the condition</td>
+            <td><code>not is_absent</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <pre><code>age = 20
+has_id = True
+
+if age >= 18 and has_id:
+    print("Entry allowed")
+else:
+    print("Entry not allowed")</code></pre>
+
+      <h3>Example: scholarship decision</h3>
+
+      <pre><code>marks = 92
+attendance = 88
+
+if marks >= 90 and attendance >= 85:
+    print("Scholarship approved")
+else:
+    print("Scholarship not approved")</code></pre>
+    </section>
+
+    <section id="loops">
+      <h2>5. Loops: repeating work</h2>
+
+      <p>
+        Loops are used when we want to repeat something.
+      </p>
+
+      <h3>for loop with range</h3>
+
+      <pre><code>for i in range(5):
+    print(i)</code></pre>
+
+      <p>
+        Output:
+      </p>
+
+      <pre><code>0
+1
+2
+3
+4</code></pre>
+
+      <h3>range start, stop, step</h3>
+
+      <pre><code>for i in range(1, 11):
+    print(i)</code></pre>
+
+      <pre><code>for i in range(2, 21, 2):
+    print(i)</code></pre>
+
+      <h3>Loop through a list</h3>
+
+      <pre><code>marks = [80, 75, 90, 60, 88]
+
+for mark in marks:
+    print(mark)</code></pre>
+
+      <h3>Loop with calculation</h3>
+
+      <pre><code>marks = [80, 75, 90, 60, 88]
+
+total = 0
+
+for mark in marks:
+    total = total + mark
+
+average = total / len(marks)
+
+print("Total:", total)
+print("Average:", average)</code></pre>
+
+      <div class="note">
+        A loop is not only repetition. A loop is controlled repetition.
+      </div>
+    </section>
+
+    <section id="while">
+      <h2>6. while loop</h2>
+
+      <p>
+        A <code>while</code> loop continues as long as a condition is true.
+      </p>
+
+      <pre><code>count = 1
+
+while count <= 5:
+    print(count)
+    count = count + 1</code></pre>
+
+      <h3>Countdown example</h3>
+
+      <pre><code>count = 5
+
+while count >= 1:
+    print(count)
+    count = count - 1
+
+print("Start!")</code></pre>
+
+      <h3>Input validation example</h3>
+
+      <pre><code>password = ""
+
+while password != "python123":
+    password = input("Enter password: ")
+
+print("Access granted")</code></pre>
+
+      <div class="note warning">
+        A <code>while</code> loop can become infinite if the condition never becomes false.
+      </div>
+    </section>
+
+    <section id="break">
+      <h2>7. break and continue</h2>
+
+      <p>
+        <code>break</code> stops a loop completely.
+        <code>continue</code> skips the current round and moves to the next round.
+      </p>
+
+      <h3>break example</h3>
+
+      <pre><code>numbers = [10, 20, 30, 40, 50]
+
+for number in numbers:
+    if number == 30:
+        break
+    print(number)</code></pre>
+
+      <p>
+        Output:
+      </p>
+
+      <pre><code>10
+20</code></pre>
+
+      <h3>continue example</h3>
+
+      <pre><code>numbers = [10, 20, 30, 40, 50]
+
+for number in numbers:
+    if number == 30:
+        continue
+    print(number)</code></pre>
+
+      <p>
+        Output:
+      </p>
+
+      <pre><code>10
+20
+40
+50</code></pre>
+
+      <div class="note success">
+        Use <code>break</code> when the job is finished.
+        Use <code>continue</code> when only the current item should be skipped.
+      </div>
+    </section>
+
+    <section id="functions">
+      <h2>8. Functions: reusable blocks of code</h2>
+
+      <p>
+        A function is a named block of code. It helps us avoid repeating the same logic.
+      </p>
+
+      <pre><code>def say_hello():
+    print("Hello from Python")
+
+say_hello()
+say_hello()</code></pre>
+
+      <h3>Why functions are important</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Without function</th>
+            <th>With function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Same code repeated many times</td>
+            <td>Write once, call many times</td>
+          </tr>
+          <tr>
+            <td>Hard to fix</td>
+            <td>Fix in one place</td>
+          </tr>
+          <tr>
+            <td>Messy program</td>
+            <td>Structured program</td>
+          </tr>
+          <tr>
+            <td>Difficult to test</td>
+            <td>Easy to test function by function</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        A function is like a small machine. You give input, it performs logic, and it may give output.
+      </div>
+    </section>
+
+    <section id="parameters">
+      <h2>9. Parameters and arguments</h2>
+
+      <p>
+        Parameters allow a function to receive values.
+      </p>
+
+      <pre><code>def greet(name):
+    print("Hello", name)
+
+greet("Aarav")
+greet("Siya")
+greet("Mohan")</code></pre>
+
+      <h3>Function with two parameters</h3>
+
+      <pre><code>def add(a, b):
+    print(a + b)
+
+add(10, 20)
+add(5, 7)</code></pre>
+
+      <h3>Marks example</h3>
+
+      <pre><code>def check_pass(marks):
+    if marks >= 40:
+        print("Pass")
+    else:
+        print("Fail")
+
+check_pass(75)
+check_pass(32)</code></pre>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Word</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Parameter</td>
+            <td>Name used inside the function definition</td>
+          </tr>
+          <tr>
+            <td>Argument</td>
+            <td>Actual value passed while calling the function</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="return">
+      <h2>10. return: sending a result back</h2>
+
+      <p>
+        <code>print()</code> displays a value. <code>return</code> gives a value back to the caller.
+      </p>
+
+      <pre><code>def add(a, b):
+    return a + b
+
+result = add(10, 20)
+print(result)</code></pre>
+
+      <h3>Grade function</h3>
+
+      <pre><code>def find_grade(marks):
+    if marks >= 90:
+        return "A+"
+    elif marks >= 80:
+        return "A"
+    elif marks >= 70:
+        return "B"
+    elif marks >= 60:
+        return "C"
+    elif marks >= 40:
+        return "Pass"
+    else:
+        return "Fail"
+
+grade = find_grade(86)
+print("Grade:", grade)</code></pre>
+
+      <h3>Reusable average function</h3>
+
+      <pre><code>def find_average(numbers):
+    total = 0
+
+    for number in numbers:
+        total = total + number
+
+    return total / len(numbers)
+
+marks = [80, 90, 70, 85]
+average = find_average(marks)
+
+print("Average:", average)</code></pre>
+
+      <div class="note success">
+        Use <code>return</code> when the result should be used later.
+      </div>
+    </section>
+
+    <section id="collections">
+      <h2>11. Collections: storing many values</h2>
+
+      <p>
+        A collection stores multiple values. Python has several important collection types.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Collection</th>
+            <th>Example</th>
+            <th>Best use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>List</td>
+            <td><code>[10, 20, 30]</code></td>
+            <td>Ordered, changeable data</td>
+          </tr>
+          <tr>
+            <td>Tuple</td>
+            <td><code>(10, 20, 30)</code></td>
+            <td>Ordered, fixed data</td>
+          </tr>
+          <tr>
+            <td>Dictionary</td>
+            <td><code>{"name": "Aarav"}</code></td>
+            <td>Named values</td>
+          </tr>
+          <tr>
+            <td>Set</td>
+            <td><code>{10, 20, 30}</code></td>
+            <td>Unique values</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="lists">
+      <h2>12. Lists</h2>
+
+      <p>
+        A list stores multiple values in order. Lists are changeable.
+      </p>
+
+      <pre><code>marks = [80, 75, 90, 60]
+
+print(marks)
+print(marks[0])
+print(marks[-1])</code></pre>
+
+      <h3>List methods</h3>
+
+      <pre><code>marks = [80, 75, 90]
+
+marks.append(88)
+print(marks)
+
+marks.remove(75)
+print(marks)
+
+marks.sort()
+print(marks)
+
+marks.reverse()
+print(marks)</code></pre>
+
+      <h3>Loop through list</h3>
+
+      <pre><code>names = ["Aarav", "Siya", "Mohan"]
+
+for name in names:
+    print("Hello", name)</code></pre>
+
+      <h3>List comprehension</h3>
+
+      <p>
+        List comprehension is a short way to create a list.
+      </p>
+
+      <pre><code>squares = []
+
+for number in range(1, 6):
+    squares.append(number * number)
+
+print(squares)</code></pre>
+
+      <p>
+        The same work can be written like this:
+      </p>
+
+      <pre><code>squares = [number * number for number in range(1, 6)]
+
+print(squares)</code></pre>
+    </section>
+
+    <section id="tuples">
+      <h2>13. Tuples</h2>
+
+      <p>
+        A tuple is like a list, but it cannot be changed after creation.
+      </p>
+
+      <pre><code>point = (10, 20)
+
+print(point[0])
+print(point[1])</code></pre>
+
+      <h3>When to use tuples</h3>
+
+      <ul>
+        <li>When data should not change.</li>
+        <li>When representing fixed pairs like coordinates.</li>
+        <li>When returning multiple values from a function.</li>
+      </ul>
+
+      <pre><code>def find_min_max(numbers):
+    minimum = min(numbers)
+    maximum = max(numbers)
+    return minimum, maximum
+
+result = find_min_max([10, 50, 20, 5])
+
+print(result)
+print("Minimum:", result[0])
+print("Maximum:", result[1])</code></pre>
+    </section>
+
+    <section id="dict">
+      <h2>14. Dictionaries</h2>
+
+      <p>
+        A dictionary stores data as key-value pairs.
+      </p>
+
+      <pre><code>student = {
+    "name": "Aarav",
+    "age": 15,
+    "marks": 86
+}
+
+print(student["name"])
+print(student["marks"])</code></pre>
+
+      <h3>Add and update values</h3>
+
+      <pre><code>student = {
+    "name": "Aarav",
+    "marks": 86
+}
+
+student["city"] = "Varanasi"
+student["marks"] = 90
+
+print(student)</code></pre>
+
+      <h3>Loop through dictionary</h3>
+
+      <pre><code>student = {
+    "name": "Aarav",
+    "age": 15,
+    "marks": 86
+}
+
+for key, value in student.items():
+    print(key, "=", value)</code></pre>
+
+      <h3>List of dictionaries</h3>
+
+      <p>
+        This is very important. Real data often looks like a list of dictionaries.
+      </p>
+
+      <pre><code>students = [
+    {"name": "Aarav", "marks": 86},
+    {"name": "Siya", "marks": 92},
+    {"name": "Mohan", "marks": 68}
+]
+
+for student in students:
+    print(student["name"], student["marks"])</code></pre>
+    </section>
+
+    <section id="sets">
+      <h2>15. Sets</h2>
+
+      <p>
+        A set stores unique values. Repeated values are automatically removed.
+      </p>
+
+      <pre><code>cities = {"Varanasi", "Lucknow", "Varanasi", "Patna"}
+
+print(cities)</code></pre>
+
+      <h3>Remove duplicates from a list</h3>
+
+      <pre><code>numbers = [10, 20, 10, 30, 20, 40]
+
+unique_numbers = set(numbers)
+
+print(unique_numbers)</code></pre>
+
+      <h3>Set operations</h3>
+
+      <pre><code>a = {"Python", "Java", "C"}
+b = {"Python", "JavaScript", "C"}
+
+print(a.union(b))
+print(a.intersection(b))
+print(a.difference(b))</code></pre>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Operation</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>union()</code></td>
+            <td>All unique values from both sets</td>
+          </tr>
+          <tr>
+            <td><code>intersection()</code></td>
+            <td>Values common to both sets</td>
+          </tr>
+          <tr>
+            <td><code>difference()</code></td>
+            <td>Values present in one set but not the other</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="project">
+      <h2>16. Mini Project: Student Marks Analyzer</h2>
+
+      <p>
+        Now we combine conditions, loops, functions, and collections.
+      </p>
+
+      <pre><code>"""
+Week 2 Mini Project
+Student Marks Analyzer
+
+Concepts used:
+1. Conditions
+2. Loops
+3. Functions
+4. Lists
+5. Dictionaries
+6. Reusable program structure
+"""
+
+def find_grade(marks):
+    if marks >= 90:
+        return "A+"
+    elif marks >= 80:
+        return "A"
+    elif marks >= 70:
+        return "B"
+    elif marks >= 60:
+        return "C"
+    elif marks >= 40:
+        return "Pass"
+    else:
+        return "Fail"
+
+
+def find_average(marks_list):
+    total = 0
+
+    for marks in marks_list:
+        total = total + marks
+
+    return total / len(marks_list)
+
+
+def print_student_report(student):
+    name = student["name"]
+    marks = student["marks"]
+
+    total = sum(marks)
+    average = find_average(marks)
+    grade = find_grade(average)
+
+    print("-" * 40)
+    print("Name:", name)
+    print("Marks:", marks)
+    print("Total:", total)
+    print("Average:", average)
+    print("Grade:", grade)
+
+
+students = [
+    {"name": "Aarav", "marks": [80, 85, 90]},
+    {"name": "Siya", "marks": [92, 88, 95]},
+    {"name": "Mohan", "marks": [60, 68, 72]},
+    {"name": "Riya", "marks": [35, 40, 38]},
+    {"name": "Kabir", "marks": [75, 79, 82]}
+]
+
+print("=" * 40)
+print("STUDENT MARKS ANALYZER")
+print("=" * 40)
+
+class_total = 0
+highest_average = 0
+topper_name = ""
+
+for student in students:
+    print_student_report(student)
+
+    average = find_average(student["marks"])
+    class_total = class_total + average
+
+    if average > highest_average:
+        highest_average = average
+        topper_name = student["name"]
+
+class_average = class_total / len(students)
+
+print("=" * 40)
+print("CLASS REPORT")
+print("=" * 40)
+print("Class average:", class_average)
+print("Topper:", topper_name)
+print("Highest average:", highest_average)</code></pre>
+
+      <div class="note success">
+        This is the real purpose of Week 2: not only learning syntax, but combining syntax into
+        useful programs.
+      </div>
+    </section>
+
+    <section>
+      <h2>17. Full Week 2 Notebook</h2>
+
+      <p>
+        Copy this complete notebook into the Python editor and run it.
+      </p>
+
+      <pre><code>"""
+Week 2: Python Foundations II
+Programmer's Picnic by Champak Roy
+
+Topics:
+1. Conditions
+2. Logical operators
+3. for loops
+4. while loops
+5. break and continue
+6. Functions
+7. Parameters
+8. return
+9. Lists
+10. Tuples
+11. Dictionaries
+12. Sets
+13. Mini project
+"""
+
+print("=" * 60)
+print("WEEK 2: PYTHON FOUNDATIONS II")
+print("=" * 60)
+
+# ------------------------------------------------------------
+# 1. Conditions
+# ------------------------------------------------------------
+
+print("\n1. CONDITIONS")
+
+marks = 85
+
+if marks >= 90:
+    print("Grade A+")
+elif marks >= 80:
+    print("Grade A")
+elif marks >= 70:
+    print("Grade B")
+elif marks >= 60:
+    print("Grade C")
+elif marks >= 40:
+    print("Pass")
+else:
+    print("Fail")
+
+# ------------------------------------------------------------
+# 2. Logical operators
+# ------------------------------------------------------------
+
+print("\n2. LOGICAL OPERATORS")
+
+age = 20
+has_id = True
+
+if age >= 18 and has_id:
+    print("Entry allowed")
+else:
+    print("Entry not allowed")
+
+# ------------------------------------------------------------
+# 3. for loop
+# ------------------------------------------------------------
+
+print("\n3. FOR LOOP")
+
+for number in range(1, 6):
+    print(number)
+
+# ------------------------------------------------------------
+# 4. Loop through list
+# ------------------------------------------------------------
+
+print("\n4. LOOP THROUGH LIST")
+
+marks_list = [80, 75, 90, 60, 88]
+
+total = 0
+
+for mark in marks_list:
+    total = total + mark
+
+average = total / len(marks_list)
+
+print("Marks:", marks_list)
+print("Total:", total)
+print("Average:", average)
+
+# ------------------------------------------------------------
+# 5. while loop
+# ------------------------------------------------------------
+
+print("\n5. WHILE LOOP")
+
+count = 1
+
+while count <= 5:
+    print("Count:", count)
+    count = count + 1
+
+# ------------------------------------------------------------
+# 6. break and continue
+# ------------------------------------------------------------
+
+print("\n6. BREAK AND CONTINUE")
+
+numbers = [10, 20, 30, 40, 50]
+
+print("Using break:")
+
+for number in numbers:
+    if number == 30:
+        break
+    print(number)
+
+print("Using continue:")
+
+for number in numbers:
+    if number == 30:
+        continue
+    print(number)
+
+# ------------------------------------------------------------
+# 7. Functions
+# ------------------------------------------------------------
+
+print("\n7. FUNCTIONS")
+
+def greet(name):
+    print("Hello", name)
+
+greet("Aarav")
+greet("Siya")
+
+# ------------------------------------------------------------
+# 8. return
+# ------------------------------------------------------------
+
+print("\n8. RETURN")
+
+def add(a, b):
+    return a + b
+
+result = add(10, 20)
+print("Addition result:", result)
+
+# ------------------------------------------------------------
+# 9. Grade function
+# ------------------------------------------------------------
+
+print("\n9. GRADE FUNCTION")
+
+def find_grade(marks):
+    if marks >= 90:
+        return "A+"
+    elif marks >= 80:
+        return "A"
+    elif marks >= 70:
+        return "B"
+    elif marks >= 60:
+        return "C"
+    elif marks >= 40:
+        return "Pass"
+    else:
+        return "Fail"
+
+print("Grade for 86:", find_grade(86))
+print("Grade for 35:", find_grade(35))
+
+# ------------------------------------------------------------
+# 10. Lists
+# ------------------------------------------------------------
+
+print("\n10. LISTS")
+
+students = ["Aarav", "Siya", "Mohan"]
+
+students.append("Riya")
+
+for student in students:
+    print(student)
+
+# ------------------------------------------------------------
+# 11. Tuples
+# ------------------------------------------------------------
+
+print("\n11. TUPLES")
+
+point = (10, 20)
+
+print("X:", point[0])
+print("Y:", point[1])
+
+# ------------------------------------------------------------
+# 12. Dictionaries
+# ------------------------------------------------------------
+
+print("\n12. DICTIONARIES")
+
+student = {
+    "name": "Aarav",
+    "age": 15,
+    "marks": 86
+}
+
+for key, value in student.items():
+    print(key, "=", value)
+
+# ------------------------------------------------------------
+# 13. Sets
+# ------------------------------------------------------------
+
+print("\n13. SETS")
+
+cities = ["Varanasi", "Lucknow", "Varanasi", "Patna", "Lucknow"]
+
+unique_cities = set(cities)
+
+print("Original cities:", cities)
+print("Unique cities:", unique_cities)
+
+# ------------------------------------------------------------
+# 14. Mini project
+# ------------------------------------------------------------
+
+print("\n14. MINI PROJECT: STUDENT MARKS ANALYZER")
+
+def find_average(marks):
+    total = 0
+
+    for mark in marks:
+        total = total + mark
+
+    return total / len(marks)
+
+
+def print_student_report(student):
+    name = student["name"]
+    marks = student["marks"]
+
+    total = sum(marks)
+    average = find_average(marks)
+    grade = find_grade(average)
+
+    print("-" * 40)
+    print("Name:", name)
+    print("Marks:", marks)
+    print("Total:", total)
+    print("Average:", average)
+    print("Grade:", grade)
+
+
+students_data = [
+    {"name": "Aarav", "marks": [80, 85, 90]},
+    {"name": "Siya", "marks": [92, 88, 95]},
+    {"name": "Mohan", "marks": [60, 68, 72]},
+    {"name": "Riya", "marks": [35, 40, 38]},
+    {"name": "Kabir", "marks": [75, 79, 82]}
+]
+
+class_total = 0
+highest_average = 0
+topper_name = ""
+
+for student in students_data:
+    print_student_report(student)
+
+    average = find_average(student["marks"])
+    class_total = class_total + average
+
+    if average > highest_average:
+        highest_average = average
+        topper_name = student["name"]
+
+class_average = class_total / len(students_data)
+
+print("=" * 40)
+print("CLASS REPORT")
+print("=" * 40)
+print("Class average:", class_average)
+print("Topper:", topper_name)
+print("Highest average:", highest_average)
+
+print("\n" + "=" * 60)
+print("WEEK 2 NOTEBOOK COMPLETE")
+print("=" * 60)</code></pre>
+    </section>
+
+    <section id="editor">
+      <h2>18. Python Editor</h2>
+
+      <p>
+        Run the Week 2 notebook here. Change marks, names, conditions, and functions.
+        Observe how the output changes.
+      </p>
+
+      <div class="editor-box">
+        <div class="editor-title">
+          <span>Embedded Python Editor</span>
+          <span>Week 2 Python Foundations II</span>
+        </div>
+
+        <iframe
+          title="Python Editor"
+          src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1"
+          allow="clipboard-read; clipboard-write">
+        </iframe>
+      </div>
+    </section>
+
+    <section id="practice">
+      <h2>19. Practice tasks</h2>
+
+      <div class="task">
+        <h3><span class="task-number">1</span> Conditions</h3>
+        <p>
+          Take marks from the user and print whether the student passed or failed.
+        </p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">2</span> Grade calculator</h3>
+        <p>
+          Write an <code>if elif else</code> ladder to print grade from marks.
+        </p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">3</span> for loop</h3>
+        <p>
+          Print the multiplication table of 7 using a <code>for</code> loop.
+        </p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">4</span> while loop</h3>
+        <p>
+          Print numbers from 10 to 1 using a <code>while</code> loop.
+        </p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">5</span> Function</h3>
+        <p>
+          Write a function called <code>square(number)</code> that returns the square of a number.
+        </p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">6</span> List</h3>
+        <p>
+          Create a list of 5 marks and calculate total and average using a loop.
+        </p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">7</span> Dictionary</h3>
+        <p>
+          Create a student dictionary with name, age, city, and marks. Print all values.
+        </p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">8</span> Set</h3>
+        <p>
+          Create a list with duplicate city names and print only unique cities using a set.
+        </p>
+      </div>
+
+      <details>
+        <summary>Show solved practice answers</summary>
+
+        <pre><code># 1. Conditions
+
+marks = int(input("Enter marks: "))
+
+if marks >= 40:
+    print("Pass")
+else:
+    print("Fail")
+
+
+# 2. Grade calculator
+
+marks = int(input("Enter marks: "))
+
+if marks >= 90:
+    print("A+")
+elif marks >= 80:
+    print("A")
+elif marks >= 70:
+    print("B")
+elif marks >= 60:
+    print("C")
+elif marks >= 40:
+    print("Pass")
+else:
+    print("Fail")
+
+
+# 3. Multiplication table
+
+for i in range(1, 11):
+    print("7 x", i, "=", 7 * i)
+
+
+# 4. while loop countdown
+
+count = 10
+
+while count >= 1:
+    print(count)
+    count = count - 1
+
+
+# 5. Function
+
+def square(number):
+    return number * number
+
+print(square(5))
+
+
+# 6. List total and average
+
+marks = [80, 90, 70, 85, 95]
+
+total = 0
+
+for mark in marks:
+    total = total + mark
+
+average = total / len(marks)
+
+print("Total:", total)
+print("Average:", average)
+
+
+# 7. Dictionary
+
+student = {
+    "name": "Aarav",
+    "age": 15,
+    "city": "Varanasi",
+    "marks": 86
+}
+
+for key, value in student.items():
+    print(key, "=", value)
+
+
+# 8. Set
+
+cities = ["Varanasi", "Lucknow", "Varanasi", "Patna", "Lucknow"]
+
+unique_cities = set(cities)
+
+print(unique_cities)</code></pre>
+      </details>
+    </section>
+
+    <section>
+      <h2>20. Final challenge</h2>
+
+      <p>
+        Create a library book tracker using Week 2 concepts.
+      </p>
+
+      <p>
+        Your program should use:
+      </p>
+
+      <ul>
+        <li>A list of dictionaries to store books.</li>
+        <li>Each book should have title, author, price, and availability.</li>
+        <li>A function to print all books.</li>
+        <li>A function to find expensive books.</li>
+        <li>A function to count available books.</li>
+        <li>Conditions to check availability.</li>
+        <li>Loops to process all books.</li>
+      </ul>
+
+      <details>
+        <summary>Show starter code</summary>
+
+        <pre><code>books = [
+    {"title": "Python Basics", "author": "A", "price": 300, "available": True},
+    {"title": "Data Science", "author": "B", "price": 650, "available": False},
+    {"title": "Machine Learning", "author": "C", "price": 800, "available": True},
+    {"title": "Web Development", "author": "D", "price": 450, "available": True}
+]
+
+# Write your functions below</code></pre>
+      </details>
+
+      <details>
+        <summary>Show solution</summary>
+
+        <pre><code>books = [
+    {"title": "Python Basics", "author": "A", "price": 300, "available": True},
+    {"title": "Data Science", "author": "B", "price": 650, "available": False},
+    {"title": "Machine Learning", "author": "C", "price": 800, "available": True},
+    {"title": "Web Development", "author": "D", "price": 450, "available": True}
+]
+
+def print_all_books(books):
+    for book in books:
+        print("-" * 40)
+        print("Title:", book["title"])
+        print("Author:", book["author"])
+        print("Price:", book["price"])
+
+        if book["available"]:
+            print("Status: Available")
+        else:
+            print("Status: Not available")
+
+
+def print_expensive_books(books, limit):
+    print("Books above", limit)
+
+    for book in books:
+        if book["price"] > limit:
+            print(book["title"], "-", book["price"])
+
+
+def count_available_books(books):
+    count = 0
+
+    for book in books:
+        if book["available"]:
+            count = count + 1
+
+    return count
+
+
+print_all_books(books)
+print_expensive_books(books, 500)
+
+available_count = count_available_books(books)
+
+print("Available books:", available_count)</code></pre>
+      </details>
+    </section>
+
+    <section>
+      <h2>21. What you now know</h2>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>You can make decisions</h3>
+          <p>
+            You can use <code>if</code>, <code>elif</code>, <code>else</code>,
+            and logical operators.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>You can repeat work</h3>
+          <p>
+            You can use <code>for</code> loops, <code>while</code> loops,
+            <code>break</code>, and <code>continue</code>.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>You can write reusable code</h3>
+          <p>
+            You can create functions, pass parameters, and return results.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>You can store collections</h3>
+          <p>
+            You understand lists, tuples, dictionaries, and sets.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>You can combine ideas</h3>
+          <p>
+            You can build programs using conditions, loops, functions, and data together.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>You are ready for data work</h3>
+          <p>
+            These ideas prepare you for arrays, Pandas, data cleaning, and Machine Learning.
+          </p>
+        </div>
+      </div>
+
+      <div class="note success">
+        Week 2 changes the way you write Python. Your code is no longer only a sequence of lines.
+        It becomes logical, reusable, and structured.
+      </div>
+    </section>
+
+  </main>
+
+  <a class="top-link" href="#top">Top</a>
+
+  <footer>
+    <p><strong>Programmer's Picnic by Champak Roy</strong></p>
+    <p>Python, Data Science, Machine Learning and Artificial Intelligence from 0 to infinity.</p>
+    <p>
+      <a href="https://www.learnwithchampak.live/">learnwithchampak.live</a>
+      |
+      <a href="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1">Python Editor</a>
+      |
+      <a href="https://wa.me/919335874326">Contact on WhatsApp</a>
+    </p>
+  </footer>
+
+</body>
+</html>
