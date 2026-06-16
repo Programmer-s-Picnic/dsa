@@ -1,84 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F22HP86FYK"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
 
-    gtag('config', 'G-F22HP86FYK');
-  </script>
 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>Cloudflare WebSocket Chat with Durable Objects | 0 to Infinity Lesson</title>
 
-  <meta
-    name="description"
-    content="A complete 0 to Infinity lesson on building a real-time chat system using WebSockets, Cloudflare Workers, and Durable Objects."
-  />
-  <meta
-    name="keywords"
-    content="Cloudflare Workers, Durable Objects, WebSocket chat, WSS, real time chat, JavaScript WebSocket, Cloudflare chat app, Programmer's Picnic, Champak Roy"
-  />
-  <meta name="author" content="Champak Roy" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
-  <meta name="theme-color" content="#f59e0b" />
 
-  <link rel="canonical" href="https://server.learnwithchampak.live/cloudflare-durable-chat-lesson/" />
+<meta content="#f59e0b" name="theme-color"/>
 
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Cloudflare WebSocket Chat with Durable Objects | 0 to Infinity Lesson" />
-  <meta
-    property="og:description"
-    content="Learn how to build a real-time chat system using WebSockets, Cloudflare Workers, and Durable Objects."
-  />
-  <meta property="og:url" content="https://server.learnwithchampak.live/cloudflare-durable-chat-lesson/" />
-  <meta property="og:image" content="https://server.learnwithchampak.live/seo-server-learnwithchampak.png" />
-  <meta property="og:image:alt" content="Cloudflare Durable Object WebSocket chat lesson by Champak Roy" />
 
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@champaksworld" />
-  <meta name="twitter:creator" content="@champaksworld" />
-  <meta name="twitter:title" content="Cloudflare WebSocket Chat with Durable Objects" />
-  <meta
-    name="twitter:description"
-    content="A 0 to Infinity lesson on WebSocket chat using Cloudflare Workers and Durable Objects."
-  />
-  <meta name="twitter:image" content="https://server.learnwithchampak.live/seo-server-learnwithchampak.png" />
 
-  <!-- Google AdSense -->
-  <script
-    async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
-    crossorigin="anonymous">
-  </script>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "headline": "Cloudflare WebSocket Chat with Durable Objects | 0 to Infinity Lesson",
-    "description": "A complete beginner-to-advanced lesson on building a real-time chat system with WebSockets, Cloudflare Workers, and Durable Objects.",
-    "author": {
-      "@type": "Person",
-      "name": "Champak Roy",
-      "url": "https://learnwithchampak.live/"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Programmer's Picnic",
-      "url": "https://learnwithchampak.live/"
-    },
-    "image": "https://server.learnwithchampak.live/seo-server-learnwithchampak.png",
-    "mainEntityOfPage": "https://server.learnwithchampak.live/cloudflare-durable-chat-lesson/"
-  }
-  </script>
 
-  <style>
+
+
+
+
+<meta content="@champaksworld" name="twitter:creator"/><title>Make a real-time chat system with WebSockets and | AI/ML with Champak Roy, Varanasi</title><meta content="Study Make a real-time chat system with WebSockets and Durable Objects. with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." name="description"/><meta content="AI ML classes Varanasi, study AIML with Champak Roy, Champak Roy Varanasi, Programmer's Picnic, Make a real-time chat system with WebSockets and Durable Objects., Python lessons, machine learning lessons, data structures algorithms, learnwithchampak" name="keywords"/><meta content="Champak Roy" name="author"/><meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/><link href="https://dsa.learnwithchampak.live/websocket/chat/" rel="canonical"/><meta content="website" property="og:type"/><meta content="Programmer's Picnic by Champak Roy" property="og:site_name"/><meta content="Make a real-time chat system with WebSockets and | AI/ML with Champak Roy, Varanasi" property="og:title"/><meta content="Study Make a real-time chat system with WebSockets and Durable Objects. with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." property="og:description"/><meta content="https://dsa.learnwithchampak.live/websocket/chat/" property="og:url"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="summary_large_image" name="twitter:card"/><meta content="Make a real-time chat system with WebSockets and | AI/ML with Champak Roy, Varanasi" name="twitter:title"/><meta content="Study Make a real-time chat system with WebSockets and Durable Objects. with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." name="twitter:description"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" name="twitter:image"/>
+
+
+
+<!-- Google AdSense -->
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&amp;host=ca-host-pub-1556223355139109">
+</script>
+
+<style>
     :root {
       --bg: #fff7ed;
       --bg2: #fffbeb;
@@ -505,95 +454,113 @@
       }
     }
   </style>
-</head>
-
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Make a real-time chat system with WebSockets and | AI/ML with Champak Roy, Varanasi",
+  "description": "Study Make a real-time chat system with WebSockets and Durable Objects. with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice.",
+  "url": "https://dsa.learnwithchampak.live/websocket/chat/",
+  "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
+  "inLanguage": "en",
+  "creator": {
+    "@type": "Person",
+    "name": "Champak Roy",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Varanasi",
+      "addressCountry": "IN"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Programmer's Picnic by Champak Roy",
+    "url": "https://dsa.learnwithchampak.live"
+  },
+  "about": [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Python",
+    "Data Structures and Algorithms",
+    "Web Development"
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Students and beginner programmers"
+  },
+  "isAccessibleForFree": true
+}</script></head>
 <body>
-  <a class="skip-link" href="#main">Skip to lesson</a>
-
-  <header>
-    <nav class="nav">
-      <a class="brand" href="#">
-        <span class="logo">WS</span>
-        <span>
+<a class="skip-link" href="#main">Skip to lesson</a>
+<header>
+<nav class="nav">
+<a class="brand" href="#">
+<span class="logo">WS</span>
+<span>
           Durable Object Chat
           <small>Programmer's Picnic by Champak Roy</small>
-        </span>
-      </a>
-
-      <div class="navlinks">
-        <a href="#idea">Idea</a>
-        <a href="#files">Files</a>
-        <a href="#worker">Worker</a>
-        <a href="#client">Client</a>
-        <a href="#test">Test</a>
-      </div>
-    </nav>
-  </header>
-
-  <main id="main">
-    <section class="hero">
-      <div>
-        <span class="badge">0 to Infinity Lesson</span>
-        <h1>
+</span>
+</a>
+<div class="navlinks">
+<a href="#idea">Idea</a>
+<a href="#files">Files</a>
+<a href="#worker">Worker</a>
+<a href="#client">Client</a>
+<a href="#test">Test</a>
+</div>
+</nav>
+</header>
+<main id="main">
+<section class="hero">
+<div>
+<span class="badge">0 to Infinity Lesson</span>
+<h1>
           Make a real-time chat system with
           <span class="gradient">WebSockets and Durable Objects.</span>
-        </h1>
-        <p class="lead">
+</h1>
+<p class="lead">
           In this lesson we build a real two-way chat system using a static HTML page,
           a Cloudflare Worker, WebSockets, and a Cloudflare Durable Object that behaves
           like a live chat room.
         </p>
-      </div>
-
-      <aside class="hero-card">
-        <div class="diagram">Browser A
+</div>
+<aside class="hero-card">
+<div class="diagram">Browser A
    ↓ WebSocket
 Cloudflare Worker
    ↓ room lookup
 Durable Object: ChatRoom("main")
    ↑ broadcast
 Browser B</div>
-      </aside>
-    </section>
-
-    <nav class="toc">
-      <a href="#zero">0. Goal</a>
-      <a href="#idea">1. Big idea</a>
-      <a href="#files">2. Files</a>
-      <a href="#wrangler">3. Wrangler</a>
-      <a href="#worker">4. Worker code</a>
-      <a href="#client">5. Client page</a>
-      <a href="#test">6. Testing</a>
-      <a href="#troubleshoot">7. Troubleshooting</a>
-    </nav>
-
-    <div class="ad-wrap">
+</aside>
+</section>
+<nav class="toc">
+<a href="#zero">0. Goal</a>
+<a href="#idea">1. Big idea</a>
+<a href="#files">2. Files</a>
+<a href="#wrangler">3. Wrangler</a>
+<a href="#worker">4. Worker code</a>
+<a href="#client">5. Client page</a>
+<a href="#test">6. Testing</a>
+<a href="#troubleshoot">7. Troubleshooting</a>
+</nav>
+<div class="ad-wrap">
       Advertisement
-      <ins
-        class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-8321261883090494"
-        data-ad-slot="7782388330"
-        data-ad-format="auto"
-        data-full-width-responsive="true">
-      </ins>
-      <script>
+      <ins class="adsbygoogle" data-ad-client="ca-pub-8321261883090494" data-ad-format="auto" data-ad-slot="7782388330" data-full-width-responsive="true" style="display:block">
+</ins>
+<script>
         (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
-    </div>
-
-    <section id="zero">
-      <div class="section-title">
-        <h2>0. What are we building?</h2>
-        <p>A browser-based chat room where two users can exchange messages live.</p>
-      </div>
-
-      <div class="card">
-        <p>
+</div>
+<section id="zero">
+<div class="section-title">
+<h2>0. What are we building?</h2>
+<p>A browser-based chat room where two users can exchange messages live.</p>
+</div>
+<div class="card">
+<p>
           We want this:
         </p>
-
-        <pre>Tab 1: Champak joins room main
+<pre>Tab 1: Champak joins room main
 Tab 2: Student joins room main
 
 Champak sends: Hello
@@ -601,125 +568,109 @@ Student receives: Champak: Hello
 
 Student sends: Working!
 Champak receives: Student: Working!</pre>
-
-        <p>
+<p>
           The final WebSocket URL will look like this:
         </p>
-
-        <pre>wss://champak-durable-chat.champaksworld.workers.dev/chat?room=main</pre>
-      </div>
-    </section>
-
-    <section id="idea">
-      <div class="section-title">
-        <h2>1. The big idea</h2>
-        <p>Plain Workers can echo. Durable Objects can coordinate rooms.</p>
-      </div>
-
-      <div class="grid">
-        <article class="card">
-          <h3>Cloudflare Worker</h3>
-          <p>
+<pre>wss://champak-durable-chat.champaksworld.workers.dev/chat?room=main</pre>
+</div>
+</section>
+<section id="idea">
+<div class="section-title">
+<h2>1. The big idea</h2>
+<p>Plain Workers can echo. Durable Objects can coordinate rooms.</p>
+</div>
+<div class="grid">
+<article class="card">
+<h3>Cloudflare Worker</h3>
+<p>
             The Worker receives the request. It checks whether the request is for
             <code>/chat</code> and then forwards it to the correct room.
           </p>
-        </article>
-
-        <article class="card">
-          <h3>Durable Object</h3>
-          <p>
+</article>
+<article class="card">
+<h3>Durable Object</h3>
+<p>
             The Durable Object is the actual chat room. It keeps the live WebSocket
             connections and broadcasts messages.
           </p>
-        </article>
-
-        <article class="card">
-          <h3>WebSocket</h3>
-          <p>
+</article>
+<article class="card">
+<h3>WebSocket</h3>
+<p>
             WebSocket keeps a live connection open, so messages can move instantly
             between browser and server.
           </p>
-        </article>
-      </div>
-
-      <div class="callout good">
-        <strong>Mental model:</strong>
+</article>
+</div>
+<div class="callout good">
+<strong>Mental model:</strong>
         Worker = reception desk. Durable Object = chat room. WebSocket = live wire.
       </div>
-    </section>
-
-    <section id="files">
-      <div class="section-title">
-        <h2>2. Project files</h2>
-        <p>We will use one Worker file, one Wrangler config file, and one static HTML page.</p>
-      </div>
-
-      <div class="card">
-        <pre>champak-durable-chat/
+</section>
+<section id="files">
+<div class="section-title">
+<h2>2. Project files</h2>
+<p>We will use one Worker file, one Wrangler config file, and one static HTML page.</p>
+</div>
+<div class="card">
+<pre>champak-durable-chat/
   worker.js
   wrangler.toml
   chat.html</pre>
-
-        <table>
-          <thead>
-            <tr>
-              <th>File</th>
-              <th>Purpose</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>worker.js</code></td>
-              <td>Cloudflare Worker plus Durable Object class.</td>
-            </tr>
-            <tr>
-              <td><code>wrangler.toml</code></td>
-              <td>Configuration file that declares the Durable Object binding and migration.</td>
-            </tr>
-            <tr>
-              <td><code>chat.html</code></td>
-              <td>Browser client page that connects to the WebSocket server.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="wrangler">
-      <div class="section-title">
-        <h2>3. Install and use Wrangler</h2>
-        <p>Wrangler is the cleanest way to create Durable Object projects.</p>
-      </div>
-
-      <ol class="steps">
-        <li>
-          <strong>Install Node.js.</strong>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>worker.js</code></td>
+<td>Cloudflare Worker plus Durable Object class.</td>
+</tr>
+<tr>
+<td><code>wrangler.toml</code></td>
+<td>Configuration file that declares the Durable Object binding and migration.</td>
+</tr>
+<tr>
+<td><code>chat.html</code></td>
+<td>Browser client page that connects to the WebSocket server.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="wrangler">
+<div class="section-title">
+<h2>3. Install and use Wrangler</h2>
+<p>Wrangler is the cleanest way to create Durable Object projects.</p>
+</div>
+<ol class="steps">
+<li>
+<strong>Install Node.js.</strong>
           Open terminal and check:
           <pre>node -v
 npm -v</pre>
-        </li>
-
-        <li>
-          <strong>Login to Cloudflare.</strong>
-          <pre>npx wrangler login</pre>
-        </li>
-
-        <li>
-          <strong>Create a folder.</strong>
-          <pre>mkdir champak-durable-chat
+</li>
+<li>
+<strong>Login to Cloudflare.</strong>
+<pre>npx wrangler login</pre>
+</li>
+<li>
+<strong>Create a folder.</strong>
+<pre>mkdir champak-durable-chat
 cd champak-durable-chat</pre>
-        </li>
-      </ol>
-    </section>
-
-    <section id="config">
-      <div class="section-title">
-        <h2>4. Create wrangler.toml</h2>
-        <p>This file creates the binding between the Worker and Durable Object class.</p>
-      </div>
-
-      <div class="card">
-        <pre><code>name = "champak-durable-chat"
+</li>
+</ol>
+</section>
+<section id="config">
+<div class="section-title">
+<h2>4. Create wrangler.toml</h2>
+<p>This file creates the binding between the Worker and Durable Object class.</p>
+</div>
+<div class="card">
+<pre><code>name = "champak-durable-chat"
 main = "worker.js"
 compatibility_date = "2026-06-07"
 
@@ -730,27 +681,24 @@ class_name = "ChatRoom"
 [[migrations]]
 tag = "v1"
 new_sqlite_classes = ["ChatRoom"]</code></pre>
-      </div>
-
-      <div class="callout">
-        <p>
-          <code>CHAT_ROOM</code> is the binding name. In JavaScript it becomes
+</div>
+<div class="callout">
+<p>
+<code>CHAT_ROOM</code> is the binding name. In JavaScript it becomes
           <code>env.CHAT_ROOM</code>.
         </p>
-        <p>
-          <code>ChatRoom</code> is the exported class name in <code>worker.js</code>.
+<p>
+<code>ChatRoom</code> is the exported class name in <code>worker.js</code>.
         </p>
-      </div>
-    </section>
-
-    <section id="worker">
-      <div class="section-title">
-        <h2>5. Create worker.js</h2>
-        <p>This is the complete WebSocket chat server.</p>
-      </div>
-
-      <div class="card">
-        <pre><code>const hostName = "Champak Roy Programmer's Picnic";
+</div>
+</section>
+<section id="worker">
+<div class="section-title">
+<h2>5. Create worker.js</h2>
+<p>This is the complete WebSocket chat server.</p>
+</div>
+<div class="card">
+<pre><code>const hostName = "Champak Roy Programmer's Picnic";
 
 export default {
   async fetch(request, env) {
@@ -852,7 +800,7 @@ export class ChatRoom {
       clientId
     );
 
-    server.addEventListener("message", (event) => {
+    server.addEventListener("message", (event) =&gt; {
       let incoming;
 
       try {
@@ -887,7 +835,7 @@ export class ChatRoom {
       });
     });
 
-    server.addEventListener("close", () => {
+    server.addEventListener("close", () =&gt; {
       const current = this.clients.get(clientId);
       const leavingName = current ? current.name : "A user";
 
@@ -902,7 +850,7 @@ export class ChatRoom {
       });
     });
 
-    server.addEventListener("error", () => {
+    server.addEventListener("error", () =&gt; {
       this.clients.delete(clientId);
     });
 
@@ -929,7 +877,7 @@ export class ChatRoom {
   }
 
   getUsers() {
-    return Array.from(this.clients.values()).map((client) => client.name);
+    return Array.from(this.clients.values()).map((client) =&gt; client.name);
   }
 }
 
@@ -946,55 +894,40 @@ function cleanMessage(message) {
     .trim()
     .slice(0, 1000);
 }</code></pre>
-      </div>
-    </section>
-
-    <div class="ad-wrap">
+</div>
+</section>
+<div class="ad-wrap">
       Advertisement
-      <ins
-        class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-8321261883090494"
-        data-ad-slot="7782388330"
-        data-ad-format="auto"
-        data-full-width-responsive="true">
-      </ins>
-      <script>
+      <ins class="adsbygoogle" data-ad-client="ca-pub-8321261883090494" data-ad-format="auto" data-ad-slot="7782388330" data-full-width-responsive="true" style="display:block">
+</ins>
+<script>
         (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
-    </div>
-
-    <section id="deploy">
-      <div class="section-title">
-        <h2>6. Deploy the Worker</h2>
-        <p>Deploy with Wrangler so the Durable Object migration is applied correctly.</p>
-      </div>
-
-      <div class="card">
-        <pre>npx wrangler deploy</pre>
-
-        <p>
+</div>
+<section id="deploy">
+<div class="section-title">
+<h2>6. Deploy the Worker</h2>
+<p>Deploy with Wrangler so the Durable Object migration is applied correctly.</p>
+</div>
+<div class="card">
+<pre>npx wrangler deploy</pre>
+<p>
           After deployment you will get a URL like:
         </p>
-
-        <pre>https://champak-durable-chat.champaksworld.workers.dev/</pre>
-
-        <p>
+<pre>https://champak-durable-chat.champaksworld.workers.dev/</pre>
+<p>
           The WebSocket URL becomes:
         </p>
-
-        <pre>wss://champak-durable-chat.champaksworld.workers.dev/chat?room=main</pre>
-      </div>
-    </section>
-
-    <section id="client">
-      <div class="section-title">
-        <h2>7. Create chat.html</h2>
-        <p>This is the static browser page that connects to your WebSocket server.</p>
-      </div>
-
-      <div class="card">
-        <pre><code>&lt;!doctype html&gt;
+<pre>wss://champak-durable-chat.champaksworld.workers.dev/chat?room=main</pre>
+</div>
+</section>
+<section id="client">
+<div class="section-title">
+<h2>7. Create chat.html</h2>
+<p>This is the static browser page that connects to your WebSocket server.</p>
+</div>
+<div class="card">
+<pre><code>&lt;!doctype html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="utf-8" /&gt;
@@ -1241,7 +1174,7 @@ function cleanMessage(message) {
         base +
         "?room=" +
         encodeURIComponent(room) +
-        "&name=" +
+        "&amp;name=" +
         encodeURIComponent(name)
       );
     }
@@ -1249,7 +1182,7 @@ function cleanMessage(message) {
     function connectChat() {
       const url = buildChatUrl();
 
-      if (ws && ws.readyState === WebSocket.OPEN) {
+      if (ws &amp;&amp; ws.readyState === WebSocket.OPEN) {
         log("Already connected.");
         return;
       }
@@ -1345,7 +1278,7 @@ function cleanMessage(message) {
         div.className = "msg system";
         div.textContent = data.message || "System message";
       } else {
-        const isMine = data.clientId && data.clientId === myClientId;
+        const isMine = data.clientId &amp;&amp; data.clientId === myClientId;
         div.className = "msg" + (isMine ? " mine" : "");
         div.innerHTML =
           "&lt;strong&gt;" +
@@ -1374,7 +1307,7 @@ function cleanMessage(message) {
 
     function escapeHtml(value) {
       return String(value)
-        .replaceAll("&", "&amp;")
+        .replaceAll("&amp;", "&amp;")
         .replaceAll("&lt;", "&amp;lt;")
         .replaceAll("&gt;", "&amp;gt;")
         .replaceAll('"', "&amp;quot;")
@@ -1389,140 +1322,126 @@ function cleanMessage(message) {
     });
 
     window.addEventListener("beforeunload", function () {
-      if (ws && ws.readyState === WebSocket.OPEN) {
+      if (ws &amp;&amp; ws.readyState === WebSocket.OPEN) {
         ws.close(1000, "Page closed");
       }
     });
   &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-      </div>
-    </section>
-
-    <section id="test">
-      <div class="section-title">
-        <h2>8. Test the system</h2>
-        <p>Open the client in two tabs or two devices.</p>
-      </div>
-
-      <ol class="steps">
-        <li>
+</div>
+</section>
+<section id="test">
+<div class="section-title">
+<h2>8. Test the system</h2>
+<p>Open the client in two tabs or two devices.</p>
+</div>
+<ol class="steps">
+<li>
           In tab 1, set name as <code>Champak</code>.
         </li>
-        <li>
+<li>
           In tab 2, set name as <code>Student</code>.
         </li>
-        <li>
+<li>
           Use the same room name: <code>main</code>.
         </li>
-        <li>
+<li>
           Click <strong>Connect</strong> in both tabs.
         </li>
-        <li>
+<li>
           Send a message from tab 1. It should appear in tab 2.
         </li>
-        <li>
+<li>
           Send a reply from tab 2. It should appear in tab 1.
         </li>
-      </ol>
-    </section>
-
-    <section id="understanding">
-      <div class="section-title">
-        <h2>9. Understanding the important lines</h2>
-        <p>The Durable Object binding is the most important concept.</p>
-      </div>
-
-      <div class="card">
-        <h3>Binding</h3>
-        <pre><code>[[durable_objects.bindings]]
+</ol>
+</section>
+<section id="understanding">
+<div class="section-title">
+<h2>9. Understanding the important lines</h2>
+<p>The Durable Object binding is the most important concept.</p>
+</div>
+<div class="card">
+<h3>Binding</h3>
+<pre><code>[[durable_objects.bindings]]
 name = "CHAT_ROOM"
 class_name = "ChatRoom"</code></pre>
-
-        <p>
+<p>
           This creates <code>env.CHAT_ROOM</code> in your Worker.
         </p>
-
-        <h3>Room selection</h3>
-        <pre><code>const roomName = url.searchParams.get("room") || "main";
+<h3>Room selection</h3>
+<pre><code>const roomName = url.searchParams.get("room") || "main";
 const id = env.CHAT_ROOM.idFromName(roomName);
 const room = env.CHAT_ROOM.get(id);
 return room.fetch(request);</code></pre>
-
-        <p>
+<p>
           This sends each room to its own Durable Object instance.
         </p>
-
-        <h3>Broadcast</h3>
-        <pre><code>for (const [clientId, client] of this.clients.entries()) {
+<h3>Broadcast</h3>
+<pre><code>for (const [clientId, client] of this.clients.entries()) {
   client.socket.send(text);
 }</code></pre>
-
-        <p>
+<p>
           This sends the message to connected users.
         </p>
-      </div>
-    </section>
-
-    <section id="troubleshoot">
-      <div class="section-title">
-        <h2>10. Troubleshooting</h2>
-        <p>Common errors and fixes.</p>
-      </div>
-
-      <div class="card">
-        <table>
-          <thead>
-            <tr>
-              <th>Problem</th>
-              <th>Meaning</th>
-              <th>Fix</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>env.CHAT_ROOM is undefined</code></td>
-              <td>Binding missing.</td>
-              <td>Check <code>wrangler.toml</code> durable object binding.</td>
-            </tr>
-            <tr>
-              <td>Durable Object class not found</td>
-              <td>Migration missing or wrong class name.</td>
-              <td>Check <code>new_sqlite_classes = ["ChatRoom"]</code>.</td>
-            </tr>
-            <tr>
-              <td>WebSocket closes with code 1006</td>
-              <td>Worker crashed during connection.</td>
-              <td>Check binding, route, path, and Worker logs.</td>
-            </tr>
-            <tr>
-              <td>HTTP works but WSS fails</td>
-              <td>Wrong path or no WebSocket upgrade handling.</td>
-              <td>Use <code>wss://your-worker/chat?room=main</code>.</td>
-            </tr>
-            <tr>
-              <td>One tab does not receive messages</td>
-              <td>Different room names.</td>
-              <td>Use same <code>room</code> in both tabs.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="callout warn">
-        <strong>Important:</strong>
+</div>
+</section>
+<section id="troubleshoot">
+<div class="section-title">
+<h2>10. Troubleshooting</h2>
+<p>Common errors and fixes.</p>
+</div>
+<div class="card">
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Meaning</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>env.CHAT_ROOM is undefined</code></td>
+<td>Binding missing.</td>
+<td>Check <code>wrangler.toml</code> durable object binding.</td>
+</tr>
+<tr>
+<td>Durable Object class not found</td>
+<td>Migration missing or wrong class name.</td>
+<td>Check <code>new_sqlite_classes = ["ChatRoom"]</code>.</td>
+</tr>
+<tr>
+<td>WebSocket closes with code 1006</td>
+<td>Worker crashed during connection.</td>
+<td>Check binding, route, path, and Worker logs.</td>
+</tr>
+<tr>
+<td>HTTP works but WSS fails</td>
+<td>Wrong path or no WebSocket upgrade handling.</td>
+<td>Use <code>wss://your-worker/chat?room=main</code>.</td>
+</tr>
+<tr>
+<td>One tab does not receive messages</td>
+<td>Different room names.</td>
+<td>Use same <code>room</code> in both tabs.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="callout warn">
+<strong>Important:</strong>
         Use <code>wss://</code> from HTTPS pages. Do not use <code>ws://</code> on a secure page.
       </div>
-    </section>
-
-    <section id="roadmap">
-      <div class="section-title">
-        <h2>11. From 0 to Infinity roadmap</h2>
-        <p>How to improve this chat system step by step.</p>
-      </div>
-
-      <div class="card">
-        <pre>Level 0: Plain Worker echo WebSocket
+</section>
+<section id="roadmap">
+<div class="section-title">
+<h2>11. From 0 to Infinity roadmap</h2>
+<p>How to improve this chat system step by step.</p>
+</div>
+<div class="card">
+<pre>Level 0: Plain Worker echo WebSocket
 Level 1: Durable Object echo WebSocket
 Level 2: Two-tab chat
 Level 3: Room names with ?room=main
@@ -1533,71 +1452,57 @@ Level 7: Save last 20 messages
 Level 8: Add login
 Level 9: Add moderation
 Level 10: Use WebSocket hibernation for production</pre>
-      </div>
-    </section>
-
-    <section id="quiz" class="quiz">
-      <div class="section-title">
-        <h2>12. Revision questions</h2>
-        <p>Use these questions to test understanding.</p>
-      </div>
-
-      <details>
-        <summary><strong>Q1. Why do we need Durable Objects for chat?</strong></summary>
-        <p>
+</div>
+</section>
+<section class="quiz" id="quiz">
+<div class="section-title">
+<h2>12. Revision questions</h2>
+<p>Use these questions to test understanding.</p>
+</div>
+<details>
+<summary><strong>Q1. Why do we need Durable Objects for chat?</strong></summary>
+<p>
           Because a chat room needs a single place to remember connected users and broadcast messages to them.
         </p>
-      </details>
-
-      <details>
-        <summary><strong>Q2. What is <code>CHAT_ROOM</code>?</strong></summary>
-        <p>
+</details>
+<details>
+<summary><strong>Q2. What is <code>CHAT_ROOM</code>?</strong></summary>
+<p>
           It is the Durable Object binding name. In JavaScript it appears as <code>env.CHAT_ROOM</code>.
         </p>
-      </details>
-
-      <details>
-        <summary><strong>Q3. What is <code>ChatRoom</code>?</strong></summary>
-        <p>
+</details>
+<details>
+<summary><strong>Q3. What is <code>ChatRoom</code>?</strong></summary>
+<p>
           It is the exported Durable Object class that handles the WebSocket room.
         </p>
-      </details>
-
-      <details>
-        <summary><strong>Q4. What does <code>idFromName("main")</code> do?</strong></summary>
-        <p>
+</details>
+<details>
+<summary><strong>Q4. What does <code>idFromName("main")</code> do?</strong></summary>
+<p>
           It gets the Durable Object identity for the room named <code>main</code>.
         </p>
-      </details>
-
-      <details>
-        <summary><strong>Q5. What should the WebSocket URL start with?</strong></summary>
-        <p>
+</details>
+<details>
+<summary><strong>Q5. What should the WebSocket URL start with?</strong></summary>
+<p>
           It should start with <code>wss://</code>.
         </p>
-      </details>
-    </section>
-
-    <div class="ad-wrap">
+</details>
+</section>
+<div class="ad-wrap">
       Advertisement
-      <ins
-        class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-8321261883090494"
-        data-ad-slot="7782388330"
-        data-ad-format="auto"
-        data-full-width-responsive="true">
-      </ins>
-      <script>
+      <ins class="adsbygoogle" data-ad-client="ca-pub-8321261883090494" data-ad-format="auto" data-ad-slot="7782388330" data-full-width-responsive="true" style="display:block">
+</ins>
+<script>
         (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
-    </div>
-  </main>
-
-  <footer>
-    <strong>Cloudflare WebSocket Chat with Durable Objects</strong>
-    <div>Programmer's Picnic by Champak Roy</div>
-    <div>Learn WebSockets, Workers, Durable Objects, and real-time systems from 0 to Infinity.</div>
-  </footer>
+</div>
+</main>
+<footer>
+<strong>Cloudflare WebSocket Chat with Durable Objects</strong>
+<div>Programmer's Picnic by Champak Roy</div>
+<div>Learn WebSockets, Workers, Durable Objects, and real-time systems from 0 to Infinity.</div>
+</footer>
 </body>
 </html>

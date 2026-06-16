@@ -1,36 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F22HP86FYK"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
 
-    gtag('config', 'G-F22HP86FYK');
-  </script>
 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>Using SQL in Pandas: 0 to Infinity Lesson</title>
 
-  <meta name="description" content="A complete beginner-friendly 0 to infinity HTML lesson on using SQL with pandas, SQLite, read_sql_query, to_sql, filtering, grouping, joins, training and saving results." />
-  <meta name="keywords" content="SQL in pandas, pandas SQL lesson, sqlite3 pandas, read_sql_query, pandas to_sql, Python SQL, data analysis with pandas, beginner SQL pandas" />
-  <meta name="author" content="Champak Roy" />
-  <meta name="theme-color" content="#0f766e" />
+<meta content="#0f766e" name="theme-color"/><title>Using SQL in Pandas | Study AI/ML with Champak Roy, Varanasi</title><meta content="Learn Using SQL in Pandas as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="description"/><meta content="AI ML classes Varanasi, study AIML with Champak Roy, Champak Roy Varanasi, Programmer's Picnic, Using SQL in Pandas, Python lessons, machine learning lessons, data structures algorithms, learnwithchampak" name="keywords"/><meta content="Champak Roy" name="author"/><meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/><link href="https://dsa.learnwithchampak.live/python/pandas/" rel="canonical"/><meta content="website" property="og:type"/><meta content="Programmer's Picnic by Champak Roy" property="og:site_name"/><meta content="Using SQL in Pandas | Study AI/ML with Champak Roy, Varanasi" property="og:title"/><meta content="Learn Using SQL in Pandas as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." property="og:description"/><meta content="https://dsa.learnwithchampak.live/python/pandas/" property="og:url"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="summary_large_image" name="twitter:card"/><meta content="Using SQL in Pandas | Study AI/ML with Champak Roy, Varanasi" name="twitter:title"/><meta content="Learn Using SQL in Pandas as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="twitter:description"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" name="twitter:image"/>
 
-  <meta property="og:title" content="Using SQL in Pandas: 0 to Infinity Lesson" />
-  <meta property="og:description" content="Learn how to use SQL inside pandas from the beginning: SQLite database, SELECT, WHERE, GROUP BY, JOIN, read_sql_query and to_sql." />
-  <meta property="og:type" content="article" />
 
-  <!-- Google AdSense -->
-  <script async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
-    crossorigin="anonymous"></script>
 
-  <style>
+<!-- Google AdSense -->
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&amp;host=ca-host-pub-1556223355139109"></script>
+<style>
     :root {
       --bg: #f3fffb;
       --card: #ffffff;
@@ -464,252 +448,244 @@
       }
     }
   </style>
-</head>
-
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Using SQL in Pandas | Study AI/ML with Champak Roy, Varanasi",
+  "description": "Learn Using SQL in Pandas as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons.",
+  "url": "https://dsa.learnwithchampak.live/python/pandas/",
+  "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
+  "inLanguage": "en",
+  "creator": {
+    "@type": "Person",
+    "name": "Champak Roy",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Varanasi",
+      "addressCountry": "IN"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Programmer's Picnic by Champak Roy",
+    "url": "https://dsa.learnwithchampak.live"
+  },
+  "about": [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Python",
+    "Data Structures and Algorithms",
+    "Web Development"
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Students and beginner programmers"
+  },
+  "isAccessibleForFree": true
+}</script></head>
 <body>
-  <div class="page">
-    <header>
-      <div class="hero">
-        <span class="tag">0 to Infinity Lesson</span>
-        <h1>Using SQL in Pandas</h1>
-        <p>
+<div class="page">
+<header>
+<div class="hero">
+<span class="tag">0 to Infinity Lesson</span>
+<h1>Using SQL in Pandas</h1>
+<p>
           Learn how pandas and SQL work together. We will create data,
           save it into SQLite, query it with SQL, bring results back into pandas,
           analyze it, train a model, present results and save outputs.
         </p>
-      </div>
-    </header>
-
-    <nav aria-label="Lesson navigation">
-      <a href="#overview">Overview</a>
-      <a href="#why-sql">Why SQL</a>
-      <a href="#setup">Setup</a>
-      <a href="#database">Database</a>
-      <a href="#read-sql">Read SQL</a>
-      <a href="#select">SELECT</a>
-      <a href="#where">WHERE</a>
-      <a href="#groupby">GROUP BY</a>
-      <a href="#join">JOIN</a>
-      <a href="#pandas-vs-sql">Pandas vs SQL</a>
-      <a href="#training">Training</a>
-      <a href="#saving">Saving</a>
-      <a href="#project">Full Project</a>
-      <a href="#editor">Python Editor</a>
-      <a href="#practice">Practice</a>
-    </nav>
-
-    <main>
-      <section id="overview">
-        <h2>1. Big Picture</h2>
-
-        <p class="lead">
+</div>
+</header>
+<nav aria-label="Lesson navigation">
+<a href="#overview">Overview</a>
+<a href="#why-sql">Why SQL</a>
+<a href="#setup">Setup</a>
+<a href="#database">Database</a>
+<a href="#read-sql">Read SQL</a>
+<a href="#select">SELECT</a>
+<a href="#where">WHERE</a>
+<a href="#groupby">GROUP BY</a>
+<a href="#join">JOIN</a>
+<a href="#pandas-vs-sql">Pandas vs SQL</a>
+<a href="#training">Training</a>
+<a href="#saving">Saving</a>
+<a href="#project">Full Project</a>
+<a href="#editor">Python Editor</a>
+<a href="#practice">Practice</a>
+</nav>
+<main>
+<section id="overview">
+<h2>1. Big Picture</h2>
+<p class="lead">
           pandas is excellent for data analysis in Python. SQL is excellent for
           asking structured questions from tables. When we combine them, we get
           a powerful workflow.
         </p>
-
-        <div class="pipeline">
-          <div class="step">
-            <span class="num">1</span>
-            <b>Create Data</b>
-            <small>Build or load DataFrames</small>
-          </div>
-
-          <div class="step">
-            <span class="num">2</span>
-            <b>Save to SQL</b>
-            <small>Use SQLite tables</small>
-          </div>
-
-          <div class="step">
-            <span class="num">3</span>
-            <b>Query</b>
-            <small>Use SELECT, WHERE, JOIN</small>
-          </div>
-
-          <div class="step">
-            <span class="num">4</span>
-            <b>Analyze</b>
-            <small>Bring result into pandas</small>
-          </div>
-
-          <div class="step">
-            <span class="num">5</span>
-            <b>Train</b>
-            <small>Use result for ML</small>
-          </div>
-
-          <div class="step">
-            <span class="num">6</span>
-            <b>Save</b>
-            <small>Export data and model</small>
-          </div>
-        </div>
-
-        <div class="success">
-          <strong>Main idea:</strong>
+<div class="pipeline">
+<div class="step">
+<span class="num">1</span>
+<b>Create Data</b>
+<small>Build or load DataFrames</small>
+</div>
+<div class="step">
+<span class="num">2</span>
+<b>Save to SQL</b>
+<small>Use SQLite tables</small>
+</div>
+<div class="step">
+<span class="num">3</span>
+<b>Query</b>
+<small>Use SELECT, WHERE, JOIN</small>
+</div>
+<div class="step">
+<span class="num">4</span>
+<b>Analyze</b>
+<small>Bring result into pandas</small>
+</div>
+<div class="step">
+<span class="num">5</span>
+<b>Train</b>
+<small>Use result for ML</small>
+</div>
+<div class="step">
+<span class="num">6</span>
+<b>Save</b>
+<small>Export data and model</small>
+</div>
+</div>
+<div class="success">
+<strong>Main idea:</strong>
           SQL can pull exactly the data we need. pandas can clean, analyze,
           present and prepare that data for machine learning.
         </div>
-
-        <h3>What you will learn</h3>
-
-        <ul>
-          <li>How to create a pandas DataFrame.</li>
-          <li>How to create a SQLite database using Python.</li>
-          <li>How to save a DataFrame as a SQL table.</li>
-          <li>How to run SQL queries from pandas.</li>
-          <li>How to use <code>SELECT</code>, <code>WHERE</code>, <code>ORDER BY</code>, <code>GROUP BY</code> and <code>JOIN</code>.</li>
-          <li>How to compare SQL queries with pandas commands.</li>
-          <li>How to use SQL result data for model training.</li>
-          <li>How to save query results and trained models.</li>
-        </ul>
-
-        <div class="ad-box">
+<h3>What you will learn</h3>
+<ul>
+<li>How to create a pandas DataFrame.</li>
+<li>How to create a SQLite database using Python.</li>
+<li>How to save a DataFrame as a SQL table.</li>
+<li>How to run SQL queries from pandas.</li>
+<li>How to use <code>SELECT</code>, <code>WHERE</code>, <code>ORDER BY</code>, <code>GROUP BY</code> and <code>JOIN</code>.</li>
+<li>How to compare SQL queries with pandas commands.</li>
+<li>How to use SQL result data for model training.</li>
+<li>How to save query results and trained models.</li>
+</ul>
+<div class="ad-box">
           Advertisement
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-8321261883090494"
-               data-ad-slot="7782388330"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-        </div>
-      </section>
-
-      <section id="why-sql">
-        <h2>2. Why Use SQL with Pandas?</h2>
-
-        <p>
+          <ins class="adsbygoogle" data-ad-client="ca-pub-8321261883090494" data-ad-format="auto" data-ad-slot="7782388330" data-full-width-responsive="true" style="display:block"></ins>
+</div>
+</section>
+<section id="why-sql">
+<h2>2. Why Use SQL with Pandas?</h2>
+<p>
           pandas and SQL both work with tabular data, but they are useful in
           different ways.
         </p>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Tool</th>
-              <th>Best for</th>
-              <th>Example use</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>SQL</td>
-              <td>Querying data from databases</td>
-              <td>Find all students with marks greater than 70</td>
-            </tr>
-            <tr>
-              <td>pandas</td>
-              <td>Cleaning, analysis, charts and model preparation</td>
-              <td>Fill missing values, create graphs, prepare X and y</td>
-            </tr>
-            <tr>
-              <td>SQL + pandas</td>
-              <td>Complete data workflow</td>
-              <td>Pull filtered data from database and train a model</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Simple comparison</h3>
-
-        <p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Best for</th>
+<th>Example use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQL</td>
+<td>Querying data from databases</td>
+<td>Find all students with marks greater than 70</td>
+</tr>
+<tr>
+<td>pandas</td>
+<td>Cleaning, analysis, charts and model preparation</td>
+<td>Fill missing values, create graphs, prepare X and y</td>
+</tr>
+<tr>
+<td>SQL + pandas</td>
+<td>Complete data workflow</td>
+<td>Pull filtered data from database and train a model</td>
+</tr>
+</tbody>
+</table>
+<h3>Simple comparison</h3>
+<p>
           SQL asks questions like this:
         </p>
-
-        <pre><code>SELECT name, marks
+<pre><code>SELECT name, marks
 FROM students
 WHERE marks &gt;= 70;</code></pre>
-
-        <p>
+<p>
           pandas asks similar questions like this:
         </p>
-
-        <pre><code>result = df[df["marks"] &gt;= 70][["name", "marks"]]</code></pre>
-
-        <div class="note">
-          <strong>Important:</strong>
+<pre><code>result = df[df["marks"] &gt;= 70][["name", "marks"]]</code></pre>
+<div class="note">
+<strong>Important:</strong>
           You do not need to choose only one. In real projects, we often use
           SQL and pandas together.
         </div>
-      </section>
-
-      <section id="setup">
-        <h2>3. Setup</h2>
-
-        <p>
+</section>
+<section id="setup">
+<h2>3. Setup</h2>
+<p>
           For this lesson, we will use <code>sqlite3</code>, which is included
           with Python. We do not need to install a separate database server.
         </p>
-
-        <h3>Import libraries</h3>
-
-        <pre><code>import sqlite3
+<h3>Import libraries</h3>
+<pre><code>import sqlite3
 import pandas as pd
 import matplotlib.pyplot as plt
 import joblib
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression</code></pre>
-
-        <h3>Explanation of each library</h3>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Library</th>
-              <th>Purpose</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>sqlite3</code></td>
-              <td>Creates and connects to SQLite databases.</td>
-            </tr>
-            <tr>
-              <td><code>pandas</code></td>
-              <td>Creates DataFrames and runs SQL queries into DataFrames.</td>
-            </tr>
-            <tr>
-              <td><code>matplotlib</code></td>
-              <td>Makes charts.</td>
-            </tr>
-            <tr>
-              <td><code>joblib</code></td>
-              <td>Saves and loads trained machine learning models.</td>
-            </tr>
-            <tr>
-              <td><code>scikit-learn</code></td>
-              <td>Provides machine learning models and train-test split.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Install needed libraries</h3>
-
-        <p>
+<h3>Explanation of each library</h3>
+<table>
+<thead>
+<tr>
+<th>Library</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sqlite3</code></td>
+<td>Creates and connects to SQLite databases.</td>
+</tr>
+<tr>
+<td><code>pandas</code></td>
+<td>Creates DataFrames and runs SQL queries into DataFrames.</td>
+</tr>
+<tr>
+<td><code>matplotlib</code></td>
+<td>Makes charts.</td>
+</tr>
+<tr>
+<td><code>joblib</code></td>
+<td>Saves and loads trained machine learning models.</td>
+</tr>
+<tr>
+<td><code>scikit-learn</code></td>
+<td>Provides machine learning models and train-test split.</td>
+</tr>
+</tbody>
+</table>
+<h3>Install needed libraries</h3>
+<p>
           If these libraries are not installed on your local computer, use:
         </p>
-
-        <pre><code>pip install pandas matplotlib scikit-learn joblib</code></pre>
-
-        <p>
+<pre><code>pip install pandas matplotlib scikit-learn joblib</code></pre>
+<p>
           You do not need to install <code>sqlite3</code> separately because it
           usually comes with Python.
         </p>
-      </section>
-
-      <section id="database">
-        <h2>4. Creating Data and Saving It into SQL</h2>
-
-        <p>
+</section>
+<section id="database">
+<h2>4. Creating Data and Saving It into SQL</h2>
+<p>
           First, we will create a pandas DataFrame. Then we will save that
           DataFrame into a SQLite database table.
         </p>
-
-        <h3>4.1 Create a student DataFrame</h3>
-
-        <pre><code>import pandas as pd
+<h3>4.1 Create a student DataFrame</h3>
+<pre><code>import pandas as pd
 
 students_data = {
     "student_id": [1, 2, 3, 4, 5, 6, 7, 8],
@@ -723,156 +699,131 @@ students_data = {
 students_df = pd.DataFrame(students_data)
 
 print(students_df)</code></pre>
-
-        <h3>4.2 Create a database connection</h3>
-
-        <pre><code>import sqlite3
+<h3>4.2 Create a database connection</h3>
+<pre><code>import sqlite3
 
 connection = sqlite3.connect("school.db")</code></pre>
-
-        <p>
+<p>
           This creates a file named <code>school.db</code>. If the file already
           exists, Python connects to it. If it does not exist, Python creates it.
         </p>
-
-        <h3>4.3 Save DataFrame into SQL table</h3>
-
-        <pre><code>students_df.to_sql(
+<h3>4.3 Save DataFrame into SQL table</h3>
+<pre><code>students_df.to_sql(
     "students",
     connection,
     if_exists="replace",
     index=False
 )</code></pre>
-
-        <h3>Explanation of <code>to_sql()</code></h3>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Part</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>"students"</code></td>
-              <td>Name of the SQL table.</td>
-            </tr>
-            <tr>
-              <td><code>connection</code></td>
-              <td>The database connection where table will be saved.</td>
-            </tr>
-            <tr>
-              <td><code>if_exists="replace"</code></td>
-              <td>If table already exists, replace it.</td>
-            </tr>
-            <tr>
-              <td><code>index=False</code></td>
-              <td>Do not save pandas index as a separate SQL column.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="warning">
-          <strong>Careful:</strong>
-          <code>if_exists="replace"</code> deletes the old table and creates a new one.
+<h3>Explanation of <code>to_sql()</code></h3>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"students"</code></td>
+<td>Name of the SQL table.</td>
+</tr>
+<tr>
+<td><code>connection</code></td>
+<td>The database connection where table will be saved.</td>
+</tr>
+<tr>
+<td><code>if_exists="replace"</code></td>
+<td>If table already exists, replace it.</td>
+</tr>
+<tr>
+<td><code>index=False</code></td>
+<td>Do not save pandas index as a separate SQL column.</td>
+</tr>
+</tbody>
+</table>
+<div class="warning">
+<strong>Careful:</strong>
+<code>if_exists="replace"</code> deletes the old table and creates a new one.
           Use it while learning, but be careful in real projects.
         </div>
-
-        <h3>Other values of <code>if_exists</code></h3>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Value</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>"replace"</code></td>
-              <td>Delete old table and create new table.</td>
-            </tr>
-            <tr>
-              <td><code>"append"</code></td>
-              <td>Add rows to existing table.</td>
-            </tr>
-            <tr>
-              <td><code>"fail"</code></td>
-              <td>Give error if table already exists.</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section id="read-sql">
-        <h2>5. Reading SQL Data into Pandas</h2>
-
-        <p>
+<h3>Other values of <code>if_exists</code></h3>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"replace"</code></td>
+<td>Delete old table and create new table.</td>
+</tr>
+<tr>
+<td><code>"append"</code></td>
+<td>Add rows to existing table.</td>
+</tr>
+<tr>
+<td><code>"fail"</code></td>
+<td>Give error if table already exists.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="read-sql">
+<h2>5. Reading SQL Data into Pandas</h2>
+<p>
           The most important pandas command for SQL is:
         </p>
-
-        <pre><code>pd.read_sql_query()</code></pre>
-
-        <p>
+<pre><code>pd.read_sql_query()</code></pre>
+<p>
           It runs a SQL query and returns the result as a pandas DataFrame.
         </p>
-
-        <h3>5.1 Read full table</h3>
-
-        <pre><code>query = "SELECT * FROM students"
+<h3>5.1 Read full table</h3>
+<pre><code>query = "SELECT * FROM students"
 
 result_df = pd.read_sql_query(query, connection)
 
 print(result_df)</code></pre>
-
-        <h3>Explanation</h3>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Part</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>SELECT *</code></td>
-              <td>Select all columns.</td>
-            </tr>
-            <tr>
-              <td><code>FROM students</code></td>
-              <td>Use the students table.</td>
-            </tr>
-            <tr>
-              <td><code>pd.read_sql_query(query, connection)</code></td>
-              <td>Run SQL and bring result into pandas.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>5.2 Check the returned DataFrame</h3>
-
-        <pre><code>print(result_df.head())
+<h3>Explanation</h3>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SELECT *</code></td>
+<td>Select all columns.</td>
+</tr>
+<tr>
+<td><code>FROM students</code></td>
+<td>Use the students table.</td>
+</tr>
+<tr>
+<td><code>pd.read_sql_query(query, connection)</code></td>
+<td>Run SQL and bring result into pandas.</td>
+</tr>
+</tbody>
+</table>
+<h3>5.2 Check the returned DataFrame</h3>
+<pre><code>print(result_df.head())
 print(result_df.info())
 print(result_df.describe())</code></pre>
-
-        <p>
+<p>
           Once the SQL result comes into pandas, it behaves like any normal
           DataFrame.
         </p>
-      </section>
-
-      <section id="select">
-        <h2>6. SQL SELECT in Pandas</h2>
-
-        <p>
-          <code>SELECT</code> is used to choose columns from a SQL table.
+</section>
+<section id="select">
+<h2>6. SQL SELECT in Pandas</h2>
+<p>
+<code>SELECT</code> is used to choose columns from a SQL table.
         </p>
-
-        <h3>6.1 Select all columns</h3>
-
-        <pre><code>query = """
+<h3>6.1 Select all columns</h3>
+<pre><code>query = """
 SELECT *
 FROM students
 """
@@ -880,10 +831,8 @@ FROM students
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <h3>6.2 Select specific columns</h3>
-
-        <pre><code>query = """
+<h3>6.2 Select specific columns</h3>
+<pre><code>query = """
 SELECT name, city, marks
 FROM students
 """
@@ -891,10 +840,8 @@ FROM students
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <h3>6.3 Rename output columns using alias</h3>
-
-        <pre><code>query = """
+<h3>6.3 Rename output columns using alias</h3>
+<pre><code>query = """
 SELECT
     name AS student_name,
     marks AS final_marks
@@ -904,14 +851,11 @@ FROM students
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <p>
-          <code>AS</code> gives a temporary name to a column in the output.
+<p>
+<code>AS</code> gives a temporary name to a column in the output.
         </p>
-
-        <h3>6.4 Create calculated columns</h3>
-
-        <pre><code>query = """
+<h3>6.4 Create calculated columns</h3>
+<pre><code>query = """
 SELECT
     name,
     marks,
@@ -922,22 +866,17 @@ FROM students
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <p>
+<p>
           SQL can calculate new columns during query time.
         </p>
-      </section>
-
-      <section id="where">
-        <h2>7. SQL WHERE in Pandas</h2>
-
-        <p>
-          <code>WHERE</code> is used to filter rows.
+</section>
+<section id="where">
+<h2>7. SQL WHERE in Pandas</h2>
+<p>
+<code>WHERE</code> is used to filter rows.
         </p>
-
-        <h3>7.1 Students with marks 70 or above</h3>
-
-        <pre><code>query = """
+<h3>7.1 Students with marks 70 or above</h3>
+<pre><code>query = """
 SELECT name, city, marks
 FROM students
 WHERE marks &gt;= 70
@@ -946,10 +885,8 @@ WHERE marks &gt;= 70
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <h3>7.2 Students from Lucknow</h3>
-
-        <pre><code>query = """
+<h3>7.2 Students from Lucknow</h3>
+<pre><code>query = """
 SELECT *
 FROM students
 WHERE city = 'Lucknow'
@@ -958,10 +895,8 @@ WHERE city = 'Lucknow'
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <h3>7.3 Multiple conditions with AND</h3>
-
-        <pre><code>query = """
+<h3>7.3 Multiple conditions with AND</h3>
+<pre><code>query = """
 SELECT name, hours, attendance, marks
 FROM students
 WHERE hours &gt;= 5 AND attendance &gt;= 80
@@ -970,10 +905,8 @@ WHERE hours &gt;= 5 AND attendance &gt;= 80
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <h3>7.4 Multiple conditions with OR</h3>
-
-        <pre><code>query = """
+<h3>7.4 Multiple conditions with OR</h3>
+<pre><code>query = """
 SELECT name, city, marks
 FROM students
 WHERE city = 'Delhi' OR marks &gt;= 90
@@ -982,10 +915,8 @@ WHERE city = 'Delhi' OR marks &gt;= 90
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <h3>7.5 Sorting with ORDER BY</h3>
-
-        <pre><code>query = """
+<h3>7.5 Sorting with ORDER BY</h3>
+<pre><code>query = """
 SELECT name, city, marks
 FROM students
 ORDER BY marks DESC
@@ -994,54 +925,49 @@ ORDER BY marks DESC
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <table>
-          <thead>
-            <tr>
-              <th>SQL word</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>WHERE</code></td>
-              <td>Filters rows.</td>
-            </tr>
-            <tr>
-              <td><code>AND</code></td>
-              <td>Both conditions must be true.</td>
-            </tr>
-            <tr>
-              <td><code>OR</code></td>
-              <td>At least one condition must be true.</td>
-            </tr>
-            <tr>
-              <td><code>ORDER BY</code></td>
-              <td>Sorts result.</td>
-            </tr>
-            <tr>
-              <td><code>DESC</code></td>
-              <td>Descending order, biggest first.</td>
-            </tr>
-            <tr>
-              <td><code>ASC</code></td>
-              <td>Ascending order, smallest first.</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section id="groupby">
-        <h2>8. SQL GROUP BY in Pandas</h2>
-
-        <p>
-          <code>GROUP BY</code> is used when we want summary results.
+<table>
+<thead>
+<tr>
+<th>SQL word</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WHERE</code></td>
+<td>Filters rows.</td>
+</tr>
+<tr>
+<td><code>AND</code></td>
+<td>Both conditions must be true.</td>
+</tr>
+<tr>
+<td><code>OR</code></td>
+<td>At least one condition must be true.</td>
+</tr>
+<tr>
+<td><code>ORDER BY</code></td>
+<td>Sorts result.</td>
+</tr>
+<tr>
+<td><code>DESC</code></td>
+<td>Descending order, biggest first.</td>
+</tr>
+<tr>
+<td><code>ASC</code></td>
+<td>Ascending order, smallest first.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="groupby">
+<h2>8. SQL GROUP BY in Pandas</h2>
+<p>
+<code>GROUP BY</code> is used when we want summary results.
           For example: average marks by city.
         </p>
-
-        <h3>8.1 Average marks by city</h3>
-
-        <pre><code>query = """
+<h3>8.1 Average marks by city</h3>
+<pre><code>query = """
 SELECT
     city,
     AVG(marks) AS average_marks
@@ -1052,10 +978,8 @@ GROUP BY city
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <h3>8.2 Count students city by city</h3>
-
-        <pre><code>query = """
+<h3>8.2 Count students city by city</h3>
+<pre><code>query = """
 SELECT
     city,
     COUNT(*) AS total_students
@@ -1066,10 +990,8 @@ GROUP BY city
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <h3>8.3 Minimum and maximum marks by city</h3>
-
-        <pre><code>query = """
+<h3>8.3 Minimum and maximum marks by city</h3>
+<pre><code>query = """
 SELECT
     city,
     MIN(marks) AS lowest_marks,
@@ -1081,10 +1003,8 @@ GROUP BY city
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <h3>8.4 Filtering groups with HAVING</h3>
-
-        <pre><code>query = """
+<h3>8.4 Filtering groups with HAVING</h3>
+<pre><code>query = """
 SELECT
     city,
     AVG(marks) AS average_marks
@@ -1096,56 +1016,50 @@ HAVING AVG(marks) &gt;= 70
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <div class="note">
-          <strong>WHERE vs HAVING:</strong>
-          <code>WHERE</code> filters rows before grouping.
+<div class="note">
+<strong>WHERE vs HAVING:</strong>
+<code>WHERE</code> filters rows before grouping.
           <code>HAVING</code> filters groups after grouping.
         </div>
-
-        <table>
-          <thead>
-            <tr>
-              <th>SQL function</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>COUNT()</code></td>
-              <td>Counts rows.</td>
-            </tr>
-            <tr>
-              <td><code>AVG()</code></td>
-              <td>Finds average.</td>
-            </tr>
-            <tr>
-              <td><code>MIN()</code></td>
-              <td>Finds smallest value.</td>
-            </tr>
-            <tr>
-              <td><code>MAX()</code></td>
-              <td>Finds largest value.</td>
-            </tr>
-            <tr>
-              <td><code>SUM()</code></td>
-              <td>Adds values.</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section id="join">
-        <h2>9. SQL JOIN in Pandas</h2>
-
-        <p>
+<table>
+<thead>
+<tr>
+<th>SQL function</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>COUNT()</code></td>
+<td>Counts rows.</td>
+</tr>
+<tr>
+<td><code>AVG()</code></td>
+<td>Finds average.</td>
+</tr>
+<tr>
+<td><code>MIN()</code></td>
+<td>Finds smallest value.</td>
+</tr>
+<tr>
+<td><code>MAX()</code></td>
+<td>Finds largest value.</td>
+</tr>
+<tr>
+<td><code>SUM()</code></td>
+<td>Adds values.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="join">
+<h2>9. SQL JOIN in Pandas</h2>
+<p>
           A <code>JOIN</code> combines data from two tables.
           This is one of the most powerful parts of SQL.
         </p>
-
-        <h3>9.1 Create another DataFrame</h3>
-
-        <pre><code>fees_data = {
+<h3>9.1 Create another DataFrame</h3>
+<pre><code>fees_data = {
     "student_id": [1, 2, 3, 4, 5, 6, 7, 8],
     "fees_paid": [5000, 4500, 5000, 4000, 3000, 5000, 4500, 5000],
     "scholarship": [0, 500, 0, 1000, 1500, 0, 500, 0]
@@ -1159,19 +1073,15 @@ fees_df.to_sql(
     if_exists="replace",
     index=False
 )</code></pre>
-
-        <p>
+<p>
           Now we have two tables:
         </p>
-
-        <ul>
-          <li><code>students</code></li>
-          <li><code>fees</code></li>
-        </ul>
-
-        <h3>9.2 INNER JOIN</h3>
-
-        <pre><code>query = """
+<ul>
+<li><code>students</code></li>
+<li><code>fees</code></li>
+</ul>
+<h3>9.2 INNER JOIN</h3>
+<pre><code>query = """
 SELECT
     students.student_id,
     students.name,
@@ -1187,39 +1097,35 @@ ON students.student_id = fees.student_id
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <h3>Explanation</h3>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Part</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>INNER JOIN fees</code></td>
-              <td>Join students table with fees table.</td>
-            </tr>
-            <tr>
-              <td><code>ON students.student_id = fees.student_id</code></td>
-              <td>Match rows using student_id from both tables.</td>
-            </tr>
-            <tr>
-              <td><code>students.name</code></td>
-              <td>Use name column from students table.</td>
-            </tr>
-            <tr>
-              <td><code>fees.fees_paid</code></td>
-              <td>Use fees_paid column from fees table.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>9.3 JOIN with condition</h3>
-
-        <pre><code>query = """
+<h3>Explanation</h3>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>INNER JOIN fees</code></td>
+<td>Join students table with fees table.</td>
+</tr>
+<tr>
+<td><code>ON students.student_id = fees.student_id</code></td>
+<td>Match rows using student_id from both tables.</td>
+</tr>
+<tr>
+<td><code>students.name</code></td>
+<td>Use name column from students table.</td>
+</tr>
+<tr>
+<td><code>fees.fees_paid</code></td>
+<td>Use fees_paid column from fees table.</td>
+</tr>
+</tbody>
+</table>
+<h3>9.3 JOIN with condition</h3>
+<pre><code>query = """
 SELECT
     students.name,
     students.city,
@@ -1235,98 +1141,86 @@ WHERE students.marks &gt;= 70
 df = pd.read_sql_query(query, connection)
 
 print(df)</code></pre>
-
-        <div class="success">
-          <strong>Practical idea:</strong>
+<div class="success">
+<strong>Practical idea:</strong>
           In real projects, student details, marks, fees, attendance and courses
           may be stored in different tables. SQL JOIN brings them together.
         </div>
-      </section>
-
-      <section id="pandas-vs-sql">
-        <h2>10. Same Task: Pandas vs SQL</h2>
-
-        <p>
+</section>
+<section id="pandas-vs-sql">
+<h2>10. Same Task: Pandas vs SQL</h2>
+<p>
           Let us compare common operations in pandas and SQL.
         </p>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Task</th>
-              <th>SQL</th>
-              <th>pandas</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Select all rows</td>
-              <td><code>SELECT * FROM students</code></td>
-              <td><code>df</code></td>
-            </tr>
-            <tr>
-              <td>Select columns</td>
-              <td><code>SELECT name, marks FROM students</code></td>
-              <td><code>df[["name", "marks"]]</code></td>
-            </tr>
-            <tr>
-              <td>Filter rows</td>
-              <td><code>WHERE marks &gt;= 70</code></td>
-              <td><code>df[df["marks"] &gt;= 70]</code></td>
-            </tr>
-            <tr>
-              <td>Sort</td>
-              <td><code>ORDER BY marks DESC</code></td>
-              <td><code>df.sort_values("marks", ascending=False)</code></td>
-            </tr>
-            <tr>
-              <td>Average</td>
-              <td><code>AVG(marks)</code></td>
-              <td><code>df["marks"].mean()</code></td>
-            </tr>
-            <tr>
-              <td>Group average</td>
-              <td><code>GROUP BY city</code></td>
-              <td><code>df.groupby("city")["marks"].mean()</code></td>
-            </tr>
-            <tr>
-              <td>Join tables</td>
-              <td><code>INNER JOIN</code></td>
-              <td><code>pd.merge()</code></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>When should we use SQL?</h3>
-
-        <ul>
-          <li>When data is already inside a database.</li>
-          <li>When we want to fetch only selected rows and columns.</li>
-          <li>When tables need to be joined.</li>
-          <li>When the dataset is too large to load fully into pandas.</li>
-        </ul>
-
-        <h3>When should we use pandas?</h3>
-
-        <ul>
-          <li>When data is already in a DataFrame.</li>
-          <li>When we need cleaning and transformation.</li>
-          <li>When we need charts.</li>
-          <li>When we need to prepare data for machine learning.</li>
-        </ul>
-      </section>
-
-      <section id="training">
-        <h2>11. Using SQL Query Result for Model Training</h2>
-
-        <p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>SQL</th>
+<th>pandas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Select all rows</td>
+<td><code>SELECT * FROM students</code></td>
+<td><code>df</code></td>
+</tr>
+<tr>
+<td>Select columns</td>
+<td><code>SELECT name, marks FROM students</code></td>
+<td><code>df[["name", "marks"]]</code></td>
+</tr>
+<tr>
+<td>Filter rows</td>
+<td><code>WHERE marks &gt;= 70</code></td>
+<td><code>df[df["marks"] &gt;= 70]</code></td>
+</tr>
+<tr>
+<td>Sort</td>
+<td><code>ORDER BY marks DESC</code></td>
+<td><code>df.sort_values("marks", ascending=False)</code></td>
+</tr>
+<tr>
+<td>Average</td>
+<td><code>AVG(marks)</code></td>
+<td><code>df["marks"].mean()</code></td>
+</tr>
+<tr>
+<td>Group average</td>
+<td><code>GROUP BY city</code></td>
+<td><code>df.groupby("city")["marks"].mean()</code></td>
+</tr>
+<tr>
+<td>Join tables</td>
+<td><code>INNER JOIN</code></td>
+<td><code>pd.merge()</code></td>
+</tr>
+</tbody>
+</table>
+<h3>When should we use SQL?</h3>
+<ul>
+<li>When data is already inside a database.</li>
+<li>When we want to fetch only selected rows and columns.</li>
+<li>When tables need to be joined.</li>
+<li>When the dataset is too large to load fully into pandas.</li>
+</ul>
+<h3>When should we use pandas?</h3>
+<ul>
+<li>When data is already in a DataFrame.</li>
+<li>When we need cleaning and transformation.</li>
+<li>When we need charts.</li>
+<li>When we need to prepare data for machine learning.</li>
+</ul>
+</section>
+<section id="training">
+<h2>11. Using SQL Query Result for Model Training</h2>
+<p>
           Now we will use SQL to pull the columns needed for training.
           Then pandas will prepare the data for the model.
         </p>
-
-        <h3>11.1 Pull training data using SQL</h3>
-
-        <pre><code>query = """
+<h3>11.1 Pull training data using SQL</h3>
+<pre><code>query = """
 SELECT
     hours,
     attendance,
@@ -1337,77 +1231,61 @@ FROM students
 training_df = pd.read_sql_query(query, connection)
 
 print(training_df)</code></pre>
-
-        <h3>11.2 Prepare input and output</h3>
-
-        <pre><code>X = training_df[["hours", "attendance"]]
+<h3>11.2 Prepare input and output</h3>
+<pre><code>X = training_df[["hours", "attendance"]]
 y = training_df["marks"]</code></pre>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Variable</th>
-              <th>Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>X</code></td>
-              <td>Input columns used by the model.</td>
-            </tr>
-            <tr>
-              <td><code>y</code></td>
-              <td>Target column that the model will learn to predict.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>11.3 Train-test split</h3>
-
-        <pre><code>X_train, X_test, y_train, y_test = train_test_split(
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>X</code></td>
+<td>Input columns used by the model.</td>
+</tr>
+<tr>
+<td><code>y</code></td>
+<td>Target column that the model will learn to predict.</td>
+</tr>
+</tbody>
+</table>
+<h3>11.3 Train-test split</h3>
+<pre><code>X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
     test_size=0.25,
     random_state=42
 )</code></pre>
-
-        <h3>11.4 Train Linear Regression model</h3>
-
-        <pre><code>model = LinearRegression()
+<h3>11.4 Train Linear Regression model</h3>
+<pre><code>model = LinearRegression()
 
 model.fit(X_train, y_train)</code></pre>
-
-        <h3>11.5 Check score</h3>
-
-        <pre><code>score = model.score(X_test, y_test)
+<h3>11.5 Check score</h3>
+<pre><code>score = model.score(X_test, y_test)
 
 print("Model score:", score)</code></pre>
-
-        <h3>11.6 Make prediction</h3>
-
-        <pre><code>new_student = [[7, 92]]
+<h3>11.6 Make prediction</h3>
+<pre><code>new_student = [[7, 92]]
 
 prediction = model.predict(new_student)
 
 print("Predicted marks:", prediction[0])</code></pre>
-
-        <div class="note">
-          <strong>Important:</strong>
+<div class="note">
+<strong>Important:</strong>
           SQL did not train the model. SQL pulled the right data.
           pandas and scikit-learn prepared and trained the model.
         </div>
-      </section>
-
-      <section id="saving">
-        <h2>12. Saving SQL Results, DataFrames and Models</h2>
-
-        <p>
+</section>
+<section id="saving">
+<h2>12. Saving SQL Results, DataFrames and Models</h2>
+<p>
           After querying and training, we may want to save the result in different forms.
         </p>
-
-        <h3>12.1 Save SQL query result as CSV</h3>
-
-        <pre><code>query = """
+<h3>12.1 Save SQL query result as CSV</h3>
+<pre><code>query = """
 SELECT name, city, marks
 FROM students
 WHERE marks &gt;= 70
@@ -1417,47 +1295,35 @@ ORDER BY marks DESC
 top_students_df = pd.read_sql_query(query, connection)
 
 top_students_df.to_csv("top_students.csv", index=False)</code></pre>
-
-        <h3>12.2 Save SQL query result back into another SQL table</h3>
-
-        <pre><code>top_students_df.to_sql(
+<h3>12.2 Save SQL query result back into another SQL table</h3>
+<pre><code>top_students_df.to_sql(
     "top_students",
     connection,
     if_exists="replace",
     index=False
 )</code></pre>
-
-        <h3>12.3 Save trained model</h3>
-
-        <pre><code>joblib.dump(model, "marks_model.pkl")</code></pre>
-
-        <h3>12.4 Load trained model</h3>
-
-        <pre><code>loaded_model = joblib.load("marks_model.pkl")
+<h3>12.3 Save trained model</h3>
+<pre><code>joblib.dump(model, "marks_model.pkl")</code></pre>
+<h3>12.4 Load trained model</h3>
+<pre><code>loaded_model = joblib.load("marks_model.pkl")
 
 prediction = loaded_model.predict([[8, 95]])
 
 print(prediction[0])</code></pre>
-
-        <h3>12.5 Close database connection</h3>
-
-        <pre><code>connection.close()</code></pre>
-
-        <p>
+<h3>12.5 Close database connection</h3>
+<pre><code>connection.close()</code></pre>
+<p>
           Closing the connection is a good habit. It tells Python that we are
           done using the database.
         </p>
-      </section>
-
-      <section id="project">
-        <h2>13. Complete Mini Project</h2>
-
-        <p>
+</section>
+<section id="project">
+<h2>13. Complete Mini Project</h2>
+<p>
           This full project creates data, saves it to SQL, queries it, joins tables,
           trains a model, creates predictions and saves everything.
         </p>
-
-        <pre><code>import sqlite3
+<pre><code>import sqlite3
 import pandas as pd
 import matplotlib.pyplot as plt
 import joblib
@@ -1666,164 +1532,120 @@ print("CSV files, SQL table and model saved successfully.")
 connection.close()
 
 print("Database connection closed.")</code></pre>
-      </section>
-
-      <section id="features">
-        <h2>14. Important Features Explained</h2>
-
-        <h3><code>sqlite3.connect()</code></h3>
-
-        <pre><code>connection = sqlite3.connect("school.db")</code></pre>
-
-        <p>
+</section>
+<section id="features">
+<h2>14. Important Features Explained</h2>
+<h3><code>sqlite3.connect()</code></h3>
+<pre><code>connection = sqlite3.connect("school.db")</code></pre>
+<p>
           Creates a database file or connects to an existing database file.
         </p>
-
-        <h3><code>df.to_sql()</code></h3>
-
-        <pre><code>df.to_sql("table_name", connection, if_exists="replace", index=False)</code></pre>
-
-        <p>
+<h3><code>df.to_sql()</code></h3>
+<pre><code>df.to_sql("table_name", connection, if_exists="replace", index=False)</code></pre>
+<p>
           Saves a pandas DataFrame as a SQL table.
         </p>
-
-        <h3><code>pd.read_sql_query()</code></h3>
-
-        <pre><code>df = pd.read_sql_query(query, connection)</code></pre>
-
-        <p>
+<h3><code>pd.read_sql_query()</code></h3>
+<pre><code>df = pd.read_sql_query(query, connection)</code></pre>
+<p>
           Runs a SQL query and returns the result as a pandas DataFrame.
         </p>
-
-        <h3>Triple-quoted SQL string</h3>
-
-        <pre><code>query = """
+<h3>Triple-quoted SQL string</h3>
+<pre><code>query = """
 SELECT name, marks
 FROM students
 WHERE marks &gt;= 70
 """</code></pre>
-
-        <p>
+<p>
           Triple quotes allow us to write multi-line SQL queries clearly.
         </p>
-
-        <h3><code>connection.close()</code></h3>
-
-        <pre><code>connection.close()</code></pre>
-
-        <p>
+<h3><code>connection.close()</code></h3>
+<pre><code>connection.close()</code></pre>
+<p>
           Closes the database connection after work is finished.
         </p>
-
-        <h3><code>index=False</code></h3>
-
-        <p>
+<h3><code>index=False</code></h3>
+<p>
           Prevents pandas from saving its automatic index as a separate column.
         </p>
-
-        <h3><code>if_exists="replace"</code></h3>
-
-        <p>
+<h3><code>if_exists="replace"</code></h3>
+<p>
           Replaces old SQL table with a new one. Useful during practice.
         </p>
-
-        <h3><code>if_exists="append"</code></h3>
-
-        <p>
+<h3><code>if_exists="append"</code></h3>
+<p>
           Adds new rows to an existing SQL table.
         </p>
-      </section>
-
-      <section id="editor">
-        <h2>15. Practice in Our Python Editor</h2>
-
-        <p>
+</section>
+<section id="editor">
+<h2>15. Practice in Our Python Editor</h2>
+<p>
           Use the embedded Python editor below to test pandas and SQL examples
           from this lesson.
         </p>
-
-        <div class="note">
-          <strong>Tip:</strong>
+<div class="note">
+<strong>Tip:</strong>
           If the embedded editor does not load, open it directly:
-          <a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">
+          <a href="https://editor.learnwithchampak.live/python-starter/editor/super/" rel="noopener" target="_blank">
             Python Editor by Learn With Champak
           </a>
-        </div>
-
-        <div class="editor-frame-wrap">
-          <iframe
-            src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1"
-            title="Python Editor by Learn With Champak"
-            loading="lazy"
-            allow="clipboard-read; clipboard-write; fullscreen"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </section>
-
-      <section id="practice">
-        <h2>16. Practice Tasks</h2>
-
-        <ol>
-          <li>Create a DataFrame named <code>products_df</code>.</li>
-          <li>Add columns: <code>product_id</code>, <code>product_name</code>, <code>category</code>, <code>price</code>, <code>units_sold</code>.</li>
-          <li>Create a SQLite database named <code>shop.db</code>.</li>
-          <li>Save the DataFrame as a SQL table named <code>products</code>.</li>
-          <li>Write a SQL query to select all products.</li>
-          <li>Write a SQL query to find products where price is greater than 500.</li>
-          <li>Write a SQL query to find total units sold by category.</li>
-          <li>Write a SQL query to find average price by category.</li>
-          <li>Bring the result into pandas using <code>pd.read_sql_query()</code>.</li>
-          <li>Save the final result as <code>product_summary.csv</code>.</li>
-        </ol>
-
-        <h3>Self Test</h3>
-
-        <details>
-          <summary>What does <code>pd.read_sql_query()</code> do?</summary>
-          <p>It runs a SQL query and returns the result as a pandas DataFrame.</p>
-        </details>
-
-        <details>
-          <summary>What does <code>df.to_sql()</code> do?</summary>
-          <p>It saves a pandas DataFrame as a SQL table.</p>
-        </details>
-
-        <details>
-          <summary>What is SQLite?</summary>
-          <p>SQLite is a lightweight database stored in a single file.</p>
-        </details>
-
-        <details>
-          <summary>What is the use of <code>WHERE</code>?</summary>
-          <p><code>WHERE</code> filters rows based on a condition.</p>
-        </details>
-
-        <details>
-          <summary>What is the use of <code>GROUP BY</code>?</summary>
-          <p><code>GROUP BY</code> groups rows and helps calculate summaries such as average, count and sum.</p>
-        </details>
-
-        <details>
-          <summary>What is the use of <code>JOIN</code>?</summary>
-          <p><code>JOIN</code> combines data from two or more tables using a common column.</p>
-        </details>
-
-        <details>
-          <summary>Does SQL train the model?</summary>
-          <p>No. SQL pulls and prepares the data. scikit-learn trains the model.</p>
-        </details>
-
-        <div class="button-row">
-          <button onclick="window.print()">Print Lesson</button>
-          <button class="secondary" onclick="scrollToTop()">Back to Top</button>
-        </div>
-      </section>
-
-      <section id="summary">
-        <h2>17. Final Summary</h2>
-
-        <pre><code>DataFrame
+</div>
+<div class="editor-frame-wrap">
+<iframe allow="clipboard-read; clipboard-write; fullscreen" allowfullscreen="" loading="lazy" src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1" title="Python Editor by Learn With Champak">
+</iframe>
+</div>
+</section>
+<section id="practice">
+<h2>16. Practice Tasks</h2>
+<ol>
+<li>Create a DataFrame named <code>products_df</code>.</li>
+<li>Add columns: <code>product_id</code>, <code>product_name</code>, <code>category</code>, <code>price</code>, <code>units_sold</code>.</li>
+<li>Create a SQLite database named <code>shop.db</code>.</li>
+<li>Save the DataFrame as a SQL table named <code>products</code>.</li>
+<li>Write a SQL query to select all products.</li>
+<li>Write a SQL query to find products where price is greater than 500.</li>
+<li>Write a SQL query to find total units sold by category.</li>
+<li>Write a SQL query to find average price by category.</li>
+<li>Bring the result into pandas using <code>pd.read_sql_query()</code>.</li>
+<li>Save the final result as <code>product_summary.csv</code>.</li>
+</ol>
+<h3>Self Test</h3>
+<details>
+<summary>What does <code>pd.read_sql_query()</code> do?</summary>
+<p>It runs a SQL query and returns the result as a pandas DataFrame.</p>
+</details>
+<details>
+<summary>What does <code>df.to_sql()</code> do?</summary>
+<p>It saves a pandas DataFrame as a SQL table.</p>
+</details>
+<details>
+<summary>What is SQLite?</summary>
+<p>SQLite is a lightweight database stored in a single file.</p>
+</details>
+<details>
+<summary>What is the use of <code>WHERE</code>?</summary>
+<p><code>WHERE</code> filters rows based on a condition.</p>
+</details>
+<details>
+<summary>What is the use of <code>GROUP BY</code>?</summary>
+<p><code>GROUP BY</code> groups rows and helps calculate summaries such as average, count and sum.</p>
+</details>
+<details>
+<summary>What is the use of <code>JOIN</code>?</summary>
+<p><code>JOIN</code> combines data from two or more tables using a common column.</p>
+</details>
+<details>
+<summary>Does SQL train the model?</summary>
+<p>No. SQL pulls and prepares the data. scikit-learn trains the model.</p>
+</details>
+<div class="button-row">
+<button onclick="window.print()">Print Lesson</button>
+<button class="secondary" onclick="scrollToTop()">Back to Top</button>
+</div>
+</section>
+<section id="summary">
+<h2>17. Final Summary</h2>
+<pre><code>DataFrame
    ↓
 SQLite database
    ↓
@@ -1836,22 +1658,19 @@ read_sql_query()
 pandas DataFrame
    ↓
 analysis, chart, training, saving</code></pre>
-
-        <div class="success">
-          <strong>Final lesson:</strong>
+<div class="success">
+<strong>Final lesson:</strong>
           SQL is excellent for asking questions from stored data.
           pandas is excellent for working with the answers.
           Together, they form a complete data analysis and machine learning pipeline.
         </div>
-      </section>
-    </main>
-
-    <footer>
-      <p>Using SQL in Pandas lesson by Programmer's Picnic.</p>
-    </footer>
-  </div>
-
-  <script>
+</section>
+</main>
+<footer>
+<p>Using SQL in Pandas lesson by Programmer's Picnic.</p>
+</footer>
+</div>
+<script>
     function scrollToTop() {
       window.scrollTo({
         top: 0,

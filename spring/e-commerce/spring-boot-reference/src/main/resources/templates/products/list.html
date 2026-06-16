@@ -1,33 +1,59 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F22HP86FYK"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+<!DOCTYPE html>
 
-    gtag('config', 'G-F22HP86FYK');
-  </script>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Products | Study AI/ML with Champak Roy, Varanasi</title><meta content="Learn Products as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="description"/><meta content="AI ML classes Varanasi, study AIML with Champak Roy, Champak Roy Varanasi, Programmer's Picnic, Products, Python lessons, machine learning lessons, data structures algorithms, learnwithchampak" name="keywords"/><meta content="Champak Roy" name="author"/><meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/><link href="https://dsa.learnwithchampak.live/spring/e-commerce/spring-boot-reference/src/main/resources/templates/products/list.html" rel="canonical"/><meta content="article" property="og:type"/><meta content="Programmer's Picnic by Champak Roy" property="og:site_name"/><meta content="Products | Study AI/ML with Champak Roy, Varanasi" property="og:title"/><meta content="Learn Products as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." property="og:description"/><meta content="https://dsa.learnwithchampak.live/spring/e-commerce/spring-boot-reference/src/main/resources/templates/products/list.html" property="og:url"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="summary_large_image" name="twitter:card"/><meta content="Products | Study AI/ML with Champak Roy, Varanasi" name="twitter:title"/><meta content="Learn Products as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="twitter:description"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" name="twitter:image"/>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Products | Study AI/ML with Champak Roy, Varanasi",
+  "description": "Learn Products as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons.",
+  "url": "https://dsa.learnwithchampak.live/spring/e-commerce/spring-boot-reference/src/main/resources/templates/products/list.html",
+  "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
+  "inLanguage": "en",
+  "creator": {
+    "@type": "Person",
+    "name": "Champak Roy",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Varanasi",
+      "addressCountry": "IN"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Programmer's Picnic by Champak Roy",
+    "url": "https://dsa.learnwithchampak.live"
+  },
+  "about": [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Python",
+    "Data Structures and Algorithms",
+    "Web Development"
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Students and beginner programmers"
+  },
+  "isAccessibleForFree": true
+}</script></head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <main>
-  <h1>Products</h1>
-  <section>
-    <article th:each="p : ${products}">
-      <h2 th:text="${p.name}">Product name</h2>
-      <p th:text="${p.description}">Description</p>
-      <p>Price: <span th:text="${p.price}">0</span></p>
-      <p>Stock: <span th:text="${p.stock}">0</span></p>
-      <form th:action="@{/cart/add}" method="post">
-        <input type="hidden" name="productId" th:value="${p.id}">
-        <input type="number" name="quantity" value="1" min="1">
-        <button type="submit">Add to Cart</button>
-      </form>
-    </article>
-  </section>
+<h1>Products</h1>
+<section>
+<article th:each="p : ${products}">
+<h2 th:text="${p.name}">Product name</h2>
+<p th:text="${p.description}">Description</p>
+<p>Price: <span th:text="${p.price}">0</span></p>
+<p>Stock: <span th:text="${p.stock}">0</span></p>
+<form method="post" th:action="@{/cart/add}">
+<input name="productId" th:value="${p.id}" type="hidden"/>
+<input min="1" name="quantity" type="number" value="1"/>
+<button type="submit">Add to Cart</button>
+</form>
+</article>
+</section>
 </main>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

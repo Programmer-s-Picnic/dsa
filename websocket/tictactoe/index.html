@@ -1,36 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-<!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F22HP86FYK"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+<meta charset="utf-8"/>
 
-    gtag('config', 'G-F22HP86FYK');
-  </script>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
 
-  <meta charset="utf-8" />
 
-  <title>Tic Tac Toe over Cloudflare Durable Object WebSocket</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description"
-    content="A two-player Tic Tac Toe game using a Cloudflare Durable Object WebSocket chat server without changing the Worker." />
-  <meta name="keywords"
-    content="Tic Tac Toe, WebSocket game, Cloudflare Durable Objects, JavaScript game, Champak Roy, Programmer's Picnic" />
-  <meta name="author" content="Champak Roy" />
-  <meta name="theme-color" content="#f59e0b" />
-
-  <!-- Google AdSense -->
-  <script async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
-    crossorigin="anonymous">
-    </script>
-
-  <style>
+<meta content="#f59e0b" name="theme-color"/><title>Tic Tac Toe over WebSocket | Study AI/ML with Champak Roy, Varanasi</title><meta content="Study Tic Tac Toe over WebSocket with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." name="description"/><meta content="AI ML classes Varanasi, study AIML with Champak Roy, Champak Roy Varanasi, Programmer's Picnic, Tic Tac Toe over WebSocket, Python lessons, machine learning lessons, data structures algorithms, learnwithchampak" name="keywords"/><meta content="Champak Roy" name="author"/><meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/><link href="https://dsa.learnwithchampak.live/websocket/tictactoe/" rel="canonical"/><meta content="website" property="og:type"/><meta content="Programmer's Picnic by Champak Roy" property="og:site_name"/><meta content="Tic Tac Toe over WebSocket | Study AI/ML with Champak Roy, Varanasi" property="og:title"/><meta content="Study Tic Tac Toe over WebSocket with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." property="og:description"/><meta content="https://dsa.learnwithchampak.live/websocket/tictactoe/" property="og:url"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="summary_large_image" name="twitter:card"/><meta content="Tic Tac Toe over WebSocket | Study AI/ML with Champak Roy, Varanasi" name="twitter:title"/><meta content="Study Tic Tac Toe over WebSocket with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." name="twitter:description"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" name="twitter:image"/>
+<!-- Google AdSense -->
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&amp;host=ca-host-pub-1556223355139109">
+</script>
+<style>
     :root {
       --bg: #fff7ed;
       --bg2: #fffbeb;
@@ -419,133 +401,146 @@
       }
     }
   </style>
-</head>
-
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Tic Tac Toe over WebSocket | Study AI/ML with Champak Roy, Varanasi",
+  "description": "Study Tic Tac Toe over WebSocket with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice.",
+  "url": "https://dsa.learnwithchampak.live/websocket/tictactoe/",
+  "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
+  "inLanguage": "en",
+  "creator": {
+    "@type": "Person",
+    "name": "Champak Roy",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Varanasi",
+      "addressCountry": "IN"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Programmer's Picnic by Champak Roy",
+    "url": "https://dsa.learnwithchampak.live"
+  },
+  "about": [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Python",
+    "Data Structures and Algorithms",
+    "Web Development"
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Students and beginner programmers"
+  },
+  "isAccessibleForFree": true
+}</script></head>
 <body>
-  <main class="wrap">
-    <section class="hero">
-      <h1>Tic Tac Toe over WebSocket</h1>
-      <p>Frontend-only game using your existing Cloudflare Durable Object chat Worker.</p>
-    </section>
-
-    <div class="ad-wrap">
+<main class="wrap">
+<section class="hero">
+<h1>Tic Tac Toe over WebSocket</h1>
+<p>Frontend-only game using your existing Cloudflare Durable Object chat Worker.</p>
+</section>
+<div class="ad-wrap">
       Advertisement
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
-        data-ad-format="auto" data-full-width-responsive="true">
-      </ins>
-      <script>
+      <ins class="adsbygoogle" data-ad-client="ca-pub-8321261883090494" data-ad-format="auto" data-ad-slot="7782388330" data-full-width-responsive="true" style="display:block">
+</ins>
+<script>
         (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
-    </div>
-
-    <section class="grid">
-      <aside>
-        <article class="card">
-          <h2>Connection</h2>
-
-          <label id="serverUrlLabel" for="serverUrl">WebSocket Base URL</label>
-          <input id="serverUrl" value="wss://champak-durable-chat.champaksworld.workers.dev/chat" autocomplete="off" />
-
-          <label for="roomName">Game Room</label>
-          <input id="roomName" value="tictactoe-main" autocomplete="off" />
-
-          <label for="playerName">Your Name</label>
-          <input id="playerName" value="Champak" autocomplete="off" />
-
-          <label>Your Side</label>
-          <div class="symbol-options" role="radiogroup" aria-label="Choose your side">
-            <label class="symbol-option">
-              <input type="radio" name="playerSymbol" value="X" checked />
-              <span>X - First player</span>
-            </label>
-
-            <label class="symbol-option">
-              <input type="radio" name="playerSymbol" value="O" />
-              <span>O - Second player</span>
-            </label>
-
-            <label class="symbol-option">
-              <input type="radio" name="playerSymbol" value="spectator" />
-              <span>Spectator</span>
-            </label>
-          </div>
-
-          <div id="status" class="status">
-            <span class="dot"></span>
-            <span>Disconnected</span>
-          </div>
-
-          <div class="row">
-            <button onclick="connectGame()">Connect</button>
-            <button class="danger" onclick="disconnectGame()">Disconnect</button>
-            <button class="secondary" onclick="clearLogs()">Clear Logs</button>
-          </div>
-
-          <p class="small">
+</div>
+<section class="grid">
+<aside>
+<article class="card">
+<h2>Connection</h2>
+<label for="serverUrl" id="serverUrlLabel">WebSocket Base URL</label>
+<input autocomplete="off" id="serverUrl" value="wss://champak-durable-chat.champaksworld.workers.dev/chat"/>
+<label for="roomName">Game Room</label>
+<input autocomplete="off" id="roomName" value="tictactoe-main"/>
+<label for="playerName">Your Name</label>
+<input autocomplete="off" id="playerName" value="Champak"/>
+<label>Your Side</label>
+<div aria-label="Choose your side" class="symbol-options" role="radiogroup">
+<label class="symbol-option">
+<input checked="" name="playerSymbol" type="radio" value="X"/>
+<span>X - First player</span>
+</label>
+<label class="symbol-option">
+<input name="playerSymbol" type="radio" value="O"/>
+<span>O - Second player</span>
+</label>
+<label class="symbol-option">
+<input name="playerSymbol" type="radio" value="spectator"/>
+<span>Spectator</span>
+</label>
+</div>
+<div class="status" id="status">
+<span class="dot"></span>
+<span>Disconnected</span>
+</div>
+<div class="row">
+<button onclick="connectGame()">Connect</button>
+<button class="danger" onclick="disconnectGame()">Disconnect</button>
+<button class="secondary" onclick="clearLogs()">Clear Logs</button>
+</div>
+<p class="small">
             Open this same file in two browser tabs. Use the same room. Choose X in one tab and O in the other.
           </p>
-        </article>
-
-        <article class="card">
-          <h2>Game Controls</h2>
-          <div class="row">
-            <button onclick="newGame()">New Game</button>
-            <button class="secondary" onclick="syncGame()">Sync Game</button>
-            <button class="secondary" onclick="resetScore()">Reset Score</button>
-          </div>
-          <p class="small">
+</article>
+<article class="card">
+<h2>Game Controls</h2>
+<div class="row">
+<button onclick="newGame()">New Game</button>
+<button class="secondary" onclick="syncGame()">Sync Game</button>
+<button class="secondary" onclick="resetScore()">Reset Score</button>
+</div>
+<p class="small">
             “New Game” is broadcast to everyone in the room.
           </p>
-        </article>
-
-        <article class="card">
-          <h2>Debug Log</h2>
-          <pre id="debugLog" class="debug-log"></pre>
-        </article>
-      </aside>
-
-      <section>
-        <article class="card">
-          <div class="game-area">
-            <div>
-              <h2>Board</h2>
-              <div class="board-wrap">
-                <div id="board" class="board" aria-label="Tic Tac Toe board"></div>
-              </div>
-            </div>
-
-            <div class="panel">
-              <div>
-                <h2>Status</h2>
-                <div id="gameState" class="game-state">Not connected.</div>
-              </div>
-
-              <div>
-                <h2>Score</h2>
-                <div class="score">
-                  <div>X <strong id="xScore">0</strong></div>
-                  <div>O <strong id="oScore">0</strong></div>
-                  <div>Draw <strong id="drawScore">0</strong></div>
-                </div>
-              </div>
-
-              <div>
-                <h2>Room Messages</h2>
-                <div id="messages" class="messages"></div>
-
-                <div class="row">
-                  <input id="chatInput" placeholder="Optional room message..." autocomplete="off" />
-                  <button onclick="sendRoomChat()">Send</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-      </section>
-    </section>
-  </main>
-
-  <script>
+</article>
+<article class="card">
+<h2>Debug Log</h2>
+<pre class="debug-log" id="debugLog"></pre>
+</article>
+</aside>
+<section>
+<article class="card">
+<div class="game-area">
+<div>
+<h2>Board</h2>
+<div class="board-wrap">
+<div aria-label="Tic Tac Toe board" class="board" id="board"></div>
+</div>
+</div>
+<div class="panel">
+<div>
+<h2>Status</h2>
+<div class="game-state" id="gameState">Not connected.</div>
+</div>
+<div>
+<h2>Score</h2>
+<div class="score">
+<div>X <strong id="xScore">0</strong></div>
+<div>O <strong id="oScore">0</strong></div>
+<div>Draw <strong id="drawScore">0</strong></div>
+</div>
+</div>
+<div>
+<h2>Room Messages</h2>
+<div class="messages" id="messages"></div>
+<div class="row">
+<input autocomplete="off" id="chatInput" placeholder="Optional room message..."/>
+<button onclick="sendRoomChat()">Send</button>
+</div>
+</div>
+</div>
+</div>
+</article>
+</section>
+</section>
+</main>
+<script>
     const GAME_PREFIX = "__TICTACTOE__:";
 
     let ws = null;
@@ -1091,5 +1086,4 @@
     setStatus("Disconnected", false);
   </script>
 </body>
-
 </html>

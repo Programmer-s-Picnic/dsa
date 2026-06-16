@@ -1,31 +1,53 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F22HP86FYK"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+<meta charset="utf-8"/>
 
-    gtag('config', 'G-F22HP86FYK');
-  </script>
-
-  <meta charset="UTF-8">
-  <title th:text="${pageTitle} ?: 'Ecommerce App'">Ecommerce App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" th:href="@{/css/store.css}">
-</head>
+<meta content="width=device-width, initial-scale=1" name="viewport"/><title>Ecommerce App | Study AI/ML with Champak Roy, Varanasi</title><meta content="Learn Ecommerce App as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="description"/><meta content="AI ML classes Varanasi, study AIML with Champak Roy, Champak Roy Varanasi, Programmer's Picnic, Ecommerce App, Python lessons, machine learning lessons, data structures algorithms, learnwithchampak" name="keywords"/><meta content="Champak Roy" name="author"/><meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/><link href="https://dsa.learnwithchampak.live/spring/e-commerce/spring-boot-reference/src/main/resources/templates/layout/base.html" rel="canonical"/><meta content="article" property="og:type"/><meta content="Programmer's Picnic by Champak Roy" property="og:site_name"/><meta content="Ecommerce App | Study AI/ML with Champak Roy, Varanasi" property="og:title"/><meta content="Learn Ecommerce App as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." property="og:description"/><meta content="https://dsa.learnwithchampak.live/spring/e-commerce/spring-boot-reference/src/main/resources/templates/layout/base.html" property="og:url"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="summary_large_image" name="twitter:card"/><meta content="Ecommerce App | Study AI/ML with Champak Roy, Varanasi" name="twitter:title"/><meta content="Learn Ecommerce App as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="twitter:description"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" name="twitter:image"/>
+<link rel="stylesheet" th:href="@{/css/store.css}"/>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Ecommerce App | Study AI/ML with Champak Roy, Varanasi",
+  "description": "Learn Ecommerce App as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons.",
+  "url": "https://dsa.learnwithchampak.live/spring/e-commerce/spring-boot-reference/src/main/resources/templates/layout/base.html",
+  "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
+  "inLanguage": "en",
+  "creator": {
+    "@type": "Person",
+    "name": "Champak Roy",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Varanasi",
+      "addressCountry": "IN"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Programmer's Picnic by Champak Roy",
+    "url": "https://dsa.learnwithchampak.live"
+  },
+  "about": [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Python",
+    "Data Structures and Algorithms",
+    "Web Development"
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Students and beginner programmers"
+  },
+  "isAccessibleForFree": true
+}</script></head>
 <body>
-  <div th:replace="~{fragments/header :: header}"></div>
-
-  <main th:fragment="content">
+<div th:replace="~{fragments/header :: header}"></div>
+<main th:fragment="content">
     Page content appears here.
   </main>
-
-  <div th:replace="~{fragments/footer :: footer}"></div>
-
-  <script th:src="@{/js/app.js}"></script>
-  <script th:src="@{/js/cart.js}"></script>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/cart.js}"></script>
 </body>
 </html>
