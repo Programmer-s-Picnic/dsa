@@ -8,16 +8,16 @@
   <title>Python Numerical Thinking | Indexing, Slicing, Dictionaries, NumPy Arrays, Shape and Axis</title>
 
   <meta name="description"
-    content="A 0 to infinity Python lesson on indexing, slicing, dictionaries, NumPy arrays, shape, axis, and computing mean, median, min, max, and range with arrays." />
+    content="A 0 to infinity Python lesson on indexing, slicing, dictionaries, NumPy arrays, shape, axis, zeros, ones, random arrays, and computing mean, median, min, max, and range with arrays." />
 
   <meta name="keywords"
-    content="Python indexing, Python slicing, dictionaries, NumPy arrays, shape, axis, mean median min max range, numerical thinking notebook, Python data science" />
+    content="Python indexing, Python slicing, dictionaries, NumPy arrays, NumPy zeros, NumPy ones, NumPy random, NumPy arange, NumPy linspace, shape, axis, mean median min max range, numerical thinking notebook, Python data science" />
 
   <meta name="author" content="Champak Roy" />
 
   <meta property="og:title" content="Python Numerical Thinking: Arrays, Shape and Axis" />
   <meta property="og:description"
-    content="Learn indexing, slicing, dictionaries, NumPy arrays, shape, axis, mean, median, min, max and range from 0 to infinity." />
+    content="Learn indexing, slicing, dictionaries, NumPy arrays, zeros, ones, random, shape, axis, mean, median, min, max and range from 0 to infinity." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://programmer-s-picnic.github.io/json-images/mee.jpg" />
 
@@ -480,8 +480,8 @@
           <div class="pill">0 to Infinity Lesson</div>
           <h1>Python Numerical Thinking</h1>
           <p class="subtitle">
-            Learn indexing, slicing, dictionaries, NumPy arrays, shape, axis, and how to compute
-            mean, median, minimum, maximum and range with arrays.
+            Learn indexing, slicing, dictionaries, NumPy arrays, shape, axis, zeros, ones, random arrays,
+            and how to compute mean, median, minimum, maximum and range with arrays.
           </p>
         </div>
       </div>
@@ -493,6 +493,7 @@
           <a href="#slicing">Slicing</a>
           <a href="#dict">Dictionaries</a>
           <a href="#numpy">NumPy Arrays</a>
+          <a href="#array-creation">Zeros Ones Random</a>
           <a href="#shape">Shape</a>
           <a href="#axis">Axis</a>
           <a href="#stats">Mean Median</a>
@@ -538,8 +539,8 @@
 
     <div class="ad-box">
       Advertisement
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
-        data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true"></ins>
       <script>
         try {
           (adsbygoogle = window.adsbygoogle || []).push({});
@@ -722,8 +723,277 @@ print(numbers * 2)
       </div>
     </section>
 
+    <section id="array-creation">
+      <h2>6. Creating NumPy Arrays: zeros, ones, random, arange and linspace</h2>
+
+      <p>
+        So far, we created NumPy arrays manually using <code>np.array()</code>.
+        But in real numerical work, we often need to create arrays automatically.
+        NumPy gives us many useful functions for this.
+      </p>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>zeros</h3>
+          <p>
+            Creates an array filled with <code>0</code>.
+            Useful when we want an empty numerical structure to fill later.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>ones</h3>
+          <p>
+            Creates an array filled with <code>1</code>.
+            Useful for starting weights, masks, or simple test arrays.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>random</h3>
+          <p>
+            Creates random numbers.
+            Useful for testing, simulations, and Machine Learning experiments.
+          </p>
+        </div>
+      </div>
+
+      <h3>np.zeros()</h3>
+
+      <p>
+        <code>np.zeros()</code> creates an array filled with zeroes.
+      </p>
+
+      <pre><code>import numpy as np
+
+a = np.zeros(5)
+
+print(a)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[0. 0. 0. 0. 0.]</code></pre>
+
+      <h3>Two-dimensional zeros array</h3>
+
+      <pre><code>import numpy as np
+
+a = np.zeros((3, 4))
+
+print(a)
+print("Shape:", a.shape)</code></pre>
+
+      <p>
+        This creates an array with <code>3</code> rows and <code>4</code> columns.
+      </p>
+
+      <h3>np.ones()</h3>
+
+      <p>
+        <code>np.ones()</code> creates an array filled with ones.
+      </p>
+
+      <pre><code>import numpy as np
+
+a = np.ones(5)
+
+print(a)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[1. 1. 1. 1. 1.]</code></pre>
+
+      <h3>Two-dimensional ones array</h3>
+
+      <pre><code>import numpy as np
+
+a = np.ones((2, 3))
+
+print(a)
+print("Shape:", a.shape)</code></pre>
+
+      <h3>np.full()</h3>
+
+      <p>
+        <code>np.full()</code> creates an array filled with a value of our choice.
+      </p>
+
+      <pre><code>import numpy as np
+
+a = np.full((3, 3), 7)
+
+print(a)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[[7 7 7]
+ [7 7 7]
+ [7 7 7]]</code></pre>
+
+      <h3>np.arange()</h3>
+
+      <p>
+        <code>np.arange()</code> creates numbers in a range.
+        It is similar to Python's <code>range()</code>, but it creates a NumPy array.
+      </p>
+
+      <pre><code>import numpy as np
+
+a = np.arange(1, 11)
+
+print(a)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[ 1  2  3  4  5  6  7  8  9 10]</code></pre>
+
+      <h3>arange with step</h3>
+
+      <pre><code>import numpy as np
+
+even_numbers = np.arange(2, 21, 2)
+
+print(even_numbers)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[ 2  4  6  8 10 12 14 16 18 20]</code></pre>
+
+      <h3>np.linspace()</h3>
+
+      <p>
+        <code>np.linspace()</code> creates evenly spaced values between a starting value and an ending value.
+      </p>
+
+      <pre><code>import numpy as np
+
+a = np.linspace(0, 1, 5)
+
+print(a)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[0.   0.25 0.5  0.75 1.  ]</code></pre>
+
+      <div class="note">
+        <strong>Difference between arange and linspace:</strong>
+        <code>np.arange()</code> focuses on step size.
+        <code>np.linspace()</code> focuses on how many values we want.
+      </div>
+
+      <h3>np.random.rand()</h3>
+
+      <p>
+        <code>np.random.rand()</code> creates random decimal numbers between <code>0</code> and <code>1</code>.
+      </p>
+
+      <pre><code>import numpy as np
+
+a = np.random.rand(5)
+
+print(a)</code></pre>
+
+      <h3>Two-dimensional random array</h3>
+
+      <pre><code>import numpy as np
+
+a = np.random.rand(3, 4)
+
+print(a)
+print("Shape:", a.shape)</code></pre>
+
+      <h3>np.random.randint()</h3>
+
+      <p>
+        <code>np.random.randint()</code> creates random integers.
+      </p>
+
+      <pre><code>import numpy as np
+
+marks = np.random.randint(40, 101, size=10)
+
+print(marks)</code></pre>
+
+      <p>
+        This creates 10 random marks from <code>40</code> to <code>100</code>.
+        The ending value <code>101</code> is not included.
+      </p>
+
+      <h3>Random marks table</h3>
+
+      <pre><code>import numpy as np
+
+marks = np.random.randint(40, 101, size=(5, 3))
+
+print(marks)
+print("Shape:", marks.shape)
+
+print("Subject-wise mean:", np.mean(marks, axis=0))
+print("Student-wise mean:", np.mean(marks, axis=1))</code></pre>
+
+      <div class="note success">
+        <strong>Important:</strong>
+        Random arrays are very useful for practice.
+        They help us test our numerical thinking without manually typing every value.
+      </div>
+
+      <h3>Quick reference table</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Function</th>
+            <th>Purpose</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>np.array()</code></td>
+            <td>Create an array from existing values</td>
+            <td><code>np.array([1, 2, 3])</code></td>
+          </tr>
+          <tr>
+            <td><code>np.zeros()</code></td>
+            <td>Create an array filled with zeroes</td>
+            <td><code>np.zeros((2, 3))</code></td>
+          </tr>
+          <tr>
+            <td><code>np.ones()</code></td>
+            <td>Create an array filled with ones</td>
+            <td><code>np.ones((3, 4))</code></td>
+          </tr>
+          <tr>
+            <td><code>np.full()</code></td>
+            <td>Create an array filled with a chosen value</td>
+            <td><code>np.full((3, 3), 7)</code></td>
+          </tr>
+          <tr>
+            <td><code>np.arange()</code></td>
+            <td>Create values using start, stop and step</td>
+            <td><code>np.arange(1, 11, 2)</code></td>
+          </tr>
+          <tr>
+            <td><code>np.linspace()</code></td>
+            <td>Create evenly spaced values</td>
+            <td><code>np.linspace(0, 1, 5)</code></td>
+          </tr>
+          <tr>
+            <td><code>np.random.rand()</code></td>
+            <td>Create random decimal values</td>
+            <td><code>np.random.rand(3, 4)</code></td>
+          </tr>
+          <tr>
+            <td><code>np.random.randint()</code></td>
+            <td>Create random integer values</td>
+            <td><code>np.random.randint(1, 101, size=10)</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
     <section id="shape">
-      <h2>6. Shape</h2>
+      <h2>7. Shape</h2>
       <p>
         Shape tells us the structure of an array.
       </p>
@@ -781,7 +1051,7 @@ print(marks.shape)</code></pre>
     </section>
 
     <section id="axis">
-      <h2>7. Axis</h2>
+      <h2>8. Axis</h2>
       <p>
         Axis tells NumPy the direction of calculation.
       </p>
@@ -846,7 +1116,7 @@ marks = np.array([
     </section>
 
     <section id="stats">
-      <h2>8. Mean and Median</h2>
+      <h2>9. Mean and Median</h2>
 
       <pre><code>import numpy as np
 
@@ -864,7 +1134,7 @@ print("Median:", median_value)</code></pre>
     </section>
 
     <section id="range">
-      <h2>9. Minimum, Maximum and Range</h2>
+      <h2>10. Minimum, Maximum and Range</h2>
 
       <pre><code>import numpy as np
 
@@ -884,7 +1154,7 @@ print("Range:", range_value)</code></pre>
     </section>
 
     <section>
-      <h2>10. Two-dimensional Statistics</h2>
+      <h2>11. Two-dimensional Statistics</h2>
 
       <pre><code>import numpy as np
 
@@ -910,7 +1180,7 @@ print("Subject-wise range:", np.max(marks, axis=0) - np.min(marks, axis=0))</cod
     </section>
 
     <section id="notebook">
-      <h2>11. Output: Basic Numerical Thinking Notebook</h2>
+      <h2>12. Output: Basic Numerical Thinking Notebook</h2>
 
       <p>
         Copy this into the editor and run it.
@@ -967,6 +1237,35 @@ print("\n4. NUMPY ARRAY")
 print("Marks array:", marks)
 print("Marks multiplied by 2:", marks * 2)
 print("Marks plus 5:", marks + 5)
+
+# 4B. Creating NumPy arrays automatically
+
+print("\n4B. CREATING ARRAYS AUTOMATICALLY")
+
+zeros_array = np.zeros(5)
+ones_array = np.ones(5)
+full_array = np.full((2, 3), 7)
+range_array = np.arange(1, 11)
+even_array = np.arange(2, 21, 2)
+line_array = np.linspace(0, 1, 5)
+random_decimal_array = np.random.rand(5)
+random_marks = np.random.randint(40, 101, size=10)
+
+print("Zeros array:", zeros_array)
+print("Ones array:", ones_array)
+print("Full array:")
+print(full_array)
+print("Range array:", range_array)
+print("Even numbers:", even_array)
+print("Linspace array:", line_array)
+print("Random decimal array:", random_decimal_array)
+print("Random marks:", random_marks)
+
+print("Mean of random marks:", np.mean(random_marks))
+print("Median of random marks:", np.median(random_marks))
+print("Minimum random mark:", np.min(random_marks))
+print("Maximum random mark:", np.max(random_marks))
+print("Range of random marks:", np.max(random_marks) - np.min(random_marks))
 
 # 5. Basic Statistics
 
@@ -1032,7 +1331,7 @@ print("=" * 60)</code></pre>
     </section>
 
     <section id="editor">
-      <h2>12. Python Editor</h2>
+      <h2>13. Python Editor</h2>
       <p>
         Run the notebook here. Change the arrays and observe how the results change.
       </p>
@@ -1050,7 +1349,7 @@ print("=" * 60)</code></pre>
     </section>
 
     <section id="practice">
-      <h2>13. Practice Tasks</h2>
+      <h2>14. Practice Tasks</h2>
 
       <div class="task">
         <h3><span class="task-number">1</span> Indexing</h3>
@@ -1075,6 +1374,16 @@ print("=" * 60)</code></pre>
       <div class="task">
         <h3><span class="task-number">5</span> Axis</h3>
         <p>Create a 2D array where rows are days and columns are morning, afternoon, and evening temperatures.</p>
+      </div>
+
+      <div class="task">
+        <h3><span class="task-number">6</span> Array Creation</h3>
+        <p>
+          Create one array using <code>np.zeros()</code>, one using <code>np.ones()</code>,
+          one using <code>np.arange()</code>, one using <code>np.linspace()</code>,
+          and one using <code>np.random.randint()</code>.
+          Print the shape of each array.
+        </p>
       </div>
 
       <details>
@@ -1111,6 +1420,24 @@ print("Min:", np.min(temp_array))
 print("Max:", np.max(temp_array))
 print("Range:", np.max(temp_array) - np.min(temp_array))
 
+print("\nArray creation practice")
+
+zeros_array = np.zeros(5)
+ones_array = np.ones((2, 3))
+range_array = np.arange(1, 11)
+line_array = np.linspace(0, 1, 5)
+random_array = np.random.randint(20, 41, size=(3, 3))
+
+print("Zeros:", zeros_array, "Shape:", zeros_array.shape)
+print("Ones:")
+print(ones_array)
+print("Shape:", ones_array.shape)
+print("Arange:", range_array, "Shape:", range_array.shape)
+print("Linspace:", line_array, "Shape:", line_array.shape)
+print("Random integers:")
+print(random_array)
+print("Shape:", random_array.shape)
+
 weekly_weather = np.array([
     [24, 31, 28],
     [25, 32, 29],
@@ -1135,7 +1462,7 @@ print(np.mean(weekly_weather, axis=1))</code></pre>
     </section>
 
     <section>
-      <h2>14. Final Challenge</h2>
+      <h2>15. Final Challenge</h2>
       <p>
         Create a marks analysis notebook for 5 students and 4 subjects.
       </p>
@@ -1146,6 +1473,7 @@ print(np.mean(weekly_weather, axis=1))</code></pre>
         <li>Print mean, median, minimum, maximum and range.</li>
         <li>Print subject-wise mean using <code>axis=0</code>.</li>
         <li>Print student-wise mean using <code>axis=1</code>.</li>
+        <li>Create a random marks array using <code>np.random.randint()</code> and analyze it.</li>
       </ul>
 
       <details>
@@ -1188,7 +1516,24 @@ print("Maximum:", np.max(marks))
 print("Range:", np.max(marks) - np.min(marks))
 
 print("Subject-wise mean:", np.mean(marks, axis=0))
-print("Student-wise mean:", np.mean(marks, axis=1))</code></pre>
+print("Student-wise mean:", np.mean(marks, axis=1))
+
+print("\nRandom marks analysis")
+
+random_marks = np.random.randint(40, 101, size=(5, 4))
+
+print("Random marks:")
+print(random_marks)
+
+print("Shape:", random_marks.shape)
+print("Mean:", np.mean(random_marks))
+print("Median:", np.median(random_marks))
+print("Minimum:", np.min(random_marks))
+print("Maximum:", np.max(random_marks))
+print("Range:", np.max(random_marks) - np.min(random_marks))
+
+print("Subject-wise mean:", np.mean(random_marks, axis=0))
+print("Student-wise mean:", np.mean(random_marks, axis=1))</code></pre>
       </details>
     </section>
 
