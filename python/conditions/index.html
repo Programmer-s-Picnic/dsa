@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Python Booleans, Conditions and Operators | Python Foundations</title>
+
+    <meta name="description"
+        content="Learn Python booleans, relational operators, logical operators, if else conditions, elif, nested if, and ternary operators with examples and practice questions." />
+
+    <meta name="keywords"
+        content="Python booleans, Python relational operators, Python logical operators, Python if else, Python elif, Python ternary operator, Python conditions, Python Foundations, Champak Roy" />
+
+    <meta name="author" content="Champak Roy" />
+
+    <meta property="og:title" content="Python Booleans, Conditions and Operators" />
+    <meta property="og:description"
+        content="A Python Foundations lesson on True, False, comparisons, logic, if else, elif, nested if, and ternary operators." />
+    <meta property="og:type" content="article" />
+
+    <style>
+        :root {
+            --bg: #d9fff5;
+            --bg-soft: #ecfffb;
+            --hero: #075b52;
+            --hero-dark: #064a43;
+            --teal: #085b53;
+            --teal-2: #0f766e;
+            --mint: #d9fbf5;
+            --mint-2: #c8f7ef;
+            --text: #123f3b;
+            --muted: #3e706b;
+            --line: #b6e5dc;
+            --card: rgba(255, 255, 255, 0.78);
+            --white: #ffffff;
+            --code-bg: #062f2c;
+            --code-text: #d8fff7;
+            --code-accent: #9fffe8;
+            --shadow: 0 28px 80px rgba(5, 91, 82, 0.15);
+            --radius-lg: 28px;
+            --radius-md: 18px;
+            --radius-sm: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 8% 8%, rgba(255, 255, 255, 0.8), transparent 28%),
+                radial-gradient(circle at 90% 18%, rgba(137, 255, 229, 0.38), transparent 30%),
+                linear-gradient(180deg, #d8fff5 0%, #e8fff9 42%, #f5fffd 100%);
+            line-height: 1.75;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .page {
+            width: min(1160px, calc(100% - 36px));
+            margin: 0 auto;
+        }
+
+        .top-strip {
+            min-height: 22px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 270px;
+            padding: 54px 64px;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            background:
+                radial-gradient(circle at 92% -12%, rgba(255, 255, 255, 0.18) 0 12%, transparent 13%),
+                radial-gradient(circle at 85% 105%, rgba(255, 255, 255, 0.12) 0 13%, transparent 14%),
+                linear-gradient(135deg, #0c7569 0%, #075b52 52%, #06433e 100%);
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -72px;
+            right: -52px;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: 70px;
+            top: -28px;
+            width: 156px;
+            height: 58px;
+            border: 1px solid rgba(255, 255, 255, 0.38);
+            border-radius: 999px;
+            opacity: 0.8;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 920px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            margin-bottom: 18px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 0.82rem;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2.65rem, 7vw, 4.6rem);
+            line-height: 1.02;
+            letter-spacing: -0.06em;
+            color: #ffffff;
+        }
+
+        .hero p {
+            max-width: 940px;
+            margin: 20px 0 0;
+            font-size: clamp(1.05rem, 2.2vw, 1.28rem);
+            color: rgba(255, 255, 255, 0.94);
+        }
+
+        .nav-card {
+            margin: 36px auto 96px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.58);
+            box-shadow: 0 18px 50px rgba(5, 91, 82, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .lesson-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .lesson-nav a {
+            text-decoration: none;
+            padding: 12px 16px;
+            border-radius: 11px;
+            background: var(--mint);
+            color: var(--teal);
+            font-size: 0.92rem;
+            font-weight: 850;
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .lesson-nav a:hover,
+        .lesson-nav a:focus {
+            background: var(--teal);
+            color: white;
+            transform: translateY(-2px);
+            outline: none;
+        }
+
+        main {
+            padding-bottom: 60px;
+        }
+
+        section {
+            margin: 0 0 34px;
+            padding: clamp(24px, 4vw, 42px);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--card);
+            box-shadow: 0 18px 50px rgba(5, 91, 82, 0.08);
+            backdrop-filter: blur(12px);
+        }
+
+        h2 {
+            margin: 0 0 20px;
+            color: var(--teal);
+            font-size: clamp(1.8rem, 4vw, 2.55rem);
+            line-height: 1.16;
+            letter-spacing: -0.045em;
+        }
+
+        h3 {
+            margin: 28px 0 10px;
+            color: var(--teal);
+            font-size: 1.34rem;
+            letter-spacing: -0.025em;
+        }
+
+        p {
+            margin: 0 0 15px;
+            color: var(--muted);
+            font-size: 1.03rem;
+        }
+
+        ul,
+        ol {
+            color: var(--muted);
+            padding-left: 24px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .mini-card {
+            padding: 22px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.82);
+        }
+
+        .mini-card h3 {
+            margin-top: 0;
+        }
+
+        .mini-card p {
+            margin-bottom: 0;
+        }
+
+        .note,
+        .practice,
+        .checkpoint {
+            margin: 18px 0;
+            padding: 18px 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--line);
+            background: rgba(217, 251, 245, 0.72);
+            color: var(--teal);
+        }
+
+        .practice {
+            background: rgba(255, 255, 255, 0.86);
+        }
+
+        .checkpoint {
+            background: rgba(200, 247, 239, 0.78);
+        }
+
+        .note strong,
+        .practice strong,
+        .checkpoint strong {
+            color: var(--teal);
+        }
+
+        code {
+            padding: 2px 7px;
+            border-radius: 7px;
+            background: #d8fbf5;
+            color: #064a43;
+            font-weight: 800;
+            font-family: "Cascadia Code", "Consolas", monospace;
+            font-size: 0.95em;
+        }
+
+        pre {
+            margin: 16px 0;
+            padding: 20px;
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
+                var(--code-bg);
+            color: var(--code-text);
+            border: 1px solid rgba(159, 255, 232, 0.18);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        pre code {
+            display: block;
+            padding: 0;
+            border-radius: 0;
+            background: transparent;
+            color: var(--code-text);
+            font-weight: 500;
+            line-height: 1.7;
+            font-size: 0.98rem;
+            white-space: pre;
+        }
+
+        .output {
+            margin: 14px 0 22px;
+            padding: 16px 18px;
+            border-left: 6px solid var(--teal-2);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            background: #f3fffc;
+            color: var(--teal);
+            font-family: "Cascadia Code", "Consolas", monospace;
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.75);
+        }
+
+        th,
+        td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
+        }
+
+        th {
+            color: var(--teal);
+            background: var(--mint);
+            font-weight: 900;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 560px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: white;
+            box-shadow: 0 18px 50px rgba(5, 91, 82, 0.08);
+        }
+
+        .footer {
+            margin-top: 44px;
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            background: var(--hero);
+        }
+
+        .footer p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.92);
+            font-weight: 700;
+        }
+
+        .summary-table td:first-child {
+            font-weight: 900;
+            color: var(--teal);
+        }
+
+        @media (max-width: 850px) {
+            .page {
+                width: min(100% - 24px, 1160px);
+            }
+
+            .hero {
+                padding: 42px 26px;
+                min-height: 240px;
+            }
+
+            .nav-card {
+                margin-bottom: 56px;
+            }
+
+            .grid,
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                border-radius: 22px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="top-strip"></div>
+
+        <header class="hero">
+            <div class="hero-content">
+                <div class="eyebrow">Python Foundations</div>
+                <h1>Booleans, Conditions and Operators</h1>
+                <p>
+                    Learn how Python thinks using True, False, relational operators, logical operators,
+                    if else, elif, nested if, and ternary expressions.
+                </p>
+            </div>
+        </header>
+
+        <div class="nav-card">
+            <nav class="lesson-nav" aria-label="Lesson navigation">
+                <a href="#overview">Overview</a>
+                <a href="#booleans">Booleans</a>
+                <a href="#relational">Relational Operators</a>
+                <a href="#logical">Logical Operators</a>
+                <a href="#truth-tables">Truth Tables</a>
+                <a href="#if">If</a>
+                <a href="#if-else">If Else</a>
+                <a href="#elif">Elif</a>
+                <a href="#nested-if">Nested If</a>
+                <a href="#ternary">Ternary</a>
+                <a href="#projects">Mini Projects</a>
+                <a href="#practice">Practice</a>
+                <a href="#editor">Python Editor</a>
+            </nav>
+        </div>
+
+        <main>
+
+            <section id="overview">
+                <h2>1. Overview</h2>
+
+                <p>
+                    In the first stage of Python, we learn printing, input, variables, datatypes, and calculations.
+                    Now we make Python take decisions.
+                </p>
+
+                <p>
+                    A program becomes useful when it can ask a question and choose what to do next.
+                </p>
+
+                <div class="grid">
+                    <div class="mini-card">
+                        <h3>Booleans</h3>
+                        <p>Booleans represent answers like True or False.</p>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>Comparisons</h3>
+                        <p>Relational operators compare values and return a Boolean result.</p>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>Conditions</h3>
+                        <p>If else statements allow the program to choose one path from many paths.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="booleans">
+                <h2>2. Booleans in Python</h2>
+
+                <p>
+                    A Boolean has only two possible values:
+                    <code>True</code> or <code>False</code>.
+                </p>
+
+                <pre><code>is_raining = True
+is_sunny = False
+
+print(is_raining)
+print(is_sunny)</code></pre>
+
+                <div class="output">Output:<br>True<br>False</div>
+
+                <div class="note">
+                    <strong>Important:</strong> In Python, write <code>True</code> and <code>False</code> with capital
+                    first letters.
+                    Do not write <code>true</code> or <code>false</code>.
+                </div>
+
+                <h3>Boolean From a Comparison</h3>
+
+                <pre><code>age = 18
+
+print(age >= 18)
+print(age < 18)</code></pre>
+
+                <div class="output">Output:<br>True<br>False</div>
+            </section>
+
+            <section id="relational">
+                <h2>3. Relational Operators</h2>
+
+                <p>
+                    Relational operators compare two values. Their answer is always either
+                    <code>True</code> or <code>False</code>.
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operator</th>
+                            <th>Meaning</th>
+                            <th>Example</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><code>==</code></td>
+                            <td>Equal to</td>
+                            <td><code>5 == 5</code></td>
+                            <td><code>True</code></td>
+                        </tr>
+
+                        <tr>
+                            <td><code>!=</code></td>
+                            <td>Not equal to</td>
+                            <td><code>5 != 3</code></td>
+                            <td><code>True</code></td>
+                        </tr>
+
+                        <tr>
+                            <td><code>&gt;</code></td>
+                            <td>Greater than</td>
+                            <td><code>8 &gt; 3</code></td>
+                            <td><code>True</code></td>
+                        </tr>
+
+                        <tr>
+                            <td><code>&lt;</code></td>
+                            <td>Less than</td>
+                            <td><code>2 &lt; 7</code></td>
+                            <td><code>True</code></td>
+                        </tr>
+
+                        <tr>
+                            <td><code>&gt;=</code></td>
+                            <td>Greater than or equal to</td>
+                            <td><code>18 &gt;= 18</code></td>
+                            <td><code>True</code></td>
+                        </tr>
+
+                        <tr>
+                            <td><code>&lt;=</code></td>
+                            <td>Less than or equal to</td>
+                            <td><code>10 &lt;= 5</code></td>
+                            <td><code>False</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Example</h3>
+
+                <pre><code>a = 10
+b = 20
+
+print(a == b)
+print(a != b)
+print(a > b)
+print(a < b)
+print(a >= 10)
+print(b <= 20)</code></pre>
+
+                <div class="output">
+                    Output:<br>
+                    False<br>
+                    True<br>
+                    False<br>
+                    True<br>
+                    True<br>
+                    True
+                </div>
+
+                <div class="checkpoint">
+                    <strong>Checkpoint:</strong> <code>=</code> means assignment. <code>==</code> means comparison.
+                </div>
+
+                <pre><code>x = 5      # assignment
+x == 5     # comparison</code></pre>
+            </section>
+
+            <section id="logical">
+                <h2>4. Logical Operators</h2>
+
+                <p>
+                    Logical operators combine multiple conditions.
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operator</th>
+                            <th>Meaning</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><code>and</code></td>
+                            <td>True only when both conditions are True</td>
+                            <td><code>age &gt;= 18 and has_id</code></td>
+                        </tr>
+
+                        <tr>
+                            <td><code>or</code></td>
+                            <td>True when at least one condition is True</td>
+                            <td><code>cash &gt; 0 or has_card</code></td>
+                        </tr>
+
+                        <tr>
+                            <td><code>not</code></td>
+                            <td>Reverses the Boolean value</td>
+                            <td><code>not is_raining</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Using and</h3>
+
+                <pre><code>age = 20
+has_id = True
+
+print(age >= 18 and has_id)</code></pre>
+
+                <div class="output">Output:<br>True</div>
+
+                <h3>Using or</h3>
+
+                <pre><code>cash = 0
+has_card = True
+
+print(cash > 0 or has_card)</code></pre>
+
+                <div class="output">Output:<br>True</div>
+
+                <h3>Using not</h3>
+
+                <pre><code>is_raining = False
+
+print(not is_raining)</code></pre>
+
+                <div class="output">Output:<br>True</div>
+            </section>
+
+            <section id="truth-tables">
+                <h2>5. Truth Tables</h2>
+
+                <p>
+                    Truth tables show how logical operators behave for every possible combination of values.
+                </p>
+
+                <div class="two-col">
+                    <div class="mini-card">
+                        <h3>and</h3>
+
+                        <table>
+                            <tr>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>A and B</th>
+                            </tr>
+                            <tr>
+                                <td>True</td>
+                                <td>True</td>
+                                <td>True</td>
+                            </tr>
+                            <tr>
+                                <td>True</td>
+                                <td>False</td>
+                                <td>False</td>
+                            </tr>
+                            <tr>
+                                <td>False</td>
+                                <td>True</td>
+                                <td>False</td>
+                            </tr>
+                            <tr>
+                                <td>False</td>
+                                <td>False</td>
+                                <td>False</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>or</h3>
+
+                        <table>
+                            <tr>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>A or B</th>
+                            </tr>
+                            <tr>
+                                <td>True</td>
+                                <td>True</td>
+                                <td>True</td>
+                            </tr>
+                            <tr>
+                                <td>True</td>
+                                <td>False</td>
+                                <td>True</td>
+                            </tr>
+                            <tr>
+                                <td>False</td>
+                                <td>True</td>
+                                <td>True</td>
+                            </tr>
+                            <tr>
+                                <td>False</td>
+                                <td>False</td>
+                                <td>False</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <h3>not</h3>
+
+                <table>
+                    <tr>
+                        <th>A</th>
+                        <th>not A</th>
+                    </tr>
+                    <tr>
+                        <td>True</td>
+                        <td>False</td>
+                    </tr>
+                    <tr>
+                        <td>False</td>
+                        <td>True</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section id="if">
+                <h2>6. The if Statement</h2>
+
+                <p>
+                    The <code>if</code> statement runs a block of code only when a condition is true.
+                </p>
+
+                <pre><code>marks = 70
+
+if marks >= 33:
+    print("Pass")</code></pre>
+
+                <div class="output">Output:<br>Pass</div>
+
+                <div class="note">
+                    Python uses indentation to decide which statements belong inside the <code>if</code> block.
+                </div>
+            </section>
+
+            <section id="if-else">
+                <h2>7. The if else Statement</h2>
+
+                <p>
+                    <code>if else</code> is used when there are two possible paths.
+                </p>
+
+                <pre><code>marks = 25
+
+if marks >= 33:
+    print("Pass")
+else:
+    print("Fail")</code></pre>
+
+                <div class="output">Output:<br>Fail</div>
+
+                <p>
+                    Since marks are less than 33, the <code>else</code> block runs.
+                </p>
+            </section>
+
+            <section id="elif">
+                <h2>8. The if elif else Statement</h2>
+
+                <p>
+                    <code>elif</code> means else if. It is used when there are many possible conditions.
+                </p>
+
+                <pre><code>marks = 82
+
+if marks >= 90:
+    print("Grade A+")
+elif marks >= 75:
+    print("Grade A")
+elif marks >= 60:
+    print("Grade B")
+elif marks >= 33:
+    print("Grade C")
+else:
+    print("Fail")</code></pre>
+
+                <div class="output">Output:<br>Grade A</div>
+
+                <p>
+                    Python checks conditions from top to bottom. Once one condition becomes true,
+                    that block runs and the remaining conditions are skipped.
+                </p>
+            </section>
+
+            <section id="nested-if">
+                <h2>9. Nested if</h2>
+
+                <p>
+                    An <code>if</code> inside another <code>if</code> is called a nested <code>if</code>.
+                </p>
+
+                <pre><code>age = 21
+has_id = True
+
+if age >= 18:
+    if has_id:
+        print("Entry allowed")
+    else:
+        print("ID required")
+else:
+    print("Entry not allowed")</code></pre>
+
+                <div class="output">Output:<br>Entry allowed</div>
+
+                <div class="note">
+                    Nested conditions are useful, but too many nested levels can make code difficult to read.
+                </div>
+            </section>
+
+            <section id="ternary">
+                <h2>10. Ternary Operator</h2>
+
+                <p>
+                    A ternary operator is a short form of <code>if else</code>.
+                </p>
+
+                <h3>Normal if else</h3>
+
+                <pre><code>age = 20
+
+if age >= 18:
+    status = "Adult"
+else:
+    status = "Minor"
+
+print(status)</code></pre>
+
+                <h3>Ternary form</h3>
+
+                <pre><code>age = 20
+
+status = "Adult" if age >= 18 else "Minor"
+
+print(status)</code></pre>
+
+                <div class="output">Output:<br>Adult</div>
+
+                <p>The structure is:</p>
+
+                <pre><code>value_if_true if condition else value_if_false</code></pre>
+
+                <h3>More Examples</h3>
+
+                <pre><code>number = 10
+
+result = "Even" if number % 2 == 0 else "Odd"
+
+print(result)</code></pre>
+
+                <div class="output">Output:<br>Even</div>
+
+                <pre><code>marks = 45
+
+result = "Pass" if marks >= 33 else "Fail"
+
+print(result)</code></pre>
+
+                <div class="output">Output:<br>Pass</div>
+
+                <div class="checkpoint">
+                    <strong>Checkpoint:</strong> Use ternary operators for simple decisions. For complex decisions,
+                    use normal <code>if else</code>.
+                </div>
+            </section>
+
+            <section id="truthy-falsy">
+                <h2>11. Truthy and Falsy Values</h2>
+
+                <p>
+                    Some values behave like <code>False</code> in Python. These are called falsy values.
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Value</th>
+                            <th>Boolean Meaning</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><code>0</code></td>
+                            <td>False</td>
+                        </tr>
+                        <tr>
+                            <td><code>""</code> empty string</td>
+                            <td>False</td>
+                        </tr>
+                        <tr>
+                            <td><code>[]</code> empty list</td>
+                            <td>False</td>
+                        </tr>
+                        <tr>
+                            <td><code>{}</code> empty dictionary</td>
+                            <td>False</td>
+                        </tr>
+                        <tr>
+                            <td><code>None</code></td>
+                            <td>False</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>
+                    Non-zero and non-empty values usually behave like <code>True</code>.
+                </p>
+
+                <pre><code>print(bool(0))
+print(bool(1))
+print(bool(""))
+print(bool("Python"))
+print(bool([]))
+print(bool([10, 20]))</code></pre>
+
+                <div class="output">
+                    Output:<br>
+                    False<br>
+                    True<br>
+                    False<br>
+                    True<br>
+                    False<br>
+                    True
+                </div>
+            </section>
+
+            <section id="projects">
+                <h2>12. Mini Projects</h2>
+
+                <div class="grid">
+                    <div class="mini-card">
+                        <h3>Number Checker</h3>
+                        <p>Check whether a number is positive, negative, or zero.</p>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>Eligibility Checker</h3>
+                        <p>Use age and marks to decide whether a person is eligible.</p>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>Greatest Number</h3>
+                        <p>Find the greater value using both if else and ternary operator.</p>
+                    </div>
+                </div>
+
+                <h3>Mini Project 1: Number Checker</h3>
+
+                <pre><code>num = int(input("Enter a number: "))
+
+if num > 0:
+    print("Positive number")
+elif num < 0:
+    print("Negative number")
+else:
+    print("Zero")</code></pre>
+
+                <h3>Mini Project 2: Simple Eligibility Checker</h3>
+
+                <pre><code>age = int(input("Enter your age: "))
+marks = int(input("Enter your marks: "))
+
+if age >= 18 and marks >= 50:
+    print("You are eligible")
+else:
+    print("You are not eligible")</code></pre>
+
+                <h3>Mini Project 3: Greatest of Two Numbers</h3>
+
+                <pre><code>a = int(input("Enter first number: "))
+b = int(input("Enter second number: "))
+
+if a > b:
+    print("Greater number is", a)
+else:
+    print("Greater number is", b)</code></pre>
+
+                <h3>Same Project Using Ternary Operator</h3>
+
+                <pre><code>a = int(input("Enter first number: "))
+b = int(input("Enter second number: "))
+
+greater = a if a > b else b
+
+print("Greater number is", greater)</code></pre>
+            </section>
+
+            <section id="mistakes">
+                <h2>13. Common Mistakes</h2>
+
+                <h3>Mistake 1: Using = instead of ==</h3>
+
+                <pre><code># Wrong
+if x = 5:
+    print("Yes")
+
+# Correct
+if x == 5:
+    print("Yes")</code></pre>
+
+                <h3>Mistake 2: Forgetting the colon</h3>
+
+                <pre><code># Wrong
+if age >= 18
+    print("Adult")
+
+# Correct
+if age >= 18:
+    print("Adult")</code></pre>
+
+                <h3>Mistake 3: Wrong indentation</h3>
+
+                <pre><code># Wrong
+if age >= 18:
+print("Adult")
+
+# Correct
+if age >= 18:
+    print("Adult")</code></pre>
+
+                <h3>Mistake 4: Writing true instead of True</h3>
+
+                <pre><code># Wrong
+is_valid = true
+
+# Correct
+is_valid = True</code></pre>
+            </section>
+
+            <section id="practice">
+                <h2>14. Practice Questions</h2>
+
+                <div class="practice">
+                    <ol>
+                        <li>Take age as input and print whether the person is a child, teenager, adult, or senior
+                            citizen.</li>
+                        <li>Take marks as input and print pass or fail.</li>
+                        <li>Take a number and check whether it is even or odd.</li>
+                        <li>Take two numbers and print the greater number.</li>
+                        <li>Take three numbers and print the greatest number.</li>
+                        <li>Take username and password and check login.</li>
+                        <li>Take temperature and print whether the person has fever or not.</li>
+                        <li>Use a ternary operator to check whether a number is positive or negative.</li>
+                        <li>Use <code>and</code> to check if a student passed in both maths and science.</li>
+                        <li>Use <code>or</code> to check if a person can pay by cash or card.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="editor">
+                <h2>15. Embedded Python Editor</h2>
+
+                <p>
+                    Practice the examples directly in the Python editor.
+                </p>
+
+                <iframe src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1"
+                    title="Embedded Python Editor by Champak Roy">
+                </iframe>
+            </section>
+
+            <section id="summary">
+                <h2>16. Final Summary</h2>
+
+                <table class="summary-table">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Meaning</th>
+                    </tr>
+
+                    <tr>
+                        <td>Boolean</td>
+                        <td>A value that is either <code>True</code> or <code>False</code>.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Relational Operators</td>
+                        <td>Operators that compare two values.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Logical Operators</td>
+                        <td>Operators that combine or reverse conditions.</td>
+                    </tr>
+
+                    <tr>
+                        <td><code>if</code></td>
+                        <td>Runs code when a condition is true.</td>
+                    </tr>
+
+                    <tr>
+                        <td><code>else</code></td>
+                        <td>Runs code when the condition is false.</td>
+                    </tr>
+
+                    <tr>
+                        <td><code>elif</code></td>
+                        <td>Checks another condition when the earlier condition is false.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Ternary Operator</td>
+                        <td>A short one-line form of <code>if else</code>.</td>
+                    </tr>
+                </table>
+
+                <div class="checkpoint">
+                    <strong>Final idea:</strong> Conditions are the decision-making system of Python.
+                    They allow your program to think, choose, and react.
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p>Python Foundations lesson by Champak Roy | Programmer's Picnic</p>
+    </footer>
+
+</body>
+
+</html>
