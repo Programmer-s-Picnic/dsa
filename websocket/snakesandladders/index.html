@@ -1,0 +1,1200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+
+  <title>Snakes and Ladders over Cloudflare Durable Object WebSocket</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="A multiplayer Snakes and Ladders game using a Cloudflare Durable Object WebSocket chat server without changing the Worker."
+  />
+  <meta name="keywords" content="Snakes and Ladders, WebSocket game, Cloudflare Durable Objects, JavaScript multiplayer game, Champak Roy, Programmer's Picnic" />
+  <meta name="author" content="Champak Roy" />
+  <meta name="theme-color" content="#f59e0b" />
+
+  <!-- Google AdSense -->
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+    crossorigin="anonymous">
+  </script>
+
+  <style>
+    :root {
+      --bg: #fff7ed;
+      --bg2: #fffbeb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #fed7aa;
+      --saffron: #f59e0b;
+      --saffron-dark: #d97706;
+      --green: #16a34a;
+      --red: #dc2626;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --dark: #111827;
+      --code: #fef3c7;
+      --shadow: 0 18px 45px rgba(146, 64, 14, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, #ffedd5 0, transparent 34%),
+        radial-gradient(circle at bottom right, #fde68a 0, transparent 30%),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      color: var(--text);
+      padding: 18px;
+    }
+
+    .wrap {
+      max-width: 1220px;
+      margin: auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #f59e0b, #fb923c);
+      color: white;
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 18px;
+      opacity: 0.96;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 350px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      color: #9a3412;
+      margin: 0 0 12px;
+    }
+
+    label {
+      display: block;
+      font-weight: 900;
+      color: #7c2d12;
+      margin: 12px 0 8px;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid #fdba74;
+      border-radius: 16px;
+      padding: 13px;
+      font: inherit;
+      outline: none;
+      background: white;
+      color: var(--text);
+    }
+
+    input:focus {
+      border-color: var(--saffron-dark);
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
+    }
+
+    .role-options {
+      display: grid;
+      gap: 9px;
+      margin-top: 8px;
+    }
+
+    .role-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      margin: 0;
+      padding: 11px 13px;
+      border: 1px solid #fdba74;
+      border-radius: 16px;
+      background: white;
+      color: #7c2d12;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .role-option input {
+      width: auto;
+      margin: 0;
+      accent-color: var(--saffron);
+    }
+
+    .role-option:has(input:checked) {
+      background: #ffedd5;
+      border-color: var(--saffron-dark);
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.12);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 15px;
+      font-weight: 900;
+      cursor: pointer;
+      background: var(--saffron);
+      color: white;
+      box-shadow: 0 8px 18px rgba(217, 119, 6, 0.2);
+    }
+
+    button:hover {
+      background: var(--saffron-dark);
+    }
+
+    button.secondary {
+      background: #fff7ed;
+      color: #9a3412;
+      border: 1px solid #fdba74;
+      box-shadow: none;
+    }
+
+    button.danger {
+      background: var(--red);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      background: #fee2e2;
+      color: var(--red);
+      margin-top: 12px;
+    }
+
+    .status.open {
+      background: #dcfce7;
+      color: var(--green);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+    .game-area {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .board-wrap {
+      overflow: auto;
+      padding: 8px;
+    }
+
+    .board {
+      width: min(720px, 92vw);
+      aspect-ratio: 1 / 1;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 5px;
+      background: #fed7aa;
+      padding: 8px;
+      border-radius: 26px;
+      margin: auto;
+    }
+
+    .square {
+      position: relative;
+      border-radius: 12px;
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      display: grid;
+      place-items: center;
+      min-width: 48px;
+      min-height: 48px;
+      overflow: hidden;
+    }
+
+    .square:nth-child(even) {
+      background: #ffffff;
+    }
+
+    .num {
+      position: absolute;
+      top: 5px;
+      left: 6px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #7c2d12;
+    }
+
+    .mark {
+      position: absolute;
+      bottom: 4px;
+      right: 6px;
+      font-size: 12px;
+      font-weight: 1000;
+    }
+
+    .ladder {
+      background: #dcfce7 !important;
+      border-color: #86efac;
+    }
+
+    .snake {
+      background: #fee2e2 !important;
+      border-color: #fecaca;
+    }
+
+    .tokens {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3px;
+      padding-top: 12px;
+    }
+
+    .token {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 1000;
+      color: white;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+    }
+
+    .p1 { background: var(--blue); }
+    .p2 { background: var(--saffron-dark); }
+    .p3 { background: var(--green); }
+    .p4 { background: var(--purple); }
+
+    .panel {
+      display: grid;
+      gap: 12px;
+    }
+
+    .dice {
+      display: grid;
+      place-items: center;
+      width: 110px;
+      height: 110px;
+      border-radius: 24px;
+      background: #111827;
+      color: #fef3c7;
+      font-size: 58px;
+      font-weight: 1000;
+      margin: auto;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08);
+    }
+
+    .game-state {
+      background: #111827;
+      color: #fef3c7;
+      padding: 16px;
+      border-radius: 20px;
+      line-height: 1.5;
+      min-height: 160px;
+      white-space: pre-wrap;
+    }
+
+    .players {
+      display: grid;
+      gap: 8px;
+    }
+
+    .player-card {
+      border: 1px solid #fed7aa;
+      background: #fff7ed;
+      border-radius: 16px;
+      padding: 10px;
+      font-weight: 900;
+    }
+
+    .player-card.active {
+      outline: 4px solid rgba(245, 158, 11, 0.25);
+      border-color: var(--saffron-dark);
+    }
+
+    .messages,
+    .debug-log {
+      background: #111827;
+      color: var(--code);
+      padding: 16px;
+      border-radius: 18px;
+      max-height: 260px;
+      overflow: auto;
+      white-space: pre-wrap;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .room-messages {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 12px;
+      height: 210px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .msg {
+      background: #f3f4f6;
+      padding: 9px 11px;
+      border-radius: 14px;
+      font-size: 14px;
+    }
+
+    .msg.system {
+      background: #ecfdf5;
+      color: #166534;
+      text-align: center;
+    }
+
+    .msg.mine {
+      background: #ffedd5;
+      align-self: flex-end;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .ad-wrap {
+      margin: 22px 0;
+      padding: 14px;
+      border: 1px dashed #fdba74;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.65);
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 1020px) {
+      .grid,
+      .game-area {
+        grid-template-columns: 1fr;
+      }
+
+      .board {
+        width: min(720px, 96vw);
+      }
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding: 12px;
+      }
+
+      .hero {
+        padding: 22px;
+      }
+
+      .square {
+        min-width: 34px;
+        min-height: 34px;
+        border-radius: 8px;
+      }
+
+      .token {
+        width: 17px;
+        height: 17px;
+        font-size: 9px;
+      }
+
+      .num,
+      .mark {
+        font-size: 9px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Snakes and Ladders over WebSocket</h1>
+      <p>Frontend-only multiplayer game using your existing Cloudflare Durable Object chat Worker.</p>
+    </section>
+
+    <div class="ad-wrap">
+      Advertisement
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true">
+      </ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <section class="grid">
+      <aside>
+        <article class="card">
+          <h2>Connection</h2>
+
+          <label for="serverUrl">WebSocket Base URL</label>
+          <input
+            id="serverUrl"
+            value="wss://champak-durable-chat.champaksworld.workers.dev/chat"
+            autocomplete="off"
+          />
+
+          <label for="roomName">Game Room</label>
+          <input id="roomName" value="snakes-main" autocomplete="off" />
+
+          <label for="playerName">Your Name</label>
+          <input id="playerName" value="Champak" autocomplete="off" />
+
+          <label>Your Role</label>
+          <div class="role-options" role="radiogroup" aria-label="Choose your role">
+            <label class="role-option">
+              <input type="radio" name="playerRole" value="P1" checked />
+              <span>P1 - Blue</span>
+            </label>
+
+            <label class="role-option">
+              <input type="radio" name="playerRole" value="P2" />
+              <span>P2 - Orange</span>
+            </label>
+
+            <label class="role-option">
+              <input type="radio" name="playerRole" value="P3" />
+              <span>P3 - Green</span>
+            </label>
+
+            <label class="role-option">
+              <input type="radio" name="playerRole" value="P4" />
+              <span>P4 - Purple</span>
+            </label>
+
+            <label class="role-option">
+              <input type="radio" name="playerRole" value="spectator" />
+              <span>Spectator</span>
+            </label>
+          </div>
+
+          <div id="status" class="status">
+            <span class="dot"></span>
+            <span>Disconnected</span>
+          </div>
+
+          <div class="row">
+            <button onclick="connectGame()">Connect</button>
+            <button class="danger" onclick="disconnectGame()">Disconnect</button>
+            <button class="secondary" onclick="clearLogs()">Clear Logs</button>
+          </div>
+
+          <p class="small">
+            Open this page in different tabs or devices. Use the same room. Choose different player roles.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Game Controls</h2>
+          <div class="row">
+            <button onclick="newGame()">New Game</button>
+            <button onclick="rollDice()">Roll Dice</button>
+            <button class="secondary" onclick="syncGame()">Sync Game</button>
+          </div>
+          <p class="small">
+            Roll only when it is your turn. Exact 100 is needed to win.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Debug Log</h2>
+          <pre id="debugLog" class="debug-log"></pre>
+        </article>
+      </aside>
+
+      <section>
+        <article class="card">
+          <div class="game-area">
+            <div>
+              <h2>Board</h2>
+              <div class="board-wrap">
+                <div id="board" class="board" aria-label="Snakes and Ladders board"></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div>
+                <h2>Dice</h2>
+                <div id="dice" class="dice">-</div>
+              </div>
+
+              <div>
+                <h2>Status</h2>
+                <div id="gameState" class="game-state">Not connected.</div>
+              </div>
+
+              <div>
+                <h2>Players</h2>
+                <div id="players" class="players"></div>
+              </div>
+
+              <div>
+                <h2>Room Messages</h2>
+                <div id="messages" class="room-messages"></div>
+
+                <div class="row">
+                  <input id="chatInput" placeholder="Optional room message..." autocomplete="off" />
+                  <button onclick="sendRoomChat()">Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const GAME_PREFIX = "__SNAKES_LADDERS__:";
+
+    const snakesAndLadders = {
+      4: 14,
+      9: 31,
+      20: 38,
+      28: 84,
+      40: 59,
+      51: 67,
+      63: 81,
+      71: 91,
+      17: 7,
+      54: 34,
+      62: 19,
+      64: 60,
+      87: 24,
+      93: 73,
+      95: 75,
+      99: 78
+    };
+
+    const playerOrder = ["P1", "P2", "P3", "P4"];
+
+    let ws = null;
+    let myClientId = null;
+
+    let game = createInitialGame();
+    let lastDice = "-";
+
+    const boardBox = document.getElementById("board");
+    const statusBox = document.getElementById("status");
+    const gameStateBox = document.getElementById("gameState");
+    const debugLogBox = document.getElementById("debugLog");
+    const messagesBox = document.getElementById("messages");
+    const chatInput = document.getElementById("chatInput");
+    const diceBox = document.getElementById("dice");
+    const playersBox = document.getElementById("players");
+
+    function createInitialGame() {
+      return {
+        positions: {
+          P1: 0,
+          P2: 0,
+          P3: 0,
+          P4: 0
+        },
+        names: {
+          P1: "Player 1",
+          P2: "Player 2",
+          P3: "Player 3",
+          P4: "Player 4"
+        },
+        turn: "P1",
+        status: "waiting",
+        winner: "",
+        moveNumber: 0,
+        gameId: Date.now().toString()
+      };
+    }
+
+    function buildBoard() {
+      boardBox.innerHTML = "";
+
+      const displayNumbers = [];
+
+      for (let row = 9; row >= 0; row--) {
+        const rowNumbers = [];
+
+        for (let col = 0; col < 10; col++) {
+          rowNumbers.push(row * 10 + col + 1);
+        }
+
+        if ((9 - row) % 2 === 0) {
+          rowNumbers.reverse();
+        }
+
+        displayNumbers.push(...rowNumbers);
+      }
+
+      for (const number of displayNumbers) {
+        const square = document.createElement("div");
+        square.className = "square";
+        square.dataset.number = String(number);
+
+        if (snakesAndLadders[number]) {
+          if (snakesAndLadders[number] > number) {
+            square.classList.add("ladder");
+          } else {
+            square.classList.add("snake");
+          }
+        }
+
+        const num = document.createElement("div");
+        num.className = "num";
+        num.textContent = number;
+
+        const mark = document.createElement("div");
+        mark.className = "mark";
+
+        if (snakesAndLadders[number]) {
+          mark.textContent = snakesAndLadders[number] > number
+            ? "L→" + snakesAndLadders[number]
+            : "S→" + snakesAndLadders[number];
+        }
+
+        const tokens = document.createElement("div");
+        tokens.className = "tokens";
+
+        square.appendChild(num);
+        square.appendChild(mark);
+        square.appendChild(tokens);
+        boardBox.appendChild(square);
+      }
+
+      renderGame();
+    }
+
+    function setStatus(text, connected) {
+      statusBox.className = "status" + (connected ? " open" : "");
+      statusBox.querySelector("span:last-child").textContent = text;
+    }
+
+    function log(title, data) {
+      const time = new Date().toLocaleTimeString();
+      let output = "[" + time + "] " + title;
+
+      if (data !== undefined) {
+        if (typeof data === "string") {
+          output += "\n" + data;
+        } else {
+          try {
+            output += "\n" + JSON.stringify(data, null, 2);
+          } catch {
+            output += "\n" + String(data);
+          }
+        }
+      }
+
+      debugLogBox.textContent += output + "\n\n";
+      debugLogBox.scrollTop = debugLogBox.scrollHeight;
+    }
+
+    function addRoomMessage(text, type) {
+      const div = document.createElement("div");
+      div.className = "msg" + (type ? " " + type : "");
+      div.textContent = text;
+      messagesBox.appendChild(div);
+      messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+
+    function getName() {
+      return document.getElementById("playerName").value.trim() || "Guest";
+    }
+
+    function getRole() {
+      const selected = document.querySelector('input[name="playerRole"]:checked');
+      return selected ? selected.value : "spectator";
+    }
+
+    function getRoom() {
+      return document.getElementById("roomName").value.trim() || "snakes-main";
+    }
+
+    function buildWebSocketUrl() {
+      const base = document.getElementById("serverUrl").value.trim();
+      const separator = base.includes("?") ? "&" : "?";
+
+      return (
+        base +
+        separator +
+        "room=" +
+        encodeURIComponent(getRoom()) +
+        "&name=" +
+        encodeURIComponent(getName())
+      );
+    }
+
+    function connectGame() {
+      const url = buildWebSocketUrl();
+
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        log("Already connected.");
+        return;
+      }
+
+      try {
+        ws = new WebSocket(url);
+
+        log("Connecting", url);
+
+        ws.onopen = function () {
+          setStatus("Connected", true);
+          log("Connected.");
+          addRoomMessage(getName() + " connected as " + getRole(), "system");
+          announcePresence();
+        };
+
+        ws.onmessage = function (event) {
+          let data;
+
+          try {
+            data = JSON.parse(event.data);
+          } catch {
+            data = {
+              type: "chat",
+              name: "Server",
+              message: event.data
+            };
+          }
+
+          if (data.clientId) {
+            myClientId = data.clientId;
+          }
+
+          handleServerMessage(data);
+        };
+
+        ws.onerror = function (event) {
+          log("WebSocket error", {
+            eventType: event.type,
+            readyState: ws ? ws.readyState : "no socket"
+          });
+        };
+
+        ws.onclose = function (event) {
+          setStatus("Disconnected", false);
+          log("Disconnected", {
+            code: event.code,
+            reason: event.reason || "No reason given",
+            wasClean: event.wasClean
+          });
+        };
+      } catch (error) {
+        log("Connection failed", {
+          message: error.message
+        });
+      }
+    }
+
+    function disconnectGame() {
+      if (!ws) {
+        log("No socket exists.");
+        return;
+      }
+
+      ws.close(1000, "Closed by user");
+      ws = null;
+      setStatus("Disconnected", false);
+    }
+
+    function sendPayload(payload) {
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        log("Not connected. Cannot send.", payload);
+        return false;
+      }
+
+      ws.send(
+        JSON.stringify({
+          type: "chat",
+          message: GAME_PREFIX + JSON.stringify(payload)
+        })
+      );
+
+      return true;
+    }
+
+    function announcePresence() {
+      const role = getRole();
+
+      if (playerOrder.includes(role)) {
+        game.names[role] = getName();
+        renderGame();
+      }
+
+      sendPayload({
+        kind: "presence",
+        name: getName(),
+        role,
+        room: getRoom(),
+        game,
+        time: new Date().toISOString()
+      });
+    }
+
+    function newGame() {
+      game = createInitialGame();
+
+      const role = getRole();
+      if (playerOrder.includes(role)) {
+        game.names[role] = getName();
+      }
+
+      lastDice = "-";
+      renderGame();
+
+      sendPayload({
+        kind: "new-game",
+        from: getName(),
+        role,
+        game,
+        lastDice,
+        time: new Date().toISOString()
+      });
+
+      addRoomMessage(getName() + " started a new game.", "system");
+    }
+
+    function syncGame() {
+      sendPayload({
+        kind: "sync",
+        from: getName(),
+        game,
+        lastDice,
+        time: new Date().toISOString()
+      });
+
+      log("Sync sent.");
+    }
+
+    function rollDice() {
+      const role = getRole();
+
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        alert("Connect first.");
+        return;
+      }
+
+      if (!playerOrder.includes(role)) {
+        alert("Spectators cannot roll.");
+        return;
+      }
+
+      if (game.status !== "playing") {
+        alert("Start a new game first.");
+        return;
+      }
+
+      if (game.turn !== role) {
+        alert("It is " + game.turn + "'s turn.");
+        return;
+      }
+
+      const dice = Math.floor(Math.random() * 6) + 1;
+      lastDice = String(dice);
+
+      const oldPosition = game.positions[role];
+      let nextPosition = oldPosition + dice;
+      let note = "";
+
+      if (nextPosition > 100) {
+        nextPosition = oldPosition;
+        note = role + " rolled " + dice + " and needs exact 100.";
+      } else {
+        note = role + " rolled " + dice + " and moved to " + nextPosition + ".";
+
+        if (snakesAndLadders[nextPosition]) {
+          const jumpTo = snakesAndLadders[nextPosition];
+
+          if (jumpTo > nextPosition) {
+            note += " Ladder! Climbed to " + jumpTo + ".";
+          } else {
+            note += " Snake! Slid to " + jumpTo + ".";
+          }
+
+          nextPosition = jumpTo;
+        }
+      }
+
+      game.positions[role] = nextPosition;
+      game.moveNumber += 1;
+
+      if (nextPosition === 100) {
+        game.status = "finished";
+        game.winner = role;
+        note += " " + role + " wins!";
+      } else if (dice !== 6) {
+        game.turn = nextPlayer(game.turn);
+      } else {
+        note += " Rolled 6, gets another turn.";
+      }
+
+      renderGame();
+
+      sendPayload({
+        kind: "move",
+        from: getName(),
+        role,
+        dice,
+        note,
+        game,
+        lastDice,
+        time: new Date().toISOString()
+      });
+
+      addRoomMessage(note, "system");
+    }
+
+    function nextPlayer(current) {
+      const index = playerOrder.indexOf(current);
+      return playerOrder[(index + 1) % playerOrder.length];
+    }
+
+    function sendRoomChat() {
+      const text = chatInput.value.trim();
+
+      if (!text) {
+        return;
+      }
+
+      sendPayload({
+        kind: "room-chat",
+        from: getName(),
+        text,
+        time: new Date().toISOString()
+      });
+
+      addRoomMessage("You: " + text, "mine");
+      chatInput.value = "";
+      chatInput.focus();
+    }
+
+    function handleServerMessage(data) {
+      log("Received", data);
+
+      if (data.type === "system") {
+        addRoomMessage(data.message || "System message", "system");
+        return;
+      }
+
+      if (!data.message || typeof data.message !== "string") {
+        return;
+      }
+
+      if (!data.message.startsWith(GAME_PREFIX)) {
+        const sender = data.name || "User";
+        addRoomMessage(sender + ": " + data.message);
+        return;
+      }
+
+      let payload;
+
+      try {
+        payload = JSON.parse(data.message.slice(GAME_PREFIX.length));
+      } catch (error) {
+        log("Bad game payload", error.message);
+        return;
+      }
+
+      handleGamePayload(payload);
+    }
+
+    function handleGamePayload(payload) {
+      if (!payload || !payload.kind) {
+        return;
+      }
+
+      if (payload.from === getName() && payload.kind !== "sync") {
+        return;
+      }
+
+      if (payload.kind === "presence") {
+        if (payload.game) {
+          game = payload.game;
+        }
+
+        if (payload.role && playerOrder.includes(payload.role)) {
+          game.names[payload.role] = payload.name;
+        }
+
+        renderGame();
+        addRoomMessage(payload.name + " joined as " + payload.role, "system");
+        return;
+      }
+
+      if (payload.kind === "new-game") {
+        game = payload.game;
+        lastDice = payload.lastDice || "-";
+        renderGame();
+        addRoomMessage(payload.from + " started a new game.", "system");
+        return;
+      }
+
+      if (payload.kind === "sync") {
+        if (payload.game) {
+          game = payload.game;
+        }
+
+        lastDice = payload.lastDice || lastDice;
+        renderGame();
+        addRoomMessage("Game synced from " + payload.from, "system");
+        return;
+      }
+
+      if (payload.kind === "move") {
+        game = payload.game;
+        lastDice = payload.lastDice || String(payload.dice || "-");
+        renderGame();
+        addRoomMessage(payload.note || payload.from + " moved.", "system");
+        return;
+      }
+
+      if (payload.kind === "room-chat") {
+        addRoomMessage(payload.from + ": " + payload.text);
+      }
+    }
+
+    function renderGame() {
+      const tokenBoxes = boardBox.querySelectorAll(".tokens");
+      tokenBoxes.forEach(box => box.innerHTML = "");
+
+      for (const player of playerOrder) {
+        const pos = game.positions[player];
+
+        if (pos <= 0) {
+          continue;
+        }
+
+        const square = boardBox.querySelector('[data-number="' + pos + '"]');
+
+        if (!square) {
+          continue;
+        }
+
+        const token = document.createElement("div");
+        token.className = "token " + player.toLowerCase();
+        token.textContent = player.replace("P", "");
+        square.querySelector(".tokens").appendChild(token);
+      }
+
+      diceBox.textContent = lastDice;
+
+      let text = "";
+      text += "Room: " + getRoom() + "\n";
+      text += "You: " + getName() + " (" + getRole() + ")\n";
+      text += "Game ID: " + game.gameId + "\n";
+      text += "Move number: " + game.moveNumber + "\n\n";
+
+      if (game.status === "waiting") {
+        text += "Status: Waiting. Click New Game.";
+      } else if (game.status === "playing") {
+        text += "Status: Playing\n";
+        text += "Turn: " + game.turn + " - " + game.names[game.turn];
+      } else if (game.status === "finished") {
+        text += "Status: Finished\n";
+        text += "Winner: " + game.winner + " - " + game.names[game.winner];
+      }
+
+      gameStateBox.textContent = text;
+      renderPlayers();
+    }
+
+    function renderPlayers() {
+      playersBox.innerHTML = "";
+
+      for (const player of playerOrder) {
+        const div = document.createElement("div");
+        div.className = "player-card" + (game.turn === player ? " active" : "");
+
+        div.innerHTML =
+          "<strong>" + player + " - " + escapeHtml(game.names[player]) + "</strong><br>" +
+          "Position: " + game.positions[player];
+
+        playersBox.appendChild(div);
+      }
+    }
+
+    function clearLogs() {
+      debugLogBox.textContent = "";
+      messagesBox.innerHTML = "";
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    chatInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendRoomChat();
+      }
+    });
+
+    window.addEventListener("beforeunload", function () {
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.close(1000, "Page closed");
+      }
+    });
+
+    buildBoard();
+    setStatus("Disconnected", false);
+  </script>
+</body>
+</html>
