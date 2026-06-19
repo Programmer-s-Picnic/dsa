@@ -1,222 +1,421 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-    
-        gtag('config', 'G-GSTQRQMLEE');
-    </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/><title>Music Visualizer | Study AI/ML with Champak Roy, Varanasi</title><meta content="Learn Music Visualizer as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="description"/><meta content="AI ML classes Varanasi, study AIML with Champak Roy, Champak Roy Varanasi, Programmer's Picnic, Music Visualizer, Python lessons, machine learning lessons, data structures algorithms, learnwithchampak" name="keywords"/><meta content="Champak Roy" name="author"/><meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/><link href="https://dsa.learnwithchampak.live/visualizers/videos/patterns/" rel="canonical"/><meta content="website" property="og:type"/><meta content="Programmer's Picnic by Champak Roy" property="og:site_name"/><meta content="Music Visualizer | Study AI/ML with Champak Roy, Varanasi" property="og:title"/><meta content="Learn Music Visualizer as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." property="og:description"/><meta content="https://dsa.learnwithchampak.live/visualizers/videos/patterns/" property="og:url"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="summary_large_image" name="twitter:card"/><meta content="Music Visualizer | Study AI/ML with Champak Roy, Varanasi" name="twitter:title"/><meta content="Learn Music Visualizer as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="twitter:description"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" name="twitter:image"/>
+    gtag('config', 'G-GSTQRQMLEE');
+  </script>
 
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
-<style>
-      select {
-        color: teal !important;
-      }
-      :root {
-        --bg: #070b14;
-        --panel: rgba(255, 255, 255, 0.08);
-        --line: rgba(255, 255, 255, 0.12);
-        --text: #f8fafc;
-        --muted: #cbd5e1;
-        --accent: #f59e0b;
-        --accent2: #fb7185;
-      }
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>JavaScript Music Visualizer with Canvas and Web Audio API | Champak Roy</title>
+  <meta
+    content="Build an interactive JavaScript music visualizer using HTML, CSS, Canvas, the Web Audio API, microphone input, audio files, frequency data, waves, rings, radial bars and particles."
+    name="description" />
+  <meta
+    content="JavaScript music visualizer, Web Audio API tutorial, Canvas audio visualizer, microphone visualizer, frequency data, waveform animation, bass mid treble visualizer, Champak Roy, Programmer's Picnic"
+    name="keywords" />
+  <meta content="Champak Roy" name="author" />
+  <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots" />
+  <link href="https://dsa.learnwithchampak.live/visualizers/videos/patterns/" rel="canonical" />
+  <meta content="website" property="og:type" />
+  <meta content="Programmer's Picnic by Champak Roy" property="og:site_name" />
+  <meta content="JavaScript Music Visualizer with Canvas and Web Audio API | Champak Roy" property="og:title" />
+  <meta
+    content="Build an interactive JavaScript music visualizer using HTML, CSS, Canvas, the Web Audio API, microphone input, audio files, frequency data, waves, rings, radial bars and particles."
+    property="og:description" />
+  <meta content="https://dsa.learnwithchampak.live/visualizers/videos/patterns/" property="og:url" />
+  <meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"
+    property="og:image" />
+  <meta content="1200" property="og:image:width" />
+  <meta content="630" property="og:image:height" />
+  <meta content="summary_large_image" name="twitter:card" />
+  <meta content="JavaScript Music Visualizer with Canvas and Web Audio API | Champak Roy" name="twitter:title" />
+  <meta
+    content="Build an interactive JavaScript music visualizer using HTML, CSS, Canvas, the Web Audio API, microphone input, audio files, frequency data, waves, rings, radial bars and particles."
+    name="twitter:description" />
+  <meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"
+    name="twitter:image" />
 
-      * {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        margin: 0;
-        height: 100%;
-        font-family:
-          system-ui,
-          -apple-system,
-          Segoe UI,
-          Roboto,
-          Arial,
-          sans-serif;
-        color: var(--text);
-        background:
-          radial-gradient(
-            circle at top left,
-            rgba(245, 158, 11, 0.18),
-            transparent 26%
-          ),
-          radial-gradient(
-            circle at top right,
-            rgba(251, 113, 133, 0.12),
-            transparent 28%
-          ),
-          linear-gradient(135deg, #050816, #0b1020 45%, #111827);
-      }
+  <script async="" crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+  <style>
+    select {
+      color: teal !important;
+    }
 
+    :root {
+      --bg: #070b14;
+      --panel: rgba(255, 255, 255, 0.08);
+      --line: rgba(255, 255, 255, 0.12);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #f59e0b;
+      --accent2: #fb7185;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      font-family:
+        system-ui,
+        -apple-system,
+        Segoe UI,
+        Roboto,
+        Arial,
+        sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left,
+          rgba(245, 158, 11, 0.18),
+          transparent 26%),
+        radial-gradient(circle at top right,
+          rgba(251, 113, 133, 0.12),
+          transparent 28%),
+        linear-gradient(135deg, #050816, #0b1020 45%, #111827);
+    }
+
+    .app {
+      min-height: 100%;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .side {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.45rem;
+    }
+
+    p {
+      margin: 0.4rem 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #fde68a;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    button,
+    select,
+    input[type="file"],
+    input[type="range"] {
+      width: 100%;
+    }
+
+    button,
+    select {
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    button:hover,
+    select:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none;
+      font-weight: 700;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .big-action {
+      min-height: 54px;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+    }
+
+    .mic-action {
+      background: linear-gradient(135deg, #10b981, #14b8a6);
+      border: none;
+      color: #04111d;
+    }
+
+    .fullscreen-action {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none;
+      color: #111827;
+    }
+
+    .stop-action {
+      background: rgba(255, 255, 255, 0.10);
+    }
+
+    .action-help {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.88rem;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      overflow: hidden;
+      min-height: 78vh;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .top {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .canvas-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      pointer-events: auto;
+    }
+
+    .canvas-actions button {
+      width: auto;
+      min-width: 142px;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #111827;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    #exitFullscreenBtn {
+      display: none;
+    }
+
+    body.full #canvasFullscreenBtn {
+      display: none;
+    }
+
+    body.full #exitFullscreenBtn {
+      display: inline-block;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+
+    .stat:last-child {
+      border-bottom: none;
+    }
+
+    body.full .side {
+      display: none;
+    }
+
+    body.full .app {
+      grid-template-columns: 1fr;
+      padding: 0;
+      gap: 0;
+    }
+
+    body.full .panel,
+    body.full .canvas-wrap {
+      border-radius: 0;
+      border: none;
+      min-height: 100vh;
+    }
+
+
+
+    .lesson {
+      margin: 16px;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.075);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .lesson h2,
+    .lesson h3 {
+      color: #fde68a;
+      margin: 1.3rem 0 0.5rem;
+    }
+
+    .lesson h2:first-child {
+      margin-top: 0;
+    }
+
+    .lesson p,
+    .lesson li {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .lesson code {
+      background: rgba(0, 0, 0, 0.35);
+      color: #fef3c7;
+      padding: 0.12rem 0.35rem;
+      border-radius: 0.4rem;
+    }
+
+    .lesson pre {
+      overflow-x: auto;
+      background: #020617;
+      color: #f8fafc;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .privacy-note {
+      border-left: 4px solid var(--accent);
+      padding: 12px 14px;
+      background: rgba(245, 158, 11, 0.08);
+      border-radius: 12px;
+    }
+
+    .ad-wrap {
+      margin-top: 12px;
+      padding: 8px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    a {
+      color: #fde68a;
+    }
+
+    button:focus-visible,
+    select:focus-visible,
+    input:focus-visible,
+    a:focus-visible {
+      outline: 3px solid #fde68a;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
       .app {
-        min-height: 100%;
-        display: grid;
-        grid-template-columns: 320px 1fr;
-        gap: 16px;
-        padding: 16px;
-      }
-
-      .panel {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 24px;
-        backdrop-filter: blur(10px);
-      }
-
-      .side {
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-      }
-
-      .card {
-        padding: 14px;
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.06);
-      }
-
-      h1 {
-        margin: 0;
-        font-size: 1.45rem;
-      }
-
-      p {
-        margin: 0.4rem 0 0;
-        color: var(--muted);
-        line-height: 1.45;
-      }
-
-      .label {
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        color: #fde68a;
-        font-weight: 700;
-        margin-bottom: 10px;
-      }
-
-      button,
-      select,
-      input[type="file"],
-      input[type="range"] {
-        width: 100%;
-      }
-
-      button,
-      select {
-        padding: 12px 14px;
-        border-radius: 14px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.08);
-        color: var(--text);
-        cursor: pointer;
-      }
-
-      button:hover,
-      select:hover {
-        background: rgba(255, 255, 255, 0.12);
-      }
-
-      .primary {
-        background: linear-gradient(135deg, var(--accent), var(--accent2));
-        border: none;
-        font-weight: 700;
-      }
-
-      .row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
+        grid-template-columns: 1fr;
+        padding: 10px;
       }
 
       .canvas-wrap {
-        position: relative;
-        overflow: hidden;
-        min-height: 78vh;
-      }
-
-      canvas {
-        display: block;
-        width: 100%;
-        height: 100%;
+        min-height: 64vh;
       }
 
       .top {
-        position: absolute;
-        top: 14px;
-        left: 14px;
-        right: 14px;
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        z-index: 2;
-        pointer-events: none;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        flex-direction: column;
       }
 
-      .badge {
-        background: rgba(255, 255, 255, 0.09);
-        border: 1px solid var(--line);
-        padding: 8px 12px;
-        border-radius: 999px;
-        color: var(--muted);
-        font-size: 0.88rem;
+      .canvas-actions {
+        width: 100%;
       }
 
-      .stat {
-        display: flex;
-        justify-content: space-between;
-        padding: 8px 0;
-        border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+      .canvas-actions button {
+        width: 100%;
       }
-
-      .stat:last-child {
-        border-bottom: none;
-      }
-
-      body.full .side {
-        display: none;
-      }
-
-      body.full .app {
-        grid-template-columns: 1fr;
-        padding: 0;
-        gap: 0;
-      }
-
-      body.full .panel,
-      body.full .canvas-wrap {
-        border-radius: 0;
-        border: none;
-        min-height: 100vh;
-      }
-
-      @media (max-width: 900px) {
-        .app {
-          grid-template-columns: 1fr;
-        }
-        .canvas-wrap {
-          min-height: 60vh;
-        }
-      }
-    </style>
-<link href="../../../assets/css/theme.css" rel="stylesheet"/><script type="application/ld+json">{
+    }
+  </style>
+  <link href="../../../assets/css/theme.css" rel="stylesheet" />
+  <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "LearningResource",
-  "name": "Music Visualizer | Study AI/ML with Champak Roy, Varanasi",
-  "description": "Learn Music Visualizer as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons.",
+  "name": "JavaScript Music Visualizer with Canvas and Web Audio API | Champak Roy",
+  "description": "Build an interactive JavaScript music visualizer using HTML, CSS, Canvas, the Web Audio API, microphone input, audio files, frequency data, waves, rings, radial bars and particles.",
   "url": "https://dsa.learnwithchampak.live/visualizers/videos/patterns/",
   "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
   "inLanguage": "en",
@@ -246,432 +445,681 @@
     "audienceType": "Students and beginner programmers"
   },
   "isAccessibleForFree": true
-}</script></head>
-<body data-root="../../../"><div data-root="../../../" id="site-header"></div>
-<div class="app">
-<aside class="panel side">
-<div>
-<h1>Music Visualizer</h1>
-<p>
-            Patterns only. No photos. Upload audio or use microphone. Full
-            screen starts after 5 seconds.
-          </p>
-</div>
-<section class="card">
-<div class="label">Audio Input</div>
-<div class="row">
-<button id="micBtn">Use Microphone</button>
-<button id="stopBtn">Stop Input</button>
-</div>
-<div style="height: 10px"></div>
-<input accept="audio/*" id="fileInput" type="file"/>
-<audio controls="" id="audioPlayer" style="width: 100%; margin-top: 10px"></audio>
-</section>
-<section class="card">
-<div class="label">Visualizer</div>
-<select id="mode">
-<option value="rings">Pulse Rings</option>
-<option value="wave">Wave Field</option>
-<option value="spiral">Spiral Bloom</option>
-<option value="bars">Radial Bars</option>
-<option value="particles">Particles</option>
-<option value="rings">Rings</option>
-<option value="all">All</option>
-</select>
-<div style="height: 10px"></div>
-<label>Sensitivity</label>
-<input id="sens" max="3" min="0.5" step="0.1" type="range" value="1.3"/>
-<label>Trail / Fade</label>
-<input id="trail" max="0.3" min="0.02" step="0.01" type="range" value="0.08"/>
-<label>Zoom</label>
-<input id="zoom" max="2.4" min="0.4" step="0.1" type="range" value="1"/>
-<div style="height: 10px"></div>
-<button class="primary" id="saveBtn">Save Current Frame</button>
-</section>
-<section class="card">
-<div class="label">Stats</div>
-<div class="stat">
-<span>Status</span><strong id="status">Idle</strong>
-</div>
-<div class="stat"><span>Volume</span><strong id="vol">0</strong></div>
-<div class="stat"><span>Bass</span><strong id="bass">0</strong></div>
-<div class="stat"><span>Mid</span><strong id="mid">0</strong></div>
-<div class="stat">
-<span>Treble</span><strong id="treble">0</strong>
-</div>
-</section>
-</aside>
-<main class="panel canvas-wrap" id="main-content">
-<div class="top">
-<div class="badge" id="modeBadge">Mode: Pulse Rings</div>
-<div class="badge">Auto full screen after 10 seconds</div>
-</div>
-<canvas id="canvas"></canvas>
-</main>
-</div>
-<script>
-      const canvas = document.getElementById("canvas");
-      const ctx = canvas.getContext("2d");
+}</script>
+</head>
 
-      const mode = document.getElementById("mode");
-      const modeBadge = document.getElementById("modeBadge");
-      const sensEl = document.getElementById("sens");
-      const trailEl = document.getElementById("trail");
-      const zoomEl = document.getElementById("zoom");
+<body data-root="../../../">
+  <div data-root="../../../" id="site-header"><a href="../../../">Programmer's Picnic</a></div>
+  <div class="app">
+    <aside class="panel side">
+      <div>
+        <h1>Music Visualizer</h1>
+        <p>
+          Patterns only. No photos. Upload an audio file or use the microphone to turn sound into animated waves, rings,
+          particles and radial bars.
+        </p>
+        <p class="privacy-note">Microphone audio is used only inside your browser for visualization. It is not uploaded
+          by this page.</p>
+      </div>
+      <section class="card">
+        <div class="label">Audio Input</div>
+        <div class="action-grid">
+          <button class="big-action mic-action" id="micBtn" aria-label="Use microphone as audio input">Use
+            Microphone</button>
+          <button class="big-action fullscreen-action" id="fullscreenBtn"
+            aria-label="Show the visualizer in full screen">Full Screen Visualizer</button>
+          <button class="stop-action" id="stopBtn" aria-label="Stop the current audio input">Stop Input</button>
+        </div>
+        <small class="action-help">Tip: click <strong>Use Microphone</strong> first, allow permission, then click
+          <strong>Full Screen Visualizer</strong>. Use Escape or the Exit button to leave full screen.</small>
+        <div style="height: 12px"></div>
+        <label for="fileInput">Choose an audio file</label>
+        <input accept="audio/*" id="fileInput" type="file" />
+        <audio controls="" id="audioPlayer" style="width: 100%; margin-top: 10px"></audio>
+      </section>
+      <section class="card">
+        <div class="label">Visualizer</div>
+        <label for="mode">Choose visualizer mode</label>
+        <select id="mode">
+          <option value="rings">Pulse Rings</option>
+          <option value="wave">Wave Field</option>
+          <option value="spiral">Spiral Bloom</option>
+          <option value="bars">Radial Bars</option>
+          <option value="particles">Particles</option>
+          <option value="all">All Effects</option>
+        </select>
+        <div style="height: 10px"></div>
+        <label for="sens">Sensitivity</label>
+        <input id="sens" max="3" min="0.5" step="0.1" type="range" value="1.3" />
+        <label for="trail">Trail / Fade</label>
+        <input id="trail" max="0.3" min="0.02" step="0.01" type="range" value="0.08" />
+        <label for="zoom">Zoom</label>
+        <input id="zoom" max="2.4" min="0.4" step="0.1" type="range" value="1" />
+        <div style="height: 10px"></div>
+        <button class="primary" id="saveBtn">Save Current Frame</button>
+      </section>
+      <section class="card">
+        <div class="label">Stats</div>
+        <div class="stat">
+          <span>Status</span><strong id="status">Idle</strong>
+        </div>
+        <div class="stat"><span>Volume</span><strong id="vol">0</strong></div>
+        <div class="stat"><span>Bass</span><strong id="bass">0</strong></div>
+        <div class="stat"><span>Mid</span><strong id="mid">0</strong></div>
+        <div class="stat">
+          <span>Treble</span><strong id="treble">0</strong>
+        </div>
+      </section>
+      <section class="card ad-wrap" aria-label="Advertisement">
+        <div class="label">Advertisement</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494"
+          data-ad-slot="7782388330" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </section>
+    </aside>
+    <main class="panel canvas-wrap" id="main-content">
+      <div class="top">
+        <div class="badge" id="modeBadge">Mode: Pulse Rings</div>
+        <div class="canvas-actions" aria-label="Canvas display controls">
+          <button id="canvasFullscreenBtn" type="button">Full Screen</button>
+          <button id="exitFullscreenBtn" type="button">Exit Full Screen</button>
+        </div>
+      </div>
+      <canvas id="canvas" role="img"
+        aria-label="Animated audio visualizer showing sound as waves, pulse rings, radial bars, spirals and particles"></canvas>
+    </main>
+  </div>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
 
-      const fileInput = document.getElementById("fileInput");
-      const audioPlayer = document.getElementById("audioPlayer");
-      const micBtn = document.getElementById("micBtn");
-      const stopBtn = document.getElementById("stopBtn");
-      const saveBtn = document.getElementById("saveBtn");
+    const mode = document.getElementById("mode");
+    const modeBadge = document.getElementById("modeBadge");
+    const sensEl = document.getElementById("sens");
+    const trailEl = document.getElementById("trail");
+    const zoomEl = document.getElementById("zoom");
 
-      const statusEl = document.getElementById("status");
-      const volEl = document.getElementById("vol");
-      const bassEl = document.getElementById("bass");
-      const midEl = document.getElementById("mid");
-      const trebleEl = document.getElementById("treble");
+    const fileInput = document.getElementById("fileInput");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const micBtn = document.getElementById("micBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const saveBtn = document.getElementById("saveBtn");
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
+    const canvasFullscreenBtn = document.getElementById("canvasFullscreenBtn");
+    const exitFullscreenBtn = document.getElementById("exitFullscreenBtn");
 
-      let audioCtx;
-      let analyser;
-      let sourceNode;
-      let micStream;
-      let dataArray;
-      let timeArray;
-      let raf;
-      let particles = [];
+    const statusEl = document.getElementById("status");
+    const volEl = document.getElementById("vol");
+    const bassEl = document.getElementById("bass");
+    const midEl = document.getElementById("mid");
+    const trebleEl = document.getElementById("treble");
 
-      function resizeCanvas() {
-        const dpr = Math.max(1, window.devicePixelRatio || 1);
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width * dpr;
-        canvas.height = rect.height * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    let audioCtx;
+    let analyser;
+    let sourceNode;
+    let mediaElementSource;
+    let micStream;
+    let currentObjectUrl;
+    let dataArray;
+    let timeArray;
+    let raf;
+    let particles = [];
+
+    function resizeCanvas() {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function ensureAudio() {
+      if (audioCtx) return;
+
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 2048;
+      analyser.smoothingTimeConstant = 0.82;
+
+      dataArray = new Uint8Array(analyser.frequencyBinCount);
+      timeArray = new Uint8Array(analyser.fftSize);
+    }
+
+    function disconnectCurrentSource() {
+      if (sourceNode) {
+        try {
+          sourceNode.disconnect();
+        } catch (e) { }
+        sourceNode = null;
       }
 
-      function ensureAudio() {
-        if (audioCtx) return;
-
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        analyser = audioCtx.createAnalyser();
-        analyser.fftSize = 2048;
-        analyser.smoothingTimeConstant = 0.82;
-
-        dataArray = new Uint8Array(analyser.frequencyBinCount);
-        timeArray = new Uint8Array(analyser.fftSize);
+      if (micStream) {
+        micStream.getTracks().forEach((track) => track.stop());
+        micStream = null;
       }
 
-      function disconnectCurrentSource() {
-        if (sourceNode) {
-          try {
-            sourceNode.disconnect();
-          } catch (e) {}
-          sourceNode = null;
-        }
-
-        if (micStream) {
-          micStream.getTracks().forEach((track) => track.stop());
-          micStream = null;
-        }
-
-        audioPlayer.pause();
-        audioPlayer.removeAttribute("src");
-        audioPlayer.load();
-        statusEl.textContent = "Idle";
+      audioPlayer.pause();
+      if (currentObjectUrl) {
+        URL.revokeObjectURL(currentObjectUrl);
+        currentObjectUrl = null;
       }
+      audioPlayer.removeAttribute("src");
+      audioPlayer.load();
+      statusEl.textContent = "Idle";
+    }
 
-      function connectAnalyser(node) {
-        node.connect(analyser);
+    function connectAnalyser(node, output = false) {
+      node.connect(analyser);
+      if (output) {
+        try {
+          analyser.disconnect();
+        } catch (e) { }
         analyser.connect(audioCtx.destination);
       }
+    }
 
-      function connectFileAudio(file) {
-        ensureAudio();
-        disconnectCurrentSource();
+    function connectFileAudio(file) {
+      ensureAudio();
+      disconnectCurrentSource();
 
-        const url = URL.createObjectURL(file);
-        audioPlayer.src = url;
-        audioPlayer.play().catch(() => {});
-        sourceNode = audioCtx.createMediaElementSource(audioPlayer);
-        connectAnalyser(sourceNode);
+      currentObjectUrl = URL.createObjectURL(file);
+      audioPlayer.src = currentObjectUrl;
+      audioPlayer.play().catch(() => { });
+      if (!mediaElementSource) {
+        mediaElementSource = audioCtx.createMediaElementSource(audioPlayer);
+      }
+      sourceNode = mediaElementSource;
+      connectAnalyser(sourceNode, true);
 
-        statusEl.textContent = "Playing file";
+      statusEl.textContent = "Playing file";
+
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+
+      startViz();
+    }
+
+    async function connectMic() {
+      ensureAudio();
+      disconnectCurrentSource();
+
+      try {
+        micStream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+          video: false,
+        });
+        try {
+          analyser.disconnect();
+        } catch (e) { }
+        sourceNode = audioCtx.createMediaStreamSource(micStream);
+        connectAnalyser(sourceNode, false);
+        statusEl.textContent = "Listening to microphone";
 
         if (audioCtx.state === "suspended") {
-          audioCtx.resume();
+          await audioCtx.resume();
         }
 
         startViz();
+      } catch (err) {
+        statusEl.textContent = "Microphone blocked";
+        alert("Microphone permission was blocked.");
+      }
+    }
+
+    function avgRange(start, end) {
+      let sum = 0;
+      const len = Math.max(1, end - start);
+      for (let i = start; i < end; i++) sum += dataArray[i] || 0;
+      return sum / len;
+    }
+
+    function getMetrics() {
+      if (!analyser) {
+        return { volume: 0, bass: 0, mid: 0, treble: 0, waveform: [] };
       }
 
-      async function connectMic() {
-        ensureAudio();
-        disconnectCurrentSource();
+      analyser.getByteFrequencyData(dataArray);
+      analyser.getByteTimeDomainData(timeArray);
 
-        try {
-          micStream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-            video: false,
-          });
-          sourceNode = audioCtx.createMediaStreamSource(micStream);
-          sourceNode.connect(analyser);
-          statusEl.textContent = "Listening to microphone";
+      let volume = 0;
+      for (let i = 0; i < dataArray.length; i++) volume += dataArray[i];
+      volume /= dataArray.length;
 
-          if (audioCtx.state === "suspended") {
-            await audioCtx.resume();
-          }
+      return {
+        volume,
+        bass: avgRange(0, 20),
+        mid: avgRange(20, 100),
+        treble: avgRange(100, 220),
+        waveform: timeArray,
+      };
+    }
 
-          startViz();
-        } catch (err) {
-          statusEl.textContent = "Microphone blocked";
-          alert("Microphone permission was blocked.");
-        }
-      }
+    function drawBackground(fade) {
+      ctx.fillStyle = `rgba(4,10,24,${fade})`;
+      ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+    }
 
-      function avgRange(start, end) {
-        let sum = 0;
-        const len = Math.max(1, end - start);
-        for (let i = start; i < end; i++) sum += dataArray[i] || 0;
-        return sum / len;
-      }
+    function drawRings(m) {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      const cx = w / 2;
+      const cy = h / 2;
+      const s = +sensEl.value;
+      const z = +zoomEl.value;
 
-      function getMetrics() {
-        if (!analyser) {
-          return { volume: 0, bass: 0, mid: 0, treble: 0, waveform: [] };
-        }
+      const energy = (m.volume * s) / 255;
+      const bass = (m.bass * s) / 255;
+      const treble = (m.treble * s) / 255;
 
-        analyser.getByteFrequencyData(dataArray);
-        analyser.getByteTimeDomainData(timeArray);
-
-        let volume = 0;
-        for (let i = 0; i < dataArray.length; i++) volume += dataArray[i];
-        volume /= dataArray.length;
-
-        return {
-          volume,
-          bass: avgRange(0, 20),
-          mid: avgRange(20, 100),
-          treble: avgRange(100, 220),
-          waveform: timeArray,
-        };
-      }
-
-      function drawBackground(fade) {
-        ctx.fillStyle = `rgba(4,10,24,${fade})`;
-        ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-      }
-
-      function drawRings(m) {
-        const w = canvas.clientWidth;
-        const h = canvas.clientHeight;
-        const cx = w / 2;
-        const cy = h / 2;
-        const s = +sensEl.value;
-        const z = +zoomEl.value;
-
-        const energy = (m.volume * s) / 255;
-        const bass = (m.bass * s) / 255;
-        const treble = (m.treble * s) / 255;
-
-        for (let i = 0; i < 7; i++) {
-          const r = (50 + i * 26 + energy * 120 + bass * 90) * z;
-          ctx.beginPath();
-          ctx.arc(cx, cy, r, 0, Math.PI * 2);
-          ctx.strokeStyle = `hsla(${(Date.now() / 18 + i * 32) % 360}, 90%, ${60 + treble * 20}%, ${0.12 + i / 12})`;
-          ctx.lineWidth = 2 + bass * 7;
-          ctx.stroke();
-        }
-      }
-
-      function drawWave(m) {
-        const w = canvas.clientWidth;
-        const h = canvas.clientHeight;
-        const s = +sensEl.value;
-        const z = +zoomEl.value;
-
+      for (let i = 0; i < 7; i++) {
+        const r = (50 + i * 26 + energy * 120 + bass * 90) * z;
         ctx.beginPath();
-        for (let i = 0; i < m.waveform.length; i++) {
-          const x = (i / (m.waveform.length - 1)) * w;
-          const centered = (m.waveform[i] - 128) / 128;
-          const y =
-            h / 2 +
-            centered * 180 * s * z +
-            Math.sin(i * 0.04 + performance.now() * 0.003) * m.bass * 0.12;
-
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-
-        ctx.strokeStyle = `hsla(${(Date.now() / 25) % 360}, 100%, 70%, .9)`;
-        ctx.lineWidth = 3;
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.strokeStyle = `hsla(${(Date.now() / 18 + i * 32) % 360}, 90%, ${60 + treble * 20}%, ${0.12 + i / 12})`;
+        ctx.lineWidth = 2 + bass * 7;
         ctx.stroke();
       }
+    }
 
-      function drawSpiral(m) {
-        const w = canvas.clientWidth;
-        const h = canvas.clientHeight;
-        const cx = w / 2;
-        const cy = h / 2;
-        const s = +sensEl.value;
-        const z = +zoomEl.value;
+    function drawWave(m) {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      const s = +sensEl.value;
+      const z = +zoomEl.value;
+
+      ctx.beginPath();
+      for (let i = 0; i < m.waveform.length; i++) {
+        const x = (i / (m.waveform.length - 1)) * w;
+        const centered = (m.waveform[i] - 128) / 128;
+        const y =
+          h / 2 +
+          centered * 180 * s * z +
+          Math.sin(i * 0.04 + performance.now() * 0.003) * m.bass * 0.12;
+
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+
+      ctx.strokeStyle = `hsla(${(Date.now() / 25) % 360}, 100%, 70%, .9)`;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    function drawSpiral(m) {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      const cx = w / 2;
+      const cy = h / 2;
+      const s = +sensEl.value;
+      const z = +zoomEl.value;
+
+      ctx.beginPath();
+      for (let i = 0; i < 220; i++) {
+        const a = i * 0.16 + performance.now() * 0.0012;
+        const r = i * 1.3 * z + m.volume * s * 0.35;
+        const wobble =
+          Math.sin(i * 0.18 + performance.now() * 0.004) * m.treble * 0.16;
+        const x = cx + Math.cos(a) * (r + wobble);
+        const y = cy + Math.sin(a) * (r + wobble);
+
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+
+      ctx.strokeStyle = `hsla(${(Date.now() / 20 + m.bass) % 360}, 100%, 68%, .85)`;
+      ctx.lineWidth = 2.2 + (m.mid / 255) * 4;
+      ctx.stroke();
+    }
+
+    function drawBars(m) {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      const cx = w / 2;
+      const cy = h / 2;
+      const z = +zoomEl.value;
+      const bars = 120;
+      const radius = Math.min(w, h) * 0.16 * z;
+
+      for (let i = 0; i < bars; i++) {
+        const angle = (i / bars) * Math.PI * 2;
+        const val = dataArray[Math.floor((i / bars) * dataArray.length)] || 0;
+        const len = 20 + (val / 255) * 160 * +sensEl.value;
+
+        const x1 = cx + Math.cos(angle) * radius;
+        const y1 = cy + Math.sin(angle) * radius;
+        const x2 = cx + Math.cos(angle) * (radius + len);
+        const y2 = cy + Math.sin(angle) * (radius + len);
 
         ctx.beginPath();
-        for (let i = 0; i < 220; i++) {
-          const a = i * 0.16 + performance.now() * 0.0012;
-          const r = i * 1.3 * z + m.volume * s * 0.35;
-          const wobble =
-            Math.sin(i * 0.18 + performance.now() * 0.004) * m.treble * 0.16;
-          const x = cx + Math.cos(a) * (r + wobble);
-          const y = cy + Math.sin(a) * (r + wobble);
-
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-
-        ctx.strokeStyle = `hsla(${(Date.now() / 20 + m.bass) % 360}, 100%, 68%, .85)`;
-        ctx.lineWidth = 2.2 + (m.mid / 255) * 4;
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = `hsla(${(i * 3 + Date.now() / 30) % 360}, 100%, 70%, .8)`;
+        ctx.lineWidth = 2;
         ctx.stroke();
       }
+    }
 
-      function drawBars(m) {
-        const w = canvas.clientWidth;
-        const h = canvas.clientHeight;
-        const cx = w / 2;
-        const cy = h / 2;
-        const z = +zoomEl.value;
-        const bars = 120;
-        const radius = Math.min(w, h) * 0.16 * z;
+    function initParticles() {
+      particles = Array.from({ length: 220 }, () => ({
+        x: Math.random() * canvas.clientWidth,
+        y: Math.random() * canvas.clientHeight,
+        vx: (Math.random() - 0.5) * 2,
+        vy: (Math.random() - 0.5) * 2,
+        size: Math.random() * 3 + 1,
+      }));
+    }
 
-        for (let i = 0; i < bars; i++) {
-          const angle = (i / bars) * Math.PI * 2;
-          const val = dataArray[Math.floor((i / bars) * dataArray.length)] || 0;
-          const len = 20 + (val / 255) * 160 * +sensEl.value;
+    function drawParticles(m) {
+      if (!particles.length) initParticles();
 
-          const x1 = cx + Math.cos(angle) * radius;
-          const y1 = cy + Math.sin(angle) * radius;
-          const x2 = cx + Math.cos(angle) * (radius + len);
-          const y2 = cy + Math.sin(angle) * (radius + len);
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      const s = +sensEl.value;
+      const push = (m.volume / 255) * 1.8 * s;
+      const hue = (Date.now() / 24 + m.treble) % 360;
 
-          ctx.beginPath();
-          ctx.moveTo(x1, y1);
-          ctx.lineTo(x2, y2);
-          ctx.strokeStyle = `hsla(${(i * 3 + Date.now() / 30) % 360}, 100%, 70%, .8)`;
-          ctx.lineWidth = 2;
-          ctx.stroke();
+      particles.forEach((p, idx) => {
+        const a = idx * 0.2 + performance.now() * 0.001 + m.bass * 0.01;
+
+        p.vx += Math.cos(a) * 0.02 * push;
+        p.vy += Math.sin(a) * 0.02 * push;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+
+        if (p.x < 0) p.x = w;
+        if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h;
+        if (p.y > h) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size + push * 0.8, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${hue + idx * 0.7}, 100%, 70%, .65)`;
+        ctx.fill();
+      });
+    }
+
+    function render() {
+      const m = getMetrics();
+
+      volEl.textContent = Math.round(m.volume);
+      bassEl.textContent = Math.round(m.bass);
+      midEl.textContent = Math.round(m.mid);
+      trebleEl.textContent = Math.round(m.treble);
+
+      drawBackground(+trailEl.value);
+
+      if (mode.value === "wave") drawWave(m);
+      else if (mode.value === "spiral") drawSpiral(m);
+      else if (mode.value === "bars") drawBars(m);
+      else if (mode.value === "particles") drawParticles(m);
+      else if (mode.value === "rings") drawRings(m);
+      else {
+        drawWave(m);
+        drawSpiral(m);
+        drawBars(m);
+        drawParticles(m);
+        drawRings(m);
+      }
+
+      raf = requestAnimationFrame(render);
+    }
+
+    function startViz() {
+      cancelAnimationFrame(raf);
+      render();
+    }
+
+    fileInput.addEventListener("change", (e) => {
+      const f = e.target.files?.[0];
+      if (f) connectFileAudio(f);
+    });
+
+    micBtn.addEventListener("click", connectMic);
+
+    stopBtn.addEventListener("click", () => {
+      disconnectCurrentSource();
+      cancelAnimationFrame(raf);
+    });
+
+    mode.addEventListener("change", () => {
+      modeBadge.textContent =
+        "Mode: " + mode.options[mode.selectedIndex].text;
+    });
+
+    saveBtn.addEventListener("click", () => {
+      const a = document.createElement("a");
+      a.href = canvas.toDataURL("image/png");
+      a.download = "visualizer-frame.png";
+      a.click();
+    });
+
+    async function enterVisualizerFullScreen() {
+      document.body.classList.add("full");
+      resizeCanvas();
+      try {
+        const el = document.documentElement;
+        if (el.requestFullscreen) await el.requestFullscreen();
+      } catch (e) {
+        statusEl.textContent = "Full screen needs browser permission";
+      }
+    }
+
+    async function exitVisualizerFullScreen() {
+      document.body.classList.remove("full");
+      resizeCanvas();
+      try {
+        if (document.fullscreenElement && document.exitFullscreen) {
+          await document.exitFullscreen();
         }
-      }
+      } catch (e) { }
+    }
 
-      function initParticles() {
-        particles = Array.from({ length: 220 }, () => ({
-          x: Math.random() * canvas.clientWidth,
-          y: Math.random() * canvas.clientHeight,
-          vx: (Math.random() - 0.5) * 2,
-          vy: (Math.random() - 0.5) * 2,
-          size: Math.random() * 3 + 1,
-        }));
-      }
+    fullscreenBtn.addEventListener("click", enterVisualizerFullScreen);
+    canvasFullscreenBtn.addEventListener("click", enterVisualizerFullScreen);
+    exitFullscreenBtn.addEventListener("click", exitVisualizerFullScreen);
 
-      function drawParticles(m) {
-        if (!particles.length) initParticles();
-
-        const w = canvas.clientWidth;
-        const h = canvas.clientHeight;
-        const s = +sensEl.value;
-        const push = (m.volume / 255) * 1.8 * s;
-        const hue = (Date.now() / 24 + m.treble) % 360;
-
-        particles.forEach((p, idx) => {
-          const a = idx * 0.2 + performance.now() * 0.001 + m.bass * 0.01;
-
-          p.vx += Math.cos(a) * 0.02 * push;
-          p.vy += Math.sin(a) * 0.02 * push;
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vx *= 0.98;
-          p.vy *= 0.98;
-
-          if (p.x < 0) p.x = w;
-          if (p.x > w) p.x = 0;
-          if (p.y < 0) p.y = h;
-          if (p.y > h) p.y = 0;
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size + push * 0.8, 0, Math.PI * 2);
-          ctx.fillStyle = `hsla(${hue + idx * 0.7}, 100%, 70%, .65)`;
-          ctx.fill();
-        });
-      }
-
-      function render() {
-        const m = getMetrics();
-
-        volEl.textContent = Math.round(m.volume);
-        bassEl.textContent = Math.round(m.bass);
-        midEl.textContent = Math.round(m.mid);
-        trebleEl.textContent = Math.round(m.treble);
-
-        drawBackground(+trailEl.value);
-
-        if (mode.value === "wave") drawWave(m);
-        else if (mode.value === "spiral") drawSpiral(m);
-        else if (mode.value === "bars") drawBars(m);
-        else if (mode.value === "particles") drawParticles(m);
-        else if (mode.value === "rings") drawRings(m);
-        else {
-          drawWave(m);
-          drawSpiral(m);
-          drawBars(m);
-          drawParticles(m);
-          drawRings(m);
-        }
-
-        raf = requestAnimationFrame(render);
-      }
-
-      function startViz() {
-        cancelAnimationFrame(raf);
-        render();
-      }
-
-      fileInput.addEventListener("change", (e) => {
-        const f = e.target.files?.[0];
-        if (f) connectFileAudio(f);
-      });
-
-      micBtn.addEventListener("click", connectMic);
-
-      stopBtn.addEventListener("click", () => {
-        disconnectCurrentSource();
-        cancelAnimationFrame(raf);
-      });
-
-      mode.addEventListener("change", () => {
-        modeBadge.textContent =
-          "Mode: " + mode.options[mode.selectedIndex].text;
-      });
-
-      saveBtn.addEventListener("click", () => {
-        const a = document.createElement("a");
-        a.href = canvas.toDataURL("image/png");
-        a.download = "visualizer-frame.png";
-        a.click();
-      });
-
-      window.addEventListener("resize", () => {
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement) {
+        document.body.classList.remove("full");
         resizeCanvas();
-        initParticles();
-      });
-
-      setTimeout(async () => {
+      } else {
         document.body.classList.add("full");
-        try {
-          const el = document.documentElement;
-          if (el.requestFullscreen) await el.requestFullscreen();
-        } catch (e) {}
-      }, 30000);
+        resizeCanvas();
+      }
+    });
 
+    window.addEventListener("resize", () => {
       resizeCanvas();
       initParticles();
-      drawBackground(1);
-    </script>
-<div data-root="../../../" id="site-footer"></div><script defer="True" src="../../../assets/js/include.js"></script></body>
+    });
+
+
+    resizeCanvas();
+    initParticles();
+    drawBackground(1);
+  </script>
+
+  <section class="lesson" aria-labelledby="lesson-title">
+    <h2 id="lesson-title">How this music visualizer page is made</h2>
+    <p>This page is a complete browser-based JavaScript music visualizer. It uses ordinary HTML for the controls, CSS
+      for the dark glass-style interface, the Canvas API for drawing, and the Web Audio API for reading sound from an
+      audio file or the microphone.</p>
+
+    <div class="lesson-grid">
+      <div class="mini-card"><strong>HTML</strong>
+        <p>Creates the sidebar controls, audio file picker, microphone button, range sliders, statistics panel and
+          canvas drawing area.</p>
+      </div>
+      <div class="mini-card"><strong>CSS</strong>
+        <p>Creates the two-column layout, dark background, rounded cards, responsive mobile layout and high-contrast
+          focus states.</p>
+      </div>
+      <div class="mini-card"><strong>Canvas</strong>
+        <p>Draws rings, waves, spirals, radial bars and particles for every animation frame.</p>
+      </div>
+      <div class="mini-card"><strong>Web Audio API</strong>
+        <p>Converts sound into frequency and waveform arrays that JavaScript can use for animation.</p>
+      </div>
+    </div>
+
+    <h3>1. Page structure</h3>
+    <p>The page starts with the usual document structure: <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>,
+      <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>. The head contains the title, description, Open Graph
+      tags, Twitter Card tags, analytics, advertisement script, CSS and structured data. The body contains the header
+      placeholder, the visualizer app and the footer placeholder.</p>
+
+    <h3>2. The control panel</h3>
+    <p>The left sidebar is an <code>&lt;aside&gt;</code>. It contains the audio controls and settings. The user can
+      choose microphone input, stop the input, choose a file, change the visualizer mode, change sensitivity, change
+      trail/fade, change zoom and save the current canvas frame as a PNG image.</p>
+    <pre><code>&lt;button id="micBtn"&gt;Use Microphone&lt;/button&gt;
+&lt;input id="fileInput" type="file" accept="audio/*"&gt;
+&lt;select id="mode"&gt;...&lt;/select&gt;
+&lt;input id="sens" type="range" min="0.5" max="3" step="0.1"&gt;</code></pre>
+
+    <h3>3. The canvas area</h3>
+    <p>The main visual area is a <code>&lt;canvas&gt;</code>. Canvas is like a programmable drawing board. JavaScript
+      gets the drawing context with <code>canvas.getContext("2d")</code>. After that, it can draw lines, circles, arcs,
+      particles and backgrounds.</p>
+    <pre><code>const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");</code></pre>
+
+    <h3>4. Why the canvas is resized</h3>
+    <p>The function <code>resizeCanvas()</code> reads the visible size of the canvas and multiplies it by the device
+      pixel ratio. This makes the animation sharper on high-resolution screens. Without this step, the canvas can look
+      blurry.</p>
+    <pre><code>const dpr = Math.max(1, window.devicePixelRatio || 1);
+const rect = canvas.getBoundingClientRect();
+canvas.width = rect.width * dpr;
+canvas.height = rect.height * dpr;
+ctx.setTransform(dpr, 0, 0, dpr, 0, 0);</code></pre>
+
+    <h3>5. Creating the audio system</h3>
+    <p>The Web Audio API begins with an <code>AudioContext</code>. Inside it, this page creates an
+      <code>AnalyserNode</code>. The analyser does not understand music emotionally. It simply gives numerical data:
+      frequency values and waveform values.</p>
+    <pre><code>audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+analyser = audioCtx.createAnalyser();
+analyser.fftSize = 2048;
+analyser.smoothingTimeConstant = 0.82;</code></pre>
+    <p><code>fftSize</code> controls how much audio data is analyzed at once. A larger value gives more detailed
+      frequency data. <code>smoothingTimeConstant</code> makes the movement less jumpy.</p>
+
+    <h3>6. Reading audio from a file</h3>
+    <p>When the user chooses an audio file, the page creates a temporary browser URL with
+      <code>URL.createObjectURL(file)</code>. The audio player plays that file, and JavaScript connects it to the
+      analyser. The file stays inside the browser session.</p>
+    <pre><code>const url = URL.createObjectURL(file);
+audioPlayer.src = url;
+audioPlayer.play();</code></pre>
+
+    <h3>7. Reading audio from the microphone</h3>
+    <p>When the user clicks the microphone button, the browser asks for permission. If permission is granted,
+      <code>navigator.mediaDevices.getUserMedia()</code> gives a microphone stream. That stream is connected to the
+      analyser. The page uses the data for drawing only.</p>
+    <pre><code>micStream = await navigator.mediaDevices.getUserMedia({
+  audio: true,
+  video: false
+});
+sourceNode = audioCtx.createMediaStreamSource(micStream);
+sourceNode.connect(analyser);</code></pre>
+
+    <h3>8. Frequency data and waveform data</h3>
+    <p>The page uses two arrays. <code>dataArray</code> stores frequency data. Low indexes roughly represent low sounds,
+      and higher indexes represent higher sounds. <code>timeArray</code> stores waveform data, which is useful for
+      drawing wave lines.</p>
+    <pre><code>analyser.getByteFrequencyData(dataArray);
+analyser.getByteTimeDomainData(timeArray);</code></pre>
+
+    <h3>9. Calculating volume, bass, mid and treble</h3>
+    <p>The page calculates volume by averaging the frequency array. Bass, mid and treble are calculated by averaging
+      different sections of that array. This is not studio-grade audio engineering, but it is perfect for a learning
+      visualizer.</p>
+    <pre><code>volume = average of all frequency values
+bass   = average of low frequency values
+mid    = average of middle frequency values
+treble = average of higher frequency values</code></pre>
+
+    <h3>10. Drawing pulse rings</h3>
+    <p>The ring visualizer draws circles from the center of the canvas. Louder sound increases the circle radius and
+      line width. Bass makes the rings feel heavier. Treble changes brightness.</p>
+    <pre><code>ctx.beginPath();
+ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+ctx.stroke();</code></pre>
+
+    <h3>11. Drawing the wave field</h3>
+    <p>The wave visualizer uses waveform data. Each waveform value becomes a point on a line. The result looks like a
+      moving sound wave across the screen.</p>
+    <pre><code>const centered = (waveformValue - 128) / 128;
+const y = h / 2 + centered * amplitude;</code></pre>
+
+    <h3>12. Drawing radial bars</h3>
+    <p>The radial bars visualizer places many small lines around a circle. Each line uses one part of the frequency
+      array. Higher frequency values create longer bars.</p>
+    <pre><code>const angle = (i / bars) * Math.PI * 2;
+const x1 = cx + Math.cos(angle) * radius;
+const y1 = cy + Math.sin(angle) * radius;</code></pre>
+
+    <h3>13. Drawing particles</h3>
+    <p>The particles are small circles with positions and velocities. Music energy pushes them around. When they leave
+      one side of the canvas, they re-enter from the opposite side.</p>
+    <pre><code>p.x += p.vx;
+p.y += p.vy;
+if (p.x &lt; 0) p.x = width;</code></pre>
+
+    <h3>14. Animation loop</h3>
+    <p>The function <code>render()</code> is the heart of the page. It reads fresh audio metrics, updates the visible
+      statistics, fades the old frame, draws the selected visualizer and then asks the browser to call it again using
+      <code>requestAnimationFrame()</code>.</p>
+    <pre><code>function render() {
+  const m = getMetrics();
+  drawBackground(fade);
+  drawSelectedVisualizer(m);
+  requestAnimationFrame(render);
+}</code></pre>
+
+    <h3>15. Saving a frame</h3>
+    <p>The save button converts the current canvas picture into a PNG data URL. Then JavaScript creates a temporary
+      download link and clicks it.</p>
+    <pre><code>const a = document.createElement("a");
+a.href = canvas.toDataURL("image/png");
+a.download = "visualizer-frame.png";
+a.click();</code></pre>
+
+    <h3>16. Full screen mode</h3>
+    <p>Modern browsers usually require a real user click before entering fullscreen. That is why this page uses clear
+      Full Screen buttons instead of forcing fullscreen automatically after a timer. One button is in the sidebar and
+      another is placed over the canvas so it remains easy to find. In fullscreen mode, an Exit Full Screen button
+      appears over the canvas.</p>
+
+    <h3>17. What students should learn from this page</h3>
+    <ul>
+      <li>How to build a complete interactive page with HTML, CSS and JavaScript.</li>
+      <li>How to use Canvas as a drawing surface.</li>
+      <li>How the Web Audio API gives numerical sound data.</li>
+      <li>How arrays can control animation.</li>
+      <li>How bass, mid and treble can be estimated from frequency ranges.</li>
+      <li>How to keep microphone use private inside the browser.</li>
+      <li>How to make a visual project SEO-friendly and accessible.</li>
+    </ul>
+
+    <h3>18. Practice tasks</h3>
+    <ul>
+      <li>Add a new square-grid visualizer.</li>
+      <li>Add a color theme selector.</li>
+      <li>Add a pause animation button.</li>
+      <li>Show the exact selected sensitivity, trail and zoom values beside the sliders.</li>
+      <li>Make bass control size, mid control speed and treble control color.</li>
+    </ul>
+  </section>
+
+  <div data-root="../../../" id="site-footer">
+    <p style="padding:16px;text-align:center;color:#cbd5e1">Programmer's Picnic by Champak Roy</p>
+  </div>
+  <script defer="True" src="../../../assets/js/include.js"></script>
+</body>
+
 </html>
