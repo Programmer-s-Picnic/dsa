@@ -8,9 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="A multiplayer Snakes and Ladders game using a Cloudflare Durable Object WebSocket chat server without changing the Worker."
+    content="A multiplayer Snakes and Ladders game with drawn snakes and ladders on the board using a Cloudflare Durable Object WebSocket chat server without changing the Worker."
   />
-  <meta name="keywords" content="Snakes and Ladders, WebSocket game, Cloudflare Durable Objects, JavaScript multiplayer game, Champak Roy, Programmer's Picnic" />
+  <meta name="keywords" content="Snakes and Ladders, WebSocket game, Cloudflare Durable Objects, JavaScript multiplayer game, drawn board, Champak Roy, Programmer's Picnic" />
   <meta name="author" content="Champak Roy" />
   <meta name="theme-color" content="#f59e0b" />
 
@@ -35,9 +35,11 @@
       --red: #dc2626;
       --blue: #2563eb;
       --purple: #7c3aed;
+      --snake: #dc2626;
+      --ladder: #16a34a;
       --dark: #111827;
       --code: #fef3c7;
-      --shadow: 0 18px 45px rgba(146, 64, 14, 0.14);
+      --shadow: 0 20px 55px rgba(146, 64, 14, 0.16);
     }
 
     * {
@@ -57,30 +59,48 @@
     }
 
     .wrap {
-      max-width: 1220px;
+      max-width: 1240px;
       margin: auto;
     }
 
     .hero {
-      background: linear-gradient(135deg, #f59e0b, #fb923c);
+      background:
+        radial-gradient(circle at 18% 20%, rgba(255,255,255,.28), transparent 22%),
+        linear-gradient(135deg, #f59e0b, #fb923c 54%, #ea580c);
       color: white;
-      border-radius: 30px;
-      padding: 28px;
+      border-radius: 34px;
+      padding: 30px;
       box-shadow: var(--shadow);
       margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "🐍 🪜";
+      position: absolute;
+      right: 24px;
+      bottom: 10px;
+      font-size: clamp(54px, 9vw, 120px);
+      opacity: 0.22;
+      transform: rotate(-8deg);
     }
 
     .hero h1 {
       margin: 0 0 8px;
-      font-size: clamp(34px, 6vw, 64px);
+      font-size: clamp(34px, 6vw, 66px);
       line-height: 1;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.055em;
+      position: relative;
+      z-index: 1;
     }
 
     .hero p {
       margin: 0;
       font-size: 18px;
       opacity: 0.96;
+      position: relative;
+      z-index: 1;
     }
 
     .grid {
@@ -93,7 +113,7 @@
     .card {
       background: rgba(255, 255, 255, 0.94);
       border: 1px solid var(--line);
-      border-radius: 26px;
+      border-radius: 28px;
       padding: 20px;
       box-shadow: var(--shadow);
       margin-bottom: 18px;
@@ -102,6 +122,7 @@
     h2 {
       color: #9a3412;
       margin: 0 0 12px;
+      letter-spacing: -0.03em;
     }
 
     label {
@@ -226,26 +247,50 @@
 
     .board-wrap {
       overflow: auto;
-      padding: 8px;
+      padding: 10px;
+    }
+
+    .board-stage {
+      position: relative;
+      width: min(760px, 92vw);
+      aspect-ratio: 1 / 1;
+      margin: auto;
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg, rgba(253, 186, 116, .55), rgba(245, 158, 11, .28)),
+        #fed7aa;
+      padding: 10px;
+      box-shadow:
+        inset 0 0 0 2px rgba(124, 45, 18, 0.08),
+        0 20px 48px rgba(120, 53, 15, 0.18);
     }
 
     .board {
-      width: min(720px, 92vw);
-      aspect-ratio: 1 / 1;
+      position: absolute;
+      inset: 10px;
       display: grid;
       grid-template-columns: repeat(10, 1fr);
-      gap: 5px;
-      background: #fed7aa;
-      padding: 8px;
-      border-radius: 26px;
-      margin: auto;
+      gap: 4px;
+      z-index: 1;
+    }
+
+    .board-art {
+      position: absolute;
+      inset: 10px;
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+      pointer-events: none;
+      z-index: 2;
+      overflow: visible;
     }
 
     .square {
       position: relative;
       border-radius: 12px;
-      background: #fff7ed;
-      border: 1px solid #fdba74;
+      background:
+        radial-gradient(circle at 72% 18%, rgba(255,255,255,.75), transparent 26%),
+        #fff7ed;
+      border: 1px solid rgba(253, 186, 116, 0.85);
       display: grid;
       place-items: center;
       min-width: 48px;
@@ -254,7 +299,9 @@
     }
 
     .square:nth-child(even) {
-      background: #ffffff;
+      background:
+        radial-gradient(circle at 72% 18%, rgba(255,255,255,.75), transparent 26%),
+        #ffffff;
     }
 
     .num {
@@ -262,25 +309,27 @@
       top: 5px;
       left: 6px;
       font-size: 12px;
-      font-weight: 900;
+      font-weight: 1000;
       color: #7c2d12;
+      z-index: 5;
     }
 
     .mark {
       position: absolute;
       bottom: 4px;
       right: 6px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 1000;
+      z-index: 5;
     }
 
-    .ladder {
-      background: #dcfce7 !important;
+    .ladder-start {
+      background: #ecfdf5 !important;
       border-color: #86efac;
     }
 
-    .snake {
-      background: #fee2e2 !important;
+    .snake-start {
+      background: #fff1f2 !important;
       border-color: #fecaca;
     }
 
@@ -290,18 +339,21 @@
       justify-content: center;
       gap: 3px;
       padding-top: 12px;
+      z-index: 6;
+      position: relative;
     }
 
     .token {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 999px;
       display: grid;
       place-items: center;
       font-size: 11px;
       font-weight: 1000;
       color: white;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.24);
+      border: 2px solid rgba(255,255,255,.8);
     }
 
     .p1 { background: var(--blue); }
@@ -317,15 +369,19 @@
     .dice {
       display: grid;
       place-items: center;
-      width: 110px;
-      height: 110px;
-      border-radius: 24px;
-      background: #111827;
+      width: 118px;
+      height: 118px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 28% 24%, rgba(255,255,255,.14), transparent 28%),
+        #111827;
       color: #fef3c7;
       font-size: 58px;
       font-weight: 1000;
       margin: auto;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08);
+      box-shadow:
+        inset 0 0 0 2px rgba(255,255,255,0.08),
+        0 16px 32px rgba(17,24,39,.18);
     }
 
     .game-state {
@@ -356,7 +412,32 @@
       border-color: var(--saffron-dark);
     }
 
-    .messages,
+    .legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .legend div {
+      padding: 10px;
+      border-radius: 16px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .legend .up {
+      background: #ecfdf5;
+      color: #166534;
+      border: 1px solid #86efac;
+    }
+
+    .legend .down {
+      background: #fff1f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
     .debug-log {
       background: #111827;
       color: var(--code);
@@ -415,14 +496,59 @@
       font-size: 13px;
     }
 
-    @media (max-width: 1020px) {
+    .snake-path {
+      fill: none;
+      stroke: var(--snake);
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 3px 5px rgba(153, 27, 27, .24));
+    }
+
+    .snake-belly {
+      fill: none;
+      stroke: #fecaca;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 9 9;
+      opacity: .9;
+    }
+
+    .snake-head {
+      fill: var(--snake);
+      stroke: #7f1d1d;
+      stroke-width: 1.5;
+    }
+
+    .snake-eye {
+      fill: white;
+    }
+
+    .snake-pupil {
+      fill: #111827;
+    }
+
+    .ladder-rail {
+      stroke: var(--ladder);
+      stroke-width: 6;
+      stroke-linecap: round;
+      filter: drop-shadow(0 3px 5px rgba(22, 101, 52, .2));
+    }
+
+    .ladder-rung {
+      stroke: #bbf7d0;
+      stroke-width: 4;
+      stroke-linecap: round;
+    }
+
+    @media (max-width: 1040px) {
       .grid,
       .game-area {
         grid-template-columns: 1fr;
       }
 
-      .board {
-        width: min(720px, 96vw);
+      .board-stage {
+        width: min(760px, 96vw);
       }
     }
 
@@ -442,14 +568,26 @@
       }
 
       .token {
-        width: 17px;
-        height: 17px;
+        width: 18px;
+        height: 18px;
         font-size: 9px;
       }
 
       .num,
       .mark {
         font-size: 9px;
+      }
+
+      .snake-path {
+        stroke-width: 5;
+      }
+
+      .ladder-rail {
+        stroke-width: 4.5;
+      }
+
+      .ladder-rung {
+        stroke-width: 3;
       }
     }
   </style>
@@ -459,7 +597,7 @@
   <main class="wrap">
     <section class="hero">
       <h1>Snakes and Ladders over WebSocket</h1>
-      <p>Frontend-only multiplayer game using your existing Cloudflare Durable Object chat Worker.</p>
+      <p>Drawn snakes, drawn ladders, better board design, and multiplayer through your existing Durable Object chat Worker.</p>
     </section>
 
     <div class="ad-wrap">
@@ -549,6 +687,10 @@
           <p class="small">
             Roll only when it is your turn. Exact 100 is needed to win.
           </p>
+          <div class="legend">
+            <div class="up">🪜 Ladder: go up</div>
+            <div class="down">🐍 Snake: go down</div>
+          </div>
         </article>
 
         <article class="card">
@@ -563,7 +705,10 @@
             <div>
               <h2>Board</h2>
               <div class="board-wrap">
-                <div id="board" class="board" aria-label="Snakes and Ladders board"></div>
+                <div class="board-stage">
+                  <div id="board" class="board" aria-label="Snakes and Ladders board"></div>
+                  <svg id="boardArt" class="board-art" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"></svg>
+                </div>
               </div>
             </div>
 
@@ -602,7 +747,7 @@
   <script>
     const GAME_PREFIX = "__SNAKES_LADDERS__:";
 
-    const snakesAndLadders = {
+    const jumps = {
       4: 14,
       9: 31,
       20: 38,
@@ -630,6 +775,7 @@
     let lastDice = "-";
 
     const boardBox = document.getElementById("board");
+    const boardArt = document.getElementById("boardArt");
     const statusBox = document.getElementById("status");
     const gameStateBox = document.getElementById("gameState");
     const debugLogBox = document.getElementById("debugLog");
@@ -660,6 +806,22 @@
       };
     }
 
+    function boardPoint(number) {
+      const zero = number - 1;
+      const rowFromBottom = Math.floor(zero / 10);
+      const rowFromTop = 9 - rowFromBottom;
+      let col = zero % 10;
+
+      if (rowFromBottom % 2 === 1) {
+        col = 9 - col;
+      }
+
+      return {
+        x: col * 100 + 50,
+        y: rowFromTop * 100 + 50
+      };
+    }
+
     function buildBoard() {
       boardBox.innerHTML = "";
 
@@ -684,11 +846,11 @@
         square.className = "square";
         square.dataset.number = String(number);
 
-        if (snakesAndLadders[number]) {
-          if (snakesAndLadders[number] > number) {
-            square.classList.add("ladder");
+        if (jumps[number]) {
+          if (jumps[number] > number) {
+            square.classList.add("ladder-start");
           } else {
-            square.classList.add("snake");
+            square.classList.add("snake-start");
           }
         }
 
@@ -699,10 +861,10 @@
         const mark = document.createElement("div");
         mark.className = "mark";
 
-        if (snakesAndLadders[number]) {
-          mark.textContent = snakesAndLadders[number] > number
-            ? "L→" + snakesAndLadders[number]
-            : "S→" + snakesAndLadders[number];
+        if (jumps[number]) {
+          mark.textContent = jumps[number] > number
+            ? "🪜 " + jumps[number]
+            : "🐍 " + jumps[number];
         }
 
         const tokens = document.createElement("div");
@@ -714,7 +876,147 @@
         boardBox.appendChild(square);
       }
 
+      drawBoardArt();
       renderGame();
+    }
+
+    function drawBoardArt() {
+      boardArt.innerHTML = "";
+
+      for (const startText of Object.keys(jumps)) {
+        const start = Number(startText);
+        const end = jumps[start];
+
+        if (end > start) {
+          drawLadder(start, end);
+        }
+      }
+
+      for (const startText of Object.keys(jumps)) {
+        const start = Number(startText);
+        const end = jumps[start];
+
+        if (end < start) {
+          drawSnake(start, end);
+        }
+      }
+    }
+
+    function drawLadder(start, end) {
+      const a = boardPoint(start);
+      const b = boardPoint(end);
+
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const len = Math.hypot(dx, dy) || 1;
+      const nx = -dy / len;
+      const ny = dx / len;
+      const gap = 16;
+
+      const x1 = a.x + nx * gap;
+      const y1 = a.y + ny * gap;
+      const x2 = b.x + nx * gap;
+      const y2 = b.y + ny * gap;
+
+      const x3 = a.x - nx * gap;
+      const y3 = a.y - ny * gap;
+      const x4 = b.x - nx * gap;
+      const y4 = b.y - ny * gap;
+
+      addLine(x1, y1, x2, y2, "ladder-rail");
+      addLine(x3, y3, x4, y4, "ladder-rail");
+
+      const rungs = 6;
+      for (let i = 1; i < rungs; i++) {
+        const t = i / rungs;
+        const rx1 = x1 + (x2 - x1) * t;
+        const ry1 = y1 + (y2 - y1) * t;
+        const rx2 = x3 + (x4 - x3) * t;
+        const ry2 = y3 + (y4 - y3) * t;
+        addLine(rx1, ry1, rx2, ry2, "ladder-rung");
+      }
+    }
+
+    function drawSnake(start, end) {
+      const a = boardPoint(start);
+      const b = boardPoint(end);
+
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const len = Math.hypot(dx, dy) || 1;
+      const nx = -dy / len;
+      const ny = dx / len;
+
+      const wiggle = 42;
+      const c1x = a.x + dx * 0.28 + nx * wiggle;
+      const c1y = a.y + dy * 0.28 + ny * wiggle;
+      const c2x = a.x + dx * 0.68 - nx * wiggle;
+      const c2y = a.y + dy * 0.68 - ny * wiggle;
+
+      const d =
+        "M " + a.x + " " + a.y +
+        " C " + c1x + " " + c1y + ", " +
+        c2x + " " + c2y + ", " +
+        b.x + " " + b.y;
+
+      const body = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      body.setAttribute("d", d);
+      body.setAttribute("class", "snake-path");
+      boardArt.appendChild(body);
+
+      const belly = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      belly.setAttribute("d", d);
+      belly.setAttribute("class", "snake-belly");
+      boardArt.appendChild(belly);
+
+      const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+      const head = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+      head.setAttribute("cx", a.x);
+      head.setAttribute("cy", a.y);
+      head.setAttribute("rx", "21");
+      head.setAttribute("ry", "15");
+      head.setAttribute("class", "snake-head");
+      head.setAttribute("transform", "rotate(" + angle + " " + a.x + " " + a.y + ")");
+      boardArt.appendChild(head);
+
+      addEye(a.x - 7, a.y - 5);
+      addEye(a.x + 7, a.y - 5);
+
+      const tongue = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      const tx = a.x + Math.cos(angle * Math.PI / 180) * 28;
+      const ty = a.y + Math.sin(angle * Math.PI / 180) * 28;
+      tongue.setAttribute("d", "M " + a.x + " " + a.y + " L " + tx + " " + ty);
+      tongue.setAttribute("stroke", "#7f1d1d");
+      tongue.setAttribute("stroke-width", "2");
+      tongue.setAttribute("stroke-linecap", "round");
+      boardArt.appendChild(tongue);
+    }
+
+    function addLine(x1, y1, x2, y2, cls) {
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("x1", x1);
+      line.setAttribute("y1", y1);
+      line.setAttribute("x2", x2);
+      line.setAttribute("y2", y2);
+      line.setAttribute("class", cls);
+      boardArt.appendChild(line);
+    }
+
+    function addEye(x, y) {
+      const eye = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      eye.setAttribute("cx", x);
+      eye.setAttribute("cy", y);
+      eye.setAttribute("r", "4");
+      eye.setAttribute("class", "snake-eye");
+      boardArt.appendChild(eye);
+
+      const pupil = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      pupil.setAttribute("cx", x);
+      pupil.setAttribute("cy", y);
+      pupil.setAttribute("r", "1.8");
+      pupil.setAttribute("class", "snake-pupil");
+      boardArt.appendChild(pupil);
     }
 
     function setStatus(text, connected) {
@@ -888,10 +1190,12 @@
       game = createInitialGame();
 
       const role = getRole();
+
       if (playerOrder.includes(role)) {
         game.names[role] = getName();
       }
 
+      game.status = "playing";
       lastDice = "-";
       renderGame();
 
@@ -955,8 +1259,8 @@
       } else {
         note = role + " rolled " + dice + " and moved to " + nextPosition + ".";
 
-        if (snakesAndLadders[nextPosition]) {
-          const jumpTo = snakesAndLadders[nextPosition];
+        if (jumps[nextPosition]) {
+          const jumpTo = jumps[nextPosition];
 
           if (jumpTo > nextPosition) {
             note += " Ladder! Climbed to " + jumpTo + ".";
