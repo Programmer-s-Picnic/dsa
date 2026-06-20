@@ -813,50 +813,412 @@
       }
     }
 
-    .player-head {
+    /* Board + dice + status together */
+    .play-card {
+      padding: 14px;
+    }
+
+    .play-topbar {
+      position: sticky;
+      top: 8px;
+      z-index: 40;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 14px 34px rgba(120, 53, 15, .14);
+    }
+
+    .mini-dice-box {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 4px;
+      min-width: 128px;
     }
 
-    .player-coin {
-      width: 22px;
-      height: 22px;
-      min-width: 22px;
-      border-radius: 999px;
-      display: inline-grid;
-      place-items: center;
-      color: white;
-      font-size: 11px;
+    .mini-dice-box .dice {
+      width: 64px;
+      height: 64px;
+      min-width: 64px;
+      border-radius: 18px;
+      font-size: 34px;
+      margin: 0;
+    }
+
+    .mini-label {
+      color: #7c2d12;
       font-weight: 1000;
-      border: 2px solid rgba(255, 255, 255, .92);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, .20);
+      line-height: 1.15;
     }
 
-    .player-coin.p1 {
-      background: var(--blue);
+    .mini-label small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
     }
 
-    .player-coin.p2 {
-      background: var(--saffron-dark);
-    }
-
-    .player-coin.p3 {
-      background: var(--green);
-    }
-
-    .player-coin.p4 {
-      background: var(--purple);
-    }
-
-    .player-meta {
+    .hud-status {
+      min-width: 0;
+      color: #7c2d12;
+      font-weight: 1000;
       line-height: 1.25;
+    }
+
+    .hud-status small {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hud-actions {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hud-actions button {
+      padding: 10px 13px;
+    }
+
+    .fullscreen-btn {
+      background: #111827;
+      color: #fef3c7;
+    }
+
+    .game-area {
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 12px;
+    }
+
+    .board-wrap {
+      overflow: visible;
+      padding: 0;
+    }
+
+    .board-stage {
+      width: min(calc(100vw - 700px), calc(100vh - 155px), 820px);
+      min-width: 560px;
+    }
+
+    .panel {
+      gap: 10px;
+    }
+
+    .panel .dice-card {
+      display: none;
+    }
+
+    .game-state {
+      min-height: 128px;
+      font-size: 13px;
+      padding: 13px;
+    }
+
+    .room-messages {
+      height: 150px;
+    }
+
+    .player-card {
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    #gameFocus:fullscreen {
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+      padding: 12px;
+      border-radius: 0;
+      background: radial-gradient(circle at top left, #ffedd5 0, transparent 34%), linear-gradient(135deg, #fff7ed, #fffbeb);
+    }
+
+    #gameFocus:fullscreen .play-topbar {
+      top: 0;
+      margin-bottom: 10px;
+    }
+
+    #gameFocus:fullscreen .game-area {
+      grid-template-columns: minmax(0, 1fr) 315px;
+      align-items: start;
+    }
+
+    #gameFocus:fullscreen .board-stage {
+      width: min(calc(100vw - 370px), calc(100vh - 112px), 900px);
+      min-width: 0;
+    }
+
+    #gameFocus:fullscreen .panel {
+      max-height: calc(100vh - 105px);
+      overflow: auto;
+    }
+
+    #gameFocus:fullscreen .room-messages {
+      height: 130px;
+    }
+
+    @media(max-width:1200px) {
+      .board-stage {
+        width: min(96vw, calc(100vh - 210px), 850px);
+        min-width: 0;
+      }
+
+      .game-area {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+
+      .panel .dice-card {
+        display: none;
+      }
+    }
+
+    @media(max-width:760px) {
+      .play-topbar {
+        grid-template-columns: 1fr;
+        position: relative;
+        top: auto;
+      }
+
+      .hud-actions {
+        justify-content: stretch;
+      }
+
+      .hud-actions button {
+        flex: 1 1 120px;
+      }
+
+      .panel {
+        grid-template-columns: 1fr;
+      }
+
+      .board-stage {
+        width: 96vw;
+      }
+
+      #gameFocus:fullscreen .game-area {
+        grid-template-columns: 1fr;
+      }
+
+      #gameFocus:fullscreen .board-stage {
+        width: 96vw;
+      }
+
+      #gameFocus:fullscreen .panel {
+        max-height: none;
+      }
+    }
+
+    .drama-banner {
+      position: fixed;
+      left: 50%;
+      top: 18px;
+      transform: translateX(-50%) scale(.92);
+      z-index: 9999;
+      width: min(760px, calc(100vw - 28px));
+      padding: 18px 22px;
+      border-radius: 28px;
+      background: rgba(17, 24, 39, .94);
+      color: #fef3c7;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .28);
+      border: 2px solid rgba(255, 255, 255, .15);
+      font-size: clamp(20px, 4vw, 38px);
+      font-weight: 1000;
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .drama-banner.show {
+      animation: dramaPop 2.6s ease forwards;
+    }
+
+    .drama-banner.snake-drama {
+      background: linear-gradient(135deg, rgba(127, 29, 29, .98), rgba(220, 38, 38, .94));
+    }
+
+    .drama-banner.ladder-drama {
+      background: linear-gradient(135deg, rgba(20, 83, 45, .98), rgba(22, 163, 74, .94));
+    }
+
+    .drama-banner.six-drama {
+      background: linear-gradient(135deg, rgba(146, 64, 14, .98), rgba(245, 158, 11, .94));
+    }
+
+    .drama-banner.win-drama {
+      background: linear-gradient(135deg, rgba(88, 28, 135, .98), rgba(245, 158, 11, .94));
+    }
+
+    @keyframes dramaPop {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-18px) scale(.78);
+      }
+
+      14% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1.04);
+      }
+
+      22%,
+      82% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-18px) scale(.94);
+      }
+    }
+
+    .board-stage.snake-shake {
+      animation: snakeShake .65s ease;
+    }
+
+    @keyframes snakeShake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      18% {
+        transform: translateX(-8px) rotate(-.5deg);
+      }
+
+      36% {
+        transform: translateX(8px) rotate(.5deg);
+      }
+
+      54% {
+        transform: translateX(-6px) rotate(-.4deg);
+      }
+
+      72% {
+        transform: translateX(6px) rotate(.4deg);
+      }
+    }
+
+    .board-stage.ladder-glow {
+      animation: ladderGlow 1.15s ease;
+    }
+
+    @keyframes ladderGlow {
+
+      0%,
+      100% {
+        box-shadow: inset 0 0 0 2px rgba(124, 45, 18, .08), 0 20px 48px rgba(120, 53, 15, .18);
+      }
+
+      45% {
+        box-shadow: inset 0 0 0 4px rgba(22, 163, 74, .4), 0 0 42px rgba(22, 163, 74, .48);
+      }
+    }
+
+    .dice.dice-six {
+      animation: diceSix .95s ease;
+    }
+
+    @keyframes diceSix {
+
+      0%,
+      100% {
+        transform: rotate(0) scale(1);
+      }
+
+      25% {
+        transform: rotate(-10deg) scale(1.12);
+      }
+
+      50% {
+        transform: rotate(10deg) scale(1.2);
+      }
+
+      75% {
+        transform: rotate(-6deg) scale(1.08);
+      }
+    }
+
+    .token.winner-token {
+      animation: winnerPulse 1.3s ease infinite;
+    }
+
+    @keyframes winnerPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, .24);
+      }
+
+      50% {
+        transform: scale(1.32);
+        box-shadow: 0 0 0 8px rgba(245, 158, 11, .22), 0 8px 18px rgba(0, 0, 0, .22);
+      }
+    }
+
+    button.hidden-for-spectator {
+      display: none !important;
+    }
+
+    .spectator-note {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+
+    #gameFocus:fullscreen .drama-banner {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      z-index: 99999;
+      width: min(820px, calc(100vw - 28px));
+    }
+
+    #gameFocus:fullscreen .drama-banner.show {
+      animation: dramaPop 2.8s ease forwards;
+    }
+
+    #gameFocus:fullscreen .board-stage.snake-shake {
+      animation: snakeShake .75s ease;
+    }
+
+    #gameFocus:fullscreen .board-stage.ladder-glow {
+      animation: ladderGlow 1.25s ease;
+    }
+
+    #gameFocus:fullscreen .dice.dice-six {
+      animation: diceSix 1s ease;
     }
   </style>
 </head>
 
 <body>
+  <div id="dramaBanner" class="drama-banner" aria-live="polite"></div>
   <main class="wrap">
     <section class="hero">
       <h1>Snakes and Ladders over WebSocket</h1>
@@ -939,15 +1301,18 @@
         </article>
 
         <article class="card">
-          <h2>Game Controls</h2>
+          <h2>Backup Controls</h2>
           <div class="row">
             <button onclick="newGame()">New Game</button>
-            <button onclick="rollDice()">Roll Dice</button>
+            <button id="backupRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">Roll Dice</button>
             <button class="secondary" onclick="syncGame()">Sync Game</button>
           </div>
           <p class="small">
             Roll only when it is your turn. Exact 100 is needed to win.
           </p>
+          <div id="spectatorNote" class="spectator-note" hidden>
+            Spectator mode: watch the game. The Roll Dice button is hidden.
+          </div>
           <div class="legend">
             <div class="up">🪜 Ladder: go up</div>
             <div class="down">🐍 Snake: go down</div>
@@ -961,7 +1326,24 @@
       </aside>
 
       <section>
-        <article class="card">
+        <article class="card play-card" id="gameFocus">
+          <div class="play-topbar">
+            <div class="mini-dice-box">
+              <div id="hudDice" class="dice">-</div>
+              <div class="mini-label">Dice<small>Roll result</small></div>
+            </div>
+            <div class="hud-status">
+              <span id="hudTurn">Status: waiting</span>
+              <small id="hudRoom">Room: snakes-main</small>
+            </div>
+            <div class="hud-actions">
+              <button onclick="newGame()">New Game</button>
+              <button id="hudRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">Roll Dice</button>
+              <button class="secondary" onclick="syncGame()">Sync Game</button>
+              <button class="fullscreen-btn" onclick="toggleGameFullscreen()">Full Screen</button>
+            </div>
+          </div>
+
           <div class="game-area">
             <div>
               <h2>Full Board</h2>
@@ -975,7 +1357,7 @@
             </div>
 
             <div class="panel">
-              <div>
+              <div class="dice-card">
                 <h2>Dice</h2>
                 <div id="dice" class="dice">-</div>
               </div>
@@ -1040,12 +1422,18 @@
 
     const boardBox = document.getElementById("board");
     const boardArt = document.getElementById("boardArt");
+    const boardStageBox = document.querySelector(".board-stage");
+    const dramaBanner = document.getElementById("dramaBanner");
     const statusBox = document.getElementById("status");
     const gameStateBox = document.getElementById("gameState");
     const debugLogBox = document.getElementById("debugLog");
     const messagesBox = document.getElementById("messages");
     const chatInput = document.getElementById("chatInput");
     const diceBox = document.getElementById("dice");
+    const hudDiceBox = document.getElementById("hudDice");
+    const hudTurnBox = document.getElementById("hudTurn");
+    const hudRoomBox = document.getElementById("hudRoom");
+    const gameFocusBox = document.getElementById("gameFocus");
     const playersBox = document.getElementById("players");
 
     function createInitialGame() {
@@ -1554,6 +1942,83 @@
       log("Sync sent.");
     }
 
+    function updateSpectatorControls() {
+      const role = getRole();
+      const isSpectator = role === "spectator";
+      const rollButtons = document.querySelectorAll(".roll-dice-btn");
+      const spectatorNote = document.getElementById("spectatorNote");
+
+      rollButtons.forEach(button => {
+        button.classList.toggle("hidden-for-spectator", isSpectator);
+        button.disabled = isSpectator;
+      });
+
+      if (spectatorNote) {
+        spectatorNote.hidden = !isSpectator;
+      }
+    }
+
+    function placeDramaBannerInsideGame() {
+      if (gameFocusBox && dramaBanner && dramaBanner.parentElement !== gameFocusBox) {
+        gameFocusBox.insertBefore(dramaBanner, gameFocusBox.firstChild);
+      }
+    }
+
+    function showDrama(kind, text) {
+      placeDramaBannerInsideGame();
+      if (!dramaBanner) {
+        return;
+      }
+
+      dramaBanner.className = "drama-banner " + kind + "-drama";
+      dramaBanner.textContent = text;
+      void dramaBanner.offsetWidth;
+      dramaBanner.classList.add("show");
+
+      if (boardStageBox) {
+        if (kind === "snake") {
+          boardStageBox.classList.remove("snake-shake");
+          void boardStageBox.offsetWidth;
+          boardStageBox.classList.add("snake-shake");
+        }
+
+        if (kind === "ladder") {
+          boardStageBox.classList.remove("ladder-glow");
+          void boardStageBox.offsetWidth;
+          boardStageBox.classList.add("ladder-glow");
+        }
+      }
+
+      if (kind === "six") {
+        [diceBox, hudDiceBox].forEach(box => {
+          if (!box) return;
+          box.classList.remove("dice-six");
+          void box.offsetWidth;
+          box.classList.add("dice-six");
+        });
+      }
+    }
+
+    function dramaFromMove(role, dice, oldPosition, landedPosition, finalPosition, winner) {
+      if (winner) {
+        return { kind: "win", text: "🏁 " + role + " reached 100! Victory!" };
+      }
+
+      if (finalPosition > landedPosition) {
+        return { kind: "ladder", text: "🪜 " + role + " climbs from " + landedPosition + " to " + finalPosition + "!" };
+      }
+
+      if (finalPosition < landedPosition) {
+        return { kind: "snake", text: "🐍 Snake bite! " + role + " falls from " + landedPosition + " to " + finalPosition + "!" };
+      }
+
+      if (dice === 6) {
+        return { kind: "six", text: "🎲 " + role + " rolled a SIX! One more chance!" };
+      }
+
+      return null;
+    }
+
     function rollDice() {
       const role = getRole();
 
@@ -1563,7 +2028,8 @@
       }
 
       if (!playerOrder.includes(role)) {
-        alert("Spectators cannot roll.");
+        addRoomMessage("Spectator mode: you can watch, but you cannot roll the dice.", "system");
+        updateSpectatorControls();
         return;
       }
 
@@ -1589,11 +2055,14 @@
 
       const oldPosition = game.positions[role];
       let nextPosition = oldPosition + dice;
+      let landedPosition = nextPosition;
       let note = "";
+      let drama = null;
 
       if (nextPosition > 100) {
         nextPosition = oldPosition;
-        note = role + " rolled " + dice + " and needs exact 100.";
+        landedPosition = oldPosition;
+        note = role + " rolled " + dice + " and needs exact 100. The coin stays at " + oldPosition + ".";
       } else {
         note = role + " rolled " + dice + " and moved to " + nextPosition + ".";
 
@@ -1601,9 +2070,9 @@
           const jumpTo = jumps[nextPosition];
 
           if (jumpTo > nextPosition) {
-            note += " Ladder! Climbed to " + jumpTo + ".";
+            note += " Ladder climb! Climbed from " + nextPosition + " to " + jumpTo + ".";
           } else {
-            note += " Snake! Slid to " + jumpTo + ".";
+            note += " Snake bite! Fell from " + nextPosition + " to " + jumpTo + ".";
           }
 
           nextPosition = jumpTo;
@@ -1616,14 +2085,21 @@
       if (nextPosition === 100) {
         game.status = "finished";
         game.winner = role;
-        note += " " + role + " wins!";
+        note += " " + role + " reached 100 and wins!";
+        drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, true);
       } else if (dice !== 6) {
         game.turn = nextPlayer(game.turn);
+        drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, false);
       } else {
         note += " Rolled 6, gets another turn.";
+        drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, false);
       }
 
       renderGame();
+
+      if (drama) {
+        showDrama(drama.kind, drama.text);
+      }
 
       sendPayload({
         kind: "move",
@@ -1631,6 +2107,7 @@
         role,
         dice,
         note,
+        drama,
         game,
         lastDice,
         time: new Date().toISOString()
@@ -1767,6 +2244,11 @@
         game = payload.game;
         lastDice = payload.lastDice || String(payload.dice || "-");
         renderGame();
+
+        if (payload.drama) {
+          showDrama(payload.drama.kind, payload.drama.text);
+        }
+
         addRoomMessage(payload.note || payload.from + " moved.", "system");
         return;
       }
@@ -1795,11 +2277,21 @@
 
         const token = document.createElement("div");
         token.className = "token " + player.toLowerCase();
+        if (game.status === "finished" && game.winner === player) {
+          token.classList.add("winner-token");
+        }
         token.textContent = player.replace("P", "");
         square.querySelector(".tokens").appendChild(token);
       }
 
       diceBox.textContent = lastDice;
+      if (hudDiceBox) { hudDiceBox.textContent = lastDice; }
+      if (hudRoomBox) { hudRoomBox.textContent = "Room: " + getRoom() + " | You: " + getName() + " (" + getRole() + ")"; }
+      if (hudTurnBox) {
+        if (game.status === "playing") { hudTurnBox.textContent = "Turn: " + game.turn + " - " + game.names[game.turn]; }
+        else if (game.status === "finished") { hudTurnBox.textContent = "Winner: " + game.winner + " - " + game.names[game.winner]; }
+        else { hudTurnBox.textContent = "Status: waiting"; }
+      }
 
       let text = "";
       text += "Room: " + getRoom() + "\n";
@@ -1819,6 +2311,7 @@
       }
 
       gameStateBox.textContent = text;
+      updateSpectatorControls();
       renderRolePositions();
       renderPlayers();
     }
@@ -1855,15 +2348,11 @@
         div.className = "player-card" + (game.turn === player ? " active" : "");
 
         const joinedText = lobby[player] ? "Joined" : "Waiting";
-        const coinClass = player.toLowerCase();
 
         div.innerHTML =
-          '<div class="player-head">' +
-          '<span class="player-coin ' + coinClass + '">' + player.replace("P", "") + '</span>' +
-          '<div class="player-meta"><strong>' + player + ' - ' + escapeHtml(game.names[player]) + '</strong></div>' +
-          '</div>' +
-          'Position: ' + game.positions[player] + '<br>' +
-          'Status: ' + joinedText;
+          "<strong>" + player + " - " + escapeHtml(game.names[player]) + "</strong><br>" +
+          "Position: " + game.positions[player] + "<br>" +
+          "Status: " + joinedText;
 
         playersBox.appendChild(div);
       }
@@ -1891,6 +2380,28 @@
         .replaceAll("'", "&#039;");
     }
 
+    function toggleGameFullscreen() {
+      const target = gameFocusBox || document.documentElement;
+      if (!document.fullscreenElement) {
+        if (target.requestFullscreen) { target.requestFullscreen(); }
+      } else {
+        if (document.exitFullscreen) { document.exitFullscreen(); }
+      }
+    }
+
+    document.addEventListener("fullscreenchange", function () {
+      const button = document.querySelector(".fullscreen-btn");
+      if (button) { button.textContent = document.fullscreenElement ? "Exit Full Screen" : "Full Screen"; }
+      setTimeout(function () { renderGame(); }, 120);
+    });
+
+    document.querySelectorAll('input[name="playerRole"]').forEach(function (radio) {
+      radio.addEventListener("change", function () {
+        updateSpectatorControls();
+        renderGame();
+      });
+    });
+
     chatInput.addEventListener("keydown", function (event) {
       if (event.key === "Enter") {
         event.preventDefault();
@@ -1904,6 +2415,7 @@
       }
     });
 
+    placeDramaBannerInsideGame();
     buildBoard();
     setStatus("Disconnected", false);
   </script>
