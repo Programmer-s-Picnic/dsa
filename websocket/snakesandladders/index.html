@@ -601,6 +601,40 @@
         stroke-width: 3;
       }
     }
+
+    /* Full-board improved layout */
+    .app-shell{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px;align-items:start}
+    .sidebar{position:sticky;top:10px;max-height:calc(100vh - 20px);overflow:auto;scrollbar-width:thin}
+    .sidebar .card{padding:14px;margin-bottom:12px;border-radius:22px}
+    .sidebar label{margin:8px 0 5px}
+    .sidebar input{padding:10px 12px;border-radius:14px}
+    .sidebar .role-option{padding:9px 11px;border-radius:14px}
+    .play-card{padding:14px}
+    .play-topbar{position:sticky;top:0;z-index:80;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px;margin-bottom:12px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);box-shadow:0 14px 32px rgba(120,53,15,.13)}
+    .top-dice{display:flex;align-items:center;gap:10px;min-width:120px}
+    .top-dice .dice{width:64px;height:64px;border-radius:18px;font-size:34px;margin:0}
+    .top-info{min-width:0;color:#7c2d12;font-weight:900;line-height:1.25}
+    .top-info small{display:block;color:var(--muted);font-weight:800;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .top-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+    .top-actions button{padding:10px 13px}
+    .game-area{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:14px;align-items:start}
+    .board-wrap{overflow:visible;padding:0;display:grid;place-items:center}
+    .board-stage{width:min(calc(100vw - 650px),calc(100vh - 126px),820px);min-width:560px;border-radius:26px;padding:8px}
+    .board{inset:8px;gap:3px}
+    .board-art{inset:8px;width:calc(100% - 16px);height:calc(100% - 16px)}
+    .square{min-width:0;min-height:0;border-radius:10px}
+    .num{font-size:clamp(9px,1vw,12px);top:4px;left:5px}
+    .mark{font-size:clamp(8px,.9vw,11px);bottom:3px;right:5px}
+    .panel{gap:10px}.panel .dice-card{display:none}
+    .game-state{min-height:118px;padding:13px;font-size:13px}
+    .player-card{padding:8px 10px;font-size:13px}.players{gap:6px}
+    .room-messages{height:150px}
+    .hero{padding:18px 22px;border-radius:26px;margin-bottom:12px}.hero h1{font-size:clamp(28px,4vw,48px)}.hero p{font-size:15px}
+    .ad-wrap{margin:12px 0;padding:8px}
+    @media(max-width:1180px){.app-shell{grid-template-columns:1fr}.sidebar{position:static;max-height:none;overflow:visible}.sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.sidebar .card{margin-bottom:0}.board-stage{width:min(96vw,calc(100vh - 170px),820px);min-width:0}}
+    @media(max-width:860px){body{padding:10px}.play-topbar{grid-template-columns:1fr}.top-actions{justify-content:stretch}.top-actions button{flex:1 1 120px}.game-area{grid-template-columns:1fr}.sidebar{grid-template-columns:1fr}.board-stage{width:min(96vw,calc(100vh - 230px));min-width:0}.panel .dice-card{display:block}.top-dice .dice{width:56px;height:56px;font-size:30px}}
+    @media(max-width:560px){.board-stage{width:96vw}.hero::after{display:none}.square{border-radius:7px}.token{width:16px;height:16px;font-size:8px}}
+
   </style>
 </head>
 
@@ -622,8 +656,8 @@
       </script>
     </div>
 
-    <section class="grid">
-      <aside>
+    <section class="app-shell">
+      <aside class="sidebar">
         <article class="card">
           <h2>Connection</h2>
 
@@ -680,16 +714,11 @@
             Open this page in different tabs or devices. Use the same room. Choose different player roles.
           </p>
         </article>
-
         <article class="card">
-          <h2>Game Controls</h2>
-          <div class="row">
-            <button onclick="newGame()">New Game</button>
-            <button onclick="rollDice()">Roll Dice</button>
-            <button class="secondary" onclick="syncGame()">Sync Game</button>
-          </div>
+          <h2>Rules</h2>
           <p class="small">
-            Roll only when it is your turn. Exact 100 is needed to win.
+            Same room on all devices. P1 starts. Roll only on your turn. A 6 gives another turn.
+            Exact 100 is needed to win.
           </p>
           <div class="legend">
             <div class="up">🪜 Ladder: go up</div>
@@ -704,7 +733,22 @@
       </aside>
 
       <section>
-        <article class="card">
+        <article class="card play-card">
+          <div class="play-topbar">
+            <div class="top-dice">
+              <div id="topDice" class="dice">-</div>
+              <div class="top-info">Dice<small id="topStatusText">Connect and start a new game.</small></div>
+            </div>
+            <div class="top-info">
+              <span id="turnPill">Turn: P1</span>
+              <small id="roomPill">Room: snakes-main</small>
+            </div>
+            <div class="top-actions">
+              <button onclick="newGame()">New Game</button>
+              <button onclick="rollDice()">Roll Dice</button>
+              <button class="secondary" onclick="syncGame()">Sync Game</button>
+            </div>
+          </div>
           <div class="game-area">
             <div>
               <h2>Board</h2>
@@ -718,7 +762,7 @@
             </div>
 
             <div class="panel">
-              <div>
+              <div class="dice-card">
                 <h2>Dice</h2>
                 <div id="dice" class="dice">-</div>
               </div>
@@ -787,6 +831,10 @@
     const messagesBox = document.getElementById("messages");
     const chatInput = document.getElementById("chatInput");
     const diceBox = document.getElementById("dice");
+    const topDiceBox = document.getElementById("topDice");
+    const topStatusText = document.getElementById("topStatusText");
+    const turnPill = document.getElementById("turnPill");
+    const roomPill = document.getElementById("roomPill");
     const playersBox = document.getElementById("players");
 
     function createInitialGame() {
@@ -1439,6 +1487,9 @@
       }
 
       diceBox.textContent = lastDice;
+      if (topDiceBox) topDiceBox.textContent = lastDice;
+      if (roomPill) roomPill.textContent = "Room: " + getRoom();
+      if (turnPill) turnPill.textContent = game.status === "playing" ? "Turn: " + game.turn + " - " + game.names[game.turn] : "Status: " + game.status;
 
       let text = "";
       text += "Room: " + getRoom() + "\n";
@@ -1448,12 +1499,15 @@
 
       if (game.status === "waiting") {
         text += "Status: Waiting. Click New Game.";
+        if (topStatusText) topStatusText.textContent = "Waiting. Click New Game.";
       } else if (game.status === "playing") {
         text += "Status: Playing\n";
         text += "Turn: " + game.turn + " - " + game.names[game.turn];
+        if (topStatusText) topStatusText.textContent = "Roll Dice and Sync Game are always visible above the board.";
       } else if (game.status === "finished") {
         text += "Status: Finished\n";
         text += "Winner: " + game.winner + " - " + game.names[game.winner];
+        if (topStatusText) topStatusText.textContent = game.winner + " wins. Start a new game.";
       }
 
       gameStateBox.textContent = text;
