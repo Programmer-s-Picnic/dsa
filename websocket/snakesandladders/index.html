@@ -602,39 +602,16 @@
       }
     }
 
-    /* Full-board improved layout */
-    .app-shell{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px;align-items:start}
-    .sidebar{position:sticky;top:10px;max-height:calc(100vh - 20px);overflow:auto;scrollbar-width:thin}
-    .sidebar .card{padding:14px;margin-bottom:12px;border-radius:22px}
-    .sidebar label{margin:8px 0 5px}
-    .sidebar input{padding:10px 12px;border-radius:14px}
-    .sidebar .role-option{padding:9px 11px;border-radius:14px}
-    .play-card{padding:14px}
-    .play-topbar{position:sticky;top:0;z-index:80;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px;margin-bottom:12px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);box-shadow:0 14px 32px rgba(120,53,15,.13)}
-    .top-dice{display:flex;align-items:center;gap:10px;min-width:120px}
-    .top-dice .dice{width:64px;height:64px;border-radius:18px;font-size:34px;margin:0}
-    .top-info{min-width:0;color:#7c2d12;font-weight:900;line-height:1.25}
-    .top-info small{display:block;color:var(--muted);font-weight:800;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .top-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
-    .top-actions button{padding:10px 13px}
-    .game-area{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:14px;align-items:start}
-    .board-wrap{overflow:visible;padding:0;display:grid;place-items:center}
-    .board-stage{width:min(calc(100vw - 650px),calc(100vh - 126px),820px);min-width:560px;border-radius:26px;padding:8px}
-    .board{inset:8px;gap:3px}
-    .board-art{inset:8px;width:calc(100% - 16px);height:calc(100% - 16px)}
-    .square{min-width:0;min-height:0;border-radius:10px}
-    .num{font-size:clamp(9px,1vw,12px);top:4px;left:5px}
-    .mark{font-size:clamp(8px,.9vw,11px);bottom:3px;right:5px}
-    .panel{gap:10px}.panel .dice-card{display:none}
-    .game-state{min-height:118px;padding:13px;font-size:13px}
-    .player-card{padding:8px 10px;font-size:13px}.players{gap:6px}
-    .room-messages{height:150px}
-    .hero{padding:18px 22px;border-radius:26px;margin-bottom:12px}.hero h1{font-size:clamp(28px,4vw,48px)}.hero p{font-size:15px}
-    .ad-wrap{margin:12px 0;padding:8px}
-    @media(max-width:1180px){.app-shell{grid-template-columns:1fr}.sidebar{position:static;max-height:none;overflow:visible}.sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.sidebar .card{margin-bottom:0}.board-stage{width:min(96vw,calc(100vh - 170px),820px);min-width:0}}
-    @media(max-width:860px){body{padding:10px}.play-topbar{grid-template-columns:1fr}.top-actions{justify-content:stretch}.top-actions button{flex:1 1 120px}.game-area{grid-template-columns:1fr}.sidebar{grid-template-columns:1fr}.board-stage{width:min(96vw,calc(100vh - 230px));min-width:0}.panel .dice-card{display:block}.top-dice .dice{width:56px;height:56px;font-size:30px}}
-    @media(max-width:560px){.board-stage{width:96vw}.hero::after{display:none}.square{border-radius:7px}.token{width:16px;height:16px;font-size:8px}}
-
+    .player-count-note {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: #fffbeb;
+      border: 1px solid #fed7aa;
+      color: #7c2d12;
+      font-weight: 800;
+      font-size: 13px;
+    }
   </style>
 </head>
 
@@ -656,8 +633,8 @@
       </script>
     </div>
 
-    <section class="app-shell">
-      <aside class="sidebar">
+    <section class="grid">
+      <aside>
         <article class="card">
           <h2>Connection</h2>
 
@@ -699,6 +676,10 @@
             </label>
           </div>
 
+          <div class="player-count-note">
+            Game starts with minimum 2 players. Maximum 4 players are allowed. Extra viewers should choose Spectator.
+          </div>
+
           <div id="status" class="status">
             <span class="dot"></span>
             <span>Disconnected</span>
@@ -711,14 +692,20 @@
           </div>
 
           <p class="small">
-            Open this page in different tabs or devices. Use the same room. Choose different player roles.
+            Open this page in different tabs or devices. Use the same room. Choose 2 to 4 player roles. Others should
+            choose Spectator.
           </p>
         </article>
+
         <article class="card">
-          <h2>Rules</h2>
+          <h2>Game Controls</h2>
+          <div class="row">
+            <button onclick="newGame()">New Game</button>
+            <button onclick="rollDice()">Roll Dice</button>
+            <button class="secondary" onclick="syncGame()">Sync Game</button>
+          </div>
           <p class="small">
-            Same room on all devices. P1 starts. Roll only on your turn. A 6 gives another turn.
-            Exact 100 is needed to win.
+            Roll only when it is your turn. Exact 100 is needed to win.
           </p>
           <div class="legend">
             <div class="up">🪜 Ladder: go up</div>
@@ -733,22 +720,7 @@
       </aside>
 
       <section>
-        <article class="card play-card">
-          <div class="play-topbar">
-            <div class="top-dice">
-              <div id="topDice" class="dice">-</div>
-              <div class="top-info">Dice<small id="topStatusText">Connect and start a new game.</small></div>
-            </div>
-            <div class="top-info">
-              <span id="turnPill">Turn: P1</span>
-              <small id="roomPill">Room: snakes-main</small>
-            </div>
-            <div class="top-actions">
-              <button onclick="newGame()">New Game</button>
-              <button onclick="rollDice()">Roll Dice</button>
-              <button class="secondary" onclick="syncGame()">Sync Game</button>
-            </div>
-          </div>
+        <article class="card">
           <div class="game-area">
             <div>
               <h2>Board</h2>
@@ -762,7 +734,7 @@
             </div>
 
             <div class="panel">
-              <div class="dice-card">
+              <div>
                 <h2>Dice</h2>
                 <div id="dice" class="dice">-</div>
               </div>
@@ -820,6 +792,8 @@
     let ws = null;
     let myClientId = null;
 
+    let lobby = {};
+
     let game = createInitialGame();
     let lastDice = "-";
 
@@ -831,10 +805,6 @@
     const messagesBox = document.getElementById("messages");
     const chatInput = document.getElementById("chatInput");
     const diceBox = document.getElementById("dice");
-    const topDiceBox = document.getElementById("topDice");
-    const topStatusText = document.getElementById("topStatusText");
-    const turnPill = document.getElementById("turnPill");
-    const roomPill = document.getElementById("roomPill");
     const playersBox = document.getElementById("players");
 
     function createInitialGame() {
@@ -851,6 +821,7 @@
           P3: "Player 3",
           P4: "Player 4"
         },
+        activePlayers: [],
         turn: "P1",
         status: "waiting",
         winner: "",
@@ -1221,11 +1192,62 @@
       return true;
     }
 
+    function updateLobby(role, name) {
+      if (!playerOrder.includes(role)) {
+        return;
+      }
+
+      lobby[role] = name || role;
+      game.names[role] = name || role;
+
+      if (!Array.isArray(game.activePlayers)) {
+        game.activePlayers = [];
+      }
+
+      if (!game.activePlayers.includes(role) && game.status === "waiting") {
+        game.activePlayers.push(role);
+      }
+    }
+
+    function getActivePlayersFromLobby() {
+      return playerOrder.filter(player => lobby[player]);
+    }
+
+    function getActivePlayers() {
+      if (Array.isArray(game.activePlayers) && game.activePlayers.length >= 2) {
+        return game.activePlayers.filter(player => playerOrder.includes(player));
+      }
+
+      const fromLobby = getActivePlayersFromLobby();
+
+      if (fromLobby.length >= 2) {
+        return fromLobby;
+      }
+
+      return playerOrder;
+    }
+
+    function validatePlayerCountForStart() {
+      const activePlayers = getActivePlayersFromLobby();
+
+      if (activePlayers.length < 2) {
+        alert("At least 2 players are needed. Open another tab/device, choose another player role, connect, then start.");
+        return null;
+      }
+
+      if (activePlayers.length > 4) {
+        alert("Maximum 4 players are allowed.");
+        return null;
+      }
+
+      return activePlayers;
+    }
+
     function announcePresence() {
       const role = getRole();
 
       if (playerOrder.includes(role)) {
-        game.names[role] = getName();
+        updateLobby(role, getName());
         renderGame();
       }
 
@@ -1235,19 +1257,32 @@
         role,
         room: getRoom(),
         game,
+        lobby,
         time: new Date().toISOString()
       });
     }
 
     function newGame() {
+      const activePlayers = validatePlayerCountForStart();
+
+      if (!activePlayers) {
+        return;
+      }
+
       game = createInitialGame();
 
       const role = getRole();
 
       if (playerOrder.includes(role)) {
-        game.names[role] = getName();
+        updateLobby(role, getName());
       }
 
+      for (const player of activePlayers) {
+        game.names[player] = lobby[player] || game.names[player];
+      }
+
+      game.activePlayers = activePlayers;
+      game.turn = activePlayers[0];
       game.status = "playing";
       lastDice = "-";
       renderGame();
@@ -1257,6 +1292,7 @@
         from: getName(),
         role,
         game,
+        lobby,
         lastDice,
         time: new Date().toISOString()
       });
@@ -1269,6 +1305,7 @@
         kind: "sync",
         from: getName(),
         game,
+        lobby,
         lastDice,
         time: new Date().toISOString()
       });
@@ -1286,6 +1323,13 @@
 
       if (!playerOrder.includes(role)) {
         alert("Spectators cannot roll.");
+        return;
+      }
+
+      const activePlayers = getActivePlayers();
+
+      if (!activePlayers.includes(role)) {
+        alert("You are not part of this game. This game has players: " + activePlayers.join(", "));
         return;
       }
 
@@ -1355,8 +1399,14 @@
     }
 
     function nextPlayer(current) {
-      const index = playerOrder.indexOf(current);
-      return playerOrder[(index + 1) % playerOrder.length];
+      const activePlayers = getActivePlayers();
+      const index = activePlayers.indexOf(current);
+
+      if (index === -1) {
+        return activePlayers[0] || "P1";
+      }
+
+      return activePlayers[(index + 1) % activePlayers.length];
     }
 
     function sendRoomChat() {
@@ -1418,12 +1468,21 @@
       }
 
       if (payload.kind === "presence") {
-        if (payload.game) {
-          game = payload.game;
+        if (payload.lobby) {
+          lobby = Object.assign(lobby, payload.lobby);
         }
 
         if (payload.role && playerOrder.includes(payload.role)) {
-          game.names[payload.role] = payload.name;
+          updateLobby(payload.role, payload.name);
+        }
+
+        if (payload.game && game.status === "waiting") {
+          if (payload.game.names) {
+            game.names = Object.assign(game.names, payload.game.names);
+          }
+          if (Array.isArray(payload.game.activePlayers)) {
+            game.activePlayers = payload.game.activePlayers;
+          }
         }
 
         renderGame();
@@ -1432,14 +1491,27 @@
       }
 
       if (payload.kind === "new-game") {
+        if (payload.lobby) {
+          lobby = Object.assign(lobby, payload.lobby);
+        }
+
         game = payload.game;
+
+        if (!Array.isArray(game.activePlayers) || game.activePlayers.length < 2) {
+          game.activePlayers = getActivePlayersFromLobby();
+        }
+
         lastDice = payload.lastDice || "-";
         renderGame();
-        addRoomMessage(payload.from + " started a new game.", "system");
+        addRoomMessage(payload.from + " started a " + game.activePlayers.length + "-player game.", "system");
         return;
       }
 
       if (payload.kind === "sync") {
+        if (payload.lobby) {
+          lobby = Object.assign(lobby, payload.lobby);
+        }
+
         if (payload.game) {
           game = payload.game;
         }
@@ -1487,27 +1559,22 @@
       }
 
       diceBox.textContent = lastDice;
-      if (topDiceBox) topDiceBox.textContent = lastDice;
-      if (roomPill) roomPill.textContent = "Room: " + getRoom();
-      if (turnPill) turnPill.textContent = game.status === "playing" ? "Turn: " + game.turn + " - " + game.names[game.turn] : "Status: " + game.status;
 
       let text = "";
       text += "Room: " + getRoom() + "\n";
       text += "You: " + getName() + " (" + getRole() + ")\n";
       text += "Game ID: " + game.gameId + "\n";
+      text += "Players: " + getActivePlayers().join(", ") + "\n";
       text += "Move number: " + game.moveNumber + "\n\n";
 
       if (game.status === "waiting") {
         text += "Status: Waiting. Click New Game.";
-        if (topStatusText) topStatusText.textContent = "Waiting. Click New Game.";
       } else if (game.status === "playing") {
         text += "Status: Playing\n";
         text += "Turn: " + game.turn + " - " + game.names[game.turn];
-        if (topStatusText) topStatusText.textContent = "Roll Dice and Sync Game are always visible above the board.";
       } else if (game.status === "finished") {
         text += "Status: Finished\n";
         text += "Winner: " + game.winner + " - " + game.names[game.winner];
-        if (topStatusText) topStatusText.textContent = game.winner + " wins. Start a new game.";
       }
 
       gameStateBox.textContent = text;
@@ -1517,15 +1584,30 @@
     function renderPlayers() {
       playersBox.innerHTML = "";
 
-      for (const player of playerOrder) {
+      const playersToShow = game.status === "playing" || game.status === "finished"
+        ? getActivePlayers()
+        : playerOrder;
+
+      for (const player of playersToShow) {
         const div = document.createElement("div");
         div.className = "player-card" + (game.turn === player ? " active" : "");
 
+        const joinedText = lobby[player] ? "Joined" : "Waiting";
+
         div.innerHTML =
           "<strong>" + player + " - " + escapeHtml(game.names[player]) + "</strong><br>" +
-          "Position: " + game.positions[player];
+          "Position: " + game.positions[player] + "<br>" +
+          "Status: " + joinedText;
 
         playersBox.appendChild(div);
+      }
+
+      if (game.status === "waiting") {
+        const count = getActivePlayersFromLobby().length;
+        const note = document.createElement("div");
+        note.className = "player-card";
+        note.innerHTML = "<strong>" + count + "/4 players joined</strong><br>Minimum 2 players required.";
+        playersBox.appendChild(note);
       }
     }
 
