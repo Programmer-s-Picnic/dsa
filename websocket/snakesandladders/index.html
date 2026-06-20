@@ -1026,12 +1026,13 @@
       }
     }
 
-    .drama-banner {
+    .drama-banner,
+    .local-drama-banner {
       position: fixed;
       left: 50%;
       top: 18px;
       transform: translateX(-50%) scale(.92);
-      z-index: 9999;
+      z-index: 2147483647;
       width: min(760px, calc(100vw - 28px));
       padding: 18px 22px;
       border-radius: 28px;
@@ -1043,122 +1044,131 @@
       font-weight: 1000;
       text-align: center;
       pointer-events: none;
-      opacity: 0;
+      opacity: 0
     }
 
-    .drama-banner.show {
-      animation: dramaPop 2.6s ease forwards;
+    .local-drama-banner {
+      display: none
     }
 
-    .drama-banner.snake-drama {
-      background: linear-gradient(135deg, rgba(127, 29, 29, .98), rgba(220, 38, 38, .94));
+    .drama-banner.show,
+    .local-drama-banner.show {
+      animation: dramaPop 2.6s ease forwards
     }
 
-    .drama-banner.ladder-drama {
-      background: linear-gradient(135deg, rgba(20, 83, 45, .98), rgba(22, 163, 74, .94));
+    #gameFocus:fullscreen .local-drama-banner {
+      display: block
     }
 
-    .drama-banner.six-drama {
-      background: linear-gradient(135deg, rgba(146, 64, 14, .98), rgba(245, 158, 11, .94));
+    .snake-drama {
+      background: linear-gradient(135deg, rgba(127, 29, 29, .98), rgba(220, 38, 38, .94))
     }
 
-    .drama-banner.win-drama {
-      background: linear-gradient(135deg, rgba(88, 28, 135, .98), rgba(245, 158, 11, .94));
+    .ladder-drama {
+      background: linear-gradient(135deg, rgba(20, 83, 45, .98), rgba(22, 163, 74, .94))
+    }
+
+    .six-drama {
+      background: linear-gradient(135deg, rgba(146, 64, 14, .98), rgba(245, 158, 11, .94))
+    }
+
+    .win-drama {
+      background: linear-gradient(135deg, rgba(88, 28, 135, .98), rgba(245, 158, 11, .94))
     }
 
     @keyframes dramaPop {
       0% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-18px) scale(.78);
+        transform: translateX(-50%) translateY(-18px) scale(.78)
       }
 
       14% {
         opacity: 1;
-        transform: translateX(-50%) translateY(0) scale(1.04);
+        transform: translateX(-50%) translateY(0) scale(1.04)
       }
 
       22%,
       82% {
         opacity: 1;
-        transform: translateX(-50%) scale(1);
+        transform: translateX(-50%) scale(1)
       }
 
       100% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-18px) scale(.94);
+        transform: translateX(-50%) translateY(-18px) scale(.94)
       }
     }
 
     .board-stage.snake-shake {
-      animation: snakeShake .65s ease;
+      animation: snakeShake .65s ease
     }
 
     @keyframes snakeShake {
 
       0%,
       100% {
-        transform: translateX(0);
+        transform: translateX(0)
       }
 
       18% {
-        transform: translateX(-8px) rotate(-.5deg);
+        transform: translateX(-8px) rotate(-.5deg)
       }
 
       36% {
-        transform: translateX(8px) rotate(.5deg);
+        transform: translateX(8px) rotate(.5deg)
       }
 
       54% {
-        transform: translateX(-6px) rotate(-.4deg);
+        transform: translateX(-6px) rotate(-.4deg)
       }
 
       72% {
-        transform: translateX(6px) rotate(.4deg);
+        transform: translateX(6px) rotate(.4deg)
       }
     }
 
     .board-stage.ladder-glow {
-      animation: ladderGlow 1.15s ease;
+      animation: ladderGlow 1.15s ease
     }
 
     @keyframes ladderGlow {
 
       0%,
       100% {
-        box-shadow: inset 0 0 0 2px rgba(124, 45, 18, .08), 0 20px 48px rgba(120, 53, 15, .18);
+        box-shadow: inset 0 0 0 2px rgba(124, 45, 18, .08), 0 20px 48px rgba(120, 53, 15, .18)
       }
 
       45% {
-        box-shadow: inset 0 0 0 4px rgba(22, 163, 74, .4), 0 0 42px rgba(22, 163, 74, .48);
+        box-shadow: inset 0 0 0 4px rgba(22, 163, 74, .4), 0 0 42px rgba(22, 163, 74, .48)
       }
     }
 
     .dice.dice-six {
-      animation: diceSix .95s ease;
+      animation: diceSix .95s ease
     }
 
     @keyframes diceSix {
 
       0%,
       100% {
-        transform: rotate(0) scale(1);
+        transform: rotate(0) scale(1)
       }
 
       25% {
-        transform: rotate(-10deg) scale(1.12);
+        transform: rotate(-10deg) scale(1.12)
       }
 
       50% {
-        transform: rotate(10deg) scale(1.2);
+        transform: rotate(10deg) scale(1.2)
       }
 
       75% {
-        transform: rotate(-6deg) scale(1.08);
+        transform: rotate(-6deg) scale(1.08)
       }
     }
 
     .token.winner-token {
-      animation: winnerPulse 1.3s ease infinite;
+      animation: winnerPulse 1.3s ease infinite
     }
 
     @keyframes winnerPulse {
@@ -1166,17 +1176,17 @@
       0%,
       100% {
         transform: scale(1);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, .24);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, .24)
       }
 
       50% {
         transform: scale(1.32);
-        box-shadow: 0 0 0 8px rgba(245, 158, 11, .22), 0 8px 18px rgba(0, 0, 0, .22);
+        box-shadow: 0 0 0 8px rgba(245, 158, 11, .22), 0 8px 18px rgba(0, 0, 0, .22)
       }
     }
 
     button.hidden-for-spectator {
-      display: none !important;
+      display: none !important
     }
 
     .spectator-note {
@@ -1187,7 +1197,85 @@
       border: 1px solid #bfdbfe;
       color: #1d4ed8;
       font-size: 13px;
-      font-weight: 900;
+      font-weight: 900
+    }
+
+    .player-card {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: center
+    }
+
+    .player-token-mini {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 13px;
+      font-weight: 1000;
+      border: 2px solid rgba(255, 255, 255, .85);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .18)
+    }
+
+    .player-token-mini.p1 {
+      background: var(--blue)
+    }
+
+    .player-token-mini.p2 {
+      background: var(--saffron-dark)
+    }
+
+    .player-token-mini.p3 {
+      background: var(--green)
+    }
+
+    .player-token-mini.p4 {
+      background: var(--purple)
+    }
+
+    .player-meta {
+      min-width: 0
+    }
+
+    .player-meta strong {
+      display: block;
+      color: #7c2d12;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .computer-badge {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #111827;
+      color: #fef3c7;
+      font-size: 11px;
+      font-weight: 1000;
+      vertical-align: middle
+    }
+
+    .thinking {
+      animation: thinkingPulse 1s ease infinite
+    }
+
+    @keyframes thinkingPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .7;
+        transform: scale(1.04)
+      }
     }
   </style>
 </head>
@@ -1302,6 +1390,7 @@
 
       <section>
         <article class="card play-card" id="gameFocus">
+          <div id="localDramaBanner" class="local-drama-banner" aria-live="polite"></div>
           <div class="play-topbar">
             <div class="mini-dice-box">
               <div id="hudDice" class="dice">-</div>
@@ -1394,11 +1483,13 @@
 
     let game = createInitialGame();
     let lastDice = "-";
+    let computerThinking = false;
 
     const boardBox = document.getElementById("board");
     const boardArt = document.getElementById("boardArt");
     const boardStageBox = document.querySelector(".board-stage");
     const dramaBanner = document.getElementById("dramaBanner");
+    const localDramaBanner = document.getElementById("localDramaBanner");
     const statusBox = document.getElementById("status");
     const gameStateBox = document.getElementById("gameState");
     const debugLogBox = document.getElementById("debugLog");
@@ -1831,12 +1922,90 @@
       return playerOrder;
     }
 
+
+    function getHumanPlayersFromLobby() {
+      return playerOrder.filter(player => lobby[player] && game.names[player] !== "Computer" && lobby[player] !== "Computer");
+    }
+
+    function ensureComputerIfSingleHuman() {
+      const humanPlayers = getHumanPlayersFromLobby();
+      if (humanPlayers.length !== 1) return false;
+      const humanRole = humanPlayers[0];
+      const computerRole = playerOrder.find(player => player !== humanRole);
+      if (!computerRole) return false;
+      lobby[computerRole] = "Computer";
+      game.names[computerRole] = "Computer";
+      addRoomMessage("Computer joined as " + computerRole + " because only one human player is playing.", "system");
+      return true;
+    }
+
+    function isComputerTurn() {
+      return game.status === "playing" && game.names[game.turn] === "Computer";
+    }
+
+    function maybeComputerMove() {
+      if (!isComputerTurn() || computerThinking) return;
+      computerThinking = true;
+      renderPlayers();
+      setTimeout(function () {
+        computerThinking = false;
+        if (isComputerTurn()) rollForRole(game.turn, "Computer");
+      }, 900);
+    }
+
+    function updateSpectatorControls() {
+      const isSpectator = getRole() === "spectator";
+      document.querySelectorAll(".roll-dice-btn").forEach(button => {
+        button.classList.toggle("hidden-for-spectator", isSpectator);
+        button.disabled = isSpectator;
+      });
+      const spectatorNote = document.getElementById("spectatorNote");
+      if (spectatorNote) spectatorNote.hidden = !isSpectator;
+    }
+
+    function showDrama(kind, text) {
+      [dramaBanner, localDramaBanner].forEach(box => {
+        if (!box) return;
+        box.className = (box.id === "localDramaBanner" ? "local-drama-banner " : "drama-banner ") + kind + "-drama";
+        box.textContent = text;
+        void box.offsetWidth;
+        box.classList.add("show");
+      });
+      if (boardStageBox) {
+        if (kind === "snake") {
+          boardStageBox.classList.remove("snake-shake"); void boardStageBox.offsetWidth; boardStageBox.classList.add("snake-shake");
+        }
+        if (kind === "ladder") {
+          boardStageBox.classList.remove("ladder-glow"); void boardStageBox.offsetWidth; boardStageBox.classList.add("ladder-glow");
+        }
+      }
+      if (kind === "six") {
+        [diceBox, hudDiceBox].forEach(box => {
+          if (!box) return;
+          box.classList.remove("dice-six"); void box.offsetWidth; box.classList.add("dice-six");
+        });
+      }
+    }
+
+    function dramaFromMove(role, dice, oldPosition, landedPosition, finalPosition, winner) {
+      if (winner) return { kind: "win", text: "🏁 " + role + " reached 100! Victory!" };
+      if (finalPosition > landedPosition) return { kind: "ladder", text: "🪜 " + role + " climbs from " + landedPosition + " to " + finalPosition + "!" };
+      if (finalPosition < landedPosition) return { kind: "snake", text: "🐍 Snake bite! " + role + " falls from " + landedPosition + " to " + finalPosition + "!" };
+      if (dice === 6) return { kind: "six", text: "🎲 " + role + " rolled a SIX! One more chance!" };
+      return null;
+    }
+
     function validatePlayerCountForStart() {
-      const activePlayers = getActivePlayersFromLobby();
+      let activePlayers = getActivePlayersFromLobby();
 
       if (activePlayers.length < 2) {
-        alert("At least 2 players are needed. Open another tab/device, choose another player role, connect, then start.");
-        return null;
+        const addedComputer = ensureComputerIfSingleHuman();
+        activePlayers = getActivePlayersFromLobby();
+
+        if (!addedComputer || activePlayers.length < 2) {
+          alert("At least 2 players are needed. Connect one human player first. If only one human is connected, the computer joins automatically.");
+          return null;
+        }
       }
 
       if (activePlayers.length > 4) {
@@ -1917,87 +2086,25 @@
       log("Sync sent.");
     }
 
-    function updateSpectatorControls() {
-      const role = getRole();
-      const isSpectator = role === "spectator";
-      const rollButtons = document.querySelectorAll(".roll-dice-btn");
-      const spectatorNote = document.getElementById("spectatorNote");
-
-      rollButtons.forEach(button => {
-        button.classList.toggle("hidden-for-spectator", isSpectator);
-        button.disabled = isSpectator;
-      });
-
-      if (spectatorNote) {
-        spectatorNote.hidden = !isSpectator;
-      }
-    }
-
-    function showDrama(kind, text) {
-      if (!dramaBanner) {
-        return;
-      }
-
-      dramaBanner.className = "drama-banner " + kind + "-drama";
-      dramaBanner.textContent = text;
-      void dramaBanner.offsetWidth;
-      dramaBanner.classList.add("show");
-
-      if (boardStageBox) {
-        if (kind === "snake") {
-          boardStageBox.classList.remove("snake-shake");
-          void boardStageBox.offsetWidth;
-          boardStageBox.classList.add("snake-shake");
-        }
-
-        if (kind === "ladder") {
-          boardStageBox.classList.remove("ladder-glow");
-          void boardStageBox.offsetWidth;
-          boardStageBox.classList.add("ladder-glow");
-        }
-      }
-
-      if (kind === "six") {
-        [diceBox, hudDiceBox].forEach(box => {
-          if (!box) return;
-          box.classList.remove("dice-six");
-          void box.offsetWidth;
-          box.classList.add("dice-six");
-        });
-      }
-    }
-
-    function dramaFromMove(role, dice, oldPosition, landedPosition, finalPosition, winner) {
-      if (winner) {
-        return { kind: "win", text: "🏁 " + role + " reached 100! Victory!" };
-      }
-
-      if (finalPosition > landedPosition) {
-        return { kind: "ladder", text: "🪜 " + role + " climbs from " + landedPosition + " to " + finalPosition + "!" };
-      }
-
-      if (finalPosition < landedPosition) {
-        return { kind: "snake", text: "🐍 Snake bite! " + role + " falls from " + landedPosition + " to " + finalPosition + "!" };
-      }
-
-      if (dice === 6) {
-        return { kind: "six", text: "🎲 " + role + " rolled a SIX! One more chance!" };
-      }
-
-      return null;
-    }
-
     function rollDice() {
       const role = getRole();
 
+      if (role === "spectator") {
+        addRoomMessage("Spectator mode: you can watch, but you cannot roll the dice.", "system");
+        updateSpectatorControls();
+        return;
+      }
+
+      rollForRole(role, getName());
+    }
+
+    function rollForRole(role, actorName) {
       if (!ws || ws.readyState !== WebSocket.OPEN) {
         alert("Connect first.");
         return;
       }
 
       if (!playerOrder.includes(role)) {
-        addRoomMessage("Spectator mode: you can watch, but you cannot roll the dice.", "system");
-        updateSpectatorControls();
         return;
       }
 
@@ -2071,7 +2178,7 @@
 
       sendPayload({
         kind: "move",
-        from: getName(),
+        from: actorName || getName(),
         role,
         dice,
         note,
@@ -2082,6 +2189,7 @@
       });
 
       addRoomMessage(note, "system");
+      maybeComputerMove();
     }
 
     function nextPlayer(current) {
@@ -2212,12 +2320,9 @@
         game = payload.game;
         lastDice = payload.lastDice || String(payload.dice || "-");
         renderGame();
-
-        if (payload.drama) {
-          showDrama(payload.drama.kind, payload.drama.text);
-        }
-
+        if (payload.drama) showDrama(payload.drama.kind, payload.drama.text);
         addRoomMessage(payload.note || payload.from + " moved.", "system");
+        maybeComputerMove();
         return;
       }
 
@@ -2245,9 +2350,7 @@
 
         const token = document.createElement("div");
         token.className = "token " + player.toLowerCase();
-        if (game.status === "finished" && game.winner === player) {
-          token.classList.add("winner-token");
-        }
+        if (game.status === "finished" && game.winner === player) token.classList.add("winner-token");
         token.textContent = player.replace("P", "");
         square.querySelector(".tokens").appendChild(token);
       }
@@ -2282,6 +2385,7 @@
       updateSpectatorControls();
       renderRolePositions();
       renderPlayers();
+      maybeComputerMove();
     }
 
     function renderRolePositions() {
@@ -2315,12 +2419,21 @@
         const div = document.createElement("div");
         div.className = "player-card" + (game.turn === player ? " active" : "");
 
+        if (isComputerTurn() && game.turn === player) {
+          div.classList.add("thinking");
+        }
+
         const joinedText = lobby[player] ? "Joined" : "Waiting";
+        const isComputer = game.names[player] === "Computer";
+        const computerBadge = isComputer ? '<span class="computer-badge">CPU</span>' : '';
 
         div.innerHTML =
-          "<strong>" + player + " - " + escapeHtml(game.names[player]) + "</strong><br>" +
-          "Position: " + game.positions[player] + "<br>" +
-          "Status: " + joinedText;
+          '<span class="player-token-mini ' + player.toLowerCase() + '">' + player.replace("P", "") + '</span>' +
+          '<span class="player-meta">' +
+          '<strong>' + player + ' - ' + escapeHtml(game.names[player]) + computerBadge + '</strong>' +
+          'Position: ' + game.positions[player] + '<br>' +
+          'Status: ' + joinedText +
+          '</span>';
 
         playersBox.appendChild(div);
       }
@@ -2329,7 +2442,9 @@
         const count = getActivePlayersFromLobby().length;
         const note = document.createElement("div");
         note.className = "player-card";
-        note.innerHTML = "<strong>" + count + "/4 players joined</strong><br>Minimum 2 players required.";
+        note.innerHTML =
+          '<span class="player-token-mini" style="background:#111827">?</span>' +
+          '<span class="player-meta"><strong>' + count + '/4 players joined</strong>Minimum 2 players required. With one human player, Computer joins automatically.</span>';
         playersBox.appendChild(note);
       }
     }
