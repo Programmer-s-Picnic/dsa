@@ -812,6 +812,219 @@
         stroke-width: 2.8;
       }
     }
+
+    /* Board + dice + status together */
+    .play-card {
+      padding: 14px;
+    }
+
+    .play-topbar {
+      position: sticky;
+      top: 8px;
+      z-index: 40;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 14px 34px rgba(120, 53, 15, .14);
+    }
+
+    .mini-dice-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 128px;
+    }
+
+    .mini-dice-box .dice {
+      width: 64px;
+      height: 64px;
+      min-width: 64px;
+      border-radius: 18px;
+      font-size: 34px;
+      margin: 0;
+    }
+
+    .mini-label {
+      color: #7c2d12;
+      font-weight: 1000;
+      line-height: 1.15;
+    }
+
+    .mini-label small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .hud-status {
+      min-width: 0;
+      color: #7c2d12;
+      font-weight: 1000;
+      line-height: 1.25;
+    }
+
+    .hud-status small {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hud-actions {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hud-actions button {
+      padding: 10px 13px;
+    }
+
+    .fullscreen-btn {
+      background: #111827;
+      color: #fef3c7;
+    }
+
+    .game-area {
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 12px;
+    }
+
+    .board-wrap {
+      overflow: visible;
+      padding: 0;
+    }
+
+    .board-stage {
+      width: min(calc(100vw - 700px), calc(100vh - 155px), 820px);
+      min-width: 560px;
+    }
+
+    .panel {
+      gap: 10px;
+    }
+
+    .panel .dice-card {
+      display: none;
+    }
+
+    .game-state {
+      min-height: 128px;
+      font-size: 13px;
+      padding: 13px;
+    }
+
+    .room-messages {
+      height: 150px;
+    }
+
+    .player-card {
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    #gameFocus:fullscreen {
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+      padding: 12px;
+      border-radius: 0;
+      background: radial-gradient(circle at top left, #ffedd5 0, transparent 34%), linear-gradient(135deg, #fff7ed, #fffbeb);
+    }
+
+    #gameFocus:fullscreen .play-topbar {
+      top: 0;
+      margin-bottom: 10px;
+    }
+
+    #gameFocus:fullscreen .game-area {
+      grid-template-columns: minmax(0, 1fr) 315px;
+      align-items: start;
+    }
+
+    #gameFocus:fullscreen .board-stage {
+      width: min(calc(100vw - 370px), calc(100vh - 112px), 900px);
+      min-width: 0;
+    }
+
+    #gameFocus:fullscreen .panel {
+      max-height: calc(100vh - 105px);
+      overflow: auto;
+    }
+
+    #gameFocus:fullscreen .room-messages {
+      height: 130px;
+    }
+
+    @media(max-width:1200px) {
+      .board-stage {
+        width: min(96vw, calc(100vh - 210px), 850px);
+        min-width: 0;
+      }
+
+      .game-area {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+
+      .panel .dice-card {
+        display: none;
+      }
+    }
+
+    @media(max-width:760px) {
+      .play-topbar {
+        grid-template-columns: 1fr;
+        position: relative;
+        top: auto;
+      }
+
+      .hud-actions {
+        justify-content: stretch;
+      }
+
+      .hud-actions button {
+        flex: 1 1 120px;
+      }
+
+      .panel {
+        grid-template-columns: 1fr;
+      }
+
+      .board-stage {
+        width: 96vw;
+      }
+
+      #gameFocus:fullscreen .game-area {
+        grid-template-columns: 1fr;
+      }
+
+      #gameFocus:fullscreen .board-stage {
+        width: 96vw;
+      }
+
+      #gameFocus:fullscreen .panel {
+        max-height: none;
+      }
+    }
   </style>
 </head>
 
@@ -898,7 +1111,7 @@
         </article>
 
         <article class="card">
-          <h2>Game Controls</h2>
+          <h2>Backup Controls</h2>
           <div class="row">
             <button onclick="newGame()">New Game</button>
             <button onclick="rollDice()">Roll Dice</button>
@@ -920,7 +1133,24 @@
       </aside>
 
       <section>
-        <article class="card">
+        <article class="card play-card" id="gameFocus">
+          <div class="play-topbar">
+            <div class="mini-dice-box">
+              <div id="hudDice" class="dice">-</div>
+              <div class="mini-label">Dice<small>Roll result</small></div>
+            </div>
+            <div class="hud-status">
+              <span id="hudTurn">Status: waiting</span>
+              <small id="hudRoom">Room: snakes-main</small>
+            </div>
+            <div class="hud-actions">
+              <button onclick="newGame()">New Game</button>
+              <button onclick="rollDice()">Roll Dice</button>
+              <button class="secondary" onclick="syncGame()">Sync Game</button>
+              <button class="fullscreen-btn" onclick="toggleGameFullscreen()">Full Screen</button>
+            </div>
+          </div>
+
           <div class="game-area">
             <div>
               <h2>Full Board</h2>
@@ -934,7 +1164,7 @@
             </div>
 
             <div class="panel">
-              <div>
+              <div class="dice-card">
                 <h2>Dice</h2>
                 <div id="dice" class="dice">-</div>
               </div>
@@ -1005,6 +1235,10 @@
     const messagesBox = document.getElementById("messages");
     const chatInput = document.getElementById("chatInput");
     const diceBox = document.getElementById("dice");
+    const hudDiceBox = document.getElementById("hudDice");
+    const hudTurnBox = document.getElementById("hudTurn");
+    const hudRoomBox = document.getElementById("hudRoom");
+    const gameFocusBox = document.getElementById("gameFocus");
     const playersBox = document.getElementById("players");
 
     function createInitialGame() {
@@ -1759,6 +1993,13 @@
       }
 
       diceBox.textContent = lastDice;
+      if (hudDiceBox) { hudDiceBox.textContent = lastDice; }
+      if (hudRoomBox) { hudRoomBox.textContent = "Room: " + getRoom() + " | You: " + getName() + " (" + getRole() + ")"; }
+      if (hudTurnBox) {
+        if (game.status === "playing") { hudTurnBox.textContent = "Turn: " + game.turn + " - " + game.names[game.turn]; }
+        else if (game.status === "finished") { hudTurnBox.textContent = "Winner: " + game.winner + " - " + game.names[game.winner]; }
+        else { hudTurnBox.textContent = "Status: waiting"; }
+      }
 
       let text = "";
       text += "Room: " + getRoom() + "\n";
@@ -1845,6 +2086,21 @@
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
     }
+
+    function toggleGameFullscreen() {
+      const target = gameFocusBox || document.documentElement;
+      if (!document.fullscreenElement) {
+        if (target.requestFullscreen) { target.requestFullscreen(); }
+      } else {
+        if (document.exitFullscreen) { document.exitFullscreen(); }
+      }
+    }
+
+    document.addEventListener("fullscreenchange", function () {
+      const button = document.querySelector(".fullscreen-btn");
+      if (button) { button.textContent = document.fullscreenElement ? "Exit Full Screen" : "Full Screen"; }
+      setTimeout(function () { renderGame(); }, 120);
+    });
 
     chatInput.addEventListener("keydown", function (event) {
       if (event.key === "Enter") {
