@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Python Loops Using range() | 0 to Infinity Lesson by Champak Roy</title>
+    <meta
+        content="A complete beginner-friendly 0 to infinity Python lesson on for loops using range(), start stop step, reverse counting, multiplication tables, sums, indexes, nested loops, and pattern printing with Champak Roy."
+        name="description" />
+    <meta
+        content="Python loops using range, range in Python, for loop Python, Python pattern printing, nested loops Python, Python table program, Python DSA loops, Champak Roy, Programmer's Picnic, AI ML classes Varanasi"
+        name="keywords" />
+    <meta content="Champak Roy" name="author" />
+    <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots" />
+    <link href="https://dsa.learnwithchampak.live/python/loops-using-range/" rel="canonical" />
+    <meta content="website" property="og:type" />
+    <meta content="Programmer's Picnic by Champak Roy" property="og:site_name" />
+    <meta content="Python Loops Using range() | 0 to Infinity Lesson" property="og:title" />
+    <meta
+        content="Learn Python for loops using range() from zero to advanced pattern, table, index, and nested-loop programs."
+        property="og:description" />
+    <meta content="https://dsa.learnwithchampak.live/python/loops-using-range/" property="og:url" />
+    <meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"
+        property="og:image" />
+    <meta content="1200" property="og:image:width" />
+    <meta content="630" property="og:image:height" />
+    <meta content="summary_large_image" name="twitter:card" />
+    <meta content="Python Loops Using range() | 0 to Infinity Lesson" name="twitter:title" />
+    <meta content="Master Python range loops, tables, sums, indexes, nested loops and patterns."
+        name="twitter:description" />
+    <meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"
+        name="twitter:image" />
+    <!-- Google AdSense -->
+    <script async crossorigin="anonymous"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&amp;host=ca-host-pub-1556223355139109"></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag("js", new Date()); gtag("config", "G-GSTQRQMLEE");</script>
+    <style>
+        :root {
+            --bg: #d8fff4;
+            --bg2: #c8f7ee;
+            --hero: #11796f;
+            --hero-dark: #0d5f58;
+            --hero-deep: #0a4f49;
+            --mint: #dffcf7;
+            --mint2: #ccf5ef;
+            --panel: rgba(255, 255, 255, 0.74);
+            --panel-solid: #ffffff;
+            --text: #073b37;
+            --muted: #376763;
+            --line: rgba(15, 118, 110, 0.22);
+            --code-bg: #071f1d;
+            --code-text: #ecfffb;
+            --accent: #0f766e;
+            --accent2: #14b8a6;
+            --warning-bg: #fff7dd;
+            --success-bg: #e8fff6;
+            --danger-bg: #fff0f0;
+            --radius: 28px;
+            --shadow: 0 24px 60px rgba(8, 89, 82, 0.18);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 10% 15%, rgba(255, 255, 255, 0.75), transparent 24rem),
+                radial-gradient(circle at 90% 8%, rgba(20, 184, 166, 0.18), transparent 28rem),
+                linear-gradient(120deg, var(--bg), var(--bg2));
+            line-height: 1.75;
+        }
+
+        a {
+            color: var(--hero-dark);
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .wrap {
+            width: min(1160px, calc(100% - 36px));
+            margin: auto;
+        }
+
+        header {
+            padding: 16px 0 36px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+            padding: clamp(34px, 6vw, 72px) clamp(28px, 6vw, 64px);
+            border-radius: 28px;
+            background: linear-gradient(135deg, var(--hero), var(--hero-deep));
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            right: -34px;
+            top: -90px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.16);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 190px;
+            height: 190px;
+            right: 84px;
+            bottom: -116px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 960px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 13px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: white;
+            font-size: 0.88rem;
+            font-weight: 900;
+            margin-bottom: 18px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2.45rem, 6vw, 4.25rem);
+            line-height: 1.05;
+            letter-spacing: -0.06em;
+        }
+
+        .subtitle {
+            margin: 0;
+            max-width: 930px;
+            color: #f0fffc;
+            font-size: clamp(1.02rem, 2vw, 1.22rem);
+        }
+
+        nav {
+            margin: 36px auto 34px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.62);
+            backdrop-filter: blur(10px);
+            padding: 12px;
+            box-shadow: 0 12px 36px rgba(8, 89, 82, 0.08);
+        }
+
+        .nav-grid {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-grid a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--mint);
+            color: var(--hero-deep);
+            border-radius: 12px;
+            padding: 10px 13px;
+            font-size: 0.9rem;
+            font-weight: 900;
+            transition: 0.18s ease;
+        }
+
+        .nav-grid a:hover {
+            transform: translateY(-2px);
+            text-decoration: none;
+            background: #c9f6ee;
+        }
+
+        main {
+            padding-bottom: 70px;
+        }
+
+        section {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: clamp(22px, 4vw, 42px);
+            margin: 26px 0;
+            box-shadow: 0 18px 50px rgba(8, 89, 82, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            margin: 0 0 14px;
+            color: var(--hero-deep);
+            font-size: clamp(1.7rem, 4vw, 2.55rem);
+            line-height: 1.12;
+            letter-spacing: -0.04em;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: var(--hero-dark);
+            font-size: 1.35rem;
+        }
+
+        .lead {
+            font-size: 1.08rem;
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        @media (max-width: 850px) {
+
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 18px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .note {
+            margin: 18px 0;
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: var(--mint);
+            border-left: 7px solid var(--accent);
+            color: var(--text);
+        }
+
+        .warning {
+            background: var(--warning-bg);
+            border-left-color: #d97706;
+        }
+
+        .success {
+            background: var(--success-bg);
+            border-left-color: #059669;
+        }
+
+        .danger {
+            background: var(--danger-bg);
+            border-left-color: #dc2626;
+        }
+
+        pre {
+            margin: 16px 0;
+            padding: 18px;
+            overflow-x: auto;
+            border-radius: 18px;
+            background: var(--code-bg);
+            color: var(--code-text);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        code {
+            font-family: Consolas, Monaco, "Courier New", monospace;
+        }
+
+        p code,
+        li code,
+        td code {
+            background: #dffcf7;
+            color: #075e57;
+            padding: 2px 7px;
+            border-radius: 8px;
+            font-weight: 800;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 18px;
+            background: white;
+            margin: 18px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--line);
+            padding: 13px;
+            vertical-align: top;
+            text-align: left;
+        }
+
+        th {
+            background: var(--mint);
+            color: var(--hero-deep);
+        }
+
+        details {
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin: 14px 0;
+        }
+
+        summary {
+            cursor: pointer;
+            color: var(--hero-dark);
+            font-weight: 950;
+        }
+
+        .task {
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+
+        .task-number {
+            display: inline-grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            margin-right: 8px;
+            border-radius: 999px;
+            background: var(--hero);
+            color: white;
+            font-weight: 950;
+        }
+
+        .flow {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin: 22px 0;
+        }
+
+        .flow div {
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 14px;
+            text-align: center;
+            font-weight: 900;
+            color: var(--hero-deep);
+        }
+
+        @media (max-width: 900px) {
+            .flow {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .editor-box {
+            overflow: hidden;
+            border-radius: 24px;
+            border: 2px solid var(--accent);
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .editor-title {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 14px 18px;
+            background: var(--hero-deep);
+            color: white;
+            font-weight: 950;
+        }
+
+        iframe {
+            width: 100%;
+            height: 680px;
+            border: 0;
+            display: block;
+            background: white;
+        }
+
+        .ad-box {
+            margin: 28px 0;
+            padding: 16px;
+            text-align: center;
+            border: 1px dashed var(--accent);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.55);
+            color: var(--hero-deep);
+            font-weight: 900;
+        }
+
+        .top-link {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            z-index: 99;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: var(--hero);
+            color: white;
+            box-shadow: var(--shadow);
+            font-weight: 950;
+        }
+
+        footer {
+            padding: 34px 18px;
+            background: var(--hero-deep);
+            color: #eafffb;
+            text-align: center;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+    <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Python Loops Using range() | 0 to Infinity Lesson",
+  "description": "A complete Python lesson on for loops using range(), start stop step, reverse counting, tables, sums, indexes, nested loops, and pattern printing.",
+  "url": "https://dsa.learnwithchampak.live/python/loops-using-range/",
+  "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
+  "inLanguage": "en",
+  "creator": {"@type": "Person", "name": "Champak Roy", "address": {"@type": "PostalAddress", "addressLocality": "Varanasi", "addressCountry": "IN"}},
+  "publisher": {"@type": "Organization", "name": "Programmer's Picnic by Champak Roy", "url": "https://dsa.learnwithchampak.live"},
+  "about": ["Python", "Loops", "range", "Data Structures and Algorithms", "Pattern Printing"],
+  "audience": {"@type": "Audience", "audienceType": "Students and beginner programmers"},
+  "isAccessibleForFree": true
+}</script>
+</head>
+
+<body id="top">
+    <header>
+        <div class="wrap">
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="pill">0 to Infinity Lesson</div>
+                    <h1>Python Loops Using range()</h1>
+                    <p class="subtitle">Learn counting, reverse counting, steps, tables, sums, indexes, nested loops,
+                        and pattern printing using one of the most important tools in Python.</p>
+                </div>
+            </div>
+            <nav>
+                <div class="nav-grid">
+                    <a href="#overview">Overview</a><a href="#mental-model">Mental Model</a><a href="#first-loop">First
+                        Loop</a><a href="#start-stop">Start Stop</a><a href="#step">Step</a><a
+                        href="#reverse">Reverse</a><a href="#tables">Tables</a><a href="#sum-count">Sum Count</a><a
+                        href="#indexes">Indexes</a><a href="#patterns">Patterns</a><a href="#nested">Nested</a><a
+                        href="#break-continue">Break Continue</a><a href="#common-mistakes">Mistakes</a><a
+                        href="#notebook">Notebook</a><a href="#editor">Editor</a><a href="#practice">Practice</a><a
+                        href="#project">Project</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main class="wrap">
+        <section id="overview">
+            <h2>1. What is this lesson?</h2>
+            <p class="lead">This is a complete 0 to infinity lesson on Python loops using <code>range()</code>. We begin
+                from counting 0, 1, 2, 3 and slowly reach tables, sums, reverse counting, patterns, nested loops, lists,
+                indexes, and mini projects.</p>
+            <div class="grid grid-3">
+                <div class="card">
+                    <h3>0 level</h3>
+                    <p>Understand what repetition means and why a loop saves time.</p>
+                </div>
+                <div class="card">
+                    <h3>Core level</h3>
+                    <p>Master <code>range(stop)</code>, <code>range(start, stop)</code>, and
+                        <code>range(start, stop, step)</code>.</p>
+                </div>
+                <div class="card">
+                    <h3>Infinity level</h3>
+                    <p>Build tables, patterns, search logic, totals, indexes, and nested loop programs.</p>
+                </div>
+            </div>
+            <div class="note success"><strong>Big idea:</strong> <code>range()</code> gives numbers one by one. The
+                <code>for</code> loop uses those numbers to repeat work.</div>
+        </section>
+        <section id="mental-model">
+            <h2>2. The mental model of range</h2>
+            <p>Think of <code>range()</code> as a number machine. It does not print by itself. It gives numbers to the
+                loop one at a time.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Expression</th>
+                        <th>Numbers produced</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>range(5)</code></td>
+                        <td><code>0, 1, 2, 3, 4</code></td>
+                        <td>Start from 0. Stop before 5.</td>
+                    </tr>
+                    <tr>
+                        <td><code>range(1, 6)</code></td>
+                        <td><code>1, 2, 3, 4, 5</code></td>
+                        <td>Start from 1. Stop before 6.</td>
+                    </tr>
+                    <tr>
+                        <td><code>range(2, 11, 2)</code></td>
+                        <td><code>2, 4, 6, 8, 10</code></td>
+                        <td>Jump by 2.</td>
+                    </tr>
+                    <tr>
+                        <td><code>range(10, 0, -1)</code></td>
+                        <td><code>10, 9, 8, ..., 1</code></td>
+                        <td>Reverse counting.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="note warning"><strong>Most important rule:</strong> the stop value is not included.
+                <code>range(1, 6)</code> stops before 6, so it gives 1 to 5.</div>
+        </section>
+        <div class="ad-box">Advertisement
+            <ins class="adsbygoogle" data-ad-client="ca-pub-8321261883090494" data-ad-format="auto"
+                data-ad-slot="7782388330" data-full-width-responsive="true" style="display:block"></ins>
+            <script>try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { }</script>
+        </div>
+        <section id="first-loop">
+            <h2>3. Your first range loop</h2>
+            <p>This loop repeats the <code>print()</code> statement five times.</p>
+            <pre><code>for i in range(5):
+    print(i)</code></pre>
+            <p>Output:</p>
+            <pre><code>0
+1
+2
+3
+4</code></pre>
+            <p>The variable <code>i</code> receives a new value in every round.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Round</th>
+                        <th>Value of i</th>
+                        <th>Printed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>4</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="start-stop">
+            <h2>4. range(start, stop)</h2>
+            <p>When you want to control the first number, give two values.</p>
+            <pre><code>for i in range(1, 6):
+    print(i)</code></pre>
+            <p>Output:</p>
+            <pre><code>1
+2
+3
+4
+5</code></pre>
+            <div class="note">Read <code>range(1, 6)</code> as: start at 1, go up to 6, but do not include 6.</div>
+            <h3>Print numbers from 10 to 15</h3>
+            <pre><code>for i in range(10, 16):
+    print(i)</code></pre>
+        </section>
+        <section id="step">
+            <h2>5. range(start, stop, step)</h2>
+            <p>The third value is the jump size.</p>
+            <h3>Even numbers from 2 to 20</h3>
+            <pre><code>for i in range(2, 21, 2):
+    print(i)</code></pre>
+            <h3>Odd numbers from 1 to 19</h3>
+            <pre><code>for i in range(1, 20, 2):
+    print(i)</code></pre>
+            <h3>Multiples of 5</h3>
+            <pre><code>for i in range(5, 51, 5):
+    print(i)</code></pre>
+            <div class="note success"><strong>Formula:</strong> <code>range(start, stop, step)</code> means start here,
+                stop before this, and move by this step.</div>
+        </section>
+        <section id="reverse">
+            <h2>6. Reverse counting with negative step</h2>
+            <p>To go backward, the step must be negative.</p>
+            <pre><code>for i in range(10, 0, -1):
+    print(i)</code></pre>
+            <p>Output:</p>
+            <pre><code>10
+9
+8
+7
+6
+5
+4
+3
+2
+1</code></pre>
+            <h3>Common mistake</h3>
+            <pre><code># This prints nothing because Python cannot move from 10 to 1 using +1
+for i in range(10, 1):
+    print(i)</code></pre>
+            <div class="note danger">When start is bigger than stop, use a negative step.</div>
+        </section>
+        <section id="tables">
+            <h2>7. Multiplication tables</h2>
+            <p>Tables are one of the best ways to understand loops using range.</p>
+            <h3>Table of 7</h3>
+            <pre><code>for i in range(1, 11):
+    print(&quot;7 x&quot;, i, &quot;=&quot;, 7 * i)</code></pre>
+            <h3>Any table using a variable</h3>
+            <pre><code>n = 12
+
+for i in range(1, 11):
+    print(n, &quot;x&quot;, i, &quot;=&quot;, n * i)</code></pre>
+            <h3>Tables from 2 to 5</h3>
+            <pre><code>for table in range(2, 6):
+    print(&quot;Table of&quot;, table)
+
+    for i in range(1, 11):
+        print(table, &quot;x&quot;, i, &quot;=&quot;, table * i)
+
+    print()</code></pre>
+        </section>
+        <section id="sum-count">
+            <h2>8. Total, count, and average</h2>
+            <p>A loop can do more than print. It can build an answer step by step.</p>
+            <h3>Sum of numbers from 1 to 10</h3>
+            <pre><code>total = 0
+
+for i in range(1, 11):
+    total = total + i
+
+print(&quot;Total:&quot;, total)</code></pre>
+            <h3>Count numbers divisible by 3</h3>
+            <pre><code>count = 0
+
+for i in range(1, 51):
+    if i % 3 == 0:
+        count = count + 1
+
+print(&quot;Numbers divisible by 3:&quot;, count)</code></pre>
+            <h3>Average of first 10 natural numbers</h3>
+            <pre><code>total = 0
+count = 0
+
+for i in range(1, 11):
+    total = total + i
+    count = count + 1
+
+average = total / count
+print(&quot;Average:&quot;, average)</code></pre>
+        </section>
+        <section id="indexes">
+            <h2>9. Using range with indexes</h2>
+            <p>Sometimes we need positions: 0, 1, 2, 3. These positions are called indexes.</p>
+            <pre><code>names = [&quot;Aarav&quot;, &quot;Siya&quot;, &quot;Mohan&quot;, &quot;Riya&quot;]
+
+for i in range(len(names)):
+    print(i, names[i])</code></pre>
+            <p>Output:</p>
+            <pre><code>0 Aarav
+1 Siya
+2 Mohan
+3 Riya</code></pre>
+            <h3>Print serial numbers starting from 1</h3>
+            <pre><code>names = [&quot;Aarav&quot;, &quot;Siya&quot;, &quot;Mohan&quot;, &quot;Riya&quot;]
+
+for i in range(len(names)):
+    print(i + 1, names[i])</code></pre>
+            <div class="note">Use <code>range(len(list_name))</code> when you need the index. Use
+                <code>for item in list_name</code> when you need only the value.</div>
+        </section>
+        <section id="patterns">
+            <h2>10. Pattern printing using range</h2>
+            <p>Pattern printing builds strong loop thinking because every row has a formula.</p>
+            <h3>Left triangle</h3>
+            <pre><code>n = 5
+
+for row in range(1, n + 1):
+    print(&quot;*&quot; * row)</code></pre>
+            <p>Output:</p>
+            <pre><code>*
+**
+***
+****
+*****</code></pre>
+            <h3>Right aligned triangle</h3>
+            <pre><code>n = 5
+
+for row in range(1, n + 1):
+    spaces = n - row
+    stars = row
+    print(&quot; &quot; * spaces + &quot;*&quot; * stars)</code></pre>
+            <p>Output:</p>
+            <pre><code>    *
+   **
+  ***
+ ****
+*****</code></pre>
+            <h3>Pattern chart</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>row</th>
+                        <th>spaces</th>
+                        <th>stars</th>
+                        <th>formula</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td><code>spaces = n - row</code>, <code>stars = row</code></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td><code>spaces = n - row</code>, <code>stars = row</code></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td><code>spaces = n - row</code>, <code>stars = row</code></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td><code>spaces = n - row</code>, <code>stars = row</code></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>0</td>
+                        <td>5</td>
+                        <td><code>spaces = n - row</code>, <code>stars = row</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="nested">
+            <h2>11. Nested loops</h2>
+            <p>A nested loop is a loop inside another loop. The outer loop usually controls rows. The inner loop usually
+                controls columns.</p>
+            <h3>5 x 5 grid</h3>
+            <pre><code>for row in range(1, 6):
+    for col in range(1, 6):
+        print(&quot;*&quot;, end=&quot; &quot;)
+    print()</code></pre>
+            <p>Output:</p>
+            <pre><code>* * * * *
+* * * * *
+* * * * *
+* * * * *
+* * * * *</code></pre>
+            <h3>Coordinate grid</h3>
+            <pre><code>for row in range(1, 4):
+    for col in range(1, 4):
+        print(&quot;(&quot;, row, &quot;,&quot;, col, &quot;)&quot;, end=&quot; &quot;)
+    print()</code></pre>
+            <p>Output:</p>
+            <pre><code>( 1 , 1 ) ( 1 , 2 ) ( 1 , 3 )
+( 2 , 1 ) ( 2 , 2 ) ( 2 , 3 )
+( 3 , 1 ) ( 3 , 2 ) ( 3 , 3 )</code></pre>
+        </section>
+        <section id="break-continue">
+            <h2>12. break and continue with range</h2>
+            <p><code>break</code> stops the loop. <code>continue</code> skips the current round.</p>
+            <h3>Stop when number becomes 6</h3>
+            <pre><code>for i in range(1, 11):
+    if i == 6:
+        break
+    print(i)</code></pre>
+            <h3>Skip number 6</h3>
+            <pre><code>for i in range(1, 11):
+    if i == 6:
+        continue
+    print(i)</code></pre>
+            <div class="note success">Use <code>break</code> when the work is finished. Use <code>continue</code> when
+                only one value should be skipped.</div>
+        </section>
+        <section id="common-mistakes">
+            <h2>13. Common mistakes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mistake</th>
+                        <th>Why it happens</th>
+                        <th>Fix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>range(1, 10)</code> when you wanted 1 to 10</td>
+                        <td>Stop is excluded.</td>
+                        <td>Use <code>range(1, 11)</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>Forgetting colon</td>
+                        <td>A loop header needs <code>:</code>.</td>
+                        <td><code>for i in range(5):</code></td>
+                    </tr>
+                    <tr>
+                        <td>Wrong indentation</td>
+                        <td>Python uses indentation for blocks.</td>
+                        <td>Keep loop body indented.</td>
+                    </tr>
+                    <tr>
+                        <td><code>range(10, 1)</code> prints nothing</td>
+                        <td>Default step is +1.</td>
+                        <td>Use <code>range(10, 1, -1)</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>Using <code>i</code> after copying code blindly</td>
+                        <td><code>i</code> is only a variable name.</td>
+                        <td>Use meaningful names like <code>row</code>, <code>col</code>, <code>number</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="notebook">
+            <h2>14. Full practice notebook</h2>
+            <p>Copy this full notebook into the Python editor and run it. Then change the numbers and observe the
+                output.</p>
+            <pre><code>&quot;&quot;&quot;
+0 to Infinity: Loops using range()
+Programmer&#x27;s Picnic by Champak Roy
+&quot;&quot;&quot;
+
+print(&quot;=&quot; * 60)
+print(&quot;LOOPS USING RANGE&quot;)
+print(&quot;=&quot; * 60)
+
+print(&quot;
+1. range(stop)&quot;)
+for i in range(5):
+    print(i)
+
+print(&quot;
+2. range(start, stop)&quot;)
+for i in range(1, 6):
+    print(i)
+
+print(&quot;
+3. range(start, stop, step)&quot;)
+for i in range(2, 21, 2):
+    print(i)
+
+print(&quot;
+4. Reverse counting&quot;)
+for i in range(10, 0, -1):
+    print(i)
+
+print(&quot;
+5. Table of 7&quot;)
+for i in range(1, 11):
+    print(&quot;7 x&quot;, i, &quot;=&quot;, 7 * i)
+
+print(&quot;
+6. Sum from 1 to 10&quot;)
+total = 0
+for i in range(1, 11):
+    total = total + i
+print(&quot;Total:&quot;, total)
+
+print(&quot;
+7. Index loop&quot;)
+names = [&quot;Aarav&quot;, &quot;Siya&quot;, &quot;Mohan&quot;, &quot;Riya&quot;]
+for i in range(len(names)):
+    print(i + 1, names[i])
+
+print(&quot;
+8. Right aligned triangle&quot;)
+n = 5
+for row in range(1, n + 1):
+    spaces = n - row
+    stars = row
+    print(&quot; &quot; * spaces + &quot;*&quot; * stars)
+
+print(&quot;
+9. 5 x 5 grid&quot;)
+for row in range(1, 6):
+    for col in range(1, 6):
+        print(&quot;*&quot;, end=&quot; &quot;)
+    print()
+
+print(&quot;
+10. Coordinate grid&quot;)
+for row in range(1, 4):
+    for col in range(1, 4):
+        print(&quot;(&quot;, row, &quot;,&quot;, col, &quot;)&quot;, end=&quot; &quot;)
+    print()
+
+print(&quot;
+11. break&quot;)
+for i in range(1, 11):
+    if i == 6:
+        break
+    print(i)
+
+print(&quot;
+12. continue&quot;)
+for i in range(1, 11):
+    if i == 6:
+        continue
+    print(i)
+
+print(&quot;
+Lesson complete&quot;)</code></pre>
+        </section>
+        <section id="editor">
+            <h2>15. Python Editor</h2>
+            <p>Run the examples here. Change <code>range()</code> values and see how the output changes.</p>
+            <div class="editor-box">
+                <div class="editor-title"><span>Embedded Python Editor</span><span>Loops using range</span></div><iframe
+                    allow="clipboard-read; clipboard-write"
+                    src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1"
+                    title="Python Editor"></iframe>
+            </div>
+        </section>
+        <section id="practice">
+            <h2>16. Practice tasks</h2>
+            <div class="task">
+                <h3><span class="task-number">1</span> Counting</h3>
+                <p>Print numbers from 1 to 20.</p>
+            </div>
+            <div class="task">
+                <h3><span class="task-number">2</span> Reverse</h3>
+                <p>Print numbers from 20 to 1.</p>
+            </div>
+            <div class="task">
+                <h3><span class="task-number">3</span> Even numbers</h3>
+                <p>Print even numbers from 2 to 100.</p>
+            </div>
+            <div class="task">
+                <h3><span class="task-number">4</span> Table</h3>
+                <p>Print the multiplication table of 13.</p>
+            </div>
+            <div class="task">
+                <h3><span class="task-number">5</span> Sum</h3>
+                <p>Find the sum of numbers from 1 to 100.</p>
+            </div>
+            <div class="task">
+                <h3><span class="task-number">6</span> Pattern</h3>
+                <p>Print a right aligned triangle of height 7.</p>
+            </div>
+            <div class="task">
+                <h3><span class="task-number">7</span> Grid</h3>
+                <p>Print a 7 x 7 coordinate grid.</p>
+            </div>
+            <details>
+                <summary>Show solved practice answers</summary>
+                <pre><code># 1. Counting
+for i in range(1, 21):
+    print(i)
+
+# 2. Reverse
+for i in range(20, 0, -1):
+    print(i)
+
+# 3. Even numbers
+for i in range(2, 101, 2):
+    print(i)
+
+# 4. Table of 13
+for i in range(1, 11):
+    print(&quot;13 x&quot;, i, &quot;=&quot;, 13 * i)
+
+# 5. Sum 1 to 100
+total = 0
+for i in range(1, 101):
+    total = total + i
+print(total)
+
+# 6. Right aligned triangle
+n = 7
+for row in range(1, n + 1):
+    spaces = n - row
+    stars = row
+    print(&quot; &quot; * spaces + &quot;*&quot; * stars)
+
+# 7. 7 x 7 coordinate grid
+for row in range(1, 8):
+    for col in range(1, 8):
+        print(&quot;(&quot;, row, &quot;,&quot;, col, &quot;)&quot;, end=&quot; &quot;)
+    print()</code></pre>
+            </details>
+        </section>
+        <section id="project">
+            <h2>17. Final mini project</h2>
+            <p>Create a single program that prints a triangle, multiplication tables, and a 7 x 7 coordinate board.</p>
+            <pre><code>n = 5
+
+print(&quot;RIGHT ALIGNED TRIANGLE&quot;)
+for row in range(1, n + 1):
+    spaces = n - row
+    stars = row
+    print(&quot; &quot; * spaces + &quot;*&quot; * stars)
+
+print(&quot;
+MULTIPLICATION TABLES FROM 2 TO 5&quot;)
+for table in range(2, 6):
+    print(&quot;
+Table of&quot;, table)
+    for i in range(1, 11):
+        print(table, &quot;x&quot;, i, &quot;=&quot;, table * i)
+
+print(&quot;
+7 x 7 COORDINATE BOARD&quot;)
+for row in range(1, 8):
+    for col in range(1, 8):
+        print(&quot;(&quot;, row, &quot;,&quot;, col, &quot;)&quot;, end=&quot; &quot;)
+    print()</code></pre>
+            <div class="note success">This project uses simple loops, nested loops, range start-stop-step thinking, and
+                pattern formulas.</div>
+        </section>
+        <section id="summary">
+            <h2>18. What you now know</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3>You understand range</h3>
+                    <p>You know <code>range(stop)</code>, <code>range(start, stop)</code>, and
+                        <code>range(start, stop, step)</code>.</p>
+                </div>
+                <div class="card">
+                    <h3>You can count forward and backward</h3>
+                    <p>You can use positive and negative steps.</p>
+                </div>
+                <div class="card">
+                    <h3>You can calculate with loops</h3>
+                    <p>You can create totals, counts, averages, and tables.</p>
+                </div>
+                <div class="card">
+                    <h3>You can use indexes</h3>
+                    <p>You can combine <code>range()</code> with <code>len()</code>.</p>
+                </div>
+                <div class="card">
+                    <h3>You can print patterns</h3>
+                    <p>You can build triangles and grids using row-column logic.</p>
+                </div>
+                <div class="card">
+                    <h3>You are ready for DSA</h3>
+                    <p>Loops using range are the base of arrays, searching, sorting, matrices, and pattern problems.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <a class="top-link" href="#top">Top</a>
+    <footer>
+        <p><strong>Programmer's Picnic by Champak Roy</strong></p>
+        <p>Python, Data Science, Machine Learning and Artificial Intelligence from 0 to infinity.</p>
+        <p><a href="https://www.learnwithchampak.live/">learnwithchampak.live</a> | <a
+                href="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1">Python Editor</a> | <a
+                href="https://wa.me/919335874326">Contact on WhatsApp</a></p>
+    </footer>
+</body>
+
+</html>
