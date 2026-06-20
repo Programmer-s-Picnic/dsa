@@ -913,10 +913,57 @@
     #gameFocus:fullscreen .panel h2 {
       color: #9a3412;
     }
+
+
+    /* Always-visible full screen button */
+    .floating-fullscreen-btn {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 100000;
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 16px;
+      font-weight: 1000;
+      cursor: pointer;
+      background: #111827;
+      color: #fef3c7;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, .28);
+      border: 2px solid rgba(255, 255, 255, .18);
+    }
+
+    .floating-fullscreen-btn:hover {
+      background: #000000;
+    }
+
+    #gameFocus:fullscreen .floating-fullscreen-btn {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 100000;
+    }
+
+    .fullscreen-btn {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 640px) {
+      .floating-fullscreen-btn {
+        right: 10px;
+        bottom: 10px;
+        padding: 11px 13px;
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <button id="floatingFullscreenBtn" class="floating-fullscreen-btn" type="button" onclick="toggleGameFullscreen()">Full
+    Screen</button>
   <main class="wrap">
     <section class="hero">
       <h1>Snakes and Ladders over WebSocket</h1>
@@ -1021,7 +1068,7 @@
       </aside>
 
       <section>
-        <article class="card">
+        <article class="card" id="gameFocus">
           <div class="game-area">
             <div>
               <h2>Full Board</h2>
@@ -1106,6 +1153,7 @@
     const messagesBox = document.getElementById("messages");
     const chatInput = document.getElementById("chatInput");
     const diceBox = document.getElementById("dice");
+    const gameFocusBox = document.getElementById("gameFocus");
     const playersBox = document.getElementById("players");
 
     function createInitialGame() {
@@ -1950,6 +1998,31 @@
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
     }
+
+    function toggleGameFullscreen() {
+      const target = gameFocusBox || document.documentElement;
+
+      if (!document.fullscreenElement) {
+        if (target.requestFullscreen) {
+          target.requestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    document.addEventListener("fullscreenchange", function () {
+      const labels = document.querySelectorAll(".fullscreen-btn, .floating-fullscreen-btn");
+      labels.forEach(function (button) {
+        button.textContent = document.fullscreenElement ? "Exit Full Screen" : "Full Screen";
+      });
+
+      setTimeout(function () {
+        renderGame();
+      }, 120);
+    });
 
     chatInput.addEventListener("keydown", function (event) {
       if (event.key === "Enter") {
