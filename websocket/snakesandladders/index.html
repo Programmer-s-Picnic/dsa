@@ -612,6 +612,48 @@
       font-weight: 800;
       font-size: 13px;
     }
+
+
+    .role-label-text {
+      flex: 1;
+    }
+
+    .coin-position {
+      margin-left: auto;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #111827;
+      color: #fef3c7;
+      font-size: 12px;
+      font-weight: 1000;
+      white-space: nowrap;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+    }
+
+    .role-option:has(input[value="P1"]) .coin-position {
+      background: var(--blue);
+      color: white;
+    }
+
+    .role-option:has(input[value="P2"]) .coin-position {
+      background: var(--saffron-dark);
+      color: white;
+    }
+
+    .role-option:has(input[value="P3"]) .coin-position {
+      background: var(--green);
+      color: white;
+    }
+
+    .role-option:has(input[value="P4"]) .coin-position {
+      background: var(--purple);
+      color: white;
+    }
+
+    .role-option:has(input[value="spectator"]) .coin-position {
+      background: #6b7280;
+      color: white;
+    }
   </style>
 </head>
 
@@ -652,27 +694,27 @@
           <div class="role-options" role="radiogroup" aria-label="Choose your role">
             <label class="role-option">
               <input type="radio" name="playerRole" value="P1" checked />
-              <span>P1 - Blue</span>
+              <span class="role-label-text">P1 - Blue</span><span id="rolePosP1" class="coin-position">Start</span>
             </label>
 
             <label class="role-option">
               <input type="radio" name="playerRole" value="P2" />
-              <span>P2 - Orange</span>
+              <span class="role-label-text">P2 - Orange</span><span id="rolePosP2" class="coin-position">Start</span>
             </label>
 
             <label class="role-option">
               <input type="radio" name="playerRole" value="P3" />
-              <span>P3 - Green</span>
+              <span class="role-label-text">P3 - Green</span><span id="rolePosP3" class="coin-position">Start</span>
             </label>
 
             <label class="role-option">
               <input type="radio" name="playerRole" value="P4" />
-              <span>P4 - Purple</span>
+              <span class="role-label-text">P4 - Purple</span><span id="rolePosP4" class="coin-position">Start</span>
             </label>
 
             <label class="role-option">
               <input type="radio" name="playerRole" value="spectator" />
-              <span>Spectator</span>
+              <span class="role-label-text">Spectator</span><span class="coin-position">Watch</span>
             </label>
           </div>
 
@@ -1578,7 +1620,28 @@
       }
 
       gameStateBox.textContent = text;
+      renderRolePositions();
       renderPlayers();
+    }
+
+    function renderRolePositions() {
+      for (const player of playerOrder) {
+        const box = document.getElementById("rolePos" + player);
+
+        if (!box) {
+          continue;
+        }
+
+        const position = game.positions[player] || 0;
+
+        if (position <= 0) {
+          box.textContent = "Start";
+        } else if (position === 100) {
+          box.textContent = "100 🏁";
+        } else {
+          box.textContent = String(position);
+        }
+      }
     }
 
     function renderPlayers() {
