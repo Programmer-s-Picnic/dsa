@@ -654,6 +654,164 @@
       background: #6b7280;
       color: white;
     }
+
+
+    /* Final design improvement: board must not be covered */
+    .play-topbar {
+      position: relative !important;
+      top: auto !important;
+      z-index: 20 !important;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .98), rgba(255, 247, 237, .96));
+    }
+
+    .board-stage {
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, .55), transparent 28%),
+        linear-gradient(135deg, #fef3c7, #fed7aa);
+      border: 2px solid rgba(217, 119, 6, .24);
+    }
+
+    .board-art {
+      z-index: 2 !important;
+      opacity: 0.92;
+    }
+
+    .board {
+      z-index: 3 !important;
+    }
+
+    .square {
+      background:
+        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, .82), transparent 26%),
+        rgba(255, 247, 237, 0.74) !important;
+      border: 1px solid rgba(146, 64, 14, 0.22);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .45);
+    }
+
+    .square:nth-child(even) {
+      background:
+        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, .86), transparent 26%),
+        rgba(255, 255, 255, 0.70) !important;
+    }
+
+    .ladder-start {
+      background:
+        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, .84), transparent 26%),
+        rgba(236, 253, 245, 0.78) !important;
+    }
+
+    .snake-start {
+      background:
+        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, .84), transparent 26%),
+        rgba(255, 241, 242, 0.78) !important;
+    }
+
+    .num,
+    .mark,
+    .tokens {
+      z-index: 8 !important;
+    }
+
+    .num {
+      background: rgba(255, 255, 255, .72);
+      padding: 1px 5px;
+      border-radius: 999px;
+      color: #7c2d12;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, .8);
+    }
+
+    .mark {
+      background: rgba(255, 255, 255, .72);
+      padding: 1px 5px;
+      border-radius: 999px;
+    }
+
+    .snake-path {
+      stroke-width: 5.5;
+      opacity: .82;
+    }
+
+    .snake-belly {
+      stroke-width: 2;
+      opacity: .65;
+    }
+
+    .snake-head {
+      opacity: .88;
+    }
+
+    .ladder-rail {
+      stroke-width: 5;
+      opacity: .85;
+    }
+
+    .ladder-rung {
+      stroke-width: 3.5;
+      opacity: .85;
+    }
+
+    .game-area {
+      grid-template-columns: minmax(0, 1fr) 260px;
+    }
+
+    .board-stage {
+      width: min(calc(100vw - 620px), calc(100vh - 150px), 840px);
+      min-width: 590px;
+    }
+
+    .panel {
+      align-self: start;
+    }
+
+    @media (max-width: 1180px) {
+      .game-area {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+
+      .board-stage {
+        width: min(96vw, calc(100vh - 210px), 850px);
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .panel {
+        grid-template-columns: 1fr;
+      }
+
+      .play-topbar {
+        grid-template-columns: 1fr;
+      }
+
+      .board-stage {
+        width: 96vw;
+      }
+
+      .square {
+        border-radius: 6px;
+      }
+
+      .snake-path {
+        stroke-width: 4.5;
+      }
+
+      .ladder-rail {
+        stroke-width: 4;
+      }
+
+      .ladder-rung {
+        stroke-width: 2.8;
+      }
+    }
   </style>
 </head>
 
@@ -765,7 +923,7 @@
         <article class="card">
           <div class="game-area">
             <div>
-              <h2>Board</h2>
+              <h2>Full Board</h2>
               <div class="board-wrap">
                 <div class="board-stage">
                   <div id="board" class="board" aria-label="Snakes and Ladders board"></div>
