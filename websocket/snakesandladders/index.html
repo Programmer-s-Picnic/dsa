@@ -1189,6 +1189,31 @@
       font-size: 13px;
       font-weight: 900;
     }
+
+
+    #gameFocus:fullscreen .drama-banner {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      z-index: 99999;
+      width: min(820px, calc(100vw - 28px));
+    }
+
+    #gameFocus:fullscreen .drama-banner.show {
+      animation: dramaPop 2.8s ease forwards;
+    }
+
+    #gameFocus:fullscreen .board-stage.snake-shake {
+      animation: snakeShake .75s ease;
+    }
+
+    #gameFocus:fullscreen .board-stage.ladder-glow {
+      animation: ladderGlow 1.25s ease;
+    }
+
+    #gameFocus:fullscreen .dice.dice-six {
+      animation: diceSix 1s ease;
+    }
   </style>
 </head>
 
@@ -1933,7 +1958,14 @@
       }
     }
 
+    function placeDramaBannerInsideGame() {
+      if (gameFocusBox && dramaBanner && dramaBanner.parentElement !== gameFocusBox) {
+        gameFocusBox.insertBefore(dramaBanner, gameFocusBox.firstChild);
+      }
+    }
+
     function showDrama(kind, text) {
+      placeDramaBannerInsideGame();
       if (!dramaBanner) {
         return;
       }
@@ -2383,6 +2415,7 @@
       }
     });
 
+    placeDramaBannerInsideGame();
     buildBoard();
     setStatus("Disconnected", false);
   </script>
