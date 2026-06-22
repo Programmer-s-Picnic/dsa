@@ -1,35 +1,29 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
 
   <title>Snakes and Ladders Multiplayer | Programmer's Picnic by Champak Roy</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="Play a multiplayer Snakes and Ladders game using a Cloudflare Durable Object WebSocket chat server. Includes fullscreen mode, computer player, spectators, dramatic snake and ladder effects, drawn board graphics, and Power Points."
-  />
-  <meta
-    name="keywords"
-    content="Snakes and Ladders, Cloudflare Durable Objects, WebSocket game, JavaScript game, multiplayer game, Power Points, Champak Roy, Programmer's Picnic"
-  />
+  <meta name="description"
+    content="Play a multiplayer Snakes and Ladders game using a Cloudflare Durable Object WebSocket chat server. Includes fullscreen mode, computer player, spectators, dramatic snake and ladder effects, drawn board graphics, and Power Points." />
+  <meta name="keywords"
+    content="Snakes and Ladders, Cloudflare Durable Objects, WebSocket game, JavaScript game, multiplayer game, Power Points, Champak Roy, Programmer's Picnic" />
   <meta name="author" content="Champak Roy" />
   <meta name="theme-color" content="#f59e0b" />
 
   <meta property="og:title" content="Snakes and Ladders Multiplayer with Power Points" />
-  <meta
-    property="og:description"
-    content="A WebSocket-based Snakes and Ladders game with computer player, fullscreen mode, spectator mode, dramatic game effects, and 6 Power Points per player."
-  />
+  <meta property="og:description"
+    content="A WebSocket-based Snakes and Ladders game with computer player, fullscreen mode, spectator mode, dramatic game effects, and 6 Power Points per player." />
   <meta property="og:type" content="website" />
 
   <!-- Google AdSense -->
-  <script
-    async
+  <script async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
     crossorigin="anonymous">
-  </script>
+    </script>
 
   <style>
     :root {
@@ -582,10 +576,21 @@
       border: 2px solid rgba(255, 255, 255, .8);
     }
 
-    .p1 { background: var(--blue); }
-    .p2 { background: var(--saffron-dark); }
-    .p3 { background: var(--green); }
-    .p4 { background: var(--purple); }
+    .p1 {
+      background: var(--blue);
+    }
+
+    .p2 {
+      background: var(--saffron-dark);
+    }
+
+    .p3 {
+      background: var(--green);
+    }
+
+    .p4 {
+      background: var(--purple);
+    }
 
     .snake-path {
       fill: none;
@@ -693,10 +698,21 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, .18);
     }
 
-    .player-token-mini.p1 { background: var(--blue); }
-    .player-token-mini.p2 { background: var(--saffron-dark); }
-    .player-token-mini.p3 { background: var(--green); }
-    .player-token-mini.p4 { background: var(--purple); }
+    .player-token-mini.p1 {
+      background: var(--blue);
+    }
+
+    .player-token-mini.p2 {
+      background: var(--saffron-dark);
+    }
+
+    .player-token-mini.p3 {
+      background: var(--green);
+    }
+
+    .player-token-mini.p4 {
+      background: var(--purple);
+    }
 
     .player-meta {
       min-width: 0;
@@ -880,6 +896,7 @@
     }
 
     @keyframes snakeShake {
+
       0%,
       100% {
         transform: translateX(0);
@@ -907,6 +924,7 @@
     }
 
     @keyframes ladderGlow {
+
       0%,
       100% {
         box-shadow: inset 0 0 0 2px rgba(124, 45, 18, .08), 0 20px 48px rgba(120, 53, 15, .18);
@@ -922,6 +940,7 @@
     }
 
     @keyframes powerGlow {
+
       0%,
       100% {
         box-shadow: inset 0 0 0 2px rgba(124, 45, 18, .08), 0 20px 48px rgba(120, 53, 15, .18);
@@ -937,6 +956,7 @@
     }
 
     @keyframes diceSix {
+
       0%,
       100% {
         transform: rotate(0) scale(1);
@@ -960,6 +980,7 @@
     }
 
     @keyframes winnerPulse {
+
       0%,
       100% {
         transform: scale(1);
@@ -977,6 +998,7 @@
     }
 
     @keyframes thinkingPulse {
+
       0%,
       100% {
         opacity: 1;
@@ -1121,12 +1143,61 @@
         max-height: none;
       }
     }
+
+    .pending-move-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      color: #7c2d12;
+      font-weight: 900;
+      font-size: 13px
+    }
+
+    button.make-move {
+      background: #16a34a;
+      color: white
+    }
+
+    button.adjust {
+      background: #7c3aed;
+      color: white
+    }
+
+    button.adjust-remove {
+      background: #dc2626;
+      color: white
+    }
+
+    .pending-badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #f59e0b;
+      color: white;
+      font-size: 11px;
+      font-weight: 1000;
+      margin-left: 6px
+    }
+
+    .power-cart {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #ede9fe;
+      color: #5b21b6;
+      font-size: 11px;
+      font-weight: 1000;
+      margin-left: 6px;
+    }
   </style>
 </head>
 
 <body>
   <div id="dramaBanner" class="drama-banner" aria-live="polite"></div>
-  <div id="liveStatus" aria-live="polite" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"></div>
+  <div id="liveStatus" aria-live="polite"
+    style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"></div>
 
   <main class="wrap">
     <section class="hero">
@@ -1138,13 +1209,8 @@
 
     <div class="ad-wrap">
       Advertisement
-      <ins
-        class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-8321261883090494"
-        data-ad-slot="7782388330"
-        data-ad-format="auto"
-        data-full-width-responsive="true">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
+        data-ad-format="auto" data-full-width-responsive="true">
       </ins>
       <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
@@ -1157,12 +1223,8 @@
           <h2>Connection</h2>
 
           <label for="serverUrl">WebSocket Base URL</label>
-          <input
-            disabled
-            id="serverUrl"
-            value="wss://champak-durable-chat.champaksworld.workers.dev/chat"
-            autocomplete="off"
-          />
+          <input disabled id="serverUrl" value="wss://champak-durable-chat.champaksworld.workers.dev/chat"
+            autocomplete="off" />
 
           <label for="roomName">Game Room</label>
           <input id="roomName" value="snakes-main" autocomplete="off" />
@@ -1208,7 +1270,8 @@
           </div>
 
           <div class="power-note">
-            Each player gets 6 Power Points. Use them before reaching 100. You cannot win while points remain.
+            Each player gets 6 Power Points. Roll first, choose Power Points with + and - like a shopping cart, then
+            Make Move. The selected total cannot be negative.
           </div>
 
           <div id="connectionStatus" class="status-pill">
@@ -1228,12 +1291,19 @@
           <div class="row">
             <button onclick="newGame()">New Game</button>
             <button id="backupRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">Roll Dice</button>
-            <button id="backupPowerBtn" class="power power-btn" onclick="usePowerPoint()">Use 1 Point</button>
+            <button id="backupAddPowerBtn" class="adjust power-btn" onclick="adjustPendingMove(1)">+ Power</button>
+            <button id="backupRemovePowerBtn" class="adjust-remove power-btn" onclick="adjustPendingMove(-1)">-
+              Power</button>
+            <button id="backupMakeMoveBtn" class="make-move move-btn" onclick="makeMove()">Make Move</button>
             <button class="secondary" onclick="syncGame()">Sync Game</button>
           </div>
 
           <div id="spectatorNote" class="spectator-note" hidden>
             Spectator mode: watch the game. Roll Dice and Power Points are hidden.
+          </div>
+
+          <div id="pendingMoveBox" class="pending-move-box">
+            No dice rolled yet.
           </div>
 
           <div class="legend">
@@ -1269,7 +1339,10 @@
             <div class="hud-actions">
               <button onclick="newGame()">New Game</button>
               <button id="hudRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">Roll Dice</button>
-              <button id="hudPowerBtn" class="power power-btn" onclick="usePowerPoint()">Use 1 Point</button>
+              <button id="hudAddPowerBtn" class="adjust power-btn" onclick="adjustPendingMove(1)">+ Power</button>
+              <button id="hudRemovePowerBtn" class="adjust-remove power-btn" onclick="adjustPendingMove(-1)">-
+                Power</button>
+              <button id="hudMakeMoveBtn" class="make-move move-btn" onclick="makeMove()">Make Move</button>
               <button class="secondary" onclick="syncGame()">Sync Game</button>
               <button class="dark fullscreen-btn" onclick="toggleGameFullscreen()">Full Screen</button>
             </div>
@@ -1281,11 +1354,7 @@
               <div class="board-wrap">
                 <div class="board-stage">
                   <div id="board" class="board" aria-label="Snakes and Ladders board"></div>
-                  <svg
-                    id="boardArt"
-                    class="board-art"
-                    viewBox="0 0 1000 1000"
-                    preserveAspectRatio="none"
+                  <svg id="boardArt" class="board-art" viewBox="0 0 1000 1000" preserveAspectRatio="none"
                     aria-hidden="true">
                   </svg>
                 </div>
@@ -1359,7 +1428,6 @@
     let computerThinking = false;
     let lastDice = "-";
     let lobby = {};
-
     let game = createInitialGame();
 
     const boardBox = document.getElementById("board");
@@ -1379,27 +1447,13 @@
     const hudRoomBox = document.getElementById("hudRoom");
     const gameFocusBox = document.getElementById("gameFocus");
     const playersBox = document.getElementById("players");
+    const pendingMoveBox = document.getElementById("pendingMoveBox");
 
     function createInitialGame() {
       return {
-        positions: {
-          P1: 0,
-          P2: 0,
-          P3: 0,
-          P4: 0
-        },
-        names: {
-          P1: "Player 1",
-          P2: "Player 2",
-          P3: "Player 3",
-          P4: "Player 4"
-        },
-        playerTypes: {
-          P1: "",
-          P2: "",
-          P3: "",
-          P4: ""
-        },
+        positions: { P1: 0, P2: 0, P3: 0, P4: 0 },
+        names: { P1: "Player 1", P2: "Player 2", P3: "Player 3", P4: "Player 4" },
+        playerTypes: { P1: "", P2: "", P3: "", P4: "" },
         powerPoints: {
           P1: START_POWER_POINTS,
           P2: START_POWER_POINTS,
@@ -1407,6 +1461,7 @@
           P4: START_POWER_POINTS
         },
         activePlayers: [],
+        pendingMove: null,
         turn: "P1",
         status: "waiting",
         winner: "",
@@ -1426,6 +1481,23 @@
           game.powerPoints[player] = START_POWER_POINTS;
         }
       }
+    }
+
+    function ensurePendingMoveShape() {
+      if (!game.pendingMove) {
+        return;
+      }
+
+      if (game.pendingMove.selectedPower === undefined) {
+        game.pendingMove.selectedPower = Math.max(0, Number(game.pendingMove.adjustment || 0));
+      }
+
+      if (game.pendingMove.selectedPower < 0) {
+        game.pendingMove.selectedPower = 0;
+      }
+
+      game.pendingMove.adjustment = game.pendingMove.selectedPower;
+      game.pendingMove.spent = game.pendingMove.selectedPower;
     }
 
     function getName() {
@@ -1451,7 +1523,7 @@
     }
 
     function makeMoveId() {
-      if (crypto && crypto.randomUUID) {
+      if (window.crypto && crypto.randomUUID) {
         return crypto.randomUUID();
       }
 
@@ -1759,18 +1831,6 @@
       rollForRole(role, getName(), false);
     }
 
-    function usePowerPoint() {
-      const role = getRole();
-
-      if (role === "spectator") {
-        addRoomMessage("Spectator mode: you can watch, but you cannot use Power Points.", "system");
-        updateSpectatorControls();
-        return;
-      }
-
-      usePowerPointForRole(role, getName(), false);
-    }
-
     function rollForRole(role, actorName, isComputerRoll) {
       ensurePowerPoints();
 
@@ -1802,73 +1862,76 @@
         return;
       }
 
+      if (game.pendingMove && game.pendingMove.role === role) {
+        if (!isComputerRoll) {
+          alert("You have already rolled. Choose Power Points or click Make Move.");
+        }
+        return;
+      }
+
       const dice = Math.floor(Math.random() * 6) + 1;
       lastDice = String(dice);
 
-      const oldPosition = game.positions[role] || 0;
-      let nextPosition = oldPosition + dice;
-      let landedPosition = nextPosition;
-      let note = "";
-      let drama = null;
+      game.pendingMove = {
+        role,
+        actorName: actorName || getName(),
+        dice,
+        selectedPower: 0,
+        adjustment: 0,
+        spent: 0,
+        createdAt: new Date().toISOString()
+      };
 
-      if (nextPosition > 100) {
-        nextPosition = oldPosition;
-        landedPosition = oldPosition;
-        note = role + " rolled " + dice + " and needs exact 100. The coin stays at " + oldPosition + ".";
-      } else {
-        note = role + " rolled " + dice + " and moved to " + nextPosition + ".";
-
-        if (JUMPS[nextPosition]) {
-          const jumpTo = JUMPS[nextPosition];
-
-          if (jumpTo > nextPosition) {
-            note += " Ladder climb! Climbed from " + nextPosition + " to " + jumpTo + ".";
-          } else {
-            note += " Snake bite! Fell from " + nextPosition + " to " + jumpTo + ".";
-          }
-
-          nextPosition = jumpTo;
-        }
-      }
-
-      if (nextPosition === 100 && game.powerPoints[role] > 0) {
-        note += " But " + role + " still has " + game.powerPoints[role] + " Power Points. Use all points before reaching 100.";
-        nextPosition = oldPosition;
-        landedPosition = oldPosition;
-        game.positions[role] = oldPosition;
-
-        drama = {
-          kind: "power",
-          text: "⚡ " + role + " must use all Power Points before reaching 100!"
-        };
-
-        if (dice !== 6) {
-          game.turn = nextPlayer(game.turn);
-        } else {
-          note += " Rolled 6, gets another turn.";
-        }
-      } else {
-        game.positions[role] = nextPosition;
-
-        if (nextPosition === 100 && game.powerPoints[role] === 0) {
-          game.status = "finished";
-          game.winner = role;
-          note += " " + role + " reached 100 after using all Power Points. Victory!";
-          drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, true);
-        } else if (dice === 6) {
-          note += " Rolled 6, gets another turn.";
-          drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, false);
-        } else {
-          game.turn = nextPlayer(game.turn);
-          drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, false);
-        }
-      }
-
+      const note = role + " rolled " + dice + ". Now choose Power Points if needed, then click Make Move.";
       game.moveNumber += 1;
-      finishMove(role, actorName, dice, note, drama);
+
+      const moveId = makeMoveId();
+      seenMoveIds.add(moveId);
+
+      const drama = {
+        kind: dice === 6 ? "six" : "power",
+        text: dice === 6
+          ? "🎲 " + role + " rolled a SIX! Choose Power or Make Move."
+          : "🎲 " + role + " rolled " + dice + ". Choose Power or Make Move."
+      };
+
+      renderGame();
+      showDrama(drama.kind, drama.text);
+
+      sendPayload({
+        kind: "move",
+        moveId,
+        from: actorName || getName(),
+        role,
+        dice,
+        note,
+        drama,
+        game,
+        lastDice,
+        hostClientId: game.hostClientId,
+        time: new Date().toISOString()
+      });
+
+      addRoomMessage(note, "system");
+
+      if (isComputerRoll) {
+        maybeComputerMove();
+      }
     }
 
-    function usePowerPointForRole(role, actorName, isComputerUse) {
+    function adjustPendingMove(delta) {
+      const role = getRole();
+
+      if (role === "spectator") {
+        addRoomMessage("Spectator mode: you can watch, but you cannot use Power Points.", "system");
+        updateSpectatorControls();
+        return;
+      }
+
+      adjustPendingMoveForRole(role, delta, getName(), false);
+    }
+
+    function adjustPendingMoveForRole(role, delta, actorName, isComputerUse) {
       ensurePowerPoints();
 
       if (!ws || ws.readyState !== WebSocket.OPEN) {
@@ -1877,13 +1940,6 @@
       }
 
       if (!PLAYER_ORDER.includes(role)) {
-        return;
-      }
-
-      const activePlayers = getActivePlayers();
-
-      if (!activePlayers.includes(role)) {
-        alert("You are not part of this game. This game has players: " + activePlayers.join(", "));
         return;
       }
 
@@ -1899,72 +1955,195 @@
         return;
       }
 
-      if (game.powerPoints[role] <= 0) {
+      if (!game.pendingMove || game.pendingMove.role !== role) {
         if (!isComputerUse) {
-          alert(role + " has no Power Points left.");
+          alert("Roll the dice first. Then choose Power Points.");
         }
         return;
       }
 
-      const oldPosition = game.positions[role] || 0;
+      ensurePendingMoveShape();
 
-      if (oldPosition >= 100) {
-        return;
-      }
+      const currentSelected = game.pendingMove.selectedPower || 0;
+      const available = game.powerPoints[role] || 0;
+      const newSelected = currentSelected + delta;
 
-      let nextPosition = oldPosition + 1;
-      let landedPosition = nextPosition;
-      let note = "";
-      let drama = null;
-
-      game.powerPoints[role] -= 1;
-
-      if (nextPosition === 100 && game.powerPoints[role] > 0) {
-        game.powerPoints[role] += 1;
-        note = role + " tried to reach 100, but still has Power Points left. Use all points before finishing.";
-        addRoomMessage(note, "system");
-        showDrama("power", "⚡ Use all Power Points before reaching 100!");
-        renderGame();
-        return;
-      }
-
-      note = role + " used 1 Power Point and moved from " + oldPosition + " to " + nextPosition + ".";
-
-      if (JUMPS[nextPosition]) {
-        const jumpTo = JUMPS[nextPosition];
-
-        if (jumpTo > nextPosition) {
-          note += " Power picked a ladder! Climbed from " + nextPosition + " to " + jumpTo + ".";
-        } else {
-          note += " Power landed on a snake! Fell from " + nextPosition + " to " + jumpTo + ".";
+      if (newSelected < 0) {
+        if (!isComputerUse) {
+          alert("Selected Power Points cannot be negative.");
         }
-
-        nextPosition = jumpTo;
+        return;
       }
 
-      game.positions[role] = nextPosition;
+      if (newSelected > available) {
+        if (!isComputerUse) {
+          alert(role + " has only " + available + " Power Points left.");
+        }
+        return;
+      }
+
+      game.pendingMove.selectedPower = newSelected;
+      game.pendingMove.adjustment = newSelected;
+      game.pendingMove.spent = newSelected;
       game.moveNumber += 1;
 
-      if (nextPosition === 100 && game.powerPoints[role] === 0) {
-        game.status = "finished";
-        game.winner = role;
-        note += " " + role + " used all Power Points and reached 100. Victory!";
-        drama = {
-          kind: "win",
-          text: "🏁 " + role + " reached 100 after using all Power Points!"
-        };
-      } else {
-        drama = dramaFromMove(role, 0, oldPosition, landedPosition, nextPosition, false);
+      const finalSteps = game.pendingMove.dice + game.pendingMove.selectedPower;
+      const sign = delta > 0 ? "+1 selected" : "-1 removed";
+      const note = role + " changed Power Point selection (" + sign + "). Selected: " + newSelected + ". Final move will be " + finalSteps + " squares.";
+      const moveId = makeMoveId();
+      seenMoveIds.add(moveId);
+      const drama = {
+        kind: "power",
+        text: "⚡ " + role + " selected " + newSelected + " Power Point(s). Final move: " + finalSteps
+      };
 
-        if (!drama) {
-          drama = {
-            kind: "power",
-            text: "⚡ " + role + " used 1 Power Point!"
-          };
+      renderGame();
+      showDrama(drama.kind, drama.text);
+
+      sendPayload({
+        kind: "move",
+        moveId,
+        from: actorName || getName(),
+        role,
+        dice: 0,
+        note,
+        drama,
+        game,
+        lastDice,
+        hostClientId: game.hostClientId,
+        time: new Date().toISOString()
+      });
+
+      addRoomMessage(note, "system");
+
+      if (isComputerUse) {
+        maybeComputerMove();
+      }
+    }
+
+    function makeMove() {
+      const role = getRole();
+
+      if (role === "spectator") {
+        addRoomMessage("Spectator mode: you can watch, but you cannot make moves.", "system");
+        updateSpectatorControls();
+        return;
+      }
+
+      makeMoveForRole(role, getName(), false);
+    }
+
+    function makeMoveForRole(role, actorName, isComputerMove) {
+      ensurePowerPoints();
+
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        alert("Connect first.");
+        return;
+      }
+
+      if (!PLAYER_ORDER.includes(role)) {
+        return;
+      }
+
+      if (game.status !== "playing") {
+        alert("Start a new game first.");
+        return;
+      }
+
+      if (game.turn !== role) {
+        if (!isComputerMove) {
+          alert("It is " + game.turn + "'s turn.");
+        }
+        return;
+      }
+
+      if (!game.pendingMove || game.pendingMove.role !== role) {
+        if (!isComputerMove) {
+          alert("Roll the dice first.");
+        }
+        return;
+      }
+
+      ensurePendingMoveShape();
+
+      const pending = game.pendingMove;
+      const selectedPower = Math.max(0, Math.min(pending.selectedPower || 0, game.powerPoints[role] || 0));
+      pending.selectedPower = selectedPower;
+      pending.adjustment = selectedPower;
+      pending.spent = selectedPower;
+
+      const finalSteps = pending.dice + selectedPower;
+      const oldPosition = game.positions[role] || 0;
+
+      let nextPosition = oldPosition + finalSteps;
+      let landedPosition = nextPosition;
+      let note = role + " makes move: dice " + pending.dice;
+
+      if (selectedPower > 0) {
+        note += " + " + selectedPower + " Power Point(s)";
+      }
+
+      note += " = " + finalSteps + " square(s). ";
+      let drama = null;
+
+      if (nextPosition > 100) {
+        nextPosition = oldPosition;
+        landedPosition = oldPosition;
+        note += role + " needs exact 100. The coin stays at " + oldPosition + ".";
+      } else {
+        note += role + " moved from " + oldPosition + " to " + nextPosition + ".";
+
+        if (JUMPS[nextPosition]) {
+          const jumpTo = JUMPS[nextPosition];
+
+          if (jumpTo > nextPosition) {
+            note += " Ladder climb! Climbed from " + nextPosition + " to " + jumpTo + ".";
+          } else {
+            note += " Snake bite! Fell from " + nextPosition + " to " + jumpTo + ".";
+          }
+
+          nextPosition = jumpTo;
         }
       }
 
-      finishMove(role, actorName, 0, note, drama);
+      game.powerPoints[role] -= selectedPower;
+
+      if (nextPosition === 100 && game.powerPoints[role] > 0) {
+        note += " But " + role + " still has " + game.powerPoints[role] + " Power Points. Use all points before reaching 100.";
+        nextPosition = oldPosition;
+        landedPosition = oldPosition;
+        game.positions[role] = oldPosition;
+        drama = {
+          kind: "power",
+          text: "⚡ " + role + " must use all Power Points before reaching 100!"
+        };
+        game.pendingMove = null;
+
+        if (pending.dice !== 6) {
+          game.turn = nextPlayer(game.turn);
+        } else {
+          note += " Rolled 6, gets another turn.";
+        }
+      } else {
+        game.positions[role] = nextPosition;
+        game.pendingMove = null;
+
+        if (nextPosition === 100 && game.powerPoints[role] === 0) {
+          game.status = "finished";
+          game.winner = role;
+          note += " " + role + " reached 100 after using all Power Points. Victory!";
+          drama = dramaFromMove(role, pending.dice, oldPosition, landedPosition, nextPosition, true);
+        } else if (pending.dice === 6) {
+          note += " Rolled 6, gets another turn.";
+          drama = dramaFromMove(role, pending.dice, oldPosition, landedPosition, nextPosition, false);
+        } else {
+          game.turn = nextPlayer(game.turn);
+          drama = dramaFromMove(role, pending.dice, oldPosition, landedPosition, nextPosition, false);
+        }
+      }
+
+      game.moveNumber += 1;
+      finishMove(role, actorName, pending.dice, note, drama);
     }
 
     function finishMove(role, actorName, dice, note, drama) {
@@ -2044,23 +2223,35 @@
         const role = game.turn;
         ensurePowerPoints();
 
+        if (!game.pendingMove || game.pendingMove.role !== role) {
+          rollForRole(role, "Computer", true);
+          return;
+        }
+
+        ensurePendingMoveShape();
+
         const position = game.positions[role] || 0;
         const points = game.powerPoints[role] || 0;
+        const pending = game.pendingMove;
+        const currentSelected = pending.selectedPower || 0;
+        const finalSteps = pending.dice + currentSelected;
+        const target = position + finalSteps;
 
-        const shouldUsePower =
-          points > 0 &&
-          position < 99 &&
-          (
-            JUMPS[position + 1] > position + 1 ||
-            position >= 92 ||
-            Math.random() < 0.25
-          );
+        if (points > currentSelected) {
+          const plusTarget = target + 1;
 
-        if (shouldUsePower) {
-          usePowerPointForRole(role, "Computer", true);
-        } else {
-          rollForRole(role, "Computer", true);
+          if (JUMPS[plusTarget] && JUMPS[plusTarget] > plusTarget) {
+            adjustPendingMoveForRole(role, 1, "Computer", true);
+            return;
+          }
+
+          if (position >= 92 && target < 100 && Math.random() < 0.25) {
+            adjustPendingMoveForRole(role, 1, "Computer", true);
+            return;
+          }
         }
+
+        makeMoveForRole(role, "Computer", true);
       }, 900);
     }
 
@@ -2415,6 +2606,7 @@
 
         game = payload.game;
         ensurePowerPoints();
+        ensurePendingMoveShape();
         lastDice = payload.lastDice || "-";
         isHost = game.hostClientId === myClientId;
 
@@ -2432,6 +2624,7 @@
         if (payload.game && payload.game.moveNumber >= game.moveNumber) {
           game = payload.game;
           ensurePowerPoints();
+          ensurePendingMoveShape();
         }
 
         lastDice = payload.lastDice || lastDice;
@@ -2455,6 +2648,7 @@
         if (payload.game && payload.game.moveNumber >= game.moveNumber) {
           game = payload.game;
           ensurePowerPoints();
+          ensurePendingMoveShape();
         }
 
         lastDice = payload.lastDice || String(payload.dice || "-");
@@ -2499,6 +2693,7 @@
       const isSpectator = getRole() === "spectator";
       const rollButtons = document.querySelectorAll(".roll-dice-btn");
       const powerButtons = document.querySelectorAll(".power-btn");
+      const moveButtons = document.querySelectorAll(".move-btn");
       const spectatorNote = document.getElementById("spectatorNote");
 
       rollButtons.forEach(button => {
@@ -2511,6 +2706,11 @@
         button.disabled = isSpectator;
       });
 
+      moveButtons.forEach(button => {
+        button.classList.toggle("hidden-for-spectator", isSpectator);
+        button.disabled = isSpectator;
+      });
+
       if (spectatorNote) {
         spectatorNote.hidden = !isSpectator;
       }
@@ -2518,6 +2718,7 @@
 
     function renderGame() {
       ensurePowerPoints();
+      ensurePendingMoveShape();
 
       const tokenBoxes = boardBox.querySelectorAll(".tokens");
       tokenBoxes.forEach(box => box.innerHTML = "");
@@ -2552,13 +2753,17 @@
       hudRoomBox.textContent = "Room: " + getRoom() + " | You: " + getName() + " (" + getRole() + ")";
 
       if (game.status === "playing") {
+        const pendingText = game.pendingMove && game.pendingMove.role === game.turn
+          ? " | Power selected: " + (game.pendingMove.selectedPower || 0) + " | Pending move: " + (game.pendingMove.dice + (game.pendingMove.selectedPower || 0))
+          : "";
         hudTurnBox.textContent =
           "Turn: " +
           game.turn +
           " - " +
           game.names[game.turn] +
           " | ⚡ " +
-          game.powerPoints[game.turn];
+          game.powerPoints[game.turn] +
+          pendingText;
       } else if (game.status === "finished") {
         hudTurnBox.textContent = "Winner: " + game.winner + " - " + game.names[game.winner];
       } else {
@@ -2574,11 +2779,20 @@
 
       if (game.status === "waiting") {
         text += "Status: Waiting. Click New Game.\n";
-        text += "Rule: Each player must use all 6 Power Points before reaching 100.";
+        text += "Rule: Roll first. Then choose Power Points with + and -. Then click Make Move. The selected total cannot be negative. All 6 Power Points must be used before reaching 100.";
       } else if (game.status === "playing") {
         text += "Status: Playing\n";
         text += "Turn: " + game.turn + " - " + game.names[game.turn] + "\n";
-        text += "Power Points left: " + game.powerPoints[game.turn];
+        text += "Power Points left: " + game.powerPoints[game.turn] + "\n";
+
+        if (game.pendingMove && game.pendingMove.role === game.turn) {
+          text += "Dice rolled: " + game.pendingMove.dice + "\n";
+          text += "Power Points selected: " + (game.pendingMove.selectedPower || 0) + "\n";
+          text += "Final move: " + (game.pendingMove.dice + (game.pendingMove.selectedPower || 0)) + "\n";
+          text += "Use + Power or - Power to change the selected total. It cannot be negative. Then click Make Move.";
+        } else {
+          text += "Roll Dice first. Move will not happen automatically.";
+        }
       } else if (game.status === "finished") {
         text += "Status: Finished\n";
         text += "Winner: " + game.winner + " - " + game.names[game.winner];
@@ -2587,8 +2801,31 @@
       gameStateBox.textContent = text;
 
       updateSpectatorControls();
+      renderPendingMoveBox();
       renderRolePositions();
       renderPlayers();
+    }
+
+    function renderPendingMoveBox() {
+      if (!pendingMoveBox) {
+        return;
+      }
+
+      if (!game.pendingMove) {
+        pendingMoveBox.textContent = "No dice rolled yet. Roll Dice, choose Power Points if needed, then Make Move.";
+        return;
+      }
+
+      const pending = game.pendingMove;
+      pendingMoveBox.textContent =
+        pending.role +
+        " rolled " +
+        pending.dice +
+        ". Power selected: " +
+        (pending.selectedPower || 0) +
+        ". Final move: " +
+        (pending.dice + (pending.selectedPower || 0)) +
+        ". Click Make Move.";
     }
 
     function renderRolePositions() {
@@ -2616,6 +2853,7 @@
 
     function renderPlayers() {
       ensurePowerPoints();
+      ensurePendingMoveShape();
 
       playersBox.innerHTML = "";
 
@@ -2635,13 +2873,16 @@
         const isComputer = game.playerTypes[player] === "computer";
         const computerBadge = isComputer ? '<span class="computer-badge">CPU</span>' : "";
         const powerBadge = '<span class="power-badge">⚡ ' + game.powerPoints[player] + '</span>';
+        const pendingBadge = game.pendingMove && game.pendingMove.role === player
+          ? '<span class="pending-badge">Power ' + (game.pendingMove.selectedPower || 0) + ' | Move ' + (game.pendingMove.dice + (game.pendingMove.selectedPower || 0)) + '</span>'
+          : "";
 
         div.innerHTML =
           '<span class="player-token-mini ' + player.toLowerCase() + '">' + player.replace("P", "") + '</span>' +
           '<span class="player-meta">' +
-          '<strong>' + player + ' - ' + cleanText(game.names[player]) + computerBadge + powerBadge + '</strong>' +
+          '<strong>' + player + ' - ' + cleanText(game.names[player]) + computerBadge + powerBadge + pendingBadge + '</strong>' +
           'Position: ' + (game.positions[player] || 0) + '<br>' +
-          'Power Points: ' + game.powerPoints[player] + '<br>' +
+          'Power Points left: ' + game.powerPoints[player] + '<br>' +
           'Status: ' + joinedText +
           '</span>';
 
@@ -2714,4 +2955,5 @@
     setConnectionStatus("Disconnected", false);
   </script>
 </body>
+
 </html>
