@@ -8,19 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Play a multiplayer Snakes and Ladders game using a Cloudflare Durable Object WebSocket chat server. Includes fullscreen mode, computer player, spectators, dramatic snake and ladder effects, and drawn board graphics."
+    content="Play a multiplayer Snakes and Ladders game using a Cloudflare Durable Object WebSocket chat server. Includes fullscreen mode, computer player, spectators, dramatic snake and ladder effects, drawn board graphics, and Power Points."
   />
   <meta
     name="keywords"
-    content="Snakes and Ladders, Cloudflare Durable Objects, WebSocket game, JavaScript game, multiplayer game, Champak Roy, Programmer's Picnic"
+    content="Snakes and Ladders, Cloudflare Durable Objects, WebSocket game, JavaScript game, multiplayer game, Power Points, Champak Roy, Programmer's Picnic"
   />
   <meta name="author" content="Champak Roy" />
   <meta name="theme-color" content="#f59e0b" />
 
-  <meta property="og:title" content="Snakes and Ladders Multiplayer" />
+  <meta property="og:title" content="Snakes and Ladders Multiplayer with Power Points" />
   <meta
     property="og:description"
-    content="A WebSocket-based Snakes and Ladders game with computer player, fullscreen mode, spectator mode, and dramatic game effects."
+    content="A WebSocket-based Snakes and Ladders game with computer player, fullscreen mode, spectator mode, dramatic game effects, and 6 Power Points per player."
   />
   <meta property="og:type" content="website" />
 
@@ -85,7 +85,7 @@
     }
 
     .hero::after {
-      content: "🐍 🪜";
+      content: "🐍 🪜 ⚡";
       position: absolute;
       right: 22px;
       bottom: 4px;
@@ -287,6 +287,11 @@
       color: #fef3c7;
     }
 
+    button.power {
+      background: #7c3aed;
+      color: white;
+    }
+
     button.hidden-for-spectator {
       display: none !important;
     }
@@ -323,6 +328,17 @@
       border: 1px solid #fed7aa;
       color: #7c2d12;
       font-weight: 800;
+      font-size: 13px;
+    }
+
+    .power-note {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      color: #5b21b6;
+      font-weight: 900;
       font-size: 13px;
     }
 
@@ -706,6 +722,18 @@
       vertical-align: middle;
     }
 
+    .power-badge {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #7c3aed;
+      color: white;
+      font-size: 11px;
+      font-weight: 1000;
+      vertical-align: middle;
+    }
+
     .room-messages {
       background: white;
       border: 1px solid var(--line);
@@ -820,6 +848,10 @@
       background: linear-gradient(135deg, rgba(88, 28, 135, .98), rgba(245, 158, 11, .94));
     }
 
+    .power-drama {
+      background: linear-gradient(135deg, rgba(88, 28, 135, .98), rgba(124, 58, 237, .94));
+    }
+
     @keyframes dramaPop {
       0% {
         opacity: 0;
@@ -882,6 +914,21 @@
 
       45% {
         box-shadow: inset 0 0 0 4px rgba(22, 163, 74, .4), 0 0 42px rgba(22, 163, 74, .48);
+      }
+    }
+
+    .board-stage.power-glow {
+      animation: powerGlow 1.15s ease;
+    }
+
+    @keyframes powerGlow {
+      0%,
+      100% {
+        box-shadow: inset 0 0 0 2px rgba(124, 45, 18, .08), 0 20px 48px rgba(120, 53, 15, .18);
+      }
+
+      45% {
+        box-shadow: inset 0 0 0 4px rgba(124, 58, 237, .45), 0 0 48px rgba(124, 58, 237, .52);
       }
     }
 
@@ -1085,8 +1132,7 @@
     <section class="hero">
       <h1>Snakes and Ladders over WebSocket</h1>
       <p>
-        Drawn snakes, drawn ladders, fullscreen mode, spectator mode, computer player, and multiplayer through your
-        existing Durable Object chat Worker.
+        Drawn snakes, drawn ladders, fullscreen mode, spectator mode, computer player, and 6 Power Points per player.
       </p>
     </section>
 
@@ -1129,25 +1175,25 @@
             <label class="role-option">
               <input type="radio" name="playerRole" value="P1" checked />
               <span class="role-label-text">P1 - Blue</span>
-              <span id="rolePosP1" class="coin-position">Start</span>
+              <span id="rolePosP1" class="coin-position">Start | ⚡6</span>
             </label>
 
             <label class="role-option">
               <input type="radio" name="playerRole" value="P2" />
               <span class="role-label-text">P2 - Orange</span>
-              <span id="rolePosP2" class="coin-position">Start</span>
+              <span id="rolePosP2" class="coin-position">Start | ⚡6</span>
             </label>
 
             <label class="role-option">
               <input type="radio" name="playerRole" value="P3" />
               <span class="role-label-text">P3 - Green</span>
-              <span id="rolePosP3" class="coin-position">Start</span>
+              <span id="rolePosP3" class="coin-position">Start | ⚡6</span>
             </label>
 
             <label class="role-option">
               <input type="radio" name="playerRole" value="P4" />
               <span class="role-label-text">P4 - Purple</span>
-              <span id="rolePosP4" class="coin-position">Start</span>
+              <span id="rolePosP4" class="coin-position">Start | ⚡6</span>
             </label>
 
             <label class="role-option">
@@ -1159,6 +1205,10 @@
 
           <div class="note">
             Minimum 2 players, maximum 4 players. With one human player, Computer joins automatically.
+          </div>
+
+          <div class="power-note">
+            Each player gets 6 Power Points. Use them before reaching 100. You cannot win while points remain.
           </div>
 
           <div id="connectionStatus" class="status-pill">
@@ -1178,11 +1228,12 @@
           <div class="row">
             <button onclick="newGame()">New Game</button>
             <button id="backupRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">Roll Dice</button>
+            <button id="backupPowerBtn" class="power power-btn" onclick="usePowerPoint()">Use 1 Point</button>
             <button class="secondary" onclick="syncGame()">Sync Game</button>
           </div>
 
           <div id="spectatorNote" class="spectator-note" hidden>
-            Spectator mode: watch the game. Roll Dice is hidden.
+            Spectator mode: watch the game. Roll Dice and Power Points are hidden.
           </div>
 
           <div class="legend">
@@ -1218,6 +1269,7 @@
             <div class="hud-actions">
               <button onclick="newGame()">New Game</button>
               <button id="hudRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">Roll Dice</button>
+              <button id="hudPowerBtn" class="power power-btn" onclick="usePowerPoint()">Use 1 Point</button>
               <button class="secondary" onclick="syncGame()">Sync Game</button>
               <button class="dark fullscreen-btn" onclick="toggleGameFullscreen()">Full Screen</button>
             </div>
@@ -1279,6 +1331,7 @@
   <script>
     const GAME_PREFIX = "__SNAKES_LADDERS__:";
     const PLAYER_ORDER = ["P1", "P2", "P3", "P4"];
+    const START_POWER_POINTS = 6;
 
     const JUMPS = {
       4: 14,
@@ -1347,6 +1400,12 @@
           P3: "",
           P4: ""
         },
+        powerPoints: {
+          P1: START_POWER_POINTS,
+          P2: START_POWER_POINTS,
+          P3: START_POWER_POINTS,
+          P4: START_POWER_POINTS
+        },
         activePlayers: [],
         turn: "P1",
         status: "waiting",
@@ -1355,6 +1414,18 @@
         gameId: Date.now().toString(),
         hostClientId: ""
       };
+    }
+
+    function ensurePowerPoints() {
+      if (!game.powerPoints) {
+        game.powerPoints = {};
+      }
+
+      for (const player of PLAYER_ORDER) {
+        if (game.powerPoints[player] === undefined) {
+          game.powerPoints[player] = START_POWER_POINTS;
+        }
+      }
     }
 
     function getName() {
@@ -1641,6 +1712,7 @@
       game.gameId = Date.now().toString();
       game.moveNumber = 0;
 
+      ensurePowerPoints();
       lastDice = "-";
       seenMoveIds.clear();
 
@@ -1687,7 +1759,21 @@
       rollForRole(role, getName(), false);
     }
 
+    function usePowerPoint() {
+      const role = getRole();
+
+      if (role === "spectator") {
+        addRoomMessage("Spectator mode: you can watch, but you cannot use Power Points.", "system");
+        updateSpectatorControls();
+        return;
+      }
+
+      usePowerPointForRole(role, getName(), false);
+    }
+
     function rollForRole(role, actorName, isComputerRoll) {
+      ensurePowerPoints();
+
       if (!ws || ws.readyState !== WebSocket.OPEN) {
         alert("Connect first.");
         return;
@@ -1745,22 +1831,143 @@
         }
       }
 
+      if (nextPosition === 100 && game.powerPoints[role] > 0) {
+        note += " But " + role + " still has " + game.powerPoints[role] + " Power Points. Use all points before reaching 100.";
+        nextPosition = oldPosition;
+        landedPosition = oldPosition;
+        game.positions[role] = oldPosition;
+
+        drama = {
+          kind: "power",
+          text: "⚡ " + role + " must use all Power Points before reaching 100!"
+        };
+
+        if (dice !== 6) {
+          game.turn = nextPlayer(game.turn);
+        } else {
+          note += " Rolled 6, gets another turn.";
+        }
+      } else {
+        game.positions[role] = nextPosition;
+
+        if (nextPosition === 100 && game.powerPoints[role] === 0) {
+          game.status = "finished";
+          game.winner = role;
+          note += " " + role + " reached 100 after using all Power Points. Victory!";
+          drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, true);
+        } else if (dice === 6) {
+          note += " Rolled 6, gets another turn.";
+          drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, false);
+        } else {
+          game.turn = nextPlayer(game.turn);
+          drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, false);
+        }
+      }
+
+      game.moveNumber += 1;
+      finishMove(role, actorName, dice, note, drama);
+    }
+
+    function usePowerPointForRole(role, actorName, isComputerUse) {
+      ensurePowerPoints();
+
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        alert("Connect first.");
+        return;
+      }
+
+      if (!PLAYER_ORDER.includes(role)) {
+        return;
+      }
+
+      const activePlayers = getActivePlayers();
+
+      if (!activePlayers.includes(role)) {
+        alert("You are not part of this game. This game has players: " + activePlayers.join(", "));
+        return;
+      }
+
+      if (game.status !== "playing") {
+        alert("Start a new game first.");
+        return;
+      }
+
+      if (game.turn !== role) {
+        if (!isComputerUse) {
+          alert("It is " + game.turn + "'s turn.");
+        }
+        return;
+      }
+
+      if (game.powerPoints[role] <= 0) {
+        if (!isComputerUse) {
+          alert(role + " has no Power Points left.");
+        }
+        return;
+      }
+
+      const oldPosition = game.positions[role] || 0;
+
+      if (oldPosition >= 100) {
+        return;
+      }
+
+      let nextPosition = oldPosition + 1;
+      let landedPosition = nextPosition;
+      let note = "";
+      let drama = null;
+
+      game.powerPoints[role] -= 1;
+
+      if (nextPosition === 100 && game.powerPoints[role] > 0) {
+        game.powerPoints[role] += 1;
+        note = role + " tried to reach 100, but still has Power Points left. Use all points before finishing.";
+        addRoomMessage(note, "system");
+        showDrama("power", "⚡ Use all Power Points before reaching 100!");
+        renderGame();
+        return;
+      }
+
+      note = role + " used 1 Power Point and moved from " + oldPosition + " to " + nextPosition + ".";
+
+      if (JUMPS[nextPosition]) {
+        const jumpTo = JUMPS[nextPosition];
+
+        if (jumpTo > nextPosition) {
+          note += " Power picked a ladder! Climbed from " + nextPosition + " to " + jumpTo + ".";
+        } else {
+          note += " Power landed on a snake! Fell from " + nextPosition + " to " + jumpTo + ".";
+        }
+
+        nextPosition = jumpTo;
+      }
+
       game.positions[role] = nextPosition;
       game.moveNumber += 1;
 
-      if (nextPosition === 100) {
+      if (nextPosition === 100 && game.powerPoints[role] === 0) {
         game.status = "finished";
         game.winner = role;
-        note += " " + role + " reached 100 and wins!";
-        drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, true);
-      } else if (dice === 6) {
-        note += " Rolled 6, gets another turn.";
-        drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, false);
+        note += " " + role + " used all Power Points and reached 100. Victory!";
+        drama = {
+          kind: "win",
+          text: "🏁 " + role + " reached 100 after using all Power Points!"
+        };
       } else {
-        game.turn = nextPlayer(game.turn);
-        drama = dramaFromMove(role, dice, oldPosition, landedPosition, nextPosition, false);
+        drama = dramaFromMove(role, 0, oldPosition, landedPosition, nextPosition, false);
+
+        if (!drama) {
+          drama = {
+            kind: "power",
+            text: "⚡ " + role + " used 1 Power Point!"
+          };
+        }
       }
 
+      finishMove(role, actorName, 0, note, drama);
+    }
+
+    function finishMove(role, actorName, dice, note, drama) {
       const moveId = makeMoveId();
       seenMoveIds.add(moveId);
 
@@ -1830,8 +2037,29 @@
       setTimeout(function () {
         computerThinking = false;
 
-        if (isComputerTurn() && thisClientIsHost()) {
-          rollForRole(game.turn, "Computer", true);
+        if (!isComputerTurn() || !thisClientIsHost()) {
+          return;
+        }
+
+        const role = game.turn;
+        ensurePowerPoints();
+
+        const position = game.positions[role] || 0;
+        const points = game.powerPoints[role] || 0;
+
+        const shouldUsePower =
+          points > 0 &&
+          position < 99 &&
+          (
+            JUMPS[position + 1] > position + 1 ||
+            position >= 92 ||
+            Math.random() < 0.25
+          );
+
+        if (shouldUsePower) {
+          usePowerPointForRole(role, "Computer", true);
+        } else {
+          rollForRole(role, "Computer", true);
         }
       }, 900);
     }
@@ -1895,6 +2123,12 @@
           boardStageBox.classList.remove("ladder-glow");
           void boardStageBox.offsetWidth;
           boardStageBox.classList.add("ladder-glow");
+        }
+
+        if (kind === "power") {
+          boardStageBox.classList.remove("power-glow");
+          void boardStageBox.offsetWidth;
+          boardStageBox.classList.add("power-glow");
         }
       }
 
@@ -2180,6 +2414,7 @@
         }
 
         game = payload.game;
+        ensurePowerPoints();
         lastDice = payload.lastDice || "-";
         isHost = game.hostClientId === myClientId;
 
@@ -2196,6 +2431,7 @@
 
         if (payload.game && payload.game.moveNumber >= game.moveNumber) {
           game = payload.game;
+          ensurePowerPoints();
         }
 
         lastDice = payload.lastDice || lastDice;
@@ -2218,6 +2454,7 @@
 
         if (payload.game && payload.game.moveNumber >= game.moveNumber) {
           game = payload.game;
+          ensurePowerPoints();
         }
 
         lastDice = payload.lastDice || String(payload.dice || "-");
@@ -2261,9 +2498,15 @@
     function updateSpectatorControls() {
       const isSpectator = getRole() === "spectator";
       const rollButtons = document.querySelectorAll(".roll-dice-btn");
+      const powerButtons = document.querySelectorAll(".power-btn");
       const spectatorNote = document.getElementById("spectatorNote");
 
       rollButtons.forEach(button => {
+        button.classList.toggle("hidden-for-spectator", isSpectator);
+        button.disabled = isSpectator;
+      });
+
+      powerButtons.forEach(button => {
         button.classList.toggle("hidden-for-spectator", isSpectator);
         button.disabled = isSpectator;
       });
@@ -2274,6 +2517,8 @@
     }
 
     function renderGame() {
+      ensurePowerPoints();
+
       const tokenBoxes = boardBox.querySelectorAll(".tokens");
       tokenBoxes.forEach(box => box.innerHTML = "");
 
@@ -2307,7 +2552,13 @@
       hudRoomBox.textContent = "Room: " + getRoom() + " | You: " + getName() + " (" + getRole() + ")";
 
       if (game.status === "playing") {
-        hudTurnBox.textContent = "Turn: " + game.turn + " - " + game.names[game.turn];
+        hudTurnBox.textContent =
+          "Turn: " +
+          game.turn +
+          " - " +
+          game.names[game.turn] +
+          " | ⚡ " +
+          game.powerPoints[game.turn];
       } else if (game.status === "finished") {
         hudTurnBox.textContent = "Winner: " + game.winner + " - " + game.names[game.winner];
       } else {
@@ -2322,10 +2573,12 @@
       text += "Move number: " + game.moveNumber + "\n\n";
 
       if (game.status === "waiting") {
-        text += "Status: Waiting. Click New Game.";
+        text += "Status: Waiting. Click New Game.\n";
+        text += "Rule: Each player must use all 6 Power Points before reaching 100.";
       } else if (game.status === "playing") {
         text += "Status: Playing\n";
-        text += "Turn: " + game.turn + " - " + game.names[game.turn];
+        text += "Turn: " + game.turn + " - " + game.names[game.turn] + "\n";
+        text += "Power Points left: " + game.powerPoints[game.turn];
       } else if (game.status === "finished") {
         text += "Status: Finished\n";
         text += "Winner: " + game.winner + " - " + game.names[game.winner];
@@ -2339,6 +2592,8 @@
     }
 
     function renderRolePositions() {
+      ensurePowerPoints();
+
       for (const player of PLAYER_ORDER) {
         const box = document.getElementById("rolePos" + player);
 
@@ -2347,18 +2602,21 @@
         }
 
         const position = game.positions[player] || 0;
+        const points = game.powerPoints[player];
 
         if (position <= 0) {
-          box.textContent = "Start";
+          box.textContent = "Start | ⚡" + points;
         } else if (position === 100) {
-          box.textContent = "100 🏁";
+          box.textContent = "100 🏁 | ⚡" + points;
         } else {
-          box.textContent = String(position);
+          box.textContent = position + " | ⚡" + points;
         }
       }
     }
 
     function renderPlayers() {
+      ensurePowerPoints();
+
       playersBox.innerHTML = "";
 
       const playersToShow = game.status === "playing" || game.status === "finished"
@@ -2376,12 +2634,14 @@
         const joinedText = lobby[player] ? "Joined" : "Waiting";
         const isComputer = game.playerTypes[player] === "computer";
         const computerBadge = isComputer ? '<span class="computer-badge">CPU</span>' : "";
+        const powerBadge = '<span class="power-badge">⚡ ' + game.powerPoints[player] + '</span>';
 
         div.innerHTML =
           '<span class="player-token-mini ' + player.toLowerCase() + '">' + player.replace("P", "") + '</span>' +
           '<span class="player-meta">' +
-          '<strong>' + player + ' - ' + cleanText(game.names[player]) + computerBadge + '</strong>' +
+          '<strong>' + player + ' - ' + cleanText(game.names[player]) + computerBadge + powerBadge + '</strong>' +
           'Position: ' + (game.positions[player] || 0) + '<br>' +
+          'Power Points: ' + game.powerPoints[player] + '<br>' +
           'Status: ' + joinedText +
           '</span>';
 
@@ -2394,7 +2654,7 @@
         note.className = "player-card";
         note.innerHTML =
           '<span class="player-token-mini" style="background:#111827">?</span>' +
-          '<span class="player-meta"><strong>' + count + '/4 players joined</strong>Minimum 2 players required. With one human player, Computer joins automatically.</span>';
+          '<span class="player-meta"><strong>' + count + '/4 players joined</strong>Minimum 2 players required. With one human player, Computer joins automatically. Every player starts with 6 Power Points.</span>';
         playersBox.appendChild(note);
       }
     }
