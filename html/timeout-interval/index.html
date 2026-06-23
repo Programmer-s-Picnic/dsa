@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>JavaScript setTimeout and setInterval | 0 to Infinity Lesson</title>
+
+  <meta name="description" content="A complete 0 to Infinity JavaScript lesson on setTimeout and setInterval with examples, timers, counters, animation, mistakes, and practice tasks." />
+  <meta name="keywords" content="JavaScript setTimeout, JavaScript setInterval, JavaScript timers, clearTimeout, clearInterval, async JavaScript, beginner JavaScript lesson" />
+  <meta name="author" content="Champak Roy" />
+
+  <meta property="og:title" content="JavaScript setTimeout and setInterval | 0 to Infinity Lesson" />
+  <meta property="og:description" content="Learn JavaScript timers from zero to advanced level with live examples and practice." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://learnwithchampak.live/og-js-timers.png" />
+
+  <!-- Google Ads -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
+    crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --saffron: #ff9800;
+      --deep-saffron: #ef6c00;
+      --cream: #fff8ed;
+      --dark: #1f2937;
+      --light: #ffffff;
+      --muted: #64748b;
+      --code-bg: #111827;
+      --code-text: #e5e7eb;
+      --green: #16a34a;
+      --red: #dc2626;
+      --blue: #2563eb;
+      --border: #fed7aa;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.7;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--deep-saffron), var(--saffron));
+      color: white;
+      padding: 48px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin: 0 0 12px;
+    }
+
+    header p {
+      max-width: 850px;
+      margin: auto;
+      font-size: 1.15rem;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 12px;
+      text-align: center;
+    }
+
+    nav a {
+      display: inline-block;
+      margin: 5px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--deep-saffron);
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: #fffaf0;
+    }
+
+    nav a:focus,
+    button:focus,
+    input:focus,
+    select:focus {
+      outline: 3px solid #fb923c;
+      outline-offset: 3px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    section {
+      background: var(--light);
+      margin: 24px 0;
+      padding: 24px;
+      border-radius: 22px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--border);
+    }
+
+    h2 {
+      color: var(--deep-saffron);
+      margin-top: 0;
+    }
+
+    h3 {
+      color: #b45309;
+    }
+
+    .level {
+      display: inline-block;
+      background: #ffedd5;
+      color: #9a3412;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    .note {
+      background: #fff7ed;
+      border-left: 5px solid var(--saffron);
+      padding: 14px;
+      border-radius: 12px;
+      margin: 14px 0;
+    }
+
+    .danger {
+      background: #fef2f2;
+      border-left: 5px solid var(--red);
+      padding: 14px;
+      border-radius: 12px;
+      margin: 14px 0;
+    }
+
+    .success {
+      background: #f0fdf4;
+      border-left: 5px solid var(--green);
+      padding: 14px;
+      border-radius: 12px;
+      margin: 14px 0;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px;
+      border-radius: 16px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    code {
+      color: #7c2d12;
+      background: #ffedd5;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    pre code {
+      color: var(--code-text);
+      background: transparent;
+      padding: 0;
+      font-weight: 400;
+    }
+
+    .demo {
+      background: #f8fafc;
+      border: 1px dashed #f59e0b;
+      padding: 18px;
+      border-radius: 18px;
+      margin-top: 16px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    button {
+      border: none;
+      background: var(--deep-saffron);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background: #c2410c;
+    }
+
+    button.secondary {
+      background: var(--blue);
+    }
+
+    button.stop {
+      background: var(--red);
+    }
+
+    button.good {
+      background: var(--green);
+    }
+
+    input, select {
+      padding: 10px;
+      border: 1px solid #fdba74;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    .output {
+      min-height: 44px;
+      background: #ffffff;
+      border: 1px solid #fed7aa;
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 10px;
+      font-weight: 700;
+      color: #7c2d12;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      padding: 16px;
+      border-radius: 18px;
+    }
+
+    .big-number {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--deep-saffron);
+      text-align: center;
+    }
+
+    .traffic-light {
+      width: 90px;
+      background: #111827;
+      padding: 12px;
+      border-radius: 24px;
+      margin: auto;
+    }
+
+    .light {
+      width: 55px;
+      height: 55px;
+      margin: 10px auto;
+      border-radius: 50%;
+      background: #374151;
+    }
+
+    .light.red.active {
+      background: #ef4444;
+      box-shadow: 0 0 20px #ef4444;
+    }
+
+    .light.yellow.active {
+      background: #facc15;
+      box-shadow: 0 0 20px #facc15;
+    }
+
+    .light.green.active {
+      background: #22c55e;
+      box-shadow: 0 0 20px #22c55e;
+    }
+
+    .box-stage {
+      height: 90px;
+      background: #ffedd5;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #fdba74;
+    }
+
+    .moving-box {
+      width: 50px;
+      height: 50px;
+      background: var(--deep-saffron);
+      border-radius: 14px;
+      position: absolute;
+      top: 20px;
+      left: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+    }
+
+    th, td {
+      border: 1px solid #fed7aa;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #ffedd5;
+      color: #9a3412;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px;
+      background: #1f2937;
+      color: white;
+      margin-top: 30px;
+    }
+
+    .ad-box {
+      margin: 22px 0;
+      text-align: center;
+      background: #fff;
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid #fed7aa;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>JavaScript Timers: setTimeout and setInterval</h1>
+    <p>
+      A 0 to Infinity lesson on delaying work, repeating work, stopping timers,
+      countdowns, clocks, animations, and real-world JavaScript timing logic.
+    </p>
+  </header>
+
+  <nav>
+    <a href="#zero">0 Level</a>
+    <a href="#timeout">setTimeout</a>
+    <a href="#interval">setInterval</a>
+    <a href="#clear">Stopping Timers</a>
+    <a href="#projects">Mini Projects</a>
+    <a href="#mistakes">Mistakes</a>
+    <a href="#practice">Practice</a>
+  </nav>
+
+  <main>
+    <div class="ad-box">
+      <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+      <script>
+        try {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+          console.log("Ad could not load.");
+        }
+      </script>
+    </div>
+
+    <section id="zero">
+      <span class="level">Level 0</span>
+      <h2>Why Do We Need Timers?</h2>
+
+      <p>
+        JavaScript usually runs code immediately from top to bottom.
+      </p>
+
+      <pre><code>console.log("First");
+console.log("Second");
+console.log("Third");</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>First
+Second
+Third</code></pre>
+
+      <p>
+        But many real websites need to do something <strong>later</strong> or
+        <strong>again and again</strong>.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Do something later</h3>
+          <p>Show a message after 3 seconds.</p>
+          <p>Use <code>setTimeout()</code>.</p>
+        </div>
+
+        <div class="card">
+          <h3>Do something repeatedly</h3>
+          <p>Update a clock every second.</p>
+          <p>Use <code>setInterval()</code>.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Full form style idea:</strong> Timer means code that runs based on time.
+        JavaScript timers do not stop the whole page. They schedule work for later.
+      </div>
+    </section>
+
+    <section id="timeout">
+      <span class="level">Level 1</span>
+      <h2>setTimeout()</h2>
+
+      <p>
+        <code>setTimeout()</code> runs a function once after a delay.
+      </p>
+
+      <h3>Basic Syntax</h3>
+
+      <pre><code>setTimeout(function() {
+  // code to run later
+}, delayInMilliseconds);</code></pre>
+
+      <p>
+        1000 milliseconds = 1 second.
+      </p>
+
+      <h3>Example</h3>
+
+      <pre><code>setTimeout(function() {
+  console.log("Hello after 3 seconds");
+}, 3000);</code></pre>
+
+      <div class="demo">
+        <h3>Live Demo: Delayed Message</h3>
+        <p>Click the button. The message will appear after 3 seconds.</p>
+
+        <div class="controls">
+          <button onclick="showDelayedMessage()">Show Message After 3 Seconds</button>
+        </div>
+
+        <div id="timeoutOutput" class="output">Waiting for action...</div>
+      </div>
+
+      <h3>Arrow Function Version</h3>
+
+      <pre><code>setTimeout(() => {
+  console.log("This also runs later");
+}, 2000);</code></pre>
+
+      <div class="note">
+        <strong>Important:</strong> <code>setTimeout()</code> does not pause JavaScript.
+        It schedules the function and lets the rest of the code continue.
+      </div>
+
+      <pre><code>console.log("A");
+
+setTimeout(() => {
+  console.log("B");
+}, 2000);
+
+console.log("C");</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>A
+C
+B</code></pre>
+    </section>
+
+    <section id="interval">
+      <span class="level">Level 2</span>
+      <h2>setInterval()</h2>
+
+      <p>
+        <code>setInterval()</code> runs a function again and again after a fixed delay.
+      </p>
+
+      <h3>Basic Syntax</h3>
+
+      <pre><code>setInterval(function() {
+  // code to repeat
+}, delayInMilliseconds);</code></pre>
+
+      <h3>Example</h3>
+
+      <pre><code>setInterval(() => {
+  console.log("Repeating every second");
+}, 1000);</code></pre>
+
+      <div class="demo">
+        <h3>Live Demo: Counter</h3>
+        <p>This counter increases every second.</p>
+
+        <div class="big-number" id="counterValue">0</div>
+
+        <div class="controls">
+          <button class="good" onclick="startCounter()">Start Counter</button>
+          <button class="stop" onclick="stopCounter()">Stop Counter</button>
+          <button onclick="resetCounter()">Reset Counter</button>
+        </div>
+
+        <div id="counterOutput" class="output">Counter is stopped.</div>
+      </div>
+
+      <div class="danger">
+        <strong>Warning:</strong> If you start many intervals without stopping old ones,
+        the page may behave strangely because multiple timers will run together.
+      </div>
+    </section>
+
+    <section id="clear">
+      <span class="level">Level 3</span>
+      <h2>Stopping Timers</h2>
+
+      <p>
+        When we create a timer, JavaScript gives us an ID. We can use this ID to stop the timer.
+      </p>
+
+      <h3>Stopping setTimeout</h3>
+
+      <pre><code>let timeoutId = setTimeout(() => {
+  console.log("This may run later");
+}, 5000);
+
+clearTimeout(timeoutId);</code></pre>
+
+      <h3>Stopping setInterval</h3>
+
+      <pre><code>let intervalId = setInterval(() => {
+  console.log("Repeating");
+}, 1000);
+
+clearInterval(intervalId);</code></pre>
+
+      <div class="demo">
+        <h3>Live Demo: Cancel a Delayed Message</h3>
+
+        <div class="controls">
+          <button onclick="startCancelableTimeout()">Start 5 Second Message</button>
+          <button class="stop" onclick="cancelTimeout()">Cancel Message</button>
+        </div>
+
+        <div id="cancelOutput" class="output">No timeout started.</div>
+      </div>
+    </section>
+
+    <section>
+      <span class="level">Level 4</span>
+      <h2>Passing Arguments to Timer Functions</h2>
+
+      <p>
+        We can pass values into the function called by <code>setTimeout()</code>.
+      </p>
+
+      <pre><code>function greet(name) {
+  console.log("Hello " + name);
+}
+
+setTimeout(greet, 2000, "Champak");</code></pre>
+
+      <p>
+        After 2 seconds, it prints:
+      </p>
+
+      <pre><code>Hello Champak</code></pre>
+
+      <div class="demo">
+        <h3>Live Demo: Personalized Greeting</h3>
+
+        <input id="nameInput" type="text" placeholder="Enter your name" />
+
+        <div class="controls">
+          <button onclick="delayedGreeting()">Greet After 2 Seconds</button>
+        </div>
+
+        <div id="greetOutput" class="output">Enter a name and click the button.</div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <span class="level">Level 5</span>
+      <h2>Mini Project 1: Digital Clock</h2>
+
+      <p>
+        A digital clock is a perfect use case for <code>setInterval()</code>.
+        The time must update again and again.
+      </p>
+
+      <pre><code>setInterval(() => {
+  let now = new Date();
+  console.log(now.toLocaleTimeString());
+}, 1000);</code></pre>
+
+      <div class="demo">
+        <h3>Live Clock</h3>
+        <div class="big-number" id="clock">--:--:--</div>
+      </div>
+    </section>
+
+    <section>
+      <span class="level">Level 6</span>
+      <h2>Mini Project 2: Countdown Timer</h2>
+
+      <p>
+        A countdown starts from a number and decreases every second.
+      </p>
+
+      <div class="demo">
+        <h3>Countdown</h3>
+
+        <input id="countdownInput" type="number" min="1" value="10" />
+
+        <div class="controls">
+          <button class="good" onclick="startCountdown()">Start Countdown</button>
+          <button class="stop" onclick="stopCountdown()">Stop Countdown</button>
+        </div>
+
+        <div class="big-number" id="countdownValue">10</div>
+        <div id="countdownOutput" class="output">Ready.</div>
+      </div>
+    </section>
+
+    <section>
+      <span class="level">Level 7</span>
+      <h2>Mini Project 3: Traffic Light</h2>
+
+      <p>
+        We can use <code>setInterval()</code> to keep changing the active light.
+      </p>
+
+      <div class="demo">
+        <h3>Traffic Light Simulation</h3>
+
+        <div class="traffic-light">
+          <div id="redLight" class="light red active"></div>
+          <div id="yellowLight" class="light yellow"></div>
+          <div id="greenLight" class="light green"></div>
+        </div>
+
+        <div class="controls">
+          <button class="good" onclick="startTrafficLight()">Start Traffic Light</button>
+          <button class="stop" onclick="stopTrafficLight()">Stop Traffic Light</button>
+        </div>
+
+        <div id="trafficOutput" class="output">Traffic light is ready.</div>
+      </div>
+    </section>
+
+    <section>
+      <span class="level">Level 8</span>
+      <h2>Mini Project 4: Simple Animation</h2>
+
+      <p>
+        Before modern animation tools, many animations used <code>setInterval()</code>.
+      </p>
+
+      <div class="demo">
+        <h3>Moving Box</h3>
+
+        <div class="box-stage">
+          <div id="movingBox" class="moving-box"></div>
+        </div>
+
+        <div class="controls">
+          <button class="good" onclick="startBoxAnimation()">Start Animation</button>
+          <button class="stop" onclick="stopBoxAnimation()">Stop Animation</button>
+          <button onclick="resetBoxAnimation()">Reset</button>
+        </div>
+
+        <div id="boxOutput" class="output">Box is ready.</div>
+      </div>
+
+      <div class="note">
+        For professional animation, <code>requestAnimationFrame()</code> is usually better.
+        But <code>setInterval()</code> is excellent for learning timer logic.
+      </div>
+    </section>
+
+    <section>
+      <span class="level">Level 9</span>
+      <h2>setTimeout Recursion</h2>
+
+      <p>
+        Sometimes, instead of <code>setInterval()</code>, programmers use repeated
+        <code>setTimeout()</code>.
+      </p>
+
+      <pre><code>function repeatWork() {
+  console.log("Work done");
+
+  setTimeout(repeatWork, 1000);
+}
+
+repeatWork();</code></pre>
+
+      <p>
+        This calls the function, waits 1 second, then calls it again.
+      </p>
+
+      <div class="success">
+        This is useful when the next delay depends on the result of the previous task.
+      </div>
+    </section>
+
+    <section id="mistakes">
+      <span class="level">Level 10</span>
+      <h2>Common Mistakes</h2>
+
+      <h3>Mistake 1: Calling the Function Immediately</h3>
+
+      <pre><code>// Wrong
+setTimeout(sayHello(), 1000);
+
+// Correct
+setTimeout(sayHello, 1000);</code></pre>
+
+      <p>
+        In the wrong version, <code>sayHello()</code> runs immediately.
+        In the correct version, JavaScript receives the function and runs it later.
+      </p>
+
+      <h3>Mistake 2: Forgetting to Stop an Interval</h3>
+
+      <pre><code>let id = setInterval(() => {
+  console.log("Running forever");
+}, 1000);
+
+// Stop it when needed
+clearInterval(id);</code></pre>
+
+      <h3>Mistake 3: Starting the Same Interval Many Times</h3>
+
+      <p>
+        If a user clicks the start button 10 times, 10 intervals may start.
+        Always check whether an interval is already running.
+      </p>
+
+      <pre><code>if (intervalId === null) {
+  intervalId = setInterval(work, 1000);
+}</code></pre>
+    </section>
+
+    <section>
+      <span class="level">Infinity Level</span>
+      <h2>How JavaScript Actually Handles Timers</h2>
+
+      <p>
+        JavaScript uses an event loop. Timer functions are not guaranteed to run at the exact millisecond.
+        They run when the main thread is free.
+      </p>
+
+      <pre><code>console.log("Start");
+
+setTimeout(() => {
+  console.log("Timer");
+}, 0);
+
+console.log("End");</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>Start
+End
+Timer</code></pre>
+
+      <div class="note">
+        Even with 0 milliseconds, <code>setTimeout()</code> waits until the current code finishes.
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Function</th>
+            <th>Purpose</th>
+            <th>Runs How Many Times?</th>
+            <th>Stopped By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>setTimeout()</code></td>
+            <td>Run code after a delay</td>
+            <td>Once</td>
+            <td><code>clearTimeout()</code></td>
+          </tr>
+          <tr>
+            <td><code>setInterval()</code></td>
+            <td>Run code repeatedly</td>
+            <td>Again and again</td>
+            <td><code>clearInterval()</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="practice">
+      <span class="level">Practice</span>
+      <h2>Practice Tasks</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Beginner</h3>
+          <p>Show “Welcome” after 2 seconds using <code>setTimeout()</code>.</p>
+        </div>
+
+        <div class="card">
+          <h3>Beginner Plus</h3>
+          <p>Print numbers from 1 to 10, one number every second.</p>
+        </div>
+
+        <div class="card">
+          <h3>Intermediate</h3>
+          <p>Make a countdown from 30 to 0 and show “Time over”.</p>
+        </div>
+
+        <div class="card">
+          <h3>Advanced</h3>
+          <p>Make a quiz where each question has a 10-second timer.</p>
+        </div>
+
+        <div class="card">
+          <h3>Infinity</h3>
+          <p>Make a typing game where a new word appears every 3 seconds.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="level">Embedded Editor</span>
+      <h2>Practice in the JavaScript Console</h2>
+
+      <p>
+        Open the browser console using <strong>F12</strong> or right click and choose
+        <strong>Inspect</strong>. Then try small timer examples.
+      </p>
+
+      <pre><code>setTimeout(() => {
+  alert("You waited 3 seconds!");
+}, 3000);</code></pre>
+
+      <pre><code>let n = 1;
+
+let id = setInterval(() => {
+  console.log(n);
+  n++;
+
+  if (n > 5) {
+    clearInterval(id);
+  }
+}, 1000);</code></pre>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Programmer's Picnic AI-ML Classes by Champak Roy</strong></p>
+    <p>JavaScript Timers: From 0 to Infinity</p>
+  </footer>
+
+  <script>
+    /*
+      JavaScript Timer Lesson Script
+      Author: Champak Roy
+      Topic: setTimeout and setInterval
+    */
+
+    // -----------------------------
+    // setTimeout Demo
+    // -----------------------------
+    function showDelayedMessage() {
+      const output = document.getElementById("timeoutOutput");
+      output.textContent = "Timer started. Wait for 3 seconds...";
+
+      setTimeout(function () {
+        output.textContent = "Hello! This message appeared after 3 seconds.";
+      }, 3000);
+    }
+
+    // -----------------------------
+    // setInterval Counter Demo
+    // -----------------------------
+    let counter = 0;
+    let counterIntervalId = null;
+
+    function startCounter() {
+      const output = document.getElementById("counterOutput");
+
+      if (counterIntervalId !== null) {
+        output.textContent = "Counter is already running.";
+        return;
+      }
+
+      output.textContent = "Counter is running...";
+
+      counterIntervalId = setInterval(function () {
+        counter++;
+        document.getElementById("counterValue").textContent = counter;
+      }, 1000);
+    }
+
+    function stopCounter() {
+      clearInterval(counterIntervalId);
+      counterIntervalId = null;
+      document.getElementById("counterOutput").textContent = "Counter stopped.";
+    }
+
+    function resetCounter() {
+      stopCounter();
+      counter = 0;
+      document.getElementById("counterValue").textContent = counter;
+      document.getElementById("counterOutput").textContent = "Counter reset.";
+    }
+
+    // -----------------------------
+    // Cancel setTimeout Demo
+    // -----------------------------
+    let cancelableTimeoutId = null;
+
+    function startCancelableTimeout() {
+      const output = document.getElementById("cancelOutput");
+      output.textContent = "Message will appear after 5 seconds unless cancelled.";
+
+      cancelableTimeoutId = setTimeout(function () {
+        output.textContent = "The delayed message has appeared.";
+        cancelableTimeoutId = null;
+      }, 5000);
+    }
+
+    function cancelTimeout() {
+      if (cancelableTimeoutId === null) {
+        document.getElementById("cancelOutput").textContent = "No active timeout to cancel.";
+        return;
+      }
+
+      clearTimeout(cancelableTimeoutId);
+      cancelableTimeoutId = null;
+      document.getElementById("cancelOutput").textContent = "The timeout was cancelled.";
+    }
+
+    // -----------------------------
+    // Passing Argument Demo
+    // -----------------------------
+    function delayedGreeting() {
+      const nameInput = document.getElementById("nameInput");
+      const output = document.getElementById("greetOutput");
+
+      const name = nameInput.value.trim();
+
+      if (name === "") {
+        output.textContent = "Please enter a name first.";
+        return;
+      }
+
+      output.textContent = "Greeting will appear after 2 seconds...";
+
+      setTimeout(function (personName) {
+        output.textContent = "Hello, " + personName + "! Welcome to JavaScript timers.";
+      }, 2000, name);
+    }
+
+    // -----------------------------
+    // Digital Clock
+    // -----------------------------
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").textContent = now.toLocaleTimeString();
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // -----------------------------
+    // Countdown Timer
+    // -----------------------------
+    let countdownIntervalId = null;
+    let countdownNumber = 10;
+
+    function startCountdown() {
+      const input = document.getElementById("countdownInput");
+      const output = document.getElementById("countdownOutput");
+
+      if (countdownIntervalId !== null) {
+        output.textContent = "Countdown is already running.";
+        return;
+      }
+
+      countdownNumber = Number(input.value);
+
+      if (countdownNumber <= 0 || Number.isNaN(countdownNumber)) {
+        output.textContent = "Please enter a positive number.";
+        return;
+      }
+
+      document.getElementById("countdownValue").textContent = countdownNumber;
+      output.textContent = "Countdown started.";
+
+      countdownIntervalId = setInterval(function () {
+        countdownNumber--;
+        document.getElementById("countdownValue").textContent = countdownNumber;
+
+        if (countdownNumber <= 0) {
+          clearInterval(countdownIntervalId);
+          countdownIntervalId = null;
+          output.textContent = "Time over!";
+        }
+      }, 1000);
+    }
+
+    function stopCountdown() {
+      clearInterval(countdownIntervalId);
+      countdownIntervalId = null;
+      document.getElementById("countdownOutput").textContent = "Countdown stopped.";
+    }
+
+    // -----------------------------
+    // Traffic Light
+    // -----------------------------
+    let trafficIntervalId = null;
+    let trafficIndex = 0;
+
+    const trafficStates = ["red", "yellow", "green"];
+
+    function showTrafficLight(color) {
+      document.getElementById("redLight").classList.remove("active");
+      document.getElementById("yellowLight").classList.remove("active");
+      document.getElementById("greenLight").classList.remove("active");
+
+      if (color === "red") {
+        document.getElementById("redLight").classList.add("active");
+      } else if (color === "yellow") {
+        document.getElementById("yellowLight").classList.add("active");
+      } else if (color === "green") {
+        document.getElementById("greenLight").classList.add("active");
+      }
+
+      document.getElementById("trafficOutput").textContent =
+        "Current light: " + color.toUpperCase();
+    }
+
+    function startTrafficLight() {
+      if (trafficIntervalId !== null) {
+        document.getElementById("trafficOutput").textContent =
+          "Traffic light is already running.";
+        return;
+      }
+
+      trafficIntervalId = setInterval(function () {
+        trafficIndex = (trafficIndex + 1) % trafficStates.length;
+        showTrafficLight(trafficStates[trafficIndex]);
+      }, 1500);
+    }
+
+    function stopTrafficLight() {
+      clearInterval(trafficIntervalId);
+      trafficIntervalId = null;
+      document.getElementById("trafficOutput").textContent =
+        "Traffic light stopped.";
+    }
+
+    // -----------------------------
+    // Moving Box Animation
+    // -----------------------------
+    let boxIntervalId = null;
+    let boxPosition = 0;
+
+    function startBoxAnimation() {
+      const box = document.getElementById("movingBox");
+      const output = document.getElementById("boxOutput");
+
+      if (boxIntervalId !== null) {
+        output.textContent = "Animation is already running.";
+        return;
+      }
+
+      output.textContent = "Animation running...";
+
+      boxIntervalId = setInterval(function () {
+        boxPosition += 5;
+
+        if (boxPosition > 1000) {
+          boxPosition = 0;
+        }
+
+        box.style.left = boxPosition + "px";
+      }, 30);
+    }
+
+    function stopBoxAnimation() {
+      clearInterval(boxIntervalId);
+      boxIntervalId = null;
+      document.getElementById("boxOutput").textContent = "Animation stopped.";
+    }
+
+    function resetBoxAnimation() {
+      stopBoxAnimation();
+      boxPosition = 0;
+      document.getElementById("movingBox").style.left = "0px";
+      document.getElementById("boxOutput").textContent = "Animation reset.";
+    }
+  </script>
+</body>
+</html>
