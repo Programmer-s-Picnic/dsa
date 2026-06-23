@@ -8,18 +8,18 @@
 
   <meta
     name="description"
-    content="A complete 0 to Infinity JavaScript lesson on setTimeout and setInterval with examples, timers, counters, animation, mistakes, and practice tasks."
+    content="A complete 0 to Infinity JavaScript lesson on setTimeout and setInterval with many full-code examples, live demos, timers, counters, countdowns, clocks, animations, mistakes, and practice tasks."
   />
   <meta
     name="keywords"
-    content="JavaScript setTimeout, JavaScript setInterval, JavaScript timers, clearTimeout, clearInterval, async JavaScript, beginner JavaScript lesson"
+    content="JavaScript setTimeout, JavaScript setInterval, clearTimeout, clearInterval, JavaScript timers, countdown timer, digital clock, JavaScript animation, beginner JavaScript lesson"
   />
   <meta name="author" content="Champak Roy" />
 
   <meta property="og:title" content="JavaScript setTimeout and setInterval | 0 to Infinity Lesson" />
   <meta
     property="og:description"
-    content="Learn JavaScript timers from zero to advanced level with live examples and practice."
+    content="Learn JavaScript timers from zero to advanced level with many full-code examples and live practice."
   />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://learnwithchampak.live/og-js-timers.png" />
@@ -38,7 +38,7 @@
       --hero-dark: #075b52;
       --hero-mid: #0f766e;
       --hero-light: #5eead4;
-      --card: rgba(255, 255, 255, 0.76);
+      --card: rgba(255, 255, 255, 0.78);
       --pill: #d9fbf4;
       --pill-hover: #c2f4ea;
       --text: #073f3a;
@@ -50,6 +50,7 @@
       --green: #0f766e;
       --red: #dc2626;
       --blue: #0891b2;
+      --yellow: #facc15;
     }
 
     * {
@@ -105,11 +106,11 @@
       line-height: 1.05;
       letter-spacing: -0.08em;
       margin: 0 0 28px;
-      max-width: 800px;
+      max-width: 850px;
     }
 
     header p {
-      max-width: 850px;
+      max-width: 900px;
       margin: 0;
       font-size: clamp(1.15rem, 3vw, 1.75rem);
       line-height: 1.75;
@@ -386,6 +387,58 @@
       box-shadow: 0 12px 25px rgba(7, 91, 82, 0.22);
     }
 
+    .typing-word {
+      font-size: 2rem;
+      font-weight: 950;
+      text-align: center;
+      background: #d9fbf4;
+      padding: 20px;
+      border-radius: 18px;
+    }
+
+    .progress-wrap {
+      height: 26px;
+      background: #ccfbf1;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(15, 118, 110, 0.18);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #0f766e, #14b8a6);
+      transition: width 0.2s linear;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: #063936;
+      color: white;
+      padding: 16px 20px;
+      border-radius: 18px;
+      box-shadow: 0 22px 50px rgba(7, 91, 82, 0.25);
+      transform: translateY(140%);
+      transition: transform 0.3s ease;
+      z-index: 100;
+      max-width: 320px;
+      font-weight: 800;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+    }
+
+    .quiz-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 8px 0;
+      border-radius: 14px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -404,6 +457,14 @@
     th {
       background: #d9fbf4;
       color: #075b52;
+    }
+
+    iframe {
+      width: 100%;
+      min-height: 520px;
+      border: 1px solid rgba(15, 118, 110, 0.2);
+      border-radius: 24px;
+      background: white;
     }
 
     footer {
@@ -468,7 +529,8 @@
     <h1>JavaScript Timer Thinking</h1>
     <p>
       Learn setTimeout, setInterval, clearTimeout, clearInterval, countdowns,
-      clocks, traffic lights, animations, and real-world timer logic.
+      clocks, traffic lights, animations, typing games, progress bars, toast messages,
+      quiz timers, and real-world timer logic.
     </p>
   </header>
 
@@ -477,13 +539,12 @@
     <a href="#timeout">setTimeout</a>
     <a href="#interval">setInterval</a>
     <a href="#clear">Clear Timers</a>
-    <a href="#arguments">Arguments</a>
-    <a href="#clock">Clock</a>
-    <a href="#countdown">Countdown</a>
-    <a href="#traffic">Traffic Light</a>
-    <a href="#animation">Animation</a>
+    <a href="#fullcode">Full Code Examples</a>
+    <a href="#projects">Live Projects</a>
     <a href="#mistakes">Mistakes</a>
+    <a href="#infinity">Infinity</a>
     <a href="#practice">Practice</a>
+    <a href="#editor">Editor</a>
   </nav>
 
   <main>
@@ -540,6 +601,18 @@ Third</code></pre>
           <p>Update a clock every second.</p>
           <p>Use <code>setInterval()</code>.</p>
         </div>
+
+        <div class="card">
+          <h3>Stop a Delayed Task</h3>
+          <p>Cancel a message before it appears.</p>
+          <p>Use <code>clearTimeout()</code>.</p>
+        </div>
+
+        <div class="card">
+          <h3>Stop a Repeating Task</h3>
+          <p>Stop a counter, clock, or animation.</p>
+          <p>Use <code>clearInterval()</code>.</p>
+        </div>
       </div>
 
       <div class="note">
@@ -566,11 +639,17 @@ Third</code></pre>
         1000 milliseconds = 1 second.
       </p>
 
-      <h3>Example</h3>
+      <h3>Simple Example</h3>
 
       <pre><code>setTimeout(function() {
   console.log("Hello after 3 seconds");
 }, 3000);</code></pre>
+
+      <h3>Arrow Function Example</h3>
+
+      <pre><code>setTimeout(() => {
+  console.log("This also runs later");
+}, 2000);</code></pre>
 
       <div class="demo">
         <h3>Live Demo: Delayed Message</h3>
@@ -582,12 +661,6 @@ Third</code></pre>
 
         <div id="timeoutOutput" class="output">Waiting for action...</div>
       </div>
-
-      <h3>Arrow Function Version</h3>
-
-      <pre><code>setTimeout(() => {
-  console.log("This also runs later");
-}, 2000);</code></pre>
 
       <div class="note">
         <strong>Important:</strong> <code>setTimeout()</code> does not pause JavaScript.
@@ -686,42 +759,583 @@ clearInterval(intervalId);</code></pre>
       </div>
     </section>
 
-    <section id="arguments">
-      <span class="level">Level 4</span>
-      <h2>Passing Arguments to Timer Functions</h2>
+    <section id="fullcode">
+      <span class="level">Full Code Example 1</span>
+      <h2>Complete Page: Show Message After 3 Seconds</h2>
 
       <p>
-        We can pass values into the function called by <code>setTimeout()</code>.
+        This is the smallest complete HTML page using <code>setTimeout()</code>.
       </p>
 
-      <pre><code>function greet(name) {
-  console.log("Hello " + name);
-}
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;setTimeout Message&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;setTimeout Example&lt;/h1&gt;
 
-setTimeout(greet, 2000, "Champak");</code></pre>
+  &lt;button onclick="showLater()"&gt;Show Message After 3 Seconds&lt;/button&gt;
 
-      <p>
-        After 2 seconds, it prints:
-      </p>
+  &lt;p id="message"&gt;Waiting...&lt;/p&gt;
 
-      <pre><code>Hello Champak</code></pre>
+  &lt;script&gt;
+    function showLater() {
+      document.getElementById("message").textContent = "Timer started...";
 
-      <div class="demo">
-        <h3>Live Demo: Personalized Greeting</h3>
-
-        <input id="nameInput" type="text" placeholder="Enter your name" />
-
-        <div class="controls">
-          <button onclick="delayedGreeting()">Greet After 2 Seconds</button>
-        </div>
-
-        <div id="greetOutput" class="output">Enter a name and click the button.</div>
-      </div>
+      setTimeout(function () {
+        document.getElementById("message").textContent =
+          "Hello! I appeared after 3 seconds.";
+      }, 3000);
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </section>
 
-    <section id="clock">
-      <span class="level">Level 5</span>
-      <h2>Mini Project 1: Digital Clock</h2>
+    <section>
+      <span class="level">Full Code Example 2</span>
+      <h2>Complete Page: Cancel a setTimeout</h2>
+
+      <p>
+        A delayed action can be cancelled using <code>clearTimeout()</code>.
+      </p>
+
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Cancel Timeout&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Cancel setTimeout Example&lt;/h1&gt;
+
+  &lt;button onclick="startTimer()"&gt;Start 5 Second Timer&lt;/button&gt;
+  &lt;button onclick="cancelTimer()"&gt;Cancel Timer&lt;/button&gt;
+
+  &lt;p id="result"&gt;No timer started.&lt;/p&gt;
+
+  &lt;script&gt;
+    let timerId = null;
+
+    function startTimer() {
+      document.getElementById("result").textContent =
+        "Timer started. Message will appear after 5 seconds.";
+
+      timerId = setTimeout(function () {
+        document.getElementById("result").textContent =
+          "The timer completed.";
+        timerId = null;
+      }, 5000);
+    }
+
+    function cancelTimer() {
+      if (timerId === null) {
+        document.getElementById("result").textContent =
+          "There is no active timer to cancel.";
+        return;
+      }
+
+      clearTimeout(timerId);
+      timerId = null;
+
+      document.getElementById("result").textContent =
+        "Timer cancelled.";
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section>
+      <span class="level">Full Code Example 3</span>
+      <h2>Complete Page: Repeating Counter</h2>
+
+      <p>
+        This page uses <code>setInterval()</code> and <code>clearInterval()</code>.
+      </p>
+
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Counter with setInterval&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Counter&lt;/h1&gt;
+
+  &lt;h2 id="counter"&gt;0&lt;/h2&gt;
+
+  &lt;button onclick="startCounter()"&gt;Start&lt;/button&gt;
+  &lt;button onclick="stopCounter()"&gt;Stop&lt;/button&gt;
+  &lt;button onclick="resetCounter()"&gt;Reset&lt;/button&gt;
+
+  &lt;p id="status"&gt;Stopped.&lt;/p&gt;
+
+  &lt;script&gt;
+    let count = 0;
+    let intervalId = null;
+
+    function startCounter() {
+      if (intervalId !== null) {
+        document.getElementById("status").textContent =
+          "Already running.";
+        return;
+      }
+
+      document.getElementById("status").textContent = "Running...";
+
+      intervalId = setInterval(function () {
+        count++;
+        document.getElementById("counter").textContent = count;
+      }, 1000);
+    }
+
+    function stopCounter() {
+      clearInterval(intervalId);
+      intervalId = null;
+      document.getElementById("status").textContent = "Stopped.";
+    }
+
+    function resetCounter() {
+      stopCounter();
+      count = 0;
+      document.getElementById("counter").textContent = count;
+      document.getElementById("status").textContent = "Reset.";
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section>
+      <span class="level">Full Code Example 4</span>
+      <h2>Complete Page: Digital Clock</h2>
+
+      <p>
+        A digital clock updates every second.
+      </p>
+
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Digital Clock&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+
+    #clock {
+      font-size: 48px;
+      font-weight: bold;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Digital Clock&lt;/h1&gt;
+  &lt;div id="clock"&gt;--:--:--&lt;/div&gt;
+
+  &lt;script&gt;
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").textContent =
+        now.toLocaleTimeString();
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section>
+      <span class="level">Full Code Example 5</span>
+      <h2>Complete Page: Countdown Timer</h2>
+
+      <p>
+        A countdown is one of the most useful <code>setInterval()</code> projects.
+      </p>
+
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Countdown Timer&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Countdown Timer&lt;/h1&gt;
+
+  &lt;input id="secondsInput" type="number" value="10" min="1" /&gt;
+
+  &lt;button onclick="startCountdown()"&gt;Start&lt;/button&gt;
+  &lt;button onclick="stopCountdown()"&gt;Stop&lt;/button&gt;
+
+  &lt;h2 id="display"&gt;10&lt;/h2&gt;
+  &lt;p id="status"&gt;Ready.&lt;/p&gt;
+
+  &lt;script&gt;
+    let seconds = 10;
+    let intervalId = null;
+
+    function startCountdown() {
+      if (intervalId !== null) {
+        document.getElementById("status").textContent =
+          "Countdown already running.";
+        return;
+      }
+
+      seconds = Number(document.getElementById("secondsInput").value);
+
+      if (seconds &lt;= 0 || Number.isNaN(seconds)) {
+        document.getElementById("status").textContent =
+          "Enter a positive number.";
+        return;
+      }
+
+      document.getElementById("display").textContent = seconds;
+      document.getElementById("status").textContent = "Running...";
+
+      intervalId = setInterval(function () {
+        seconds--;
+        document.getElementById("display").textContent = seconds;
+
+        if (seconds &lt;= 0) {
+          clearInterval(intervalId);
+          intervalId = null;
+          document.getElementById("status").textContent = "Time over!";
+        }
+      }, 1000);
+    }
+
+    function stopCountdown() {
+      clearInterval(intervalId);
+      intervalId = null;
+      document.getElementById("status").textContent = "Stopped.";
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section>
+      <span class="level">Full Code Example 6</span>
+      <h2>Complete Page: Auto-Hide Toast Message</h2>
+
+      <p>
+        Toast messages are small notifications. They often disappear automatically using <code>setTimeout()</code>.
+      </p>
+
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Toast Message&lt;/title&gt;
+  &lt;style&gt;
+    #toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: black;
+      color: white;
+      padding: 14px 18px;
+      border-radius: 10px;
+      transform: translateY(150%);
+      transition: transform 0.3s ease;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Toast Message Example&lt;/h1&gt;
+
+  &lt;button onclick="showToast()"&gt;Show Toast&lt;/button&gt;
+
+  &lt;div id="toast"&gt;Saved successfully!&lt;/div&gt;
+
+  &lt;script&gt;
+    let toastTimer = null;
+
+    function showToast() {
+      const toast = document.getElementById("toast");
+
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(function () {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section>
+      <span class="level">Full Code Example 7</span>
+      <h2>Complete Page: Typing Game</h2>
+
+      <p>
+        This game changes the word every 3 seconds.
+      </p>
+
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Typing Game&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Typing Game&lt;/h1&gt;
+
+  &lt;h2 id="word"&gt;apple&lt;/h2&gt;
+
+  &lt;input id="typed" type="text" placeholder="Type the word" /&gt;
+
+  &lt;button onclick="startGame()"&gt;Start Game&lt;/button&gt;
+  &lt;button onclick="stopGame()"&gt;Stop Game&lt;/button&gt;
+
+  &lt;p&gt;Score: &lt;span id="score"&gt;0&lt;/span&gt;&lt;/p&gt;
+  &lt;p id="status"&gt;Ready.&lt;/p&gt;
+
+  &lt;script&gt;
+    const words = ["apple", "mango", "timer", "clock", "button"];
+    let currentWord = "apple";
+    let score = 0;
+    let intervalId = null;
+
+    function pickWord() {
+      const index = Math.floor(Math.random() * words.length);
+      currentWord = words[index];
+      document.getElementById("word").textContent = currentWord;
+      document.getElementById("typed").value = "";
+      document.getElementById("typed").focus();
+    }
+
+    function startGame() {
+      if (intervalId !== null) {
+        return;
+      }
+
+      score = 0;
+      document.getElementById("score").textContent = score;
+      document.getElementById("status").textContent = "Game running.";
+
+      pickWord();
+
+      intervalId = setInterval(function () {
+        const typed = document.getElementById("typed").value.trim();
+
+        if (typed === currentWord) {
+          score++;
+          document.getElementById("score").textContent = score;
+        }
+
+        pickWord();
+      }, 3000);
+    }
+
+    function stopGame() {
+      clearInterval(intervalId);
+      intervalId = null;
+      document.getElementById("status").textContent = "Game stopped.";
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section>
+      <span class="level">Full Code Example 8</span>
+      <h2>Complete Page: Progress Bar</h2>
+
+      <p>
+        A progress bar grows repeatedly until it reaches 100%.
+      </p>
+
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Progress Bar&lt;/title&gt;
+  &lt;style&gt;
+    .box {
+      width: 100%;
+      height: 28px;
+      background: #ddd;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    #bar {
+      height: 100%;
+      width: 0%;
+      background: green;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Progress Bar&lt;/h1&gt;
+
+  &lt;div class="box"&gt;
+    &lt;div id="bar"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;p id="status"&gt;0%&lt;/p&gt;
+
+  &lt;button onclick="startProgress()"&gt;Start&lt;/button&gt;
+  &lt;button onclick="resetProgress()"&gt;Reset&lt;/button&gt;
+
+  &lt;script&gt;
+    let width = 0;
+    let intervalId = null;
+
+    function startProgress() {
+      if (intervalId !== null) {
+        return;
+      }
+
+      intervalId = setInterval(function () {
+        width++;
+
+        document.getElementById("bar").style.width = width + "%";
+        document.getElementById("status").textContent = width + "%";
+
+        if (width &gt;= 100) {
+          clearInterval(intervalId);
+          intervalId = null;
+          document.getElementById("status").textContent = "Complete!";
+        }
+      }, 50);
+    }
+
+    function resetProgress() {
+      clearInterval(intervalId);
+      intervalId = null;
+      width = 0;
+      document.getElementById("bar").style.width = "0%";
+      document.getElementById("status").textContent = "0%";
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section>
+      <span class="level">Full Code Example 9</span>
+      <h2>Complete Page: Quiz Timer</h2>
+
+      <p>
+        Each quiz question can have a timer. Here we make a 10-second quiz timer.
+      </p>
+
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Quiz Timer&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Quiz Timer&lt;/h1&gt;
+
+  &lt;h2&gt;What does setInterval do?&lt;/h2&gt;
+
+  &lt;button onclick="answer(false)"&gt;Runs code once&lt;/button&gt;
+  &lt;button onclick="answer(true)"&gt;Runs code repeatedly&lt;/button&gt;
+
+  &lt;h3&gt;Time Left: &lt;span id="time"&gt;10&lt;/span&gt;&lt;/h3&gt;
+  &lt;p id="result"&gt;Choose an answer.&lt;/p&gt;
+
+  &lt;script&gt;
+    let timeLeft = 10;
+    let intervalId = setInterval(function () {
+      timeLeft--;
+      document.getElementById("time").textContent = timeLeft;
+
+      if (timeLeft &lt;= 0) {
+        clearInterval(intervalId);
+        document.getElementById("result").textContent =
+          "Time over!";
+      }
+    }, 1000);
+
+    function answer(isCorrect) {
+      clearInterval(intervalId);
+
+      if (isCorrect) {
+        document.getElementById("result").textContent = "Correct!";
+      } else {
+        document.getElementById("result").textContent = "Wrong answer.";
+      }
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section>
+      <span class="level">Full Code Example 10</span>
+      <h2>Complete Page: Debounced Search</h2>
+
+      <p>
+        Debouncing means waiting until the user stops typing. This is useful for search boxes.
+      </p>
+
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;Debounced Search&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Debounced Search&lt;/h1&gt;
+
+  &lt;input id="search" type="text" placeholder="Type to search..." /&gt;
+
+  &lt;p id="output"&gt;Search result will appear here.&lt;/p&gt;
+
+  &lt;script&gt;
+    const searchInput = document.getElementById("search");
+    const output = document.getElementById("output");
+
+    let timerId = null;
+
+    searchInput.addEventListener("input", function () {
+      output.textContent = "Typing...";
+
+      clearTimeout(timerId);
+
+      timerId = setTimeout(function () {
+        output.textContent =
+          "Searching for: " + searchInput.value;
+      }, 600);
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section id="projects">
+      <span class="level">Live Project 1</span>
+      <h2>Digital Clock</h2>
 
       <p>
         A digital clock is a perfect use case for <code>setInterval()</code>.
@@ -739,9 +1353,9 @@ setTimeout(greet, 2000, "Champak");</code></pre>
       </div>
     </section>
 
-    <section id="countdown">
-      <span class="level">Level 6</span>
-      <h2>Mini Project 2: Countdown Timer</h2>
+    <section>
+      <span class="level">Live Project 2</span>
+      <h2>Countdown Timer</h2>
 
       <p>
         A countdown starts from a number and decreases every second.
@@ -762,9 +1376,9 @@ setTimeout(greet, 2000, "Champak");</code></pre>
       </div>
     </section>
 
-    <section id="traffic">
-      <span class="level">Level 7</span>
-      <h2>Mini Project 3: Traffic Light</h2>
+    <section>
+      <span class="level">Live Project 3</span>
+      <h2>Traffic Light</h2>
 
       <p>
         We can use <code>setInterval()</code> to keep changing the active light.
@@ -788,9 +1402,9 @@ setTimeout(greet, 2000, "Champak");</code></pre>
       </div>
     </section>
 
-    <section id="animation">
-      <span class="level">Level 8</span>
-      <h2>Mini Project 4: Simple Animation</h2>
+    <section>
+      <span class="level">Live Project 4</span>
+      <h2>Simple Animation</h2>
 
       <p>
         Before modern animation tools, many animations used <code>setInterval()</code>.
@@ -819,28 +1433,99 @@ setTimeout(greet, 2000, "Champak");</code></pre>
     </section>
 
     <section>
-      <span class="level">Level 9</span>
-      <h2>setTimeout Recursion</h2>
+      <span class="level">Live Project 5</span>
+      <h2>Toast Message</h2>
 
       <p>
-        Sometimes, instead of <code>setInterval()</code>, programmers use repeated
-        <code>setTimeout()</code>.
+        Click the button. A toast message appears and hides automatically after 3 seconds.
       </p>
 
-      <pre><code>function repeatWork() {
-  console.log("Work done");
+      <div class="demo">
+        <div class="controls">
+          <button onclick="showToast()">Show Toast Message</button>
+        </div>
+        <div class="output">The toast will appear at the bottom-right corner.</div>
+      </div>
+    </section>
 
-  setTimeout(repeatWork, 1000);
-}
-
-repeatWork();</code></pre>
+    <section>
+      <span class="level">Live Project 6</span>
+      <h2>Progress Bar</h2>
 
       <p>
-        This calls the function, waits 1 second, then calls it again.
+        This progress bar uses <code>setInterval()</code> and stops at 100%.
       </p>
 
-      <div class="success">
-        This is useful when the next delay depends on the result of the previous task.
+      <div class="demo">
+        <div class="progress-wrap">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <div class="controls">
+          <button class="good" onclick="startProgress()">Start Progress</button>
+          <button onclick="resetProgress()">Reset Progress</button>
+        </div>
+
+        <div id="progressOutput" class="output">0%</div>
+      </div>
+    </section>
+
+    <section>
+      <span class="level">Live Project 7</span>
+      <h2>Typing Game</h2>
+
+      <p>
+        A new word appears every 3 seconds. Type the word before it changes.
+      </p>
+
+      <div class="demo">
+        <div id="typingWord" class="typing-word">timer</div>
+
+        <input id="typingInput" type="text" placeholder="Type the word here" />
+
+        <div class="controls">
+          <button class="good" onclick="startTypingGame()">Start Game</button>
+          <button class="stop" onclick="stopTypingGame()">Stop Game</button>
+        </div>
+
+        <div id="typingOutput" class="output">Score: 0</div>
+      </div>
+    </section>
+
+    <section>
+      <span class="level">Live Project 8</span>
+      <h2>Quiz Timer</h2>
+
+      <p>
+        This quiz gives you 10 seconds to answer.
+      </p>
+
+      <div class="demo">
+        <h3>Question: What does setTimeout do?</h3>
+
+        <button class="quiz-option" onclick="answerQuiz(false)">It repeats code forever.</button>
+        <button class="quiz-option" onclick="answerQuiz(true)">It runs code once after a delay.</button>
+        <button class="quiz-option" onclick="answerQuiz(false)">It changes CSS only.</button>
+
+        <div class="controls">
+          <button class="good" onclick="startQuizTimer()">Restart Quiz Timer</button>
+        </div>
+
+        <div id="quizOutput" class="output">Click restart to begin. Time left: 10</div>
+      </div>
+    </section>
+
+    <section>
+      <span class="level">Live Project 9</span>
+      <h2>Debounced Search</h2>
+
+      <p>
+        The search result updates only after you stop typing for 600 milliseconds.
+      </p>
+
+      <div class="demo">
+        <input id="debounceInput" type="text" placeholder="Type something..." />
+        <div id="debounceOutput" class="output">Search result will appear here.</div>
       </div>
     </section>
 
@@ -880,16 +1565,8 @@ clearInterval(id);</code></pre>
       <pre><code>if (intervalId === null) {
   intervalId = setInterval(work, 1000);
 }</code></pre>
-    </section>
 
-    <section>
-      <span class="level">Infinity Level</span>
-      <h2>How JavaScript Actually Handles Timers</h2>
-
-      <p>
-        JavaScript uses an event loop. Timer functions are not guaranteed to run at the exact millisecond.
-        They run when the main thread is free.
-      </p>
+      <h3>Mistake 4: Thinking 0 Milliseconds Means Immediate</h3>
 
       <pre><code>console.log("Start");
 
@@ -904,9 +1581,42 @@ console.log("End");</code></pre>
       <pre><code>Start
 End
 Timer</code></pre>
+    </section>
+
+    <section id="infinity">
+      <span class="level">Infinity Level</span>
+      <h2>How JavaScript Actually Handles Timers</h2>
+
+      <p>
+        JavaScript uses an event loop. Timer functions are not guaranteed to run at the exact millisecond.
+        They run when the main thread is free.
+      </p>
 
       <div class="note">
         Even with 0 milliseconds, <code>setTimeout()</code> waits until the current code finishes.
+      </div>
+
+      <h3>setTimeout Recursion</h3>
+
+      <p>
+        Sometimes, instead of <code>setInterval()</code>, programmers use repeated
+        <code>setTimeout()</code>.
+      </p>
+
+      <pre><code>function repeatWork() {
+  console.log("Work done");
+
+  setTimeout(repeatWork, 1000);
+}
+
+repeatWork();</code></pre>
+
+      <p>
+        This calls the function, waits 1 second, then calls it again.
+      </p>
+
+      <div class="success">
+        This is useful when the next delay depends on the result of the previous task.
       </div>
 
       <table>
@@ -961,37 +1671,34 @@ Timer</code></pre>
         </div>
 
         <div class="card">
+          <h3>Advanced Plus</h3>
+          <p>Make a progress bar that pauses and resumes.</p>
+        </div>
+
+        <div class="card">
           <h3>Infinity</h3>
           <p>Make a typing game where a new word appears every 3 seconds.</p>
         </div>
       </div>
     </section>
 
-    <section>
-      <span class="level">Console Practice</span>
-      <h2>Practice in the JavaScript Console</h2>
+    <section id="editor">
+      <span class="level">Embedded Editor</span>
+      <h2>Practice in the HTML Editor</h2>
 
       <p>
-        Open the browser console using <strong>F12</strong> or right click and choose
-        <strong>Inspect</strong>. Then try small timer examples.
+        Use this editor to copy any full-code example and run it.
       </p>
 
-      <pre><code>setTimeout(() => {
-  alert("You waited 3 seconds!");
-}, 3000);</code></pre>
-
-      <pre><code>let n = 1;
-
-let id = setInterval(() => {
-  console.log(n);
-  n++;
-
-  if (n > 5) {
-    clearInterval(id);
-  }
-}, 1000);</code></pre>
+      <iframe
+        title="HTML JavaScript Editor"
+        src="https://editor.learnwithchampak.live/html/editor/super/"
+        loading="lazy">
+      </iframe>
     </section>
   </main>
+
+  <div id="toast" class="toast">Saved successfully!</div>
 
   <footer>
     <p><strong>Programmer's Picnic AI-ML Classes by Champak Roy</strong></p>
@@ -1076,27 +1783,6 @@ let id = setInterval(() => {
       clearTimeout(cancelableTimeoutId);
       cancelableTimeoutId = null;
       document.getElementById("cancelOutput").textContent = "The timeout was cancelled.";
-    }
-
-    // -----------------------------
-    // Passing Argument Demo
-    // -----------------------------
-    function delayedGreeting() {
-      const nameInput = document.getElementById("nameInput");
-      const output = document.getElementById("greetOutput");
-
-      const name = nameInput.value.trim();
-
-      if (name === "") {
-        output.textContent = "Please enter a name first.";
-        return;
-      }
-
-      output.textContent = "Greeting will appear after 2 seconds...";
-
-      setTimeout(function (personName) {
-        output.textContent = "Hello, " + personName + "! Welcome to JavaScript timers.";
-      }, 2000, name);
     }
 
     // -----------------------------
@@ -1241,6 +1927,199 @@ let id = setInterval(() => {
       document.getElementById("movingBox").style.left = "0px";
       document.getElementById("boxOutput").textContent = "Animation reset.";
     }
+
+    // -----------------------------
+    // Toast Message
+    // -----------------------------
+    let toastTimer = null;
+
+    function showToast() {
+      const toast = document.getElementById("toast");
+
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(function () {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+
+    // -----------------------------
+    // Progress Bar
+    // -----------------------------
+    let progressIntervalId = null;
+    let progressWidth = 0;
+
+    function startProgress() {
+      const bar = document.getElementById("progressBar");
+      const output = document.getElementById("progressOutput");
+
+      if (progressIntervalId !== null) {
+        output.textContent = "Progress is already running.";
+        return;
+      }
+
+      progressIntervalId = setInterval(function () {
+        progressWidth++;
+
+        bar.style.width = progressWidth + "%";
+        output.textContent = progressWidth + "%";
+
+        if (progressWidth >= 100) {
+          clearInterval(progressIntervalId);
+          progressIntervalId = null;
+          output.textContent = "Complete!";
+        }
+      }, 50);
+    }
+
+    function resetProgress() {
+      clearInterval(progressIntervalId);
+      progressIntervalId = null;
+      progressWidth = 0;
+
+      document.getElementById("progressBar").style.width = "0%";
+      document.getElementById("progressOutput").textContent = "0%";
+    }
+
+    // -----------------------------
+    // Typing Game
+    // -----------------------------
+    const typingWords = [
+      "timer",
+      "clock",
+      "button",
+      "delay",
+      "repeat",
+      "clear",
+      "event",
+      "loop"
+    ];
+
+    let typingCurrentWord = "timer";
+    let typingScore = 0;
+    let typingIntervalId = null;
+
+    function pickTypingWord() {
+      const randomIndex = Math.floor(Math.random() * typingWords.length);
+      typingCurrentWord = typingWords[randomIndex];
+
+      document.getElementById("typingWord").textContent = typingCurrentWord;
+      document.getElementById("typingInput").value = "";
+      document.getElementById("typingInput").focus();
+    }
+
+    function startTypingGame() {
+      if (typingIntervalId !== null) {
+        document.getElementById("typingOutput").textContent =
+          "Game already running. Score: " + typingScore;
+        return;
+      }
+
+      typingScore = 0;
+      pickTypingWord();
+
+      document.getElementById("typingOutput").textContent = "Score: 0";
+
+      typingIntervalId = setInterval(function () {
+        const typed = document.getElementById("typingInput").value.trim();
+
+        if (typed === typingCurrentWord) {
+          typingScore++;
+        }
+
+        document.getElementById("typingOutput").textContent =
+          "Score: " + typingScore;
+
+        pickTypingWord();
+      }, 3000);
+    }
+
+    function stopTypingGame() {
+      clearInterval(typingIntervalId);
+      typingIntervalId = null;
+
+      document.getElementById("typingOutput").textContent =
+        "Game stopped. Final score: " + typingScore;
+    }
+
+    // -----------------------------
+    // Quiz Timer
+    // -----------------------------
+    let quizTimeLeft = 10;
+    let quizIntervalId = null;
+    let quizAnswered = false;
+
+    function startQuizTimer() {
+      clearInterval(quizIntervalId);
+
+      quizTimeLeft = 10;
+      quizAnswered = false;
+
+      document.getElementById("quizOutput").textContent =
+        "Quiz started. Time left: " + quizTimeLeft;
+
+      quizIntervalId = setInterval(function () {
+        quizTimeLeft--;
+
+        document.getElementById("quizOutput").textContent =
+          "Time left: " + quizTimeLeft;
+
+        if (quizTimeLeft <= 0) {
+          clearInterval(quizIntervalId);
+          quizIntervalId = null;
+
+          if (!quizAnswered) {
+            document.getElementById("quizOutput").textContent =
+              "Time over!";
+          }
+        }
+      }, 1000);
+    }
+
+    function answerQuiz(isCorrect) {
+      if (quizIntervalId === null && !quizAnswered) {
+        document.getElementById("quizOutput").textContent =
+          "Start the quiz timer first.";
+        return;
+      }
+
+      quizAnswered = true;
+      clearInterval(quizIntervalId);
+      quizIntervalId = null;
+
+      if (isCorrect) {
+        document.getElementById("quizOutput").textContent =
+          "Correct! setTimeout runs code once after a delay.";
+      } else {
+        document.getElementById("quizOutput").textContent =
+          "Wrong. Try again.";
+      }
+    }
+
+    // -----------------------------
+    // Debounced Search
+    // -----------------------------
+    const debounceInput = document.getElementById("debounceInput");
+    const debounceOutput = document.getElementById("debounceOutput");
+    let debounceTimerId = null;
+
+    debounceInput.addEventListener("input", function () {
+      debounceOutput.textContent = "Typing...";
+
+      clearTimeout(debounceTimerId);
+
+      debounceTimerId = setTimeout(function () {
+        const value = debounceInput.value.trim();
+
+        if (value === "") {
+          debounceOutput.textContent = "Search result will appear here.";
+        } else {
+          debounceOutput.textContent = "Searching for: " + value;
+        }
+      }, 600);
+    });
   </script>
 </body>
 </html>
