@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Social Media Sharing in HTML | 0 to Infinity Lesson</title>
+
+  <meta name="description"
+    content="Learn how to add social media sharing buttons to an HTML page using links, buttons, JavaScript, Web Share API, WhatsApp, X, Facebook, LinkedIn, Telegram and email." />
+
+  <meta name="keywords"
+    content="HTML social sharing, social media share buttons, Web Share API, WhatsApp share, Facebook share, LinkedIn share, Telegram share, HTML lesson" />
+
+  <meta name="author" content="Champak Roy" />
+
+  <!-- Open Graph tags help social media platforms show a good preview -->
+  <meta property="og:title" content="Social Media Sharing in HTML" />
+  <meta property="og:description"
+    content="A 0 to infinity lesson on adding social sharing buttons to HTML pages." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://example.com/social-sharing-lesson.html" />
+  <meta property="og:image" content="https://example.com/social-sharing-og-image.jpg" />
+
+  <!-- Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Social Media Sharing in HTML" />
+  <meta name="twitter:description"
+    content="Learn how to add social sharing buttons to an HTML page." />
+  <meta name="twitter:image" content="https://example.com/social-sharing-og-image.jpg" />
+
+  <style>
+    :root {
+      --saffron: #ff9800;
+      --deep-saffron: #ef6c00;
+      --dark: #1f2937;
+      --light: #fff8ed;
+      --card: #ffffff;
+      --code-bg: #111827;
+      --code-text: #e5e7eb;
+      --border: #ffd08a;
+      --green: #16a34a;
+      --blue: #2563eb;
+      --red: #dc2626;
+      --purple: #7c3aed;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.7;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--deep-saffron), var(--saffron));
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4rem);
+    }
+
+    header p {
+      max-width: 850px;
+      margin: 15px auto 0;
+      font-size: 1.15rem;
+    }
+
+    nav {
+      background: #fff3dc;
+      border-bottom: 2px solid var(--border);
+      padding: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      text-align: center;
+    }
+
+    nav a {
+      display: inline-block;
+      margin: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: white;
+      color: var(--deep-saffron);
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid var(--border);
+    }
+
+    nav a:hover,
+    nav a:focus {
+      outline: 3px solid #ffd08a;
+      background: #fff7e8;
+    }
+
+    main {
+      width: min(1100px, 94%);
+      margin: 30px auto;
+    }
+
+    section {
+      background: var(--card);
+      border-radius: 22px;
+      padding: 26px;
+      margin: 24px 0;
+      box-shadow: var(--shadow);
+      border: 1px solid #ffe1ad;
+    }
+
+    h2 {
+      color: var(--deep-saffron);
+      margin-top: 0;
+    }
+
+    h3 {
+      color: #b45309;
+    }
+
+    .note {
+      background: #fff7e8;
+      border-left: 6px solid var(--saffron);
+      padding: 15px;
+      border-radius: 12px;
+      margin: 18px 0;
+    }
+
+    .warning {
+      background: #fff1f2;
+      border-left: 6px solid var(--red);
+      padding: 15px;
+      border-radius: 12px;
+      margin: 18px 0;
+    }
+
+    .success {
+      background: #ecfdf5;
+      border-left: 6px solid var(--green);
+      padding: 15px;
+      border-radius: 12px;
+      margin: 18px 0;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px;
+      border-radius: 16px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    .demo-box {
+      border: 2px dashed var(--border);
+      background: #fffbf3;
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 18px;
+    }
+
+    .share-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .share-btn,
+    button.share-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      color: white;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .share-btn:hover,
+    .share-btn:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+      outline: 3px solid #fde68a;
+    }
+
+    .whatsapp {
+      background: #22c55e;
+    }
+
+    .facebook {
+      background: #1877f2;
+    }
+
+    .x {
+      background: #111827;
+    }
+
+    .linkedin {
+      background: #0a66c2;
+    }
+
+    .telegram {
+      background: #229ed9;
+    }
+
+    .email {
+      background: #7c3aed;
+    }
+
+    .native {
+      background: #ea580c;
+    }
+
+    .copy {
+      background: #475569;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .mini-card {
+      background: #fffaf0;
+      border: 1px solid #fed7aa;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    th,
+    td {
+      border: 1px solid #fed7aa;
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #ffedd5;
+      color: #9a3412;
+    }
+
+    footer {
+      text-align: center;
+      background: #1f2937;
+      color: white;
+      padding: 28px 14px;
+      margin-top: 40px;
+    }
+
+    .output-message {
+      margin-top: 12px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    iframe {
+      width: 100%;
+      min-height: 420px;
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      background: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Social Media Sharing in HTML</h1>
+    <p>
+      A 0 to infinity lesson on adding WhatsApp, Facebook, X, LinkedIn,
+      Telegram, email, copy-link, and native mobile sharing options to a web page.
+    </p>
+  </header>
+
+  <nav>
+    <a href="#idea">Idea</a>
+    <a href="#basic">Basic Link</a>
+    <a href="#buttons">Share Buttons</a>
+    <a href="#javascript">JavaScript</a>
+    <a href="#native">Web Share API</a>
+    <a href="#og">Open Graph</a>
+    <a href="#full-project">Full Project</a>
+    <a href="#practice">Practice</a>
+  </nav>
+
+  <main>
+
+    <section id="idea">
+      <h2>1. What is social sharing?</h2>
+
+      <p>
+        Social sharing means giving visitors buttons so that they can share your
+        page on platforms like WhatsApp, Facebook, X, LinkedIn, Telegram, or email.
+      </p>
+
+      <div class="note">
+        A share button is usually just an HTML link with a special URL.
+        When the user clicks the link, the selected platform opens with your page
+        link already filled in.
+      </div>
+
+      <h3>Example</h3>
+
+      <pre><code>&lt;a href="https://wa.me/?text=Read this lesson: https://example.com"&gt;
+  Share on WhatsApp
+&lt;/a&gt;</code></pre>
+
+      <p>
+        The link above opens WhatsApp and sends the text:
+        <strong>Read this lesson: https://example.com</strong>
+      </p>
+    </section>
+
+    <section id="basic">
+      <h2>2. The simplest sharing link</h2>
+
+      <p>
+        Let us first create a normal link that shares the current page URL.
+      </p>
+
+      <pre><code>&lt;a href="https://wa.me/?text=https://example.com"&gt;
+  Share this page
+&lt;/a&gt;</code></pre>
+
+      <div class="demo-box">
+        <h3>Demo</h3>
+        <a class="share-btn whatsapp" href="https://wa.me/?text=https://example.com" target="_blank">
+          WhatsApp Share
+        </a>
+      </div>
+
+      <div class="warning">
+        Notice the use of <code>target="_blank"</code>. It opens the sharing page
+        in a new tab.
+      </div>
+    </section>
+
+    <section id="buttons">
+      <h2>3. Share links for different platforms</h2>
+
+      <p>
+        Each platform has its own sharing URL format.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Sharing URL Format</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>WhatsApp</td>
+            <td><code>https://wa.me/?text=YOUR_TEXT</code></td>
+          </tr>
+          <tr>
+            <td>Facebook</td>
+            <td><code>https://www.facebook.com/sharer/sharer.php?u=YOUR_URL</code></td>
+          </tr>
+          <tr>
+            <td>X / Twitter</td>
+            <td><code>https://twitter.com/intent/tweet?text=YOUR_TEXT&amp;url=YOUR_URL</code></td>
+          </tr>
+          <tr>
+            <td>LinkedIn</td>
+            <td><code>https://www.linkedin.com/sharing/share-offsite/?url=YOUR_URL</code></td>
+          </tr>
+          <tr>
+            <td>Telegram</td>
+            <td><code>https://t.me/share/url?url=YOUR_URL&amp;text=YOUR_TEXT</code></td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td><code>mailto:?subject=SUBJECT&amp;body=BODY_TEXT</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Example with buttons</h3>
+
+      <pre><code>&lt;a class="share-btn whatsapp"
+   href="https://wa.me/?text=Read this lesson https://example.com"
+   target="_blank"&gt;
+  WhatsApp
+&lt;/a&gt;
+
+&lt;a class="share-btn facebook"
+   href="https://www.facebook.com/sharer/sharer.php?u=https://example.com"
+   target="_blank"&gt;
+  Facebook
+&lt;/a&gt;</code></pre>
+
+      <div class="demo-box">
+        <h3>Live Demo Buttons</h3>
+
+        <div class="share-row">
+          <a class="share-btn whatsapp"
+            href="https://wa.me/?text=Read this lesson: https://example.com/social-sharing-lesson.html"
+            target="_blank">
+            WhatsApp
+          </a>
+
+          <a class="share-btn facebook"
+            href="https://www.facebook.com/sharer/sharer.php?u=https://example.com/social-sharing-lesson.html"
+            target="_blank">
+            Facebook
+          </a>
+
+          <a class="share-btn x"
+            href="https://twitter.com/intent/tweet?text=Read this HTML lesson&url=https://example.com/social-sharing-lesson.html"
+            target="_blank">
+            X
+          </a>
+
+          <a class="share-btn linkedin"
+            href="https://www.linkedin.com/sharing/share-offsite/?url=https://example.com/social-sharing-lesson.html"
+            target="_blank">
+            LinkedIn
+          </a>
+
+          <a class="share-btn telegram"
+            href="https://t.me/share/url?url=https://example.com/social-sharing-lesson.html&text=Read this HTML lesson"
+            target="_blank">
+            Telegram
+          </a>
+
+          <a class="share-btn email"
+            href="mailto:?subject=HTML Social Sharing Lesson&body=Read this lesson: https://example.com/social-sharing-lesson.html">
+            Email
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="javascript">
+      <h2>4. Making sharing links dynamic with JavaScript</h2>
+
+      <p>
+        Instead of writing the URL again and again, JavaScript can read the
+        current page URL automatically.
+      </p>
+
+      <pre><code>const pageUrl = encodeURIComponent(window.location.href);
+const pageTitle = encodeURIComponent(document.title);
+
+document.getElementById("whatsappShare").href =
+  `https://wa.me/?text=${pageTitle}%20${pageUrl}`;</code></pre>
+
+      <div class="note">
+        <code>encodeURIComponent()</code> safely converts spaces and special
+        characters so that the URL works correctly.
+      </div>
+
+      <h3>Dynamic sharing demo</h3>
+
+      <div class="demo-box">
+        <div class="share-row">
+          <a id="dynamicWhatsapp" class="share-btn whatsapp" target="_blank">WhatsApp</a>
+          <a id="dynamicFacebook" class="share-btn facebook" target="_blank">Facebook</a>
+          <a id="dynamicX" class="share-btn x" target="_blank">X</a>
+          <a id="dynamicLinkedIn" class="share-btn linkedin" target="_blank">LinkedIn</a>
+          <a id="dynamicTelegram" class="share-btn telegram" target="_blank">Telegram</a>
+          <a id="dynamicEmail" class="share-btn email">Email</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="native">
+      <h2>5. Native mobile sharing with Web Share API</h2>
+
+      <p>
+        The Web Share API allows the browser or mobile phone to open the
+        device's own share menu.
+      </p>
+
+      <pre><code>async function nativeShare() {
+  if (navigator.share) {
+    await navigator.share({
+      title: document.title,
+      text: "Read this lesson",
+      url: window.location.href
+    });
+  } else {
+    alert("Web Share API is not supported in this browser.");
+  }
+}</code></pre>
+
+      <div class="demo-box">
+        <h3>Native Share Demo</h3>
+
+        <button class="share-btn native" onclick="nativeShare()">
+          Open Device Share Menu
+        </button>
+
+        <button class="share-btn copy" onclick="copyPageLink()">
+          Copy Page Link
+        </button>
+
+        <div id="copyMessage" class="output-message"></div>
+      </div>
+
+      <div class="success">
+        On mobile phones, native sharing feels very natural because it opens the
+        phone's own sharing menu.
+      </div>
+    </section>
+
+    <section id="og">
+      <h2>6. Very important: Open Graph tags</h2>
+
+      <p>
+        Sharing buttons only send the link. But the preview image, title, and
+        description are controlled by metadata in the <code>&lt;head&gt;</code>
+        section.
+      </p>
+
+      <pre><code>&lt;meta property="og:title" content="Social Media Sharing in HTML" /&gt;
+
+&lt;meta property="og:description"
+      content="Learn how to add social sharing buttons to HTML pages." /&gt;
+
+&lt;meta property="og:type" content="article" /&gt;
+
+&lt;meta property="og:url"
+      content="https://example.com/social-sharing-lesson.html" /&gt;
+
+&lt;meta property="og:image"
+      content="https://example.com/social-sharing-og-image.jpg" /&gt;</code></pre>
+
+      <h3>Why Open Graph is needed</h3>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>Without Open Graph</h3>
+          <p>
+            Social media may show a poor preview, wrong image, or missing title.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h3>With Open Graph</h3>
+          <p>
+            Social media can show a proper title, description, and image.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Best image size</h3>
+          <p>
+            A common Open Graph image size is 1200 × 630 pixels.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="full-project">
+      <h2>7. Full mini project: Share this article</h2>
+
+      <p>
+        Here is a complete article card with all sharing options.
+      </p>
+
+      <div class="demo-box">
+        <h3 id="articleTitle">Learn HTML Social Sharing</h3>
+
+        <p>
+          This article teaches how to add social sharing buttons to a web page
+          using HTML and JavaScript.
+        </p>
+
+        <div class="share-row">
+          <a id="projectWhatsapp" class="share-btn whatsapp" target="_blank">WhatsApp</a>
+          <a id="projectFacebook" class="share-btn facebook" target="_blank">Facebook</a>
+          <a id="projectX" class="share-btn x" target="_blank">X</a>
+          <a id="projectLinkedIn" class="share-btn linkedin" target="_blank">LinkedIn</a>
+          <a id="projectTelegram" class="share-btn telegram" target="_blank">Telegram</a>
+          <a id="projectEmail" class="share-btn email">Email</a>
+          <button class="share-btn copy" onclick="copyPageLink()">Copy Link</button>
+          <button class="share-btn native" onclick="nativeShare()">Native Share</button>
+        </div>
+      </div>
+
+      <h3>Code used in the mini project</h3>
+
+      <pre><code>function setupShareButtons(prefix) {
+  const pageUrl = encodeURIComponent(window.location.href);
+  const pageTitle = encodeURIComponent(document.title);
+  const message = encodeURIComponent("Read this lesson:");
+
+  document.getElementById(prefix + "Whatsapp").href =
+    `https://wa.me/?text=${message}%20${pageTitle}%20${pageUrl}`;
+
+  document.getElementById(prefix + "Facebook").href =
+    `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+
+  document.getElementById(prefix + "X").href =
+    `https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageUrl}`;
+
+  document.getElementById(prefix + "LinkedIn").href =
+    `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+
+  document.getElementById(prefix + "Telegram").href =
+    `https://t.me/share/url?url=${pageUrl}&text=${pageTitle}`;
+
+  document.getElementById(prefix + "Email").href =
+    `mailto:?subject=${pageTitle}&body=${message}%20${pageUrl}`;
+}</code></pre>
+    </section>
+
+    <section>
+      <h2>8. Important security and quality points</h2>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>Use encoded URLs</h3>
+          <p>
+            Use <code>encodeURIComponent()</code> when building share links with
+            JavaScript.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Use real URLs</h3>
+          <p>
+            Social platforms need public URLs. Local files like
+            <code>file:///C:/page.html</code> will not share properly.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Add Open Graph tags</h3>
+          <p>
+            These tags control the title, description, and image shown in social
+            previews.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Test on mobile</h3>
+          <p>
+            WhatsApp and native sharing are especially important on mobile
+            phones.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="practice">
+      <h2>9. Practice tasks</h2>
+
+      <ol>
+        <li>Create a page with only a WhatsApp share button.</li>
+        <li>Add Facebook and LinkedIn share buttons.</li>
+        <li>Add a copy-link button.</li>
+        <li>Add Open Graph title, description, URL, and image.</li>
+        <li>Create a blog card with share buttons under it.</li>
+        <li>Use JavaScript to generate all share links automatically.</li>
+        <li>Add a native share button using the Web Share API.</li>
+      </ol>
+
+      <div class="note">
+        Challenge: Create a reusable function called
+        <code>createShareLinks(title, url)</code> that returns all sharing URLs.
+      </div>
+    </section>
+
+    <section>
+      <h2>10. Embedded HTML editor</h2>
+
+      <p>
+        Use the editor below to practise making your own social media sharing
+        page.
+      </p>
+
+      <iframe src="https://editor.learnwithchampak.live/html/" title="HTML editor by Programmer's Picnic">
+      </iframe>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>
+      Programmer's Picnic AI-ML Classes by Champak Roy
+    </p>
+    <p>
+      Learn HTML, CSS, JavaScript, Python, Data Science and AI from 0 to infinity.
+    </p>
+  </footer>
+
+  <script>
+    function setupShareButtons(prefix) {
+      const pageUrl = encodeURIComponent(window.location.href);
+      const pageTitle = encodeURIComponent(document.title);
+      const message = encodeURIComponent("Read this lesson:");
+
+      const whatsapp = document.getElementById(prefix + "Whatsapp");
+      const facebook = document.getElementById(prefix + "Facebook");
+      const x = document.getElementById(prefix + "X");
+      const linkedin = document.getElementById(prefix + "LinkedIn");
+      const telegram = document.getElementById(prefix + "Telegram");
+      const email = document.getElementById(prefix + "Email");
+
+      if (whatsapp) {
+        whatsapp.href = `https://wa.me/?text=${message}%20${pageTitle}%20${pageUrl}`;
+      }
+
+      if (facebook) {
+        facebook.href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+      }
+
+      if (x) {
+        x.href = `https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageUrl}`;
+      }
+
+      if (linkedin) {
+        linkedin.href = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+      }
+
+      if (telegram) {
+        telegram.href = `https://t.me/share/url?url=${pageUrl}&text=${pageTitle}`;
+      }
+
+      if (email) {
+        email.href = `mailto:?subject=${pageTitle}&body=${message}%20${pageUrl}`;
+      }
+    }
+
+    async function nativeShare() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            text: "Read this HTML lesson on social media sharing.",
+            url: window.location.href
+          });
+        } catch (error) {
+          console.log("Sharing cancelled or failed:", error);
+        }
+      } else {
+        alert("Native sharing is not supported in this browser. Use the copy link button instead.");
+      }
+    }
+
+    async function copyPageLink() {
+      const messageBox = document.getElementById("copyMessage");
+
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+
+        if (messageBox) {
+          messageBox.textContent = "Page link copied successfully!";
+        }
+      } catch (error) {
+        if (messageBox) {
+          messageBox.textContent = "Could not copy automatically. Please copy the URL from the address bar.";
+        }
+      }
+    }
+
+    setupShareButtons("dynamic");
+    setupShareButtons("project");
+  </script>
+
+</body>
+
+</html>
