@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Python List Sorting | sort(), sorted(), key, reverse and Custom Sorting</title>
+
+  <meta name="description"
+    content="A complete beginner to advanced Python lesson on sorting lists using sort(), sorted(), reverse=True, key functions, lambda, custom sorting, strings, numbers, tuples, dictionaries and objects." />
+
+  <meta name="keywords"
+    content="Python list sorting, Python sort method, Python sorted function, sort vs sorted, lambda sorting Python, key function Python, reverse sort Python, custom sorting Python lists" />
+
+  <meta name="author" content="Champak Roy" />
+
+  <meta property="og:title" content="Python List Sorting: From 0 to Infinity" />
+  <meta property="og:description"
+    content="Learn Python list sorting from basics to advanced custom sorting with sort(), sorted(), key, reverse, lambda and real examples." />
+  <meta property="og:type" content="article" />
+
+  <style>
+    :root {
+      --bg: #e9fbf8;
+      --hero: #063f46;
+      --hero2: #0b6670;
+      --card: rgba(255, 255, 255, 0.92);
+      --text: #143235;
+      --muted: #52696c;
+      --accent: #0f8f8f;
+      --accent2: #ff9f1c;
+      --border: #bfe9e4;
+      --code-bg: #101820;
+      --code-text: #f4f7f8;
+      --good: #0a7a4b;
+      --warn: #a15c00;
+      --danger: #b42318;
+      --shadow: 0 18px 40px rgba(5, 54, 61, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, #d2fff6 0, transparent 35%),
+        radial-gradient(circle at bottom right, #fff1d6 0, transparent 32%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--hero), var(--hero2));
+      color: white;
+      padding: 56px 20px 36px;
+      text-align: center;
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(2.1rem, 5vw, 4.2rem);
+      line-height: 1.08;
+      letter-spacing: -1px;
+    }
+
+    header p {
+      max-width: 850px;
+      margin: 18px auto 0;
+      color: #d7fffb;
+      font-size: 1.15rem;
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: -22px auto 30px;
+      padding: 0 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    nav a {
+      text-decoration: none;
+      background: white;
+      color: var(--hero);
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      font-weight: 700;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 16px 50px;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 26px;
+      margin: 24px 0;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.9rem;
+      margin-top: 0;
+    }
+
+    h3 {
+      color: var(--hero);
+      margin-top: 28px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .mini-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .mini-card h3 {
+      margin-top: 0;
+    }
+
+    .note {
+      background: #fff8e8;
+      border-left: 6px solid var(--accent2);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 18px 0;
+    }
+
+    .success {
+      background: #eafaf2;
+      border-left: 6px solid var(--good);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 18px 0;
+    }
+
+    .warning {
+      background: #fff4e5;
+      border-left: 6px solid var(--warn);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 18px 0;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 18px;
+      border-radius: 16px;
+      overflow-x: auto;
+      font-size: 0.96rem;
+      line-height: 1.55;
+      border: 1px solid #233445;
+    }
+
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #dff7f4;
+      color: var(--hero);
+    }
+
+    .practice {
+      background: #f8ffff;
+      border: 2px dashed var(--accent);
+      border-radius: 20px;
+      padding: 20px;
+      margin-top: 18px;
+    }
+
+    .editor-box {
+      overflow: hidden;
+      border-radius: 22px;
+      border: 2px solid var(--hero);
+      background: white;
+      min-height: 620px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 620px;
+      border: 0;
+      display: block;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px 16px;
+      color: var(--muted);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #daf8f4;
+      color: var(--hero);
+      font-weight: 700;
+      margin: 4px;
+      font-size: 0.9rem;
+    }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 16px 0;
+    }
+
+    .step {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-weight: 700;
+    }
+
+    .arrow {
+      font-weight: 900;
+      color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Python List Sorting</h1>
+    <p>
+      A 0 to infinity lesson on arranging Python lists using
+      <strong>sort()</strong>, <strong>sorted()</strong>, <strong>reverse=True</strong>,
+      <strong>key</strong>, <strong>lambda</strong>, and real-world custom sorting.
+    </p>
+  </header>
+
+  <nav>
+    <a href="#start">Start</a>
+    <a href="#sort">sort()</a>
+    <a href="#sorted">sorted()</a>
+    <a href="#reverse">Reverse</a>
+    <a href="#key">key</a>
+    <a href="#lambda">lambda</a>
+    <a href="#objects">Objects</a>
+    <a href="#practice">Practice</a>
+    <a href="#editor">Editor</a>
+  </nav>
+
+  <main>
+
+    <section id="start">
+      <h2>1. What is Sorting?</h2>
+
+      <p>
+        Sorting means arranging values in a fixed order.
+        For numbers, this usually means smallest to largest.
+        For words, this usually means dictionary-like alphabetical order.
+      </p>
+
+      <div class="flow">
+        <span class="step">Unsorted list</span>
+        <span class="arrow">→</span>
+        <span class="step">Compare values</span>
+        <span class="arrow">→</span>
+        <span class="step">Arrange values</span>
+        <span class="arrow">→</span>
+        <span class="step">Sorted list</span>
+      </div>
+
+      <pre><code>marks = [55, 12, 90, 33, 71]
+
+# After sorting:
+# [12, 33, 55, 71, 90]</code></pre>
+
+      <div class="mini-grid">
+        <div class="mini-card">
+          <h3>Ascending Order</h3>
+          <p>Small to big.</p>
+          <pre><code>[2, 5, 9, 12]</code></pre>
+        </div>
+
+        <div class="mini-card">
+          <h3>Descending Order</h3>
+          <p>Big to small.</p>
+          <pre><code>[12, 9, 5, 2]</code></pre>
+        </div>
+
+        <div class="mini-card">
+          <h3>Alphabetical Order</h3>
+          <p>Words arranged from A to Z.</p>
+          <pre><code>["apple", "banana", "mango"]</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Two Main Ways to Sort Lists</h2>
+
+      <table>
+        <tr>
+          <th>Method</th>
+          <th>Meaning</th>
+          <th>Changes Original List?</th>
+          <th>Returns</th>
+        </tr>
+        <tr>
+          <td><code>list.sort()</code></td>
+          <td>Sorts the same list directly.</td>
+          <td>Yes</td>
+          <td><code>None</code></td>
+        </tr>
+        <tr>
+          <td><code>sorted(list)</code></td>
+          <td>Creates a new sorted list.</td>
+          <td>No</td>
+          <td>New sorted list</td>
+        </tr>
+      </table>
+
+      <div class="note">
+        <strong>Important:</strong> Use <code>sort()</code> when you are okay with changing the original list.
+        Use <code>sorted()</code> when you want to keep the original list safe.
+      </div>
+    </section>
+
+    <section id="sort">
+      <h2>3. Sorting with <code>sort()</code></h2>
+
+      <p>
+        The <code>sort()</code> method sorts the original list itself.
+        This is called <strong>in-place sorting</strong>.
+      </p>
+
+      <pre><code>numbers = [40, 10, 30, 20]
+
+numbers.sort()
+
+print(numbers)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[10, 20, 30, 40]</code></pre>
+
+      <h3>Why does <code>sort()</code> return <code>None</code>?</h3>
+
+      <p>
+        Because <code>sort()</code> changes the original list directly.
+        It does not create a new list.
+      </p>
+
+      <pre><code>numbers = [4, 2, 9, 1]
+
+answer = numbers.sort()
+
+print(numbers)
+print(answer)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[1, 2, 4, 9]
+None</code></pre>
+
+      <div class="warning">
+        Do not write <code>numbers = numbers.sort()</code>.
+        That will make <code>numbers</code> become <code>None</code>.
+      </div>
+    </section>
+
+    <section id="sorted">
+      <h2>4. Sorting with <code>sorted()</code></h2>
+
+      <p>
+        The <code>sorted()</code> function creates a new sorted list.
+        It does not damage the original list.
+      </p>
+
+      <pre><code>numbers = [40, 10, 30, 20]
+
+new_numbers = sorted(numbers)
+
+print("Original:", numbers)
+print("Sorted:", new_numbers)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>Original: [40, 10, 30, 20]
+Sorted: [10, 20, 30, 40]</code></pre>
+
+      <div class="success">
+        <strong>Rule:</strong> <code>sorted()</code> is safer when you want to preserve original data.
+      </div>
+    </section>
+
+    <section id="reverse">
+      <h2>5. Sorting in Reverse Order</h2>
+
+      <p>
+        To sort from largest to smallest, use <code>reverse=True</code>.
+      </p>
+
+      <pre><code>marks = [55, 90, 12, 71, 33]
+
+marks.sort(reverse=True)
+
+print(marks)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[90, 71, 55, 33, 12]</code></pre>
+
+      <h3>Using <code>sorted()</code> with reverse</h3>
+
+      <pre><code>marks = [55, 90, 12, 71, 33]
+
+top_marks = sorted(marks, reverse=True)
+
+print("Original:", marks)
+print("Sorted:", top_marks)</code></pre>
+    </section>
+
+    <section>
+      <h2>6. Sorting Strings</h2>
+
+      <p>
+        Python can sort strings alphabetically.
+      </p>
+
+      <pre><code>names = ["Ravi", "Amit", "Champak", "Zoya"]
+
+names.sort()
+
+print(names)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>['Amit', 'Champak', 'Ravi', 'Zoya']</code></pre>
+
+      <h3>Capital and Small Letters Problem</h3>
+
+      <p>
+        Python sorts capital letters before small letters because it uses Unicode values.
+      </p>
+
+      <pre><code>words = ["banana", "Apple", "mango", "Cherry"]
+
+print(sorted(words))</code></pre>
+
+      <p>Possible output:</p>
+
+      <pre><code>['Apple', 'Cherry', 'banana', 'mango']</code></pre>
+
+      <p>
+        To sort without worrying about capital and small letters, use <code>key=str.lower</code>.
+      </p>
+
+      <pre><code>words = ["banana", "Apple", "mango", "Cherry"]
+
+print(sorted(words, key=str.lower))</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>['Apple', 'banana', 'Cherry', 'mango']</code></pre>
+    </section>
+
+    <section id="key">
+      <h2>7. Sorting with <code>key</code></h2>
+
+      <p>
+        The <code>key</code> parameter tells Python:
+        <strong>"Sort according to this rule."</strong>
+      </p>
+
+      <h3>Sort words by length</h3>
+
+      <pre><code>words = ["elephant", "cat", "tiger", "ant"]
+
+words.sort(key=len)
+
+print(words)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>['cat', 'ant', 'tiger', 'elephant']</code></pre>
+
+      <p>
+        Here Python does not sort alphabetically.
+        It sorts by the result of <code>len(word)</code>.
+      </p>
+
+      <table>
+        <tr>
+          <th>Word</th>
+          <th>Length</th>
+        </tr>
+        <tr>
+          <td>elephant</td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>cat</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>tiger</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>ant</td>
+          <td>3</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="lambda">
+      <h2>8. Sorting with <code>lambda</code></h2>
+
+      <p>
+        A <code>lambda</code> function is a small one-line function.
+        It is very useful for custom sorting.
+      </p>
+
+      <h3>Sort tuples by second value</h3>
+
+      <pre><code>students = [
+    ("Amit", 70),
+    ("Ravi", 90),
+    ("Zoya", 85),
+    ("Meena", 60)
+]
+
+students.sort(key=lambda student: student[1])
+
+print(students)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[('Meena', 60), ('Amit', 70), ('Zoya', 85), ('Ravi', 90)]</code></pre>
+
+      <p>
+        Here <code>student[1]</code> means marks.
+        So Python sorts students according to marks.
+      </p>
+
+      <h3>Sort by marks in descending order</h3>
+
+      <pre><code>students = [
+    ("Amit", 70),
+    ("Ravi", 90),
+    ("Zoya", 85),
+    ("Meena", 60)
+]
+
+students.sort(key=lambda student: student[1], reverse=True)
+
+print(students)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[('Ravi', 90), ('Zoya', 85), ('Amit', 70), ('Meena', 60)]</code></pre>
+    </section>
+
+    <section>
+      <h2>9. Sorting List of Dictionaries</h2>
+
+      <p>
+        Real data often comes as dictionaries.
+        For example, each student can be a dictionary.
+      </p>
+
+      <pre><code>students = [
+    {"name": "Amit", "marks": 70},
+    {"name": "Ravi", "marks": 90},
+    {"name": "Zoya", "marks": 85},
+    {"name": "Meena", "marks": 60}
+]
+
+students.sort(key=lambda student: student["marks"])
+
+print(students)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[
+  {'name': 'Meena', 'marks': 60},
+  {'name': 'Amit', 'marks': 70},
+  {'name': 'Zoya', 'marks': 85},
+  {'name': 'Ravi', 'marks': 90}
+]</code></pre>
+
+      <h3>Sort by name</h3>
+
+      <pre><code>students.sort(key=lambda student: student["name"])
+
+print(students)</code></pre>
+
+      <h3>Sort by marks from highest to lowest</h3>
+
+      <pre><code>students.sort(key=lambda student: student["marks"], reverse=True)
+
+print(students)</code></pre>
+    </section>
+
+    <section>
+      <h2>10. Sorting by Multiple Rules</h2>
+
+      <p>
+        Sometimes one rule is not enough.
+        Suppose two students have the same marks.
+        Then we may want to sort by marks first and name second.
+      </p>
+
+      <pre><code>students = [
+    ("Ravi", 90),
+    ("Amit", 70),
+    ("Zoya", 90),
+    ("Meena", 70)
+]
+
+students.sort(key=lambda student: (student[1], student[0]))
+
+print(students)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[('Amit', 70), ('Meena', 70), ('Ravi', 90), ('Zoya', 90)]</code></pre>
+
+      <p>
+        Python first sorts by <code>student[1]</code>, which is marks.
+        If marks are equal, it sorts by <code>student[0]</code>, which is name.
+      </p>
+
+      <h3>Marks highest first, name alphabetically second</h3>
+
+      <pre><code>students = [
+    ("Ravi", 90),
+    ("Amit", 70),
+    ("Zoya", 90),
+    ("Meena", 70)
+]
+
+students.sort(key=lambda student: (-student[1], student[0]))
+
+print(students)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[('Ravi', 90), ('Zoya', 90), ('Amit', 70), ('Meena', 70)]</code></pre>
+
+      <div class="note">
+        The minus sign before <code>student[1]</code> makes marks sort in descending order.
+        Names still sort in ascending order.
+      </div>
+    </section>
+
+    <section id="objects">
+      <h2>11. Sorting Objects</h2>
+
+      <p>
+        In Object Oriented Programming, we may have a list of objects.
+        We can sort objects using their attributes.
+      </p>
+
+      <pre><code>class Student:
+    def __init__(self, name, marks):
+        self.name = name
+        self.marks = marks
+
+    def __repr__(self):
+        return f"{self.name}: {self.marks}"
+
+
+students = [
+    Student("Amit", 70),
+    Student("Ravi", 90),
+    Student("Zoya", 85),
+    Student("Meena", 60)
+]
+
+students.sort(key=lambda student: student.marks)
+
+print(students)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[Meena: 60, Amit: 70, Zoya: 85, Ravi: 90]</code></pre>
+
+      <h3>Sort objects by name</h3>
+
+      <pre><code>students.sort(key=lambda student: student.name)
+
+print(students)</code></pre>
+    </section>
+
+    <section>
+      <h2>12. Common Mistakes</h2>
+
+      <table>
+        <tr>
+          <th>Mistake</th>
+          <th>Problem</th>
+          <th>Correct Way</th>
+        </tr>
+        <tr>
+          <td><code>numbers = numbers.sort()</code></td>
+          <td><code>sort()</code> returns <code>None</code>.</td>
+          <td><code>numbers.sort()</code></td>
+        </tr>
+        <tr>
+          <td>Forgetting <code>reverse=True</code></td>
+          <td>List sorts smallest to largest.</td>
+          <td><code>numbers.sort(reverse=True)</code></td>
+        </tr>
+        <tr>
+          <td>Sorting mixed types</td>
+          <td>Python cannot compare numbers and strings directly.</td>
+          <td>Convert all values to same type first.</td>
+        </tr>
+        <tr>
+          <td>Wrong dictionary key</td>
+          <td><code>KeyError</code></td>
+          <td>Use the exact key name.</td>
+        </tr>
+      </table>
+
+      <h3>Example of mixed type problem</h3>
+
+      <pre><code>items = [10, "5", 2]
+
+# This will give an error:
+# items.sort()</code></pre>
+
+      <h3>Fix</h3>
+
+      <pre><code>items = [10, "5", 2]
+
+items.sort(key=int)
+
+print(items)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[2, '5', 10]</code></pre>
+    </section>
+
+    <section>
+      <h2>13. Sorting Without Built-in Functions</h2>
+
+      <p>
+        Beginners should also understand how sorting works internally.
+        Here is a simple bubble sort example.
+      </p>
+
+      <pre><code>numbers = [5, 2, 9, 1]
+
+n = len(numbers)
+
+for i in range(n):
+    for j in range(0, n - 1):
+        if numbers[j] > numbers[j + 1]:
+            numbers[j], numbers[j + 1] = numbers[j + 1], numbers[j]
+
+print(numbers)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[1, 2, 5, 9]</code></pre>
+
+      <div class="note">
+        In real Python programs, use <code>sort()</code> or <code>sorted()</code>.
+        But learning manual sorting helps you understand comparison, loops, and swapping.
+      </div>
+    </section>
+
+    <section>
+      <h2>14. Full Revision Program</h2>
+
+      <pre><code>numbers = [45, 12, 90, 33, 7]
+
+print("Original:", numbers)
+
+print("Using sorted:", sorted(numbers))
+print("Original still same:", numbers)
+
+numbers.sort()
+print("After sort:", numbers)
+
+numbers.sort(reverse=True)
+print("Descending:", numbers)
+
+
+names = ["banana", "Apple", "mango", "Cherry"]
+
+print("Normal string sort:", sorted(names))
+print("Case-insensitive sort:", sorted(names, key=str.lower))
+
+
+students = [
+    {"name": "Amit", "marks": 70},
+    {"name": "Ravi", "marks": 90},
+    {"name": "Zoya", "marks": 85},
+    {"name": "Meena", "marks": 60}
+]
+
+print("Students by marks:")
+print(sorted(students, key=lambda s: s["marks"]))
+
+print("Students by marks high to low:")
+print(sorted(students, key=lambda s: s["marks"], reverse=True))</code></pre>
+    </section>
+
+    <section id="practice">
+      <h2>15. Practice Questions</h2>
+
+      <div class="practice">
+        <h3>Beginner Level</h3>
+        <ol>
+          <li>Create a list of 5 numbers and sort it in ascending order.</li>
+          <li>Create a list of 5 numbers and sort it in descending order.</li>
+          <li>Create a list of names and sort it alphabetically.</li>
+          <li>Use <code>sorted()</code> and prove that the original list does not change.</li>
+        </ol>
+      </div>
+
+      <div class="practice">
+        <h3>Intermediate Level</h3>
+        <ol>
+          <li>Sort words by their length.</li>
+          <li>Sort names without caring about capital and small letters.</li>
+          <li>Sort a list of tuples by the second value.</li>
+          <li>Sort students by marks from highest to lowest.</li>
+        </ol>
+      </div>
+
+      <div class="practice">
+        <h3>Advanced Level</h3>
+        <ol>
+          <li>Sort a list of dictionaries by price.</li>
+          <li>Sort products by rating first and price second.</li>
+          <li>Create a class <code>Book</code> with title and price. Sort books by price.</li>
+          <li>Write bubble sort manually for a list of numbers.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <h2>16. Mini Project: Leaderboard Sorting</h2>
+
+      <p>
+        Let us create a small leaderboard.
+        We want the highest score first.
+      </p>
+
+      <pre><code>players = [
+    {"name": "Amit", "score": 120},
+    {"name": "Ravi", "score": 300},
+    {"name": "Zoya", "score": 250},
+    {"name": "Meena", "score": 300}
+]
+
+leaderboard = sorted(
+    players,
+    key=lambda player: (-player["score"], player["name"])
+)
+
+for rank, player in enumerate(leaderboard, start=1):
+    print(rank, player["name"], player["score"])</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>1 Meena 300
+2 Ravi 300
+3 Zoya 250
+4 Amit 120</code></pre>
+
+      <p>
+        The score is sorted in descending order using <code>-player["score"]</code>.
+        If two players have the same score, the name is sorted alphabetically.
+      </p>
+    </section>
+
+    <section>
+      <h2>17. Final Cheat Sheet</h2>
+
+      <table>
+        <tr>
+          <th>Task</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>Sort original list</td>
+          <td><code>numbers.sort()</code></td>
+        </tr>
+        <tr>
+          <td>Create new sorted list</td>
+          <td><code>new_list = sorted(numbers)</code></td>
+        </tr>
+        <tr>
+          <td>Descending order</td>
+          <td><code>numbers.sort(reverse=True)</code></td>
+        </tr>
+        <tr>
+          <td>Sort by length</td>
+          <td><code>words.sort(key=len)</code></td>
+        </tr>
+        <tr>
+          <td>Case-insensitive sort</td>
+          <td><code>sorted(words, key=str.lower)</code></td>
+        </tr>
+        <tr>
+          <td>Sort tuple by second item</td>
+          <td><code>items.sort(key=lambda x: x[1])</code></td>
+        </tr>
+        <tr>
+          <td>Sort dictionary by marks</td>
+          <td><code>students.sort(key=lambda s: s["marks"])</code></td>
+        </tr>
+        <tr>
+          <td>Sort object by attribute</td>
+          <td><code>students.sort(key=lambda s: s.marks)</code></td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="editor">
+      <h2>18. Practice in the Python Editor</h2>
+
+      <p>
+        Try the examples above in the embedded Python editor.
+        Change the numbers, names, marks, and sorting rules.
+      </p>
+
+      <div class="editor-box">
+        <iframe
+          src="https://editor.learnwithchampak.live/python-starter/editor/super/"
+          title="Python Editor by Programmer's Picnic">
+        </iframe>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>
+      <strong>Programmer's Picnic</strong> |
+      Python Lessons by <strong>Champak Roy</strong>
+    </p>
+    <p>
+      <span class="tag">Python Lists</span>
+      <span class="tag">sort()</span>
+      <span class="tag">sorted()</span>
+      <span class="tag">lambda</span>
+      <span class="tag">Custom Sorting</span>
+    </p>
+  </footer>
+
+</body>
+</html>
