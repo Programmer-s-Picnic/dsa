@@ -1,22 +1,23 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Python List Sorting | sort(), sorted(), key, reverse and Custom Sorting</title>
+  <title>Python List Sorting | sort(), sorted(), key, lambda and Comparison Functions</title>
 
   <meta name="description"
-    content="A complete beginner to advanced Python lesson on sorting lists using sort(), sorted(), reverse=True, key functions, lambda, custom sorting, strings, numbers, tuples, dictionaries and objects." />
+    content="A complete 0 to infinity Python lesson on sorting lists using sort(), sorted(), reverse=True, key functions, lambda, functools.cmp_to_key(), comparison functions, tuples, dictionaries and objects." />
 
   <meta name="keywords"
-    content="Python list sorting, Python sort method, Python sorted function, sort vs sorted, lambda sorting Python, key function Python, reverse sort Python, custom sorting Python lists" />
+    content="Python list sorting, Python sort method, Python sorted function, sort vs sorted, lambda sorting Python, key function Python, comparison function Python, cmp_to_key Python, functools cmp_to_key, reverse sort Python, custom sorting Python lists" />
 
   <meta name="author" content="Champak Roy" />
 
   <meta property="og:title" content="Python List Sorting: From 0 to Infinity" />
   <meta property="og:description"
-    content="Learn Python list sorting from basics to advanced custom sorting with sort(), sorted(), key, reverse, lambda and real examples." />
+    content="Learn Python list sorting from basics to advanced custom sorting with sort(), sorted(), key, lambda and comparison functions." />
   <meta property="og:type" content="article" />
 
   <style>
@@ -24,7 +25,7 @@
       --bg: #e9fbf8;
       --hero: #063f46;
       --hero2: #0b6670;
-      --card: rgba(255, 255, 255, 0.92);
+      --card: rgba(255, 255, 255, 0.94);
       --text: #143235;
       --muted: #52696c;
       --accent: #0f8f8f;
@@ -40,6 +41,10 @@
 
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -71,14 +76,14 @@
     }
 
     header p {
-      max-width: 850px;
+      max-width: 900px;
       margin: 18px auto 0;
       color: #d7fffb;
       font-size: 1.15rem;
     }
 
     nav {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: -22px auto 30px;
       padding: 0 16px;
       display: flex;
@@ -96,6 +101,10 @@
       border: 1px solid var(--border);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       font-weight: 700;
+    }
+
+    nav a:hover {
+      background: #dff7f4;
     }
 
     main {
@@ -117,11 +126,17 @@
       color: var(--accent);
       font-size: 1.9rem;
       margin-top: 0;
+      line-height: 1.25;
     }
 
     h3 {
       color: var(--hero);
       margin-top: 28px;
+      line-height: 1.3;
+    }
+
+    p {
+      font-size: 1.03rem;
     }
 
     .mini-grid {
@@ -166,6 +181,14 @@
       margin: 18px 0;
     }
 
+    .danger {
+      background: #fff0f0;
+      border-left: 6px solid var(--danger);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin: 18px 0;
+    }
+
     pre {
       background: var(--code-bg);
       color: var(--code-text);
@@ -181,6 +204,24 @@
       font-family: Consolas, Monaco, "Courier New", monospace;
     }
 
+    p code,
+    li code,
+    td code {
+      background: #e8f8f6;
+      color: #063f46;
+      padding: 2px 6px;
+      border-radius: 7px;
+      font-weight: 700;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      font-weight: inherit;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -190,7 +231,8 @@
       overflow: hidden;
     }
 
-    th, td {
+    th,
+    td {
       border: 1px solid var(--border);
       padding: 12px;
       text-align: left;
@@ -262,6 +304,26 @@
       font-weight: 900;
       color: var(--accent);
     }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 700px) {
+      section {
+        padding: 20px;
+      }
+
+      header {
+        padding-top: 42px;
+      }
+
+      iframe {
+        height: 560px;
+      }
+    }
   </style>
 </head>
 
@@ -272,7 +334,8 @@
     <p>
       A 0 to infinity lesson on arranging Python lists using
       <strong>sort()</strong>, <strong>sorted()</strong>, <strong>reverse=True</strong>,
-      <strong>key</strong>, <strong>lambda</strong>, and real-world custom sorting.
+      <strong>key</strong>, <strong>lambda</strong>, and
+      <strong>comparison functions</strong>.
     </p>
   </header>
 
@@ -283,7 +346,9 @@
     <a href="#reverse">Reverse</a>
     <a href="#key">key</a>
     <a href="#lambda">lambda</a>
+    <a href="#comparison-function">Comparison</a>
     <a href="#objects">Objects</a>
+    <a href="#manual">Manual Sort</a>
     <a href="#practice">Practice</a>
     <a href="#editor">Editor</a>
   </nav>
@@ -296,7 +361,7 @@
       <p>
         Sorting means arranging values in a fixed order.
         For numbers, this usually means smallest to largest.
-        For words, this usually means dictionary-like alphabetical order.
+        For words, this usually means alphabetical order.
       </p>
 
       <div class="flow">
@@ -458,6 +523,11 @@ top_marks = sorted(marks, reverse=True)
 
 print("Original:", marks)
 print("Sorted:", top_marks)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>Original: [55, 90, 12, 71, 33]
+Sorted: [90, 71, 55, 33, 12]</code></pre>
     </section>
 
     <section>
@@ -487,7 +557,7 @@ print(names)</code></pre>
 
 print(sorted(words))</code></pre>
 
-      <p>Possible output:</p>
+      <p>Output:</p>
 
       <pre><code>['Apple', 'Cherry', 'banana', 'mango']</code></pre>
 
@@ -601,8 +671,399 @@ print(students)</code></pre>
       <pre><code>[('Ravi', 90), ('Zoya', 85), ('Amit', 70), ('Meena', 60)]</code></pre>
     </section>
 
+    <section id="comparison-function">
+      <h2>9. Sorting by a Comparison Function</h2>
+
+      <p>
+        A <strong>comparison function</strong> compares two values at a time.
+        It tells Python whether the first value should come before the second value,
+        after the second value, or whether both are equal for sorting.
+      </p>
+
+      <p>
+        In modern Python 3, <code>sort()</code> and <code>sorted()</code>
+        do not directly accept a comparison function. Instead, we use
+        <code>functools.cmp_to_key()</code>.
+      </p>
+
+      <div class="note">
+        <strong>Full form:</strong> <code>cmp</code> means comparison.
+        <br />
+        <code>cmp_to_key()</code> converts a comparison function into a key function.
+      </div>
+
+      <h3>How a comparison function works</h3>
+
+      <table>
+        <tr>
+          <th>Return Value</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td><code>negative number</code></td>
+          <td>First value should come before second value.</td>
+        </tr>
+        <tr>
+          <td><code>0</code></td>
+          <td>Both values are equal for sorting.</td>
+        </tr>
+        <tr>
+          <td><code>positive number</code></td>
+          <td>First value should come after second value.</td>
+        </tr>
+      </table>
+
+      <h3>Example 1: Sort numbers using a comparison function</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+def compare(a, b):
+    return a - b
+
+numbers = [40, 10, 30, 20]
+
+numbers.sort(key=cmp_to_key(compare))
+
+print(numbers)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[10, 20, 30, 40]</code></pre>
+
+      <p>
+        Here <code>compare(a, b)</code> returns <code>a - b</code>.
+        If <code>a</code> is smaller, the answer is negative, so <code>a</code>
+        comes before <code>b</code>.
+      </p>
+
+      <h3>Example 2: Descending order using a comparison function</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+def compare(a, b):
+    return b - a
+
+numbers = [40, 10, 30, 20]
+
+numbers.sort(key=cmp_to_key(compare))
+
+print(numbers)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[40, 30, 20, 10]</code></pre>
+
+      <p>
+        This time we return <code>b - a</code>.
+        So bigger numbers come first.
+      </p>
+
+      <h3>Example 3: Write comparison clearly using if-else</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+def compare(a, b):
+    if a < b:
+        return -1
+    elif a > b:
+        return 1
+    else:
+        return 0
+
+numbers = [5, 2, 9, 1]
+
+answer = sorted(numbers, key=cmp_to_key(compare))
+
+print(answer)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[1, 2, 5, 9]</code></pre>
+
+      <div class="success">
+        This style is useful for teaching because it clearly shows the three
+        possible comparison results: before, equal, and after.
+      </div>
+
+      <h3>Example 4: Sort strings by length using comparison function</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+def compare_by_length(a, b):
+    return len(a) - len(b)
+
+words = ["elephant", "cat", "tiger", "ant"]
+
+words.sort(key=cmp_to_key(compare_by_length))
+
+print(words)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>['cat', 'ant', 'tiger', 'elephant']</code></pre>
+
+      <p>
+        The words are sorted according to their lengths.
+      </p>
+
+      <h3>Example 5: If length is same, sort alphabetically</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+def compare_words(a, b):
+    if len(a) != len(b):
+        return len(a) - len(b)
+
+    if a < b:
+        return -1
+    elif a > b:
+        return 1
+    else:
+        return 0
+
+words = ["dog", "cat", "elephant", "ant", "tiger"]
+
+words.sort(key=cmp_to_key(compare_words))
+
+print(words)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>['ant', 'cat', 'dog', 'tiger', 'elephant']</code></pre>
+
+      <p>
+        First Python compares length.
+        If two words have the same length, Python compares them alphabetically.
+      </p>
+
+      <h3>Example 6: Sort by last character</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+def compare_last_char(a, b):
+    if a[-1] < b[-1]:
+        return -1
+    elif a[-1] > b[-1]:
+        return 1
+    else:
+        return 0
+
+words = ["banana", "apple", "mango", "grapes"]
+
+words.sort(key=cmp_to_key(compare_last_char))
+
+print(words)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>['banana', 'apple', 'mango', 'grapes']</code></pre>
+
+      <p>
+        The sorting is based on the last character of each word.
+      </p>
+
+      <h3>Example 7: Sort students by marks using comparison function</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+students = [
+    {"name": "Amit", "marks": 70},
+    {"name": "Ravi", "marks": 90},
+    {"name": "Zoya", "marks": 85},
+    {"name": "Meena", "marks": 60}
+]
+
+def compare_students(a, b):
+    return a["marks"] - b["marks"]
+
+students.sort(key=cmp_to_key(compare_students))
+
+print(students)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[
+  {'name': 'Meena', 'marks': 60},
+  {'name': 'Amit', 'marks': 70},
+  {'name': 'Zoya', 'marks': 85},
+  {'name': 'Ravi', 'marks': 90}
+]</code></pre>
+
+      <h3>Example 8: Sort students by highest marks first</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+students = [
+    {"name": "Amit", "marks": 70},
+    {"name": "Ravi", "marks": 90},
+    {"name": "Zoya", "marks": 85},
+    {"name": "Meena", "marks": 60}
+]
+
+def compare_students(a, b):
+    return b["marks"] - a["marks"]
+
+students.sort(key=cmp_to_key(compare_students))
+
+print(students)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[
+  {'name': 'Ravi', 'marks': 90},
+  {'name': 'Zoya', 'marks': 85},
+  {'name': 'Amit', 'marks': 70},
+  {'name': 'Meena', 'marks': 60}
+]</code></pre>
+
+      <h3>Example 9: Marks high to low, name A to Z if marks are same</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+students = [
+    {"name": "Ravi", "marks": 90},
+    {"name": "Amit", "marks": 70},
+    {"name": "Zoya", "marks": 90},
+    {"name": "Meena", "marks": 70}
+]
+
+def compare_students(a, b):
+    if a["marks"] != b["marks"]:
+        return b["marks"] - a["marks"]
+
+    if a["name"] < b["name"]:
+        return -1
+    elif a["name"] > b["name"]:
+        return 1
+    else:
+        return 0
+
+students.sort(key=cmp_to_key(compare_students))
+
+for student in students:
+    print(student["name"], student["marks"])</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>Ravi 90
+Zoya 90
+Amit 70
+Meena 70</code></pre>
+
+      <p>
+        This is a powerful example.
+        First the students are sorted by marks from high to low.
+        If marks are equal, names are sorted alphabetically.
+      </p>
+
+      <h3>Example 10: Sort products by price ascending and rating descending</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+products = [
+    {"name": "Keyboard", "price": 800, "rating": 4.5},
+    {"name": "Mouse", "price": 500, "rating": 4.2},
+    {"name": "Monitor", "price": 800, "rating": 4.8},
+    {"name": "USB Cable", "price": 200, "rating": 4.0}
+]
+
+def compare_products(a, b):
+    if a["price"] != b["price"]:
+        return a["price"] - b["price"]
+
+    if a["rating"] > b["rating"]:
+        return -1
+    elif a["rating"] < b["rating"]:
+        return 1
+    else:
+        return 0
+
+products.sort(key=cmp_to_key(compare_products))
+
+for product in products:
+    print(product["name"], product["price"], product["rating"])</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>USB Cable 200 4.0
+Mouse 500 4.2
+Monitor 800 4.8
+Keyboard 800 4.5</code></pre>
+
+      <h3>Comparison Function vs Key Function</h3>
+
+      <table>
+        <tr>
+          <th>Feature</th>
+          <th>Key Function</th>
+          <th>Comparison Function</th>
+        </tr>
+        <tr>
+          <td>Main idea</td>
+          <td>Give one value for each item.</td>
+          <td>Compare two items at a time.</td>
+        </tr>
+        <tr>
+          <td>Used directly in Python 3?</td>
+          <td>Yes</td>
+          <td>No, needs <code>cmp_to_key()</code>.</td>
+        </tr>
+        <tr>
+          <td>Usually faster?</td>
+          <td>Yes</td>
+          <td>Usually slower.</td>
+        </tr>
+        <tr>
+          <td>Best for</td>
+          <td>Simple sorting rules.</td>
+          <td>Complex custom comparison logic.</td>
+        </tr>
+      </table>
+
+      <h3>Same sorting using key function</h3>
+
+      <pre><code>students = [
+    {"name": "Ravi", "marks": 90},
+    {"name": "Amit", "marks": 70},
+    {"name": "Zoya", "marks": 90},
+    {"name": "Meena", "marks": 70}
+]
+
+students.sort(key=lambda student: (-student["marks"], student["name"]))
+
+for student in students:
+    print(student["name"], student["marks"])</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>Ravi 90
+Zoya 90
+Amit 70
+Meena 70</code></pre>
+
+      <div class="note">
+        In most real Python programs, prefer <code>key</code>.
+        Use a comparison function only when the sorting rule is easier to express
+        by comparing two items directly.
+      </div>
+
+      <h3>Cheat Sheet for Comparison Function</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+def compare(a, b):
+    if a < b:
+        return -1
+    elif a > b:
+        return 1
+    else:
+        return 0
+
+items.sort(key=cmp_to_key(compare))</code></pre>
+    </section>
+
     <section>
-      <h2>9. Sorting List of Dictionaries</h2>
+      <h2>10. Sorting List of Dictionaries</h2>
 
       <p>
         Real data often comes as dictionaries.
@@ -643,7 +1104,7 @@ print(students)</code></pre>
     </section>
 
     <section>
-      <h2>10. Sorting by Multiple Rules</h2>
+      <h2>11. Sorting by Multiple Rules</h2>
 
       <p>
         Sometimes one rule is not enough.
@@ -695,7 +1156,7 @@ print(students)</code></pre>
     </section>
 
     <section id="objects">
-      <h2>11. Sorting Objects</h2>
+      <h2>12. Sorting Objects</h2>
 
       <p>
         In Object Oriented Programming, we may have a list of objects.
@@ -731,10 +1192,41 @@ print(students)</code></pre>
       <pre><code>students.sort(key=lambda student: student.name)
 
 print(students)</code></pre>
+
+      <h3>Sort objects using comparison function</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+class Student:
+    def __init__(self, name, marks):
+        self.name = name
+        self.marks = marks
+
+    def __repr__(self):
+        return f"{self.name}: {self.marks}"
+
+
+students = [
+    Student("Amit", 70),
+    Student("Ravi", 90),
+    Student("Zoya", 85),
+    Student("Meena", 60)
+]
+
+def compare_students(a, b):
+    return b.marks - a.marks
+
+students.sort(key=cmp_to_key(compare_students))
+
+print(students)</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>[Ravi: 90, Zoya: 85, Amit: 70, Meena: 60]</code></pre>
     </section>
 
     <section>
-      <h2>12. Common Mistakes</h2>
+      <h2>13. Common Mistakes</h2>
 
       <table>
         <tr>
@@ -762,6 +1254,11 @@ print(students)</code></pre>
           <td><code>KeyError</code></td>
           <td>Use the exact key name.</td>
         </tr>
+        <tr>
+          <td>Using comparison function directly</td>
+          <td>Python 3 does not accept old-style comparison functions directly.</td>
+          <td>Use <code>cmp_to_key(compare)</code>.</td>
+        </tr>
       </table>
 
       <h3>Example of mixed type problem</h3>
@@ -784,8 +1281,8 @@ print(items)</code></pre>
       <pre><code>[2, '5', 10]</code></pre>
     </section>
 
-    <section>
-      <h2>13. Sorting Without Built-in Functions</h2>
+    <section id="manual">
+      <h2>14. Sorting Without Built-in Functions</h2>
 
       <p>
         Beginners should also understand how sorting works internally.
@@ -814,9 +1311,11 @@ print(numbers)</code></pre>
     </section>
 
     <section>
-      <h2>14. Full Revision Program</h2>
+      <h2>15. Full Revision Program</h2>
 
-      <pre><code>numbers = [45, 12, 90, 33, 7]
+      <pre><code>from functools import cmp_to_key
+
+numbers = [45, 12, 90, 33, 7]
 
 print("Original:", numbers)
 
@@ -847,11 +1346,28 @@ print("Students by marks:")
 print(sorted(students, key=lambda s: s["marks"]))
 
 print("Students by marks high to low:")
-print(sorted(students, key=lambda s: s["marks"], reverse=True))</code></pre>
+print(sorted(students, key=lambda s: s["marks"], reverse=True))
+
+
+def compare_students(a, b):
+    if a["marks"] != b["marks"]:
+        return b["marks"] - a["marks"]
+
+    if a["name"] < b["name"]:
+        return -1
+    elif a["name"] > b["name"]:
+        return 1
+    else:
+        return 0
+
+
+print("Students using comparison function:")
+answer = sorted(students, key=cmp_to_key(compare_students))
+print(answer)</code></pre>
     </section>
 
     <section id="practice">
-      <h2>15. Practice Questions</h2>
+      <h2>16. Practice Questions</h2>
 
       <div class="practice">
         <h3>Beginner Level</h3>
@@ -874,6 +1390,18 @@ print(sorted(students, key=lambda s: s["marks"], reverse=True))</code></pre>
       </div>
 
       <div class="practice">
+        <h3>Comparison Function Practice</h3>
+        <ol>
+          <li>Sort numbers in ascending order using a comparison function.</li>
+          <li>Sort numbers in descending order using a comparison function.</li>
+          <li>Sort words by length using a comparison function.</li>
+          <li>Sort words by last character using a comparison function.</li>
+          <li>Sort students by marks descending and name ascending.</li>
+          <li>Sort products by price ascending and rating descending.</li>
+        </ol>
+      </div>
+
+      <div class="practice">
         <h3>Advanced Level</h3>
         <ol>
           <li>Sort a list of dictionaries by price.</li>
@@ -885,12 +1413,15 @@ print(sorted(students, key=lambda s: s["marks"], reverse=True))</code></pre>
     </section>
 
     <section>
-      <h2>16. Mini Project: Leaderboard Sorting</h2>
+      <h2>17. Mini Project: Leaderboard Sorting</h2>
 
       <p>
         Let us create a small leaderboard.
         We want the highest score first.
+        If two players have the same score, we sort names alphabetically.
       </p>
+
+      <h3>Using key function</h3>
 
       <pre><code>players = [
     {"name": "Amit", "score": 120},
@@ -914,14 +1445,43 @@ for rank, player in enumerate(leaderboard, start=1):
 3 Zoya 250
 4 Amit 120</code></pre>
 
-      <p>
-        The score is sorted in descending order using <code>-player["score"]</code>.
-        If two players have the same score, the name is sorted alphabetically.
-      </p>
+      <h3>Using comparison function</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+players = [
+    {"name": "Amit", "score": 120},
+    {"name": "Ravi", "score": 300},
+    {"name": "Zoya", "score": 250},
+    {"name": "Meena", "score": 300}
+]
+
+def compare_players(a, b):
+    if a["score"] != b["score"]:
+        return b["score"] - a["score"]
+
+    if a["name"] < b["name"]:
+        return -1
+    elif a["name"] > b["name"]:
+        return 1
+    else:
+        return 0
+
+leaderboard = sorted(players, key=cmp_to_key(compare_players))
+
+for rank, player in enumerate(leaderboard, start=1):
+    print(rank, player["name"], player["score"])</code></pre>
+
+      <p>Output:</p>
+
+      <pre><code>1 Meena 300
+2 Ravi 300
+3 Zoya 250
+4 Amit 120</code></pre>
     </section>
 
     <section>
-      <h2>17. Final Cheat Sheet</h2>
+      <h2>18. Final Cheat Sheet</h2>
 
       <table>
         <tr>
@@ -960,11 +1520,29 @@ for rank, player in enumerate(leaderboard, start=1):
           <td>Sort object by attribute</td>
           <td><code>students.sort(key=lambda s: s.marks)</code></td>
         </tr>
+        <tr>
+          <td>Use comparison function</td>
+          <td><code>items.sort(key=cmp_to_key(compare))</code></td>
+        </tr>
       </table>
+
+      <h3>Comparison Function Template</h3>
+
+      <pre><code>from functools import cmp_to_key
+
+def compare(a, b):
+    if a < b:
+        return -1
+    elif a > b:
+        return 1
+    else:
+        return 0
+
+items.sort(key=cmp_to_key(compare))</code></pre>
     </section>
 
     <section id="editor">
-      <h2>18. Practice in the Python Editor</h2>
+      <h2>19. Practice in the Python Editor</h2>
 
       <p>
         Try the examples above in the embedded Python editor.
@@ -991,9 +1569,12 @@ for rank, player in enumerate(leaderboard, start=1):
       <span class="tag">sort()</span>
       <span class="tag">sorted()</span>
       <span class="tag">lambda</span>
+      <span class="tag">cmp_to_key()</span>
+      <span class="tag">Comparison Function</span>
       <span class="tag">Custom Sorting</span>
     </p>
   </footer>
 
 </body>
+
 </html>
