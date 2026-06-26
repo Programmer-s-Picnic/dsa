@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Python Collections from Level 0 | List, Tuple, Set, Frozenset, Dictionary</title>
+
+    <meta name="description"
+        content="A beginner-friendly Python lesson on collections: list, tuple, set, frozenset and dictionary with examples, practice questions and a mini project." />
+
+    <meta name="keywords"
+        content="Python collections, Python list, Python tuple, Python set, Python frozenset, Python dictionary, Python beginner lesson, Programmer's Picnic, Champak Roy" />
+
+    <meta name="author" content="Champak Roy" />
+
+    <meta property="og:title" content="Python Collections from Level 0" />
+    <meta property="og:description"
+        content="Learn Python list, tuple, set, frozenset and dictionary from level 0 with examples and practice." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="collections-og.png" />
+
+    <style>
+        :root {
+            --bg: #dff8f3;
+            --bg2: #eefdf9;
+            --hero: #073b3a;
+            --hero2: #0f766e;
+            --card: rgba(255, 255, 255, 0.92);
+            --text: #102a2a;
+            --muted: #456565;
+            --teal: #0f766e;
+            --teal2: #14b8a6;
+            --yellow: #fff7d6;
+            --orange: #f97316;
+            --border: rgba(15, 118, 110, 0.22);
+            --code-bg: #071b1f;
+            --code-text: #eafff8;
+            --shadow: 0 18px 45px rgba(5, 56, 55, 0.16);
+            --radius: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top left, #b8fff2 0, transparent 35%),
+                linear-gradient(135deg, var(--bg), var(--bg2));
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--teal);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .page {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        header.hero {
+            background:
+                radial-gradient(circle at 15% 10%, rgba(20, 184, 166, 0.45), transparent 32%),
+                linear-gradient(135deg, var(--hero), var(--hero2));
+            color: white;
+            padding: 42px 30px;
+            border-radius: 34px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header.hero::after {
+            content: "";
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            right: -70px;
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+
+        h1 {
+            margin: 18px 0 10px;
+            font-size: clamp(2.2rem, 5vw, 4.8rem);
+            line-height: 1.02;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            max-width: 850px;
+            font-size: 1.18rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .nav-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 26px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-pills a {
+            color: white;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 10px 15px;
+            border-radius: 999px;
+            text-decoration: none;
+        }
+
+        .nav-pills a:hover,
+        .nav-pills a:focus {
+            background: rgba(255, 255, 255, 0.25);
+            outline: 3px solid rgba(255, 255, 255, 0.25);
+        }
+
+        main {
+            margin-top: 26px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 28px;
+            margin: 22px 0;
+            backdrop-filter: blur(8px);
+        }
+
+        h2 {
+            color: var(--teal);
+            font-size: clamp(1.7rem, 3vw, 2.5rem);
+            margin: 0 0 12px;
+            line-height: 1.2;
+        }
+
+        h3 {
+            color: #0b5f59;
+            font-size: 1.35rem;
+            margin-top: 28px;
+        }
+
+        h4 {
+            color: #0b5f59;
+            margin-bottom: 8px;
+        }
+
+        .lead {
+            font-size: 1.12rem;
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .mini-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .mini-card strong {
+            color: var(--teal);
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.1rem;
+        }
+
+        .note {
+            background: var(--yellow);
+            border-left: 7px solid var(--orange);
+            padding: 16px 18px;
+            border-radius: 16px;
+            margin: 18px 0;
+        }
+
+        .simple-list {
+            display: grid;
+            gap: 10px;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .simple-list li {
+            background: #f4fffc;
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            border-radius: 14px;
+        }
+
+        .code-title {
+            margin: 18px 0 0;
+            background: #0f766e;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 14px 14px 0 0;
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 18px;
+            border-radius: 0 18px 18px 18px;
+            overflow-x: auto;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+            margin-top: 0;
+            font-size: 0.98rem;
+            line-height: 1.55;
+        }
+
+        code {
+            font-family: "Consolas", "Courier New", monospace;
+        }
+
+        p code,
+        li code,
+        td code {
+            background: #d9fbf4;
+            color: #063b38;
+            padding: 2px 7px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 18px;
+            margin-top: 18px;
+            background: white;
+            box-shadow: 0 10px 28px rgba(5, 56, 55, 0.08);
+        }
+
+        th,
+        td {
+            padding: 14px;
+            border: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #0f766e;
+            color: white;
+        }
+
+        tr:nth-child(even) td {
+            background: #f3fffc;
+        }
+
+        .practice {
+            background:
+                linear-gradient(135deg, rgba(255, 247, 214, 0.95), rgba(255, 255, 255, 0.95));
+            border: 1px solid rgba(249, 115, 22, 0.35);
+        }
+
+        .editor-wrap {
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: white;
+            box-shadow: var(--shadow);
+            margin-top: 18px;
+        }
+
+        iframe {
+            width: 100%;
+            min-height: 520px;
+            border: 0;
+            display: block;
+            background: white;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--muted);
+            padding: 28px 10px 10px;
+        }
+
+        .footer strong {
+            color: var(--teal);
+        }
+
+        .top-button {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            background: var(--teal);
+            color: white;
+            border: 0;
+            border-radius: 999px;
+            padding: 12px 16px;
+            font-weight: 800;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+        }
+
+        .top-button:hover,
+        .top-button:focus {
+            background: #075f5a;
+            outline: 4px solid rgba(20, 184, 166, 0.25);
+        }
+
+        @media (max-width: 700px) {
+            .page {
+                padding: 14px;
+            }
+
+            header.hero {
+                padding: 30px 20px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header class="hero" id="top">
+            <div class="badge">Python Foundations</div>
+            <h1>Collections in Python</h1>
+            <p>
+                A level 0 lesson on the main Python collections:
+                <strong>list</strong>, <strong>tuple</strong>, <strong>set</strong>,
+                <strong>frozenset</strong>, and <strong>dictionary</strong>.
+            </p>
+
+            <nav class="nav-pills" aria-label="Lesson navigation">
+                <a href="#idea">Big Idea</a>
+                <a href="#list">List</a>
+                <a href="#tuple">Tuple</a>
+                <a href="#set">Set</a>
+                <a href="#frozenset">Frozenset</a>
+                <a href="#dictionary">Dictionary</a>
+                <a href="#comparison">Comparison</a>
+                <a href="#practice">Practice</a>
+                <a href="#editor">Python Editor</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="card" id="idea">
+                <h2>0. What is a Collection?</h2>
+                <p class="lead">
+                    A collection is a way to store many values inside one variable.
+                </p>
+
+                <p>Without collections, we may write:</p>
+
+                <div class="code-title">Without collection</div>
+                <pre><code>student1 = "Amit"
+student2 = "Riya"
+student3 = "Karan"
+
+print(student1)
+print(student2)
+print(student3)</code></pre>
+
+                <p>With a collection, we can write:</p>
+
+                <div class="code-title">With collection</div>
+                <pre><code>students = ["Amit", "Riya", "Karan"]
+
+print(students)</code></pre>
+
+                <div class="note">
+                    <strong>Simple meaning:</strong> A collection is a container for many values.
+                </div>
+
+                <div class="grid">
+                    <div class="mini-card">
+                        <strong>List</strong>
+                        Ordered and changeable collection.
+                    </div>
+                    <div class="mini-card">
+                        <strong>Tuple</strong>
+                        Ordered but not changeable collection.
+                    </div>
+                    <div class="mini-card">
+                        <strong>Set</strong>
+                        Unique values only. Duplicate values are removed.
+                    </div>
+                    <div class="mini-card">
+                        <strong>Frozenset</strong>
+                        A set that cannot be changed.
+                    </div>
+                    <div class="mini-card">
+                        <strong>Dictionary</strong>
+                        Stores data as key-value pairs.
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" id="list">
+                <h2>1. List</h2>
+                <p>
+                    A <strong>list</strong> is an ordered collection of values. Lists are written using square brackets:
+                    <code>[]</code>.
+                </p>
+
+                <div class="code-title">Basic list</div>
+                <pre><code>marks = [80, 75, 90]</code></pre>
+
+                <h3>Features of List</h3>
+                <ul class="simple-list">
+                    <li>Ordered</li>
+                    <li>Changeable</li>
+                    <li>Allows duplicate values</li>
+                    <li>Uses square brackets: <code>[]</code></li>
+                </ul>
+
+                <h3>List Example 1: Student Names</h3>
+
+                <div class="code-title">Python code</div>
+                <pre><code>students = ["Amit", "Riya", "Karan"]
+
+print(students)
+print(students[0])
+print(students[1])
+print(students[2])</code></pre>
+
+                <div class="code-title">Output</div>
+                <pre><code>['Amit', 'Riya', 'Karan']
+Amit
+Riya
+Karan</code></pre>
+
+                <div class="note">
+                    Python indexing starts from <strong>0</strong>. So <code>students[0]</code> means the first item.
+                </div>
+
+                <h3>List Example 2: Add and Change Values</h3>
+
+                <div class="code-title">Python code</div>
+                <pre><code>fruits = ["apple", "banana", "mango"]
+
+print("Original list:", fruits)
+
+fruits.append("orange")
+print("After adding orange:", fruits)
+
+fruits[1] = "grapes"
+print("After changing banana to grapes:", fruits)</code></pre>
+
+                <div class="code-title">Output</div>
+                <pre><code>Original list: ['apple', 'banana', 'mango']
+After adding orange: ['apple', 'banana', 'mango', 'orange']
+After changing banana to grapes: ['apple', 'grapes', 'mango', 'orange']</code></pre>
+            </section>
+
+            <section class="card" id="tuple">
+                <h2>2. Tuple</h2>
+                <p>
+                    A <strong>tuple</strong> is also an ordered collection. Tuples are written using round brackets:
+                    <code>()</code>.
+                </p>
+
+                <div class="code-title">Basic tuple</div>
+                <pre><code>point = (10, 20)</code></pre>
+
+                <h3>Features of Tuple</h3>
+                <ul class="simple-list">
+                    <li>Ordered</li>
+                    <li>Not changeable</li>
+                    <li>Allows duplicate values</li>
+                    <li>Uses round brackets: <code>()</code></li>
+                </ul>
+
+                <div class="note">
+                    Main difference: <strong>list can be changed</strong>, but <strong>tuple cannot be changed</strong>.
+                </div>
+
+                <h3>Tuple Example 1: Coordinates</h3>
+
+                <div class="code-title">Python code</div>
+                <pre><code>point = (10, 20)
+
+print(point)
+print("x =", point[0])
+print("y =", point[1])</code></pre>
+
+                <div class="code-title">Output</div>
+                <pre><code>(10, 20)
+x = 10
+y = 20</code></pre>
+
+                <h3>Tuple Example 2: Days of Week</h3>
+
+                <div class="code-title">Python code</div>
+                <pre><code>days = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+
+print(days)
+print(days[0])
+print(days[4])</code></pre>
+
+                <div class="code-title">Output</div>
+                <pre><code>('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+Monday
+Friday</code></pre>
+
+                <h3>What happens if we try to change a tuple?</h3>
+
+                <div class="code-title">This gives an error</div>
+                <pre><code>days = ("Monday", "Tuesday", "Wednesday")
+
+days[0] = "Sunday"</code></pre>
+
+                <div class="code-title">Error</div>
+                <pre><code>TypeError: 'tuple' object does not support item assignment</code></pre>
+            </section>
+
+            <section class="card" id="set">
+                <h2>3. Set</h2>
+                <p>
+                    A <strong>set</strong> is a collection of unique values. Sets are written using curly brackets:
+                    <code>{}</code>.
+                </p>
+
+                <div class="code-title">Basic set</div>
+                <pre><code>numbers = {1, 2, 3}</code></pre>
+
+                <h3>Features of Set</h3>
+                <ul class="simple-list">
+                    <li>Unordered</li>
+                    <li>Changeable</li>
+                    <li>Does not allow duplicate values</li>
+                    <li>Uses curly brackets: <code>{}</code></li>
+                </ul>
+
+                <h3>Set Example 1: Remove Duplicates Automatically</h3>
+
+                <div class="code-title">Python code</div>
+                <pre><code>numbers = {1, 2, 3, 2, 1, 4}
+
+print(numbers)</code></pre>
+
+                <div class="code-title">Output may be</div>
+                <pre><code>{1, 2, 3, 4}</code></pre>
+
+                <div class="note">
+                    A set keeps only unique values. Duplicate values are removed automatically.
+                </div>
+
+                <h3>Set Example 2: Add and Remove Items</h3>
+
+                <div class="code-title">Python code</div>
+                <pre><code>subjects = {"Python", "Java", "SQL"}
+
+print("Original set:", subjects)
+
+subjects.add("HTML")
+print("After adding HTML:", subjects)
+
+subjects.remove("Java")
+print("After removing Java:", subjects)</code></pre>
+
+                <div class="code-title">Output may be</div>
+                <pre><code>Original set: {'Python', 'Java', 'SQL'}
+After adding HTML: {'Python', 'Java', 'SQL', 'HTML'}
+After removing Java: {'Python', 'SQL', 'HTML'}</code></pre>
+
+                <div class="note">
+                    The output order may be different because sets are unordered.
+                </div>
+            </section>
+
+            <section class="card" id="frozenset">
+                <h2>4. Frozenset</h2>
+                <p>
+                    A <strong>frozenset</strong> is like a set, but it cannot be changed.
+                </p>
+
+                <div class="code-title">Basic frozenset</div>
+                <pre><code>numbers = frozenset([1, 2, 3])</code></pre>
+
+                <h3>Features of Frozenset</h3>
+                <ul class="simple-list">
+                    <li>Unordered</li>
+                    <li>Not changeable</li>
+                    <li>Does not allow duplicate values</li>
+                    <li>Created using <code>frozenset()</code></li>
+                </ul>
+
+                <div class="note">
+                    Think of a frozenset as a <strong>frozen set</strong>. It is locked after creation.
+                </div>
+
+                <h3>Frozenset Example 1: Create a Frozenset</h3>
+
+                <div class="code-title">Python code</div>
+                <pre><code>numbers = frozenset([1, 2, 3, 2, 1])
+
+print(numbers)</code></pre>
+
+                <div class="code-title">Output</div>
+                <pre><code>frozenset({1, 2, 3})</code></pre>
+
+                <h3>Frozenset Example 2: Check Membership</h3>
+
+                <div class="code-title">Python code</div>
+                <pre><code>subjects = frozenset(["Python", "Java", "SQL"])
+
+print("Python" in subjects)
+print("HTML" in subjects)</code></pre>
+
+                <div class="code-title">Output</div>
+                <pre><code>True
+False</code></pre>
+
+                <h3>What happens if we try to add to a frozenset?</h3>
+
+                <div class="code-title">This gives an error</div>
+                <pre><code>subjects = frozenset(["Python", "Java", "SQL"])
+
+subjects.add("HTML")</code></pre>
+
+                <div class="code-title">Error</div>
+                <pre><code>AttributeError: 'frozenset' object has no attribute 'add'</code></pre>
+            </section>
+
+            <section class="card" id="dictionary">
+                <h2>5. Dictionary</h2>
+                <p>
+                    A <strong>dictionary</strong> stores data in <strong>key-value pairs</strong>.
+                </p>
+
+                <div class="code-title">Basic dictionary</div>
+                <pre><code>student = {
+    "name": "Amit",
+    "age": 15,
+    "marks": 88
+}</code></pre>
+
+                <p>Each item has a key and a value:</p>
+
+                <div class="code-title">Key-value pair</div>
+                <pre><code>"name": "Amit"</code></pre>
+
+                <ul class="simple-list">
+                    <li><code>"name"</code> is the key</li>
+                    <li><code>"Amit"</code> is the value</li>
+                </ul>
+
+                <h3>Features of Dictionary</h3>
+                <ul class="simple-list">
+                    <li>Ordered</li>
+                    <li>Changeable</li>
+                    <li>Does not allow duplicate keys</li>
+                    <li>Stores key-value pairs</li>
+                </ul>
+
+                <h3>Dictionary Example 1: Student Data</h3>
+
+                <div class="code-title">Python code</div>
+                <pre><code>student = {
+    "name": "Amit",
+    "age": 15,
+    "marks": 88
+}
+
+print(student)
+print(student["name"])
+print(student["age"])
+print(student["marks"])</code></pre>
+
+                <div class="code-title">Output</div>
+                <pre><code>{'name': 'Amit', 'age': 15, 'marks': 88}
+Amit
+15
+88</code></pre>
+
+                <h3>Dictionary Example 2: Add and Update Values</h3>
+
+                <div class="code-title">Python code</div>
+                <pre><code>student = {
+    "name": "Riya",
+    "age": 14,
+    "marks": 91
+}
+
+print("Original dictionary:", student)
+
+student["city"] = "Varanasi"
+print("After adding city:", student)
+
+student["marks"] = 95
+print("After updating marks:", student)</code></pre>
+
+                <div class="code-title">Output</div>
+                <pre><code>Original dictionary: {'name': 'Riya', 'age': 14, 'marks': 91}
+After adding city: {'name': 'Riya', 'age': 14, 'marks': 91, 'city': 'Varanasi'}
+After updating marks: {'name': 'Riya', 'age': 14, 'marks': 95, 'city': 'Varanasi'}</code></pre>
+            </section>
+
+            <section class="card" id="comparison">
+                <h2>Comparison Table</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Collection</th>
+                            <th>Brackets / Syntax</th>
+                            <th>Ordered</th>
+                            <th>Changeable</th>
+                            <th>Allows Duplicates</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>List</td>
+                            <td><code>[]</code></td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                            <td><code>[1, 2, 2, 3]</code></td>
+                        </tr>
+                        <tr>
+                            <td>Tuple</td>
+                            <td><code>()</code></td>
+                            <td>Yes</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                            <td><code>(1, 2, 2, 3)</code></td>
+                        </tr>
+                        <tr>
+                            <td>Set</td>
+                            <td><code>{}</code></td>
+                            <td>No</td>
+                            <td>Yes</td>
+                            <td>No</td>
+                            <td><code>{1, 2, 3}</code></td>
+                        </tr>
+                        <tr>
+                            <td>Frozenset</td>
+                            <td><code>frozenset()</code></td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td><code>frozenset([1, 2, 3])</code></td>
+                        </tr>
+                        <tr>
+                            <td>Dictionary</td>
+                            <td><code>{key: value}</code></td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                            <td>Keys cannot repeat</td>
+                            <td><code>{"name": "Amit"}</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="card">
+                <h2>One Program Using All Collections</h2>
+
+                <div class="code-title">Python code</div>
+                <pre><code># List
+students = ["Amit", "Riya", "Karan"]
+
+# Tuple
+days = ("Monday", "Tuesday", "Wednesday")
+
+# Set
+unique_marks = {80, 90, 80, 75, 90}
+
+# Frozenset
+fixed_subjects = frozenset(["Python", "Maths", "English"])
+
+# Dictionary
+student_details = {
+    "name": "Amit",
+    "age": 15,
+    "marks": 88
+}
+
+print("List:", students)
+print("Tuple:", days)
+print("Set:", unique_marks)
+print("Frozenset:", fixed_subjects)
+print("Dictionary:", student_details)</code></pre>
+
+                <div class="code-title">Output may be</div>
+                <pre><code>List: ['Amit', 'Riya', 'Karan']
+Tuple: ('Monday', 'Tuesday', 'Wednesday')
+Set: {80, 90, 75}
+Frozenset: frozenset({'Python', 'Maths', 'English'})
+Dictionary: {'name': 'Amit', 'age': 15, 'marks': 88}</code></pre>
+            </section>
+
+            <section class="card">
+                <h2>When Should We Use What?</h2>
+
+                <div class="grid">
+                    <div class="mini-card">
+                        <strong>Use List</strong>
+                        When you want many values, want order, and want to change the values later.
+                        <pre><code>shopping_list = ["rice", "dal", "milk"]</code></pre>
+                    </div>
+
+                    <div class="mini-card">
+                        <strong>Use Tuple</strong>
+                        When you want fixed values that should not change.
+                        <pre><code>rgb_color = (255, 0, 0)</code></pre>
+                    </div>
+
+                    <div class="mini-card">
+                        <strong>Use Set</strong>
+                        When you want unique values only.
+                        <pre><code>roll_numbers = {1, 2, 3, 4}</code></pre>
+                    </div>
+
+                    <div class="mini-card">
+                        <strong>Use Frozenset</strong>
+                        When you want unique values that should not change.
+                        <pre><code>allowed_subjects = frozenset(["Python", "Java", "SQL"])</code></pre>
+                    </div>
+
+                    <div class="mini-card">
+                        <strong>Use Dictionary</strong>
+                        When you want to store meaningful records with names.
+                        <pre><code>student = {
+    "name": "Amit",
+    "class": 9,
+    "city": "Varanasi"
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card practice" id="practice">
+                <h2>Practice Questions</h2>
+
+                <h3>Question 1</h3>
+                <p>Create a list of 5 fruits and print the second fruit.</p>
+
+                <div class="code-title">Solution</div>
+                <pre><code>fruits = ["apple", "banana", "mango", "orange", "grapes"]
+
+print(fruits[1])</code></pre>
+
+                <h3>Question 2</h3>
+                <p>Create a tuple of 3 numbers and print the last number.</p>
+
+                <div class="code-title">Solution</div>
+                <pre><code>numbers = (10, 20, 30)
+
+print(numbers[2])</code></pre>
+
+                <h3>Question 3</h3>
+                <p>Create a set with duplicate numbers and print it.</p>
+
+                <div class="code-title">Solution</div>
+                <pre><code>numbers = {1, 2, 2, 3, 3, 4}
+
+print(numbers)</code></pre>
+
+                <h3>Question 4</h3>
+                <p>Create a frozenset of subjects and check whether <code>"Python"</code> is present.</p>
+
+                <div class="code-title">Solution</div>
+                <pre><code>subjects = frozenset(["Python", "Java", "SQL"])
+
+print("Python" in subjects)</code></pre>
+
+                <h3>Question 5</h3>
+                <p>Create a dictionary for a student with name, age, and marks.</p>
+
+                <div class="code-title">Solution</div>
+                <pre><code>student = {
+    "name": "Riya",
+    "age": 14,
+    "marks": 92
+}
+
+print(student)
+print(student["name"])
+print(student["marks"])</code></pre>
+            </section>
+
+            <section class="card">
+                <h2>Mini Project: Student Record System</h2>
+                <p>
+                    This mini project combines list, dictionary, set, and tuple.
+                </p>
+
+                <div class="code-title">Python code</div>
+                <pre><code>students = [
+    {
+        "name": "Amit",
+        "age": 15,
+        "subjects": {"Python", "Maths", "English"},
+        "marks": (88, 76, 92)
+    },
+    {
+        "name": "Riya",
+        "age": 14,
+        "subjects": {"Python", "Science", "English"},
+        "marks": (91, 85, 89)
+    }
+]
+
+for student in students:
+    print("Name:", student["name"])
+    print("Age:", student["age"])
+    print("Subjects:", student["subjects"])
+    print("Marks:", student["marks"])
+    print("Total marks:", sum(student["marks"]))
+    print()</code></pre>
+
+                <div class="code-title">Output</div>
+                <pre><code>Name: Amit
+Age: 15
+Subjects: {'Python', 'Maths', 'English'}
+Marks: (88, 76, 92)
+Total marks: 256
+
+Name: Riya
+Age: 14
+Subjects: {'Python', 'Science', 'English'}
+Marks: (91, 85, 89)
+Total marks: 265</code></pre>
+            </section>
+
+            <section class="card">
+                <h2>Final Memory Trick</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Collection</th>
+                            <th>Memory Trick</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>List</td>
+                            <td>Changeable line of items</td>
+                        </tr>
+                        <tr>
+                            <td>Tuple</td>
+                            <td>Fixed line of items</td>
+                        </tr>
+                        <tr>
+                            <td>Set</td>
+                            <td>Unique items</td>
+                        </tr>
+                        <tr>
+                            <td>Frozenset</td>
+                            <td>Fixed unique items</td>
+                        </tr>
+                        <tr>
+                            <td>Dictionary</td>
+                            <td>Key-value data</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="note">
+                    <strong>Best beginner rule:</strong>
+                    Use list for simple collections. Use dictionary for meaningful records.
+                    Use set when duplicates must disappear. Use tuple or frozenset when data should not change.
+                </div>
+            </section>
+
+            <section class="card" id="editor">
+                <h2>Try the Code in Our Python Editor</h2>
+                <p>
+                    Use the embedded Python editor below to run and modify the examples.
+                </p>
+
+                <div class="editor-wrap">
+                    <iframe src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1"
+                        title="Programmer's Picnic Python Editor"></iframe>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>
+                <strong>Programmer's Picnic</strong><br />
+                Python AI-ML Classes by Champak Roy
+            </p>
+        </footer>
+    </div>
+
+    <button class="top-button" onclick="scrollToTop()" aria-label="Go to top">Top</button>
+
+    <script>
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        const cards = document.querySelectorAll(".card");
+
+        const observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.transform = "translateY(0)";
+                        entry.target.style.opacity = "1";
+                    }
+                });
+            },
+            {
+                threshold: 0.08
+            }
+        );
+
+        cards.forEach(card => {
+            card.style.transform = "translateY(16px)";
+            card.style.opacity = "0";
+            card.style.transition = "all 0.5s ease";
+            observer.observe(card);
+        });
+    </script>
+</body>
+
+</html>
