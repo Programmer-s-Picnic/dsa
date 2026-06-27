@@ -1,221 +1,324 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-    
-        gtag('config', 'G-GSTQRQMLEE');
-    </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/><title>Sorting Variations Lab | Study AI/ML with Champak Roy, Varanasi</title><meta content="Learn Sorting Variations Lab as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="description"/><meta content="AI ML classes Varanasi, study AIML with Champak Roy, Champak Roy Varanasi, Programmer's Picnic, Sorting Variations Lab, Python lessons, machine learning lessons, data structures algorithms, learnwithchampak" name="keywords"/><meta content="Champak Roy" name="author"/><meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/><link href="https://dsa.learnwithchampak.live/sorting/identifier/" rel="canonical"/><meta content="website" property="og:type"/><meta content="Programmer's Picnic by Champak Roy" property="og:site_name"/><meta content="Sorting Variations Lab | Study AI/ML with Champak Roy, Varanasi" property="og:title"/><meta content="Learn Sorting Variations Lab as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." property="og:description"/><meta content="https://dsa.learnwithchampak.live/sorting/identifier/" property="og:url"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="summary_large_image" name="twitter:card"/><meta content="Sorting Variations Lab | Study AI/ML with Champak Roy, Varanasi" name="twitter:title"/><meta content="Learn Sorting Variations Lab as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="twitter:description"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" name="twitter:image"/>
+    gtag('config', 'G-GSTQRQMLEE');
+  </script>
 
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
-<style>
-      :root {
-        --bg: #fffaf0;
-        --bg2: #fff4d6;
-        --card: #fff;
-        --text: #2b2112;
-        --muted: #725b36;
-        --brand: #f59e0b;
-        --brand2: #d97706;
-        --border: #f1d7a8;
-        --good: #16a34a;
-        --bad: #dc2626;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, var(--bg), var(--bg2));
-        color: var(--text);
-      }
-      .wrap {
-        max-width: 1200px;
-        margin: auto;
-        padding: 22px;
-      }
-      .hero {
-        background: #fff;
-        border: 1px solid var(--border);
-        border-radius: 26px;
-        padding: 24px;
-        box-shadow: 0 18px 45px rgba(217, 119, 6, 0.14);
-      }
-      h1 {
-        margin: 0 0 8px;
-        font-size: 34px;
-      }
-      .subtitle {
-        color: var(--muted);
-        line-height: 1.6;
-      }
-      textarea {
-        width: 100%;
-        min-height: 200px;
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        padding: 16px;
-        font-size: 16px;
-        outline: none;
-      }
-      button,
-      select,
-      input {
-        border-radius: 999px;
-        padding: 11px 16px;
-        font-weight: 800;
-      }
-      button {
-        border: 0;
-        background: linear-gradient(135deg, var(--brand), var(--brand2));
-        color: #fff;
-        cursor: pointer;
-      }
-      button.secondary,
-      select,
-      input {
-        background: #fff3d0;
-        color: #7c4a00;
-        border: 1px solid var(--border);
-      }
-      .controls {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin: 14px 0;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 16px;
-      }
-      .card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 18px;
-        margin-top: 16px;
-      }
-      .result {
-        font-size: 32px;
-        font-weight: 900;
-        color: var(--brand2);
-      }
-      .badge {
-        display: inline-block;
-        padding: 5px 10px;
-        border-radius: 999px;
-        background: #fff3d0;
-        color: #92400e;
-        font-size: 13px;
-        font-weight: 800;
-        margin: 4px 4px 0 0;
-      }
-      .score-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        border-bottom: 1px dashed #edd3a0;
-        padding: 8px 0;
-      }
-      .good {
-        color: var(--good);
-        font-weight: 900;
-      }
-      .bad {
-        color: var(--bad);
-        font-weight: 900;
-      }
-      .barrow {
-        display: flex;
-        gap: 8px;
-        align-items: end;
-        padding: 14px;
-        background: #fff8e8;
-        border-radius: 18px;
-        min-height: 175px;
-        overflow: auto;
-      }
-      .bar {
-        min-width: 42px;
-        background: linear-gradient(#fbbf24, #d97706);
-        color: white;
-        border-radius: 12px 12px 7px 7px;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        padding-bottom: 8px;
-        font-weight: 900;
-      }
-      .pass-card {
-        border-radius: 18px;
-        padding: 8px;
-        margin: 10px 0;
-      }
-      .correct {
-        outline: 4px solid rgba(22, 163, 74, 0.35);
-      }
-      .wrong {
-        outline: 4px solid rgba(220, 38, 38, 0.35);
-      }
-      .active {
-        outline: 4px solid rgba(245, 158, 11, 0.45);
-      }
-      .example-box {
-        background: #fffaf0;
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        padding: 14px;
-        margin: 10px 0;
-      }
-      pre {
-        white-space: pre-wrap;
-        background: #2b2112;
-        color: #fff7e6;
-        padding: 14px;
-        border-radius: 16px;
-        overflow: auto;
-      }
-      details {
-        background: #fffaf0;
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        padding: 14px;
-        margin: 10px 0;
-      }
-      summary {
-        font-weight: 900;
-        cursor: pointer;
-      }
-      .quiz-option {
-        padding: 10px;
-        margin: 8px 0;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        cursor: pointer;
-        background: #fffaf0;
-      }
-      .quiz-option:hover {
-        background: #fff3d0;
-      }
-      .selected {
-        outline: 3px solid rgba(245, 158, 11, 0.45);
-      }
-    </style>
-<link href="../../assets/css/theme.css" rel="stylesheet"/><script type="application/ld+json">{
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>Sorting Identifier Lab | Bubble, Selection, Insertion, Quick, Merge, Heap and Counting Sort | Champak Roy
+  </title>
+  <meta
+    content="Identify Bubble, Selection, Insertion, Quick, Merge, Heap and Counting Sort from plain array lines. Practice sorting algorithms with visual feedback, step quizzes and classroom examples by Champak Roy."
+    name="description" />
+  <meta
+    content="AI ML classes Varanasi, study AIML with Champak Roy, Champak Roy Varanasi, Programmer's Picnic, Sorting Identifier Lab, Quick Sort, Merge Sort, Heap Sort, Counting Sort, Python lessons, machine learning lessons, data structures algorithms, learnwithchampak"
+    name="keywords" />
+  <meta content="Champak Roy" name="author" />
+  <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots" />
+  <link href="https://dsa.learnwithchampak.live/sorting/identifier/" rel="canonical" />
+  <meta content="website" property="og:type" />
+  <meta content="Programmer's Picnic by Champak Roy" property="og:site_name" />
+  <meta
+    content="Sorting Identifier Lab | Bubble, Selection, Insertion, Quick, Merge, Heap and Counting Sort | Champak Roy"
+    property="og:title" />
+  <meta
+    content="Identify Bubble, Selection, Insertion, Quick, Merge, Heap and Counting Sort from plain array lines. Practice sorting algorithms with visual feedback, step quizzes and classroom examples by Champak Roy."
+    property="og:description" />
+  <meta content="https://dsa.learnwithchampak.live/sorting/identifier/" property="og:url" />
+  <meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"
+    property="og:image" />
+  <meta content="1200" property="og:image:width" />
+  <meta content="630" property="og:image:height" />
+  <meta content="summary_large_image" name="twitter:card" />
+  <meta
+    content="Sorting Identifier Lab | Bubble, Selection, Insertion, Quick, Merge, Heap and Counting Sort | Champak Roy"
+    name="twitter:title" />
+  <meta
+    content="Identify Bubble, Selection, Insertion, Quick, Merge, Heap and Counting Sort from plain array lines. Practice sorting algorithms with visual feedback, step quizzes and classroom examples by Champak Roy."
+    name="twitter:description" />
+  <meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"
+    name="twitter:image" />
+
+  <script async="" crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+  <style>
+    :root {
+      --bg: #fffaf0;
+      --bg2: #fff4d6;
+      --card: #fff;
+      --text: #2b2112;
+      --muted: #725b36;
+      --brand: #f59e0b;
+      --brand2: #d97706;
+      --border: #f1d7a8;
+      --good: #16a34a;
+      --bad: #dc2626;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg), var(--bg2));
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: auto;
+      padding: 22px;
+    }
+
+    .hero {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      padding: 24px;
+      box-shadow: 0 18px 45px rgba(217, 119, 6, 0.14);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 200px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button,
+    select,
+    input {
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-weight: 800;
+    }
+
+    button {
+      border: 0;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button.secondary,
+    select,
+    input {
+      background: #fff3d0;
+      color: #7c4a00;
+      border: 1px solid var(--border);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0;
+      align-items: center;
+    }
+
+    .control-help {
+      display: block;
+      width: 100%;
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .simple-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .simple-step {
+      background: #fff8e8;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      line-height: 1.5;
+    }
+
+    .simple-step b {
+      color: var(--brand2);
+    }
+
+    button:focus,
+    select:focus,
+    input:focus,
+    textarea:focus {
+      outline: 4px solid rgba(245, 158, 11, 0.45);
+      outline-offset: 3px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 16px;
+    }
+
+    .result {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--brand2);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #fff3d0;
+      color: #92400e;
+      font-size: 13px;
+      font-weight: 800;
+      margin: 4px 4px 0 0;
+    }
+
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px dashed #edd3a0;
+      padding: 8px 0;
+    }
+
+    .good {
+      color: var(--good);
+      font-weight: 900;
+    }
+
+    .bad {
+      color: var(--bad);
+      font-weight: 900;
+    }
+
+    .barrow {
+      display: flex;
+      gap: 8px;
+      align-items: end;
+      padding: 14px;
+      background: #fff8e8;
+      border-radius: 18px;
+      min-height: 175px;
+      overflow: auto;
+    }
+
+    .bar {
+      min-width: 42px;
+      background: linear-gradient(#fbbf24, #d97706);
+      color: white;
+      border-radius: 12px 12px 7px 7px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding-bottom: 8px;
+      font-weight: 900;
+    }
+
+    .pass-card {
+      border-radius: 18px;
+      padding: 8px;
+      margin: 10px 0;
+    }
+
+    .correct {
+      outline: 4px solid rgba(22, 163, 74, 0.35);
+    }
+
+    .wrong {
+      outline: 4px solid rgba(220, 38, 38, 0.35);
+    }
+
+    .active {
+      outline: 4px solid rgba(245, 158, 11, 0.45);
+    }
+
+    .example-box {
+      background: #fffaf0;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      background: #2b2112;
+      color: #fff7e6;
+      padding: 14px;
+      border-radius: 16px;
+      overflow: auto;
+    }
+
+    details {
+      background: #fffaf0;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+
+    summary {
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .quiz-option {
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      background: #fffaf0;
+    }
+
+    .quiz-option:hover {
+      background: #fff3d0;
+    }
+
+    .selected {
+      outline: 3px solid rgba(245, 158, 11, 0.45);
+    }
+  </style>
+  <link href="../../assets/css/theme.css" rel="stylesheet" />
+  <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "LearningResource",
-  "name": "Sorting Variations Lab | Study AI/ML with Champak Roy, Varanasi",
-  "description": "Learn Sorting Variations Lab as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons.",
+  "name": "Sorting Identifier Lab | Bubble, Selection, Insertion, Quick, Merge, Heap and Counting Sort | Champak Roy",
+  "description": "Identify Bubble, Selection, Insertion, Quick, Merge, Heap and Counting Sort from plain array lines. Practice sorting algorithms with visual feedback, step quizzes and classroom examples by Champak Roy.",
   "url": "https://dsa.learnwithchampak.live/sorting/identifier/",
   "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
   "inLanguage": "en",
@@ -245,559 +348,618 @@
     "audienceType": "Students and beginner programmers"
   },
   "isAccessibleForFree": true
-}</script></head>
-<body data-root="../../"><div data-root="../../" id="site-header"></div><div id="main-content"></div>
-<div class="wrap">
-<div class="hero">
-<h1 data-pp-speak-title="">Sorting Variations Lab | Champak Roy</h1>
-<p class="subtitle" id="speak0">
-          Focused classroom tool for Bubble Sort, Selection Sort, Insertion
-          Sort, and their important variations.
-        </p>
-<div class="controls">
-<select id="exampleSelect"></select>
-<button onclick="loadExample()">Load Example</button>
-<select id="difficulty">
-<option value="easy">Easy</option>
-<option selected="" value="medium">Medium</option>
-<option value="hard">Hard</option>
-</select>
-<button class="secondary" onclick="generateQuestion()">
-            Generate Question
-          </button>
-<button class="secondary" onclick="identify()">Identify</button>
-<button class="secondary" onclick="playAnimation()">
-            Play Animation
-          </button>
-<button class="secondary" onclick="clearInput()">Clear</button>
-</div>
-<textarea id="input">
-Start: [5,1,4,2,8]
-Pass 1: [1,4,2,5,8]
-Pass 2: [1,2,4,5,8]
-Pass 3: [1,2,4,5,8]</textarea>
-<div class="grid">
-<div class="card">
-<h2>Detected Pattern</h2>
-<div class="result" id="result">Waiting...</div>
-<p class="subtitle" id="reason"></p>
-<div id="badges"></div>
-</div>
-<div class="card">
-<h2>Confidence Scores</h2>
-<div id="scores"></div>
-</div>
-</div>
-<div class="card">
-<h2>Step Visualization</h2>
-<div id="viz"></div>
-</div>
-<div class="card">
-<h2>Step Feedback</h2>
-<div class="subtitle" id="feedback"></div>
-</div>
-<div class="card">
-<h2>Step Prediction Quiz</h2>
-<p class="subtitle">
-            Generate a question, predict the next pass, then check your answer.
-          </p>
-<div class="controls">
-<select id="quizAlgo">
-<option>Bubble Sort</option>
-<!-- <option>Optimized Bubble Sort</option> -->
-<!-- <option>Cocktail Shaker Sort</option> -->
-<option>Selection Sort</option>
-<option>Double Selection Sort</option>
-<option>Insertion Sort</option>
-<!-- <option>Binary Insertion Sort</option> -->
-<!-- <option>Gnome Sort</option> -->
-</select>
-<button onclick="makeStepQuiz()">Make Step Quiz</button>
-<button class="secondary" onclick="checkStepQuiz()">
-              Check Answer
-            </button>
-</div>
-<div id="quizBox"></div>
-</div>
-<div class="card">
-<h2>Example Library</h2>
-<div id="exampleList"></div>
-</div>
-<div class="card">
-<h2>Help Section</h2>
-<details open="">
-<summary>Families covered</summary>
-<p>
-<span class="badge">Bubble Sort</span>
-<!-- <span class="badge">Optimized Bubble</span> -->
-<!-- <span class="badge">Cocktail Shaker</span> -->
-<span class="badge">Selection Sort</span>
-<!-- <span class="badge">Double Selection</span> -->
-<span class="badge">Insertion Sort</span>
-<!-- <span class="badge">Binary Insertion</span> -->
-<!-- <span class="badge">Gnome Sort</span> -->
-</p>
-</details>
-<details>
-<summary>Input format</summary>
-<pre>
-Start: [5,1,4,2,8]
-Pass 1: [1,4,2,5,8]
-Pass 2: [1,2,4,5,8]</pre>
-</details>
-<details>
-<summary>Important note</summary>
-<p class="subtitle">
-              Some variations produce identical visible passes. For example,
-              standard insertion and binary insertion often look the same in
-              array snapshots.
-            </p>
-</details>
-</div>
-</div>
-</div>
-<script src="https://varanasi-software-junction.github.io/search/branding/branding.js"></script>
-<script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
-<script src="https://programmer-s-picnic.github.io/json-images/contact_champak.js"></script>
-<script>
-      const EXAMPLES = [
-        {
-          name: "Bubble Sort — Example 1",
-          family: "Bubble Family",
-          explanation:
-            "Adjacent comparisons push the largest unsorted element to the right.",
-          text: `Start: [5,1,4,2,8]
-Pass 1: [1,4,2,5,8]
-Pass 2: [1,2,4,5,8]
-Pass 3: [1,2,4,5,8]
-Pass 4: [1,2,4,5,8]`,
-          svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="30" font-size="16" font-weight="700" fill="#92400e">Bubble: largest moves right</text><circle cx="80" cy="65" r="20" fill="#f59e0b"/><text x="74" y="71" fill="white">5</text><path d="M110 65 H330" stroke="#d97706" stroke-width="4" marker-end="url(#b1)"/><circle cx="350" cy="65" r="22" fill="#16a34a"/><text x="344" y="72" fill="white">8</text><defs><marker id="b1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#d97706"/></marker></defs></svg>`,
-        },
-        {
-          name: "Bubble Sort — Example 2",
-          family: "Bubble Family",
-          explanation:
-            "Each pass places one more large element at the right end.",
-          text: `Start: [9,7,3,1]
-Pass 1: [7,3,1,9]
-Pass 2: [3,1,7,9]
-Pass 3: [1,3,7,9]
-Pass 4: [1,3,7,9]`,
-          svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="30" font-size="16" font-weight="700" fill="#92400e">Right side becomes fixed</text><rect x="260" y="55" width="42" height="32" rx="8" fill="#16a34a"/><rect x="310" y="55" width="42" height="32" rx="8" fill="#16a34a"/><text x="115" y="75" fill="#92400e">unsorted</text><text x="265" y="75" fill="white">7</text><text x="315" y="75" fill="white">9</text></svg>`,
-        },
-        
-        
-         
-       
-        {
-          name: "Selection Sort — Example 1",
-          family: "Selection Family",
-          explanation: "The minimum is selected and placed at the front.",
-          text: `Start: [5,1,4,2,8]
-Pass 1: [1,5,4,2,8]
-Pass 2: [1,2,4,5,8]
-Pass 3: [1,2,4,5,8]
-Pass 4: [1,2,4,5,8]`,
-          svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="30" font-size="16" font-weight="700" fill="#92400e">Selection: choose minimum</text><circle cx="140" cy="68" r="22" fill="#16a34a"/><text x="134" y="75" fill="white">1</text><path d="M140 88 C110 105,70 100,65 75" stroke="#16a34a" stroke-width="4" fill="none"/></svg>`,
-        },
-        {
-          name: "Selection Sort — Example 2",
-          family: "Selection Family",
-          explanation: "The sorted section grows from the left.",
-          text: `Start: [64,25,12,22,11]
-Pass 1: [11,25,12,22,64]
-Pass 2: [11,12,25,22,64]
-Pass 3: [11,12,22,25,64]
-Pass 4: [11,12,22,25,64]`,
-          svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="30" font-size="16" font-weight="700" fill="#92400e">Sorted prefix grows</text><rect x="70" y="55" width="42" height="32" rx="8" fill="#16a34a"/><rect x="120" y="55" width="42" height="32" rx="8" fill="#16a34a"/><text x="78" y="76" fill="white">11</text><text x="128" y="76" fill="white">12</text></svg>`,
-        } ,
-        {
-          name: "Insertion Sort — Example 1",
-          family: "Insertion Family",
-          explanation:
-            "The sorted left part grows by inserting the next value.",
-          text: `Start: [5,1,4,2,8]
-Pass 1: [1,5,4,2,8]
-Pass 2: [1,4,5,2,8]
-Pass 3: [1,2,4,5,8]
-Pass 4: [1,2,4,5,8]`,
-          svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="30" font-size="16" font-weight="700" fill="#92400e">Insertion: sorted left grows</text><rect x="70" y="55" width="42" height="32" rx="8" fill="#16a34a"/><rect x="120" y="55" width="42" height="32" rx="8" fill="#16a34a"/><path d="M280 70 H180" stroke="#d97706" stroke-width="4"/></svg>`,
-        },
-        {
-          name: "Insertion Sort — Example 2",
-          family: "Insertion Family",
-          explanation:
-            "Each new value is inserted into the already sorted prefix.",
-          text: `Start: [9,3,6,2]
-Pass 1: [3,9,6,2]
-Pass 2: [3,6,9,2]
-Pass 3: [2,3,6,9]`,
-          svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#ecfdf5"/><text x="20" y="35" font-size="18" font-weight="700" fill="#166534">Insert key into prefix</text><text x="70" y="75" font-size="22" fill="#166534">[3,6,9] + 2</text></svg>`,
-        }
-        
-         
-        
-      ];
+}</script>
+</head>
 
-      function initExamples() {
-        const select = document.getElementById("exampleSelect");
-        select.innerHTML = EXAMPLES.map(
-          (e, i) => `<option value="${i}">${e.name}</option>`,
-        ).join("");
-        document.getElementById("exampleList").innerHTML = EXAMPLES.map(
-          (e, i) => `
+<body data-root="../../">
+  <div data-root="../../" id="site-header"></div>
+  <div id="main-content"></div>
+  <div class="wrap">
+    <div class="hero">
+      <h1 data-pp-speak-title="">Sorting Identifier Lab | Champak Roy</h1>
+      <p class="subtitle" id="speak0">
+        A beginner-friendly tool: paste number lines and discover which sorting method the steps look like. Start with
+        Bubble, Selection and Insertion. Then try Quick Sort, Merge Sort, Heap Sort and Counting Sort.
+      </p>
+      <div class="simple-steps">
+        <div class="simple-step"><b>1. Write numbers</b><br />First line is the original list.</div>
+        <div class="simple-step"><b>2. Add next lines</b><br />Each next line is after one sorting pass.</div>
+        <div class="simple-step"><b>3. Click Check</b><br />The page tells you the most likely sort.</div>
+      </div>
+      <div class="controls">
+        <span class="control-help">Choose a ready example</span>
+        <select id="exampleSelect" aria-label="Choose a ready sorting example"></select>
+        <button onclick="loadExample()">Use Example</button>
+      </div>
+      <div class="controls">
+        <span class="control-help">Or make a new practice question</span>
+        <select id="difficulty" aria-label="Choose practice size">
+          <option value="easy">Small list</option>
+          <option selected="" value="medium">Medium list</option>
+          <option value="hard">Large list</option>
+        </select>
+        <select id="sortGroup" aria-label="Choose sort group">
+          <option selected="" value="basic">Basic sorts only</option>
+          <option value="advanced">Advanced sorts only</option>
+          <option value="all">All sorts</option>
+        </select>
+        <button class="secondary" onclick="generateQuestion()">Make Practice</button>
+      </div>
+      <div class="controls">
+        <button onclick="identify()">Check Sort Type</button>
+        <button class="secondary" onclick="playAnimation()">Show Lines One by One</button>
+        <button class="secondary" onclick="clearInput()">Clear Page</button>
+      </div>
+      <p class="subtitle"><b>Input format:</b> one line at a time. No words like Start or Pass are needed.</p>
+      <textarea id="input" aria-label="Sorting lines input">
+5,1,4,2,8
+1,4,2,5,8
+1,2,4,5,8
+1,2,4,5,8</textarea>
+      <div class="grid">
+        <div class="card">
+          <h2>Answer</h2>
+          <div class="result" id="result">Waiting...</div>
+          <p class="subtitle" id="reason"></p>
+          <div id="badges"></div>
+        </div>
+        <div class="card">
+          <h2>Match Scores</h2>
+          <div id="scores"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Picture of Each Line</h2>
+        <div id="viz"></div>
+      </div>
+      <div class="card">
+        <h2>Line-by-Line Check</h2>
+        <div class="subtitle" id="feedback"></div>
+      </div>
+      <div class="card">
+        <h2>Practice: What Comes Next?</h2>
+        <p class="subtitle">
+          Choose a sort, see the first line, then write what the next line should be.
+        </p>
+        <div class="controls">
+          <select id="quizAlgo">
+            <optgroup label="Basic sorts">
+              <option value="Bubble Sort">Bubble Sort — big numbers move right</option>
+              <option value="Selection Sort">Selection Sort — smallest number goes left</option>
+              <option value="Insertion Sort">Insertion Sort — insert into sorted left side</option>
+            </optgroup>
+            <optgroup label="Advanced sorts">
+              <option value="Quick Sort">Quick Sort — choose pivot and divide</option>
+              <option value="Merge Sort">Merge Sort — merge small sorted groups</option>
+              <option value="Heap Sort">Heap Sort — use a biggest-number heap</option>
+              <option value="Counting Sort">Counting Sort — count values and rebuild</option>
+            </optgroup>
+          </select>
+          <button onclick="makeStepQuiz()">Make Practice</button>
+          <button class="secondary" onclick="checkStepQuiz()">
+            Check My Answer
+          </button>
+        </div>
+        <div id="quizBox"></div>
+      </div>
+      <div class="card">
+        <h2>Ready Examples</h2>
+        <div id="exampleList"></div>
+      </div>
+      <div class="card">
+        <h2>Beginner Help</h2>
+        <details open="">
+          <summary>Sorts used here</summary>
+          <p>
+            <span class="badge">Bubble Sort</span>
+            <span class="badge">Selection Sort</span>
+            <span class="badge">Insertion Sort</span>
+            <span class="badge">Quick Sort</span>
+            <span class="badge">Merge Sort</span>
+            <span class="badge">Heap Sort</span>
+            <span class="badge">Counting Sort</span>
+          </p>
+        </details>
+        <details>
+          <summary>How to write the lines</summary>
+          <pre>
+5,1,4,2,8
+1,4,2,5,8
+1,2,4,5,8</pre>
+          <p class="subtitle">First line is the starting array. Every next line is the array after one visible step or
+            pass.</p>
+        </details>
+        <details>
+          <summary>Important note</summary>
+          <p class="subtitle">
+            Use one plain number list per line. No labels are needed. Example: <code>9,7,3,1</code> then next line
+            <code>7,3,1,9</code>.<br /><br />
+            <b>Basic sorts are best for beginners.</b> Advanced sorts may have different styles of steps. Here we use
+            one simple classroom style for each: Quick Sort shows each pivot placement, Merge Sort shows each merge
+            round, Heap Sort shows heap/extract steps, and Counting Sort shows the output being rebuilt.
+          </p>
+        </details>
+      </div>
+    </div>
+  </div>
+  <script src="https://varanasi-software-junction.github.io/search/branding/branding.js"></script>
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
+  <script src="https://programmer-s-picnic.github.io/json-images/contact_champak.js"></script>
+  <script>
+    const EXAMPLES = [
+      {
+        name: "Bubble Sort — Easy example",
+        family: "Bubble Sort",
+        explanation:
+          "Compare neighbours. Bigger numbers slowly move to the right.",
+        text: `5,1,4,2,8
+1,4,2,5,8
+1,2,4,5,8
+1,2,4,5,8
+1,2,4,5,8`,
+        svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="30" font-size="16" font-weight="700" fill="#92400e">Bubble: largest moves right</text><circle cx="80" cy="65" r="20" fill="#f59e0b"/><text x="74" y="71" fill="white">5</text><path d="M110 65 H330" stroke="#d97706" stroke-width="4" marker-end="url(#b1)"/><circle cx="350" cy="65" r="22" fill="#16a34a"/><text x="344" y="72" fill="white">8</text><defs><marker id="b1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#d97706"/></marker></defs></svg>`,
+      },
+      {
+        name: "Bubble Sort — Another example",
+        family: "Bubble Sort",
+        explanation:
+          "After every line, one big number reaches its correct place on the right.",
+        text: `9,7,3,1
+7,3,1,9
+3,1,7,9
+1,3,7,9
+1,3,7,9`,
+        svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="30" font-size="16" font-weight="700" fill="#92400e">Right side becomes fixed</text><rect x="260" y="55" width="42" height="32" rx="8" fill="#16a34a"/><rect x="310" y="55" width="42" height="32" rx="8" fill="#16a34a"/><text x="115" y="75" fill="#92400e">unsorted</text><text x="265" y="75" fill="white">7</text><text x="315" y="75" fill="white">9</text></svg>`,
+      },
+
+
+
+
+      {
+        name: "Selection Sort — Easy example",
+        family: "Selection Sort",
+        explanation: "Find the smallest number and put it at the front.",
+        text: `5,1,4,2,8
+1,5,4,2,8
+1,2,4,5,8
+1,2,4,5,8
+1,2,4,5,8`,
+        svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="30" font-size="16" font-weight="700" fill="#92400e">Selection: choose minimum</text><circle cx="140" cy="68" r="22" fill="#16a34a"/><text x="134" y="75" fill="white">1</text><path d="M140 88 C110 105,70 100,65 75" stroke="#16a34a" stroke-width="4" fill="none"/></svg>`,
+      },
+      {
+        name: "Selection Sort — Another example",
+        family: "Selection Sort",
+        explanation: "The correct part grows from the left side.",
+        text: `64,25,12,22,11
+11,25,12,22,64
+11,12,25,22,64
+11,12,22,25,64
+11,12,22,25,64`,
+        svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="30" font-size="16" font-weight="700" fill="#92400e">Sorted prefix grows</text><rect x="70" y="55" width="42" height="32" rx="8" fill="#16a34a"/><rect x="120" y="55" width="42" height="32" rx="8" fill="#16a34a"/><text x="78" y="76" fill="white">11</text><text x="128" y="76" fill="white">12</text></svg>`,
+      },
+      {
+        name: "Insertion Sort — Easy example",
+        family: "Insertion Sort",
+        explanation:
+          "Take the next number and insert it into the correct place on the left.",
+        text: `5,1,4,2,8
+1,5,4,2,8
+1,4,5,2,8
+1,2,4,5,8
+1,2,4,5,8`,
+        svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="30" font-size="16" font-weight="700" fill="#92400e">Insertion: sorted left grows</text><rect x="70" y="55" width="42" height="32" rx="8" fill="#16a34a"/><rect x="120" y="55" width="42" height="32" rx="8" fill="#16a34a"/><path d="M280 70 H180" stroke="#d97706" stroke-width="4"/></svg>`,
+      },
+      {
+        name: "Insertion Sort — Another example",
+        family: "Insertion Sort",
+        explanation:
+          "The left side is kept sorted as new numbers are added.",
+        text: `9,3,6,2
+3,9,6,2
+3,6,9,2
+2,3,6,9`,
+        svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#ecfdf5"/><text x="20" y="35" font-size="18" font-weight="700" fill="#166534">Insert key into prefix</text><text x="70" y="75" font-size="22" fill="#166534">[3,6,9] + 2</text></svg>`,
+      },
+      {
+        name: "Quick Sort — Advanced example",
+        family: "Advanced Sort: Quick Sort",
+        explanation: "Choose a pivot. Put smaller numbers before it and bigger numbers after it.",
+        text: `9,7,3,1
+1,7,3,9
+1,3,7,9`,
+        svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="32" font-size="16" font-weight="700" fill="#92400e">Quick: pivot goes to final place</text><circle cx="210" cy="68" r="23" fill="#d97706"/><text x="204" y="75" fill="white">9</text><path d="M210 44 V25" stroke="#92400e" stroke-width="4"/></svg>`,
+      },
+      {
+        name: "Merge Sort — Advanced example",
+        family: "Advanced Sort: Merge Sort",
+        explanation: "Sort tiny groups first, then merge them into bigger sorted groups.",
+        text: `5,1,4,2,8
+1,5,2,4,8
+1,2,4,5,8
+1,2,4,5,8`,
+        svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#ecfdf5"/><text x="20" y="34" font-size="16" font-weight="700" fill="#166534">Merge: small sorted groups join</text><text x="70" y="75" font-size="22" fill="#166534">[1,5] + [2,4]</text></svg>`,
+      },
+      {
+        name: "Heap Sort — Advanced example",
+        family: "Advanced Sort: Heap Sort",
+        explanation: "First make a heap. Then move the biggest number to the end again and again.",
+        text: `4,10,3,5,1
+10,5,3,4,1
+5,4,3,1,10
+4,1,3,5,10
+3,1,4,5,10
+1,3,4,5,10`,
+        svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#fff4d6"/><text x="20" y="32" font-size="16" font-weight="700" fill="#92400e">Heap: biggest comes out first</text><circle cx="210" cy="55" r="24" fill="#f59e0b"/><text x="200" y="62" fill="white">10</text><path d="M210 80 H330" stroke="#d97706" stroke-width="4"/></svg>`,
+      },
+      {
+        name: "Counting Sort — Advanced example",
+        family: "Advanced Sort: Counting Sort",
+        explanation: "Count how many times each value appears, then rebuild the sorted list.",
+        text: `4,2,2,8,3,3,1
+1,_,_,_,_,_,_
+1,2,_,_,_,_,_
+1,2,2,_,_,_,_
+1,2,2,3,_,_,_
+1,2,2,3,3,_,_
+1,2,2,3,3,4,_
+1,2,2,3,3,4,8`,
+        svg: `<svg viewBox="0 0 420 100" width="100%" height="100"><rect width="420" height="100" rx="18" fill="#ecfdf5"/><text x="20" y="34" font-size="16" font-weight="700" fill="#166534">Counting: count, then fill output</text><text x="70" y="75" font-size="22" fill="#166534">1, 2, 2, 3...</text></svg>`,
+      }
+
+
+
+    ];
+
+    function initExamples() {
+      const select = document.getElementById("exampleSelect");
+      select.innerHTML = EXAMPLES.map(
+        (e, i) => `<option value="${i}">${e.name}</option>`,
+      ).join("");
+      document.getElementById("exampleList").innerHTML = EXAMPLES.map(
+        (e, i) => `
     <div class="example-box">
       <h3>${e.name}</h3>
       <p><span class="badge">${e.family}</span></p>
       <p class="subtitle">${e.explanation}</p>
       ${e.svg}
       <pre>${e.text}</pre>
-      <button class="secondary" onclick="loadExample(${i})">Use This Example</button>
+      <button class="secondary" onclick="loadExample(${i})">Use Example</button>
     </div>`,
-        ).join("");
-      }
+      ).join("");
+    }
 
-      function loadExample(index) {
-        const i =
-          index ?? Number(document.getElementById("exampleSelect").value);
-        document.getElementById("input").value = EXAMPLES[i].text;
-        identify();
+    function loadExample(index) {
+      const i =
+        index ?? Number(document.getElementById("exampleSelect").value);
+      document.getElementById("input").value = EXAMPLES[i].text;
+      identify();
+    }
+    function clearInput() {
+      document.getElementById("input").value = "";
+      ["scores", "viz", "feedback", "badges"].forEach(
+        (id) => (document.getElementById(id).innerHTML = ""),
+      );
+      document.getElementById("result").innerText = "Waiting...";
+      document.getElementById("reason").innerText =
+        "Paste number lines and click Check Sort Type.";
+    }
+    function parseInput(text) {
+      return text
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map((line) => {
+          // New format: 9,7,3,1
+          // Also accepts optional brackets: [9,7,3,1]
+          let clean = line.includes(":") ? line.split(":").slice(1).join(":") : line;
+          clean = clean.trim().replace(/^\[/, "").replace(/\]$/, "");
+          return clean
+            .split(",")
+            .map((x) => {
+              const v = x.trim();
+              if (v === "_" || v === "" || v.toLowerCase() === "blank") return null;
+              const n = Number(v);
+              return Number.isNaN(n) ? null : n;
+            });
+        })
+        .filter((arr) => arr.length > 0);
+    }
+    function same(a, b) {
+      return a.length === b.length && a.every((v, i) => v === b[i]);
+    }
+
+    function bubbleSortSteps(input) {
+      const a = [...input],
+        s = [];
+      for (let i = 0; i < a.length - 1; i++) {
+        for (let j = 0; j < a.length - 1 - i; j++) {
+          if (a[j] > a[j + 1]) [a[j], a[j + 1]] = [a[j + 1], a[j]];
+        }
+        s.push([...a]);
       }
-      function clearInput() {
-        document.getElementById("input").value = "";
-        ["scores", "viz", "feedback", "badges"].forEach(
-          (id) => (document.getElementById(id).innerHTML = ""),
-        );
-        document.getElementById("result").innerText = "Waiting...";
-        document.getElementById("reason").innerText =
-          "Paste array changes and click Identify.";
+      return s;
+    }
+
+
+    function selectionSortSteps(input) {
+      const a = [...input],
+        s = [];
+      for (let i = 0; i < a.length - 1; i++) {
+        let min = i;
+        for (let j = i + 1; j < a.length; j++) {
+          if (a[j] < a[min]) min = j;
+        }
+        [a[i], a[min]] = [a[min], a[i]];
+        s.push([...a]);
       }
-      function parseInput(text) {
-        return text
-          .split("\n")
-          .map((line) => line.match(/\[(.*?)\]/))
-          .filter(Boolean)
-          .map((match) =>
-            match[1]
-              .split(",")
-              .map((x) => Number(x.trim()))
-              .filter((x) => !Number.isNaN(x)),
+      return s;
+    }
+
+    function insertionSortSteps(input) {
+      const a = [...input],
+        s = [];
+      for (let i = 1; i < a.length; i++) {
+        const key = a[i];
+        let j = i - 1;
+        while (j >= 0 && a[j] > key) {
+          a[j + 1] = a[j];
+          j--;
+        }
+        a[j + 1] = key;
+        s.push([...a]);
+      }
+      return s;
+    }
+
+
+
+    function quickSortSteps(input) {
+      const a = [...input], s = [];
+      function partition(low, high) {
+        const pivot = a[high];
+        let i = low - 1;
+        for (let j = low; j < high; j++) {
+          if (a[j] <= pivot) {
+            i++;
+            [a[i], a[j]] = [a[j], a[i]];
+          }
+        }
+        [a[i + 1], a[high]] = [a[high], a[i + 1]];
+        s.push([...a]);
+        return i + 1;
+      }
+      function sort(low, high) {
+        if (low < high) {
+          const pi = partition(low, high);
+          sort(low, pi - 1);
+          sort(pi + 1, high);
+        }
+      }
+      sort(0, a.length - 1);
+      return s;
+    }
+
+    function mergeSortSteps(input) {
+      let a = [...input], s = [];
+      const n = a.length;
+      for (let width = 1; width < n; width *= 2) {
+        const next = [...a];
+        for (let left = 0; left < n; left += 2 * width) {
+          const mid = Math.min(left + width, n);
+          const right = Math.min(left + 2 * width, n);
+          let i = left, j = mid, k = left;
+          while (i < mid && j < right) next[k++] = a[i] <= a[j] ? a[i++] : a[j++];
+          while (i < mid) next[k++] = a[i++];
+          while (j < right) next[k++] = a[j++];
+        }
+        a = next;
+        s.push([...a]);
+      }
+      return s;
+    }
+
+    function heapSortSteps(input) {
+      const a = [...input], s = [];
+      const n = a.length;
+      function heapify(size, root) {
+        let largest = root;
+        const left = 2 * root + 1;
+        const right = 2 * root + 2;
+        if (left < size && a[left] > a[largest]) largest = left;
+        if (right < size && a[right] > a[largest]) largest = right;
+        if (largest !== root) {
+          [a[root], a[largest]] = [a[largest], a[root]];
+          heapify(size, largest);
+        }
+      }
+      for (let i = Math.floor(n / 2) - 1; i >= 0; i--) heapify(n, i);
+      if (n > 1) s.push([...a]);
+      for (let end = n - 1; end > 0; end--) {
+        [a[0], a[end]] = [a[end], a[0]];
+        heapify(end, 0);
+        s.push([...a]);
+      }
+      return s;
+    }
+
+    function countingSortSteps(input) {
+      if (!input.length || input.some((x) => x === null || x < 0 || !Number.isInteger(x))) return [];
+      const counts = new Map();
+      input.forEach((x) => counts.set(x, (counts.get(x) || 0) + 1));
+      const values = [...counts.keys()].sort((a, b) => a - b);
+      const out = Array(input.length).fill(null);
+      const s = [];
+      let index = 0;
+      for (const value of values) {
+        for (let c = 0; c < counts.get(value); c++) {
+          out[index++] = value;
+          s.push([...out]);
+        }
+      }
+      return s;
+    }
+
+    function getAlgorithms(start) {
+      return {
+        "Bubble Sort": bubbleSortSteps(start),
+        "Selection Sort": selectionSortSteps(start),
+        "Insertion Sort": insertionSortSteps(start),
+        "Quick Sort": quickSortSteps(start),
+        "Merge Sort": mergeSortSteps(start),
+        "Heap Sort": heapSortSteps(start),
+        "Counting Sort": countingSortSteps(start),
+      };
+    }
+    function getAlgorithmNamesForPractice() {
+      const group = document.getElementById("sortGroup")?.value || "basic";
+      if (group === "basic") return ["Bubble Sort", "Selection Sort", "Insertion Sort"];
+      if (group === "advanced") return ["Quick Sort", "Merge Sort", "Heap Sort", "Counting Sort"];
+      return Object.keys(getAlgorithms([3, 1, 2]));
+    }
+    const reasons = {
+      "Bubble Sort": "Big numbers move to the right side one by one.",
+      "Selection Sort": "The smallest remaining number is chosen and placed on the left.",
+      "Insertion Sort": "The left side stays sorted and grows one number at a time.",
+      "Quick Sort": "A pivot is placed in its correct position, then the smaller parts are sorted.",
+      "Merge Sort": "Small sorted groups are merged into bigger sorted groups.",
+      "Heap Sort": "A biggest-number heap is made, then the biggest values are moved to the end.",
+      "Counting Sort": "Values are counted first, then the output list is rebuilt in order.",
+    };
+    function score(expected, actual) {
+      const userPasses = actual.slice(1);
+      if (!userPasses.length) return 0;
+      let points = 0;
+      for (let i = 0; i < userPasses.length; i++) {
+        if (expected[i] && same(expected[i], userPasses[i])) points++;
+      }
+      return Math.round((points / userPasses.length) * 100);
+    }
+
+    function identify() {
+      const steps = parseInput(document.getElementById("input").value);
+      if (steps.length < 2) {
+        document.getElementById("result").innerText = "Add at least two lines";
+        return;
+      }
+      const algorithms = getAlgorithms(steps[0]);
+      const results = Object.entries(algorithms)
+        .map(([name, expected]) => ({
+          name,
+          expected,
+          score: score(expected, steps),
+        }))
+        .sort((a, b) => b.score - a.score);
+      const best = results[0];
+      document.getElementById("result").innerText = best.name;
+      document.getElementById("reason").innerText = reasons[best.name];
+      document.getElementById("badges").innerHTML =
+        `<span class="badge">Best answer</span><span class="badge">${best.score}% match</span><span class="badge">${steps.length - 1} lines checked</span>`;
+      document.getElementById("scores").innerHTML = results
+        .map(
+          (r) =>
+            `<div class="score-row"><span>${r.name}</span><span class="${r.score >= 70 ? "good" : "bad"}">${r.score}%</span></div>`,
+        )
+        .join("");
+      visualize(steps, best.expected);
+      makeFeedback(steps, best.expected, best.name);
+    }
+    function visualize(steps, expected, activeIndex = -1) {
+      const nums = steps.flat().filter((x) => typeof x === "number");
+      const max = Math.max(...nums, 1);
+      document.getElementById("viz").innerHTML = steps
+        .map((arr, i) => {
+          let cls = "pass-card";
+          if (i === activeIndex) cls += " active";
+          else if (expected && i > 0)
+            cls += same(arr, expected[i - 1]) ? " correct" : " wrong";
+          return `<div class="${cls}"><h3>${i === 0 ? "Line 1 (Start)" : "Line " + (i + 1)}</h3><div class="barrow">${arr.map((x) => `<div class="bar" style="height:${x === null ? 45 : 45 + (x / max) * 125}px">${x === null ? "_" : x}</div>`).join("")}</div></div>`;
+        })
+        .join("");
+    }
+    function makeFeedback(steps, expected, name) {
+      const lines = [];
+      for (let i = 1; i < steps.length; i++) {
+        const user = steps[i],
+          exp = expected[i - 1];
+        if (!exp)
+          lines.push(
+            `<p><b>Line ${i + 1}:</b> Extra line provided for ${name}.</p>`,
+          );
+        else if (same(user, exp))
+          lines.push(`<p><b>Line ${i + 1}:</b> Correct for ${name}.</p>`);
+        else
+          lines.push(
+            `<p><b>Line ${i + 1}:</b> Expected <code>[${exp.map(v => v === null ? "_" : v).join(", ")}]</code>, received <code>[${user.map(v => v === null ? "_" : v).join(", ")}]</code>.</p>`,
           );
       }
-      function same(a, b) {
-        return a.length === b.length && a.every((v, i) => v === b[i]);
-      }
-
-      function bubbleSortSteps(input) {
-        const a = [...input],
-          s = [];
-        for (let i = 0; i < a.length - 1; i++) {
-          for (let j = 0; j < a.length - 1 - i; j++) {
-            if (a[j] > a[j + 1]) [a[j], a[j + 1]] = [a[j + 1], a[j]];
-          }
-          s.push([...a]);
-        }
-        return s;
-      }
-      function optimizedBubbleSteps(input) {
-        const a = [...input],
-          s = [];
-        for (let i = 0; i < a.length - 1; i++) {
-          let swapped = false;
-          for (let j = 0; j < a.length - 1 - i; j++) {
-            if (a[j] > a[j + 1]) {
-              [a[j], a[j + 1]] = [a[j + 1], a[j]];
-              swapped = true;
-            }
-          }
-          s.push([...a]);
-          if (!swapped) break;
-        }
-        return s;
-      }
-      function cocktailShakerSteps(input) {
-        const a = [...input],
-          s = [];
-        let left = 0,
-          right = a.length - 1;
-        while (left < right) {
-          let swapped = false;
-          for (let i = left; i < right; i++) {
-            if (a[i] > a[i + 1]) {
-              [a[i], a[i + 1]] = [a[i + 1], a[i]];
-              swapped = true;
-            }
-          }
-          s.push([...a]);
-          right--;
-          if (!swapped) break;
-          swapped = false;
-          for (let i = right; i > left; i--) {
-            if (a[i] < a[i - 1]) {
-              [a[i], a[i - 1]] = [a[i - 1], a[i]];
-              swapped = true;
-            }
-          }
-          s.push([...a]);
-          left++;
-          if (!swapped) break;
-        }
-        return s;
-      }
-      function selectionSortSteps(input) {
-        const a = [...input],
-          s = [];
-        for (let i = 0; i < a.length - 1; i++) {
-          let min = i;
-          for (let j = i + 1; j < a.length; j++) {
-            if (a[j] < a[min]) min = j;
-          }
-          [a[i], a[min]] = [a[min], a[i]];
-          s.push([...a]);
-        }
-        return s;
-      }
-      function doubleSelectionSteps(input) {
-        const a = [...input],
-          s = [];
-        let left = 0,
-          right = a.length - 1;
-        while (left < right) {
-          let min = left,
-            max = left;
-          for (let i = left; i <= right; i++) {
-            if (a[i] < a[min]) min = i;
-            if (a[i] > a[max]) max = i;
-          }
-          [a[left], a[min]] = [a[min], a[left]];
-          if (max === left) max = min;
-          [a[right], a[max]] = [a[max], a[right]];
-          s.push([...a]);
-          left++;
-          right--;
-        }
-        return s;
-      }
-      function insertionSortSteps(input) {
-        const a = [...input],
-          s = [];
-        for (let i = 1; i < a.length; i++) {
-          const key = a[i];
-          let j = i - 1;
-          while (j >= 0 && a[j] > key) {
-            a[j + 1] = a[j];
-            j--;
-          }
-          a[j + 1] = key;
-          s.push([...a]);
-        }
-        return s;
-      }
-      function binaryInsertionSteps(input) {
-        const a = [...input],
-          s = [];
-        for (let i = 1; i < a.length; i++) {
-          const key = a[i];
-          let left = 0,
-            right = i - 1;
-          while (left <= right) {
-            const mid = Math.floor((left + right) / 2);
-            if (a[mid] > key) right = mid - 1;
-            else left = mid + 1;
-          }
-          for (let j = i - 1; j >= left; j--) a[j + 1] = a[j];
-          a[left] = key;
-          s.push([...a]);
-        }
-        return s;
-      }
-      function gnomeSortSteps(input) {
-        const a = [...input],
-          s = [];
-        let i = 1;
-        while (i < a.length) {
-          if (i === 0 || a[i] >= a[i - 1]) i++;
-          else {
-            [a[i], a[i - 1]] = [a[i - 1], a[i]];
-            s.push([...a]);
-            i--;
-          }
-        }
-        return s;
-      }
-
-      function getAlgorithms(start) {
-        return {
-          "Bubble Sort": bubbleSortSteps(start),
-
-          "Selection Sort": selectionSortSteps(start),
-
-          "Insertion Sort": insertionSortSteps(start),
-        };
-        /**
-        return {
-          "Bubble Sort": bubbleSortSteps(start),
-          "Optimized Bubble Sort": optimizedBubbleSteps(start),
-          "Cocktail Shaker Sort": cocktailShakerSteps(start),
-          "Selection Sort": selectionSortSteps(start),
-          "Double Selection Sort": doubleSelectionSteps(start),
-          "Insertion Sort": insertionSortSteps(start),
-          "Binary Insertion Sort": binaryInsertionSteps(start),
-          "Gnome Sort": gnomeSortSteps(start),
-        };*/
-      }
-      const reasons = {
-        "Bubble Sort":
-          "Largest unsorted elements move to the right after each pass.",
-        "Optimized Bubble Sort":
-          "Same as Bubble Sort, but it stops early when no swap happens.",
-        "Cocktail Shaker Sort":
-          "Like Bubble Sort, but it moves in both directions.",
-        "Selection Sort":
-          "The smallest remaining value is selected and fixed at the left.",
-        "Double Selection Sort":
-          "Both minimum and maximum are placed in the same round.",
-        "Insertion Sort": "A sorted left portion grows one element at a time.",
-        "Binary Insertion Sort":
-          "Insertion Sort pattern, but insertion position is found using binary search.",
-        "Gnome Sort":
-          "Insertion-style adjacent swapping that walks backward when needed.",
-      };
-      function score(expected, actual) {
-        const userPasses = actual.slice(1);
-        if (!userPasses.length) return 0;
-        let points = 0;
-        for (let i = 0; i < userPasses.length; i++) {
-          if (expected[i] && same(expected[i], userPasses[i])) points++;
-        }
-        return Math.round((points / userPasses.length) * 100);
-      }
-
-      function identify() {
-        const steps = parseInput(document.getElementById("input").value);
-        if (steps.length < 2) {
-          document.getElementById("result").innerText = "Not enough data";
-          return;
-        }
-        const algorithms = getAlgorithms(steps[0]);
-        const results = Object.entries(algorithms)
-          .map(([name, expected]) => ({
-            name,
-            expected,
-            score: score(expected, steps),
-          }))
-          .sort((a, b) => b.score - a.score);
-        const best = results[0];
-        document.getElementById("result").innerText = best.name;
-        document.getElementById("reason").innerText = reasons[best.name];
-        document.getElementById("badges").innerHTML =
-          `<span class="badge">Best Match</span><span class="badge">${best.score}% confidence</span><span class="badge">${steps.length - 1} passes checked</span>`;
-        document.getElementById("scores").innerHTML = results
-          .map(
-            (r) =>
-              `<div class="score-row"><span>${r.name}</span><span class="${r.score >= 70 ? "good" : "bad"}">${r.score}%</span></div>`,
-          )
-          .join("");
-        visualize(steps, best.expected);
-        makeFeedback(steps, best.expected, best.name);
-      }
-      function visualize(steps, expected, activeIndex = -1) {
-        const max = Math.max(...steps.flat(), 1);
-        document.getElementById("viz").innerHTML = steps
-          .map((arr, i) => {
-            let cls = "pass-card";
-            if (i === activeIndex) cls += " active";
-            else if (expected && i > 0)
-              cls += same(arr, expected[i - 1]) ? " correct" : " wrong";
-            return `<div class="${cls}"><h3>${i === 0 ? "Start" : "Pass " + i}</h3><div class="barrow">${arr.map((x) => `<div class="bar" style="height:${45 + (x / max) * 125}px">${x}</div>`).join("")}</div></div>`;
-          })
-          .join("");
-      }
-      function makeFeedback(steps, expected, name) {
-        const lines = [];
-        for (let i = 1; i < steps.length; i++) {
-          const user = steps[i],
-            exp = expected[i - 1];
-          if (!exp)
-            lines.push(
-              `<p><b>Pass ${i}:</b> Extra pass provided for ${name}.</p>`,
-            );
-          else if (same(user, exp))
-            lines.push(`<p><b>Pass ${i}:</b> Correct for ${name}.</p>`);
-          else
-            lines.push(
-              `<p><b>Pass ${i}:</b> Expected <code>[${exp.join(", ")}]</code>, received <code>[${user.join(", ")}]</code>.</p>`,
-            );
-        }
-        document.getElementById("feedback").innerHTML = lines.join("");
-      }
-      function playAnimation() {
-        const steps = parseInput(document.getElementById("input").value);
-        if (!steps.length) return;
-        let i = 0;
+      document.getElementById("feedback").innerHTML = lines.join("");
+    }
+    function playAnimation() {
+      const steps = parseInput(document.getElementById("input").value);
+      if (!steps.length) return;
+      let i = 0;
+      visualize(steps, null, i);
+      const timer = setInterval(() => {
+        i++;
         visualize(steps, null, i);
-        const timer = setInterval(() => {
-          i++;
-          visualize(steps, null, i);
-          if (i >= steps.length - 1) clearInterval(timer);
-        }, 800);
-      }
+        if (i >= steps.length - 1) clearInterval(timer);
+      }, 800);
+    }
 
-      function randomArray() {
-        const level = document.getElementById("difficulty").value;
-        const n = level === "easy" ? 4 : level === "medium" ? 5 : 6;
-        const max = level === "easy" ? 9 : level === "medium" ? 20 : 50;
-        return Array.from(
-          { length: n },
-          () => Math.floor(Math.random() * max) + 1,
-        );
-      }
-      function generateQuestion() {
-        const names = Object.keys(getAlgorithms([3, 1, 2]));
-        const algoName = names[Math.floor(Math.random() * names.length)];
-        const start = randomArray();
-        const steps = getAlgorithms(start)[algoName];
-        const count = Math.min(
-          steps.length,
-          document.getElementById("difficulty").value === "easy" ? 2 : 3,
-        );
-        const text = ["Start: [" + start.join(",") + "]"]
-          .concat(
-            steps
-              .slice(0, count)
-              .map((s, i) => `Pass ${i + 1}: [${s.join(",")}]`),
-          )
-          .join("\n");
-        document.getElementById("input").value = text;
-        identify();
-      }
+    function randomArray() {
+      const level = document.getElementById("difficulty").value;
+      const n = level === "easy" ? 4 : level === "medium" ? 5 : 6;
+      const max = level === "easy" ? 9 : level === "medium" ? 20 : 50;
+      return Array.from(
+        { length: n },
+        () => Math.floor(Math.random() * max) + 1,
+      );
+    }
+    function generateQuestion() {
+      const names = getAlgorithmNamesForPractice();
+      const algoName = names[Math.floor(Math.random() * names.length)];
+      const start = randomArray();
+      const steps = getAlgorithms(start)[algoName];
+      const count = Math.min(
+        steps.length,
+        document.getElementById("difficulty").value === "easy" ? 2 : 3,
+      );
+      const text = [start.join(",")]
+        .concat(steps.slice(0, count).map((s) => s.map(v => v === null ? "_" : v).join(",")))
+        .join("\n");
+      document.getElementById("input").value = text;
+      identify();
+    }
 
-      let quizAnswer = [];
-      function makeStepQuiz() {
-        const algo = document.getElementById("quizAlgo").value;
-        const start = randomArray();
-        const steps = getAlgorithms(start)[algo];
-        if (!steps.length) return;
-        quizAnswer = steps[0];
-        document.getElementById("quizBox").innerHTML = `
-    <p><b>Algorithm:</b> ${algo}</p>
-    <p><b>Start:</b> [${start.join(", ")}]</p>
-    <p>Predict Pass 1:</p>
-    <input id="quizInput" style="width:100%;border-radius:14px" placeholder="Example: [1, 3, 5, 8]" />
+    let quizAnswer = [];
+    function makeStepQuiz() {
+      const algo = document.getElementById("quizAlgo").value;
+      const start = randomArray();
+      const steps = getAlgorithms(start)[algo];
+      if (!steps.length) return;
+      quizAnswer = steps[0];
+      document.getElementById("quizBox").innerHTML = `
+    <p><b>Sort chosen:</b> ${algo}</p>
+    <p><b>First line:</b> ${start.join(",")}</p>
+    <p>Write the next line:</p>
+    <input id="quizInput" style="width:100%;border-radius:14px" placeholder="Example: 1,3,5,8" />
     <p id="quizResult"></p>
   `;
-      }
-      function checkStepQuiz() {
-        const val = document.getElementById("quizInput");
-        if (!val) return;
-        const ans = parseInput("Answer: " + val.value)[0] || [];
-        document.getElementById("quizResult").innerHTML = same(ans, quizAnswer)
-          ? `<span class="good">Correct.</span>`
-          : `<span class="bad">Not yet.</span> Correct answer: <code>[${quizAnswer.join(", ")}]</code>`;
-      }
+    }
+    function checkStepQuiz() {
+      const val = document.getElementById("quizInput");
+      if (!val) return;
+      const ans = parseInput(val.value)[0] || [];
+      document.getElementById("quizResult").innerHTML = same(ans, quizAnswer)
+        ? `<span class="good">Correct!</span>`
+        : `<span class="bad">Try again.</span> Answer: <code>[${quizAnswer.map(v => v === null ? "_" : v).join(", ")}]</code>`;
+    }
 
-      initExamples();
-      loadExample(0);
-    </script>
-<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
+    initExamples();
+    loadExample(0);
+  </script>
+  <div data-root="../../" id="site-footer"></div>
+  <script defer="True" src="../../assets/js/include.js"></script>
+</body>
+
 </html>
