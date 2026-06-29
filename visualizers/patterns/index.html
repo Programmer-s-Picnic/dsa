@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Put this inside <head> -->
+
+<title>M × N Grid Highlighter | Row Column Expression Visualizer</title>
+
+<meta name="description" content="Create an M x N grid and highlight cells using row and column expressions like row=1, col>=4, row<=3 and col>2. A simple interactive HTML learning tool.">
+
+<meta name="keywords" content="M x N grid, row column grid, grid highlighter, HTML grid generator, CSS grid, JavaScript grid, row col expression, programming learning tool, Champak Roy">
+
+<meta name="author" content="Champak Roy">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://www.learnwithchampak.live/">
+
+<meta property="og:title" content="M × N Grid Highlighter">
+<meta property="og:description" content="Interactive HTML tool to create an M x N grid and highlight cells using row and column expressions.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dsa.learnwithchampak.live/visualizers/patterns">
+<meta property="og:image" content="https://dsa.learnwithchampak.live/grid-highlighter.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="M × N Grid Highlighter">
+<meta name="twitter:description" content="Create an M x N grid and highlight cells using expressions such as row=1 and col=4.">
+<meta name="twitter:image" content="https://dsa.learnwithchampak.live/grid-highlighter.png">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef8f8;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #00695c;
+        }
+
+        .controls {
+            margin: 15px;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 6px;
+            border: 1px solid #00897b;
+        }
+
+        button {
+            padding: 8px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #00897b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+
+        #rows,
+        #cols {
+            width: 80px;
+        }
+
+        #expression {
+            width: 360px;
+        }
+
+        .grid-box {
+            max-width: 95vw;
+            max-height: 65vh;
+            overflow: auto;
+            border: 2px solid #00897b;
+            border-radius: 10px;
+            background: #dff4f2;
+            padding: 12px;
+            margin: 20px auto;
+        }
+
+        #grid {
+            display: grid;
+            gap: 5px;
+            justify-content: start;
+        }
+
+        .cell {
+            width: 90px;
+            height: 70px;
+            border: 2px solid #00897b;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #00695c;
+        }
+
+        .highlight {
+            background: #ffd54f;
+            border-color: #ff6f00;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>M × N Grid Highlighter</h1>
+
+    <div class="controls">
+        Rows:
+        <input type="number" id="rows" value="7" min="1">
+
+        Columns:
+        <input type="number" id="cols" value="7" min="1">
+
+        <button onclick="makeGrid()">Generate Grid</button>
+    </div>
+
+    <div class="controls">
+        Expression:
+        <input type="text" id="expression" value="row=1 and col=4" oninput="highlightGrid()"
+            placeholder="Example: row=1 and col=4">
+    </div>
+
+    <p>
+        Examples:
+        <br>
+        <code>row=1</code>,
+        <code>col>=4</code>,
+        <code>row<=3 and col>2</code>,
+        <code>row!=1</code>
+    </p>
+
+    <div class="grid-box">
+        <div id="grid"></div>
+    </div>
+
+    <script>
+        function makeGrid() {
+
+            let rows = parseInt(document.getElementById("rows").value);
+            let cols = parseInt(document.getElementById("cols").value);
+
+            let grid = document.getElementById("grid");
+
+            grid.innerHTML = "";
+
+            grid.style.gridTemplateColumns = `repeat(${cols}, 90px)`;
+
+            for (let row = 1; row <= rows; row++) {
+
+                for (let col = 1; col <= cols; col++) {
+
+                    let cell = document.createElement("div");
+                    cell.className = "cell";
+
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+
+                    cell.textContent = `(${row}, ${col})`;
+
+                    grid.appendChild(cell);
+                }
+            }
+
+            highlightGrid();
+        }
+
+        function checkExpression(expression, row, col) {
+
+            expression = expression.toLowerCase();
+
+            expression = expression.replaceAll("and", "&&");
+            expression = expression.replaceAll("or", "||");
+
+            expression = expression.replaceAll("row", row);
+            expression = expression.replaceAll("col", col);
+
+            expression = expression.replace(/!1=/g, "!=");
+            expression = expression.replace(/(?<![!<>=])=(?![=])/g, "==");
+
+            try {
+                return Function("return " + expression)();
+            }
+            catch (error) {
+                return false;
+            }
+        }
+
+        function highlightGrid() {
+
+            let cells = document.querySelectorAll(".cell");
+            let expression = document.getElementById("expression").value;
+
+            cells.forEach(function (cell) {
+
+                let row = Number(cell.dataset.row);
+                let col = Number(cell.dataset.col);
+
+                cell.classList.remove("highlight");
+
+                if (checkExpression(expression, row, col)) {
+                    cell.classList.add("highlight");
+                }
+            });
+        }
+
+        document.getElementById("rows").addEventListener("input", makeGrid);
+        document.getElementById("cols").addEventListener("input", makeGrid);
+
+        makeGrid();
+    </script>
+
+</body>
+
+</html>
