@@ -6,28 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Put this inside <head> -->
 
-<title>M × N Grid Highlighter | Row Column Expression Visualizer</title>
+    <title>M × N Grid Highlighter | Row Column Expression Visualizer</title>
 
-<meta name="description" content="Create an M x N grid and highlight cells using row and column expressions like row=1, col>=4, row<=3 and col>2. A simple interactive HTML learning tool.">
+    <meta name="description"
+        content="Create an M x N grid and highlight cells using row and column expressions like row=1, col>=4, row<=3 and col>2. A simple interactive HTML learning tool.">
 
-<meta name="keywords" content="M x N grid, row column grid, grid highlighter, HTML grid generator, CSS grid, JavaScript grid, row col expression, programming learning tool, Champak Roy">
+    <meta name="keywords"
+        content="M x N grid, row column grid, grid highlighter, HTML grid generator, CSS grid, JavaScript grid, row col expression, programming learning tool, Champak Roy">
 
-<meta name="author" content="Champak Roy">
+    <meta name="author" content="Champak Roy">
 
-<meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow">
 
-<link rel="canonical" href="https://www.learnwithchampak.live/">
+    <link rel="canonical" href="https://www.learnwithchampak.live/">
 
-<meta property="og:title" content="M × N Grid Highlighter">
-<meta property="og:description" content="Interactive HTML tool to create an M x N grid and highlight cells using row and column expressions.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://dsa.learnwithchampak.live/visualizers/patterns">
-<meta property="og:image" content="https://dsa.learnwithchampak.live/grid-highlighter.png">
+    <meta property="og:title" content="M × N Grid Highlighter">
+    <meta property="og:description"
+        content="Interactive HTML tool to create an M x N grid and highlight cells using row and column expressions.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dsa.learnwithchampak.live/visualizers/patterns">
+    <meta property="og:image" content="https://dsa.learnwithchampak.live/grid-highlighter.png">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="M × N Grid Highlighter">
-<meta name="twitter:description" content="Create an M x N grid and highlight cells using expressions such as row=1 and col=4.">
-<meta name="twitter:image" content="https://dsa.learnwithchampak.live/grid-highlighter.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="M × N Grid Highlighter">
+    <meta name="twitter:description"
+        content="Create an M x N grid and highlight cells using expressions such as row=1 and col=4.">
+    <meta name="twitter:image" content="https://dsa.learnwithchampak.live/grid-highlighter.png">
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -174,15 +178,18 @@
             highlightGrid();
         }
 
-        function checkExpression(expression, row, col) {
+        function checkExpression(expression, row, col, m, n) {
 
             expression = expression.toLowerCase();
 
             expression = expression.replaceAll("and", "&&");
             expression = expression.replaceAll("or", "||");
 
-            expression = expression.replaceAll("row", row);
-            expression = expression.replaceAll("col", col);
+            expression = expression.replace(/\brow\b/g, row);
+            expression = expression.replace(/\bcol\b/g, col);
+
+            expression = expression.replace(/\bm\b/g, m);
+            expression = expression.replace(/\bn\b/g, n);
 
             expression = expression.replace(/!1=/g, "!=");
             expression = expression.replace(/(?<![!<>=])=(?![=])/g, "==");
@@ -200,6 +207,9 @@
             let cells = document.querySelectorAll(".cell");
             let expression = document.getElementById("expression").value;
 
+            let m = parseInt(document.getElementById("rows").value);
+            let n = parseInt(document.getElementById("cols").value);
+
             cells.forEach(function (cell) {
 
                 let row = Number(cell.dataset.row);
@@ -207,7 +217,7 @@
 
                 cell.classList.remove("highlight");
 
-                if (checkExpression(expression, row, col)) {
+                if (checkExpression(expression, row, col, m, n)) {
                     cell.classList.add("highlight");
                 }
             });
@@ -218,7 +228,6 @@
 
         makeGrid();
     </script>
-
 </body>
 
 </html>
