@@ -1,0 +1,97 @@
+/* Common reset */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: radial-gradient(circle at top, #123a8c, #061633 65%);
+  min-height: 100vh;
+}
+
+.app-shell {
+  width: min(1180px, 94%);
+  margin: 32px auto;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+}
+
+.quiz-panel, .prize-panel {
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 26px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+}
+
+.eyebrow { color: #f7c948; font-weight: bold; }
+h1 { font-size: 44px; margin: 0 0 20px; }
+
+.status-row, .lifelines, .controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.status-row div {
+  background: #0b2455;
+  padding: 10px 14px;
+  border-radius: 999px;
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: #f7c948;
+  color: #061633;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+#questionText {
+  background: #071f52;
+  border: 2px solid #f7c948;
+  padding: 22px;
+  border-radius: 20px;
+}
+
+.options-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.option {
+  text-align: left;
+  background: #102e6b;
+  color: white;
+  border: 1px solid #7798df;
+}
+
+.option.selected { outline: 3px solid #f7c948; }
+.option.correct { background: #15803d; }
+.option.wrong { background: #b91c1c; }
+.option.hide { visibility: hidden; }
+
+.message { min-height: 28px; font-weight: bold; color: #f7c948; }
+.hidden { display: none; }
+.poll-box {
+  background: rgba(255,255,255,0.12);
+  padding: 14px;
+  border-radius: 16px;
+  margin-bottom: 14px;
+}
+
+.prize-panel ol { display: flex; flex-direction: column-reverse; gap: 8px; padding-left: 24px; }
+.prize-panel li { padding: 8px; border-radius: 10px; background: #0b2455; }
+.prize-panel li.active { background: #f7c948; color: #061633; font-weight: bold; }
+
+@media (max-width: 850px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .options-box { grid-template-columns: 1fr; }
+}

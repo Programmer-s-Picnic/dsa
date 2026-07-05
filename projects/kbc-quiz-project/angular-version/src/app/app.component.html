@@ -1,0 +1,29 @@
+<main class="app-shell" *ngIf="questions.length">
+  <section class="quiz-panel">
+    <p class="eyebrow">Angular Project</p>
+    <h1>KBC Quiz</h1>
+    <div class="status-row"><span>Question {{ index + 1 }}</span><span>Time: {{ time }}s</span><span>Prize: ₹{{ prizeWon }}</span></div>
+    <div class="lifelines">
+      <button [disabled]="lifelines.fifty" (click)="useFifty()">50:50</button>
+      <button [disabled]="lifelines.skip" (click)="skip()">Skip</button>
+      <button [disabled]="lifelines.poll" (click)="audiencePoll()">Audience Poll</button>
+    </div>
+    <div class="poll-box" *ngIf="poll.length"><strong>Audience Poll</strong><p *ngFor="let p of poll">{{ p.option }}: {{ p.percent }}%</p></div>
+    <h2 class="question">{{ currentQuestion.question }}</h2>
+    <div class="options-box">
+      <button *ngFor="let option of currentQuestion.options; let i = index"
+        class="option"
+        [class.selected]="selected === option"
+        [class.correct]="locked && option === currentQuestion.answer"
+        [class.wrong]="locked && selected === option && option !== currentQuestion.answer"
+        [class.hide]="hiddenOptions.includes(option)"
+        [disabled]="locked"
+        (click)="selectAnswer(option)">
+        {{ 'ABCD'[i] }}. {{ option }}
+      </button>
+    </div>
+    <div class="controls"><button (click)="lockAnswer()" [disabled]="locked">Lock Answer</button><button (click)="nextQuestion()">Next</button><button (click)="restart()">Restart</button></div>
+    <p class="message">{{ message }}</p>
+  </section>
+  <aside class="prize-panel"><h2>Prize Ladder</h2><ol><li *ngFor="let item of questions; let i = index" [class.active]="i === index">Q{{ i + 1 }} - ₹{{ item.prize }}</li></ol></aside>
+</main>

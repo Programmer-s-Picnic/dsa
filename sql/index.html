@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQL From Zero to Practice | Programmer's Picnic</title>
+  <meta name="description" content="A beginner-friendly SQL lesson by Champak Roy covering keys, aggregate queries, group by, having, joins, set operations, Oracle triggers, and practice using an embedded SQL editor." />
+  <meta name="keywords" content="SQL lesson, SQL for beginners, SQL keys, primary key, foreign key, group by, having, joins, union, intersect, minus, Oracle triggers, Champak Roy, Programmer's Picnic" />
+  <meta name="author" content="Champak Roy" />
+  <meta property="og:title" content="SQL From Zero to Practice" />
+  <meta property="og:description" content="Learn SQL step by step with examples, practice questions, and an embedded SQL editor." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="assets/sql-og.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <nav class="topbar" aria-label="Main navigation">
+      <a class="brand" href="#top">Programmer's Picnic</a>
+      <a href="#editor">SQL Editor</a>
+      <a href="#practice">Practice</a>
+      <button id="themeToggle" type="button" aria-label="Toggle dark mode">Dark mode</button>
+    </nav>
+    <section id="top" class="hero-grid">
+      <div>
+        <p class="eyebrow">Royal Programming by Champak Roy</p>
+        <h1>SQL From Zero to Practice</h1>
+        <p class="lead">A complete beginner lesson built from the supplied SQL documents: keys, aggregate functions, <code>GROUP BY</code>, <code>HAVING</code>, joins, set operations, and Oracle triggers.</p>
+        <div class="actions">
+          <a class="btn primary" href="#editor">Open Practice Editor</a>
+          <a class="btn" href="#lesson-map">Start Lesson</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <h2>Learning promise</h2>
+        <p>After this lesson, you should be able to design small tables, protect data with keys, summarize data, combine tables, and read basic Oracle trigger code.</p>
+      </aside>
+    </section>
+  </header>
+
+  <main>
+    <section id="lesson-map" class="card wide">
+      <h2>Lesson Map</h2>
+      <ol class="map">
+        <li><a href="#database">What is a database?</a></li>
+        <li><a href="#keys">Keys in a database</a></li>
+        <li><a href="#aggregates">Aggregate queries</a></li>
+        <li><a href="#sets">Set operations</a></li>
+        <li><a href="#joins">Joins</a></li>
+        <li><a href="#triggers">Oracle triggers</a></li>
+        <li><a href="#connection">Oracle connection idea</a></li>
+        <li><a href="#practice">Practice tasks</a></li>
+      </ol>
+    </section>
+
+    <section id="database" class="card">
+      <h2>1. What is a database?</h2>
+      <p>A database stores data in organized tables. A table is like a spreadsheet: columns define the type of information and rows store actual records.</p>
+      <div class="example-table-wrap">
+        <table>
+          <caption>Student table</caption>
+          <thead><tr><th>RollNo</th><th>Name</th><th>Age</th><th>Course</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Himanshu</td><td>35</td><td>MBBS</td></tr>
+            <tr><td>2</td><td>Himanshu</td><td>35</td><td>MBBS</td></tr>
+            <tr><td>3</td><td>Ashish</td><td>15</td><td>MD</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The goal of SQL (Structured Query Language) is to create, insert, read, update, delete, summarize, and protect this data.</p>
+    </section>
+
+    <section id="keys" class="card">
+      <h2>2. Keys in a database</h2>
+      <p>Keys protect tables from confusion. They make sure each important record can be identified correctly.</p>
+      <div class="grid two">
+        <article class="mini"><h3>Super Key</h3><p>Any field or combination of fields that can uniquely identify a row.</p></article>
+        <article class="mini"><h3>Primary Key</h3><p>The minimum useful super key. It must be unique and not null.</p></article>
+        <article class="mini"><h3>Composite Primary Key</h3><p>A primary key made from more than one column.</p></article>
+        <article class="mini"><h3>Candidate Key</h3><p>A possible primary key. In SQL it is commonly enforced using <code>UNIQUE</code>.</p></article>
+        <article class="mini"><h3>Foreign Key</h3><p>A column that refers to a parent table, preventing child records without a valid parent.</p></article>
+      </div>
+
+      <h3>Primary key example</h3>
+      <pre><code>CREATE TABLE Student (
+  RollNo INT PRIMARY KEY,
+  Name VARCHAR(50),
+  Age INT,
+  Course VARCHAR(50)
+);</code></pre>
+
+      <h3>Composite primary key example</h3>
+      <p>Use this when a single column is not enough. For example, RollNo can repeat across courses, but RollNo + Course should not repeat.</p>
+      <pre><code>CREATE TABLE StudentCourse (
+  RollNo INT,
+  Name VARCHAR(50),
+  Age INT,
+  Course VARCHAR(50),
+  PRIMARY KEY (RollNo, Course)
+);</code></pre>
+
+      <h3>Candidate key example</h3>
+      <pre><code>CREATE TABLE Ticket (
+  TicketNo VARCHAR(50) PRIMARY KEY,
+  PNRNo VARCHAR(50) UNIQUE,
+  PassengerName VARCHAR(50),
+  DateOfJourney DATE,
+  TrainNo VARCHAR(50),
+  CoachNo VARCHAR(50),
+  BerthNo INT,
+  UNIQUE (DateOfJourney, TrainNo, CoachNo, BerthNo)
+);</code></pre>
+
+      <h3>Foreign key example</h3>
+      <pre><code>CREATE TABLE Publications (
+  PublicationName VARCHAR(100) PRIMARY KEY
+);
+
+CREATE TABLE Subscribers (
+  PublicationName VARCHAR(100) REFERENCES Publications(PublicationName),
+  CustomerId VARCHAR(100),
+  PRIMARY KEY (PublicationName, CustomerId)
+);</code></pre>
+      <p class="note">Important idea: a subscriber should not be allowed to subscribe to a publication that does not exist in the parent table.</p>
+    </section>
+
+    <section id="aggregates" class="card">
+      <h2>3. Aggregate queries</h2>
+      <p>Aggregate functions work on multiple rows and return a summary. The documents focus on five important aggregate functions.</p>
+      <div class="example-table-wrap">
+        <table>
+          <thead><tr><th>Function</th><th>Meaning</th><th>Works on</th></tr></thead>
+          <tbody>
+            <tr><td><code>MAX()</code></td><td>Highest value</td><td>Numbers, text, date/time where ordering exists</td></tr>
+            <tr><td><code>MIN()</code></td><td>Lowest value</td><td>Numbers, text, date/time where ordering exists</td></tr>
+            <tr><td><code>SUM()</code></td><td>Total</td><td>Numbers</td></tr>
+            <tr><td><code>AVG()</code></td><td>Average</td><td>Numbers</td></tr>
+            <tr><td><code>COUNT()</code></td><td>Number of records</td><td>All data types</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Cricket scores table</h3>
+      <pre><code>CREATE TABLE Cricket_Scores (
+  Batsman VARCHAR(100),
+  InningsNo INT,
+  MatchType VARCHAR(10),
+  Score INT
+);
+
+INSERT INTO Cricket_Scores VALUES ('Amit', 1, 'Test', 120);
+INSERT INTO Cricket_Scores VALUES ('Amit', 2, 'Test', 45);
+INSERT INTO Cricket_Scores VALUES ('Ravi', 1, 'ODI', 80);
+INSERT INTO Cricket_Scores VALUES ('Ravi', 2, 'ODI', 100);
+INSERT INTO Cricket_Scores VALUES ('Mohan', 1, 'Test', 30);
+INSERT INTO Cricket_Scores VALUES ('Mohan', 2, 'ODI', 60);</code></pre>
+
+      <h3>Basic aggregate examples</h3>
+      <pre><code>SELECT MAX(Score) AS HighestScore FROM Cricket_Scores;
+SELECT MIN(Score) AS LowestScore FROM Cricket_Scores;
+SELECT SUM(Score) AS TotalRuns FROM Cricket_Scores;
+SELECT AVG(Score) AS AverageScore FROM Cricket_Scores;
+SELECT COUNT(*) AS NumberOfInnings FROM Cricket_Scores;</code></pre>
+
+      <h3>GROUP BY</h3>
+      <p>When you show a normal column along with an aggregate function, group the rows by that normal column.</p>
+      <pre><code>SELECT Batsman, MAX(Score) AS HighestScore
+FROM Cricket_Scores
+GROUP BY Batsman;</code></pre>
+
+      <h3>Multiple GROUP BY columns</h3>
+      <pre><code>SELECT Batsman, MatchType, MAX(Score) AS HighestScore
+FROM Cricket_Scores
+GROUP BY Batsman, MatchType;</code></pre>
+
+      <h3>HAVING</h3>
+      <p><code>WHERE</code> filters rows before grouping. <code>HAVING</code> filters groups after aggregate calculation.</p>
+      <pre><code>SELECT Batsman, MAX(Score) AS HighestScore
+FROM Cricket_Scores
+GROUP BY Batsman
+HAVING MAX(Score) &gt;= 100;</code></pre>
+    </section>
+
+    <section id="sets" class="card">
+      <h2>4. Set operations: UNION, UNION ALL, INTERSECT, MINUS</h2>
+      <p>The result of a <code>SELECT</code> query can be treated like a set. That is why SQL can combine two query results.</p>
+      <pre><code>CREATE TABLE Cricketers (
+  Name VARCHAR(100) PRIMARY KEY,
+  Runs INT
+);
+
+CREATE TABLE Footballers (
+  Name VARCHAR(100) PRIMARY KEY,
+  Goals INT
+);
+
+INSERT INTO Cricketers VALUES ('A', 100);
+INSERT INTO Cricketers VALUES ('C', 150);
+INSERT INTO Footballers VALUES ('B', 15);
+INSERT INTO Footballers VALUES ('C', 25);</code></pre>
+      <div class="grid two">
+        <article class="mini"><h3>UNION</h3><pre><code>SELECT Name FROM Cricketers
+UNION
+SELECT Name FROM Footballers;</code></pre><p>All unique names.</p></article>
+        <article class="mini"><h3>UNION ALL</h3><pre><code>SELECT Name FROM Cricketers
+UNION ALL
+SELECT Name FROM Footballers;</code></pre><p>All names, including duplicates.</p></article>
+        <article class="mini"><h3>INTERSECT</h3><pre><code>SELECT Name FROM Cricketers
+INTERSECT
+SELECT Name FROM Footballers;</code></pre><p>Names present in both tables.</p></article>
+        <article class="mini"><h3>MINUS</h3><pre><code>SELECT Name FROM Cricketers
+MINUS
+SELECT Name FROM Footballers;</code></pre><p>Names in the first result but not the second.</p></article>
+      </div>
+      <p class="note">Some databases use <code>EXCEPT</code> instead of Oracle's <code>MINUS</code>.</p>
+    </section>
+
+    <section id="joins" class="card">
+      <h2>5. Joins</h2>
+      <p>A join combines columns from related tables. In the cricket-football example, player C appears in both tables.</p>
+      <h3>Inner join</h3>
+      <pre><code>SELECT *
+FROM Cricketers C
+INNER JOIN Footballers F
+ON C.Name = F.Name;</code></pre>
+      <p>Shows only matching rows.</p>
+
+      <h3>Left join</h3>
+      <pre><code>SELECT *
+FROM Cricketers C
+LEFT JOIN Footballers F
+ON C.Name = F.Name;</code></pre>
+      <p>Shows all cricketers and matching footballer data where available.</p>
+
+      <h3>Right join</h3>
+      <pre><code>SELECT *
+FROM Cricketers C
+RIGHT JOIN Footballers F
+ON C.Name = F.Name;</code></pre>
+      <p>Shows all footballers and matching cricketer data where available.</p>
+
+      <h3>Full outer join</h3>
+      <pre><code>SELECT *
+FROM Cricketers C
+FULL OUTER JOIN Footballers F
+ON C.Name = F.Name;</code></pre>
+      <p>Shows all records from both sides, matching where possible.</p>
+
+      <h3>Self join idea: trains between two stations</h3>
+      <p>A table can be joined with itself. The document uses this idea to find trains between two stations by joining <code>Stops</code> as source and destination.</p>
+      <pre><code>CREATE TABLE Trains (
+  TrainNo VARCHAR(10) PRIMARY KEY,
+  TrainName VARCHAR(100),
+  Source VARCHAR(100),
+  Dest VARCHAR(100)
+);
+
+CREATE TABLE Stops (
+  StopNo INT,
+  TrainNo VARCHAR(10) REFERENCES Trains(TrainNo),
+  Station VARCHAR(100),
+  PRIMARY KEY (StopNo, TrainNo)
+);
+
+SELECT *
+FROM Stops Source
+INNER JOIN Stops Dest
+ON Source.TrainNo = Dest.TrainNo
+INNER JOIN Trains Train
+ON Source.TrainNo = Train.TrainNo
+WHERE Source.Station = 'Itarsi'
+  AND Dest.Station = 'Jalgaon'
+  AND Source.StopNo &lt; Dest.StopNo;</code></pre>
+    </section>
+
+    <section id="triggers" class="card">
+      <h2>6. Oracle triggers</h2>
+      <p>A trigger is SQL/PLSQL code that runs automatically when a database event happens. The documents cover DML, database, and DDL triggers.</p>
+      <div class="grid three">
+        <article class="mini"><h3>DML Trigger</h3><p>Runs on <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code>.</p></article>
+        <article class="mini"><h3>Database Trigger</h3><p>Runs on database events such as logon or logoff.</p></article>
+        <article class="mini"><h3>DDL Trigger</h3><p>Runs on schema changes such as create, alter, or drop.</p></article>
+      </div>
+
+      <h3>Backup trigger after insert</h3>
+      <pre><code>CREATE TABLE Table1 (
+  Id INT PRIMARY KEY,
+  Name VARCHAR(100)
+);
+
+CREATE TABLE Table2 (
+  Id INT,
+  Name VARCHAR(100)
+);
+
+CREATE OR REPLACE TRIGGER InsertTrigger
+AFTER INSERT ON Table1
+FOR EACH ROW
+BEGIN
+  INSERT INTO Table2 VALUES (:NEW.Id, :NEW.Name);
+END;</code></pre>
+      <p><code>:NEW</code> gives the new value being inserted or updated. <code>:OLD</code> gives the old value during update or delete.</p>
+
+      <h3>Logon trigger</h3>
+      <pre><code>CREATE TABLE LoginStats (
+  Username VARCHAR(50),
+  DateTimeOfLogin DATE
+);
+
+CREATE OR REPLACE TRIGGER LoginTrigger
+AFTER LOGON ON DATABASE
+BEGIN
+  INSERT INTO LoginStats VALUES (ora_login_user, sysdate);
+END;</code></pre>
+
+      <h3>DDL trigger to track created objects</h3>
+      <pre><code>CREATE TABLE CreatedObjects (
+  CreatedByUser VARCHAR(100),
+  ObjectName VARCHAR(100),
+  ObjectType VARCHAR(100),
+  DateOfCreation DATE
+);
+
+CREATE OR REPLACE TRIGGER DatabaseCreateObjectTrigger
+AFTER CREATE ON DATABASE
+BEGIN
+  INSERT INTO CreatedObjects
+  VALUES (ora_login_user, ora_dict_obj_name, ora_dict_obj_type, sysdate);
+END;</code></pre>
+      <p class="note">Triggers are powerful. Use them carefully because hidden automatic actions can make debugging difficult.</p>
+    </section>
+
+    <section id="connection" class="card">
+      <h2>7. Oracle connection idea</h2>
+      <p>The supplied Oracle 10g connection document shows the classic Java/JSP connection flow: create a table, load the Oracle JDBC driver, connect using URL + username + password, then run SQL.</p>
+      <pre><code>String url = "jdbc:oracle:thin:@localhost:1521:xe";
+String username = "system";
+String password = "system";
+
+DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
+Connection con = DriverManager.getConnection(url, username, password);
+Statement statement = con.createStatement();
+
+int n = statement.executeUpdate(
+  "INSERT INTO Books VALUES ('The C Programming Language', 250)"
+);</code></pre>
+      <p class="warning">Teaching note: never hard-code real production passwords in source code. Use environment variables or a secure secrets system.</p>
+    </section>
+
+    <section id="editor" class="card wide editor-card">
+      <h2>8. Practice in the embedded SQL editor</h2>
+      <p>Use this editor to try the examples. Start with <code>CREATE TABLE</code>, then <code>INSERT</code>, then <code>SELECT</code>.</p>
+      <div class="iframe-wrap">
+        <iframe title="Learn With Champak SQL Editor" src="https://editor.learnwithchampak.live/sql/premium/" loading="lazy" allow="clipboard-read; clipboard-write; fullscreen"></iframe>
+      </div>
+      <p><a href="https://editor.learnwithchampak.live/sql/premium/" target="_blank" rel="noopener">Open the SQL editor in a new tab</a></p>
+    </section>
+
+    <section id="practice" class="card wide">
+      <h2>9. Practice tasks</h2>
+      <div class="practice-list">
+        <details open>
+          <summary>Task 1: Create a student table</summary>
+          <pre><code>CREATE TABLE Student (
+  RollNo INT PRIMARY KEY,
+  Name VARCHAR(50),
+  Age INT,
+  Course VARCHAR(50)
+);
+
+INSERT INTO Student VALUES (1, 'Himanshu', 35, 'MBBS');
+INSERT INTO Student VALUES (2, 'Himanshu', 35, 'MBBS');
+INSERT INTO Student VALUES (3, 'Ashish', 15, 'MD');
+
+SELECT * FROM Student;</code></pre>
+        </details>
+        <details>
+          <summary>Task 2: Find batsman-wise highest score</summary>
+          <pre><code>SELECT Batsman, MAX(Score) AS HighestScore
+FROM Cricket_Scores
+GROUP BY Batsman;</code></pre>
+        </details>
+        <details>
+          <summary>Task 3: Find players who play both games</summary>
+          <pre><code>SELECT Name FROM Cricketers
+INTERSECT
+SELECT Name FROM Footballers;</code></pre>
+        </details>
+        <details>
+          <summary>Task 4: Find trains from one station to another</summary>
+          <pre><code>SELECT Train.TrainNo, Train.TrainName, Source.Station AS FromStation, Dest.Station AS ToStation
+FROM Stops Source
+INNER JOIN Stops Dest ON Source.TrainNo = Dest.TrainNo
+INNER JOIN Trains Train ON Source.TrainNo = Train.TrainNo
+WHERE Source.Station = 'Itarsi'
+  AND Dest.Station = 'Jalgaon'
+  AND Source.StopNo &lt; Dest.StopNo;</code></pre>
+        </details>
+      </div>
+    </section>
+
+    <section class="card wide quiz-card">
+      <h2>Quick Check</h2>
+      <div id="quiz"></div>
+      <button id="checkQuiz" class="btn primary" type="button">Check Answers</button>
+      <p id="quizResult" role="status"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Prepared from supplied SQL documents. Lesson by Champak Roy - Programmer's Picnic.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

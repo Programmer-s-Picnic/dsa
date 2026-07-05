@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KBC Quiz - HTML JavaScript Version</title>
+  <meta name="description" content="A beginner-friendly KBC style quiz app using HTML, CSS, JavaScript and JSON." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Main game wrapper -->
+  <main class="app-shell">
+    <section class="quiz-panel">
+      <p class="eyebrow">HTML / JavaScript Project</p>
+      <h1>KBC Quiz</h1>
+
+      <!-- Game status area -->
+      <div class="status-row">
+        <div>Question <span id="questionNumber">1</span></div>
+        <div>Time: <span id="timer">30</span>s</div>
+        <div>Prize: ₹<span id="currentPrize">0</span></div>
+      </div>
+
+      <!-- Lifeline buttons -->
+      <div class="lifelines">
+        <button id="fiftyBtn">50:50</button>
+        <button id="skipBtn">Skip</button>
+        <button id="pollBtn">Audience Poll</button>
+      </div>
+
+      <div id="pollBox" class="poll-box hidden"></div>
+
+      <!-- Question and options are filled by JavaScript -->
+      <h2 id="questionText">Loading question...</h2>
+      <div id="optionsBox" class="options-box"></div>
+
+      <!-- Control buttons -->
+      <div class="controls">
+        <button id="lockBtn">Lock Answer</button>
+        <button id="nextBtn" disabled>Next Question</button>
+        <button id="restartBtn">Restart</button>
+      </div>
+
+      <p id="message" class="message"></p>
+    </section>
+
+    <!-- Prize ladder -->
+    <aside class="prize-panel">
+      <h2>Prize Ladder</h2>
+      <ol id="prizeLadder"></ol>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
