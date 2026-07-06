@@ -1,3 +1,3 @@
-# Phase 2 Rubric
+# Rubric
 
-Working feature 40%, acceptance criteria 25%, explanation 20%, GitHub/submission 15%.
+Working output 40%, matches SVG 25%, explanation 20%, GitHub 15%.

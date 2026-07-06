@@ -1,3 +1,3 @@
-# Final Portfolio Checklist
+# Portfolio Checklist
 
-GitHub repo, README, screenshots, live demo, project description.
+Screenshots, GitHub link, README, live demo.

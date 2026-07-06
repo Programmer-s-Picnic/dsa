@@ -1,3 +1,3 @@
-# Phase 2: Complete HTML/JavaScript KBC Track
+# Debugging Challenges
 
-Open index.html to start the LMS. Includes 40 milestones, full tasks, final project, starter code, teacher notes, quizzes, and portfolio checklist.
+Use the SVG and milestone-code folder to verify output.
