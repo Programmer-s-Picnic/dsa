@@ -1,812 +1,870 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-    
-        gtag('config', 'G-GSTQRQMLEE');
-    </script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/><title>Dance Visualizer | Study AI/ML with Champak Roy, Varanasi</title><meta content="Learn Dance Visualizer as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="description"/><meta content="AI ML classes Varanasi, study AIML with Champak Roy, Champak Roy Varanasi, Programmer's Picnic, Dance Visualizer, Python lessons, machine learning lessons, data structures algorithms, learnwithchampak" name="keywords"/><meta content="Champak Roy" name="author"/><meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/><link href="https://dsa.learnwithchampak.live/visualizers/videos/human/" rel="canonical"/><meta content="website" property="og:type"/><meta content="Programmer's Picnic by Champak Roy" property="og:site_name"/><meta content="Dance Visualizer | Study AI/ML with Champak Roy, Varanasi" property="og:title"/><meta content="Learn Dance Visualizer as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." property="og:description"/><meta content="https://dsa.learnwithchampak.live/visualizers/videos/human/" property="og:url"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="summary_large_image" name="twitter:card"/><meta content="Dance Visualizer | Study AI/ML with Champak Roy, Varanasi" name="twitter:title"/><meta content="Learn Dance Visualizer as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons." name="twitter:description"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" name="twitter:image"/>
+  <title>Audio Dance Visualizer with JavaScript Canvas | Champak Roy</title>
+  <meta name="description" content="Create an audio-reactive dance visualizer using JavaScript Canvas, microphone input, audio files, and image animation." />
+  <meta name="author" content="Champak Roy" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://dsa.learnwithchampak.live/visualizers/videos/human/" />
 
-<style>
-      select {
-        color: teal !important;
-      }
-      :root {
-        --bg: #050816;
-        --bg2: #0b1020;
-        --panel: rgba(255, 255, 255, 0.08);
-        --line: rgba(255, 255, 255, 0.12);
-        --text: #f8fafc;
-        --muted: #cbd5e1;
-        --accent: #f59e0b;
-        --accent2: #fb7185;
-      }
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Audio Dance Visualizer with JavaScript Canvas" />
+  <meta property="og:description" content="A practical JavaScript Canvas lesson using microphone or audio file input to animate dancers." />
+  <meta property="og:url" content="https://dsa.learnwithchampak.live/visualizers/videos/human/" />
+  <meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" />
 
-      * {
-        box-sizing: border-box;
-      }
+  <style>
+    :root {
+      --bg: #050816;
+      --bg2: #0b1020;
+      --panel: rgba(255, 255, 255, 0.08);
+      --line: rgba(255, 255, 255, 0.14);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #f59e0b;
+      --accent2: #fb7185;
+    }
 
-      html,
-      body {
-        margin: 0;
-        height: 100%;
-        font-family:
-          system-ui,
-          -apple-system,
-          Segoe UI,
-          Roboto,
-          Arial,
-          sans-serif;
-        color: var(--text);
-        background:
-          radial-gradient(
-            circle at top left,
-            rgba(245, 158, 11, 0.18),
-            transparent 26%
-          ),
-          radial-gradient(
-            circle at top right,
-            rgba(251, 113, 133, 0.12),
-            transparent 28%
-          ),
-          linear-gradient(135deg, var(--bg), var(--bg2) 45%, #111827);
-        overflow: hidden;
-      }
+    * {
+      box-sizing: border-box;
+    }
 
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(245, 158, 11, 0.18), transparent 26%),
+        radial-gradient(circle at top right, rgba(251, 113, 133, 0.12), transparent 28%),
+        linear-gradient(135deg, var(--bg), var(--bg2) 45%, #111827);
+      overflow-x: hidden;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .side {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+    }
+
+    .card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.45rem;
+    }
+
+    p {
+      margin: 0.45rem 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #fde68a;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    button,
+    select,
+    input[type="file"],
+    input[type="range"] {
+      width: 100%;
+    }
+
+    button,
+    select {
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    select {
+      color: #ccfbf1;
+    }
+
+    button:hover,
+    select:hover,
+    button:focus,
+    select:focus,
+    input:focus {
+      outline: 3px solid rgba(245, 158, 11, 0.4);
+      outline-offset: 2px;
+    }
+
+    .primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .danger {
+      background: rgba(239, 68, 68, 0.16);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      overflow: hidden;
+      min-height: calc(100vh - 32px);
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: calc(100vh - 32px);
+    }
+
+    .top {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 2;
+      pointer-events: none;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+
+    .stat:last-child {
+      border-bottom: none;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .exit-btn {
+      display: none;
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 9999;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      width: auto;
+    }
+
+    body.full .exit-btn {
+      display: block;
+    }
+
+    body.full .side {
+      display: none;
+    }
+
+    body.full .app {
+      grid-template-columns: 1fr;
+      padding: 0;
+      gap: 0;
+    }
+
+    body.full .panel,
+    body.full .canvas-wrap,
+    body.full canvas {
+      border-radius: 0;
+      border: none;
+      min-height: 100vh;
+    }
+
+    @media (max-width: 900px) {
       .app {
-        min-height: 100%;
-        display: grid;
-        grid-template-columns: 340px 1fr;
-        gap: 16px;
-        padding: 16px;
-      }
-
-      .panel {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 24px;
-        backdrop-filter: blur(10px);
+        grid-template-columns: 1fr;
       }
 
       .side {
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        z-index: 5;
+        max-height: none;
       }
 
-      .card {
-        padding: 14px;
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.06);
-      }
-
-      h1 {
-        margin: 0;
-        font-size: 1.45rem;
-      }
-
-      p {
-        margin: 0.45rem 0 0;
-        color: var(--muted);
-        line-height: 1.45;
-      }
-
-      .label {
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        color: #fde68a;
-        font-weight: 700;
-        margin-bottom: 10px;
-      }
-
-      button,
-      select,
-      input[type="file"],
-      input[type="range"] {
-        width: 100%;
-      }
-
-      button,
-      select {
-        padding: 12px 14px;
-        border-radius: 14px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.08);
-        color: var(--text);
-        cursor: pointer;
-      }
-
-      button:hover,
-      select:hover {
-        background: rgba(255, 255, 255, 0.12);
-      }
-
-      .primary {
-        background: linear-gradient(135deg, var(--accent), var(--accent2));
-        border: none;
-        font-weight: 700;
-      }
-
-      .row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-
-      .canvas-wrap {
-        position: relative;
-        overflow: hidden;
-        min-height: 78vh;
-      }
-
+      .canvas-wrap,
       canvas {
-        display: block;
-        width: 100%;
-        height: 100%;
+        min-height: 65vh;
       }
-
-      .top {
-        position: absolute;
-        top: 14px;
-        left: 14px;
-        right: 14px;
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        z-index: 2;
-        pointer-events: none;
-      }
-
-      .badge {
-        background: rgba(255, 255, 255, 0.09);
-        border: 1px solid var(--line);
-        padding: 8px 12px;
-        border-radius: 999px;
-        color: var(--muted);
-        font-size: 0.88rem;
-      }
-
-      .stat {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        padding: 8px 0;
-        border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
-      }
-
-      .stat:last-child {
-        border-bottom: none;
-      }
-
-      .hint {
-        color: var(--muted);
-        font-size: 0.92rem;
-        line-height: 1.45;
-      }
-
-      .exit-btn {
-        position: fixed;
-        top: 16px;
-        right: 16px;
-        z-index: 9999;
-        padding: 10px 14px;
-        border: none;
-        border-radius: 999px;
-        background: rgba(0, 0, 0, 0.45);
-        color: #fff;
-        cursor: pointer;
-        backdrop-filter: blur(8px);
-        width: auto;
-      }
-
-      body.full .side {
-        display: none;
-      }
-
-      body.full .app {
-        grid-template-columns: 1fr;
-        padding: 0;
-        gap: 0;
-      }
-
-      body.full .panel,
-      body.full .canvas-wrap {
-        border-radius: 0;
-        border: none;
-        min-height: 100vh;
-      }
-
-      @media (max-width: 900px) {
-        .app {
-          grid-template-columns: 1fr;
-        }
-        .canvas-wrap {
-          min-height: 60vh;
-        }
-      }
-    </style>
-<link href="../../../assets/css/theme.css" rel="stylesheet"/><script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "LearningResource",
-  "name": "Dance Visualizer | Study AI/ML with Champak Roy, Varanasi",
-  "description": "Learn Dance Visualizer as part of practical AI/ML, Python, DSA and web development training with Champak Roy of Varanasi. Beginner-friendly 0 to infinity lessons.",
-  "url": "https://dsa.learnwithchampak.live/visualizers/videos/human/",
-  "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
-  "inLanguage": "en",
-  "creator": {
-    "@type": "Person",
-    "name": "Champak Roy",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Varanasi",
-      "addressCountry": "IN"
     }
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Programmer's Picnic by Champak Roy",
-    "url": "https://dsa.learnwithchampak.live"
-  },
-  "about": [
-    "Artificial Intelligence",
-    "Machine Learning",
-    "Python",
-    "Data Structures and Algorithms",
-    "Web Development"
-  ],
-  "audience": {
-    "@type": "Audience",
-    "audienceType": "Students and beginner programmers"
-  },
-  "isAccessibleForFree": true
-}</script></head>
-<body data-root="../../../"><div data-root="../../../" id="site-header"></div>
-<button class="exit-btn" id="exitBtn">Exit Full Screen</button>
-<div class="app">
-<aside class="panel side">
-<div>
-<h1>Dance Visualizer</h1>
-<p>This page uses images from the same folder:</p>
-<p><strong>champak.jpg</strong><br/><strong>anita.jpg</strong></p>
-</div>
-<section class="card">
-<div class="label">Audio Input</div>
-<div class="row">
-<button id="micBtn">Use Microphone</button>
-<button id="stopBtn">Stop Input</button>
-</div>
-<div style="height: 10px"></div>
-<input accept="audio/*" id="fileInput" type="file"/>
-<audio controls="" id="audioPlayer" style="width: 100%; margin-top: 10px"></audio>
-</section>
-<section class="card">
-<div class="label">Mode</div>
-<select id="mode">
-<option value="dual">Dual Dancers</option>
-<option value="champak">Champak Solo</option>
-<option value="anita">Anita Solo</option>
-</select>
-</section>
-<section class="card">
-<div class="label">Dance Controls</div>
-<label>Sensitivity</label>
-<input id="sens" max="3" min="0.5" step="0.1" type="range" value="1.3"/>
-<label>Trail / Fade</label>
-<input id="trail" max="0.3" min="0.02" step="0.01" type="range" value="0.08"/>
-<label>Zoom</label>
-<input id="zoom" max="2.4" min="0.4" step="0.1" type="range" value="1"/>
-<div style="height: 10px"></div>
-<button class="primary" id="saveBtn">Save Current Frame</button>
-</section>
-<section class="card">
-<div class="label">Image Status</div>
-<div class="stat">
-<span>champak.jpg</span><strong id="champakStatus">Loading...</strong>
-</div>
-<div class="stat">
-<span>anita.jpg</span><strong id="anitaStatus">Loading...</strong>
-</div>
-<div class="stat">
-<span>App</span><strong id="status">Starting...</strong>
-</div>
-</section>
-<section class="card">
-<div class="label">Audio Stats</div>
-<div class="stat"><span>Volume</span><strong id="vol">0</strong></div>
-<div class="stat"><span>Bass</span><strong id="bass">0</strong></div>
-<div class="stat"><span>Mid</span><strong id="mid">0</strong></div>
-<div class="stat">
-<span>Treble</span><strong id="treble">0</strong>
-</div>
-</section>
-<section class="card">
-<div class="label">Note</div>
-<div class="hint">
-            Put this HTML file, <strong>champak.jpg</strong>, and
-            <strong>anita.jpg</strong> in the same folder. Dual mode uses both
-            images. Solo modes use the selected image only.
-          </div>
-</section>
-</aside>
-<main class="panel canvas-wrap" id="main-content">
-<div class="top">
-<div class="badge" id="modeBadge">Mode: Dual Dancers</div>
-<div class="badge">Auto full screen after 5 seconds</div>
-</div>
-<canvas id="canvas"></canvas>
-</main>
-</div>
-<script>
-      const canvas = document.getElementById("canvas");
-      const ctx = canvas.getContext("2d");
 
-      const modeEl = document.getElementById("mode");
-      const modeBadge = document.getElementById("modeBadge");
-      const sensEl = document.getElementById("sens");
-      const trailEl = document.getElementById("trail");
-      const zoomEl = document.getElementById("zoom");
+    @media (prefers-reduced-motion: reduce) {
+      .badge::after {
+        content: " · Reduced motion detected";
+      }
+    }
+  </style>
+</head>
 
-      const fileInput = document.getElementById("fileInput");
-      const audioPlayer = document.getElementById("audioPlayer");
-      const micBtn = document.getElementById("micBtn");
-      const stopBtn = document.getElementById("stopBtn");
-      const saveBtn = document.getElementById("saveBtn");
-      const exitBtn = document.getElementById("exitBtn");
+<body>
+  <button class="exit-btn" id="exitBtn">Exit Full Screen</button>
 
-      const statusEl = document.getElementById("status");
-      const champakStatusEl = document.getElementById("champakStatus");
-      const anitaStatusEl = document.getElementById("anitaStatus");
+  <div class="app">
+    <aside class="panel side">
+      <div>
+        <h1>Dance Visualizer</h1>
+        <p>Use your microphone or upload an audio file. The canvas reacts to volume, bass, mids and treble.</p>
+      </div>
 
-      const volEl = document.getElementById("vol");
-      const bassEl = document.getElementById("bass");
-      const midEl = document.getElementById("mid");
-      const trebleEl = document.getElementById("treble");
+      <section class="card">
+        <div class="label">Start</div>
+        <button class="primary" id="startBtn">Start Visualizer</button>
+        <div style="height:10px"></div>
+        <button id="fullscreenBtn">Enter Full Screen</button>
+      </section>
 
-      let audioCtx;
-      let analyser;
-      let sourceNode;
-      let micStream;
-      let dataArray;
-      let timeArray;
-      let raf;
+      <section class="card">
+        <div class="label">Audio Input</div>
 
-      const champakImg = new Image();
-      const anitaImg = new Image();
+        <div class="row">
+          <button id="micBtn">Use Microphone</button>
+          <button class="danger" id="stopBtn">Stop Input</button>
+        </div>
 
-      let champakReady = false;
-      let anitaReady = false;
+        <label for="fileInput">Or choose an audio file</label>
+        <input accept="audio/*" id="fileInput" type="file" />
 
-      champakImg.onload = () => {
-        champakReady = true;
-        champakStatusEl.textContent = "Loaded";
-        updateAppStatus();
-      };
+        <audio controls id="audioPlayer" style="width:100%; margin-top:10px"></audio>
 
-      champakImg.onerror = () => {
-        champakReady = false;
-        champakStatusEl.textContent = "Not found";
-        updateAppStatus();
-      };
+        <p class="hint">Microphone works only on HTTPS or localhost.</p>
+      </section>
 
-      anitaImg.onload = () => {
-        anitaReady = true;
-        anitaStatusEl.textContent = "Loaded";
-        updateAppStatus();
-      };
+      <section class="card">
+        <div class="label">Mode</div>
+        <label for="mode">Choose dancer mode</label>
+        <select id="mode">
+          <option value="dual">Dual Dancers</option>
+          <option value="champak">Champak Solo</option>
+          <option value="anita">Anita Solo</option>
+        </select>
+      </section>
 
-      anitaImg.onerror = () => {
-        anitaReady = false;
-        anitaStatusEl.textContent = "Not found";
-        updateAppStatus();
-      };
+      <section class="card">
+        <div class="label">Dance Controls</div>
 
-      champakImg.src = "champak.jpg";
-      anitaImg.src = "anita.jpg";
+        <label for="sens">Sensitivity</label>
+        <input id="sens" max="3" min="0.5" step="0.1" type="range" value="1.3" />
 
-      function updateAppStatus() {
-        if (champakReady && anitaReady) {
-          statusEl.textContent = "Images loaded";
-        } else if (champakReady || anitaReady) {
-          statusEl.textContent = "One image loaded";
-        } else {
-          statusEl.textContent = "Images missing";
-        }
+        <label for="trail">Trail / Fade</label>
+        <input id="trail" max="0.3" min="0.02" step="0.01" type="range" value="0.08" />
+
+        <label for="zoom">Zoom</label>
+        <input id="zoom" max="2.4" min="0.4" step="0.1" type="range" value="1" />
+
+        <div style="height:10px"></div>
+        <button class="primary" id="saveBtn">Save Current Frame</button>
+      </section>
+
+      <section class="card">
+        <div class="label">Image Status</div>
+        <div class="stat"><span>champak.jpg</span><strong id="champakStatus">Loading...</strong></div>
+        <div class="stat"><span>anita.jpg</span><strong id="anitaStatus">Loading...</strong></div>
+        <div class="stat"><span>App</span><strong id="status" aria-live="polite">Starting...</strong></div>
+      </section>
+
+      <section class="card">
+        <div class="label">Audio Stats</div>
+        <div class="stat"><span>Volume</span><strong id="vol">0</strong></div>
+        <div class="stat"><span>Bass</span><strong id="bass">0</strong></div>
+        <div class="stat"><span>Mid</span><strong id="mid">0</strong></div>
+        <div class="stat"><span>Treble</span><strong id="treble">0</strong></div>
+      </section>
+
+      <section class="card">
+        <div class="label">Note</div>
+        <div class="hint">
+          Put this HTML file, <strong>champak.jpg</strong>, and <strong>anita.jpg</strong>
+          in the same folder.
+        </div>
+      </section>
+    </aside>
+
+    <main class="panel canvas-wrap" id="main-content">
+      <div class="top">
+        <div class="badge" id="modeBadge">Mode: Dual Dancers</div>
+        <div class="badge" id="inputBadge">Input: None</div>
+      </div>
+      <canvas id="canvas"></canvas>
+    </main>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const modeEl = document.getElementById("mode");
+    const modeBadge = document.getElementById("modeBadge");
+    const inputBadge = document.getElementById("inputBadge");
+
+    const sensEl = document.getElementById("sens");
+    const trailEl = document.getElementById("trail");
+    const zoomEl = document.getElementById("zoom");
+
+    const startBtn = document.getElementById("startBtn");
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
+    const fileInput = document.getElementById("fileInput");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const micBtn = document.getElementById("micBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const saveBtn = document.getElementById("saveBtn");
+    const exitBtn = document.getElementById("exitBtn");
+
+    const statusEl = document.getElementById("status");
+    const champakStatusEl = document.getElementById("champakStatus");
+    const anitaStatusEl = document.getElementById("anitaStatus");
+
+    const volEl = document.getElementById("vol");
+    const bassEl = document.getElementById("bass");
+    const midEl = document.getElementById("mid");
+    const trebleEl = document.getElementById("treble");
+
+    let audioCtx;
+    let analyser;
+    let sourceNode;
+    let micStream;
+    let dataArray;
+    let timeArray;
+    let raf;
+    let currentObjectUrl = null;
+    let mediaElementSource = null;
+    let visualizerStarted = false;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const champakImg = new Image();
+    const anitaImg = new Image();
+
+    let champakReady = false;
+    let anitaReady = false;
+
+    champakImg.onload = () => {
+      champakReady = true;
+      champakStatusEl.textContent = "Loaded";
+      updateAppStatus();
+    };
+
+    champakImg.onerror = () => {
+      champakReady = false;
+      champakStatusEl.textContent = "Not found";
+      updateAppStatus();
+    };
+
+    anitaImg.onload = () => {
+      anitaReady = true;
+      anitaStatusEl.textContent = "Loaded";
+      updateAppStatus();
+    };
+
+    anitaImg.onerror = () => {
+      anitaReady = false;
+      anitaStatusEl.textContent = "Not found";
+      updateAppStatus();
+    };
+
+    champakImg.src = "champak.jpg";
+    anitaImg.src = "anita.jpg";
+
+    function updateAppStatus() {
+      if (champakReady && anitaReady) {
+        statusEl.textContent = "Ready";
+      } else if (champakReady || anitaReady) {
+        statusEl.textContent = "One image loaded";
+      } else {
+        statusEl.textContent = "Images missing";
+      }
+    }
+
+    function updateModeBadge() {
+      const text = modeEl.options[modeEl.selectedIndex].text;
+      modeBadge.textContent = "Mode: " + text;
+    }
+
+    function resizeCanvas() {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      const rect = canvas.getBoundingClientRect();
+
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function ensureAudio() {
+      if (audioCtx) return;
+
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 2048;
+      analyser.smoothingTimeConstant = 0.82;
+
+      dataArray = new Uint8Array(analyser.frequencyBinCount);
+      timeArray = new Uint8Array(analyser.fftSize);
+    }
+
+    function disconnectCurrentSource() {
+      if (sourceNode) {
+        try {
+          sourceNode.disconnect();
+        } catch (e) {}
+        sourceNode = null;
       }
 
-      function updateModeBadge() {
-        const text = modeEl.options[modeEl.selectedIndex].text;
-        modeBadge.textContent = "Mode: " + text;
+      if (micStream) {
+        micStream.getTracks().forEach(track => track.stop());
+        micStream = null;
       }
 
-      function resizeCanvas() {
-        const dpr = Math.max(1, window.devicePixelRatio || 1);
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width * dpr;
-        canvas.height = rect.height * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      audioPlayer.pause();
+      audioPlayer.removeAttribute("src");
+      audioPlayer.load();
+
+      if (currentObjectUrl) {
+        URL.revokeObjectURL(currentObjectUrl);
+        currentObjectUrl = null;
       }
 
-      function ensureAudio() {
-        if (audioCtx) return;
+      inputBadge.textContent = "Input: None";
+      updateAppStatus();
+    }
 
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        analyser = audioCtx.createAnalyser();
-        analyser.fftSize = 2048;
-        analyser.smoothingTimeConstant = 0.82;
+    function connectAnalyserToSpeaker(node) {
+      node.connect(analyser);
+      analyser.connect(audioCtx.destination);
+    }
 
-        dataArray = new Uint8Array(analyser.frequencyBinCount);
-        timeArray = new Uint8Array(analyser.fftSize);
+    async function connectFileAudio(file) {
+      ensureAudio();
+      disconnectCurrentSource();
+
+      currentObjectUrl = URL.createObjectURL(file);
+      audioPlayer.src = currentObjectUrl;
+
+      if (!mediaElementSource) {
+        mediaElementSource = audioCtx.createMediaElementSource(audioPlayer);
       }
 
-      function disconnectCurrentSource() {
-        if (sourceNode) {
-          try {
-            sourceNode.disconnect();
-          } catch (e) {}
-          sourceNode = null;
-        }
+      sourceNode = mediaElementSource;
+      connectAnalyserToSpeaker(sourceNode);
 
-        if (micStream) {
-          micStream.getTracks().forEach((track) => track.stop());
-          micStream = null;
-        }
-
-        audioPlayer.pause();
-        audioPlayer.removeAttribute("src");
-        audioPlayer.load();
-        updateAppStatus();
+      if (audioCtx.state === "suspended") {
+        await audioCtx.resume();
       }
 
-      function connectAnalyser(node) {
-        node.connect(analyser);
-        analyser.connect(audioCtx.destination);
-      }
-
-      function connectFileAudio(file) {
-        ensureAudio();
-        disconnectCurrentSource();
-
-        const url = URL.createObjectURL(file);
-        audioPlayer.src = url;
-        audioPlayer.play().catch(() => {});
-        sourceNode = audioCtx.createMediaElementSource(audioPlayer);
-        connectAnalyser(sourceNode);
+      try {
+        await audioPlayer.play();
         statusEl.textContent = "Playing file";
+        inputBadge.textContent = "Input: Audio File";
+      } catch (e) {
+        statusEl.textContent = "Press play on audio";
+      }
+
+      startViz();
+    }
+
+    async function connectMic() {
+      ensureAudio();
+      disconnectCurrentSource();
+
+      try {
+        micStream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+          video: false
+        });
+
+        sourceNode = audioCtx.createMediaStreamSource(micStream);
+        sourceNode.connect(analyser);
 
         if (audioCtx.state === "suspended") {
-          audioCtx.resume();
+          await audioCtx.resume();
         }
 
+        statusEl.textContent = "Listening to microphone";
+        inputBadge.textContent = "Input: Microphone";
         startViz();
+      } catch (err) {
+        statusEl.textContent = "Microphone blocked";
+        alert("Microphone permission was blocked or this page is not running on HTTPS.");
+      }
+    }
+
+    function avgRange(start, end) {
+      let sum = 0;
+      const len = Math.max(1, end - start);
+
+      for (let i = start; i < end; i++) {
+        sum += dataArray[i] || 0;
       }
 
-      async function connectMic() {
-        ensureAudio();
-        disconnectCurrentSource();
+      return sum / len;
+    }
 
-        try {
-          micStream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-            video: false,
-          });
-          sourceNode = audioCtx.createMediaStreamSource(micStream);
-          sourceNode.connect(analyser);
-          statusEl.textContent = "Listening to microphone";
-
-          if (audioCtx.state === "suspended") {
-            await audioCtx.resume();
-          }
-
-          startViz();
-        } catch (err) {
-          statusEl.textContent = "Microphone blocked";
-          alert("Microphone permission was blocked.");
-        }
+    function getMetrics() {
+      if (!analyser) {
+        return { volume: 0, bass: 0, mid: 0, treble: 0 };
       }
 
-      function avgRange(start, end) {
-        let sum = 0;
-        const len = Math.max(1, end - start);
-        for (let i = start; i < end; i++) sum += dataArray[i] || 0;
-        return sum / len;
+      analyser.getByteFrequencyData(dataArray);
+      analyser.getByteTimeDomainData(timeArray);
+
+      let volume = 0;
+
+      for (let i = 0; i < dataArray.length; i++) {
+        volume += dataArray[i];
       }
 
-      function getMetrics() {
-        if (!analyser) {
-          return { volume: 0, bass: 0, mid: 0, treble: 0 };
-        }
+      volume /= dataArray.length;
 
-        analyser.getByteFrequencyData(dataArray);
-        analyser.getByteTimeDomainData(timeArray);
+      return {
+        volume,
+        bass: avgRange(0, 20),
+        mid: avgRange(20, 100),
+        treble: avgRange(100, 220)
+      };
+    }
 
-        let volume = 0;
-        for (let i = 0; i < dataArray.length; i++) volume += dataArray[i];
-        volume /= dataArray.length;
+    function drawBackground(fade) {
+      ctx.fillStyle = `rgba(4,10,24,${fade})`;
+      ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+    }
 
-        return {
-          volume,
-          bass: avgRange(0, 20),
-          mid: avgRange(20, 100),
-          treble: avgRange(100, 220),
-        };
-      }
+    function drawMissingText(text) {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
 
-      function drawBackground(fade) {
-        ctx.fillStyle = `rgba(4,10,24,${fade})`;
-        ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-      }
+      ctx.fillStyle = "rgba(255,255,255,0.92)";
+      ctx.font = "600 24px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(text, w / 2, h / 2);
+    }
 
-      function drawMissingText(text) {
-        const w = canvas.clientWidth;
-        const h = canvas.clientHeight;
-        ctx.fillStyle = "rgba(255,255,255,0.92)";
-        ctx.font = "600 24px system-ui, sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(text, w / 2, h / 2);
-      }
+    function drawStageLights(hue, centerX, centerY, bass) {
+      if (reduceMotion) return;
 
-      function drawStageLights(hue, centerX, centerY, bass) {
-        for (let i = 0; i < 8; i++) {
-          const r = 80 + i * 30 + bass * 80;
-          ctx.beginPath();
-          ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
-          ctx.strokeStyle = `hsla(${hue + i * 14},100%,60%,${0.04 + i * 0.022})`;
-          ctx.lineWidth = 2;
-          ctx.stroke();
-        }
-      }
+      for (let i = 0; i < 8; i++) {
+        const r = 80 + i * 30 + bass * 80;
 
-      function drawOneDancer(
-        img,
-        baseX,
-        floorY,
-        sway,
-        bounce,
-        armSwing,
-        legSwing,
-        tilt,
-        hueShift,
-        metrics,
-      ) {
-        const h = canvas.clientHeight;
-        const z = +zoomEl.value;
-        const volume = metrics.volume;
-        const hue = metrics.hue;
-
-        const maxH = h * 0.58 * z;
-        const scale = Math.min(
-          maxH / img.naturalHeight,
-          (canvas.clientWidth * 0.24) / img.naturalWidth,
-        );
-        const drawW = img.naturalWidth * scale;
-        const drawH = img.naturalHeight * scale;
-
-        const x = baseX - drawW / 2 + sway;
-        const y = floorY - drawH - bounce;
-
-        ctx.save();
-        ctx.shadowBlur = 28 + volume * 18;
-        ctx.shadowColor = `hsla(${hue + hueShift},100%,70%,.55)`;
-
-        ctx.translate(baseX + sway, floorY - drawH * 0.58 - bounce);
-        ctx.rotate(tilt);
-        ctx.translate(-(baseX + sway), -(floorY - drawH * 0.58 - bounce));
-
-        ctx.drawImage(img, x, y, drawW, drawH);
-
-        ctx.strokeStyle = `hsla(${hue + hueShift + 30},100%,72%,.75)`;
-        ctx.lineWidth = 5;
         ctx.beginPath();
-
-        ctx.moveTo(baseX + sway, y + drawH * 0.38);
-        ctx.lineTo(baseX + sway - armSwing, y + drawH * 0.56);
-
-        ctx.moveTo(baseX + sway, y + drawH * 0.4);
-        ctx.lineTo(baseX + sway + armSwing, y + drawH * 0.58);
-
-        ctx.moveTo(baseX + sway - 10, y + drawH * 0.72);
-        ctx.lineTo(baseX + sway - 16 - legSwing, y + drawH - 8);
-
-        ctx.moveTo(baseX + sway + 10, y + drawH * 0.72);
-        ctx.lineTo(baseX + sway + 16 + legSwing, y + drawH - 8);
+        ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
+        ctx.strokeStyle = `hsla(${hue + i * 14},100%,60%,${0.04 + i * 0.022})`;
+        ctx.lineWidth = 2;
         ctx.stroke();
+      }
+    }
 
-        ctx.restore();
+    function drawOneDancer(img, baseX, floorY, sway, bounce, armSwing, legSwing, tilt, hueShift, metrics) {
+      const h = canvas.clientHeight;
+      const z = +zoomEl.value;
+      const volume = metrics.volume;
+      const hue = metrics.hue;
+
+      const maxH = h * 0.58 * z;
+      const scale = Math.min(
+        maxH / img.naturalHeight,
+        (canvas.clientWidth * 0.24) / img.naturalWidth
+      );
+
+      const drawW = img.naturalWidth * scale;
+      const drawH = img.naturalHeight * scale;
+
+      const x = baseX - drawW / 2 + sway;
+      const y = floorY - drawH - bounce;
+
+      ctx.save();
+
+      ctx.shadowBlur = 28 + volume * 18;
+      ctx.shadowColor = `hsla(${hue + hueShift},100%,70%,.55)`;
+
+      ctx.translate(baseX + sway, floorY - drawH * 0.58 - bounce);
+      ctx.rotate(tilt);
+      ctx.translate(-(baseX + sway), -(floorY - drawH * 0.58 - bounce));
+
+      ctx.drawImage(img, x, y, drawW, drawH);
+
+      ctx.strokeStyle = `hsla(${hue + hueShift + 30},100%,72%,.75)`;
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+
+      ctx.moveTo(baseX + sway, y + drawH * 0.38);
+      ctx.lineTo(baseX + sway - armSwing, y + drawH * 0.56);
+
+      ctx.moveTo(baseX + sway, y + drawH * 0.4);
+      ctx.lineTo(baseX + sway + armSwing, y + drawH * 0.58);
+
+      ctx.moveTo(baseX + sway - 10, y + drawH * 0.72);
+      ctx.lineTo(baseX + sway - 16 - legSwing, y + drawH - 8);
+
+      ctx.moveTo(baseX + sway + 10, y + drawH * 0.72);
+      ctx.lineTo(baseX + sway + 16 + legSwing, y + drawH - 8);
+
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawSoloDancer(img, m, hueShift = 0) {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      const centerX = w / 2;
+      const floorY = h * 0.84;
+
+      const s = +sensEl.value;
+      const bass = (m.bass / 255) * s;
+      const treble = (m.treble / 255) * s;
+      const volume = (m.volume / 255) * s;
+      const t = reduceMotion ? 1 : performance.now() * 0.004;
+      const hue = (Date.now() / 18 + m.bass * 1.2) % 360;
+
+      drawStageLights(hue, centerX, h * 0.42, bass);
+
+      const sway = Math.sin(t * 1.4) * (14 + bass * 12);
+      const bounce = Math.abs(Math.sin(t * 1.9)) * (18 + volume * 20);
+      const arm = Math.sin(t * 2.4) * (10 + treble * 14);
+      const leg = Math.sin(t * 1.8) * (16 + bass * 20);
+      const tilt = Math.sin(t * 1.1) * 0.08;
+
+      drawOneDancer(img, centerX, floorY, sway, bounce, arm, leg, tilt, hueShift, { volume, hue });
+    }
+
+    function drawDualDancers(m) {
+      if (!champakReady && !anitaReady) {
+        drawMissingText("champak.jpg and anita.jpg not found");
+        return;
       }
 
-      function drawSoloDancer(img, metrics, hueShift = 0) {
-        if (!img) return;
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      const centerX = w / 2;
+      const floorY = h * 0.84;
 
-        const w = canvas.clientWidth;
-        const h = canvas.clientHeight;
-        const centerX = w / 2;
-        const floorY = h * 0.84;
+      const s = +sensEl.value;
+      const bass = (m.bass / 255) * s;
+      const treble = (m.treble / 255) * s;
+      const volume = (m.volume / 255) * s;
+      const t = reduceMotion ? 1 : performance.now() * 0.004;
+      const hue = (Date.now() / 18 + m.bass * 1.2) % 360;
 
-        const s = +sensEl.value;
-        const bass = (metrics.bass / 255) * s;
-        const treble = (metrics.treble / 255) * s;
-        const volume = (metrics.volume / 255) * s;
-        const t = performance.now() * 0.004;
-        const hue = (Date.now() / 18 + metrics.bass * 1.2) % 360;
+      drawStageLights(hue, centerX, h * 0.42, bass);
 
-        drawStageLights(hue, centerX, h * 0.42, bass);
+      const gap = Math.min(160, w * 0.23);
 
-        const sway = Math.sin(t * 1.4) * (14 + bass * 12);
-        const bounce = Math.abs(Math.sin(t * 1.9)) * (18 + volume * 20);
-        const arm = Math.sin(t * 2.4) * (10 + treble * 14);
-        const leg = Math.sin(t * 1.8) * (16 + bass * 20);
-        const tilt = Math.sin(t * 1.1) * 0.08;
+      const leftSway = Math.sin(t * 1.4) * (14 + bass * 12);
+      const rightSway = Math.sin(t * 1.4 + Math.PI) * (14 + bass * 12);
 
+      const leftBounce = Math.abs(Math.sin(t * 1.9)) * (18 + volume * 20);
+      const rightBounce = Math.abs(Math.sin(t * 1.9 + 0.5)) * (18 + volume * 20);
+
+      const leftArm = Math.sin(t * 2.4) * (10 + treble * 14);
+      const rightArm = Math.sin(t * 2.4 + Math.PI) * (10 + treble * 14);
+
+      const leftLeg = Math.sin(t * 1.8) * (16 + bass * 20);
+      const rightLeg = Math.sin(t * 1.8 + Math.PI) * (16 + bass * 20);
+
+      const sharedMetrics = { volume, hue };
+
+      if (champakReady) {
         drawOneDancer(
-          img,
-          centerX,
+          champakImg,
+          centerX - gap,
           floorY,
-          sway,
-          bounce,
-          arm,
-          leg,
-          tilt,
-          hueShift,
-          { volume, hue },
+          leftSway,
+          leftBounce,
+          leftArm,
+          leftLeg,
+          Math.sin(t * 1.1) * 0.08,
+          0,
+          sharedMetrics
         );
       }
 
-      function drawDualDancers(m) {
-        if (!champakReady && !anitaReady) {
-          drawMissingText("champak.jpg and anita.jpg not found");
-          return;
-        }
+      if (anitaReady) {
+        drawOneDancer(
+          anitaImg,
+          centerX + gap,
+          floorY,
+          rightSway,
+          rightBounce,
+          rightArm,
+          rightLeg,
+          Math.sin(t * 1.1 + 0.7) * -0.08,
+          40,
+          sharedMetrics
+        );
+      }
+    }
 
-        const w = canvas.clientWidth;
-        const h = canvas.clientHeight;
-        const centerX = w / 2;
-        const floorY = h * 0.84;
+    function render() {
+      const m = getMetrics();
 
-        const s = +sensEl.value;
-        const bass = (m.bass / 255) * s;
-        const treble = (m.treble / 255) * s;
-        const volume = (m.volume / 255) * s;
-        const t = performance.now() * 0.004;
-        const hue = (Date.now() / 18 + m.bass * 1.2) % 360;
+      volEl.textContent = Math.round(m.volume);
+      bassEl.textContent = Math.round(m.bass);
+      midEl.textContent = Math.round(m.mid);
+      trebleEl.textContent = Math.round(m.treble);
 
-        drawStageLights(hue, centerX, h * 0.42, bass);
+      drawBackground(+trailEl.value);
 
-        const leftSway = Math.sin(t * 1.4) * (14 + bass * 12);
-        const rightSway = Math.sin(t * 1.4 + Math.PI) * (14 + bass * 12);
-
-        const leftBounce = Math.abs(Math.sin(t * 1.9)) * (18 + volume * 20);
-        const rightBounce =
-          Math.abs(Math.sin(t * 1.9 + 0.5)) * (18 + volume * 20);
-
-        const leftArm = Math.sin(t * 2.4) * (10 + treble * 14);
-        const rightArm = Math.sin(t * 2.4 + Math.PI) * (10 + treble * 14);
-
-        const leftLeg = Math.sin(t * 1.8) * (16 + bass * 20);
-        const rightLeg = Math.sin(t * 1.8 + Math.PI) * (16 + bass * 20);
-
-        const sharedMetrics = { volume, hue };
-
-        if (champakReady) {
-          drawOneDancer(
-            champakImg,
-            centerX - 160,
-            floorY,
-            leftSway,
-            leftBounce,
-            leftArm,
-            leftLeg,
-            Math.sin(t * 1.1) * 0.08,
-            0,
-            sharedMetrics,
-          );
-        }
-
-        if (anitaReady) {
-          drawOneDancer(
-            anitaImg,
-            centerX + 160,
-            floorY,
-            rightSway,
-            rightBounce,
-            rightArm,
-            rightLeg,
-            Math.sin(t * 1.1 + 0.7) * -0.08,
-            40,
-            sharedMetrics,
-          );
-        }
+      if (modeEl.value === "champak") {
+        if (!champakReady) drawMissingText("champak.jpg not found");
+        else drawSoloDancer(champakImg, m, 0);
+      } else if (modeEl.value === "anita") {
+        if (!anitaReady) drawMissingText("anita.jpg not found");
+        else drawSoloDancer(anitaImg, m, 40);
+      } else {
+        drawDualDancers(m);
       }
 
-      function render() {
-        const m = getMetrics();
+      raf = requestAnimationFrame(render);
+    }
 
-        volEl.textContent = Math.round(m.volume);
-        bassEl.textContent = Math.round(m.bass);
-        midEl.textContent = Math.round(m.mid);
-        trebleEl.textContent = Math.round(m.treble);
+    function startViz() {
+      visualizerStarted = true;
+      cancelAnimationFrame(raf);
+      render();
+      statusEl.textContent = statusEl.textContent === "Ready" ? "Visualizer running" : statusEl.textContent;
+    }
 
-        drawBackground(+trailEl.value);
+    async function enterFullScreen() {
+      document.body.classList.add("full");
 
-        if (modeEl.value === "champak") {
-          if (!champakReady) drawMissingText("champak.jpg not found");
-          else drawSoloDancer(champakImg, m, 0);
-        } else if (modeEl.value === "anita") {
-          if (!anitaReady) drawMissingText("anita.jpg not found");
-          else drawSoloDancer(anitaImg, m, 40);
-        } else {
-          drawDualDancers(m);
-        }
-
-        raf = requestAnimationFrame(render);
+      try {
+        await document.documentElement.requestFullscreen();
+      } catch (e) {
+        statusEl.textContent = "Fullscreen needs browser permission";
       }
 
-      function startViz() {
-        cancelAnimationFrame(raf);
-        render();
+      setTimeout(resizeCanvas, 200);
+    }
+
+    startBtn.addEventListener("click", async () => {
+      ensureAudio();
+
+      if (audioCtx.state === "suspended") {
+        await audioCtx.resume();
       }
 
-      fileInput.addEventListener("change", (e) => {
-        const f = e.target.files?.[0];
-        if (f) connectFileAudio(f);
-      });
+      startViz();
+      statusEl.textContent = "Visualizer running. Choose microphone or audio file.";
+    });
 
-      micBtn.addEventListener("click", connectMic);
+    fullscreenBtn.addEventListener("click", enterFullScreen);
 
-      stopBtn.addEventListener("click", () => {
-        disconnectCurrentSource();
-        cancelAnimationFrame(raf);
-      });
+    fileInput.addEventListener("change", e => {
+      const file = e.target.files && e.target.files[0];
 
-      modeEl.addEventListener("change", updateModeBadge);
+      if (file) {
+        connectFileAudio(file);
+      }
+    });
 
-      saveBtn.addEventListener("click", () => {
-        const a = document.createElement("a");
-        a.href = canvas.toDataURL("image/png");
-        a.download = "dance-frame.png";
-        a.click();
-      });
+    micBtn.addEventListener("click", connectMic);
 
-      exitBtn.addEventListener("click", async () => {
-        if (document.fullscreenElement) {
-          try {
-            await document.exitFullscreen();
-          } catch (e) {}
-        }
-        document.body.classList.remove("full");
-      });
+    stopBtn.addEventListener("click", () => {
+      disconnectCurrentSource();
+      cancelAnimationFrame(raf);
+      statusEl.textContent = "Stopped";
+    });
 
-      document.addEventListener("fullscreenchange", () => {
-        if (!document.fullscreenElement) {
-          document.body.classList.remove("full");
-        }
-      });
+    modeEl.addEventListener("change", updateModeBadge);
 
-      window.addEventListener("resize", resizeCanvas);
+    saveBtn.addEventListener("click", () => {
+      const a = document.createElement("a");
+      a.href = canvas.toDataURL("image/png");
+      a.download = "dance-frame.png";
+      a.click();
+    });
 
-      setTimeout(async () => {
-        document.body.classList.add("full");
+    exitBtn.addEventListener("click", async () => {
+      if (document.fullscreenElement) {
         try {
-          const el = document.documentElement;
-          if (el.requestFullscreen) await el.requestFullscreen();
+          await document.exitFullscreen();
         } catch (e) {}
-      }, 5000);
+      }
 
-      resizeCanvas();
-      drawBackground(1);
-      updateAppStatus();
-      updateModeBadge();
-    </script>
-<div data-root="../../../" id="site-footer"></div><script defer="True" src="../../../assets/js/include.js"></script></body>
+      document.body.classList.remove("full");
+      setTimeout(resizeCanvas, 200);
+    });
+
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement) {
+        document.body.classList.remove("full");
+        setTimeout(resizeCanvas, 200);
+      }
+    });
+
+    window.addEventListener("resize", resizeCanvas);
+
+    resizeCanvas();
+    drawBackground(1);
+    drawMissingText("Click Start Visualizer, then choose microphone or audio file.");
+    updateAppStatus();
+    updateModeBadge();
+  </script>
+</body>
 </html>
