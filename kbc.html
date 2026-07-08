@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizbuttom</title>
+
+    <style>
+        .question {
+            display: none;
+            width: 500px;
+            margin: auto;
+        }
+
+        .question:first-child {
+            display: block;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 500px;
+            margin: auto;
+            gap: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="question">
+        <h2 id="txtQuestion" >1. What is JavaScript?</h2>
+
+        <div class="options">
+            <label  id="txtA" ><input type="radio" name="q1"> </label>
+            <label  id="txtB" ><input type="radio" name="q1"> </label>
+            <label id="txtC" ><input type="radio" name="q1"> </label>
+            <label id="txtD" ><input type="radio" name="q1"> </label>
+        </div>
+
+        <br>
+        <div style="text-align:center;">
+            <button onclick="nextQuestion()">Submit</button>
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <button onclick="nextQuestion()">Start</button>
+    </div>
+
+
+
+    <script>
+let questionno=0;
+        const questions = [
+            {
+                question: "What is the capital of Uttar Pradesh",
+                a: "Varanasi",
+                b: "Lucknow",
+                c: "Agra",
+                d: "Kanpur", answer: 2
+            },
+            {
+                question: "What is the HTML",
+                a: "css",
+                b: "java",
+                c: "javascript",
+                d: "HyperText Markup Language", answer: 4
+            },
+            {
+                question: "What is the css",
+                a: "html",
+                b: "python",
+                c: "Agra",
+                d: "Cascading Style Sheets", answer: 4
+            },
+            {
+                question: "What is the capital of india",
+                a: "Varanasi",
+                b: "New Delhi",
+                c: "Agra",
+                d: "Kanpur", answer: 2
+            },
+            {
+                question: "What is the capital of japan",
+                a: "Varanasi",
+                b: "Lucknow",
+                c: " Tokyo",
+                d: "Kanpur", answer: 3
+            }
+           
+
+        ];
+        const txtQuestion=document.getElementById("txtQuestion");
+        function nextQuestion() {
+         txtQuestion.textContent=`${questionno})${questions[questionno].question}`;
+questionno++;
+        }
+    </script>
+
+</body>
+
+</html>
