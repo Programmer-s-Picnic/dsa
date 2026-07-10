@@ -1,37 +1,66 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-    
-        gtag('config', 'G-GSTQRQMLEE');
-    </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-GSTQRQMLEE");
+  </script>
 
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="#d97706" name="theme-color" />
 
+  <title>Magic Methods in Python OOP | Study AI/ML with Champak Roy, Varanasi</title>
 
+  <meta
+    name="description"
+    content="Learn Python magic methods such as __init__, __str__, __repr__, __len__, __add__, __getitem__, __iter__, and __next__ with beginner-friendly examples, practice tasks, and an embedded Python editor."
+  />
 
+  <meta
+    name="keywords"
+    content="Python magic methods, Python dunder methods, Python iterators, __iter__, __next__, Python OOP, object oriented programming Python, operator overloading Python, __init__, __str__, __repr__, __len__, __add__, Python classes, AI ML classes Varanasi, Champak Roy Varanasi, Programmer's Picnic"
+  />
 
-<meta content="#d97706" name="theme-color"/><title>Magic Methods in Python OOP | Study AI/ML with Champak Roy, Varanasi</title><meta content="Study Magic Methods in Python OOP with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." name="description"/><meta content="AI ML classes Varanasi, study AIML with Champak Roy, Champak Roy Varanasi, Programmer's Picnic, Magic Methods in Python OOP, Python lessons, machine learning lessons, data structures algorithms, learnwithchampak" name="keywords"/><meta content="Champak Roy" name="author"/><meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/><link href="https://dsa.learnwithchampak.live/python/oops/magicmethods/" rel="canonical"/><meta content="website" property="og:type"/><meta content="Programmer's Picnic by Champak Roy" property="og:site_name"/><meta content="Magic Methods in Python OOP | Study AI/ML with Champak Roy, Varanasi" property="og:title"/><meta content="Study Magic Methods in Python OOP with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." property="og:description"/><meta content="https://dsa.learnwithchampak.live/python/oops/magicmethods/" property="og:url"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="summary_large_image" name="twitter:card"/><meta content="Magic Methods in Python OOP | Study AI/ML with Champak Roy, Varanasi" name="twitter:title"/><meta content="Study Magic Methods in Python OOP with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." name="twitter:description"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" name="twitter:image"/>
+  <meta content="Champak Roy" name="author" />
+  <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots" />
 
+  <link href="https://dsa.learnwithchampak.live/python/oops/magicmethods/" rel="canonical" />
 
+  <meta content="website" property="og:type" />
+  <meta content="Programmer's Picnic by Champak Roy" property="og:site_name" />
+  <meta content="Magic Methods in Python OOP | Study AI/ML with Champak Roy, Varanasi" property="og:title" />
+  <meta
+    content="Learn Python magic methods such as __init__, __str__, __repr__, __len__, __add__, __getitem__, __iter__, and __next__ with beginner-friendly examples, practice tasks, and an embedded Python editor."
+    property="og:description"
+  />
+  <meta content="https://dsa.learnwithchampak.live/python/oops/magicmethods/" property="og:url" />
+  <meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" property="og:image" />
+  <meta content="1200" property="og:image:width" />
+  <meta content="630" property="og:image:height" />
 
+  <meta content="summary_large_image" name="twitter:card" />
+  <meta content="Magic Methods in Python OOP | Study AI/ML with Champak Roy, Varanasi" name="twitter:title" />
+  <meta
+    content="Learn Python magic methods such as __init__, __str__, __repr__, __len__, __add__, __getitem__, __iter__, and __next__ with beginner-friendly examples, practice tasks, and an embedded Python editor."
+    name="twitter:description"
+  />
+  <meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" name="twitter:image" />
 
+  <!-- Google AdSense -->
+  <script
+    async
+    crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&amp;host=ca-host-pub-1556223355139109">
+  </script>
 
-
-
-
-
-
-<!-- Google AdSense -->
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&amp;host=ca-host-pub-1556223355139109"></script>
-<style>
+  <style>
     :root {
       --bg: #fff7ed;
       --bg2: #fffbeb;
@@ -132,6 +161,9 @@
     }
 
     .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border: 0;
       border-radius: 999px;
       padding: 10px 16px;
@@ -140,6 +172,12 @@
       font-weight: 800;
       cursor: pointer;
       box-shadow: 0 10px 22px rgba(217, 119, 6, 0.24);
+      text-decoration: none;
+    }
+
+    .btn:hover,
+    .btn:focus {
+      text-decoration: none;
     }
 
     .btn.secondary {
@@ -147,6 +185,21 @@
       color: var(--brand-dark);
       border: 1px solid var(--line);
       box-shadow: none;
+    }
+
+    .breadcrumb {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 2px 0 18px;
+      color: #78350f;
+      font-size: 0.94rem;
+      font-weight: 700;
+    }
+
+    .breadcrumb span {
+      color: var(--muted);
     }
 
     .hero {
@@ -173,7 +226,7 @@
     }
 
     .hero-card::after {
-      content: "__magic__";
+      content: "__iter__";
       position: absolute;
       right: -35px;
       bottom: -26px;
@@ -255,6 +308,34 @@
       font-weight: 800;
     }
 
+    .lesson-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .lesson-nav a {
+      display: block;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #ffffff;
+      box-shadow: 0 10px 22px rgba(146, 64, 14, 0.08);
+      font-weight: 900;
+    }
+
+    .lesson-nav small {
+      display: block;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .lesson-nav .next {
+      text-align: right;
+    }
+
     main {
       padding: 8px 0 50px;
     }
@@ -317,15 +398,37 @@
       border-radius: 7px;
     }
 
+    .code-wrap {
+      margin: 18px 0;
+      border: 1px solid var(--code-border);
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--code-bg);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    }
+
+    .code-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: #1f2937;
+      color: #f9fafb;
+      border-bottom: 1px solid var(--code-border);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
     pre {
       position: relative;
       overflow: auto;
+      margin: 0;
       padding: 18px;
-      border: 1px solid var(--code-border);
-      border-radius: 18px;
       background: var(--code-bg);
       color: var(--code-text);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
     }
 
     pre code {
@@ -340,13 +443,10 @@
     }
 
     .copy-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
       padding: 6px 10px;
       border: 1px solid #4b5563;
       border-radius: 999px;
-      background: #1f2937;
+      background: #111827;
       color: #f9fafb;
       cursor: pointer;
       font-size: 0.78rem;
@@ -441,8 +541,13 @@
 
     @media (max-width: 900px) {
       .hero,
-      .grid-2 {
+      .grid-2,
+      .lesson-nav {
         grid-template-columns: 1fr;
+      }
+
+      .lesson-nav .next {
+        text-align: left;
       }
 
       .topbar {
@@ -455,144 +560,309 @@
       }
     }
   </style>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "LearningResource",
-  "name": "Magic Methods in Python OOP | Study AI/ML with Champak Roy, Varanasi",
-  "description": "Study Magic Methods in Python OOP with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice.",
-  "url": "https://dsa.learnwithchampak.live/python/oops/magicmethods/",
-  "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
-  "inLanguage": "en",
-  "creator": {
-    "@type": "Person",
-    "name": "Champak Roy",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Varanasi",
-      "addressCountry": "IN"
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "name": "Magic Methods in Python OOP | Study AI/ML with Champak Roy, Varanasi",
+      "description": "Learn Python magic methods such as __init__, __str__, __repr__, __len__, __add__, __getitem__, __iter__, and __next__ with beginner-friendly examples, practice tasks, and an embedded Python editor.",
+      "url": "https://dsa.learnwithchampak.live/python/oops/magicmethods/",
+      "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
+      "inLanguage": "en",
+      "creator": {
+        "@type": "Person",
+        "name": "Champak Roy",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Varanasi",
+          "addressCountry": "IN"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Programmer's Picnic by Champak Roy",
+        "url": "https://dsa.learnwithchampak.live"
+      },
+      "about": [
+        "Python",
+        "Object-Oriented Programming",
+        "Magic Methods",
+        "Dunder Methods",
+        "Iterators",
+        "Operator Overloading",
+        "Artificial Intelligence",
+        "Machine Learning",
+        "Data Structures and Algorithms"
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Students and beginner programmers"
+      },
+      "isAccessibleForFree": true
     }
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Programmer's Picnic by Champak Roy",
-    "url": "https://dsa.learnwithchampak.live"
-  },
-  "about": [
-    "Artificial Intelligence",
-    "Machine Learning",
-    "Python",
-    "Data Structures and Algorithms",
-    "Web Development"
-  ],
-  "audience": {
-    "@type": "Audience",
-    "audienceType": "Students and beginner programmers"
-  },
-  "isAccessibleForFree": true
-}</script></head>
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dsa.learnwithchampak.live/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Python",
+          "item": "https://dsa.learnwithchampak.live/python/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "OOP",
+          "item": "https://dsa.learnwithchampak.live/python/oops/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Magic Methods",
+          "item": "https://dsa.learnwithchampak.live/python/oops/magicmethods/"
+        }
+      ]
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are magic methods in Python?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Magic methods are special Python methods whose names start and end with double underscores. They help your objects work with normal Python syntax such as print, len, addition, comparison, indexing, membership testing, and iteration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are magic methods also called dunder methods?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They are called dunder methods because dunder means double underscore. For example, __init__ is pronounced dunder init."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which magic method runs when an object is created?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The __init__ method runs automatically after a new object is created. It is used to initialize or set up the object's data."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which magic method is used for print(obj)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The __str__ method is used to create a friendly string representation of an object when print(obj) or str(obj) is used."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which magic method supports the + operator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The __add__ method supports the + operator for custom objects."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which magic methods are used to create an iterator in Python?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The __iter__ and __next__ methods are used to create an iterator in Python. __iter__ returns the iterator object and __next__ returns the next value until StopIteration is raised."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+
 <body>
-<div class="container">
-<header>
-<div class="topbar">
-<a aria-label="Programmer's Picnic home" class="brand" href="#top">
-<span class="brand-mark">PP</span>
-<span>Programmer's Picnic</span>
-</a>
-<div class="top-actions">
-<button class="btn secondary" id="readPageBtn" type="button">Read Lesson</button>
-<button class="btn secondary" id="stopReadBtn" type="button">Stop Reading</button>
-<a class="btn" href="#editor">Open Practice Editor</a>
-</div>
-</div>
-<section class="hero" id="top">
-<div class="hero-card">
-<span class="eyebrow">Python OOPs: 0 to Infinity</span>
-<h1>Magic Methods in Python OOP</h1>
-<p class="lead">
+  <div class="container">
+    <header>
+      <div class="topbar">
+        <a aria-label="Programmer's Picnic home" class="brand" href="#top">
+          <span class="brand-mark">PP</span>
+          <span>Programmer's Picnic</span>
+        </a>
+
+        <div class="top-actions">
+          <button class="btn secondary" id="readPageBtn" type="button">Read Explanation</button>
+          <button class="btn secondary" id="stopReadBtn" type="button">Stop Reading</button>
+          <a class="btn" href="#editor">Open Practice Editor</a>
+        </div>
+      </div>
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="https://dsa.learnwithchampak.live/">Home</a>
+        <span>/</span>
+        <a href="https://dsa.learnwithchampak.live/python/">Python</a>
+        <span>/</span>
+        <a href="https://dsa.learnwithchampak.live/python/oops/">OOP</a>
+        <span>/</span>
+        <strong>Magic Methods</strong>
+      </nav>
+
+      <section class="hero" id="top">
+        <div class="hero-card">
+          <span class="eyebrow">Python OOP: 0 to Infinity</span>
+
+          <h1>Magic Methods in Python OOP</h1>
+
+          <p class="lead">
             Learn how special double-underscore methods such as <code>__init__</code>,
             <code>__str__</code>, <code>__len__</code>, <code>__add__</code>,
-            and <code>__getitem__</code> allow your own classes to behave like natural Python objects.
+            <code>__getitem__</code>, <code>__iter__</code>, and <code>__next__</code>
+            allow your own classes to behave like natural Python objects.
           </p>
-<div class="pills">
-<span class="pill">Beginner friendly</span>
-<span class="pill">Operator overloading</span>
-<span class="pill">Real examples</span>
-<span class="pill">Practice project</span>
-</div>
-</div>
-<aside class="toc-card">
-<h2>Lesson Map</h2>
-<ol class="toc">
-<li><a href="#meaning">1. Meaning</a></li>
-<li><a href="#init">2. Object creation</a></li>
-<li><a href="#string">3. String output</a></li>
-<li><a href="#operators">4. Operators</a></li>
-<li><a href="#comparisons">5. Comparisons</a></li>
-<li><a href="#containers">6. Containers</a></li>
-<li><a href="#advanced">7. Advanced methods</a></li>
-<li><a href="#project">8. Mini project</a></li>
-<li><a href="#practice">9. Practice</a></li>
-<li><a href="#editor">10. Python editor</a></li>
-</ol>
-</aside>
-</section>
-</header>
-<div aria-label="Advertisement" class="ad-box">
-<ins class="adsbygoogle" data-ad-client="ca-pub-8321261883090494" data-ad-format="auto" data-ad-slot="7782388330" data-full-width-responsive="true" style="display:block"></ins>
-</div>
-<main id="lessonText">
-<section class="lesson-card" id="meaning">
-<h2>1. What are magic methods?</h2>
-<p>
+
+          <div class="pills">
+            <span class="pill">Beginner friendly</span>
+            <span class="pill">Operator overloading</span>
+            <span class="pill">Containers</span>
+            <span class="pill">Iterators</span>
+            <span class="pill">Practice project</span>
+          </div>
+        </div>
+
+        <aside class="toc-card">
+          <h2>Lesson Map</h2>
+          <ol class="toc">
+            <li><a href="#meaning">1. Meaning</a></li>
+            <li><a href="#init">2. Object creation</a></li>
+            <li><a href="#string">3. String output</a></li>
+            <li><a href="#operators">4. Operators</a></li>
+            <li><a href="#comparisons">5. Comparisons</a></li>
+            <li><a href="#containers">6. Containers</a></li>
+            <li><a href="#iterators">7. Iterators</a></li>
+            <li><a href="#advanced">8. Advanced methods</a></li>
+            <li><a href="#project">9. Mini project</a></li>
+            <li><a href="#practice">10. Practice</a></li>
+            <li><a href="#mistakes">11. Common mistakes</a></li>
+            <li><a href="#quiz">12. Quick quiz</a></li>
+            <li><a href="#editor">13. Python editor</a></li>
+            <li><a href="#summary">14. Final summary</a></li>
+          </ol>
+        </aside>
+      </section>
+    </header>
+
+    <nav class="lesson-nav" aria-label="Previous and next lesson">
+      <a href="https://dsa.learnwithchampak.live/python/oops/">
+        <small>Previous lesson</small>
+        ← Python OOP Basics
+      </a>
+
+      <a class="next" href="https://dsa.learnwithchampak.live/python/oops/inheritance/">
+        <small>Next lesson</small>
+        Python Inheritance →
+      </a>
+    </nav>
+
+    <div aria-label="Advertisement" class="ad-box">
+      <ins
+        class="adsbygoogle"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-format="auto"
+        data-ad-slot="7782388330"
+        data-full-width-responsive="true"
+        style="display:block">
+      </ins>
+    </div>
+
+    <main id="lessonText">
+      <section class="lesson-card" id="meaning">
+        <h2>1. What are magic methods?</h2>
+
+        <p>
           In Python Object-Oriented Programming, magic methods are special methods whose names start and end with double underscores.
           They are also called <strong>dunder methods</strong>.
         </p>
-<pre><code>__init__
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>__init__
 __str__
 __repr__
 __len__
 __add__
-__getitem__</code></pre>
-<p>
+__getitem__
+__iter__
+__next__</code></pre>
+        </div>
+
+        <p>
           We usually do not call these methods directly. Python calls them automatically when we perform normal actions.
         </p>
-<table>
-<thead>
-<tr>
-<th>Normal action</th>
-<th>Magic method Python calls</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>print(obj)</code></td>
-<td><code>obj.__str__()</code></td>
-</tr>
-<tr>
-<td><code>len(obj)</code></td>
-<td><code>obj.__len__()</code></td>
-</tr>
-<tr>
-<td><code>obj1 + obj2</code></td>
-<td><code>obj1.__add__(obj2)</code></td>
-</tr>
-<tr>
-<td><code>obj[index]</code></td>
-<td><code>obj.__getitem__(index)</code></td>
-</tr>
-</tbody>
-</table>
-<div class="note">
-<strong>Simple idea:</strong> Magic methods teach Python how your own objects should behave when used with ordinary Python syntax.
+
+        <table>
+          <thead>
+            <tr>
+              <th>Normal action</th>
+              <th>Magic method Python calls</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>print(obj)</code></td>
+              <td><code>obj.__str__()</code></td>
+            </tr>
+            <tr>
+              <td><code>len(obj)</code></td>
+              <td><code>obj.__len__()</code></td>
+            </tr>
+            <tr>
+              <td><code>obj1 + obj2</code></td>
+              <td><code>obj1.__add__(obj2)</code></td>
+            </tr>
+            <tr>
+              <td><code>obj[index]</code></td>
+              <td><code>obj.__getitem__(index)</code></td>
+            </tr>
+            <tr>
+              <td><code>for value in obj</code></td>
+              <td><code>obj.__iter__()</code> and <code>obj.__next__()</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <strong>Simple idea:</strong> Magic methods teach Python how your own objects should behave when used with ordinary Python syntax.
         </div>
-</section>
-<section class="lesson-card" id="init">
-<h2>2. <code>__init__</code>: the object setup method</h2>
-<p>
+      </section>
+
+      <section class="lesson-card" id="init">
+        <h2>2. <code>__init__</code>: the object setup method</h2>
+
+        <p>
           The <code>__init__</code> method runs automatically when a new object is created.
           It is used to store the first values inside an object.
         </p>
-<pre><code>class Student:
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Student:
     def __init__(self, name, marks):
         self.name = name
         self.marks = marks
@@ -602,21 +872,39 @@ s1 = Student("Amit", 85)
 
 print(s1.name)
 print(s1.marks)</code></pre>
-<p>Output:</p>
-<pre><code>Amit
-85</code></pre>
-<div class="checkpoint">
-<strong>Checkpoint:</strong> When we write <code>Student("Amit", 85)</code>, Python automatically calls <code>__init__</code>.
         </div>
-<h3>Common beginner confusion</h3>
-<p>
-<code>__init__</code> is not the object itself. It is the method that prepares the object after it is created.
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>Amit
+85</code></pre>
+        </div>
+
+        <div class="checkpoint">
+          <strong>Checkpoint:</strong> When we write <code>Student("Amit", 85)</code>, Python automatically calls <code>__init__</code>.
+        </div>
+
+        <h3>Common beginner confusion</h3>
+
+        <p>
+          <code>__init__</code> is not the object itself. It is the method that prepares the object after it is created.
         </p>
-</section>
-<section class="lesson-card" id="string">
-<h2>3. <code>__str__</code> and <code>__repr__</code>: showing objects properly</h2>
-<h3>Without <code>__str__</code></h3>
-<pre><code>class Student:
+      </section>
+
+      <section class="lesson-card" id="string">
+        <h2>3. <code>__str__</code> and <code>__repr__</code>: showing objects properly</h2>
+
+        <h3>Without <code>__str__</code></h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Student:
     def __init__(self, name, marks):
         self.name = name
         self.marks = marks
@@ -624,13 +912,28 @@ print(s1.marks)</code></pre>
 
 s1 = Student("Amit", 85)
 print(s1)</code></pre>
-<p>Output may look like this:</p>
-<pre><code>&lt;__main__.Student object at 0x000001A2...&gt;</code></pre>
-<p>
+        </div>
+
+        <p>Output may look like this:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>&lt;__main__.Student object at 0x000001A2...&gt;</code></pre>
+        </div>
+
+        <p>
           This output is not useful for a student or a normal user.
         </p>
-<h3>With <code>__str__</code></h3>
-<pre><code>class Student:
+
+        <h3>With <code>__str__</code></h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Student:
     def __init__(self, name, marks):
         self.name = name
         self.marks = marks
@@ -641,13 +944,28 @@ print(s1)</code></pre>
 
 s1 = Student("Amit", 85)
 print(s1)</code></pre>
-<p>Output:</p>
-<pre><code>Amit scored 85 marks</code></pre>
-<h3>Using <code>__repr__</code></h3>
-<p>
-<code>__repr__</code> is generally used for programmer-friendly output.
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>Amit scored 85 marks</code></pre>
+        </div>
+
+        <h3>Using <code>__repr__</code></h3>
+
+        <p>
+          <code>__repr__</code> is generally used for programmer-friendly output.
         </p>
-<pre><code>class Student:
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Student:
     def __init__(self, name, marks):
         self.name = name
         self.marks = marks
@@ -658,34 +976,51 @@ print(s1)</code></pre>
 
 s1 = Student("Amit", 85)
 print(repr(s1))</code></pre>
-<p>Output:</p>
-<pre><code>Student(name='Amit', marks=85)</code></pre>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>__str__</code></td>
-<td>Friendly output for users</td>
-</tr>
-<tr>
-<td><code>__repr__</code></td>
-<td>Clear output for programmers and debugging</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section class="lesson-card" id="operators">
-<h2>4. Operator overloading with magic methods</h2>
-<p>
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>Student(name='Amit', marks=85)</code></pre>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>__str__</code></td>
+              <td>Friendly output for users</td>
+            </tr>
+            <tr>
+              <td><code>__repr__</code></td>
+              <td>Clear output for programmers and debugging</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="lesson-card" id="operators">
+        <h2>4. Operator overloading with magic methods</h2>
+
+        <p>
           Operator overloading means giving special meaning to operators such as <code>+</code>, <code>-</code>, <code>*</code>, and <code>&gt;</code> for our own classes.
         </p>
-<h3>Problem first</h3>
-<pre><code>class Money:
+
+        <h3>Problem first</h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Money:
     def __init__(self, amount):
         self.amount = amount
 
@@ -694,12 +1029,20 @@ m1 = Money(100)
 m2 = Money(200)
 
 print(m1 + m2)</code></pre>
-<p>
+        </div>
+
+        <p>
           Python does not automatically know how to add two <code>Money</code> objects.
           So we define <code>__add__</code>.
         </p>
-<h3>Solution with <code>__add__</code></h3>
-<pre><code>class Money:
+
+        <h3>Solution with <code>__add__</code></h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Money:
     def __init__(self, amount):
         self.amount = amount
 
@@ -716,31 +1059,48 @@ m2 = Money(250)
 m3 = m1 + m2
 
 print(m3)</code></pre>
-<p>Output:</p>
-<pre><code>₹350</code></pre>
-<div class="checkpoint">
-<strong>Checkpoint:</strong> When we write <code>m1 + m2</code>, Python internally calls <code>m1.__add__(m2)</code>.
         </div>
-<h3>Common operator magic methods</h3>
-<table>
-<thead>
-<tr>
-<th>Operator</th>
-<th>Magic method</th>
-</tr>
-</thead>
-<tbody>
-<tr><td><code>+</code></td><td><code>__add__</code></td></tr>
-<tr><td><code>-</code></td><td><code>__sub__</code></td></tr>
-<tr><td><code>*</code></td><td><code>__mul__</code></td></tr>
-<tr><td><code>/</code></td><td><code>__truediv__</code></td></tr>
-<tr><td><code>//</code></td><td><code>__floordiv__</code></td></tr>
-<tr><td><code>%</code></td><td><code>__mod__</code></td></tr>
-<tr><td><code>**</code></td><td><code>__pow__</code></td></tr>
-</tbody>
-</table>
-<h3>Example with boxes</h3>
-<pre><code>class Box:
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>₹350</code></pre>
+        </div>
+
+        <div class="checkpoint">
+          <strong>Checkpoint:</strong> When we write <code>m1 + m2</code>, Python internally calls <code>m1.__add__(m2)</code>.
+        </div>
+
+        <h3>Common operator magic methods</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Operator</th>
+              <th>Magic method</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>+</code></td><td><code>__add__</code></td></tr>
+            <tr><td><code>-</code></td><td><code>__sub__</code></td></tr>
+            <tr><td><code>*</code></td><td><code>__mul__</code></td></tr>
+            <tr><td><code>/</code></td><td><code>__truediv__</code></td></tr>
+            <tr><td><code>//</code></td><td><code>__floordiv__</code></td></tr>
+            <tr><td><code>%</code></td><td><code>__mod__</code></td></tr>
+            <tr><td><code>**</code></td><td><code>__pow__</code></td></tr>
+          </tbody>
+        </table>
+
+        <h3>Example with boxes</h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Box:
     def __init__(self, chocolates):
         self.chocolates = chocolates
 
@@ -759,33 +1119,50 @@ b2 = Box(5)
 
 print(b1 + b2)
 print(b1 - b2)</code></pre>
-<p>Output:</p>
-<pre><code>Box has 25 chocolates
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>Box has 25 chocolates
 Box has 15 chocolates</code></pre>
-</section>
-<section class="lesson-card" id="comparisons">
-<h2>5. Comparison magic methods</h2>
-<p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="comparisons">
+        <h2>5. Comparison magic methods</h2>
+
+        <p>
           Comparison magic methods allow us to compare two objects using normal comparison operators.
         </p>
-<table>
-<thead>
-<tr>
-<th>Comparison</th>
-<th>Magic method</th>
-</tr>
-</thead>
-<tbody>
-<tr><td><code>==</code></td><td><code>__eq__</code></td></tr>
-<tr><td><code>!=</code></td><td><code>__ne__</code></td></tr>
-<tr><td><code>&gt;</code></td><td><code>__gt__</code></td></tr>
-<tr><td><code>&lt;</code></td><td><code>__lt__</code></td></tr>
-<tr><td><code>&gt;=</code></td><td><code>__ge__</code></td></tr>
-<tr><td><code>&lt;=</code></td><td><code>__le__</code></td></tr>
-</tbody>
-</table>
-<h3>Student marks comparison</h3>
-<pre><code>class Student:
+
+        <table>
+          <thead>
+            <tr>
+              <th>Comparison</th>
+              <th>Magic method</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>==</code></td><td><code>__eq__</code></td></tr>
+            <tr><td><code>!=</code></td><td><code>__ne__</code></td></tr>
+            <tr><td><code>&gt;</code></td><td><code>__gt__</code></td></tr>
+            <tr><td><code>&lt;</code></td><td><code>__lt__</code></td></tr>
+            <tr><td><code>&gt;=</code></td><td><code>__ge__</code></td></tr>
+            <tr><td><code>&lt;=</code></td><td><code>__le__</code></td></tr>
+          </tbody>
+        </table>
+
+        <h3>Student marks comparison</h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Student:
     def __init__(self, name, marks):
         self.name = name
         self.marks = marks
@@ -803,21 +1180,38 @@ s3 = Student("Sita", 85)
 
 print(s1 &gt; s2)
 print(s1 == s3)</code></pre>
-<p>Output:</p>
-<pre><code>False
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>False
 True</code></pre>
-<div class="note">
+        </div>
+
+        <div class="note">
           We compared students by marks, but we could also compare them by age, rank, fees, attendance, or any other data.
         </div>
-</section>
-<section class="lesson-card" id="containers">
-<h2>6. Making objects behave like containers</h2>
-<p>
+      </section>
+
+      <section class="lesson-card" id="containers">
+        <h2>6. Making objects behave like containers</h2>
+
+        <p>
           Python lists, tuples, dictionaries, and strings support operations such as <code>len()</code>,
           indexing, assignment by index, and <code>in</code>. Magic methods allow our own objects to support these actions too.
         </p>
-<h3><code>__len__</code>: support for <code>len()</code></h3>
-<pre><code>class Classroom:
+
+        <h3><code>__len__</code>: support for <code>len()</code></h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Classroom:
     def __init__(self, students):
         self.students = students
 
@@ -828,10 +1222,24 @@ True</code></pre>
 c1 = Classroom(["Amit", "Ravi", "Sita"])
 
 print(len(c1))</code></pre>
-<p>Output:</p>
-<pre><code>3</code></pre>
-<h3><code>__getitem__</code>: support for indexing</h3>
-<pre><code>class Marksheet:
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>3</code></pre>
+        </div>
+
+        <h3><code>__getitem__</code>: support for indexing</h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Marksheet:
     def __init__(self, marks):
         self.marks = marks
 
@@ -843,11 +1251,25 @@ m = Marksheet([80, 75, 90, 88])
 
 print(m[0])
 print(m[2])</code></pre>
-<p>Output:</p>
-<pre><code>80
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>80
 90</code></pre>
-<h3><code>__setitem__</code>: support for changing values by index</h3>
-<pre><code>class Marksheet:
+        </div>
+
+        <h3><code>__setitem__</code>: support for changing values by index</h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Marksheet:
     def __init__(self, marks):
         self.marks = marks
 
@@ -863,11 +1285,25 @@ m = Marksheet([80, 75, 90])
 print(m[1])
 m[1] = 95
 print(m[1])</code></pre>
-<p>Output:</p>
-<pre><code>75
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>75
 95</code></pre>
-<h3><code>__contains__</code>: support for <code>in</code></h3>
-<pre><code>class Classroom:
+        </div>
+
+        <h3><code>__contains__</code>: support for <code>in</code></h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Classroom:
     def __init__(self, students):
         self.students = students
 
@@ -879,19 +1315,271 @@ c = Classroom(["Amit", "Ravi", "Sita"])
 
 print("Amit" in c)
 print("Mohan" in c)</code></pre>
-<p>Output:</p>
-<pre><code>True
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>True
 False</code></pre>
-</section>
-<section class="lesson-card" id="advanced">
-<h2>7. Advanced but useful magic methods</h2>
-<div class="grid-2">
-<article class="mini-card">
-<h3><code>__call__</code></h3>
-<p>
+        </div>
+      </section>
+
+      <section class="lesson-card" id="iterators">
+        <h2>7. Iterators with <code>__iter__</code> and <code>__next__</code></h2>
+
+        <p>
+          An iterator is an object that gives values one by one.
+          When we use a <code>for</code> loop, Python internally uses iteration.
+        </p>
+
+        <div class="note">
+          <strong>Simple idea:</strong> If your object has <code>__iter__</code> and <code>__next__</code>,
+          Python can take values from it one at a time.
+        </div>
+
+        <h3>How a normal list is used in a loop</h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>numbers = [10, 20, 30]
+
+for num in numbers:
+    print(num)</code></pre>
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>10
+20
+30</code></pre>
+        </div>
+
+        <p>
+          Lists already know how to give values one by one.
+          Now let us make our own class work like this.
+        </p>
+
+        <h3>Creating our own iterator</h3>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class CountUpTo:
+    def __init__(self, limit):
+        self.limit = limit
+        self.current = 1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current &lt;= self.limit:
+            value = self.current
+            self.current += 1
+            return value
+
+        raise StopIteration
+
+
+counter = CountUpTo(5)
+
+for number in counter:
+    print(number)</code></pre>
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>1
+2
+3
+4
+5</code></pre>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>__iter__</code></td>
+              <td>Returns the iterator object. In many simple iterators, it returns <code>self</code>.</td>
+            </tr>
+            <tr>
+              <td><code>__next__</code></td>
+              <td>Returns the next value. When values are finished, it raises <code>StopIteration</code>.</td>
+            </tr>
+            <tr>
+              <td><code>StopIteration</code></td>
+              <td>A signal that tells Python the iteration is complete.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>What Python does internally</h3>
+
+        <p>
+          This <code>for</code> loop:
+        </p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>for number in counter:
+    print(number)</code></pre>
+        </div>
+
+        <p>
+          behaves somewhat like this:
+        </p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>iterator = iter(counter)
+
+while True:
+    try:
+        number = next(iterator)
+        print(number)
+    except StopIteration:
+        break</code></pre>
+        </div>
+
+        <div class="checkpoint">
+          <strong>Checkpoint:</strong> <code>iter(counter)</code> calls <code>counter.__iter__()</code>,
+          and <code>next(iterator)</code> calls <code>iterator.__next__()</code>.
+        </div>
+
+        <h3>Iterator example with students</h3>
+
+        <p>
+          Here we create a classroom object that can be used directly in a <code>for</code> loop.
+        </p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Classroom:
+    def __init__(self, students):
+        self.students = students
+        self.index = 0
+
+    def __iter__(self):
+        self.index = 0
+        return self
+
+    def __next__(self):
+        if self.index &lt; len(self.students):
+            student = self.students[self.index]
+            self.index += 1
+            return student
+
+        raise StopIteration
+
+
+c = Classroom(["Amit", "Ravi", "Sita"])
+
+for student in c:
+    print(student)</code></pre>
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>Amit
+Ravi
+Sita</code></pre>
+        </div>
+
+        <div class="warning">
+          <strong>Important:</strong> Always raise <code>StopIteration</code> when no values are left.
+          If you forget this, your iterator may run forever.
+        </div>
+
+        <h3>Simpler way: using <code>yield</code></h3>
+
+        <p>
+          In real Python projects, we often use <code>yield</code> to create iterators more simply.
+          This creates a generator.
+        </p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Classroom:
+    def __init__(self, students):
+        self.students = students
+
+    def __iter__(self):
+        for student in self.students:
+            yield student
+
+
+c = Classroom(["Amit", "Ravi", "Sita"])
+
+for student in c:
+    print(student)</code></pre>
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>Amit
+Ravi
+Sita</code></pre>
+        </div>
+
+        <div class="note">
+          <strong>Teacher's tip:</strong> Learn <code>__iter__</code> and <code>__next__</code> to understand the mechanism.
+          Use <code>yield</code> when you want a cleaner real-world solution.
+        </div>
+      </section>
+
+      <section class="lesson-card" id="advanced">
+        <h2>8. Advanced but useful magic methods</h2>
+
+        <div class="grid-2">
+          <article class="mini-card">
+            <h3><code>__call__</code></h3>
+
+            <p>
               This method makes an object behave like a function.
             </p>
-<pre><code>class Greeter:
+
+            <div class="code-wrap">
+              <div class="code-label">
+                <span>Python</span>
+              </div>
+              <pre><code>class Greeter:
     def __call__(self, name):
         return f"Hello, {name}!"
 
@@ -900,16 +1588,31 @@ g = Greeter()
 
 print(g("Amit"))
 print(g("Sita"))</code></pre>
-<p>Output:</p>
-<pre><code>Hello, Amit!
+            </div>
+
+            <p>Output:</p>
+
+            <div class="code-wrap">
+              <div class="code-label">
+                <span>Output</span>
+              </div>
+              <pre><code>Hello, Amit!
 Hello, Sita!</code></pre>
-</article>
-<article class="mini-card">
-<h3><code>__bool__</code></h3>
-<p>
+            </div>
+          </article>
+
+          <article class="mini-card">
+            <h3><code>__bool__</code></h3>
+
+            <p>
               This method controls truth testing with <code>if object:</code>.
             </p>
-<pre><code>class Wallet:
+
+            <div class="code-wrap">
+              <div class="code-label">
+                <span>Python</span>
+              </div>
+              <pre><code>class Wallet:
     def __init__(self, money):
         self.money = money
 
@@ -922,17 +1625,32 @@ w2 = Wallet(0)
 
 print(bool(w1))
 print(bool(w2))</code></pre>
-<p>Output:</p>
-<pre><code>True
+            </div>
+
+            <p>Output:</p>
+
+            <div class="code-wrap">
+              <div class="code-label">
+                <span>Output</span>
+              </div>
+              <pre><code>True
 False</code></pre>
-</article>
-</div>
-<h3><code>__del__</code>: object destruction</h3>
-<p>
+            </div>
+          </article>
+        </div>
+
+        <h3><code>__del__</code>: object destruction</h3>
+
+        <p>
           The method <code>__del__</code> may run when an object is about to be destroyed.
           However, in real projects we should not depend on its exact timing.
         </p>
-<pre><code>class Demo:
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Demo:
     def __init__(self):
         print("Object created")
 
@@ -942,17 +1660,28 @@ False</code></pre>
 
 d = Demo()
 del d</code></pre>
-<div class="warning">
-<strong>Important:</strong> Do not use <code>__del__</code> as your main cleanup plan in serious programs.
+        </div>
+
+        <div class="warning">
+          <strong>Important:</strong> Do not use <code>__del__</code> as your main cleanup plan in serious programs.
           Python controls memory automatically, and destruction time may not always be exactly when you expect.
         </div>
-</section>
-<section class="lesson-card" id="project">
-<h2>8. Mini project: Shopping Cart with magic methods</h2>
-<p>
+      </section>
+
+      <section class="lesson-card" id="project">
+        <h2>9. Mini project: Shopping Cart with magic methods</h2>
+
+        <p>
           This project shows how magic methods make our own class feel natural, like a normal Python container.
+          It supports <code>print(cart)</code>, <code>len(cart)</code>, <code>"Mouse" in cart</code>,
+          <code>cart[0]</code>, and <code>for item in cart</code>.
         </p>
-<pre><code>class ShoppingCart:
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class ShoppingCart:
     def __init__(self):
         self.items = []
 
@@ -968,6 +1697,9 @@ del d</code></pre>
     def __getitem__(self, index):
         return self.items[index]
 
+    def __iter__(self):
+        return iter(self.items)
+
     def __str__(self):
         return f"Cart contains: {self.items}"
 
@@ -981,110 +1713,389 @@ cart.add_item("Keyboard")
 print(cart)
 print(len(cart))
 print("Mouse" in cart)
-print(cart[0])</code></pre>
-<p>Output:</p>
-<pre><code>Cart contains: ['Laptop', 'Mouse', 'Keyboard']
+print(cart[0])
+
+for item in cart:
+    print("Item:", item)</code></pre>
+        </div>
+
+        <p>Output:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Output</span>
+          </div>
+          <pre><code>Cart contains: ['Laptop', 'Mouse', 'Keyboard']
 3
 True
-Laptop</code></pre>
-<div class="checkpoint">
-<strong>Checkpoint:</strong> This object supports <code>print(cart)</code>, <code>len(cart)</code>,
-          <code>"Mouse" in cart</code>, and <code>cart[0]</code>.
+Laptop
+Item: Laptop
+Item: Mouse
+Item: Keyboard</code></pre>
         </div>
-</section>
-<section class="lesson-card" id="practice">
-<h2>9. Practice questions</h2>
-<details open="">
-<summary>Question 1: Book class</summary>
-<p>
+
+        <div class="checkpoint">
+          <strong>Checkpoint:</strong> This object supports <code>print(cart)</code>, <code>len(cart)</code>,
+          <code>"Mouse" in cart</code>, <code>cart[0]</code>, and <code>for item in cart</code>.
+        </div>
+      </section>
+
+      <section class="lesson-card" id="practice">
+        <h2>10. Practice questions</h2>
+
+        <details open>
+          <summary>Question 1: Book class</summary>
+          <p>
             Create a class called <code>Book</code>. It should have <code>title</code> and <code>pages</code>.
             Use <code>__str__</code> to print this:
           </p>
-<pre><code>Python Basics has 250 pages</code></pre>
-</details>
-<details>
-<summary>Question 2: Box class</summary>
-<p>
+
+          <div class="code-wrap">
+            <div class="code-label">
+              <span>Expected Output</span>
+            </div>
+            <pre><code>Python Basics has 250 pages</code></pre>
+          </div>
+        </details>
+
+        <details>
+          <summary>Question 2: Box class</summary>
+          <p>
             Create a class called <code>Box</code>. It should store items.
             Use <code>__len__</code> so that <code>len(box)</code> works.
           </p>
-</details>
-<details>
-<summary>Question 3: Product class</summary>
-<p>
+        </details>
+
+        <details>
+          <summary>Question 3: Product class</summary>
+          <p>
             Create a class called <code>Product</code>. It should have <code>name</code> and <code>price</code>.
             Use <code>__gt__</code> to compare products by price.
           </p>
-</details>
-<details>
-<summary>Question 4: Wallet class</summary>
-<p>
+        </details>
+
+        <details>
+          <summary>Question 4: Wallet class</summary>
+          <p>
             Create a class called <code>Wallet</code>. It should have <code>money</code>.
             Use <code>__add__</code> to add two wallets.
           </p>
-<pre><code>w1 = Wallet(100)
+
+          <div class="code-wrap">
+            <div class="code-label">
+              <span>Python</span>
+            </div>
+            <pre><code>w1 = Wallet(100)
 w2 = Wallet(200)
 
 print(w1 + w2)</code></pre>
-<p>Expected output:</p>
-<pre><code>300</code></pre>
-</details>
-<details>
-<summary>Question 5: Marksheet class</summary>
-<p>
+          </div>
+
+          <p>Expected output:</p>
+
+          <div class="code-wrap">
+            <div class="code-label">
+              <span>Expected Output</span>
+            </div>
+            <pre><code>300</code></pre>
+          </div>
+        </details>
+
+        <details>
+          <summary>Question 5: Marksheet class</summary>
+          <p>
             Create a class called <code>Marksheet</code> that stores a list of marks.
             Add <code>__len__</code>, <code>__getitem__</code>, and <code>__setitem__</code>.
           </p>
-</details>
-</section>
-<section class="lesson-card" id="editor">
-<h2>10. Practice in the Python editor</h2>
-<p>
+        </details>
+
+        <details>
+          <summary>Question 6: Countdown iterator</summary>
+          <p>
+            Create a class called <code>Countdown</code>. It should print numbers from a starting number down to 1.
+            Use <code>__iter__</code> and <code>__next__</code>.
+          </p>
+
+          <div class="code-wrap">
+            <div class="code-label">
+              <span>Expected Output</span>
+            </div>
+            <pre><code>5
+4
+3
+2
+1</code></pre>
+          </div>
+        </details>
+
+        <details>
+          <summary>Question 7: Team class iterable</summary>
+          <p>
+            Create a class called <code>Team</code>. It should store player names.
+            Make it work with a <code>for</code> loop.
+          </p>
+
+          <div class="code-wrap">
+            <div class="code-label">
+              <span>Python</span>
+            </div>
+            <pre><code>team = Team(["Amit", "Ravi", "Sita"])
+
+for player in team:
+    print(player)</code></pre>
+          </div>
+        </details>
+      </section>
+
+      <section class="lesson-card" id="mistakes">
+        <h2>11. Common mistakes beginners make</h2>
+
+        <h3>1. Calling magic methods directly</h3>
+
+        <p>
+          Beginners sometimes write <code>obj.__str__()</code> directly. It works, but it is not the normal style.
+          Use <code>str(obj)</code> or <code>print(obj)</code> instead.
+        </p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code># Not preferred
+print(obj.__str__())
+
+# Better
+print(obj)</code></pre>
+        </div>
+
+        <h3>2. Forgetting to return a value</h3>
+
+        <p>
+          Methods like <code>__str__</code>, <code>__len__</code>, and <code>__add__</code> must return something useful.
+        </p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Wrong</span>
+          </div>
+          <pre><code>class Student:
+    def __str__(self):
+        print("Student object")</code></pre>
+        </div>
+
+        <p>Correct version:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Correct</span>
+          </div>
+          <pre><code>class Student:
+    def __str__(self):
+        return "Student object"</code></pre>
+        </div>
+
+        <h3>3. Returning a non-string from <code>__str__</code></h3>
+
+        <p>
+          The <code>__str__</code> method must return a string.
+        </p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Wrong</span>
+          </div>
+          <pre><code>class Student:
+    def __str__(self):
+        return 100</code></pre>
+        </div>
+
+        <p>Correct version:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Correct</span>
+          </div>
+          <pre><code>class Student:
+    def __str__(self):
+        return "100"</code></pre>
+        </div>
+
+        <h3>4. Not checking the other object</h3>
+
+        <p>
+          In methods like <code>__add__</code> and <code>__gt__</code>, make sure the other object has the expected data.
+        </p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Python</span>
+          </div>
+          <pre><code>class Money:
+    def __init__(self, amount):
+        self.amount = amount
+
+    def __add__(self, other):
+        if not isinstance(other, Money):
+            return NotImplemented
+
+        return Money(self.amount + other.amount)</code></pre>
+        </div>
+
+        <h3>5. Forgetting <code>StopIteration</code> in iterators</h3>
+
+        <p>
+          If <code>__next__</code> never raises <code>StopIteration</code>, Python will not know when the loop should stop.
+        </p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Wrong</span>
+          </div>
+          <pre><code>class BadCounter:
+    def __next__(self):
+        return 1   # This can keep going forever</code></pre>
+        </div>
+
+        <p>Correct idea:</p>
+
+        <div class="code-wrap">
+          <div class="code-label">
+            <span>Correct</span>
+          </div>
+          <pre><code>def __next__(self):
+    if finished:
+        raise StopIteration
+
+    return next_value</code></pre>
+        </div>
+
+        <div class="note">
+          <strong>Teacher's tip:</strong> Magic methods are powerful, but they should make the object easier to use, not harder to understand.
+        </div>
+      </section>
+
+      <section class="lesson-card" id="quiz">
+        <h2>12. Quick quiz</h2>
+
+        <details>
+          <summary>1. Which method runs automatically when an object is created?</summary>
+          <p><code>__init__</code></p>
+        </details>
+
+        <details>
+          <summary>2. Which method is called by <code>len(obj)</code>?</summary>
+          <p><code>__len__</code></p>
+        </details>
+
+        <details>
+          <summary>3. Which method is called by <code>obj1 + obj2</code>?</summary>
+          <p><code>__add__</code></p>
+        </details>
+
+        <details>
+          <summary>4. Which method is used for friendly printing?</summary>
+          <p><code>__str__</code></p>
+        </details>
+
+        <details>
+          <summary>5. Which method supports <code>value in obj</code>?</summary>
+          <p><code>__contains__</code></p>
+        </details>
+
+        <details>
+          <summary>6. Which method is called by <code>iter(obj)</code>?</summary>
+          <p><code>__iter__</code></p>
+        </details>
+
+        <details>
+          <summary>7. Which method is called by <code>next(iterator)</code>?</summary>
+          <p><code>__next__</code></p>
+        </details>
+
+        <details>
+          <summary>8. What should an iterator raise when values are finished?</summary>
+          <p><code>StopIteration</code></p>
+        </details>
+      </section>
+
+      <section class="lesson-card" id="editor">
+        <h2>13. Practice in the Python editor</h2>
+
+        <p>
           Use the embedded editor below to run the examples.
           Start by copying the <code>ShoppingCart</code> project, then modify it.
         </p>
-<iframe allow="clipboard-read; clipboard-write; fullscreen" class="editor-frame" loading="lazy" src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1" title="Embedded Python Editor">
-</iframe>
-</section>
-<section class="lesson-card">
-<h2>11. Final summary</h2>
-<p>
+
+        <iframe
+          allow="clipboard-read; clipboard-write; fullscreen"
+          class="editor-frame"
+          loading="lazy"
+          src="https://editor.learnwithchampak.live/python-starter/editor/super/?tmode=1"
+          title="Embedded Python Editor">
+        </iframe>
+      </section>
+
+      <section class="lesson-card" id="summary">
+        <h2>14. Final summary</h2>
+
+        <p>
           Magic methods are special double-underscore methods that allow your objects to behave like Python’s built-in objects.
         </p>
-<table>
-<thead>
-<tr>
-<th>Action</th>
-<th>Method Python looks for</th>
-</tr>
-</thead>
-<tbody>
-<tr><td><code>print(obj)</code></td><td><code>__str__</code></td></tr>
-<tr><td><code>repr(obj)</code></td><td><code>__repr__</code></td></tr>
-<tr><td><code>len(obj)</code></td><td><code>__len__</code></td></tr>
-<tr><td><code>obj1 + obj2</code></td><td><code>__add__</code></td></tr>
-<tr><td><code>obj1 &gt; obj2</code></td><td><code>__gt__</code></td></tr>
-<tr><td><code>obj[index]</code></td><td><code>__getitem__</code></td></tr>
-<tr><td><code>obj[index] = value</code></td><td><code>__setitem__</code></td></tr>
-<tr><td><code>value in obj</code></td><td><code>__contains__</code></td></tr>
-<tr><td><code>obj()</code></td><td><code>__call__</code></td></tr>
-<tr><td><code>if obj:</code></td><td><code>__bool__</code></td></tr>
-</tbody>
-</table>
-<div class="task">
-<strong>Final line:</strong> Magic methods teach Python how your own objects should respond to normal Python actions.
+
+        <table>
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Method Python looks for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>print(obj)</code></td><td><code>__str__</code></td></tr>
+            <tr><td><code>repr(obj)</code></td><td><code>__repr__</code></td></tr>
+            <tr><td><code>len(obj)</code></td><td><code>__len__</code></td></tr>
+            <tr><td><code>obj1 + obj2</code></td><td><code>__add__</code></td></tr>
+            <tr><td><code>obj1 &gt; obj2</code></td><td><code>__gt__</code></td></tr>
+            <tr><td><code>obj[index]</code></td><td><code>__getitem__</code></td></tr>
+            <tr><td><code>obj[index] = value</code></td><td><code>__setitem__</code></td></tr>
+            <tr><td><code>value in obj</code></td><td><code>__contains__</code></td></tr>
+            <tr><td><code>for value in obj</code></td><td><code>__iter__</code> and <code>__next__</code></td></tr>
+            <tr><td><code>iter(obj)</code></td><td><code>__iter__</code></td></tr>
+            <tr><td><code>next(iterator)</code></td><td><code>__next__</code></td></tr>
+            <tr><td><code>obj()</code></td><td><code>__call__</code></td></tr>
+            <tr><td><code>if obj:</code></td><td><code>__bool__</code></td></tr>
+          </tbody>
+        </table>
+
+        <div class="task">
+          <strong>Final line:</strong> Magic methods teach Python how your own objects should respond to normal Python actions,
+          including printing, adding, comparing, indexing, checking membership, and iterating.
         </div>
-</section>
-</main>
-<footer>
-<strong>Programmer's Picnic</strong><br/>
-      Python OOPs lesson by Champak Roy
+      </section>
+    </main>
+
+    <nav class="lesson-nav" aria-label="Previous and next lesson bottom">
+      <a href="https://dsa.learnwithchampak.live/python/oops/">
+        <small>Previous lesson</small>
+        ← Python OOP Basics
+      </a>
+
+      <a class="next" href="https://dsa.learnwithchampak.live/python/oops/inheritance/">
+        <small>Next lesson</small>
+        Python Inheritance →
+      </a>
+    </nav>
+
+    <footer>
+      <strong>Programmer's Picnic</strong><br />
+      Python OOP lesson by Champak Roy
     </footer>
-</div>
-<div aria-label="Floating tools" class="floating-tools">
-<button class="btn secondary" id="topBtn" type="button">Top</button>
-</div>
-<script>
+  </div>
+
+  <div aria-label="Floating tools" class="floating-tools">
+    <button class="btn secondary" id="topBtn" type="button">Top</button>
+  </div>
+
+  <script>
     (function () {
       const ad = document.querySelector(".adsbygoogle");
 
@@ -1096,14 +2107,22 @@ print(w1 + w2)</code></pre>
         }
       }
 
-      document.querySelectorAll("pre").forEach((pre) => {
+      document.querySelectorAll(".code-wrap").forEach((wrap) => {
+        const pre = wrap.querySelector("pre");
+        const codeElement = wrap.querySelector("code");
+        const label = wrap.querySelector(".code-label");
+
+        if (!pre || !codeElement || !label) {
+          return;
+        }
+
         const button = document.createElement("button");
         button.className = "copy-btn";
         button.type = "button";
         button.textContent = "Copy";
 
         button.addEventListener("click", async () => {
-          const code = pre.innerText.replace(/^Copy\n?/, "");
+          const code = codeElement.innerText;
 
           try {
             await navigator.clipboard.writeText(code);
@@ -1116,7 +2135,7 @@ print(w1 + w2)</code></pre>
           }
         });
 
-        pre.appendChild(button);
+        label.appendChild(button);
       });
 
       const topBtn = document.getElementById("topBtn");
@@ -1139,6 +2158,16 @@ print(w1 + w2)</code></pre>
           .trim();
       }
 
+      function getReadableLessonText(root) {
+        const clone = root.cloneNode(true);
+
+        clone.querySelectorAll("pre, code, iframe, script, style, .code-wrap").forEach((element) => {
+          element.remove();
+        });
+
+        return cleanText(clone.innerText);
+      }
+
       readBtn.addEventListener("click", () => {
         if (!("speechSynthesis" in window)) {
           alert("Speech reading is not supported in this browser.");
@@ -1147,9 +2176,9 @@ print(w1 + w2)</code></pre>
 
         window.speechSynthesis.cancel();
 
-        const utterance = new SpeechSynthesisUtterance(
-          cleanText(lessonText.innerText)
-        );
+        const readableText = getReadableLessonText(lessonText);
+
+        const utterance = new SpeechSynthesisUtterance(readableText);
 
         utterance.rate = 0.92;
         utterance.pitch = 1;
