@@ -294,25 +294,56 @@
         animation: floaty 4s ease-in-out infinite;
       }
 
-      .speaker-photo {
-        display: block;
+      .photo-frame {
+        position: relative;
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        object-position: 50% 35%;
         border-radius: 50%;
+        overflow: hidden;
         border: 7px solid rgba(255, 255, 255, 0.94);
         box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background: #d8d8d8 url("me.jpg") 42% 36% / 270% auto no-repeat;
       }
 
-      .avatar-card.is-speaking .speaker-photo {
+      .photo-mouth {
+        position: absolute;
+        left: 51.5%;
+        top: 63%;
+        width: 30px;
+        height: 5px;
+        transform: translate(-50%, -50%);
+        border-radius: 0 0 18px 18px;
+        background: #541d18;
+        box-shadow: inset 0 -2px 0 rgba(239, 154, 168, 0.75);
+        transition: height 0.12s ease;
+        z-index: 2;
+      }
+
+      .avatar-card.is-speaking .photo-frame {
         animation: speakerPulse 0.7s ease-in-out infinite alternate;
         box-shadow: 0 22px 48px rgba(217, 119, 6, 0.32);
       }
 
-      .avatar-card.is-paused .speaker-photo {
+      .avatar-card.is-speaking .photo-mouth {
+        animation: photoTalk 0.16s ease-in-out infinite alternate;
+      }
+
+      .avatar-card.is-paused .photo-frame {
         filter: saturate(0.88);
+      }
+
+      @keyframes photoTalk {
+        from {
+          width: 28px;
+          height: 4px;
+          border-radius: 0 0 16px 16px;
+        }
+        to {
+          width: 32px;
+          height: 18px;
+          border-radius: 45%;
+        }
       }
 
       @keyframes speakerPulse {
@@ -677,7 +708,9 @@
 <div class="avatar-stage">
 <div class="avatar-glow"></div>
 <div class="avatar">
-<img class="speaker-photo" src="me.jpg" alt="Champak Roy speaking"/>
+<div class="photo-frame" role="img" aria-label="Champak Roy speaking">
+<div class="photo-mouth" aria-hidden="true"></div>
+</div>
 </div>
 </div>
 <div class="avatar-caption" id="avatarCaption">
