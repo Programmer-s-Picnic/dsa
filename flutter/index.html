@@ -505,304 +505,6 @@
             text-align: center;
             font-weight: 700;
         }
-
-
-        .code-actions {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 10px;
-            margin: -6px 0 24px;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: var(--very-light-blue);
-        }
-
-        .lesson-action-button {
-            min-height: 42px;
-            padding: 9px 15px;
-            border: 0;
-            border-radius: 8px;
-            font: inherit;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .load-dartpad-button {
-            color: #fff;
-            background: var(--primary);
-        }
-
-        .copy-code-button {
-            color: var(--primary-dark);
-            border: 1px solid var(--border);
-            background: #fff;
-        }
-
-        .lesson-action-button:hover,
-        .lesson-action-button:focus-visible {
-            filter: brightness(0.94);
-            outline: 3px solid rgba(19, 185, 253, 0.28);
-            outline-offset: 2px;
-        }
-
-        .code-action-status {
-            color: var(--muted);
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
-        .single-dartpad-viewer {
-            width: min(1180px, 94%);
-            margin: 30px auto 50px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            background: #fff;
-            box-shadow: var(--shadow);
-        }
-
-        .single-dartpad-header {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 15px 20px;
-            color: #fff;
-            background: var(--primary-dark);
-        }
-
-        .single-dartpad-header h2 {
-            margin: 0;
-            font-size: 1.15rem;
-        }
-
-        .viewer-link {
-            color: #fff;
-            font-weight: 700;
-        }
-
-        .single-dartpad-status {
-            margin: 0;
-            padding: 13px 18px;
-            border-bottom: 1px solid var(--border);
-            background: var(--light-blue);
-            font-weight: 700;
-        }
-
-        .single-dartpad-status.error {
-            color: #7a1f1f;
-            background: #fff0f0;
-        }
-
-        .single-dartpad-status.success {
-            color: #075d43;
-            background: #eafaf4;
-        }
-
-        .single-dartpad-frame {
-            min-height: 680px;
-        }
-
-        @media (max-width: 600px) {
-            .lesson-action-button {
-                flex: 1 1 100%;
-            }
-
-            .single-dartpad-frame {
-                min-height: 740px;
-            }
-        }
-
-        .single-dartpad-viewer {
-            width: min(1200px, 94%);
-            margin: 24px auto;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            background: var(--white);
-            box-shadow: var(--shadow);
-            scroll-margin-top: 18px;
-        }
-
-        .single-dartpad-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-            padding: 16px 20px;
-            color: var(--white);
-            background: var(--primary-dark);
-        }
-
-        .single-dartpad-header h2 {
-            margin: 0;
-            color: inherit;
-            font-size: 1.2rem;
-        }
-
-        .viewer-actions {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .viewer-link,
-        .viewer-modal-button {
-            min-height: 40px;
-            padding: 8px 14px;
-            border: 1px solid rgba(255, 255, 255, 0.75);
-            border-radius: 8px;
-            color: #ffffff;
-            background: transparent;
-            font: inherit;
-            font-weight: 700;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .viewer-link:hover,
-        .viewer-link:focus,
-        .viewer-modal-button:hover,
-        .viewer-modal-button:focus {
-            color: var(--primary-dark);
-            background: #ffffff;
-        }
-
-        .single-dartpad-status {
-            margin: 0;
-            padding: 11px 18px;
-            border-bottom: 1px solid var(--border);
-            background: #f2faff;
-        }
-
-        .single-dartpad-status.success {
-            color: #076247;
-            background: #eafaf4;
-        }
-
-        .single-dartpad-status.error {
-            color: #7b2600;
-            background: #fff1e8;
-        }
-
-        .single-dartpad-frame {
-            min-height: 650px;
-        }
-
-        .dartpad-modal {
-            width: min(1250px, 96vw);
-            max-width: none;
-            height: min(92vh, 900px);
-            max-height: none;
-            padding: 0;
-            border: 0;
-            border-radius: 16px;
-            background: transparent;
-            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
-        }
-
-        .dartpad-modal::backdrop {
-            background: rgba(2, 25, 39, 0.76);
-            backdrop-filter: blur(3px);
-        }
-
-        .dartpad-modal-shell {
-            display: flex;
-            height: 100%;
-            flex-direction: column;
-            overflow: hidden;
-            border-radius: 16px;
-            background: var(--white);
-        }
-
-        .dartpad-modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 10px 16px;
-            color: var(--white);
-            background: #032f48;
-        }
-
-        .dartpad-modal-header h2 {
-            margin: 0;
-            color: inherit;
-            font-size: 1.1rem;
-        }
-
-        .dartpad-modal-close {
-            width: 42px;
-            height: 42px;
-            border: 0;
-            border-radius: 50%;
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.14);
-            font-size: 1.8rem;
-            line-height: 1;
-            cursor: pointer;
-        }
-
-        .dartpad-modal-close:hover,
-        .dartpad-modal-close:focus {
-            color: #032f48;
-            background: #ffffff;
-        }
-
-        #dartpad-modal-content {
-            flex: 1;
-            min-height: 0;
-            overflow: auto;
-        }
-
-        #dartpad-modal-content .single-dartpad-viewer {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            border: 0;
-            border-radius: 0;
-            box-shadow: none;
-        }
-
-        #dartpad-modal-content .single-dartpad-frame {
-            height: calc(100% - 112px);
-            min-height: 560px;
-        }
-
-        @media (max-width: 650px) {
-            .single-dartpad-header {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .viewer-actions {
-                width: 100%;
-            }
-
-            .viewer-link,
-            .viewer-modal-button {
-                flex: 1;
-                text-align: center;
-            }
-
-            .single-dartpad-frame {
-                min-height: 720px;
-            }
-
-            .dartpad-modal {
-                width: 100vw;
-                height: 100vh;
-                border-radius: 0;
-            }
-
-            .dartpad-modal-shell {
-                border-radius: 0;
-            }
-        }
     </style>
 </head>
 
@@ -831,32 +533,10 @@
             </div>
         </div>
     </header>
-    <div id="dartpad-top-anchor"></div>
-    <section aria-labelledby="dartpad-viewer-title" class="single-dartpad-viewer" id="dartpad-viewer">
-        <div class="single-dartpad-header">
-            <h2 id="dartpad-viewer-title">Interactive DartPad</h2>
-            <div class="viewer-actions"><button class="viewer-modal-button" id="open-dartpad-modal" type="button">Open
-                    in modal</button><a class="viewer-link" href="https://dartpad.dev/" id="open-dartpad-separately"
-                    rel="noopener" target="_blank">Open separately</a></div>
-        </div>
-        <p aria-live="polite" class="single-dartpad-status" id="single-dartpad-status">Choose a lesson and press “Load
-            in DartPad”.</p><iframe allowfullscreen="" class="dartpad-frame single-dartpad-frame"
-            id="single-dartpad-frame" loading="eager" src="about:blank"
-            title="Selected Flutter lesson in DartPad"></iframe>
-    </section>
-    <dialog aria-labelledby="dartpad-modal-title" class="dartpad-modal" id="dartpad-modal">
-        <div class="dartpad-modal-shell">
-            <div class="dartpad-modal-header">
-                <h2 id="dartpad-modal-title">Interactive DartPad</h2><button aria-label="Close DartPad modal"
-                    class="dartpad-modal-close" id="close-dartpad-modal" type="button">×</button>
-            </div>
-            <div id="dartpad-modal-content"></div>
-        </div>
-    </dialog>
     <section aria-labelledby="gist-setup-title" class="gist-setup-note">
-        <h2 id="gist-setup-title">Single DartPad Lesson Viewer</h2>
-        <p>Use “Load in DartPad” below any code sample. The page keeps only one DartPad open, so the selected lesson
-            replaces the previous lesson. Use “Copy Code” to copy the complete main.dart.</p>
+        <h2 id="gist-setup-title">DartPad Gist Setup</h2>
+        <p>Enter or replace all GitHub Gist IDs in the dartPadGists array near the bottom of this HTML file. The page
+            automatically loads every matching DartPad.</p><code>id: 'PASTE_GIST_ID_HERE'</code>
     </section>
     <div class="layout">
         <aside class="sidebar">
@@ -922,11 +602,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="note"><strong>DartPad setup: </strong>Every code block below is a complete main.dart
-                    program. Use its Load in DartPad button to open it in the single viewer, or Copy Code to copy
-                    it.<code>main.dart</code> program and has its own DartPad. Replace each
-                    <code>YOUR_..._GIST_ID</code> placeholder with the ID of a public GitHub Gist containing that exact
-                    code.</div>
+                <div class="note"><strong>DartPad setup: </strong>Every code block below is a complete
+                    <code>main.dart</code> program and has its own DartPad. Replace each <code>YOUR_..._GIST_ID</code>
+                    placeholder with the ID of a public GitHub Gist containing that exact code.</div>
             </section>
             <!-- LESSON 0 -->
             <section class="lesson" id="lesson-0">
@@ -995,10 +673,12 @@
   print('Score: $score');
   print('Learning Flutter: $isLearningFlutter');
 }</code></pre>
-                <div class="code-actions" data-gist-index="0"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="0" data-lesson-title="Dart foundations complete program" type="button">▶ Load
-                        in DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="0"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 1: Dart Foundations</strong><a
+                            href="https://dartpad.dev/?id=22c753acda30ae24c7556231e10863a7" rel="noopener"
+                            target="_blank">Open DartPad separately</a></div><iframe allowfullscreen=""
+                        class="dartpad-frame" data-dartpad-title="Dart foundations complete program" data-gist-index="0"
+                        loading="lazy" src="about:blank" title="Dart foundations complete program"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -1037,10 +717,12 @@ void main() {
   print(student.name);
   print(student.result());
 }</code></pre>
-                <div class="code-actions" data-gist-index="1"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="1" data-lesson-title="Dart classes complete program" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="1"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 2: Classes and Objects</strong><a
+                            href="https://dartpad.dev/?id=8f7800e0ceb3a087d60781410c885be3" rel="noopener"
+                            target="_blank">Open DartPad separately</a></div><iframe allowfullscreen=""
+                        class="dartpad-frame" data-dartpad-title="Dart classes complete program" data-gist-index="1"
+                        loading="lazy" src="about:blank" title="Dart classes complete program"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -1090,10 +772,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="2"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="2" data-lesson-title="First Flutter application" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="2"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 3: Hello Flutter</strong><a
+                            href="https://dartpad.dev/?id=36af8630a15ad4dbc6fbcd56adf2d87b" rel="noopener"
+                            target="_blank">Open DartPad separately</a></div><iframe allowfullscreen=""
+                        class="dartpad-frame" data-dartpad-title="First Flutter application" data-gist-index="2"
+                        loading="lazy" src="about:blank" title="First Flutter application"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -1188,10 +872,12 @@ class CoursePage extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="3"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="3" data-lesson-title="Flutter widgets and layouts" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="3"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 4: Widgets and Layouts</strong><a
+                            href="https://dartpad.dev/?id=bfe52dd74faf3532c3b49b83801915b6" rel="noopener"
+                            target="_blank">Open DartPad separately</a></div><iframe allowfullscreen=""
+                        class="dartpad-frame" data-dartpad-title="Flutter widgets and layouts" data-gist-index="3"
+                        loading="lazy" src="about:blank" title="Flutter widgets and layouts"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -1278,10 +964,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="4"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="4" data-lesson-title="Flutter Row UI" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="4"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 5: Row UI</strong><a
+                            href="https://dartpad.dev/?id=YOUR_ROW_GIST_ID" rel="noopener" target="_blank">Open DartPad
+                            separately</a></div><iframe allowfullscreen="" class="dartpad-frame"
+                        data-dartpad-title="Flutter Row UI" data-gist-index="4" loading="lazy" src="about:blank"
+                        title="Flutter Row UI"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -1347,10 +1035,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="5"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="5" data-lesson-title="Flutter Column UI" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="5"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 6: Column UI</strong><a
+                            href="https://dartpad.dev/?id=YOUR_COLUMN_GIST_ID" rel="noopener" target="_blank">Open
+                            DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame"
+                        data-dartpad-title="Flutter Column UI" data-gist-index="5" loading="lazy" src="about:blank"
+                        title="Flutter Column UI"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -1432,10 +1122,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="6"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="6" data-lesson-title="Flutter Container design" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="6"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 7: Container Design</strong><a
+                            href="https://dartpad.dev/?id=YOUR_CONTAINER_GIST_ID" rel="noopener" target="_blank">Open
+                            DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame"
+                        data-dartpad-title="Flutter Container design" data-gist-index="6" loading="lazy"
+                        src="about:blank" title="Flutter Container design"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -1507,10 +1199,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="7"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="7" data-lesson-title="Flutter buttons icons and images" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="7"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 8: Buttons, Icons and Images</strong><a
+                            href="https://dartpad.dev/?id=YOUR_BUTTONS_IMAGES_GIST_ID" rel="noopener"
+                            target="_blank">Open DartPad separately</a></div><iframe allowfullscreen=""
+                        class="dartpad-frame" data-dartpad-title="Flutter buttons icons and images" data-gist-index="7"
+                        loading="lazy" src="about:blank" title="Flutter buttons icons and images"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -1595,10 +1289,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="8"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="8" data-lesson-title="Flutter Stack and Positioned" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="8"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 9: Stack and Positioned</strong><a
+                            href="https://dartpad.dev/?id=YOUR_STACK_GIST_ID" rel="noopener" target="_blank">Open
+                            DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame"
+                        data-dartpad-title="Flutter Stack and Positioned" data-gist-index="8" loading="lazy"
+                        src="about:blank" title="Flutter Stack and Positioned"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -1706,10 +1402,12 @@ class CourseBox extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="9"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="9" data-lesson-title="Responsive Flutter user interface" type="button">▶ Load
-                        in DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="9"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 10: Responsive LayoutBuilder UI</strong><a
+                            href="https://dartpad.dev/?id=YOUR_RESPONSIVE_GIST_ID" rel="noopener" target="_blank">Open
+                            DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame"
+                        data-dartpad-title="Responsive Flutter user interface" data-gist-index="9" loading="lazy"
+                        src="about:blank" title="Responsive Flutter user interface"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -1799,10 +1497,12 @@ class CourseTile extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="10"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="10" data-lesson-title="Reusable Flutter widgets" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="10"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 11: Reusable Custom Widgets</strong><a
+                            href="https://dartpad.dev/?id=YOUR_REUSABLE_WIDGET_GIST_ID" rel="noopener"
+                            target="_blank">Open DartPad separately</a></div><iframe allowfullscreen=""
+                        class="dartpad-frame" data-dartpad-title="Reusable Flutter widgets" data-gist-index="10"
+                        loading="lazy" src="about:blank" title="Reusable Flutter widgets"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -1921,10 +1621,12 @@ class _CounterPageState extends State&lt;CounterPage&gt; {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="11"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="11" data-lesson-title="Flutter stateful counter" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="11"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 12: Stateful Counter</strong><a
+                            href="https://dartpad.dev/?id=fe308b89febb2b0acf664dd7d42788ed" rel="noopener"
+                            target="_blank">Open DartPad separately</a></div><iframe allowfullscreen=""
+                        class="dartpad-frame" data-dartpad-title="Flutter stateful counter" data-gist-index="11"
+                        loading="lazy" src="about:blank" title="Flutter stateful counter"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -2056,10 +1758,12 @@ class _StudentFormPageState extends State&lt;StudentFormPage&gt; {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="12"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="12" data-lesson-title="Flutter form and validation" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="12"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 13: Text Input and Forms</strong><a
+                            href="https://dartpad.dev/?id=YOUR_FORM_GIST_ID" rel="noopener" target="_blank">Open DartPad
+                            separately</a></div><iframe allowfullscreen="" class="dartpad-frame"
+                        data-dartpad-title="Flutter form and validation" data-gist-index="12" loading="lazy"
+                        src="about:blank" title="Flutter form and validation"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -2164,10 +1868,12 @@ class CourseListPage extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="13"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="13" data-lesson-title="Flutter lists and models" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="13"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 14: Lists and Models</strong><a
+                            href="https://dartpad.dev/?id=cef5278d0f80363e84b4cd84ede0d76a" rel="noopener"
+                            target="_blank">Open DartPad separately</a></div><iframe allowfullscreen=""
+                        class="dartpad-frame" data-dartpad-title="Flutter lists and models" data-gist-index="13"
+                        loading="lazy" src="about:blank" title="Flutter lists and models"></iframe>
                 </div>
                 <div class="exercise">
                     <h3>Practice</h3>
@@ -2266,10 +1972,12 @@ class DetailsPage extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="14"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="14" data-lesson-title="Flutter navigation between screens" type="button">▶ Load
-                        in DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="14"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 15: Navigation</strong><a
+                            href="https://dartpad.dev/?id=YOUR_NAVIGATION_GIST_ID" rel="noopener" target="_blank">Open
+                            DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame"
+                        data-dartpad-title="Flutter navigation between screens" data-gist-index="14" loading="lazy"
+                        src="about:blank" title="Flutter navigation between screens"></iframe>
                 </div>
                 <p>
                     A real application normally contains several screens.
@@ -2311,10 +2019,12 @@ Future&lt;void&gt; main() async {
     print('Error: $error');
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="15"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="15" data-lesson-title="Dart futures async and await" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="15"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 16: Futures and Async</strong><a
+                            href="https://dartpad.dev/?id=YOUR_FUTURES_GIST_ID" rel="noopener" target="_blank">Open
+                            DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame"
+                        data-dartpad-title="Dart futures async and await" data-gist-index="15" loading="lazy"
+                        src="about:blank" title="Dart futures async and await"></iframe>
                 </div>
                 <p>
                     An API request does not normally finish immediately.
@@ -2464,10 +2174,12 @@ class _ApiLessonPageState extends State&lt;ApiLessonPage&gt; {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="16"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="16" data-lesson-title="Flutter REST API request" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="16"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 17: REST API Request</strong><a
+                            href="https://dartpad.dev/?id=YOUR_API_GIST_ID" rel="noopener" target="_blank">Open DartPad
+                            separately</a></div><iframe allowfullscreen="" class="dartpad-frame"
+                        data-dartpad-title="Flutter REST API request" data-gist-index="16" loading="lazy"
+                        src="about:blank" title="Flutter REST API request"></iframe>
                 </div>
                 <div class="note">
                     DartPad supports Flutter and selected packages only.
@@ -2909,10 +2621,12 @@ class ErrorPanel extends StatelessWidget {
     );
   }
 }</code></pre>
-                <div class="code-actions" data-gist-index="17"><button class="lesson-action-button load-dartpad-button"
-                        data-gist-index="17" data-lesson-title="Flutter SWAPI final project" type="button">▶ Load in
-                        DartPad</button><button class="lesson-action-button copy-code-button" data-gist-index="17"
-                        type="button">⧉ Copy Code</button><span aria-live="polite" class="code-action-status"></span>
+                <div class="dartpad-box">
+                    <div class="dartpad-heading"><strong>DartPad 18: SWAPI Character Explorer</strong><a
+                            href="https://dartpad.dev/?id=YOUR_SWAPI_GIST_ID" rel="noopener" target="_blank">Open
+                            DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame"
+                        data-dartpad-title="Flutter SWAPI final project" data-gist-index="17" loading="lazy"
+                        src="about:blank" title="Flutter SWAPI final project"></iframe>
                 </div>
                 <div class="note">
                     <strong>Possible DartPad limitation:</strong>
@@ -2981,18 +2695,23 @@ class ErrorPanel extends StatelessWidget {
             Learn With Champak · Programmer's Picnic
         </p>
     </footer>
+
     <script>
-        // Enter all public GitHub Gist IDs here. Each Gist must contain main.dart.
+        // ============================================================
+        // ENTER ALL GITHUB GIST IDs HERE, IN THE SAME SERIAL ORDER.
+        // Each Gist must contain a complete file named main.dart.
+        // Keep id: '' for lessons whose Gist has not yet been created.
+        // ============================================================
         const dartPadGists = [
             { number: 1, key: 'dart_foundations_complete_program', title: 'Dart foundations complete program', id: '84ec3d94715a3448760c34443c99b2a4' },
             { number: 2, key: 'dart_classes_complete_program', title: 'Dart classes complete program', id: 'fe4b5c8e8e942a6b2ff33c35c73251d9' },
             { number: 3, key: 'first_flutter_application', title: 'First Flutter application', id: 'ca422dacd76394a40c6d6a230fe9d035' },
             { number: 4, key: 'flutter_widgets_and_layouts', title: 'Flutter widgets and layouts', id: 'bb1f03ac8d4b1f8cfee721bf81020db1' },
             { number: 5, key: 'flutter_row_ui', title: 'Flutter Row UI', id: '934a9e0141a354eba33c24ef57ebae1f' },
-            { number: 6, key: 'flutter_column_ui', title: 'Flutter Column UI', id: '' },
-            { number: 7, key: 'flutter_container_design', title: 'Flutter Container design', id: '' },
-            { number: 8, key: 'flutter_buttons_icons_and_images', title: 'Flutter buttons icons and images', id: '' },
-            { number: 9, key: 'flutter_stack_and_positioned', title: 'Flutter Stack and Positioned', id: '' },
+            { number: 6, key: 'flutter_column_ui', title: 'Flutter Column UI', id: '2b65bb717bd01a9d67fea88bb56fe47f' },
+            { number: 7, key: 'flutter_container_design', title: 'Flutter Container design', id: '5bbe1dbe4344f76db806918de1224a2b' },
+            { number: 8, key: 'flutter_buttons_icons_and_images', title: 'Flutter buttons icons and images', id: '0d979fa50db1afb9d58e5173b18399dd' },
+            { number: 9, key: 'flutter_stack_and_positioned', title: 'Flutter Stack and Positioned', id: 'a82c4029e6cd8fe20e9214c5956992a4' },
             { number: 10, key: 'responsive_flutter_user_interface', title: 'Responsive Flutter user interface', id: '' },
             { number: 11, key: 'reusable_flutter_widgets', title: 'Reusable Flutter widgets', id: '' },
             { number: 12, key: 'flutter_stateful_counter', title: 'Flutter stateful counter', id: 'fe308b89febb2b0acf664dd7d42788ed' },
@@ -3004,167 +2723,140 @@ class ErrorPanel extends StatelessWidget {
             { number: 18, key: 'flutter_swapi_final_project', title: 'Flutter SWAPI final project', id: '' },
         ];
 
-        const viewerFrame = document.getElementById('single-dartpad-frame');
-        const viewerStatus = document.getElementById('single-dartpad-status');
-        const viewerTitle = document.getElementById('dartpad-viewer-title');
-        const viewerLink = document.getElementById('open-dartpad-separately');
-        const viewerSection = document.getElementById('dartpad-viewer');
-        const viewerTopAnchor = document.getElementById('dartpad-top-anchor');
-        const modal = document.getElementById('dartpad-modal');
-        const modalContent = document.getElementById('dartpad-modal-content');
-        const openModalButton = document.getElementById('open-dartpad-modal');
-        const closeModalButton = document.getElementById('close-dartpad-modal');
-        const modalTitle = document.getElementById('dartpad-modal-title');
-
-        function moveViewerToTop() {
-            viewerTopAnchor.insertAdjacentElement('afterend', viewerSection);
-            openModalButton.textContent = 'Open in modal';
+        function buildDartPadUrl(gistId) {
+            return (
+                'https://dartpad.dev/?id=' +
+                encodeURIComponent(gistId.trim()) +
+                '&embed=true&run=true&theme=light'
+            );
         }
 
-        function openViewerModal() {
-            modalTitle.textContent = viewerTitle.textContent;
-            modalContent.appendChild(viewerSection);
-            modal.showModal();
-            openModalButton.textContent = 'DartPad is in modal';
+        function createDartPadMessage(box, className, message) {
+            if (!box) return null;
+
+            const oldMessage = box.querySelector('.dartpad-status');
+            if (oldMessage) oldMessage.remove();
+
+            const notice = document.createElement('p');
+            notice.className = 'dartpad-status ' + className;
+            notice.textContent = message;
+            box.appendChild(notice);
+            return notice;
         }
 
-        function closeViewerModal() {
-            if (modal.open) modal.close();
-            moveViewerToTop();
-            if (!modal.open) {
-                viewerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
-        openModalButton.addEventListener('click', () => {
-            if (!modal.open) openViewerModal();
-        });
-
-        closeModalButton.addEventListener('click', closeViewerModal);
-
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) closeViewerModal();
-        });
-
-        modal.addEventListener('cancel', (event) => {
-            event.preventDefault();
-            closeViewerModal();
-        });
-
-
-        function buildDartPadUrl(gistId, embedded = true) {
-            const base = 'https://dartpad.dev/?id=' + encodeURIComponent(gistId.trim());
-            return embedded ? base + '&embed=true&run=true&theme=light' : base;
-        }
-
-        function setViewerStatus(message, type = '') {
-            viewerStatus.textContent = message;
-            viewerStatus.className = 'single-dartpad-status' + (type ? ' ' + type : '');
-        }
-
-        function getLesson(index) {
-            return Number.isInteger(index) ? dartPadGists[index] : null;
-        }
-
-        function loadLessonInDartPad(index, requestedTitle) {
-            const lesson = getLesson(index);
-
-            if (!lesson) {
-                setViewerStatus('This lesson is not linked to the Gist array.', 'error');
-                return;
-            }
-
-            const gistId = String(lesson.id || '').trim();
-            const title = requestedTitle || lesson.title || ('Lesson ' + lesson.number);
-
-            viewerTitle.textContent = 'Interactive DartPad — ' + title;
-            modalTitle.textContent = viewerTitle.textContent;
-
-            if (!modal.open) {
-                viewerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-
-            if (!gistId) {
-                viewerFrame.src = 'about:blank';
-                viewerLink.href = 'https://dartpad.dev/';
-                setViewerStatus(
-                    'No Gist ID has been entered for lesson ' + lesson.number +
-                    '. Add it to dartPadGists[' + index + '].id.',
-                    'error'
-                );
-                return;
-            }
-
-            const embeddedUrl = buildDartPadUrl(gistId, true);
-            viewerLink.href = buildDartPadUrl(gistId, false);
-            viewerFrame.title = title;
-            setViewerStatus('Loading ' + title + '…');
-
-            // Reset first so clicking the same lesson reloads it cleanly.
-            viewerFrame.src = 'about:blank';
-            window.setTimeout(() => {
-                viewerFrame.src = embeddedUrl;
-            }, 30);
-        }
-
-        async function copyLessonCode(index, button) {
-            const actionBox = button.closest('.code-actions');
-            const codeBlock = actionBox?.previousElementSibling?.matches('pre')
-                ? actionBox.previousElementSibling.querySelector('code')
-                : actionBox?.parentElement?.querySelector('pre code');
-            const status = actionBox?.querySelector('.code-action-status');
-
-            if (!codeBlock) {
-                if (status) status.textContent = 'Code not found.';
-                return;
-            }
-
-            const code = codeBlock.textContent;
+        function loadSingleDartPad(frame) {
+            const index = Number(frame.dataset.gistIndex);
+            const lesson = dartPadGists[index];
+            const box = frame.closest('.dartpad-box');
+            const headingLink = box?.querySelector('.dartpad-heading a');
 
             try {
-                await navigator.clipboard.writeText(code);
-                if (status) status.textContent = 'Copied!';
-            } catch (error) {
-                const textArea = document.createElement('textarea');
-                textArea.value = code;
-                textArea.style.position = 'fixed';
-                textArea.style.opacity = '0';
-                document.body.appendChild(textArea);
-                textArea.select();
-                const copied = document.execCommand('copy');
-                textArea.remove();
-                if (status) status.textContent = copied ? 'Copied!' : 'Copy failed.';
-            }
+                if (!Number.isInteger(index) || !lesson) {
+                    frame.remove();
+                    createDartPadMessage(
+                        box,
+                        'dartpad-error',
+                        'This DartPad could not be matched with its Gist entry.'
+                    );
+                    return;
+                }
 
-            window.setTimeout(() => {
-                if (status) status.textContent = '';
-            }, 2200);
+                const gistId = String(lesson.id || '').trim();
+
+                if (!gistId) {
+                    frame.remove();
+                    createDartPadMessage(
+                        box,
+                        'dartpad-missing',
+                        'DartPad ' + lesson.number +
+                        ' is ready. Add its Gist ID to dartPadGists[' +
+                        index + '].id.'
+                    );
+                    return;
+                }
+
+                const dartPadUrl = buildDartPadUrl(gistId);
+                const directUrl =
+                    'https://dartpad.dev/?id=' + encodeURIComponent(gistId);
+
+                if (headingLink) {
+                    headingLink.href = directUrl;
+                }
+
+                frame.title = lesson.title;
+                frame.dataset.loadState = 'loading';
+
+                const loadingMessage = createDartPadMessage(
+                    box,
+                    'dartpad-loading',
+                    'Loading DartPad ' + lesson.number + '…'
+                );
+
+                let finished = false;
+
+                const finish = (status, message) => {
+                    if (finished) return;
+                    finished = true;
+                    frame.dataset.loadState = status;
+                    if (loadingMessage) loadingMessage.remove();
+
+                    if (message) {
+                        createDartPadMessage(box, 'dartpad-error', message);
+                    }
+                };
+
+                frame.addEventListener('load', () => {
+                    finish('loaded', '');
+                }, { once: true });
+
+                frame.addEventListener('error', () => {
+                    finish(
+                        'failed',
+                        'DartPad ' + lesson.number +
+                        ' could not be loaded. Open it separately or verify this Gist ID: ' +
+                        gistId
+                    );
+                }, { once: true });
+
+                setTimeout(() => {
+                    if (!finished) {
+                        finish(
+                            'timeout',
+                            'DartPad ' + lesson.number +
+                            ' is taking too long to load. Other lessons will continue normally.'
+                        );
+                    }
+                }, 15000);
+
+                frame.src = dartPadUrl;
+            } catch (error) {
+                console.error('DartPad ' + (index + 1) + ' failed:', error);
+                frame.remove();
+                createDartPadMessage(
+                    box,
+                    'dartpad-error',
+                    'Only this DartPad failed to initialise. The remaining lessons are unaffected.'
+                );
+            }
         }
 
-        document.addEventListener('click', (event) => {
-            const loadButton = event.target.closest('.load-dartpad-button');
-            if (loadButton) {
-                const index = Number(loadButton.dataset.gistIndex);
-                loadLessonInDartPad(index, loadButton.dataset.lessonTitle);
-                return;
-            }
+        function loadDartPads() {
+            const frames = document.querySelectorAll(
+                'iframe.dartpad-frame[data-gist-index]'
+            );
 
-            const copyButton = event.target.closest('.copy-code-button');
-            if (copyButton) {
-                const index = Number(copyButton.dataset.gistIndex);
-                copyLessonCode(index, copyButton);
-            }
-        });
+            frames.forEach((frame) => {
+                // Each DartPad is deliberately isolated. An exception or loading
+                // failure here cannot stop the remaining frames from loading.
+                try {
+                    loadSingleDartPad(frame);
+                } catch (error) {
+                    console.error('Unexpected DartPad loader error:', error);
+                }
+            });
+        }
 
-        viewerFrame.addEventListener('load', () => {
-            if (viewerFrame.src !== 'about:blank') {
-                setViewerStatus('Lesson loaded. Edit the code and press Run inside DartPad.', 'success');
-            }
-        });
-
-        viewerFrame.addEventListener('error', () => {
-            setViewerStatus('This lesson could not be loaded. Check its Gist ID or use “Open separately”.', 'error');
-        });
+        document.addEventListener('DOMContentLoaded', loadDartPads);
     </script>
 </body>
 
