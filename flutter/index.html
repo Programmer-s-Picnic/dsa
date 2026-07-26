@@ -1,40 +1,19 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>Flutter Programming: Zero to Infinity | Interactive DartPad Course</title>
-
-    <meta
-        name="description"
-        content="Learn Flutter programming from zero to infinity through interactive DartPad examples. Study Dart, widgets, layouts, state, lists, forms, navigation, asynchronous programming and a final SWAPI project.">
-
-    <meta
-        name="keywords"
-        content="Flutter programming course, Flutter zero to infinity, DartPad Flutter lessons, Dart programming, Flutter widgets, Flutter API project, SWAPI Flutter app, Learn With Champak">
-
-    <meta name="author" content="Champak Roy">
-
-    <meta name="robots" content="index, follow">
-
-    <meta name="theme-color" content="#056b9f">
-
-    <meta property="og:type" content="article">
-
-    <meta
-        property="og:title"
-        content="Flutter Programming: Zero to Infinity">
-
-    <meta
-        property="og:description"
-        content="An interactive Flutter course containing embedded DartPad exercises and a final Star Wars API project.">
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Flutter Programming: Zero to Infinity | Interactive DartPad Course</title>
+<meta content="Learn Flutter programming from zero to infinity through interactive DartPad examples. Study Dart, widgets, layouts, state, lists, forms, navigation, asynchronous programming and a final SWAPI project." name="description"/>
+<meta content="Flutter programming course, Flutter zero to infinity, DartPad Flutter lessons, Dart programming, Flutter widgets, Flutter API project, SWAPI Flutter app, Learn With Champak" name="keywords"/>
+<meta content="Champak Roy" name="author"/>
+<meta content="index, follow" name="robots"/>
+<meta content="#056b9f" name="theme-color"/>
+<meta content="article" property="og:type"/>
+<meta content="Flutter Programming: Zero to Infinity" property="og:title"/>
+<meta content="An interactive Flutter course containing embedded DartPad exercises and a final Star Wars API project." property="og:description"/>
+<style>
         :root {
             --primary: #056b9f;
             --primary-dark: #034e75;
@@ -477,192 +456,187 @@
                 overflow-x: auto;
             }
         }
-    </style>
+    
+
+        .gist-setup-note {
+            width: min(1100px, 94%);
+            margin: 24px auto 0;
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            border-left: 6px solid var(--primary);
+            border-radius: 12px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .gist-setup-note h2 {
+            margin: 0 0 8px;
+            color: var(--primary-dark);
+            font-size: 1.25rem;
+        }
+
+        .gist-setup-note p {
+            margin: 0 0 8px;
+        }
+
+        .dartpad-missing {
+            margin: 0;
+            padding: 28px 18px;
+            color: #5f4500;
+            background: #fff8df;
+            border-top: 1px solid #e6bd36;
+            text-align: center;
+            font-weight: 700;
+        }
+</style>
 </head>
-
 <body>
-
-    <header class="hero">
-        <div class="hero-inner">
-
-            <span class="course-label">
+<header class="hero">
+<div class="hero-inner">
+<span class="course-label">
                 Interactive Flutter Course
             </span>
-
-            <h1>
+<h1>
                 Flutter Programming:
                 Zero to Infinity
             </h1>
-
-            <p>
+<p>
                 Begin with your first line of Dart, understand Flutter
                 widgets and state, and finish by building a real application
                 that retrieves Star Wars characters from SWAPI.
             </p>
-
-            <div class="hero-actions">
-                <a
-                    class="button button-light"
-                    href="#lesson-0">
+<div class="hero-actions">
+<a class="button button-light" href="#lesson-0">
                     Start from Zero
                 </a>
-
-                <a
-                    class="button button-outline"
-                    href="#final-project">
+<a class="button button-outline" href="#final-project">
                     View Final Project
                 </a>
-            </div>
-
-        </div>
-    </header>
-
-    <div class="layout">
-
-        <aside class="sidebar">
-
-            <h2>Course Contents</h2>
-
-            <ol>
-                <li><a href="#lesson-0">What is Flutter?</a></li>
-                <li><a href="#lesson-1">Dart Foundations</a></li>
-                <li><a href="#lesson-2">Functions and Classes</a></li>
-                <li><a href="#lesson-3">First Flutter App</a></li>
-                <li><a href="#lesson-4">Widgets and Layouts</a></li>
-                <li><a href="#lesson-5">Stateful Applications</a></li>
-                <li><a href="#lesson-6">Input and Forms</a></li>
-                <li><a href="#lesson-7">Lists and Models</a></li>
-                <li><a href="#lesson-8">Navigation</a></li>
-                <li><a href="#lesson-9">Futures and JSON</a></li>
-                <li><a href="#lesson-10">Calling an API</a></li>
-                <li><a href="#final-project">Final SWAPI Project</a></li>
-            </ol>
-
-        </aside>
-
-        <main>
-
-            <section class="progress-box">
-
-                <h2>Your Zero-to-Infinity Journey</h2>
-
-                <table class="course-map">
-                    <thead>
-                        <tr>
-                            <th>Stage</th>
-                            <th>What You Learn</th>
-                            <th>Result</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>Zero</td>
-                            <td>Dart syntax and program structure</td>
-                            <td>You can write small Dart programs.</td>
-                        </tr>
-
-                        <tr>
-                            <td>Beginner</td>
-                            <td>Flutter widgets and layouts</td>
-                            <td>You can design application screens.</td>
-                        </tr>
-
-                        <tr>
-                            <td>Intermediate</td>
-                            <td>State, forms, lists and navigation</td>
-                            <td>You can build interactive applications.</td>
-                        </tr>
-
-                        <tr>
-                            <td>Advanced</td>
-                            <td>Futures, JSON and REST APIs</td>
-                            <td>You can use live online data.</td>
-                        </tr>
-
-                        <tr>
-                            <td>Infinity</td>
-                            <td>Complete SWAPI Flutter project</td>
-                            <td>You combine everything in one application.</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </section>
-
-            <!-- LESSON 0 -->
-
-            <section class="lesson" id="lesson-0">
-
-                <h2>
-                    <span class="lesson-number">0</span>
+</div>
+</div>
+</header><section aria-labelledby="gist-setup-title" class="gist-setup-note"><h2 id="gist-setup-title">DartPad Gist Setup</h2><p>Enter or replace all GitHub Gist IDs in the dartPadGists array near the bottom of this HTML file. The page automatically loads every matching DartPad.</p><code>id: 'PASTE_GIST_ID_HERE'</code></section>
+<div class="layout">
+<aside class="sidebar">
+<h2>Course Contents</h2>
+<ol>
+<li><a href="#lesson-0">What is Flutter?</a></li>
+<li><a href="#lesson-1">Dart Foundations</a></li>
+<li><a href="#lesson-2">Functions and Classes</a></li>
+<li><a href="#lesson-3">First Flutter App</a></li>
+<li><a href="#lesson-4">Widgets and Layouts</a></li>
+<li><a href="#lesson-4a">Row UI</a></li>
+<li><a href="#lesson-4b">Column UI</a></li>
+<li><a href="#lesson-4c">Container, Padding and Margin</a></li>
+<li><a href="#lesson-4d">Buttons, Icons and Images</a></li>
+<li><a href="#lesson-4e">Stack and Positioned</a></li>
+<li><a href="#lesson-4f">Responsive UI</a></li>
+<li><a href="#lesson-4g">Reusable Widgets</a></li>
+<li><a href="#lesson-5">Stateful Applications</a></li>
+<li><a href="#lesson-6">Input and Forms</a></li>
+<li><a href="#lesson-7">Lists and Models</a></li>
+<li><a href="#lesson-8">Navigation</a></li>
+<li><a href="#lesson-9">Futures and JSON</a></li>
+<li><a href="#lesson-10">Calling an API</a></li>
+<li><a href="#final-project">Final SWAPI Project</a></li>
+</ol>
+</aside>
+<main>
+<section class="progress-box">
+<h2>Your Zero-to-Infinity Journey</h2>
+<table class="course-map">
+<thead>
+<tr>
+<th>Stage</th>
+<th>What You Learn</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zero</td>
+<td>Dart syntax and program structure</td>
+<td>You can write small Dart programs.</td>
+</tr>
+<tr>
+<td>Beginner</td>
+<td>Flutter widgets and layouts</td>
+<td>You can design application screens.</td>
+</tr>
+<tr>
+<td>Intermediate</td>
+<td>State, forms, lists and navigation</td>
+<td>You can build interactive applications.</td>
+</tr>
+<tr>
+<td>Advanced</td>
+<td>Futures, JSON and REST APIs</td>
+<td>You can use live online data.</td>
+</tr>
+<tr>
+<td>Infinity</td>
+<td>Complete SWAPI Flutter project</td>
+<td>You combine everything in one application.</td>
+</tr>
+</tbody>
+</table>
+<div class="note"><strong>DartPad setup: </strong>Every code block below is a complete <code>main.dart</code> program and has its own DartPad. Replace each <code>YOUR_..._GIST_ID</code> placeholder with the ID of a public GitHub Gist containing that exact code.</div></section>
+<!-- LESSON 0 -->
+<section class="lesson" id="lesson-0">
+<h2>
+<span class="lesson-number">0</span>
                     What Is Flutter?
                 </h2>
-
-                <div class="objectives">
-                    <strong>Learning objectives:</strong>
+<div class="objectives">
+<strong>Learning objectives:</strong>
                     understand Flutter, Dart, widgets and cross-platform
                     application development.
                 </div>
-
-                <p>
+<p>
                     Flutter is a user-interface toolkit used to create
                     applications for Android, iOS, web, Windows, macOS and
                     Linux. Flutter programs are written using the Dart
                     programming language.
                 </p>
-
-                <div class="concept-grid">
-
-                    <article class="concept-card">
-                        <h3>Dart</h3>
-                        <p>
+<div class="concept-grid">
+<article class="concept-card">
+<h3>Dart</h3>
+<p>
                             The programming language used to write the
                             application logic.
                         </p>
-                    </article>
-
-                    <article class="concept-card">
-                        <h3>Flutter</h3>
-                        <p>
+</article>
+<article class="concept-card">
+<h3>Flutter</h3>
+<p>
                             The framework that provides widgets, layouts,
                             themes and application tools.
                         </p>
-                    </article>
-
-                    <article class="concept-card">
-                        <h3>Widget</h3>
-                        <p>
+</article>
+<article class="concept-card">
+<h3>Widget</h3>
+<p>
                             A building block of the interface, such as text,
                             a button, a row or an entire screen.
                         </p>
-                    </article>
-
-                </div>
-
-                <div class="note">
-                    <strong>Remember:</strong>
+</article>
+</div>
+<div class="note">
+<strong>Remember:</strong>
                     In Flutter, almost everything displayed on the screen is
                     a widget.
                 </div>
-
-            </section>
-
-            <!-- LESSON 1 -->
-
-            <section class="lesson" id="lesson-1">
-
-                <h2>
-                    <span class="lesson-number">1</span>
+</section>
+<!-- LESSON 1 -->
+<section class="lesson" id="lesson-1">
+<h2>
+<span class="lesson-number">1</span>
                     Dart Foundations
                 </h2>
-
-                <div class="objectives">
-                    <strong>Learning objectives:</strong>
+<div class="objectives">
+<strong>Learning objectives:</strong>
                     variables, data types, operators, conditions and loops.
                 </div>
-
-                <pre><code>void main() {
+<pre><code>void main() {
   String student = 'Champak';
   int lessonsCompleted = 3;
   double score = 87.5;
@@ -672,66 +646,35 @@
   print('Lessons: $lessonsCompleted');
   print('Score: $score');
   print('Learning Flutter: $isLearningFlutter');
-}</code></pre>
-
-                <div class="dartpad-box">
-
-                    <div class="dartpad-heading">
-                        <strong>DartPad 1: Dart Foundations</strong>
-
-                        <a
-                            href="https://dartpad.dev/"
-                            target="_blank"
-                            rel="noopener">
-                            Open DartPad separately
-                        </a>
-                    </div>
-
-                    <iframe
-                        class="dartpad-frame"
-                        src="https://dartpad.dev/?id=22c753acda30ae24c7556231e10863a7&theme=light"
-                        title="Dart variables lesson"
-                        loading="lazy"
-                        allowfullscreen>
-                    </iframe>
-
-                </div>
-
-                <div class="exercise">
-                    <h3>Practice</h3>
-
-                    <ol>
-                        <li>Create variables for your name and age.</li>
-                        <li>Store marks for three subjects.</li>
-                        <li>Calculate and print the total.</li>
-                        <li>Print whether the total is greater than 150.</li>
-                    </ol>
-                </div>
-
-            </section>
-
-            <!-- LESSON 2 -->
-
-            <section class="lesson" id="lesson-2">
-
-                <h2>
-                    <span class="lesson-number">2</span>
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 1: Dart Foundations</strong><a href="https://dartpad.dev/?id=22c753acda30ae24c7556231e10863a7" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Dart foundations complete program" data-gist-index="0" loading="lazy" src="about:blank" title="Dart foundations complete program"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<ol>
+<li>Create variables for your name and age.</li>
+<li>Store marks for three subjects.</li>
+<li>Calculate and print the total.</li>
+<li>Print whether the total is greater than 150.</li>
+</ol>
+</div>
+</section>
+<!-- LESSON 2 -->
+<section class="lesson" id="lesson-2">
+<h2>
+<span class="lesson-number">2</span>
                     Functions and Classes
                 </h2>
-
-                <div class="objectives">
-                    <strong>Learning objectives:</strong>
+<div class="objectives">
+<strong>Learning objectives:</strong>
                     reusable functions, objects, constructors and methods.
                 </div>
-
-                <pre><code>class Student {
+<pre><code>class Student {
   final String name;
   final int marks;
 
   Student(this.name, this.marks);
 
   String result() {
-    return marks >= 40 ? 'Pass' : 'Fail';
+    return marks &gt;= 40 ? 'Pass' : 'Fail';
   }
 }
 
@@ -740,60 +683,29 @@ void main() {
 
   print(student.name);
   print(student.result());
-}</code></pre>
-
-                <div class="dartpad-box">
-
-                    <div class="dartpad-heading">
-                        <strong>DartPad 2: Classes and Objects</strong>
-
-                        <a
-                            href="https://dartpad.dev/"
-                            target="_blank"
-                            rel="noopener">
-                            Open DartPad separately
-                        </a>
-                    </div>
-
-                    <iframe
-                        class="dartpad-frame"
-                        src="https://dartpad.dev/?id=8f7800e0ceb3a087d60781410c885be3&theme=light"
-                        title="Dart classes lesson"
-                        loading="lazy"
-                        allowfullscreen>
-                    </iframe>
-
-                </div>
-
-                <div class="exercise">
-                    <h3>Practice</h3>
-
-                    <p>
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 2: Classes and Objects</strong><a href="https://dartpad.dev/?id=8f7800e0ceb3a087d60781410c885be3" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Dart classes complete program" data-gist-index="1" loading="lazy" src="about:blank" title="Dart classes complete program"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<p>
                         Create a <code>Book</code> class containing title,
                         author and price. Add a method that displays the book
                         information.
                     </p>
-                </div>
-
-            </section>
-
-            <!-- LESSON 3 -->
-
-            <section class="lesson" id="lesson-3">
-
-                <h2>
-                    <span class="lesson-number">3</span>
+</div>
+</section>
+<!-- LESSON 3 -->
+<section class="lesson" id="lesson-3">
+<h2>
+<span class="lesson-number">3</span>
                     Your First Flutter Application
                 </h2>
-
-                <div class="objectives">
-                    <strong>Learning objectives:</strong>
-                    <code>main()</code>, <code>runApp()</code>,
+<div class="objectives">
+<strong>Learning objectives:</strong>
+<code>main()</code>, <code>runApp()</code>,
                     <code>MaterialApp</code>, <code>Scaffold</code> and
                     <code>Text</code>.
                 </div>
-
-                <pre><code>import 'package:flutter/material.dart';
+<pre><code>import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
@@ -819,139 +731,719 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}</code></pre>
-
-                <div class="dartpad-box">
-
-                    <div class="dartpad-heading">
-                        <strong>DartPad 3: Hello Flutter</strong>
-
-                        <a
-                            href="https://dartpad.dev/?sample=counter"
-                            target="_blank"
-                            rel="noopener">
-                            Open Flutter DartPad
-                        </a>
-                    </div>
-
-                    <iframe
-                        class="dartpad-frame"
-                        src="https://dartpad.dev/?id=36af8630a15ad4dbc6fbcd56adf2d87b&theme=light"
-                        title="First Flutter application"
-                        loading="lazy"
-                        allowfullscreen>
-                    </iframe>
-
-                </div>
-
-                <div class="exercise">
-                    <h3>Practice</h3>
-
-                    <ol>
-                        <li>Change the application title.</li>
-                        <li>Display your name in the centre.</li>
-                        <li>Change the text size to 36.</li>
-                        <li>Add a background colour to the screen.</li>
-                    </ol>
-                </div>
-
-            </section>
-
-            <!-- LESSON 4 -->
-
-            <section class="lesson" id="lesson-4">
-
-                <h2>
-                    <span class="lesson-number">4</span>
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 3: Hello Flutter</strong><a href="https://dartpad.dev/?id=36af8630a15ad4dbc6fbcd56adf2d87b" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="First Flutter application" data-gist-index="2" loading="lazy" src="about:blank" title="First Flutter application"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<ol>
+<li>Change the application title.</li>
+<li>Display your name in the centre.</li>
+<li>Change the text size to 36.</li>
+<li>Add a background colour to the screen.</li>
+</ol>
+</div>
+</section>
+<!-- LESSON 4 -->
+<section class="lesson" id="lesson-4">
+<h2>
+<span class="lesson-number">4</span>
                     Widgets and Layouts
                 </h2>
-
-                <div class="objectives">
-                    <strong>Learning objectives:</strong>
-                    <code>Container</code>, <code>Row</code>,
+<div class="objectives">
+<strong>Learning objectives:</strong>
+<code>Container</code>, <code>Row</code>,
                     <code>Column</code>, <code>Padding</code>,
                     <code>Expanded</code> and <code>Card</code>.
                 </div>
+<pre><code>import 'package:flutter/material.dart';
 
-                <pre><code>body: Padding(
-  padding: const EdgeInsets.all(20),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      const Text(
-        'Flutter Course',
-        style: TextStyle(
-          fontSize: 28,
-          fontWeight: FontWeight.bold,
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Course Layout',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: const CoursePage(),
+    );
+  }
+}
+
+class CoursePage extends StatelessWidget {
+  const CoursePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Widgets and Layouts'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text(
+              'Flutter Course',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: const [
+                    Icon(
+                      Icons.flutter_dash,
+                      size: 60,
+                      color: Colors.blue,
+                    ),
+                    SizedBox(height: 12),
+                    Text(
+                      'Learn one widget at a time',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
-      const SizedBox(height: 20),
-      Card(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: const [
-              Icon(Icons.flutter_dash, size: 60),
-              Text('Learn one widget at a time'),
-            ],
-          ),
-        ),
-      ),
-    ],
-  ),
-)</code></pre>
-
-                <div class="dartpad-box">
-
-                    <div class="dartpad-heading">
-                        <strong>DartPad 4: Layout Laboratory</strong>
-
-                        <a
-                            href="https://dartpad.dev/"
-                            target="_blank"
-                            rel="noopener">
-                            Open DartPad separately
-                        </a>
-                    </div>
-
-                    <iframe
-                        class="dartpad-frame"
-                        src="https://dartpad.dev/?id=bfe52dd74faf3532c3b49b83801915b6&theme=light"
-                        title="Flutter layouts lesson"
-                        loading="lazy"
-                        allowfullscreen>
-                    </iframe>
-
-                </div>
-
-                <div class="exercise">
-                    <h3>Practice</h3>
-
-                    <p>
+    );
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 4: Widgets and Layouts</strong><a href="https://dartpad.dev/?id=bfe52dd74faf3532c3b49b83801915b6" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter widgets and layouts" data-gist-index="3" loading="lazy" src="about:blank" title="Flutter widgets and layouts"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<p>
                         Create three course cards for Dart, Flutter and API
                         Programming. Give every card an icon, heading and
                         short description.
                     </p>
+</div>
+</section>
+<!-- LESSON 4A -->
+<section class="lesson" id="lesson-4a">
+<h2>
+<span class="lesson-number">4A</span>
+                    Building a Horizontal UI with Row
+                </h2>
+<div class="objectives">
+<strong>Learning objectives:</strong>
+                    arrange widgets horizontally, control alignment and use
+                    <code>Expanded</code> to share available width.
                 </div>
+<p>
+                    A <code>Row</code> places its children from left to right.
+                    The <code>mainAxisAlignment</code> property controls the
+                    horizontal direction, while <code>crossAxisAlignment</code>
+                    controls the vertical direction.
+                </p>
+<pre><code>import 'package:flutter/material.dart';
 
-            </section>
+void main() {
+  runApp(const MyApp());
+}
 
-            <!-- LESSON 5 -->
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-            <section class="lesson" id="lesson-5">
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Row UI'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 120,
+                  color: Colors.blue,
+                  child: const Center(
+                    child: Text(
+                      'Dart',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Container(
+                  height: 120,
+                  color: Colors.teal,
+                  child: const Center(
+                    child: Text(
+                      'Flutter',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 5: Row UI</strong><a href="https://dartpad.dev/?id=YOUR_ROW_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter Row UI" data-gist-index="4" loading="lazy" src="about:blank" title="Flutter Row UI"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<ol>
+<li>Create three equal boxes in one row.</li>
+<li>Give every box a different icon and label.</li>
+<li>Change the spacing using <code>spaceEvenly</code>.</li>
+</ol>
+</div>
+</section>
+<!-- LESSON 4B -->
+<section class="lesson" id="lesson-4b">
+<h2>
+<span class="lesson-number">4B</span>
+                    Building a Vertical UI with Column
+                </h2>
+<div class="objectives">
+<strong>Learning objectives:</strong>
+                    arrange widgets vertically, add spacing and create a simple
+                    profile screen.
+                </div>
+<pre><code>import 'package:flutter/material.dart';
 
-                <h2>
-                    <span class="lesson-number">5</span>
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Column UI'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CircleAvatar(
+                radius: 48,
+                child: Icon(Icons.person, size: 52),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Champak Roy',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text('Flutter Programming Instructor'),
+              SizedBox(height: 20),
+              Text('Learn one widget at a time.'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 6: Column UI</strong><a href="https://dartpad.dev/?id=YOUR_COLUMN_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter Column UI" data-gist-index="5" loading="lazy" src="about:blank" title="Flutter Column UI"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<p>
+                        Add an email address, location and an
+                        <code>ElevatedButton</code> below the profile details.
+                    </p>
+</div>
+</section>
+<!-- LESSON 4C -->
+<section class="lesson" id="lesson-4c">
+<h2>
+<span class="lesson-number">4C</span>
+                    Container, Padding, Margin and Decoration
+                </h2>
+<div class="objectives">
+<strong>Learning objectives:</strong>
+                    control size, spacing, colour, rounded corners, borders and
+                    shadows.
+                </div>
+<pre><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.blueGrey.shade50,
+        appBar: AppBar(
+          title: const Text('Container Design'),
+        ),
+        body: Center(
+          child: Container(
+            width: 300,
+            margin: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: Colors.blue),
+              boxShadow: const [
+                BoxShadow(
+                  blurRadius: 12,
+                  spreadRadius: 2,
+                  offset: Offset(0, 6),
+                  color: Colors.black26,
+                ),
+              ],
+            ),
+            child: const Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.flutter_dash, size: 70, color: Colors.blue),
+                SizedBox(height: 14),
+                Text(
+                  'Flutter UI Card',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'Padding creates inner space. Margin creates outer space.',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 7: Container Design</strong><a href="https://dartpad.dev/?id=YOUR_CONTAINER_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter Container design" data-gist-index="6" loading="lazy" src="about:blank" title="Flutter Container design"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<p>
+                        Create a student identity card with a border, rounded
+                        corners, shadow, name, course and student number.
+                    </p>
+</div>
+</section>
+<!-- LESSON 4D -->
+<section class="lesson" id="lesson-4d">
+<h2>
+<span class="lesson-number">4D</span>
+                    Buttons, Icons and Images
+                </h2>
+<div class="objectives">
+<strong>Learning objectives:</strong>
+                    use common button types, Material icons and network images.
+                </div>
+<pre><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Buttons and Images'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.network(
+                  'https://picsum.photos/700/300',
+                  height: 180,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.play_arrow),
+                label: const Text('Start Lesson'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.bookmark_border),
+                label: const Text('Save Lesson'),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text('Read More'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 8: Buttons, Icons and Images</strong><a href="https://dartpad.dev/?id=YOUR_BUTTONS_IMAGES_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter buttons icons and images" data-gist-index="7" loading="lazy" src="about:blank" title="Flutter buttons icons and images"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<p>
+                        Add buttons for Like, Share and Download. Use a suitable
+                        icon for each button.
+                    </p>
+</div>
+</section>
+<!-- LESSON 4E -->
+<section class="lesson" id="lesson-4e">
+<h2>
+<span class="lesson-number">4E</span>
+                    Stack and Positioned Widgets
+                </h2>
+<div class="objectives">
+<strong>Learning objectives:</strong>
+                    place widgets on top of one another and create overlay
+                    badges.
+                </div>
+<pre><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Stack UI'),
+        ),
+        body: Center(
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                width: 290,
+                height: 180,
+                decoration: BoxDecoration(
+                  color: Colors.indigo,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: const Center(
+                  child: Text(
+                    'Flutter Course',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: -12,
+                right: -12,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Text(
+                    'NEW',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 9: Stack and Positioned</strong><a href="https://dartpad.dev/?id=YOUR_STACK_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter Stack and Positioned" data-gist-index="8" loading="lazy" src="about:blank" title="Flutter Stack and Positioned"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<p>
+                        Add a price badge at the bottom-left and a favourite
+                        icon at the top-left of the course card.
+                    </p>
+</div>
+</section>
+<!-- LESSON 4F -->
+<section class="lesson" id="lesson-4f">
+<h2>
+<span class="lesson-number">4F</span>
+                    Responsive UI with LayoutBuilder
+                </h2>
+<div class="objectives">
+<strong>Learning objectives:</strong>
+                    adapt a layout to narrow and wide screens using available
+                    width.
+                </div>
+<pre><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Responsive Flutter UI'),
+        ),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            final bool isWide = constraints.maxWidth &gt;= 650;
+
+            final widgets = [
+              const CourseBox(title: 'Dart', icon: Icons.code),
+              const CourseBox(title: 'Flutter', icon: Icons.flutter_dash),
+              const CourseBox(title: 'API', icon: Icons.cloud),
+            ];
+
+            return Padding(
+              padding: const EdgeInsets.all(20),
+              child: isWide
+                  ? Row(
+                      children: widgets
+                          .map(
+                            (widget) =&gt; Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: widget,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    )
+                  : Column(
+                      children: widgets
+                          .map(
+                            (widget) =&gt; Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: widget,
+                            ),
+                          )
+                          .toList(),
+                    ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class CourseBox extends StatelessWidget {
+  final String title;
+  final IconData icon;
+
+  const CourseBox({
+    super.key,
+    required this.title,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 52),
+            const SizedBox(height: 10),
+            Text(title, style: const TextStyle(fontSize: 20)),
+          ],
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 10: Responsive LayoutBuilder UI</strong><a href="https://dartpad.dev/?id=YOUR_RESPONSIVE_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Responsive Flutter user interface" data-gist-index="9" loading="lazy" src="about:blank" title="Responsive Flutter user interface"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<p>
+                        Change the breakpoint and test the program by resizing
+                        DartPad's output area.
+                    </p>
+</div>
+</section>
+<!-- LESSON 4G -->
+<section class="lesson" id="lesson-4g">
+<h2>
+<span class="lesson-number">4G</span>
+                    Creating Reusable Custom Widgets
+                </h2>
+<div class="objectives">
+<strong>Learning objectives:</strong>
+                    reduce repeated code by creating a configurable custom
+                    widget.
+                </div>
+<pre><code>import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Reusable Widgets'),
+        ),
+        body: const Padding(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              CourseTile(
+                title: 'Dart Foundations',
+                subtitle: 'Variables, functions and classes',
+                icon: Icons.code,
+              ),
+              CourseTile(
+                title: 'Flutter UI',
+                subtitle: 'Rows, columns and responsive layouts',
+                icon: Icons.flutter_dash,
+              ),
+              CourseTile(
+                title: 'REST API',
+                subtitle: 'JSON, Future and live data',
+                icon: Icons.cloud,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CourseTile extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+
+  const CourseTile({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: ListTile(
+        leading: CircleAvatar(child: Icon(icon)),
+        title: Text(title),
+        subtitle: Text(subtitle),
+        trailing: const Icon(Icons.chevron_right),
+      ),
+    );
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 11: Reusable Custom Widgets</strong><a href="https://dartpad.dev/?id=YOUR_REUSABLE_WIDGET_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Reusable Flutter widgets" data-gist-index="10" loading="lazy" src="about:blank" title="Reusable Flutter widgets"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<p>
+                        Add colour and an <code>onTap</code> callback as
+                        constructor parameters of <code>CourseTile</code>.
+                    </p>
+</div>
+</section>
+<!-- LESSON 5 -->
+<section class="lesson" id="lesson-5">
+<h2>
+<span class="lesson-number">5</span>
                     Stateful Applications
                 </h2>
-
-                <div class="objectives">
-                    <strong>Learning objectives:</strong>
+<div class="objectives">
+<strong>Learning objectives:</strong>
                     mutable data, <code>StatefulWidget</code> and
                     <code>setState()</code>.
                 </div>
+<pre><code>import 'package:flutter/material.dart';
 
-                <pre><code>class CounterPage extends StatefulWidget {
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Counter',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: const CounterPage(),
+    );
+  }
+}
+
+class CounterPage extends StatefulWidget {
   const CounterPage({super.key});
 
   @override
@@ -967,342 +1459,605 @@ class _CounterPageState extends State&lt;CounterPage&gt; {
     });
   }
 
+  void decrease() {
+    if (count &gt; 0) {
+      setState(() {
+        count--;
+      });
+    }
+  }
+
+  void reset() {
+    setState(() {
+      count = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Stateful Counter'),
+      ),
       body: Center(
-        child: Text(
-          '$count',
-          style: const TextStyle(fontSize: 50),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Current count'),
+            Text(
+              '$count',
+              style: const TextStyle(
+                fontSize: 56,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Wrap(
+              spacing: 12,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: decrease,
+                  icon: const Icon(Icons.remove),
+                  label: const Text('Decrease'),
+                ),
+                ElevatedButton.icon(
+                  onPressed: reset,
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Reset'),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: increase,
+        tooltip: 'Increase',
         child: const Icon(Icons.add),
       ),
     );
   }
-}</code></pre>
-
-                <div class="dartpad-box">
-
-                    <div class="dartpad-heading">
-                        <strong>DartPad 5: Stateful Counter</strong>
-
-                        <a
-                            href="https://dartpad.dev/?sample=counter"
-                            target="_blank"
-                            rel="noopener">
-                            Open Counter Example
-                        </a>
-                    </div>
-
-                    <iframe
-                        class="dartpad-frame"
-                        src="https://dartpad.dev/?id=fe308b89febb2b0acf664dd7d42788ed&theme=light"
-                        title="Flutter state lesson"
-                        loading="lazy"
-                        allowfullscreen>
-                    </iframe>
-
-                </div>
-
-                <div class="exercise">
-                    <h3>Practice</h3>
-
-                    <ol>
-                        <li>Add a decrease button.</li>
-                        <li>Add a reset button.</li>
-                        <li>Prevent the counter from becoming negative.</li>
-                    </ol>
-                </div>
-
-            </section>
-
-            <!-- LESSON 6 -->
-
-            <section class="lesson" id="lesson-6">
-
-                <h2>
-                    <span class="lesson-number">6</span>
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 12: Stateful Counter</strong><a href="https://dartpad.dev/?id=fe308b89febb2b0acf664dd7d42788ed" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter stateful counter" data-gist-index="11" loading="lazy" src="about:blank" title="Flutter stateful counter"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<ol>
+<li>Add a decrease button.</li>
+<li>Add a reset button.</li>
+<li>Prevent the counter from becoming negative.</li>
+</ol>
+</div>
+</section>
+<!-- LESSON 6 -->
+<section class="lesson" id="lesson-6">
+<h2>
+<span class="lesson-number">6</span>
                     Text Input and Forms
                 </h2>
-
-                <div class="objectives">
-                    <strong>Learning objectives:</strong>
+<div class="objectives">
+<strong>Learning objectives:</strong>
                     text controllers, text fields, buttons and validation.
                 </div>
+<pre><code>import 'package:flutter/material.dart';
 
-                <pre><code>final nameController = TextEditingController();
+void main() {
+  runApp(const MyApp());
+}
 
-TextField(
-  controller: nameController,
-  decoration: const InputDecoration(
-    labelText: 'Enter your name',
-    border: OutlineInputBorder(),
-  ),
-),
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-ElevatedButton(
-  onPressed: () {
-    setState(() {
-      message = 'Welcome ${nameController.text}';
-    });
-  },
-  child: const Text('Submit'),
-)</code></pre>
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Student Form',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: const StudentFormPage(),
+    );
+  }
+}
 
-                <div class="exercise">
-                    <h3>Practice</h3>
+class StudentFormPage extends StatefulWidget {
+  const StudentFormPage({super.key});
 
-                    <p>
+  @override
+  State&lt;StudentFormPage&gt; createState() =&gt; _StudentFormPageState();
+}
+
+class _StudentFormPageState extends State&lt;StudentFormPage&gt; {
+  final formKey = GlobalKey&lt;FormState&gt;();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  String message = 'Complete the form below.';
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
+
+  void submitForm() {
+    if (formKey.currentState!.validate()) {
+      setState(() {
+        message =
+            'Welcome ${nameController.text}! Your email is ${emailController.text}.';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Text Input and Forms')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextFormField(
+                controller: nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  prefixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter your name.';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  prefixIcon: Icon(Icons.email),
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || !value.contains('@')) {
+                    return 'Please enter a valid email.';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: submitForm,
+                child: const Text('Submit'),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 18),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 13: Text Input and Forms</strong><a href="https://dartpad.dev/?id=YOUR_FORM_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter form and validation" data-gist-index="12" loading="lazy" src="about:blank" title="Flutter form and validation"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<p>
                         Build a student form containing name, email and course.
                         Display the entered information after the user presses
                         Submit.
                     </p>
-                </div>
-
-            </section>
-
-            <!-- LESSON 7 -->
-
-            <section class="lesson" id="lesson-7">
-
-                <h2>
-                    <span class="lesson-number">7</span>
+</div>
+</section>
+<!-- LESSON 7 -->
+<section class="lesson" id="lesson-7">
+<h2>
+<span class="lesson-number">7</span>
                     Lists and Data Models
                 </h2>
-
-                <div class="objectives">
-                    <strong>Learning objectives:</strong>
+<div class="objectives">
+<strong>Learning objectives:</strong>
                     lists, model classes, <code>ListView.builder()</code>
                     and reusable cards.
                 </div>
+<pre><code>import 'package:flutter/material.dart';
 
-                <pre><code>final courses = [
-  'Dart Foundations',
-  'Flutter Widgets',
-  'State Management',
-  'REST API Programming',
-];
+void main() {
+  runApp(const MyApp());
+}
 
-ListView.builder(
-  itemCount: courses.length,
-  itemBuilder: (context, index) {
-    return Card(
-      child: ListTile(
-        leading: const Icon(Icons.code),
-        title: Text(courses[index]),
-        trailing: const Icon(Icons.arrow_forward),
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Course List',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: const CourseListPage(),
+    );
+  }
+}
+
+class Course {
+  final String title;
+  final String duration;
+  final IconData icon;
+
+  const Course({
+    required this.title,
+    required this.duration,
+    required this.icon,
+  });
+}
+
+class CourseListPage extends StatelessWidget {
+  const CourseListPage({super.key});
+
+  static const courses = [
+    Course(
+      title: 'Dart Foundations',
+      duration: '4 lessons',
+      icon: Icons.code,
+    ),
+    Course(
+      title: 'Flutter Widgets',
+      duration: '6 lessons',
+      icon: Icons.widgets,
+    ),
+    Course(
+      title: 'State Management',
+      duration: '5 lessons',
+      icon: Icons.sync,
+    ),
+    Course(
+      title: 'REST API Programming',
+      duration: '7 lessons',
+      icon: Icons.cloud,
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Lists and Data Models')),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(12),
+        itemCount: courses.length,
+        itemBuilder: (context, index) {
+          final course = courses[index];
+          return Card(
+            child: ListTile(
+              leading: CircleAvatar(child: Icon(course.icon)),
+              title: Text(course.title),
+              subtitle: Text(course.duration),
+              trailing: const Icon(Icons.arrow_forward),
+            ),
+          );
+        },
       ),
     );
-  },
-)</code></pre>
-
-                <div class="dartpad-box">
-
-                    <div class="dartpad-heading">
-                        <strong>DartPad 6: Dynamic Course List</strong>
-
-                        <a
-                            href="https://dartpad.dev/"
-                            target="_blank"
-                            rel="noopener">
-                            Open DartPad separately
-                        </a>
-                    </div>
-
-                    <iframe
-                        class="dartpad-frame"
-                        src="https://dartpad.dev/?id=cef5278d0f80363e84b4cd84ede0d76a&theme=light"
-                        title="Flutter dynamic list lesson"
-                        loading="lazy"
-                        allowfullscreen>
-                    </iframe>
-
-                </div>
-
-                <div class="exercise">
-                    <h3>Practice</h3>
-
-                    <p>
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 14: Lists and Models</strong><a href="https://dartpad.dev/?id=cef5278d0f80363e84b4cd84ede0d76a" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter lists and models" data-gist-index="13" loading="lazy" src="about:blank" title="Flutter lists and models"></iframe></div>
+<div class="exercise">
+<h3>Practice</h3>
+<p>
                         Convert the list of strings into a list of
                         <code>Course</code> objects containing title,
                         duration and difficulty level.
                     </p>
-                </div>
-
-            </section>
-
-            <!-- LESSON 8 -->
-
-            <section class="lesson" id="lesson-8">
-
-                <h2>
-                    <span class="lesson-number">8</span>
+</div>
+</section>
+<!-- LESSON 8 -->
+<section class="lesson" id="lesson-8">
+<h2>
+<span class="lesson-number">8</span>
                     Navigation Between Screens
                 </h2>
-
-                <div class="objectives">
-                    <strong>Learning objectives:</strong>
+<div class="objectives">
+<strong>Learning objectives:</strong>
                     routes, screens, <code>Navigator.push()</code> and
                     passing data.
                 </div>
+<pre><code>import 'package:flutter/material.dart';
 
-                <pre><code>Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) {
-      return const DetailsPage();
-    },
-  ),
-);</code></pre>
+void main() {
+  runApp(const MyApp());
+}
 
-                <p>
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Navigation',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: const HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    const lessonTitle = 'Navigation Between Screens';
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Home Page')),
+      body: Center(
+        child: ElevatedButton.icon(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =&gt; const DetailsPage(
+                  lessonTitle: lessonTitle,
+                ),
+              ),
+            );
+          },
+          icon: const Icon(Icons.open_in_new),
+          label: const Text('Open Lesson Details'),
+        ),
+      ),
+    );
+  }
+}
+
+class DetailsPage extends StatelessWidget {
+  final String lessonTitle;
+
+  const DetailsPage({
+    super.key,
+    required this.lessonTitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Details Page')),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(
+            'You opened: $lessonTitle',
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 26),
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 15: Navigation</strong><a href="https://dartpad.dev/?id=YOUR_NAVIGATION_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter navigation between screens" data-gist-index="14" loading="lazy" src="about:blank" title="Flutter navigation between screens"></iframe></div>
+<p>
                     A real application normally contains several screens.
                     For example, the SWAPI project will have a character list
                     screen and a character details screen.
                 </p>
-
-                <div class="exercise">
-                    <h3>Practice</h3>
-
-                    <p>
+<div class="exercise">
+<h3>Practice</h3>
+<p>
                         Create a home screen and a lesson details screen.
                         Pass the lesson title from the first screen to the
                         second screen.
                     </p>
-                </div>
-
-            </section>
-
-            <!-- LESSON 9 -->
-
-            <section class="lesson" id="lesson-9">
-
-                <h2>
-                    <span class="lesson-number">9</span>
+</div>
+</section>
+<!-- LESSON 9 -->
+<section class="lesson" id="lesson-9">
+<h2>
+<span class="lesson-number">9</span>
                     Futures, Asynchronous Programming and JSON
                 </h2>
-
-                <div class="objectives">
-                    <strong>Learning objectives:</strong>
-                    <code>Future</code>, <code>async</code>,
+<div class="objectives">
+<strong>Learning objectives:</strong>
+<code>Future</code>, <code>async</code>,
                     <code>await</code>, JSON decoding and error handling.
                 </div>
-
-                <pre><code>Future&lt;String&gt; loadLesson() async {
-  await Future.delayed(
-    const Duration(seconds: 2),
-  );
-
-  return 'Flutter lesson loaded';
+<pre><code>Future&lt;String&gt; loadLesson() async {
+  await Future.delayed(const Duration(seconds: 2));
+  return 'Flutter lesson loaded successfully.';
 }
 
-Future&lt;void&gt; showLesson() async {
-  String message = await loadLesson();
-  print(message);
-}</code></pre>
+Future&lt;void&gt; main() async {
+  print('Loading lesson...');
 
-                <p>
+  try {
+    final message = await loadLesson();
+    print(message);
+  } catch (error) {
+    print('Error: $error');
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 16: Futures and Async</strong><a href="https://dartpad.dev/?id=YOUR_FUTURES_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Dart futures async and await" data-gist-index="15" loading="lazy" src="about:blank" title="Dart futures async and await"></iframe></div>
+<p>
                     An API request does not normally finish immediately.
                     Flutter therefore represents the future result using a
                     <code>Future</code>.
                 </p>
-
-                <div class="concept-grid">
-
-                    <article class="concept-card">
-                        <h3>Future</h3>
-                        <p>A value that will become available later.</p>
-                    </article>
-
-                    <article class="concept-card">
-                        <h3>async</h3>
-                        <p>Marks a function as asynchronous.</p>
-                    </article>
-
-                    <article class="concept-card">
-                        <h3>await</h3>
-                        <p>Waits for an asynchronous operation to finish.</p>
-                    </article>
-
-                    <article class="concept-card">
-                        <h3>JSON</h3>
-                        <p>A text format commonly returned by web APIs.</p>
-                    </article>
-
-                </div>
-
-            </section>
-
-            <!-- LESSON 10 -->
-
-            <section class="lesson" id="lesson-10">
-
-                <h2>
-                    <span class="lesson-number">10</span>
+<div class="concept-grid">
+<article class="concept-card">
+<h3>Future</h3>
+<p>A value that will become available later.</p>
+</article>
+<article class="concept-card">
+<h3>async</h3>
+<p>Marks a function as asynchronous.</p>
+</article>
+<article class="concept-card">
+<h3>await</h3>
+<p>Waits for an asynchronous operation to finish.</p>
+</article>
+<article class="concept-card">
+<h3>JSON</h3>
+<p>A text format commonly returned by web APIs.</p>
+</article>
+</div>
+</section>
+<!-- LESSON 10 -->
+<section class="lesson" id="lesson-10">
+<h2>
+<span class="lesson-number">10</span>
                     Calling a REST API
                 </h2>
-
-                <div class="objectives">
-                    <strong>Learning objectives:</strong>
+<div class="objectives">
+<strong>Learning objectives:</strong>
                     HTTP requests, response codes, JSON conversion, loading
                     states and failure states.
                 </div>
-
-                <p>
+<p>
                     A REST API allows an application to request data from a
                     server. Our final application requests Star Wars character
                     data from SWAPI.
                 </p>
+<pre><code>import 'dart:convert';
 
-                <pre><code>import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future&lt;List&lt;dynamic&gt;&gt; fetchCharacters() async {
-  final response = await http.get(
-    Uri.parse('https://swapi.dev/api/people/'),
-  );
+void main() {
+  runApp(const ApiLessonApp());
+}
 
-  if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
-    return data['results'];
+class ApiLessonApp extends StatelessWidget {
+  const ApiLessonApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'SWAPI Request',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: const ApiLessonPage(),
+    );
+  }
+}
+
+class ApiLessonPage extends StatefulWidget {
+  const ApiLessonPage({super.key});
+
+  @override
+  State&lt;ApiLessonPage&gt; createState() =&gt; _ApiLessonPageState();
+}
+
+class _ApiLessonPageState extends State&lt;ApiLessonPage&gt; {
+  late Future&lt;List&lt;String&gt;&gt; characterNames;
+
+  @override
+  void initState() {
+    super.initState();
+    characterNames = fetchCharacters();
   }
 
-  throw Exception('Unable to load characters');
-}</code></pre>
+  Future&lt;List&lt;String&gt;&gt; fetchCharacters() async {
+    final response = await http.get(
+      Uri.parse('https://swapi.dev/api/people/'),
+    );
 
-                <div class="note">
+    if (response.statusCode != 200) {
+      throw Exception('Unable to load characters.');
+    }
+
+    final Map&lt;String, dynamic&gt; data = jsonDecode(response.body);
+    final List&lt;dynamic&gt; results = data['results'] ?? [];
+
+    return results
+        .map((character) =&gt; character['name'].toString())
+        .toList();
+  }
+
+  void reload() {
+    setState(() {
+      characterNames = fetchCharacters();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Calling a REST API'),
+        actions: [
+          IconButton(
+            onPressed: reload,
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
+      ),
+      body: FutureBuilder&lt;List&lt;String&gt;&gt;(
+        future: characterNames,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (snapshot.hasError) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text('Error: ${snapshot.error}'),
+              ),
+            );
+          }
+
+          final names = snapshot.data ?? [];
+          return ListView.builder(
+            itemCount: names.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: const Icon(Icons.person),
+                title: Text(names[index]),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 17: REST API Request</strong><a href="https://dartpad.dev/?id=YOUR_API_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter REST API request" data-gist-index="16" loading="lazy" src="about:blank" title="Flutter REST API request"></iframe></div>
+<div class="note">
                     DartPad supports Flutter and selected packages only.
                     When a package is unavailable in DartPad, run the project
                     locally after adding the package to
                     <code>pubspec.yaml</code>.
                 </div>
-
-            </section>
-
-            <!-- FINAL PROJECT -->
-
-            <section class="final-project" id="final-project">
-
-                <span class="final-project-badge">
+</section>
+<!-- FINAL PROJECT -->
+<section class="final-project" id="final-project">
+<span class="final-project-badge">
                     Infinity Project
                 </span>
-
-                <h2>
+<h2>
                     Flutter SWAPI Character Explorer
                 </h2>
-
-                <p>
+<p>
                     This project combines widgets, classes, state, lists,
                     asynchronous programming, JSON parsing, HTTP requests,
                     loading indicators, error handling and search.
                 </p>
-
-                <h3>Complete Flutter Program</h3>
-
-                <pre><code>import 'dart:convert';
+<h3>Complete Flutter Program</h3>
+<pre><code>import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -1720,121 +2475,144 @@ class ErrorPanel extends StatelessWidget {
       ),
     );
   }
-}</code></pre>
-
-                <div class="dartpad-box">
-
-                    <div class="dartpad-heading">
-                        <strong>
-                            Final DartPad: SWAPI Character Explorer
-                        </strong>
-
-                        <a
-                            href="https://dartpad.dev/"
-                            target="_blank"
-                            rel="noopener">
-                            Open DartPad separately
-                        </a>
-                    </div>
-
-                    <iframe
-                        class="dartpad-frame"
-                        src="https://dartpad.dev/?id=YOUR_SWAPI_GIST_ID&theme=light"
-                        title="Flutter SWAPI final project"
-                        loading="lazy"
-                        allowfullscreen>
-                    </iframe>
-
-                </div>
-
-                <div class="note">
-                    <strong>Possible DartPad limitation:</strong>
+}</code></pre><div class="dartpad-box"><div class="dartpad-heading"><strong>DartPad 18: SWAPI Character Explorer</strong><a href="https://dartpad.dev/?id=YOUR_SWAPI_GIST_ID" rel="noopener" target="_blank">Open DartPad separately</a></div><iframe allowfullscreen="" class="dartpad-frame" data-dartpad-title="Flutter SWAPI final project" data-gist-index="17" loading="lazy" src="about:blank" title="Flutter SWAPI final project"></iframe></div>
+<div class="note">
+<strong>Possible DartPad limitation:</strong>
                     if the final example cannot import
                     <code>package:http</code> in the available DartPad
                     environment, run it as a normal Flutter project and add
                     the HTTP package with
                     <code>flutter pub add http</code>.
                 </div>
-
-                <div class="exercise">
-
-                    <h3>Infinity Challenges</h3>
-
-                    <ol>
-                        <li>Load the next SWAPI results page.</li>
-                        <li>Add filters for gender and eye colour.</li>
-                        <li>Display planets and starships.</li>
-                        <li>Add favourite characters.</li>
-                        <li>Store favourites locally.</li>
-                        <li>Add light and dark themes.</li>
-                        <li>Add pagination or infinite scrolling.</li>
-                        <li>Create a separate service and model file.</li>
-                        <li>Add unit and widget tests.</li>
-                        <li>Deploy the application as Flutter Web.</li>
-                    </ol>
-
-                </div>
-
-                <div class="checklist">
-
-                    <h3>Course Completion Checklist</h3>
-
-                    <label>
-                        <input type="checkbox">
+<div class="exercise">
+<h3>Infinity Challenges</h3>
+<ol>
+<li>Load the next SWAPI results page.</li>
+<li>Add filters for gender and eye colour.</li>
+<li>Display planets and starships.</li>
+<li>Add favourite characters.</li>
+<li>Store favourites locally.</li>
+<li>Add light and dark themes.</li>
+<li>Add pagination or infinite scrolling.</li>
+<li>Create a separate service and model file.</li>
+<li>Add unit and widget tests.</li>
+<li>Deploy the application as Flutter Web.</li>
+</ol>
+</div>
+<div class="checklist">
+<h3>Course Completion Checklist</h3>
+<label>
+<input type="checkbox"/>
                         I understand basic Dart syntax.
                     </label>
-
-                    <label>
-                        <input type="checkbox">
+<label>
+<input type="checkbox"/>
                         I can create stateless and stateful widgets.
                     </label>
-
-                    <label>
-                        <input type="checkbox">
+<label>
+<input type="checkbox"/>
                         I can build rows, columns, cards and lists.
                     </label>
-
-                    <label>
-                        <input type="checkbox">
+<label>
+<input type="checkbox"/>
                         I can accept and validate user input.
                     </label>
-
-                    <label>
-                        <input type="checkbox">
+<label>
+<input type="checkbox"/>
                         I can navigate between Flutter screens.
                     </label>
-
-                    <label>
-                        <input type="checkbox">
+<label>
+<input type="checkbox"/>
                         I understand futures, async and await.
                     </label>
-
-                    <label>
-                        <input type="checkbox">
+<label>
+<input type="checkbox"/>
                         I can decode JSON received from an API.
                     </label>
-
-                    <label>
-                        <input type="checkbox">
+<label>
+<input type="checkbox"/>
                         I completed the SWAPI project.
                     </label>
-
-                </div>
-
-            </section>
-
-        </main>
-
-    </div>
-
-    <footer>
-        <strong>Flutter Programming: Zero to Infinity</strong>
-
-        <p>
+</div>
+</section>
+</main>
+</div>
+<footer>
+<strong>Flutter Programming: Zero to Infinity</strong>
+<p>
             Learn With Champak · Programmer's Picnic
         </p>
-    </footer>
+</footer>
 
+<script>
+        // ============================================================
+        // ENTER ALL GITHUB GIST IDs HERE, IN THE SAME SERIAL ORDER.
+        // Each Gist must contain a complete file named main.dart.
+        // Keep id: '' for lessons whose Gist has not yet been created.
+        // ============================================================
+        const dartPadGists = [
+            { number: 1, key: 'dart_foundations_complete_program', title: 'Dart foundations complete program', id: '84ec3d94715a3448760c34443c99b2a4' },
+            { number: 2, key: 'dart_classes_complete_program', title: 'Dart classes complete program', id: 'fe4b5c8e8e942a6b2ff33c35c73251d9' },
+            { number: 3, key: 'first_flutter_application', title: 'First Flutter application', id: 'ca422dacd76394a40c6d6a230fe9d035' },
+            { number: 4, key: 'flutter_widgets_and_layouts', title: 'Flutter widgets and layouts', id: 'bfe52dd74faf3532c3b49b83801915b6' },
+            { number: 5, key: 'flutter_row_ui', title: 'Flutter Row UI', id: '' },
+            { number: 6, key: 'flutter_column_ui', title: 'Flutter Column UI', id: '' },
+            { number: 7, key: 'flutter_container_design', title: 'Flutter Container design', id: '' },
+            { number: 8, key: 'flutter_buttons_icons_and_images', title: 'Flutter buttons icons and images', id: '' },
+            { number: 9, key: 'flutter_stack_and_positioned', title: 'Flutter Stack and Positioned', id: '' },
+            { number: 10, key: 'responsive_flutter_user_interface', title: 'Responsive Flutter user interface', id: '' },
+            { number: 11, key: 'reusable_flutter_widgets', title: 'Reusable Flutter widgets', id: '' },
+            { number: 12, key: 'flutter_stateful_counter', title: 'Flutter stateful counter', id: 'fe308b89febb2b0acf664dd7d42788ed' },
+            { number: 13, key: 'flutter_form_and_validation', title: 'Flutter form and validation', id: '' },
+            { number: 14, key: 'flutter_lists_and_models', title: 'Flutter lists and models', id: 'cef5278d0f80363e84b4cd84ede0d76a' },
+            { number: 15, key: 'flutter_navigation_between_screens', title: 'Flutter navigation between screens', id: '' },
+            { number: 16, key: 'dart_futures_async_and_await', title: 'Dart futures async and await', id: '' },
+            { number: 17, key: 'flutter_rest_api_request', title: 'Flutter REST API request', id: '' },
+            { number: 18, key: 'flutter_swapi_final_project', title: 'Flutter SWAPI final project', id: '' },
+        ];
+
+        function buildDartPadUrl(gistId) {
+            return (
+                'https://dartpad.dev/?id=' +
+                encodeURIComponent(gistId.trim()) +
+                '&embed=true&run=true&theme=light'
+            );
+        }
+
+        function loadDartPads() {
+            const frames = document.querySelectorAll(
+                'iframe.dartpad-frame[data-gist-index]'
+            );
+
+            frames.forEach((frame) => {
+                const index = Number(frame.dataset.gistIndex);
+                const lesson = dartPadGists[index];
+                const box = frame.closest('.dartpad-box');
+
+                if (!lesson || !lesson.id.trim()) {
+                    frame.remove();
+
+                    const notice = document.createElement('p');
+                    notice.className = 'dartpad-missing';
+                    notice.textContent =
+                        'DartPad ' +
+                        (index + 1) +
+                        ' is ready. Add its Gist ID to dartPadGists[' +
+                        index +
+                        '].id.';
+
+                    if (box) {
+                        box.appendChild(notice);
+                    }
+                    return;
+                }
+
+                frame.src = buildDartPadUrl(lesson.id);
+                frame.title = lesson.title;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadDartPads);
+    </script>
 </body>
-
 </html>
