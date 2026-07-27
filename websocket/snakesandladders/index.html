@@ -7,23 +7,28 @@
   <title>Snakes and Ladders Multiplayer | Programmer's Picnic by Champak Roy</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="description"
-    content="Play a multiplayer Snakes and Ladders game using a Cloudflare Durable Object WebSocket chat server. Includes fullscreen mode, computer player, spectators, dramatic snake and ladder effects, drawn board graphics, and Power Points." />
+    content="Play a multiplayer Snakes and Ladders game using a Cloudflare Durable Object WebSocket server. Includes Student View, Player View, fullscreen mode, computer player, spectators, dramatic effects, and Power Points." />
+
   <meta name="keywords"
-    content="Snakes and Ladders, Cloudflare Durable Objects, WebSocket game, JavaScript game, multiplayer game, Power Points, Champak Roy, Programmer's Picnic" />
+    content="Snakes and Ladders, multiplayer game, educational game, Student View, Player View, Cloudflare Durable Objects, WebSocket game, JavaScript game, Power Points, Champak Roy, Programmer's Picnic" />
+
   <meta name="author" content="Champak Roy" />
   <meta name="theme-color" content="#f59e0b" />
 
   <meta property="og:title" content="Snakes and Ladders Multiplayer with Power Points" />
+
   <meta property="og:description"
-    content="A WebSocket-based Snakes and Ladders game with computer player, fullscreen mode, spectator mode, dramatic game effects, and 6 Power Points per player." />
+    content="A WebSocket-based Snakes and Ladders game with separate Student and Player views, computer player, fullscreen mode, spectator mode, dramatic effects, and Power Points." />
+
   <meta property="og:type" content="website" />
 
   <!-- Google AdSense -->
   <script async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"
     crossorigin="anonymous">
-    </script>
+  </script>
 
   <style>
     :root {
@@ -48,16 +53,21 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
+      padding: 14px;
+      overflow-x: hidden;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
       background:
         radial-gradient(circle at top left, #ffedd5 0, transparent 34%),
         radial-gradient(circle at bottom right, #fde68a 0, transparent 30%),
         linear-gradient(135deg, var(--bg), var(--bg2));
-      color: var(--text);
-      padding: 14px;
     }
 
     .wrap {
@@ -66,16 +76,16 @@
     }
 
     .hero {
-      background:
-        radial-gradient(circle at 18% 20%, rgba(255, 255, 255, .28), transparent 22%),
-        linear-gradient(135deg, #f59e0b, #fb923c 54%, #ea580c);
-      color: white;
-      border-radius: 28px;
-      padding: 22px;
-      box-shadow: var(--shadow);
-      margin-bottom: 12px;
       position: relative;
       overflow: hidden;
+      margin-bottom: 12px;
+      padding: 22px;
+      color: white;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      background:
+        radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.28), transparent 22%),
+        linear-gradient(135deg, #f59e0b, #fb923c 54%, #ea580c);
     }
 
     .hero::after {
@@ -83,36 +93,97 @@
       position: absolute;
       right: 22px;
       bottom: 4px;
-      font-size: clamp(54px, 9vw, 120px);
       opacity: 0.22;
+      font-size: clamp(54px, 9vw, 120px);
       transform: rotate(-8deg);
     }
 
     .hero h1 {
+      position: relative;
+      z-index: 1;
       margin: 0 0 8px;
       font-size: clamp(30px, 5vw, 58px);
       line-height: 1;
       letter-spacing: -0.055em;
-      position: relative;
-      z-index: 1;
     }
 
     .hero p {
-      margin: 0;
-      font-size: 16px;
-      opacity: 0.96;
       position: relative;
       z-index: 1;
+      max-width: 800px;
+      margin: 0;
+      opacity: 0.96;
+      font-size: 16px;
+    }
+
+    .view-switcher {
+      position: sticky;
+      top: 8px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 12px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 12px 30px rgba(120, 53, 15, 0.12);
+    }
+
+    .view-switcher > div:first-child {
+      min-width: 0;
+    }
+
+    .view-switcher strong {
+      display: block;
+      color: #7c2d12;
+      font-size: 15px;
+    }
+
+    .view-switcher small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .view-switcher-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .view-button {
+      background: #fff7ed;
+      color: #9a3412;
+      border: 1px solid #fdba74;
+      box-shadow: none;
+    }
+
+    .view-button:hover {
+      background: #ffedd5;
+    }
+
+    .view-button.active {
+      color: #fef3c7;
+      border-color: #111827;
+      background: #111827;
+      box-shadow: 0 8px 18px rgba(17, 24, 39, 0.18);
     }
 
     .ad-wrap {
+      min-height: 90px;
       margin: 12px 0;
       padding: 10px;
+      color: var(--muted);
       border: 1px dashed #fdba74;
       border-radius: 22px;
       background: rgba(255, 255, 255, 0.65);
       text-align: center;
-      color: var(--muted);
       font-size: 13px;
     }
 
@@ -124,50 +195,56 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.94);
+      margin-bottom: 14px;
+      padding: 16px;
       border: 1px solid var(--line);
       border-radius: 24px;
-      padding: 16px;
+      background: rgba(255, 255, 255, 0.94);
       box-shadow: var(--shadow);
-      margin-bottom: 14px;
     }
 
     .sidebar {
       position: sticky;
-      top: 10px;
-      max-height: calc(100vh - 20px);
+      top: 84px;
+      max-height: calc(100vh - 94px);
       overflow: auto;
       scrollbar-width: thin;
     }
 
     h2 {
-      color: #9a3412;
       margin: 0 0 10px;
+      color: #9a3412;
       letter-spacing: -0.03em;
       font-size: 20px;
     }
 
     label {
       display: block;
-      font-weight: 900;
-      color: #7c2d12;
       margin: 10px 0 6px;
+      color: #7c2d12;
+      font-weight: 900;
     }
 
     input {
       width: 100%;
+      padding: 11px 12px;
+      color: var(--text);
       border: 1px solid #fdba74;
       border-radius: 14px;
-      padding: 11px 12px;
-      font: inherit;
       outline: none;
       background: white;
-      color: var(--text);
+      font: inherit;
     }
 
     input:focus {
       border-color: var(--saffron-dark);
       box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
+    }
+
+    input:disabled {
+      color: #6b7280;
+      background: #f9fafb;
+      cursor: not-allowed;
     }
 
     .role-options {
@@ -183,10 +260,10 @@
       width: 100%;
       margin: 0;
       padding: 10px 12px;
+      color: #7c2d12;
       border: 1px solid #fdba74;
       border-radius: 15px;
       background: white;
-      color: #7c2d12;
       font-weight: 900;
       cursor: pointer;
     }
@@ -198,8 +275,8 @@
     }
 
     .role-option:has(input:checked) {
-      background: #ffedd5;
       border-color: var(--saffron-dark);
+      background: #ffedd5;
       box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.12);
     }
 
@@ -210,37 +287,37 @@
     .coin-position {
       margin-left: auto;
       padding: 4px 9px;
+      color: #fef3c7;
       border-radius: 999px;
       background: #111827;
-      color: #fef3c7;
+      white-space: nowrap;
       font-size: 12px;
       font-weight: 1000;
-      white-space: nowrap;
     }
 
     .role-option:has(input[value="P1"]) .coin-position {
-      background: var(--blue);
       color: white;
+      background: var(--blue);
     }
 
     .role-option:has(input[value="P2"]) .coin-position {
-      background: var(--saffron-dark);
       color: white;
+      background: var(--saffron-dark);
     }
 
     .role-option:has(input[value="P3"]) .coin-position {
-      background: var(--green);
       color: white;
+      background: var(--green);
     }
 
     .role-option:has(input[value="P4"]) .coin-position {
-      background: var(--purple);
       color: white;
+      background: var(--purple);
     }
 
     .role-option:has(input[value="spectator"]) .coin-position {
-      background: #6b7280;
       color: white;
+      background: #6b7280;
     }
 
     .row {
@@ -251,24 +328,25 @@
     }
 
     button {
+      padding: 10px 14px;
+      color: white;
       border: 0;
       border-radius: 999px;
-      padding: 10px 14px;
+      background: var(--saffron);
+      box-shadow: 0 8px 18px rgba(217, 119, 6, 0.2);
+      font: inherit;
       font-weight: 900;
       cursor: pointer;
-      background: var(--saffron);
-      color: white;
-      box-shadow: 0 8px 18px rgba(217, 119, 6, 0.2);
     }
 
-    button:hover {
+    button:hover:not(:disabled) {
       background: var(--saffron-dark);
     }
 
     button.secondary {
-      background: #fff7ed;
       color: #9a3412;
       border: 1px solid #fdba74;
+      background: #fff7ed;
       box-shadow: none;
     }
 
@@ -277,74 +355,199 @@
     }
 
     button.dark {
-      background: var(--dark);
       color: #fef3c7;
+      background: var(--dark);
     }
 
     button.power {
-      background: #7c3aed;
-      color: white;
+      color: #713f12;
+      background: #facc15;
     }
 
     button.hidden-for-spectator {
       display: none !important;
     }
 
+    button:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+      box-shadow: none;
+      filter: grayscale(0.25);
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    .role-option:focus-within {
+      outline: 4px solid rgba(37, 99, 235, 0.32);
+      outline-offset: 3px;
+    }
+
     .status-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-weight: 900;
-      background: #fee2e2;
-      color: var(--red);
       margin-top: 12px;
+      padding: 8px 12px;
+      color: var(--red);
+      border-radius: 999px;
+      background: #fee2e2;
+      font-weight: 900;
     }
 
     .status-pill.open {
-      background: #dcfce7;
       color: var(--green);
+      background: #dcfce7;
     }
 
     .dot {
       width: 10px;
       height: 10px;
-      background: currentColor;
       border-radius: 50%;
+      background: currentColor;
     }
 
     .note {
       margin-top: 10px;
       padding: 10px 12px;
+      color: #7c2d12;
+      border: 1px solid #fed7aa;
       border-radius: 16px;
       background: #fffbeb;
-      border: 1px solid #fed7aa;
-      color: #7c2d12;
-      font-weight: 800;
       font-size: 13px;
+      font-weight: 800;
     }
 
     .power-note {
       margin-top: 10px;
       padding: 10px 12px;
+      color: #854d0e;
+      border: 1px solid #fde68a;
       border-radius: 16px;
-      background: #f5f3ff;
-      border: 1px solid #ddd6fe;
-      color: #5b21b6;
-      font-weight: 900;
+      background: #fefce8;
       font-size: 13px;
+      font-weight: 900;
     }
 
     .spectator-note {
       margin-top: 8px;
       padding: 10px 12px;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
       border-radius: 16px;
       background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      color: #1d4ed8;
       font-size: 13px;
       font-weight: 900;
+    }
+
+    .student-guide-card {
+      border-color: #93c5fd;
+      background:
+        radial-gradient(circle at top right, rgba(219, 234, 254, 0.8), transparent 38%),
+        rgba(255, 255, 255, 0.97);
+    }
+
+    .student-guide-card h2 {
+      color: #1d4ed8;
+    }
+
+    .student-steps {
+      display: grid;
+      gap: 9px;
+    }
+
+    .student-step {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      padding: 10px;
+      border: 1px solid #dbeafe;
+      border-radius: 15px;
+      background: #f8fbff;
+    }
+
+    .student-step > span {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      color: white;
+      border-radius: 50%;
+      background: #2563eb;
+      font-weight: 1000;
+    }
+
+    .student-step strong {
+      display: block;
+      color: #1e3a8a;
+      font-size: 14px;
+    }
+
+    .student-step p {
+      margin: 3px 0 0;
+      color: #475569;
+      line-height: 1.45;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .student-rule-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .student-rule {
+      padding: 10px;
+      border-radius: 14px;
+      font-size: 12px;
+    }
+
+    .student-rule strong,
+    .student-rule span {
+      display: block;
+    }
+
+    .student-rule span {
+      margin-top: 3px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .ladder-rule {
+      color: #166534;
+      border: 1px solid #86efac;
+      background: #ecfdf5;
+    }
+
+    .snake-rule {
+      color: #991b1b;
+      border: 1px solid #fecaca;
+      background: #fff1f2;
+    }
+
+    .power-rule {
+      color: #92400e;
+      border: 1px solid #fde68a;
+      background: #fffbeb;
+    }
+
+    .target-rule {
+      color: #5b21b6;
+      border: 1px solid #ddd6fe;
+      background: #f5f3ff;
+    }
+
+    .advanced-card summary {
+      padding: 4px;
+      color: #7c2d12;
+      font-weight: 1000;
+      cursor: pointer;
+    }
+
+    .advanced-card details[open] summary {
+      margin-bottom: 12px;
     }
 
     .play-card {
@@ -353,7 +556,7 @@
 
     .play-topbar {
       position: sticky;
-      top: 8px;
+      top: 82px;
       z-index: 40;
       display: grid;
       grid-template-columns: auto minmax(0, 1fr) auto;
@@ -363,9 +566,9 @@
       padding: 12px;
       border: 1px solid var(--line);
       border-radius: 24px;
-      background: rgba(255, 255, 255, .96);
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(12px);
-      box-shadow: 0 14px 34px rgba(120, 53, 15, .14);
+      box-shadow: 0 14px 34px rgba(120, 53, 15, 0.14);
     }
 
     .mini-dice-box {
@@ -380,32 +583,32 @@
       place-items: center;
       width: 118px;
       height: 118px;
+      margin: auto;
+      color: #fef3c7;
       border-radius: 28px;
       background:
-        radial-gradient(circle at 28% 24%, rgba(255, 255, 255, .14), transparent 28%),
+        radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.14), transparent 28%),
         #111827;
-      color: #fef3c7;
-      font-size: 58px;
-      font-weight: 1000;
-      margin: auto;
       box-shadow:
         inset 0 0 0 2px rgba(255, 255, 255, 0.08),
-        0 16px 32px rgba(17, 24, 39, .18);
+        0 16px 32px rgba(17, 24, 39, 0.18);
+      font-size: 58px;
+      font-weight: 1000;
     }
 
     .mini-dice-box .dice {
+      min-width: 64px;
       width: 64px;
       height: 64px;
-      min-width: 64px;
+      margin: 0;
       border-radius: 18px;
       font-size: 34px;
-      margin: 0;
     }
 
     .mini-label {
       color: #7c2d12;
-      font-weight: 1000;
       line-height: 1.15;
+      font-weight: 1000;
     }
 
     .mini-label small {
@@ -419,24 +622,24 @@
     .hud-status {
       min-width: 0;
       color: #7c2d12;
-      font-weight: 1000;
       line-height: 1.25;
+      font-weight: 1000;
     }
 
     .hud-status small {
       display: block;
+      overflow: hidden;
       color: var(--muted);
+      white-space: nowrap;
+      text-overflow: ellipsis;
       font-size: 13px;
       font-weight: 800;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .hud-actions {
       display: flex;
-      justify-content: flex-end;
       flex-wrap: wrap;
+      justify-content: flex-end;
       gap: 8px;
     }
 
@@ -457,73 +660,72 @@
     }
 
     .board-stage {
+      isolation: isolate;
       position: relative;
-      width: min(calc(100vw - 700px), calc(100vh - 155px), 820px);
-      min-width: 560px;
+      width: min(100%, 820px);
       aspect-ratio: 1 / 1;
       margin: auto;
+      padding: 8px;
+      border: 2px solid rgba(217, 119, 6, 0.24);
       border-radius: 28px;
       background:
-        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, .55), transparent 28%),
+        radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.55), transparent 28%),
         linear-gradient(135deg, #fef3c7, #fed7aa);
-      border: 2px solid rgba(217, 119, 6, .24);
-      padding: 8px;
       box-shadow:
         inset 0 0 0 2px rgba(124, 45, 18, 0.08),
         0 20px 48px rgba(120, 53, 15, 0.18);
-      isolation: isolate;
     }
 
     .board {
       position: absolute;
       inset: 8px;
+      z-index: 3;
       display: grid;
       grid-template-columns: repeat(10, 1fr);
       gap: 3px;
-      z-index: 3;
     }
 
     .board-art {
       position: absolute;
       inset: 8px;
+      z-index: 2;
       width: calc(100% - 16px);
       height: calc(100% - 16px);
-      pointer-events: none;
-      z-index: 2;
       overflow: visible;
       opacity: 0.92;
+      pointer-events: none;
     }
 
     .square {
       position: relative;
-      border-radius: 9px;
-      background:
-        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, .82), transparent 26%),
-        rgba(255, 247, 237, 0.74);
-      border: 1px solid rgba(146, 64, 14, 0.22);
       display: grid;
       place-items: center;
       min-width: 0;
       min-height: 0;
       overflow: hidden;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .45);
+      border: 1px solid rgba(146, 64, 14, 0.22);
+      border-radius: 9px;
+      background:
+        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.82), transparent 26%),
+        rgba(255, 247, 237, 0.74);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
     }
 
     .square:nth-child(even) {
       background:
-        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, .86), transparent 26%),
+        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.86), transparent 26%),
         rgba(255, 255, 255, 0.70);
     }
 
     .ladder-start {
       background:
-        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, .84), transparent 26%),
+        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.84), transparent 26%),
         rgba(236, 253, 245, 0.78) !important;
     }
 
     .snake-start {
       background:
-        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, .84), transparent 26%),
+        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.84), transparent 26%),
         rgba(255, 241, 242, 0.78) !important;
     }
 
@@ -532,48 +734,53 @@
       top: 4px;
       left: 5px;
       z-index: 8;
-      background: rgba(255, 255, 255, .72);
       padding: 1px 5px;
+      color: #7c2d12;
       border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
       font-size: clamp(9px, 1vw, 12px);
       font-weight: 1000;
-      color: #7c2d12;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, .8);
     }
 
     .mark {
       position: absolute;
-      bottom: 3px;
       right: 5px;
+      bottom: 3px;
       z-index: 8;
-      background: rgba(255, 255, 255, .72);
       padding: 1px 5px;
       border-radius: 999px;
-      font-size: clamp(8px, .9vw, 11px);
+      background: rgba(255, 255, 255, 0.72);
+      font-size: clamp(8px, 0.9vw, 11px);
       font-weight: 1000;
     }
 
     .tokens {
+      position: relative;
+      z-index: 8;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 3px;
       padding-top: 12px;
-      z-index: 8;
-      position: relative;
     }
 
     .token {
-      width: 23px;
-      height: 23px;
-      border-radius: 999px;
       display: grid;
       place-items: center;
+      width: 23px;
+      height: 23px;
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      border-radius: 999px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.24);
       font-size: 11px;
       font-weight: 1000;
-      color: white;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.24);
-      border: 2px solid rgba(255, 255, 255, .8);
+    }
+
+    .token.local-token {
+      outline: 4px solid rgba(17, 24, 39, 0.28);
+      outline-offset: 1px;
     }
 
     .p1 {
@@ -598,8 +805,8 @@
       stroke-width: 5.5;
       stroke-linecap: round;
       stroke-linejoin: round;
-      opacity: .82;
-      filter: drop-shadow(0 3px 5px rgba(153, 27, 27, .24));
+      opacity: 0.82;
+      filter: drop-shadow(0 3px 5px rgba(153, 27, 27, 0.24));
     }
 
     .snake-belly {
@@ -608,14 +815,14 @@
       stroke-width: 2;
       stroke-linecap: round;
       stroke-dasharray: 9 9;
-      opacity: .65;
+      opacity: 0.65;
     }
 
     .snake-head {
       fill: var(--red);
       stroke: #7f1d1d;
       stroke-width: 1.5;
-      opacity: .88;
+      opacity: 0.88;
     }
 
     .snake-eye {
@@ -630,15 +837,15 @@
       stroke: var(--green);
       stroke-width: 5;
       stroke-linecap: round;
-      opacity: .85;
-      filter: drop-shadow(0 3px 5px rgba(22, 101, 52, .2));
+      opacity: 0.85;
+      filter: drop-shadow(0 3px 5px rgba(22, 101, 52, 0.2));
     }
 
     .ladder-rung {
       stroke: #bbf7d0;
       stroke-width: 3.5;
       stroke-linecap: round;
-      opacity: .85;
+      opacity: 0.85;
     }
 
     .panel {
@@ -652,13 +859,13 @@
     }
 
     .game-state {
-      background: #111827;
-      color: #fef3c7;
-      padding: 13px;
-      border-radius: 20px;
-      line-height: 1.5;
       min-height: 128px;
+      padding: 13px;
+      color: #fef3c7;
+      border-radius: 20px;
+      background: #111827;
       white-space: pre-wrap;
+      line-height: 1.5;
       font-size: 13px;
     }
 
@@ -668,34 +875,35 @@
     }
 
     .player-card {
+      position: relative;
       display: grid;
       grid-template-columns: auto minmax(0, 1fr);
       gap: 10px;
       align-items: center;
-      border: 1px solid #fed7aa;
-      background: #fff7ed;
-      border-radius: 16px;
       padding: 8px 10px;
-      font-weight: 900;
+      border: 1px solid #fed7aa;
+      border-radius: 16px;
+      background: #fff7ed;
       font-size: 13px;
+      font-weight: 900;
     }
 
     .player-card.active {
-      outline: 4px solid rgba(245, 158, 11, 0.25);
       border-color: var(--saffron-dark);
+      outline: 4px solid rgba(245, 158, 11, 0.25);
     }
 
     .player-token-mini {
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
       display: grid;
       place-items: center;
+      width: 30px;
+      height: 30px;
       color: white;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      border-radius: 999px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
       font-size: 13px;
       font-weight: 1000;
-      border: 2px solid rgba(255, 255, 255, .85);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, .18);
     }
 
     .player-token-mini.p1 {
@@ -720,76 +928,85 @@
 
     .player-meta strong {
       display: block;
+      overflow: hidden;
       color: #7c2d12;
       white-space: nowrap;
-      overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .computer-badge {
+    .computer-badge,
+    .power-badge,
+    .pending-badge,
+    .you-badge {
       display: inline-block;
       margin-left: 6px;
       padding: 2px 7px;
       border-radius: 999px;
-      background: #111827;
-      color: #fef3c7;
+      vertical-align: middle;
       font-size: 11px;
       font-weight: 1000;
-      vertical-align: middle;
+    }
+
+    .computer-badge {
+      color: #fef3c7;
+      background: #111827;
     }
 
     .power-badge {
-      display: inline-block;
-      margin-left: 6px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: #7c3aed;
+      color: #713f12;
+      background: #facc15;
+    }
+
+    .pending-badge {
       color: white;
-      font-size: 11px;
-      font-weight: 1000;
-      vertical-align: middle;
+      background: #f59e0b;
+    }
+
+    .you-badge {
+      color: white;
+      background: #2563eb;
     }
 
     .room-messages {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 12px;
-      height: 150px;
-      overflow: auto;
       display: flex;
       flex-direction: column;
       gap: 8px;
+      height: 150px;
+      overflow: auto;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: white;
     }
 
     .msg {
-      background: #f3f4f6;
       padding: 9px 11px;
       border-radius: 14px;
+      background: #f3f4f6;
       font-size: 14px;
     }
 
     .msg.system {
-      background: #ecfdf5;
       color: #166534;
+      background: #ecfdf5;
       text-align: center;
     }
 
     .msg.mine {
-      background: #ffedd5;
       align-self: flex-end;
+      background: #ffedd5;
     }
 
     .debug-log {
-      background: #111827;
-      color: var(--code);
-      padding: 16px;
-      border-radius: 18px;
       max-height: 240px;
       overflow: auto;
+      padding: 16px;
+      color: var(--code);
+      border-radius: 18px;
+      background: #111827;
       white-space: pre-wrap;
-      font-size: 13px;
       line-height: 1.5;
+      font-size: 13px;
     }
 
     .legend {
@@ -802,41 +1019,96 @@
     .legend div {
       padding: 10px;
       border-radius: 16px;
-      font-weight: 900;
       text-align: center;
+      font-weight: 900;
     }
 
     .legend .up {
-      background: #ecfdf5;
       color: #166534;
       border: 1px solid #86efac;
+      background: #ecfdf5;
     }
 
     .legend .down {
-      background: #fff1f2;
       color: #991b1b;
       border: 1px solid #fecaca;
+      background: #fff1f2;
+    }
+
+    .pending-move-box {
+      margin-top: 10px;
+      padding: 12px;
+      color: #7c2d12;
+      border: 1px solid #f59e0b;
+      border-radius: 16px;
+      background: #fef3c7;
+      line-height: 1.45;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .pending-move-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .pending-move-stat {
+      padding: 8px;
+      border: 1px solid rgba(217, 119, 6, 0.25);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.7);
+      text-align: center;
+    }
+
+    .pending-move-stat strong {
+      display: block;
+      color: #92400e;
+      font-size: 18px;
+    }
+
+    .pending-move-stat span {
+      display: block;
+      margin-top: 2px;
+      color: #7c2d12;
+      font-size: 11px;
+    }
+
+    button.make-move {
+      color: white;
+      background: #16a34a;
+    }
+
+    button.adjust {
+      color: #713f12;
+      background: #facc15;
+    }
+
+    button.adjust-remove {
+      color: white;
+      background: #dc2626;
     }
 
     .drama-banner,
     .local-drama-banner {
       position: fixed;
-      left: 50%;
       top: 18px;
-      transform: translateX(-50%) scale(.92);
+      left: 50%;
       z-index: 2147483647;
       width: min(760px, calc(100vw - 28px));
       padding: 18px 22px;
-      border-radius: 28px;
-      background: rgba(17, 24, 39, .94);
+      opacity: 0;
       color: #fef3c7;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, .28);
-      border: 2px solid rgba(255, 255, 255, .15);
-      font-size: clamp(20px, 4vw, 38px);
-      font-weight: 1000;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 28px;
+      background: rgba(17, 24, 39, 0.94);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
       text-align: center;
       pointer-events: none;
-      opacity: 0;
+      transform: translateX(-50%) scale(0.92);
+      font-size: clamp(20px, 4vw, 38px);
+      font-weight: 1000;
     }
 
     .local-drama-banner {
@@ -849,29 +1121,30 @@
     }
 
     .snake-drama {
-      background: linear-gradient(135deg, rgba(127, 29, 29, .98), rgba(220, 38, 38, .94));
+      background: linear-gradient(135deg, rgba(127, 29, 29, 0.98), rgba(220, 38, 38, 0.94));
     }
 
     .ladder-drama {
-      background: linear-gradient(135deg, rgba(20, 83, 45, .98), rgba(22, 163, 74, .94));
+      background: linear-gradient(135deg, rgba(20, 83, 45, 0.98), rgba(22, 163, 74, 0.94));
     }
 
     .six-drama {
-      background: linear-gradient(135deg, rgba(146, 64, 14, .98), rgba(245, 158, 11, .94));
+      background: linear-gradient(135deg, rgba(146, 64, 14, 0.98), rgba(245, 158, 11, 0.94));
     }
 
     .win-drama {
-      background: linear-gradient(135deg, rgba(88, 28, 135, .98), rgba(245, 158, 11, .94));
+      background: linear-gradient(135deg, rgba(88, 28, 135, 0.98), rgba(245, 158, 11, 0.94));
     }
 
     .power-drama {
-      background: linear-gradient(135deg, rgba(88, 28, 135, .98), rgba(124, 58, 237, .94));
+      color: #422006;
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.98), rgba(245, 158, 11, 0.94));
     }
 
     @keyframes dramaPop {
       0% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-18px) scale(.78);
+        transform: translateX(-50%) translateY(-18px) scale(0.78);
       }
 
       14% {
@@ -887,35 +1160,34 @@
 
       100% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-18px) scale(.94);
+        transform: translateX(-50%) translateY(-18px) scale(0.94);
       }
     }
 
     .board-stage.snake-shake {
-      animation: snakeShake .65s ease;
+      animation: snakeShake 0.65s ease;
     }
 
     @keyframes snakeShake {
-
       0%,
       100% {
         transform: translateX(0);
       }
 
       18% {
-        transform: translateX(-8px) rotate(-.5deg);
+        transform: translateX(-8px) rotate(-0.5deg);
       }
 
       36% {
-        transform: translateX(8px) rotate(.5deg);
+        transform: translateX(8px) rotate(0.5deg);
       }
 
       54% {
-        transform: translateX(-6px) rotate(-.4deg);
+        transform: translateX(-6px) rotate(-0.4deg);
       }
 
       72% {
-        transform: translateX(6px) rotate(.4deg);
+        transform: translateX(6px) rotate(0.4deg);
       }
     }
 
@@ -924,14 +1196,17 @@
     }
 
     @keyframes ladderGlow {
-
       0%,
       100% {
-        box-shadow: inset 0 0 0 2px rgba(124, 45, 18, .08), 0 20px 48px rgba(120, 53, 15, .18);
+        box-shadow:
+          inset 0 0 0 2px rgba(124, 45, 18, 0.08),
+          0 20px 48px rgba(120, 53, 15, 0.18);
       }
 
       45% {
-        box-shadow: inset 0 0 0 4px rgba(22, 163, 74, .4), 0 0 42px rgba(22, 163, 74, .48);
+        box-shadow:
+          inset 0 0 0 4px rgba(22, 163, 74, 0.4),
+          0 0 42px rgba(22, 163, 74, 0.48);
       }
     }
 
@@ -940,23 +1215,25 @@
     }
 
     @keyframes powerGlow {
-
       0%,
       100% {
-        box-shadow: inset 0 0 0 2px rgba(124, 45, 18, .08), 0 20px 48px rgba(120, 53, 15, .18);
+        box-shadow:
+          inset 0 0 0 2px rgba(124, 45, 18, 0.08),
+          0 20px 48px rgba(120, 53, 15, 0.18);
       }
 
       45% {
-        box-shadow: inset 0 0 0 4px rgba(124, 58, 237, .45), 0 0 48px rgba(124, 58, 237, .52);
+        box-shadow:
+          inset 0 0 0 4px rgba(250, 204, 21, 0.55),
+          0 0 48px rgba(250, 204, 21, 0.52);
       }
     }
 
     .dice.dice-six {
-      animation: diceSix .95s ease;
+      animation: diceSix 0.95s ease;
     }
 
     @keyframes diceSix {
-
       0%,
       100% {
         transform: rotate(0) scale(1);
@@ -980,16 +1257,17 @@
     }
 
     @keyframes winnerPulse {
-
       0%,
       100% {
         transform: scale(1);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, .24);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.24);
       }
 
       50% {
         transform: scale(1.32);
-        box-shadow: 0 0 0 8px rgba(245, 158, 11, .22), 0 8px 18px rgba(0, 0, 0, .22);
+        box-shadow:
+          0 0 0 8px rgba(245, 158, 11, 0.22),
+          0 8px 18px rgba(0, 0, 0, 0.22);
       }
     }
 
@@ -998,7 +1276,6 @@
     }
 
     @keyframes thinkingPulse {
-
       0%,
       100% {
         opacity: 1;
@@ -1006,9 +1283,124 @@
       }
 
       50% {
-        opacity: .7;
+        opacity: 0.7;
         transform: scale(1.04);
       }
+    }
+
+    body[data-interface-view="student"] .app-grid {
+      grid-template-columns: 330px minmax(0, 1fr);
+    }
+
+    body[data-interface-view="student"] .hero,
+    body[data-interface-view="student"] .ad-wrap,
+    body[data-interface-view="student"] .sidebar {
+      display: block;
+    }
+
+    body[data-interface-view="student"] .game-state {
+      min-height: 150px;
+    }
+
+    body[data-interface-view="student"] .pending-move-box {
+      font-size: 14px;
+    }
+
+    body[data-interface-view="student"] .player-card.active::after {
+      content: "Current turn";
+      grid-column: 1 / -1;
+      padding: 5px 8px;
+      color: #92400e;
+      border-radius: 10px;
+      background: #fef3c7;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 1000;
+    }
+
+    body[data-interface-view="player"] {
+      padding: 8px;
+      background:
+        radial-gradient(circle at top left, #ffedd5 0, transparent 32%),
+        linear-gradient(135deg, #fff7ed, #fffbeb);
+    }
+
+    body[data-interface-view="player"] .wrap {
+      max-width: 1600px;
+    }
+
+    body[data-interface-view="player"] .hero,
+    body[data-interface-view="player"] .ad-wrap,
+    body[data-interface-view="player"] .sidebar,
+    body[data-interface-view="player"] footer {
+      display: none;
+    }
+
+    body[data-interface-view="player"] .view-switcher {
+      position: relative;
+      top: auto;
+      margin-bottom: 8px;
+      padding: 8px 12px;
+    }
+
+    body[data-interface-view="player"] .view-switcher > div:first-child {
+      display: none;
+    }
+
+    body[data-interface-view="player"] .view-switcher-buttons {
+      width: 100%;
+      justify-content: flex-end;
+    }
+
+    body[data-interface-view="player"] .app-grid {
+      display: block;
+    }
+
+    body[data-interface-view="player"] .play-card {
+      margin: 0;
+      padding: 10px;
+      border-radius: 18px;
+    }
+
+    body[data-interface-view="player"] .play-topbar {
+      top: 6px;
+      margin-bottom: 8px;
+      padding: 9px;
+      border-radius: 18px;
+    }
+
+    body[data-interface-view="player"] .game-area {
+      grid-template-columns: minmax(0, 1fr) 285px;
+      gap: 10px;
+    }
+
+    body[data-interface-view="player"] .board-stage {
+      width: min(calc(100vw - 335px), calc(100vh - 125px), 940px);
+      min-width: 0;
+    }
+
+    body[data-interface-view="player"] .panel {
+      max-height: calc(100vh - 115px);
+      overflow-y: auto;
+      padding-right: 3px;
+    }
+
+    body[data-interface-view="player"] .game-state {
+      min-height: 105px;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    body[data-interface-view="player"] .room-messages {
+      height: 115px;
+    }
+
+    body[data-interface-view="player"] .player-card {
+      padding: 7px 9px;
+    }
+
+    body[data-interface-view="player"] .hud-actions .sync-button {
+      display: none;
     }
 
     #gameFocus:fullscreen {
@@ -1051,28 +1443,36 @@
     }
 
     footer {
-      text-align: center;
       padding: 24px 10px;
       color: #7c2d12;
+      text-align: center;
       font-weight: 900;
     }
 
     @media (max-width: 1200px) {
-      .app-grid {
+      body[data-interface-view="student"] .app-grid {
         grid-template-columns: 1fr;
       }
 
-      .sidebar {
+      body[data-interface-view="student"] .sidebar {
         position: static;
-        max-height: none;
-        overflow: visible;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
+        max-height: none;
+        overflow: visible;
       }
 
-      .sidebar .card {
+      body[data-interface-view="student"] .sidebar .card {
         margin-bottom: 0;
+      }
+
+      body[data-interface-view="player"] .game-area {
+        grid-template-columns: minmax(0, 1fr) 270px;
+      }
+
+      body[data-interface-view="player"] .board-stage {
+        width: min(calc(100vw - 320px), calc(100vh - 130px), 860px);
       }
 
       .game-area {
@@ -1080,22 +1480,16 @@
       }
 
       .board-stage {
-        width: min(96vw, calc(100vh - 210px), 850px);
-        min-width: 0;
+        width: min(100%, 850px);
       }
 
       .panel {
-        display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         align-items: start;
       }
-
-      .panel .dice-card {
-        display: none;
-      }
     }
 
-    @media (max-width: 760px) {
+    @media (max-width: 820px) {
       body {
         padding: 10px;
       }
@@ -1108,10 +1502,66 @@
         display: none;
       }
 
-      .play-topbar {
-        grid-template-columns: 1fr;
+      .view-switcher {
         position: relative;
         top: auto;
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .view-switcher-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      body[data-interface-view="student"] .sidebar {
+        display: block;
+      }
+
+      body[data-interface-view="student"] .sidebar .card {
+        margin-bottom: 14px;
+      }
+
+      body[data-interface-view="player"] {
+        padding: 4px;
+      }
+
+      body[data-interface-view="player"] .view-switcher {
+        margin: 0 0 5px;
+      }
+
+      body[data-interface-view="player"] .game-area {
+        display: block;
+      }
+
+      body[data-interface-view="player"] .board-stage {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      body[data-interface-view="player"] .panel {
+        max-height: none;
+        margin-top: 10px;
+      }
+
+      body[data-interface-view="player"] .play-topbar {
+        position: relative;
+        top: auto;
+      }
+
+      body[data-interface-view="player"] .hud-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      body[data-interface-view="player"] .hud-actions button {
+        width: 100%;
+      }
+
+      .play-topbar {
+        position: relative;
+        top: auto;
+        grid-template-columns: 1fr;
       }
 
       .hud-actions {
@@ -1122,13 +1572,16 @@
         flex: 1 1 120px;
       }
 
-      .sidebar,
       .panel {
         grid-template-columns: 1fr;
       }
 
       .board-stage {
-        width: 96vw;
+        width: 100%;
+      }
+
+      .student-rule-grid {
+        grid-template-columns: 1fr;
       }
 
       #gameFocus:fullscreen .game-area {
@@ -1136,7 +1589,7 @@
       }
 
       #gameFocus:fullscreen .board-stage {
-        width: 96vw;
+        width: 100%;
       }
 
       #gameFocus:fullscreen .panel {
@@ -1144,74 +1597,88 @@
       }
     }
 
-    .pending-move-box {
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      background: #fef3c7;
-      border: 1px solid #f59e0b;
-      color: #7c2d12;
-      font-weight: 900;
-      font-size: 13px
+    @media (max-width: 520px) {
+      .view-switcher-buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .pending-move-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hud-actions,
+      body[data-interface-view="player"] .hud-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-dice-box {
+        justify-content: center;
+      }
+
+      .hud-status {
+        text-align: center;
+      }
     }
 
-    button.make-move {
-      background: #16a34a;
-      color: white
-    }
-
-    button.adjust {
-      background: #7c3aed;
-      color: white
-    }
-
-    button.adjust-remove {
-      background: #dc2626;
-      color: white
-    }
-
-    .pending-badge {
-      display: inline-block;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: #f59e0b;
-      color: white;
-      font-size: 11px;
-      font-weight: 1000;
-      margin-left: 6px
-    }
-
-    .power-cart {
-      display: inline-block;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: #ede9fe;
-      color: #5b21b6;
-      font-size: 11px;
-      font-weight: 1000;
-      margin-left: 6px;
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 
-<body>
+<body data-interface-view="student">
   <div id="dramaBanner" class="drama-banner" aria-live="polite"></div>
+
   <div id="liveStatus" aria-live="polite"
-    style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;"></div>
+    style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+  </div>
 
   <main class="wrap">
     <section class="hero">
-      <h1>Snakes and Ladders over WebSocket</h1>
+      <h1>Multiplayer Snakes and Ladders</h1>
+
       <p>
-        Drawn snakes, drawn ladders, fullscreen mode, spectator mode, computer player, and 6 Power Points per player.
+        Learn in the guided Student View or switch to the distraction-free Player View.
+        Includes computer players, spectators, fullscreen mode, drawn board graphics,
+        dramatic effects and Power Points.
       </p>
     </section>
 
+    <nav class="view-switcher" aria-label="Choose interface view">
+      <div>
+        <strong>Interface View</strong>
+        <small>Choose a guided learning interface or a compact playing interface.</small>
+      </div>
+
+      <div class="view-switcher-buttons">
+        <button id="studentViewBtn" class="view-button active" type="button"
+          onclick="setInterfaceView('student')" aria-pressed="true">
+          🎓 Student View
+        </button>
+
+        <button id="playerViewBtn" class="view-button" type="button"
+          onclick="setInterfaceView('player')" aria-pressed="false">
+          🎮 Player View
+        </button>
+      </div>
+    </nav>
+
     <div class="ad-wrap">
       Advertisement
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8321261883090494" data-ad-slot="7782388330"
-        data-ad-format="auto" data-full-width-responsive="true">
+
+      <ins class="adsbygoogle" style="display:block"
+        data-ad-client="ca-pub-8321261883090494"
+        data-ad-slot="7782388330"
+        data-ad-format="auto"
+        data-full-width-responsive="true">
       </ins>
+
       <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
@@ -1219,11 +1686,97 @@
 
     <section class="app-grid">
       <aside class="sidebar">
-        <article class="card">
-          <h2>Connection</h2>
+        <article class="card student-guide-card">
+          <h2>How to Play</h2>
 
-          <label for="serverUrl">WebSocket Base URL</label>
-          <input disabled id="serverUrl" value="wss://champak-durable-chat.champaksworld.workers.dev/chat"
+          <div class="student-steps">
+            <div class="student-step">
+              <span>1</span>
+
+              <div>
+                <strong>Join the room</strong>
+                <p>
+                  Enter your name, select a player colour and connect to the game room.
+                </p>
+              </div>
+            </div>
+
+            <div class="student-step">
+              <span>2</span>
+
+              <div>
+                <strong>Start the game</strong>
+                <p>
+                  At least two players are required. A computer joins automatically
+                  when only one human player is available.
+                </p>
+              </div>
+            </div>
+
+            <div class="student-step">
+              <span>3</span>
+
+              <div>
+                <strong>Roll the dice</strong>
+                <p>
+                  Click Roll Dice when it is your turn.
+                </p>
+              </div>
+            </div>
+
+            <div class="student-step">
+              <span>4</span>
+
+              <div>
+                <strong>Select Power Points</strong>
+                <p>
+                  Add Power Points when you want to move farther than the dice result.
+                </p>
+              </div>
+            </div>
+
+            <div class="student-step">
+              <span>5</span>
+
+              <div>
+                <strong>Make your move</strong>
+                <p>
+                  Check the final movement and click the green movement button.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="student-rule-grid">
+            <div class="student-rule ladder-rule">
+              <strong>🪜 Ladder</strong>
+              <span>Climb to a higher square.</span>
+            </div>
+
+            <div class="student-rule snake-rule">
+              <strong>🐍 Snake</strong>
+              <span>Fall to a lower square.</span>
+            </div>
+
+            <div class="student-rule power-rule">
+              <strong>⚡ Power Points</strong>
+              <span>Every player starts with 6.</span>
+            </div>
+
+            <div class="student-rule target-rule">
+              <strong>🏁 Winning</strong>
+              <span>Reach exactly 100 after using all Power Points.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Join Game</h2>
+
+          <label for="serverUrl">WebSocket Server</label>
+
+          <input disabled id="serverUrl"
+            value="wss://champak-durable-chat.champaksworld.workers.dev/chat"
             autocomplete="off" />
 
           <label for="roomName">Game Room</label>
@@ -1233,6 +1786,7 @@
           <input id="playerName" value="Champak" autocomplete="off" />
 
           <label>Your Role</label>
+
           <div class="role-options" role="radiogroup" aria-label="Choose your role">
             <label class="role-option">
               <input type="radio" name="playerRole" value="P1" checked />
@@ -1266,12 +1820,13 @@
           </div>
 
           <div class="note">
-            Minimum 2 players, maximum 4 players. With one human player, Computer joins automatically.
+            Minimum 2 players and maximum 4 players. If only one human joins,
+            the computer becomes the second player.
           </div>
 
           <div class="power-note">
-            Each player gets 6 Power Points. Roll first, choose Power Points with + and - like a shopping cart, then
-            Make Move. The selected total cannot be negative.
+            Roll the dice, select optional Power Points, and then make the move.
+            Every player starts with 6 Power Points.
           </div>
 
           <div id="connectionStatus" class="status-pill">
@@ -1280,26 +1835,39 @@
           </div>
 
           <div class="row">
-            <button onclick="connectGame()">Connect</button>
-            <button class="danger" onclick="disconnectGame()">Disconnect</button>
-            <button class="secondary" onclick="clearLogs()">Clear Logs</button>
+            <button id="connectBtn" onclick="connectGame()">Connect</button>
+            <button id="disconnectBtn" class="danger" onclick="disconnectGame()">Disconnect</button>
           </div>
         </article>
 
         <article class="card">
-          <h2>Backup Controls</h2>
+          <h2>Game Controls</h2>
+
           <div class="row">
-            <button onclick="newGame()">New Game</button>
-            <button id="backupRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">Roll Dice</button>
-            <button id="backupAddPowerBtn" class="adjust power-btn" onclick="adjustPendingMove(1)">+ Power</button>
-            <button id="backupRemovePowerBtn" class="adjust-remove power-btn" onclick="adjustPendingMove(-1)">-
-              Power</button>
-            <button id="backupMakeMoveBtn" class="make-move move-btn" onclick="makeMove()">Make Move</button>
-            <button class="secondary" onclick="syncGame()">Sync Game</button>
+            <button class="new-game-btn" onclick="newGame()">New Game</button>
+
+            <button id="backupRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">
+              Roll Dice
+            </button>
+
+            <button id="backupAddPowerBtn" class="adjust power-btn"
+              onclick="adjustPendingMove(1)">
+              + Power
+            </button>
+
+            <button id="backupRemovePowerBtn" class="adjust-remove power-btn"
+              onclick="adjustPendingMove(-1)">
+              − Power
+            </button>
+
+            <button id="backupMakeMoveBtn" class="make-move move-btn"
+              onclick="makeMove()">
+              Make Move
+            </button>
           </div>
 
           <div id="spectatorNote" class="spectator-note" hidden>
-            Spectator mode: watch the game. Roll Dice and Power Points are hidden.
+            Spectator mode: watch the game. Movement controls are hidden.
           </div>
 
           <div id="pendingMoveBox" class="pending-move-box">
@@ -1312,9 +1880,23 @@
           </div>
         </article>
 
-        <article class="card">
-          <h2>Debug Log</h2>
-          <pre id="debugLog" class="debug-log"></pre>
+        <article class="card advanced-card">
+          <details>
+            <summary>Advanced and Developer Tools</summary>
+
+            <div class="row">
+              <button class="secondary sync-button" onclick="syncGame()">
+                Sync Game
+              </button>
+
+              <button class="secondary" onclick="clearLogs()">
+                Clear Logs
+              </button>
+            </div>
+
+            <h2 style="margin-top:16px;">Debug Log</h2>
+            <pre id="debugLog" class="debug-log"></pre>
+          </details>
         </article>
       </aside>
 
@@ -1325,6 +1907,7 @@
           <div class="play-topbar">
             <div class="mini-dice-box">
               <div id="hudDice" class="dice">-</div>
+
               <div class="mini-label">
                 Dice
                 <small>Roll result</small>
@@ -1337,24 +1920,52 @@
             </div>
 
             <div class="hud-actions">
-              <button onclick="newGame()">New Game</button>
-              <button id="hudRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">Roll Dice</button>
-              <button id="hudAddPowerBtn" class="adjust power-btn" onclick="adjustPendingMove(1)">+ Power</button>
-              <button id="hudRemovePowerBtn" class="adjust-remove power-btn" onclick="adjustPendingMove(-1)">-
-                Power</button>
-              <button id="hudMakeMoveBtn" class="make-move move-btn" onclick="makeMove()">Make Move</button>
-              <button class="secondary" onclick="syncGame()">Sync Game</button>
-              <button class="dark fullscreen-btn" onclick="toggleGameFullscreen()">Full Screen</button>
+              <button class="new-game-btn" onclick="newGame()">
+                New Game
+              </button>
+
+              <button id="hudRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">
+                Roll Dice
+              </button>
+
+              <button id="hudAddPowerBtn" class="adjust power-btn"
+                onclick="adjustPendingMove(1)">
+                + Power
+              </button>
+
+              <button id="hudRemovePowerBtn" class="adjust-remove power-btn"
+                onclick="adjustPendingMove(-1)">
+                − Power
+              </button>
+
+              <button id="hudMakeMoveBtn" class="make-move move-btn"
+                onclick="makeMove()">
+                Make Move
+              </button>
+
+              <button class="secondary sync-button" onclick="syncGame()">
+                Sync
+              </button>
+
+              <button class="dark fullscreen-btn" onclick="toggleGameFullscreen()">
+                Full Screen
+              </button>
             </div>
           </div>
 
           <div class="game-area">
             <div>
-              <h2>Full Board</h2>
+              <h2>Game Board</h2>
+
               <div class="board-wrap">
                 <div class="board-stage">
-                  <div id="board" class="board" aria-label="Snakes and Ladders board"></div>
-                  <svg id="boardArt" class="board-art" viewBox="0 0 1000 1000" preserveAspectRatio="none"
+                  <div id="board" class="board"
+                    aria-label="Snakes and Ladders board">
+                  </div>
+
+                  <svg id="boardArt" class="board-art"
+                    viewBox="0 0 1000 1000"
+                    preserveAspectRatio="none"
                     aria-hidden="true">
                   </svg>
                 </div>
@@ -1379,10 +1990,14 @@
 
               <div>
                 <h2>Room Messages</h2>
+
                 <div id="messages" class="room-messages"></div>
 
                 <div class="row">
-                  <input id="chatInput" placeholder="Optional room message..." autocomplete="off" />
+                  <input id="chatInput"
+                    placeholder="Optional room message..."
+                    autocomplete="off" />
+
                   <button onclick="sendRoomChat()">Send</button>
                 </div>
               </div>
@@ -1401,6 +2016,7 @@
     const GAME_PREFIX = "__SNAKES_LADDERS__:";
     const PLAYER_ORDER = ["P1", "P2", "P3", "P4"];
     const START_POWER_POINTS = 6;
+    const INTERFACE_VIEW_KEY = "snakes-ladders-interface-view";
 
     const JUMPS = {
       4: 14,
@@ -1411,6 +2027,7 @@
       51: 67,
       63: 81,
       71: 91,
+
       17: 7,
       54: 34,
       62: 19,
@@ -1451,15 +2068,34 @@
 
     function createInitialGame() {
       return {
-        positions: { P1: 0, P2: 0, P3: 0, P4: 0 },
-        names: { P1: "Player 1", P2: "Player 2", P3: "Player 3", P4: "Player 4" },
-        playerTypes: { P1: "", P2: "", P3: "", P4: "" },
+        positions: {
+          P1: 0,
+          P2: 0,
+          P3: 0,
+          P4: 0
+        },
+
+        names: {
+          P1: "Player 1",
+          P2: "Player 2",
+          P3: "Player 3",
+          P4: "Player 4"
+        },
+
+        playerTypes: {
+          P1: "",
+          P2: "",
+          P3: "",
+          P4: ""
+        },
+
         powerPoints: {
           P1: START_POWER_POINTS,
           P2: START_POWER_POINTS,
           P3: START_POWER_POINTS,
           P4: START_POWER_POINTS
         },
+
         activePlayers: [],
         pendingMove: null,
         turn: "P1",
@@ -1489,7 +2125,10 @@
       }
 
       if (game.pendingMove.selectedPower === undefined) {
-        game.pendingMove.selectedPower = Math.max(0, Number(game.pendingMove.adjustment || 0));
+        game.pendingMove.selectedPower = Math.max(
+          0,
+          Number(game.pendingMove.adjustment || 0)
+        );
       }
 
       if (game.pendingMove.selectedPower < 0) {
@@ -1505,7 +2144,10 @@
     }
 
     function getRole() {
-      const selected = document.querySelector('input[name="playerRole"]:checked');
+      const selected = document.querySelector(
+        'input[name="playerRole"]:checked'
+      );
+
       return selected ? selected.value : "spectator";
     }
 
@@ -1554,13 +2196,64 @@
       const div = document.createElement("div");
       div.className = "msg" + (type ? " " + type : "");
       div.textContent = text;
+
       messagesBox.appendChild(div);
       messagesBox.scrollTop = messagesBox.scrollHeight;
     }
 
     function setConnectionStatus(text, connected) {
-      connectionStatus.className = "status-pill" + (connected ? " open" : "");
+      connectionStatus.className =
+        "status-pill" + (connected ? " open" : "");
+
       connectionStatus.querySelector("span:last-child").textContent = text;
+
+      updateGameplayButtonStates();
+    }
+
+    function setInterfaceView(view, savePreference = true) {
+      const validView = view === "player" ? "player" : "student";
+
+      document.body.dataset.interfaceView = validView;
+
+      const studentButton = document.getElementById("studentViewBtn");
+      const playerButton = document.getElementById("playerViewBtn");
+
+      if (studentButton) {
+        const active = validView === "student";
+        studentButton.classList.toggle("active", active);
+        studentButton.setAttribute("aria-pressed", String(active));
+      }
+
+      if (playerButton) {
+        const active = validView === "player";
+        playerButton.classList.toggle("active", active);
+        playerButton.setAttribute("aria-pressed", String(active));
+      }
+
+      if (savePreference) {
+        try {
+          localStorage.setItem(INTERFACE_VIEW_KEY, validView);
+        } catch (error) {
+          log("Could not save interface preference", error.message);
+        }
+      }
+
+      window.setTimeout(function () {
+        renderGame();
+      }, 60);
+    }
+
+    function loadInterfaceView() {
+      let savedView = "student";
+
+      try {
+        savedView =
+          localStorage.getItem(INTERFACE_VIEW_KEY) || "student";
+      } catch {
+        savedView = "student";
+      }
+
+      setInterfaceView(savedView, false);
     }
 
     function buildWebSocketUrl() {
@@ -1587,11 +2280,17 @@
 
       try {
         ws = new WebSocket(url);
+        setConnectionStatus("Connecting...", false);
         log("Connecting", url);
 
         ws.onopen = function () {
           setConnectionStatus("Connected", true);
-          addRoomMessage(getName() + " connected as " + getRole(), "system");
+
+          addRoomMessage(
+            getName() + " connected as " + getRole(),
+            "system"
+          );
+
           announcePresence();
         };
 
@@ -1624,13 +2323,18 @@
 
         ws.onclose = function (event) {
           setConnectionStatus("Disconnected", false);
+
           log("Disconnected", {
             code: event.code,
             reason: event.reason || "No reason given",
             wasClean: event.wasClean
           });
+
+          ws = null;
+          renderGame();
         };
       } catch (error) {
+        setConnectionStatus("Connection failed", false);
         log("Connection failed", error.message);
       }
     }
@@ -1643,7 +2347,9 @@
 
       ws.close(1000, "Closed by user");
       ws = null;
+
       setConnectionStatus("Disconnected", false);
+      renderGame();
     }
 
     function sendPayload(payload) {
@@ -1695,11 +2401,15 @@
     }
 
     function getActivePlayersFromLobby() {
-      return PLAYER_ORDER.filter(player => lobby[player]);
+      return PLAYER_ORDER.filter(function (player) {
+        return lobby[player];
+      });
     }
 
     function getHumanPlayersFromLobby() {
-      return PLAYER_ORDER.filter(player => lobby[player] && lobby[player].type === "human");
+      return PLAYER_ORDER.filter(function (player) {
+        return lobby[player] && lobby[player].type === "human";
+      });
     }
 
     function ensureComputerIfSingleHuman() {
@@ -1710,14 +2420,25 @@
       }
 
       const humanRole = humanPlayers[0];
-      const computerRole = PLAYER_ORDER.find(player => player !== humanRole);
+
+      const computerRole = PLAYER_ORDER.find(function (player) {
+        return player !== humanRole && !lobby[player];
+      }) || PLAYER_ORDER.find(function (player) {
+        return player !== humanRole;
+      });
 
       if (!computerRole) {
         return false;
       }
 
       updateLobby(computerRole, "Computer", "computer");
-      addRoomMessage("Computer joined as " + computerRole + " because only one human player is playing.", "system");
+
+      addRoomMessage(
+        "Computer joined as " + computerRole +
+        " because only one human player is playing.",
+        "system"
+      );
+
       return true;
     }
 
@@ -1729,7 +2450,11 @@
         activePlayers = getActivePlayersFromLobby();
 
         if (!addedComputer || activePlayers.length < 2) {
-          alert("At least 2 players are needed. Connect one human player first. If only one human is connected, the computer joins automatically.");
+          alert(
+            "At least 2 players are needed. Connect one human player first. " +
+            "If only one human is connected, the computer joins automatically."
+          );
+
           return null;
         }
       }
@@ -1743,8 +2468,13 @@
     }
 
     function getActivePlayers() {
-      if (Array.isArray(game.activePlayers) && game.activePlayers.length >= 2) {
-        return game.activePlayers.filter(player => PLAYER_ORDER.includes(player));
+      if (
+        Array.isArray(game.activePlayers) &&
+        game.activePlayers.length >= 2
+      ) {
+        return game.activePlayers.filter(function (player) {
+          return PLAYER_ORDER.includes(player);
+        });
       }
 
       const fromLobby = getActivePlayersFromLobby();
@@ -1757,6 +2487,11 @@
     }
 
     function newGame() {
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        alert("Connect to the room first.");
+        return;
+      }
+
       const activePlayers = validatePlayerCountForStart();
 
       if (!activePlayers) {
@@ -1764,6 +2499,7 @@
       }
 
       const previousLobby = lobby;
+
       game = createInitialGame();
       lobby = previousLobby;
       isHost = true;
@@ -1785,6 +2521,7 @@
       game.moveNumber = 0;
 
       ensurePowerPoints();
+
       lastDice = "-";
       seenMoveIds.clear();
 
@@ -1801,7 +2538,12 @@
         time: new Date().toISOString()
       });
 
-      addRoomMessage(getName() + " started a " + activePlayers.length + "-player game.", "system");
+      addRoomMessage(
+        getName() + " started a " +
+        activePlayers.length + "-player game.",
+        "system"
+      );
+
       maybeComputerMove();
     }
 
@@ -1823,7 +2565,11 @@
       const role = getRole();
 
       if (role === "spectator") {
-        addRoomMessage("Spectator mode: you can watch, but you cannot roll the dice.", "system");
+        addRoomMessage(
+          "Spectator mode: you can watch, but you cannot roll the dice.",
+          "system"
+        );
+
         updateSpectatorControls();
         return;
       }
@@ -1835,7 +2581,10 @@
       ensurePowerPoints();
 
       if (!ws || ws.readyState !== WebSocket.OPEN) {
-        alert("Connect first.");
+        if (!isComputerRoll) {
+          alert("Connect first.");
+        }
+
         return;
       }
 
@@ -1846,12 +2595,21 @@
       const activePlayers = getActivePlayers();
 
       if (!activePlayers.includes(role)) {
-        alert("You are not part of this game. This game has players: " + activePlayers.join(", "));
+        if (!isComputerRoll) {
+          alert(
+            "You are not part of this game. Current players: " +
+            activePlayers.join(", ")
+          );
+        }
+
         return;
       }
 
       if (game.status !== "playing") {
-        alert("Start a new game first.");
+        if (!isComputerRoll) {
+          alert("Start a new game first.");
+        }
+
         return;
       }
 
@@ -1859,13 +2617,17 @@
         if (!isComputerRoll) {
           alert("It is " + game.turn + "'s turn.");
         }
+
         return;
       }
 
       if (game.pendingMove && game.pendingMove.role === role) {
         if (!isComputerRoll) {
-          alert("You have already rolled. Choose Power Points or click Make Move.");
+          alert(
+            "You have already rolled. Choose Power Points or make the move."
+          );
         }
+
         return;
       }
 
@@ -1882,7 +2644,10 @@
         createdAt: new Date().toISOString()
       };
 
-      const note = role + " rolled " + dice + ". Now choose Power Points if needed, then click Make Move.";
+      const note =
+        role + " rolled " + dice +
+        ". Select optional Power Points, then make the move.";
+
       game.moveNumber += 1;
 
       const moveId = makeMoveId();
@@ -1890,9 +2655,10 @@
 
       const drama = {
         kind: dice === 6 ? "six" : "power",
+
         text: dice === 6
-          ? "🎲 " + role + " rolled a SIX! Choose Power or Make Move."
-          : "🎲 " + role + " rolled " + dice + ". Choose Power or Make Move."
+          ? "🎲 " + role + " rolled a SIX! Choose Power or make the move."
+          : "🎲 " + role + " rolled " + dice + "."
       };
 
       renderGame();
@@ -1923,7 +2689,11 @@
       const role = getRole();
 
       if (role === "spectator") {
-        addRoomMessage("Spectator mode: you can watch, but you cannot use Power Points.", "system");
+        addRoomMessage(
+          "Spectator mode: you cannot use Power Points.",
+          "system"
+        );
+
         updateSpectatorControls();
         return;
       }
@@ -1931,11 +2701,19 @@
       adjustPendingMoveForRole(role, delta, getName(), false);
     }
 
-    function adjustPendingMoveForRole(role, delta, actorName, isComputerUse) {
+    function adjustPendingMoveForRole(
+      role,
+      delta,
+      actorName,
+      isComputerUse
+    ) {
       ensurePowerPoints();
 
       if (!ws || ws.readyState !== WebSocket.OPEN) {
-        alert("Connect first.");
+        if (!isComputerUse) {
+          alert("Connect first.");
+        }
+
         return;
       }
 
@@ -1944,7 +2722,10 @@
       }
 
       if (game.status !== "playing") {
-        alert("Start a new game first.");
+        if (!isComputerUse) {
+          alert("Start a new game first.");
+        }
+
         return;
       }
 
@@ -1952,33 +2733,44 @@
         if (!isComputerUse) {
           alert("It is " + game.turn + "'s turn.");
         }
+
         return;
       }
 
       if (!game.pendingMove || game.pendingMove.role !== role) {
         if (!isComputerUse) {
-          alert("Roll the dice first. Then choose Power Points.");
+          alert("Roll the dice first.");
         }
+
         return;
       }
 
       ensurePendingMoveShape();
 
-      const currentSelected = game.pendingMove.selectedPower || 0;
-      const available = game.powerPoints[role] || 0;
+      const currentSelected =
+        game.pendingMove.selectedPower || 0;
+
+      const available =
+        game.powerPoints[role] || 0;
+
       const newSelected = currentSelected + delta;
 
       if (newSelected < 0) {
         if (!isComputerUse) {
           alert("Selected Power Points cannot be negative.");
         }
+
         return;
       }
 
       if (newSelected > available) {
         if (!isComputerUse) {
-          alert(role + " has only " + available + " Power Points left.");
+          alert(
+            role + " has only " + available +
+            " Power Points left."
+          );
         }
+
         return;
       }
 
@@ -1987,14 +2779,23 @@
       game.pendingMove.spent = newSelected;
       game.moveNumber += 1;
 
-      const finalSteps = game.pendingMove.dice + game.pendingMove.selectedPower;
-      const sign = delta > 0 ? "+1 selected" : "-1 removed";
-      const note = role + " changed Power Point selection (" + sign + "). Selected: " + newSelected + ". Final move will be " + finalSteps + " squares.";
+      const finalSteps =
+        game.pendingMove.dice +
+        game.pendingMove.selectedPower;
+
+      const note =
+        role + " selected " + newSelected +
+        " Power Point(s). Final movement: " +
+        finalSteps + " squares.";
+
       const moveId = makeMoveId();
       seenMoveIds.add(moveId);
+
       const drama = {
         kind: "power",
-        text: "⚡ " + role + " selected " + newSelected + " Power Point(s). Final move: " + finalSteps
+        text:
+          "⚡ " + role + " selected " +
+          newSelected + " Power Point(s)."
       };
 
       renderGame();
@@ -2025,7 +2826,11 @@
       const role = getRole();
 
       if (role === "spectator") {
-        addRoomMessage("Spectator mode: you can watch, but you cannot make moves.", "system");
+        addRoomMessage(
+          "Spectator mode: you cannot make moves.",
+          "system"
+        );
+
         updateSpectatorControls();
         return;
       }
@@ -2033,11 +2838,18 @@
       makeMoveForRole(role, getName(), false);
     }
 
-    function makeMoveForRole(role, actorName, isComputerMove) {
+    function makeMoveForRole(
+      role,
+      actorName,
+      isComputerMove
+    ) {
       ensurePowerPoints();
 
       if (!ws || ws.readyState !== WebSocket.OPEN) {
-        alert("Connect first.");
+        if (!isComputerMove) {
+          alert("Connect first.");
+        }
+
         return;
       }
 
@@ -2046,7 +2858,10 @@
       }
 
       if (game.status !== "playing") {
-        alert("Start a new game first.");
+        if (!isComputerMove) {
+          alert("Start a new game first.");
+        }
+
         return;
       }
 
@@ -2054,6 +2869,7 @@
         if (!isComputerMove) {
           alert("It is " + game.turn + "'s turn.");
         }
+
         return;
       }
 
@@ -2061,13 +2877,22 @@
         if (!isComputerMove) {
           alert("Roll the dice first.");
         }
+
         return;
       }
 
       ensurePendingMoveShape();
 
       const pending = game.pendingMove;
-      const selectedPower = Math.max(0, Math.min(pending.selectedPower || 0, game.powerPoints[role] || 0));
+
+      const selectedPower = Math.max(
+        0,
+        Math.min(
+          pending.selectedPower || 0,
+          game.powerPoints[role] || 0
+        )
+      );
+
       pending.selectedPower = selectedPower;
       pending.adjustment = selectedPower;
       pending.spent = selectedPower;
@@ -2077,29 +2902,42 @@
 
       let nextPosition = oldPosition + finalSteps;
       let landedPosition = nextPosition;
-      let note = role + " makes move: dice " + pending.dice;
+
+      let note =
+        role + " makes move: dice " + pending.dice;
 
       if (selectedPower > 0) {
         note += " + " + selectedPower + " Power Point(s)";
       }
 
       note += " = " + finalSteps + " square(s). ";
+
       let drama = null;
 
       if (nextPosition > 100) {
         nextPosition = oldPosition;
         landedPosition = oldPosition;
-        note += role + " needs exact 100. The coin stays at " + oldPosition + ".";
+
+        note +=
+          role + " needs exact 100. The coin stays at " +
+          oldPosition + ".";
       } else {
-        note += role + " moved from " + oldPosition + " to " + nextPosition + ".";
+        note +=
+          role + " moved from " +
+          oldPosition + " to " +
+          nextPosition + ".";
 
         if (JUMPS[nextPosition]) {
           const jumpTo = JUMPS[nextPosition];
 
           if (jumpTo > nextPosition) {
-            note += " Ladder climb! Climbed from " + nextPosition + " to " + jumpTo + ".";
+            note +=
+              " Ladder climb! Climbed from " +
+              nextPosition + " to " + jumpTo + ".";
           } else {
-            note += " Snake bite! Fell from " + nextPosition + " to " + jumpTo + ".";
+            note +=
+              " Snake bite! Fell from " +
+              nextPosition + " to " + jumpTo + ".";
           }
 
           nextPosition = jumpTo;
@@ -2108,45 +2946,99 @@
 
       game.powerPoints[role] -= selectedPower;
 
-      if (nextPosition === 100 && game.powerPoints[role] > 0) {
-        note += " But " + role + " still has " + game.powerPoints[role] + " Power Points. Use all points before reaching 100.";
+      if (
+        nextPosition === 100 &&
+        game.powerPoints[role] > 0
+      ) {
+        note +=
+          " But " + role + " still has " +
+          game.powerPoints[role] +
+          " Power Points. All points must be used before reaching 100.";
+
         nextPosition = oldPosition;
         landedPosition = oldPosition;
         game.positions[role] = oldPosition;
+
         drama = {
           kind: "power",
-          text: "⚡ " + role + " must use all Power Points before reaching 100!"
+          text:
+            "⚡ " + role +
+            " must use all Power Points before reaching 100!"
         };
+
         game.pendingMove = null;
 
         if (pending.dice !== 6) {
           game.turn = nextPlayer(game.turn);
         } else {
-          note += " Rolled 6, gets another turn.";
+          note += " Rolled 6, so another turn is awarded.";
         }
       } else {
         game.positions[role] = nextPosition;
         game.pendingMove = null;
 
-        if (nextPosition === 100 && game.powerPoints[role] === 0) {
+        if (
+          nextPosition === 100 &&
+          game.powerPoints[role] === 0
+        ) {
           game.status = "finished";
           game.winner = role;
-          note += " " + role + " reached 100 after using all Power Points. Victory!";
-          drama = dramaFromMove(role, pending.dice, oldPosition, landedPosition, nextPosition, true);
+
+          note +=
+            " " + role +
+            " reached 100 after using all Power Points. Victory!";
+
+          drama = dramaFromMove(
+            role,
+            pending.dice,
+            oldPosition,
+            landedPosition,
+            nextPosition,
+            true
+          );
         } else if (pending.dice === 6) {
-          note += " Rolled 6, gets another turn.";
-          drama = dramaFromMove(role, pending.dice, oldPosition, landedPosition, nextPosition, false);
+          note += " Rolled 6, so another turn is awarded.";
+
+          drama = dramaFromMove(
+            role,
+            pending.dice,
+            oldPosition,
+            landedPosition,
+            nextPosition,
+            false
+          );
         } else {
           game.turn = nextPlayer(game.turn);
-          drama = dramaFromMove(role, pending.dice, oldPosition, landedPosition, nextPosition, false);
+
+          drama = dramaFromMove(
+            role,
+            pending.dice,
+            oldPosition,
+            landedPosition,
+            nextPosition,
+            false
+          );
         }
       }
 
       game.moveNumber += 1;
-      finishMove(role, actorName, pending.dice, note, drama);
+
+      finishMove(
+        role,
+        actorName,
+        pending.dice,
+        note,
+        drama
+      );
     }
 
-    function finishMove(role, actorName, dice, note, drama) {
+    function finishMove(
+      role,
+      actorName,
+      dice,
+      note,
+      drama
+    ) {
       const moveId = makeMoveId();
       seenMoveIds.add(moveId);
 
@@ -2182,11 +3074,16 @@
         return activePlayers[0] || "P1";
       }
 
-      return activePlayers[(index + 1) % activePlayers.length];
+      return activePlayers[
+        (index + 1) % activePlayers.length
+      ];
     }
 
     function isComputerTurn() {
-      return game.status === "playing" && game.playerTypes[game.turn] === "computer";
+      return (
+        game.status === "playing" &&
+        game.playerTypes[game.turn] === "computer"
+      );
     }
 
     function thisClientIsHost() {
@@ -2194,7 +3091,10 @@
         return isHost;
       }
 
-      return isHost || game.hostClientId === myClientId;
+      return (
+        isHost ||
+        game.hostClientId === myClientId
+      );
     }
 
     function maybeComputerMove() {
@@ -2213,17 +3113,24 @@
       computerThinking = true;
       renderPlayers();
 
-      setTimeout(function () {
+      window.setTimeout(function () {
         computerThinking = false;
 
-        if (!isComputerTurn() || !thisClientIsHost()) {
+        if (
+          !isComputerTurn() ||
+          !thisClientIsHost()
+        ) {
           return;
         }
 
         const role = game.turn;
+
         ensurePowerPoints();
 
-        if (!game.pendingMove || game.pendingMove.role !== role) {
+        if (
+          !game.pendingMove ||
+          game.pendingMove.role !== role
+        ) {
           rollForRole(role, "Computer", true);
           return;
         }
@@ -2234,53 +3141,101 @@
         const points = game.powerPoints[role] || 0;
         const pending = game.pendingMove;
         const currentSelected = pending.selectedPower || 0;
-        const finalSteps = pending.dice + currentSelected;
+
+        const finalSteps =
+          pending.dice + currentSelected;
+
         const target = position + finalSteps;
 
         if (points > currentSelected) {
           const plusTarget = target + 1;
 
-          if (JUMPS[plusTarget] && JUMPS[plusTarget] > plusTarget) {
-            adjustPendingMoveForRole(role, 1, "Computer", true);
+          if (
+            JUMPS[plusTarget] &&
+            JUMPS[plusTarget] > plusTarget
+          ) {
+            adjustPendingMoveForRole(
+              role,
+              1,
+              "Computer",
+              true
+            );
+
             return;
           }
 
-          if (position >= 92 && target < 100 && Math.random() < 0.25) {
-            adjustPendingMoveForRole(role, 1, "Computer", true);
+          if (
+            position >= 92 &&
+            target < 100 &&
+            Math.random() < 0.25
+          ) {
+            adjustPendingMoveForRole(
+              role,
+              1,
+              "Computer",
+              true
+            );
+
             return;
           }
         }
 
-        makeMoveForRole(role, "Computer", true);
+        makeMoveForRole(
+          role,
+          "Computer",
+          true
+        );
       }, 900);
     }
 
-    function dramaFromMove(role, dice, oldPosition, landedPosition, finalPosition, winner) {
+    function dramaFromMove(
+      role,
+      dice,
+      oldPosition,
+      landedPosition,
+      finalPosition,
+      winner
+    ) {
       if (winner) {
         return {
           kind: "win",
-          text: "🏁 " + role + " reached 100! Victory!"
+          text:
+            "🏁 " + role +
+            " reached 100! Victory!"
         };
       }
 
       if (finalPosition > landedPosition) {
         return {
           kind: "ladder",
-          text: "🪜 " + role + " climbs from " + landedPosition + " to " + finalPosition + "!"
+          text:
+            "🪜 " + role +
+            " climbs from " +
+            landedPosition +
+            " to " +
+            finalPosition + "!"
         };
       }
 
       if (finalPosition < landedPosition) {
         return {
           kind: "snake",
-          text: "🐍 Snake bite! " + role + " falls from " + landedPosition + " to " + finalPosition + "!"
+          text:
+            "🐍 Snake bite! " +
+            role +
+            " falls from " +
+            landedPosition +
+            " to " +
+            finalPosition + "!"
         };
       }
 
       if (dice === 6) {
         return {
           kind: "six",
-          text: "🎲 " + role + " rolled a SIX! One more chance!"
+          text:
+            "🎲 " + role +
+            " rolled a SIX! One more chance!"
         };
       }
 
@@ -2288,15 +3243,25 @@
     }
 
     function showDrama(kind, text) {
-      const boxes = [dramaBanner, localDramaBanner];
+      const boxes = [
+        dramaBanner,
+        localDramaBanner
+      ];
 
-      boxes.forEach(box => {
+      boxes.forEach(function (box) {
         if (!box) {
           return;
         }
 
-        box.className = (box.id === "localDramaBanner" ? "local-drama-banner " : "drama-banner ") + kind + "-drama";
+        box.className =
+          (box.id === "localDramaBanner"
+            ? "local-drama-banner "
+            : "drama-banner ") +
+          kind +
+          "-drama";
+
         box.textContent = text;
+
         void box.offsetWidth;
         box.classList.add("show");
       });
@@ -2324,7 +3289,7 @@
       }
 
       if (kind === "six") {
-        [diceBox, hudDiceBox].forEach(box => {
+        [diceBox, hudDiceBox].forEach(function (box) {
           if (!box) {
             return;
           }
@@ -2340,6 +3305,7 @@
       const zero = number - 1;
       const rowFromBottom = Math.floor(zero / 10);
       const rowFromTop = 9 - rowFromBottom;
+
       let col = zero % 10;
 
       if (rowFromBottom % 2 === 1) {
@@ -2361,7 +3327,9 @@
         const rowNumbers = [];
 
         for (let col = 0; col < 10; col++) {
-          rowNumbers.push(row * 10 + col + 1);
+          rowNumbers.push(
+            row * 10 + col + 1
+          );
         }
 
         if ((9 - row) % 2 === 0) {
@@ -2373,6 +3341,7 @@
 
       for (const number of displayNumbers) {
         const square = document.createElement("div");
+
         square.className = "square";
         square.dataset.number = String(number);
 
@@ -2392,9 +3361,10 @@
         mark.className = "mark";
 
         if (JUMPS[number]) {
-          mark.textContent = JUMPS[number] > number
-            ? "🪜 " + JUMPS[number]
-            : "🐍 " + JUMPS[number];
+          mark.textContent =
+            JUMPS[number] > number
+              ? "🪜 " + JUMPS[number]
+              : "🐍 " + JUMPS[number];
         }
 
         const tokens = document.createElement("div");
@@ -2403,6 +3373,7 @@
         square.appendChild(num);
         square.appendChild(mark);
         square.appendChild(tokens);
+
         boardBox.appendChild(square);
       }
 
@@ -2439,6 +3410,7 @@
       const dx = b.x - a.x;
       const dy = b.y - a.y;
       const len = Math.hypot(dx, dy) || 1;
+
       const nx = -dy / len;
       const ny = dx / len;
       const gap = 16;
@@ -2460,11 +3432,19 @@
 
       for (let i = 1; i < rungs; i++) {
         const t = i / rungs;
+
         const rx1 = x1 + (x2 - x1) * t;
         const ry1 = y1 + (y2 - y1) * t;
         const rx2 = x3 + (x4 - x3) * t;
         const ry2 = y3 + (y4 - y3) * t;
-        addSvgLine(rx1, ry1, rx2, ry2, "ladder-rung");
+
+        addSvgLine(
+          rx1,
+          ry1,
+          rx2,
+          ry2,
+          "ladder-rung"
+        );
       }
     }
 
@@ -2475,14 +3455,22 @@
       const dx = b.x - a.x;
       const dy = b.y - a.y;
       const len = Math.hypot(dx, dy) || 1;
+
       const nx = -dy / len;
       const ny = dx / len;
-
       const wiggle = 42;
-      const c1x = a.x + dx * 0.28 + nx * wiggle;
-      const c1y = a.y + dy * 0.28 + ny * wiggle;
-      const c2x = a.x + dx * 0.68 - nx * wiggle;
-      const c2y = a.y + dy * 0.68 - ny * wiggle;
+
+      const c1x =
+        a.x + dx * 0.28 + nx * wiggle;
+
+      const c1y =
+        a.y + dy * 0.28 + ny * wiggle;
+
+      const c2x =
+        a.x + dx * 0.68 - nx * wiggle;
+
+      const c2y =
+        a.y + dy * 0.68 - ny * wiggle;
 
       const d =
         "M " + a.x + " " + a.y +
@@ -2490,63 +3478,121 @@
         c2x + " " + c2y + ", " +
         b.x + " " + b.y;
 
-      const body = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      const body = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      );
+
       body.setAttribute("d", d);
       body.setAttribute("class", "snake-path");
       boardArt.appendChild(body);
 
-      const belly = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      const belly = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      );
+
       belly.setAttribute("d", d);
       belly.setAttribute("class", "snake-belly");
       boardArt.appendChild(belly);
 
-      const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+      const angle =
+        Math.atan2(dy, dx) * 180 / Math.PI;
 
-      const head = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+      const head = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "ellipse"
+      );
+
       head.setAttribute("cx", a.x);
       head.setAttribute("cy", a.y);
       head.setAttribute("rx", "21");
       head.setAttribute("ry", "15");
       head.setAttribute("class", "snake-head");
-      head.setAttribute("transform", "rotate(" + angle + " " + a.x + " " + a.y + ")");
+
+      head.setAttribute(
+        "transform",
+        "rotate(" +
+        angle + " " +
+        a.x + " " +
+        a.y + ")"
+      );
+
       boardArt.appendChild(head);
 
       addEye(a.x - 7, a.y - 5);
       addEye(a.x + 7, a.y - 5);
 
-      const tongue = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      const tx = a.x + Math.cos(angle * Math.PI / 180) * 28;
-      const ty = a.y + Math.sin(angle * Math.PI / 180) * 28;
-      tongue.setAttribute("d", "M " + a.x + " " + a.y + " L " + tx + " " + ty);
+      const tongue = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      );
+
+      const tx =
+        a.x +
+        Math.cos(angle * Math.PI / 180) * 28;
+
+      const ty =
+        a.y +
+        Math.sin(angle * Math.PI / 180) * 28;
+
+      tongue.setAttribute(
+        "d",
+        "M " + a.x + " " + a.y +
+        " L " + tx + " " + ty
+      );
+
       tongue.setAttribute("stroke", "#7f1d1d");
       tongue.setAttribute("stroke-width", "2");
       tongue.setAttribute("stroke-linecap", "round");
+
       boardArt.appendChild(tongue);
     }
 
-    function addSvgLine(x1, y1, x2, y2, className) {
-      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    function addSvgLine(
+      x1,
+      y1,
+      x2,
+      y2,
+      className
+    ) {
+      const line = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "line"
+      );
+
       line.setAttribute("x1", x1);
       line.setAttribute("y1", y1);
       line.setAttribute("x2", x2);
       line.setAttribute("y2", y2);
       line.setAttribute("class", className);
+
       boardArt.appendChild(line);
     }
 
     function addEye(x, y) {
-      const eye = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      const eye = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
+      );
+
       eye.setAttribute("cx", x);
       eye.setAttribute("cy", y);
       eye.setAttribute("r", "4");
       eye.setAttribute("class", "snake-eye");
+
       boardArt.appendChild(eye);
 
-      const pupil = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      const pupil = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
+      );
+
       pupil.setAttribute("cx", x);
       pupil.setAttribute("cy", y);
       pupil.setAttribute("r", "1.8");
       pupil.setAttribute("class", "snake-pupil");
+
       boardArt.appendChild(pupil);
     }
 
@@ -2554,24 +3600,37 @@
       log("Received", data);
 
       if (data.type === "system") {
-        addRoomMessage(data.message || "System message", "system");
+        addRoomMessage(
+          data.message || "System message",
+          "system"
+        );
+
         return;
       }
 
-      if (!data.message || typeof data.message !== "string") {
+      if (
+        !data.message ||
+        typeof data.message !== "string"
+      ) {
         return;
       }
 
       if (!data.message.startsWith(GAME_PREFIX)) {
         const sender = data.name || "User";
-        addRoomMessage(sender + ": " + data.message);
+
+        addRoomMessage(
+          sender + ": " + data.message
+        );
+
         return;
       }
 
       let payload;
 
       try {
-        payload = JSON.parse(data.message.slice(GAME_PREFIX.length));
+        payload = JSON.parse(
+          data.message.slice(GAME_PREFIX.length)
+        );
       } catch (error) {
         log("Bad game payload", error.message);
         return;
@@ -2587,15 +3646,33 @@
 
       if (payload.kind === "presence") {
         if (payload.lobby) {
-          lobby = Object.assign(lobby, payload.lobby);
+          lobby = Object.assign(
+            lobby,
+            payload.lobby
+          );
         }
 
-        if (payload.role && PLAYER_ORDER.includes(payload.role) && payload.name) {
-          updateLobby(payload.role, payload.name, "human");
+        if (
+          payload.role &&
+          PLAYER_ORDER.includes(payload.role) &&
+          payload.name
+        ) {
+          updateLobby(
+            payload.role,
+            payload.name,
+            "human"
+          );
         }
 
         renderGame();
-        addRoomMessage(payload.name + " joined as " + payload.role, "system");
+
+        addRoomMessage(
+          payload.name +
+          " joined as " +
+          payload.role,
+          "system"
+        );
+
         return;
       }
 
@@ -2605,13 +3682,23 @@
         }
 
         game = payload.game;
+
         ensurePowerPoints();
         ensurePendingMoveShape();
+
         lastDice = payload.lastDice || "-";
         isHost = game.hostClientId === myClientId;
 
         renderGame();
-        addRoomMessage(payload.from + " started a " + game.activePlayers.length + "-player game.", "system");
+
+        addRoomMessage(
+          payload.from +
+          " started a " +
+          game.activePlayers.length +
+          "-player game.",
+          "system"
+        );
+
         maybeComputerMove();
         return;
       }
@@ -2621,23 +3708,37 @@
           lobby = payload.lobby;
         }
 
-        if (payload.game && payload.game.moveNumber >= game.moveNumber) {
+        if (
+          payload.game &&
+          payload.game.moveNumber >= game.moveNumber
+        ) {
           game = payload.game;
           ensurePowerPoints();
           ensurePendingMoveShape();
         }
 
-        lastDice = payload.lastDice || lastDice;
-        isHost = game.hostClientId === myClientId;
+        lastDice =
+          payload.lastDice || lastDice;
+
+        isHost =
+          game.hostClientId === myClientId;
 
         renderGame();
-        addRoomMessage("Game synced from " + payload.from, "system");
+
+        addRoomMessage(
+          "Game synced from " + payload.from,
+          "system"
+        );
+
         maybeComputerMove();
         return;
       }
 
       if (payload.kind === "move") {
-        if (payload.moveId && seenMoveIds.has(payload.moveId)) {
+        if (
+          payload.moveId &&
+          seenMoveIds.has(payload.moveId)
+        ) {
           return;
         }
 
@@ -2645,28 +3746,45 @@
           seenMoveIds.add(payload.moveId);
         }
 
-        if (payload.game && payload.game.moveNumber >= game.moveNumber) {
+        if (
+          payload.game &&
+          payload.game.moveNumber >= game.moveNumber
+        ) {
           game = payload.game;
           ensurePowerPoints();
           ensurePendingMoveShape();
         }
 
-        lastDice = payload.lastDice || String(payload.dice || "-");
-        isHost = game.hostClientId === myClientId;
+        lastDice =
+          payload.lastDice ||
+          String(payload.dice || "-");
+
+        isHost =
+          game.hostClientId === myClientId;
 
         renderGame();
 
         if (payload.drama) {
-          showDrama(payload.drama.kind, payload.drama.text);
+          showDrama(
+            payload.drama.kind,
+            payload.drama.text
+          );
         }
 
-        addRoomMessage(payload.note || payload.from + " moved.", "system");
+        addRoomMessage(
+          payload.note ||
+          payload.from + " moved.",
+          "system"
+        );
+
         maybeComputerMove();
         return;
       }
 
       if (payload.kind === "room-chat") {
-        addRoomMessage(payload.from + ": " + payload.text);
+        addRoomMessage(
+          payload.from + ": " + payload.text
+        );
       }
     }
 
@@ -2677,6 +3795,11 @@
         return;
       }
 
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        alert("Connect first.");
+        return;
+      }
+
       sendPayload({
         kind: "room-chat",
         from: getName(),
@@ -2684,31 +3807,50 @@
         time: new Date().toISOString()
       });
 
-      addRoomMessage("You: " + text, "mine");
+      addRoomMessage(
+        "You: " + text,
+        "mine"
+      );
+
       chatInput.value = "";
       chatInput.focus();
     }
 
     function updateSpectatorControls() {
-      const isSpectator = getRole() === "spectator";
-      const rollButtons = document.querySelectorAll(".roll-dice-btn");
-      const powerButtons = document.querySelectorAll(".power-btn");
-      const moveButtons = document.querySelectorAll(".move-btn");
-      const spectatorNote = document.getElementById("spectatorNote");
+      const isSpectator =
+        getRole() === "spectator";
 
-      rollButtons.forEach(button => {
-        button.classList.toggle("hidden-for-spectator", isSpectator);
-        button.disabled = isSpectator;
+      const rollButtons =
+        document.querySelectorAll(".roll-dice-btn");
+
+      const powerButtons =
+        document.querySelectorAll(".power-btn");
+
+      const moveButtons =
+        document.querySelectorAll(".move-btn");
+
+      const spectatorNote =
+        document.getElementById("spectatorNote");
+
+      rollButtons.forEach(function (button) {
+        button.classList.toggle(
+          "hidden-for-spectator",
+          isSpectator
+        );
       });
 
-      powerButtons.forEach(button => {
-        button.classList.toggle("hidden-for-spectator", isSpectator);
-        button.disabled = isSpectator;
+      powerButtons.forEach(function (button) {
+        button.classList.toggle(
+          "hidden-for-spectator",
+          isSpectator
+        );
       });
 
-      moveButtons.forEach(button => {
-        button.classList.toggle("hidden-for-spectator", isSpectator);
-        button.disabled = isSpectator;
+      moveButtons.forEach(function (button) {
+        button.classList.toggle(
+          "hidden-for-spectator",
+          isSpectator
+        );
       });
 
       if (spectatorNote) {
@@ -2716,86 +3858,299 @@
       }
     }
 
+    function updateGameplayButtonStates() {
+      const role = getRole();
+
+      const connected =
+        Boolean(
+          ws &&
+          ws.readyState === WebSocket.OPEN
+        );
+
+      const isPlayer =
+        PLAYER_ORDER.includes(role);
+
+      const activePlayers =
+        getActivePlayers();
+
+      const isMyTurn =
+        game.status === "playing" &&
+        game.turn === role &&
+        activePlayers.includes(role);
+
+      const hasPendingMove =
+        Boolean(
+          game.pendingMove &&
+          game.pendingMove.role === role
+        );
+
+      const selectedPower =
+        hasPendingMove
+          ? Number(game.pendingMove.selectedPower || 0)
+          : 0;
+
+      const availablePower =
+        game.powerPoints && PLAYER_ORDER.includes(role)
+          ? Number(game.powerPoints[role] || 0)
+          : 0;
+
+      document
+        .querySelectorAll(".roll-dice-btn")
+        .forEach(function (button) {
+          button.disabled =
+            !connected ||
+            !isPlayer ||
+            !isMyTurn ||
+            hasPendingMove;
+        });
+
+      document
+        .querySelectorAll('[onclick="adjustPendingMove(1)"]')
+        .forEach(function (button) {
+          button.disabled =
+            !connected ||
+            !isPlayer ||
+            !isMyTurn ||
+            !hasPendingMove ||
+            selectedPower >= availablePower;
+        });
+
+      document
+        .querySelectorAll('[onclick="adjustPendingMove(-1)"]')
+        .forEach(function (button) {
+          button.disabled =
+            !connected ||
+            !isPlayer ||
+            !isMyTurn ||
+            !hasPendingMove ||
+            selectedPower <= 0;
+        });
+
+      document
+        .querySelectorAll(".move-btn")
+        .forEach(function (button) {
+          button.disabled =
+            !connected ||
+            !isPlayer ||
+            !isMyTurn ||
+            !hasPendingMove;
+
+          if (hasPendingMove && isMyTurn) {
+            const finalMove =
+              Number(game.pendingMove.dice || 0) +
+              selectedPower;
+
+            button.textContent =
+              "Move " + finalMove + " Squares";
+          } else {
+            button.textContent = "Make Move";
+          }
+        });
+
+      document
+        .querySelectorAll(".new-game-btn")
+        .forEach(function (button) {
+          button.disabled = !connected;
+        });
+
+      const disconnectButton =
+        document.getElementById("disconnectBtn");
+
+      if (disconnectButton) {
+        disconnectButton.disabled = !connected;
+      }
+
+      const connectButton =
+        document.getElementById("connectBtn");
+
+      if (connectButton) {
+        connectButton.disabled = connected;
+      }
+
+      chatInput.disabled = !connected;
+    }
+
     function renderGame() {
       ensurePowerPoints();
       ensurePendingMoveShape();
 
-      const tokenBoxes = boardBox.querySelectorAll(".tokens");
-      tokenBoxes.forEach(box => box.innerHTML = "");
+      const tokenBoxes =
+        boardBox.querySelectorAll(".tokens");
+
+      tokenBoxes.forEach(function (box) {
+        box.innerHTML = "";
+      });
 
       for (const player of PLAYER_ORDER) {
-        const pos = game.positions[player] || 0;
+        const position =
+          game.positions[player] || 0;
 
-        if (pos <= 0) {
+        if (position <= 0) {
           continue;
         }
 
-        const square = boardBox.querySelector('[data-number="' + pos + '"]');
+        const square = boardBox.querySelector(
+          '[data-number="' + position + '"]'
+        );
 
         if (!square) {
           continue;
         }
 
-        const token = document.createElement("div");
-        token.className = "token " + player.toLowerCase();
+        const token =
+          document.createElement("div");
 
-        if (game.status === "finished" && game.winner === player) {
+        token.className =
+          "token " + player.toLowerCase();
+
+        if (player === getRole()) {
+          token.classList.add("local-token");
+        }
+
+        if (
+          game.status === "finished" &&
+          game.winner === player
+        ) {
           token.classList.add("winner-token");
         }
 
-        token.textContent = player.replace("P", "");
-        square.querySelector(".tokens").appendChild(token);
+        token.textContent =
+          player.replace("P", "");
+
+        token.setAttribute(
+          "aria-label",
+          player + " at square " + position
+        );
+
+        square
+          .querySelector(".tokens")
+          .appendChild(token);
       }
 
       diceBox.textContent = lastDice;
       hudDiceBox.textContent = lastDice;
 
-      hudRoomBox.textContent = "Room: " + getRoom() + " | You: " + getName() + " (" + getRole() + ")";
+      hudRoomBox.textContent =
+        "Room: " + getRoom() +
+        " | You: " + getName() +
+        " (" + getRole() + ")";
 
       if (game.status === "playing") {
-        const pendingText = game.pendingMove && game.pendingMove.role === game.turn
-          ? " | Power selected: " + (game.pendingMove.selectedPower || 0) + " | Pending move: " + (game.pendingMove.dice + (game.pendingMove.selectedPower || 0))
-          : "";
-        hudTurnBox.textContent =
-          "Turn: " +
-          game.turn +
-          " - " +
-          game.names[game.turn] +
-          " | ⚡ " +
-          game.powerPoints[game.turn] +
-          pendingText;
+        const pendingText =
+          game.pendingMove &&
+          game.pendingMove.role === game.turn
+            ? " | Power: " +
+              (game.pendingMove.selectedPower || 0) +
+              " | Move: " +
+              (
+                game.pendingMove.dice +
+                (game.pendingMove.selectedPower || 0)
+              )
+            : "";
+
+        if (game.turn === getRole()) {
+          hudTurnBox.textContent =
+            "Your turn, " +
+            game.names[game.turn] +
+            " | ⚡ " +
+            game.powerPoints[game.turn] +
+            pendingText;
+        } else {
+          hudTurnBox.textContent =
+            "Turn: " +
+            game.turn +
+            " - " +
+            game.names[game.turn] +
+            " | ⚡ " +
+            game.powerPoints[game.turn] +
+            pendingText;
+        }
       } else if (game.status === "finished") {
-        hudTurnBox.textContent = "Winner: " + game.winner + " - " + game.names[game.winner];
+        hudTurnBox.textContent =
+          "Winner: " +
+          game.winner +
+          " - " +
+          game.names[game.winner];
       } else {
-        hudTurnBox.textContent = "Status: waiting";
+        hudTurnBox.textContent =
+          "Status: waiting";
       }
 
       let text = "";
+
       text += "Room: " + getRoom() + "\n";
-      text += "You: " + getName() + " (" + getRole() + ")\n";
-      text += "Game ID: " + game.gameId + "\n";
-      text += "Players: " + getActivePlayers().join(", ") + "\n";
-      text += "Move number: " + game.moveNumber + "\n\n";
+      text +=
+        "You: " +
+        getName() +
+        " (" +
+        getRole() +
+        ")\n";
+
+      text +=
+        "Players: " +
+        (
+          getActivePlayers().join(", ") ||
+          "Waiting for players"
+        ) +
+        "\n\n";
 
       if (game.status === "waiting") {
-        text += "Status: Waiting. Click New Game.\n";
-        text += "Rule: Roll first. Then choose Power Points with + and -. Then click Make Move. The selected total cannot be negative. All 6 Power Points must be used before reaching 100.";
+        text += "Status: Waiting\n";
+        text +=
+          "Connect, allow players to join and select New Game.";
       } else if (game.status === "playing") {
         text += "Status: Playing\n";
-        text += "Turn: " + game.turn + " - " + game.names[game.turn] + "\n";
-        text += "Power Points left: " + game.powerPoints[game.turn] + "\n";
 
-        if (game.pendingMove && game.pendingMove.role === game.turn) {
-          text += "Dice rolled: " + game.pendingMove.dice + "\n";
-          text += "Power Points selected: " + (game.pendingMove.selectedPower || 0) + "\n";
-          text += "Final move: " + (game.pendingMove.dice + (game.pendingMove.selectedPower || 0)) + "\n";
-          text += "Use + Power or - Power to change the selected total. It cannot be negative. Then click Make Move.";
+        if (game.turn === getRole()) {
+          text += "It is your turn.\n";
         } else {
-          text += "Roll Dice first. Move will not happen automatically.";
+          text +=
+            "Turn: " +
+            game.turn +
+            " - " +
+            game.names[game.turn] +
+            "\n";
+        }
+
+        text +=
+          "Power Points left: " +
+          game.powerPoints[game.turn] +
+          "\n";
+
+        if (
+          game.pendingMove &&
+          game.pendingMove.role === game.turn
+        ) {
+          text +=
+            "Dice: " +
+            game.pendingMove.dice +
+            "\n";
+
+          text +=
+            "Power selected: " +
+            (game.pendingMove.selectedPower || 0) +
+            "\n";
+
+          text +=
+            "Final movement: " +
+            (
+              game.pendingMove.dice +
+              (game.pendingMove.selectedPower || 0)
+            ) +
+            " squares\n";
+
+          text +=
+            "Adjust Power Points if required, then make the move.";
+        } else {
+          text += "Roll the dice to begin the turn.";
         }
       } else if (game.status === "finished") {
         text += "Status: Finished\n";
-        text += "Winner: " + game.winner + " - " + game.names[game.winner];
+        text +=
+          "Winner: " +
+          game.winner +
+          " - " +
+          game.names[game.winner];
       }
 
       gameStateBox.textContent = text;
@@ -2804,6 +4159,7 @@
       renderPendingMoveBox();
       renderRolePositions();
       renderPlayers();
+      updateGameplayButtonStates();
     }
 
     function renderPendingMoveBox() {
@@ -2812,41 +4168,88 @@
       }
 
       if (!game.pendingMove) {
-        pendingMoveBox.textContent = "No dice rolled yet. Roll Dice, choose Power Points if needed, then Make Move.";
+        pendingMoveBox.innerHTML =
+          "No dice rolled yet. Roll the dice, select optional Power Points, then make the move.";
+
         return;
       }
 
       const pending = game.pendingMove;
-      pendingMoveBox.textContent =
-        pending.role +
-        " rolled " +
-        pending.dice +
-        ". Power selected: " +
-        (pending.selectedPower || 0) +
-        ". Final move: " +
-        (pending.dice + (pending.selectedPower || 0)) +
-        ". Click Make Move.";
+
+      const selected =
+        pending.selectedPower || 0;
+
+      const finalMove =
+        pending.dice + selected;
+
+      const remaining =
+        Math.max(
+          0,
+          (game.powerPoints[pending.role] || 0) -
+          selected
+        );
+
+      pendingMoveBox.innerHTML =
+        "<strong>" +
+        cleanText(
+          pending.role +
+          " is preparing a move."
+        ) +
+        "</strong>" +
+
+        '<div class="pending-move-grid">' +
+
+        '<div class="pending-move-stat">' +
+        "<strong>" + pending.dice + "</strong>" +
+        "<span>Dice</span>" +
+        "</div>" +
+
+        '<div class="pending-move-stat">' +
+        "<strong>" + selected + "</strong>" +
+        "<span>Power selected</span>" +
+        "</div>" +
+
+        '<div class="pending-move-stat">' +
+        "<strong>" + finalMove + "</strong>" +
+        "<span>Final movement</span>" +
+        "</div>" +
+
+        "</div>" +
+
+        '<div style="margin-top:8px;">' +
+        "Power remaining after this move: " +
+        remaining +
+        "</div>";
     }
 
     function renderRolePositions() {
       ensurePowerPoints();
 
       for (const player of PLAYER_ORDER) {
-        const box = document.getElementById("rolePos" + player);
+        const box =
+          document.getElementById(
+            "rolePos" + player
+          );
 
         if (!box) {
           continue;
         }
 
-        const position = game.positions[player] || 0;
-        const points = game.powerPoints[player];
+        const position =
+          game.positions[player] || 0;
+
+        const points =
+          game.powerPoints[player];
 
         if (position <= 0) {
-          box.textContent = "Start | ⚡" + points;
+          box.textContent =
+            "Start | ⚡" + points;
         } else if (position === 100) {
-          box.textContent = "100 🏁 | ⚡" + points;
+          box.textContent =
+            "100 🏁 | ⚡" + points;
         } else {
-          box.textContent = position + " | ⚡" + points;
+          box.textContent =
+            position + " | ⚡" + points;
         }
       }
     }
@@ -2857,45 +4260,115 @@
 
       playersBox.innerHTML = "";
 
-      const playersToShow = game.status === "playing" || game.status === "finished"
-        ? getActivePlayers()
-        : PLAYER_ORDER;
+      const playersToShow =
+        game.status === "playing" ||
+        game.status === "finished"
+          ? getActivePlayers()
+          : PLAYER_ORDER;
 
       for (const player of playersToShow) {
-        const div = document.createElement("div");
-        div.className = "player-card" + (game.turn === player ? " active" : "");
+        const div =
+          document.createElement("div");
 
-        if (isComputerTurn() && game.turn === player && thisClientIsHost()) {
+        div.className =
+          "player-card" +
+          (game.turn === player ? " active" : "");
+
+        if (
+          isComputerTurn() &&
+          game.turn === player &&
+          thisClientIsHost()
+        ) {
           div.classList.add("thinking");
         }
 
-        const joinedText = lobby[player] ? "Joined" : "Waiting";
-        const isComputer = game.playerTypes[player] === "computer";
-        const computerBadge = isComputer ? '<span class="computer-badge">CPU</span>' : "";
-        const powerBadge = '<span class="power-badge">⚡ ' + game.powerPoints[player] + '</span>';
-        const pendingBadge = game.pendingMove && game.pendingMove.role === player
-          ? '<span class="pending-badge">Power ' + (game.pendingMove.selectedPower || 0) + ' | Move ' + (game.pendingMove.dice + (game.pendingMove.selectedPower || 0)) + '</span>'
-          : "";
+        const joinedText =
+          lobby[player] ? "Joined" : "Waiting";
+
+        const isComputer =
+          game.playerTypes[player] === "computer";
+
+        const computerBadge =
+          isComputer
+            ? '<span class="computer-badge">CPU</span>'
+            : "";
+
+        const powerBadge =
+          '<span class="power-badge">⚡ ' +
+          game.powerPoints[player] +
+          "</span>";
+
+        const youBadge =
+          player === getRole()
+            ? '<span class="you-badge">YOU</span>'
+            : "";
+
+        const pendingBadge =
+          game.pendingMove &&
+          game.pendingMove.role === player
+            ? '<span class="pending-badge">' +
+              "Move " +
+              (
+                game.pendingMove.dice +
+                (game.pendingMove.selectedPower || 0)
+              ) +
+              "</span>"
+            : "";
 
         div.innerHTML =
-          '<span class="player-token-mini ' + player.toLowerCase() + '">' + player.replace("P", "") + '</span>' +
+          '<span class="player-token-mini ' +
+          player.toLowerCase() +
+          '">' +
+          player.replace("P", "") +
+          "</span>" +
+
           '<span class="player-meta">' +
-          '<strong>' + player + ' - ' + cleanText(game.names[player]) + computerBadge + powerBadge + pendingBadge + '</strong>' +
-          'Position: ' + (game.positions[player] || 0) + '<br>' +
-          'Power Points left: ' + game.powerPoints[player] + '<br>' +
-          'Status: ' + joinedText +
-          '</span>';
+
+          "<strong>" +
+          player +
+          " - " +
+          cleanText(game.names[player]) +
+          youBadge +
+          computerBadge +
+          powerBadge +
+          pendingBadge +
+          "</strong>" +
+
+          "Position: " +
+          (game.positions[player] || 0) +
+          "<br>" +
+
+          "Status: " +
+          joinedText +
+
+          "</span>";
 
         playersBox.appendChild(div);
       }
 
       if (game.status === "waiting") {
-        const count = getActivePlayersFromLobby().length;
-        const note = document.createElement("div");
+        const count =
+          getActivePlayersFromLobby().length;
+
+        const note =
+          document.createElement("div");
+
         note.className = "player-card";
+
         note.innerHTML =
           '<span class="player-token-mini" style="background:#111827">?</span>' +
-          '<span class="player-meta"><strong>' + count + '/4 players joined</strong>Minimum 2 players required. With one human player, Computer joins automatically. Every player starts with 6 Power Points.</span>';
+
+          '<span class="player-meta">' +
+
+          "<strong>" +
+          count +
+          "/4 players joined</strong>" +
+
+          "Minimum 2 players required. " +
+          "A computer joins automatically when only one human is playing." +
+
+          "</span>";
+
         playersBox.appendChild(note);
       }
     }
@@ -2906,51 +4379,93 @@
     }
 
     function toggleGameFullscreen() {
-      const target = gameFocusBox || document.documentElement;
+      const target =
+        gameFocusBox ||
+        document.documentElement;
 
       if (!document.fullscreenElement) {
         if (target.requestFullscreen) {
           target.requestFullscreen();
         }
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        }
+      } else if (document.exitFullscreen) {
+        document.exitFullscreen();
       }
     }
 
-    document.addEventListener("fullscreenchange", function () {
-      const button = document.querySelector(".fullscreen-btn");
+    document.addEventListener(
+      "fullscreenchange",
+      function () {
+        const button =
+          document.querySelector(".fullscreen-btn");
 
-      if (button) {
-        button.textContent = document.fullscreenElement ? "Exit Full Screen" : "Full Screen";
+        if (button) {
+          button.textContent =
+            document.fullscreenElement
+              ? "Exit Full Screen"
+              : "Full Screen";
+        }
+
+        window.setTimeout(function () {
+          renderGame();
+        }, 120);
       }
+    );
 
-      setTimeout(function () {
-        renderGame();
-      }, 120);
-    });
+    document
+      .querySelectorAll('input[name="playerRole"]')
+      .forEach(function (radio) {
+        radio.addEventListener(
+          "change",
+          function () {
+            updateSpectatorControls();
+            renderGame();
 
-    document.querySelectorAll('input[name="playerRole"]').forEach(function (radio) {
-      radio.addEventListener("change", function () {
-        updateSpectatorControls();
+            if (
+              ws &&
+              ws.readyState === WebSocket.OPEN
+            ) {
+              announcePresence();
+            }
+          }
+        );
+      });
+
+    document
+      .getElementById("roomName")
+      .addEventListener("input", function () {
+        hudRoomBox.textContent =
+          "Room: " + getRoom();
+      });
+
+    document
+      .getElementById("playerName")
+      .addEventListener("input", function () {
         renderGame();
       });
-    });
 
-    chatInput.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        sendRoomChat();
+    chatInput.addEventListener(
+      "keydown",
+      function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          sendRoomChat();
+        }
       }
-    });
+    );
 
-    window.addEventListener("beforeunload", function () {
-      if (ws && ws.readyState === WebSocket.OPEN) {
-        ws.close(1000, "Page closed");
+    window.addEventListener(
+      "beforeunload",
+      function () {
+        if (
+          ws &&
+          ws.readyState === WebSocket.OPEN
+        ) {
+          ws.close(1000, "Page closed");
+        }
       }
-    });
+    );
 
+    loadInterfaceView();
     buildBoard();
     setConnectionStatus("Disconnected", false);
   </script>
