@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <meta name="description"
-    content="Play a multiplayer Snakes and Ladders game with Student View, Player View, computer player, spectators, fullscreen mode, dramatic effects, and Power Points.">
+    content="Play multiplayer Snakes and Ladders with Student View, Player View, computer player, spectators, fullscreen mode, dramatic effects, and Power Points.">
 
   <meta name="keywords"
     content="Snakes and Ladders, multiplayer game, educational game, Student View, Player View, WebSocket game, Cloudflare Durable Objects, JavaScript game, Power Points, Champak Roy, Programmer's Picnic">
@@ -21,7 +21,7 @@
     content="Snakes and Ladders Multiplayer with Power Points">
 
   <meta property="og:description"
-    content="A WebSocket-based Snakes and Ladders game with Student View, Player View, computer player, fullscreen mode, spectator mode, dramatic effects, and Power Points.">
+    content="A WebSocket-based Snakes and Ladders game with Student View, Player View, computer player, spectator mode, fullscreen mode and Power Points.">
 
   <meta property="og:type" content="website">
 
@@ -1078,7 +1078,6 @@
 
     .computer-badge,
     .power-badge,
-    .pending-badge,
     .you-badge {
       display: inline-block;
       margin-left: 6px;
@@ -1097,11 +1096,6 @@
     .power-badge {
       color: #713f12;
       background: #facc15;
-    }
-
-    .pending-badge {
-      color: white;
-      background: #f59e0b;
     }
 
     .you-badge {
@@ -1368,11 +1362,22 @@
       display: block;
     }
 
+    /*
+      PLAYER VIEW:
+      The complete board, upper controls and lower controls fit within the viewport.
+    */
+
     body[data-interface-view="player"] {
-      padding: 8px;
+      height: 100vh;
+      padding: 6px;
+      overflow: hidden;
     }
 
     body[data-interface-view="player"] .wrap {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: calc(100vh - 12px);
       max-width: 1600px;
     }
 
@@ -1386,8 +1391,10 @@
     body[data-interface-view="player"] .view-switcher {
       position: relative;
       top: auto;
-      margin-bottom: 8px;
-      padding: 8px 12px;
+      flex: 0 0 auto;
+      min-height: 42px;
+      margin-bottom: 5px;
+      padding: 5px 9px;
     }
 
     body[data-interface-view="player"] .view-switcher > div:first-child {
@@ -1399,33 +1406,58 @@
       justify-content: flex-end;
     }
 
+    body[data-interface-view="player"] .view-button {
+      padding: 7px 12px;
+    }
+
     body[data-interface-view="player"] .app-grid {
       display: block;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    body[data-interface-view="player"] .app-grid > section {
+      height: 100%;
+      min-height: 0;
     }
 
     body[data-interface-view="player"] .play-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
       margin: 0;
-      padding: 10px;
+      padding: 7px;
+      overflow: hidden;
+      border-radius: 18px;
     }
 
     body[data-interface-view="player"] .play-topbar {
-      top: 6px;
-      margin-bottom: 8px;
-      padding: 9px;
+      position: relative;
+      top: auto;
+      flex: 0 0 auto;
+      min-height: 54px;
+      margin-bottom: 5px;
+      padding: 5px 7px;
+      border-radius: 16px;
+      grid-template-columns: auto minmax(0, 1fr) auto;
     }
 
-    body[data-interface-view="player"] .game-area {
-      grid-template-columns: minmax(0, 1fr) 285px;
+    body[data-interface-view="player"] .mini-dice-box {
+      min-width: 52px;
     }
 
-    body[data-interface-view="player"] .board-stage,
-    body[data-interface-view="player"] .board-action-bar {
-      width: min(calc(100vw - 335px), calc(100vh - 125px), 940px);
+    body[data-interface-view="player"] .mini-dice-box .dice {
+      width: 42px;
+      min-width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      font-size: 23px;
     }
 
-    body[data-interface-view="player"] .panel {
-      max-height: calc(100vh - 115px);
-      overflow-y: auto;
+    body[data-interface-view="player"] .mini-label {
+      display: none;
     }
 
     body[data-interface-view="player"] .hud-actions .roll-dice-btn,
@@ -1435,11 +1467,137 @@
       display: none;
     }
 
+    body[data-interface-view="player"].game-is-playing .hud-actions .new-game-btn {
+      display: none;
+    }
+
+    body[data-interface-view="player"] .hud-actions button {
+      min-height: 38px;
+      padding: 6px 10px;
+    }
+
+    body[data-interface-view="player"] .game-area {
+      flex: 1 1 auto;
+      height: auto;
+      min-height: 0;
+      overflow: hidden;
+      grid-template-columns: minmax(0, 1fr) 285px;
+      gap: 7px;
+    }
+
+    body[data-interface-view="player"] .board-section {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    body[data-interface-view="player"] .board-heading-row {
+      flex: 0 0 auto;
+      min-height: 24px;
+      margin-bottom: 3px;
+    }
+
+    body[data-interface-view="player"] .board-heading-row h2 {
+      font-size: 16px;
+    }
+
+    body[data-interface-view="player"] .board-turn-indicator {
+      padding: 4px 8px;
+      font-size: 11px;
+    }
+
+    body[data-interface-view="player"] .board-action-bar {
+      flex: 0 0 auto;
+      width: min(100%, calc(100vh - 214px));
+      max-width: 920px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    body[data-interface-view="player"] .board-action-bar-top {
+      margin-bottom: 3px;
+    }
+
+    body[data-interface-view="player"] .board-action-bar-bottom {
+      margin-top: 3px;
+    }
+
+    body[data-interface-view="player"] .board-action-bar button {
+      min-height: 34px;
+      padding: 5px 7px;
+      font-size: 12px;
+    }
+
+    body[data-interface-view="player"] .board-move-display {
+      min-width: 58px;
+      min-height: 34px;
+      padding: 3px 6px;
+    }
+
+    body[data-interface-view="player"] .board-move-display strong {
+      font-size: 17px;
+    }
+
+    body[data-interface-view="player"] .board-wrap {
+      display: grid;
+      place-items: center;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    body[data-interface-view="player"] .board-stage {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      aspect-ratio: 1 / 1;
+      margin: auto;
+    }
+
+    body[data-interface-view="player"] .panel {
+      min-height: 0;
+      max-height: 100%;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    body[data-interface-view="player"] .panel h2 {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    body[data-interface-view="player"] .game-state {
+      min-height: 92px;
+      padding: 9px;
+      font-size: 11px;
+    }
+
+    body[data-interface-view="player"] .room-messages {
+      height: 105px;
+      padding: 8px;
+    }
+
+    body[data-interface-view="player"] .player-card {
+      padding: 6px 8px;
+      font-size: 11px;
+    }
+
+    /*
+      FULLSCREEN:
+      The board and both control bars remain visible.
+    */
+
     #gameFocus:fullscreen {
+      display: flex;
+      flex-direction: column;
       width: 100vw;
       height: 100vh;
-      overflow: auto;
-      padding: 12px;
+      padding: 7px;
+      overflow: hidden;
       border-radius: 0;
       background: linear-gradient(135deg, #fff7ed, #fffbeb);
     }
@@ -1449,16 +1607,90 @@
     }
 
     #gameFocus:fullscreen .play-topbar {
-      top: 0;
+      position: relative;
+      top: auto;
+      flex: 0 0 auto;
+      min-height: 52px;
+      margin-bottom: 5px;
+      padding: 5px;
+    }
+
+    #gameFocus:fullscreen .mini-dice-box {
+      min-width: 52px;
+    }
+
+    #gameFocus:fullscreen .mini-dice-box .dice {
+      width: 42px;
+      min-width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      font-size: 23px;
+    }
+
+    #gameFocus:fullscreen .mini-label {
+      display: none;
     }
 
     #gameFocus:fullscreen .game-area {
-      grid-template-columns: minmax(0, 1fr) 315px;
+      flex: 1 1 auto;
+      height: auto;
+      min-height: 0;
+      overflow: hidden;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 7px;
     }
 
-    #gameFocus:fullscreen .board-stage,
+    #gameFocus:fullscreen .board-section {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+    }
+
+    #gameFocus:fullscreen .board-heading-row {
+      flex: 0 0 auto;
+      min-height: 24px;
+      margin-bottom: 3px;
+    }
+
     #gameFocus:fullscreen .board-action-bar {
-      width: min(calc(100vw - 370px), calc(100vh - 112px), 900px);
+      flex: 0 0 auto;
+      width: min(100%, calc(100vh - 210px));
+      max-width: 920px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    #gameFocus:fullscreen .board-action-bar button {
+      min-height: 34px;
+      padding: 5px 7px;
+      font-size: 12px;
+    }
+
+    #gameFocus:fullscreen .board-move-display {
+      min-height: 34px;
+    }
+
+    #gameFocus:fullscreen .board-wrap {
+      display: grid;
+      place-items: center;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    #gameFocus:fullscreen .board-stage {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      aspect-ratio: 1 / 1;
+    }
+
+    #gameFocus:fullscreen .panel {
+      min-height: 0;
+      max-height: 100%;
+      overflow-y: auto;
     }
 
     footer {
@@ -1491,14 +1723,7 @@
       }
 
       body[data-interface-view="player"] .game-area {
-        grid-template-columns: minmax(0, 1fr) 270px;
-      }
-
-      body[data-interface-view="player"] .board-stage,
-      body[data-interface-view="player"] .board-action-bar,
-      #gameFocus:fullscreen .board-stage,
-      #gameFocus:fullscreen .board-action-bar {
-        width: min(100%, 860px);
+        grid-template-columns: minmax(0, 1fr) 250px;
       }
     }
 
@@ -1547,9 +1772,7 @@
         max-width: 100%;
       }
 
-      .board-action-bar,
-      body[data-interface-view="player"] .board-action-bar,
-      #gameFocus:fullscreen .board-action-bar {
+      .board-action-bar {
         width: 100%;
         grid-template-columns: 1fr auto auto auto;
       }
@@ -1578,17 +1801,80 @@
         grid-row: 2;
       }
 
-      body[data-interface-view="player"] .game-area,
-      #gameFocus:fullscreen .game-area {
+      body[data-interface-view="player"] {
+        height: auto;
+        min-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      body[data-interface-view="player"] .wrap {
+        height: auto;
+        min-height: 100vh;
+      }
+
+      body[data-interface-view="player"] .app-grid,
+      body[data-interface-view="player"] .play-card,
+      body[data-interface-view="player"] .game-area {
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+      }
+
+      body[data-interface-view="player"] .game-area {
         display: block;
       }
 
-      body[data-interface-view="player"] .board-stage,
-      #gameFocus:fullscreen .board-stage {
+      body[data-interface-view="player"] .board-section {
+        height: auto;
+      }
+
+      body[data-interface-view="player"] .board-action-bar {
         width: 100%;
       }
 
+      body[data-interface-view="player"] .board-wrap {
+        display: block;
+        overflow: visible;
+      }
+
+      body[data-interface-view="player"] .board-stage {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        aspect-ratio: 1 / 1;
+      }
+
       body[data-interface-view="player"] .panel {
+        max-height: none;
+        margin-top: 10px;
+        overflow: visible;
+      }
+
+      #gameFocus:fullscreen .game-area {
+        display: block;
+        overflow-y: auto;
+      }
+
+      #gameFocus:fullscreen .board-section {
+        height: auto;
+      }
+
+      #gameFocus:fullscreen .board-action-bar {
+        width: 100%;
+      }
+
+      #gameFocus:fullscreen .board-wrap {
+        display: block;
+        overflow: visible;
+      }
+
+      #gameFocus:fullscreen .board-stage {
+        width: 100%;
+        height: auto;
+      }
+
+      #gameFocus:fullscreen .panel {
         max-height: none;
         margin-top: 10px;
       }
@@ -1639,7 +1925,8 @@
 <body data-interface-view="student">
   <div id="dramaBanner" class="drama-banner" aria-live="polite"></div>
 
-  <div id="liveStatus" aria-live="polite"
+  <div id="liveStatus"
+    aria-live="polite"
     style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
   </div>
 
@@ -1649,8 +1936,7 @@
 
       <p>
         Use the guided Student View or switch to the compact Player View.
-        Roll Dice, Power and Make Move controls are attached directly above
-        and below the board.
+        The complete board and both control bars remain visible during desktop gameplay.
       </p>
     </section>
 
@@ -1703,6 +1989,7 @@
           <div class="student-steps">
             <div class="student-step">
               <span>1</span>
+
               <div>
                 <strong>Join the room</strong>
                 <p>Enter your name, choose a player colour and connect.</p>
@@ -1711,6 +1998,7 @@
 
             <div class="student-step">
               <span>2</span>
+
               <div>
                 <strong>Start the game</strong>
                 <p>Two to four players can play. A computer joins a single human.</p>
@@ -1719,6 +2007,7 @@
 
             <div class="student-step">
               <span>3</span>
+
               <div>
                 <strong>Roll the dice</strong>
                 <p>Use the controls directly above or below the board.</p>
@@ -1727,6 +2016,7 @@
 
             <div class="student-step">
               <span>4</span>
+
               <div>
                 <strong>Select Power</strong>
                 <p>Add or remove Power Points before making the move.</p>
@@ -1735,6 +2025,7 @@
 
             <div class="student-step">
               <span>5</span>
+
               <div>
                 <strong>Make the move</strong>
                 <p>The green button displays the final number of squares.</p>
@@ -1820,7 +2111,9 @@
           </div>
 
           <div class="row">
-            <button id="connectBtn" onclick="connectGame()">Connect</button>
+            <button id="connectBtn" onclick="connectGame()">
+              Connect
+            </button>
 
             <button id="disconnectBtn"
               class="danger"
@@ -1939,7 +2232,6 @@
                 </span>
               </div>
 
-              <!-- Controls directly above the board -->
               <div class="board-action-bar board-action-bar-top">
                 <button class="roll-dice-btn board-roll-btn"
                   onclick="rollDice()">
@@ -1985,7 +2277,6 @@
                 </div>
               </div>
 
-              <!-- Controls directly below the board -->
               <div class="board-action-bar board-action-bar-bottom">
                 <button class="roll-dice-btn board-roll-btn"
                   onclick="rollDice()">
@@ -2019,6 +2310,7 @@
             <div class="panel">
               <div>
                 <h2>Status</h2>
+
                 <div id="gameState" class="game-state">
                   Not connected.
                 </div>
@@ -2038,7 +2330,9 @@
                   <input id="chatInput"
                     placeholder="Optional room message...">
 
-                  <button onclick="sendRoomChat()">Send</button>
+                  <button onclick="sendRoomChat()">
+                    Send
+                  </button>
                 </div>
               </div>
             </div>
@@ -2172,7 +2466,7 @@
 
       game.pendingMove.selectedPower = Math.max(
         0,
-        game.pendingMove.selectedPower
+        Number(game.pendingMove.selectedPower || 0)
       );
 
       game.pendingMove.adjustment =
@@ -2257,9 +2551,10 @@
     }
 
     function setInterfaceView(view, savePreference = true) {
-      const validView = view === "player"
-        ? "player"
-        : "student";
+      const validView =
+        view === "player"
+          ? "player"
+          : "student";
 
       document.body.dataset.interfaceView = validView;
 
@@ -2269,20 +2564,43 @@
       const playerButton =
         document.getElementById("playerViewBtn");
 
-      const studentActive = validView === "student";
-      const playerActive = validView === "player";
+      const studentActive =
+        validView === "student";
 
-      studentButton.classList.toggle("active", studentActive);
-      studentButton.setAttribute("aria-pressed", String(studentActive));
+      const playerActive =
+        validView === "player";
 
-      playerButton.classList.toggle("active", playerActive);
-      playerButton.setAttribute("aria-pressed", String(playerActive));
+      studentButton.classList.toggle(
+        "active",
+        studentActive
+      );
+
+      studentButton.setAttribute(
+        "aria-pressed",
+        String(studentActive)
+      );
+
+      playerButton.classList.toggle(
+        "active",
+        playerActive
+      );
+
+      playerButton.setAttribute(
+        "aria-pressed",
+        String(playerActive)
+      );
 
       if (savePreference) {
         try {
-          localStorage.setItem(INTERFACE_VIEW_KEY, validView);
+          localStorage.setItem(
+            INTERFACE_VIEW_KEY,
+            validView
+          );
         } catch (error) {
-          log("Unable to save interface preference", error.message);
+          log(
+            "Unable to save interface preference",
+            error.message
+          );
         }
       }
 
@@ -2294,8 +2612,9 @@
 
       try {
         savedView =
-          localStorage.getItem(INTERFACE_VIEW_KEY) ||
-          "student";
+          localStorage.getItem(
+            INTERFACE_VIEW_KEY
+          ) || "student";
       } catch {
         savedView = "student";
       }
@@ -2321,20 +2640,33 @@
     }
 
     function connectGame() {
-      if (ws && ws.readyState === WebSocket.OPEN) {
+      if (
+        ws &&
+        ws.readyState === WebSocket.OPEN
+      ) {
         return;
       }
 
       try {
-        ws = new WebSocket(buildWebSocketUrl());
+        ws = new WebSocket(
+          buildWebSocketUrl()
+        );
 
-        setConnectionStatus("Connecting...", false);
+        setConnectionStatus(
+          "Connecting...",
+          false
+        );
 
         ws.onopen = function () {
-          setConnectionStatus("Connected", true);
+          setConnectionStatus(
+            "Connected",
+            true
+          );
 
           addRoomMessage(
-            getName() + " connected as " + getRole(),
+            getName() +
+            " connected as " +
+            getRole(),
             "system"
           );
 
@@ -2362,17 +2694,32 @@
         };
 
         ws.onerror = function (event) {
-          log("WebSocket error", event.type);
+          log(
+            "WebSocket error",
+            event.type
+          );
         };
 
         ws.onclose = function () {
           ws = null;
-          setConnectionStatus("Disconnected", false);
+
+          setConnectionStatus(
+            "Disconnected",
+            false
+          );
+
           renderGame();
         };
       } catch (error) {
-        setConnectionStatus("Connection failed", false);
-        log("Connection failed", error.message);
+        setConnectionStatus(
+          "Connection failed",
+          false
+        );
+
+        log(
+          "Connection failed",
+          error.message
+        );
       }
     }
 
@@ -2381,21 +2728,34 @@
         return;
       }
 
-      ws.close(1000, "Closed by user");
+      ws.close(
+        1000,
+        "Closed by user"
+      );
+
       ws = null;
 
-      setConnectionStatus("Disconnected", false);
+      setConnectionStatus(
+        "Disconnected",
+        false
+      );
+
       renderGame();
     }
 
     function sendPayload(payload) {
-      if (!ws || ws.readyState !== WebSocket.OPEN) {
+      if (
+        !ws ||
+        ws.readyState !== WebSocket.OPEN
+      ) {
         return false;
       }
 
       ws.send(JSON.stringify({
         type: "chat",
-        message: GAME_PREFIX + JSON.stringify(payload)
+        message:
+          GAME_PREFIX +
+          JSON.stringify(payload)
       }));
 
       return true;
@@ -2405,7 +2765,11 @@
       const role = getRole();
 
       if (PLAYER_ORDER.includes(role)) {
-        updateLobby(role, getName(), "human");
+        updateLobby(
+          role,
+          getName(),
+          "human"
+        );
       }
 
       sendPayload({
@@ -2421,7 +2785,11 @@
       renderGame();
     }
 
-    function updateLobby(role, name, type = "human") {
+    function updateLobby(
+      role,
+      name,
+      type = "human"
+    ) {
       if (!PLAYER_ORDER.includes(role)) {
         return;
       }
@@ -2436,20 +2804,27 @@
     }
 
     function getActivePlayersFromLobby() {
-      return PLAYER_ORDER.filter(function (player) {
-        return Boolean(lobby[player]);
-      });
+      return PLAYER_ORDER.filter(
+        function (player) {
+          return Boolean(lobby[player]);
+        }
+      );
     }
 
     function getHumanPlayersFromLobby() {
-      return PLAYER_ORDER.filter(function (player) {
-        return lobby[player] &&
-          lobby[player].type === "human";
-      });
+      return PLAYER_ORDER.filter(
+        function (player) {
+          return (
+            lobby[player] &&
+            lobby[player].type === "human"
+          );
+        }
+      );
     }
 
     function ensureComputerIfSingleHuman() {
-      const humans = getHumanPlayersFromLobby();
+      const humans =
+        getHumanPlayersFromLobby();
 
       if (humans.length !== 1) {
         return false;
@@ -2458,18 +2833,29 @@
       const humanRole = humans[0];
 
       const computerRole =
-        PLAYER_ORDER.find(function (player) {
-          return player !== humanRole && !lobby[player];
-        });
+        PLAYER_ORDER.find(
+          function (player) {
+            return (
+              player !== humanRole &&
+              !lobby[player]
+            );
+          }
+        );
 
       if (!computerRole) {
         return false;
       }
 
-      updateLobby(computerRole, "Computer", "computer");
+      updateLobby(
+        computerRole,
+        "Computer",
+        "computer"
+      );
 
       addRoomMessage(
-        "Computer joined as " + computerRole + ".",
+        "Computer joined as " +
+        computerRole +
+        ".",
         "system"
       );
 
@@ -2477,15 +2863,21 @@
     }
 
     function validatePlayerCountForStart() {
-      let activePlayers = getActivePlayersFromLobby();
+      let activePlayers =
+        getActivePlayersFromLobby();
 
       if (activePlayers.length < 2) {
         ensureComputerIfSingleHuman();
-        activePlayers = getActivePlayersFromLobby();
+
+        activePlayers =
+          getActivePlayersFromLobby();
       }
 
       if (activePlayers.length < 2) {
-        alert("At least one human player must connect first.");
+        alert(
+          "At least one human player must connect first."
+        );
+
         return null;
       }
 
@@ -2497,21 +2889,27 @@
         Array.isArray(game.activePlayers) &&
         game.activePlayers.length >= 2
       ) {
-        return game.activePlayers.filter(function (player) {
-          return PLAYER_ORDER.includes(player);
-        });
+        return game.activePlayers.filter(
+          function (player) {
+            return PLAYER_ORDER.includes(player);
+          }
+        );
       }
 
       return getActivePlayersFromLobby();
     }
 
     function newGame() {
-      if (!ws || ws.readyState !== WebSocket.OPEN) {
+      if (
+        !ws ||
+        ws.readyState !== WebSocket.OPEN
+      ) {
         alert("Connect first.");
         return;
       }
 
-      const activePlayers = validatePlayerCountForStart();
+      const activePlayers =
+        validatePlayerCountForStart();
 
       if (!activePlayers) {
         return;
@@ -2523,18 +2921,23 @@
       lobby = previousLobby;
       isHost = true;
 
-      activePlayers.forEach(function (player) {
-        const entry = lobby[player];
+      activePlayers.forEach(
+        function (player) {
+          const entry = lobby[player];
 
-        game.names[player] = entry.name;
-        game.playerTypes[player] = entry.type;
-      });
+          game.names[player] = entry.name;
+          game.playerTypes[player] = entry.type;
+        }
+      );
 
       game.activePlayers = activePlayers;
       game.turn = activePlayers[0];
       game.status = "playing";
-      game.hostClientId = myClientId || "local-host";
-      game.gameId = Date.now().toString();
+      game.hostClientId =
+        myClientId || "local-host";
+
+      game.gameId =
+        Date.now().toString();
 
       lastDice = "-";
       seenMoveIds.clear();
@@ -2549,7 +2952,11 @@
         lastDice: lastDice
       });
 
-      addRoomMessage("A new game started.", "system");
+      addRoomMessage(
+        "A new game started.",
+        "system"
+      );
+
       maybeComputerMove();
     }
 
@@ -2570,10 +2977,18 @@
         return;
       }
 
-      rollForRole(role, getName(), false);
+      rollForRole(
+        role,
+        getName(),
+        false
+      );
     }
 
-    function rollForRole(role, actorName, computerRoll) {
+    function rollForRole(
+      role,
+      actorName,
+      computerRoll
+    ) {
       if (
         !ws ||
         ws.readyState !== WebSocket.OPEN ||
@@ -2585,7 +3000,9 @@
       }
 
       const dice =
-        Math.floor(Math.random() * 6) + 1;
+        Math.floor(
+          Math.random() * 6
+        ) + 1;
 
       lastDice = String(dice);
 
@@ -2599,12 +3016,23 @@
       game.moveNumber += 1;
 
       const drama = {
-        kind: dice === 6 ? "six" : "power",
-        text: role + " rolled " + dice + "."
+        kind:
+          dice === 6
+            ? "six"
+            : "power",
+
+        text:
+          role +
+          " rolled " +
+          dice +
+          "."
       };
 
       finishStateUpdate(
-        role + " rolled " + dice + ".",
+        role +
+        " rolled " +
+        dice +
+        ".",
         drama
       );
 
@@ -2647,20 +3075,31 @@
       const available =
         game.powerPoints[role];
 
-      const next = current + delta;
+      const next =
+        current + delta;
 
-      if (next < 0 || next > available) {
+      if (
+        next < 0 ||
+        next > available
+      ) {
         return;
       }
 
-      game.pendingMove.selectedPower = next;
+      game.pendingMove.selectedPower =
+        next;
+
       game.moveNumber += 1;
 
       finishStateUpdate(
-        role + " selected " + next + " Power Point(s).",
+        role +
+        " selected " +
+        next +
+        " Power Point(s).",
         {
           kind: "power",
-          text: "⚡ Selected Power: " + next
+          text:
+            "⚡ Selected Power: " +
+            next
         }
       );
 
@@ -2693,7 +3132,8 @@
         return;
       }
 
-      const pending = game.pendingMove;
+      const pending =
+        game.pendingMove;
 
       const selectedPower =
         Math.min(
@@ -2702,7 +3142,8 @@
         );
 
       const finalSteps =
-        pending.dice + selectedPower;
+        pending.dice +
+        selectedPower;
 
       const oldPosition =
         game.positions[role] || 0;
@@ -2710,7 +3151,8 @@
       let landedPosition =
         oldPosition + finalSteps;
 
-      let finalPosition = landedPosition;
+      let finalPosition =
+        landedPosition;
 
       let note =
         role +
@@ -2724,11 +3166,16 @@
         finalPosition = oldPosition;
         landedPosition = oldPosition;
 
-        note += " Exact 100 is required.";
+        note +=
+          " Exact 100 is required.";
       } else if (JUMPS[landedPosition]) {
-        finalPosition = JUMPS[landedPosition];
+        finalPosition =
+          JUMPS[landedPosition];
 
-        if (finalPosition > landedPosition) {
+        if (
+          finalPosition >
+          landedPosition
+        ) {
           note +=
             " Ladder from " +
             landedPosition +
@@ -2755,7 +3202,8 @@
         }
       }
 
-      game.powerPoints[role] -= selectedPower;
+      game.powerPoints[role] -=
+        selectedPower;
 
       if (
         finalPosition === 100 &&
@@ -2768,11 +3216,14 @@
 
         drama = {
           kind: "power",
-          text: "⚡ Use all Power Points first!"
+          text:
+            "⚡ Use all Power Points first!"
         };
       }
 
-      game.positions[role] = finalPosition;
+      game.positions[role] =
+        finalPosition;
+
       game.pendingMove = null;
 
       if (
@@ -2784,32 +3235,47 @@
 
         drama = {
           kind: "win",
-          text: "🏁 " + role + " wins!"
+          text:
+            "🏁 " +
+            role +
+            " wins!"
         };
       } else if (pending.dice !== 6) {
         game.turn = nextPlayer(role);
       } else if (!drama) {
         drama = {
           kind: "six",
-          text: "🎲 Six! Roll again."
+          text:
+            "🎲 Six! Roll again."
         };
       }
 
       game.moveNumber += 1;
 
-      finishStateUpdate(note, drama);
+      finishStateUpdate(
+        note,
+        drama
+      );
+
       maybeComputerMove();
     }
 
-    function finishStateUpdate(note, drama) {
-      const moveId = makeMoveId();
+    function finishStateUpdate(
+      note,
+      drama
+    ) {
+      const moveId =
+        makeMoveId();
 
       seenMoveIds.add(moveId);
 
       renderGame();
 
       if (drama) {
-        showDrama(drama.kind, drama.text);
+        showDrama(
+          drama.kind,
+          drama.text
+        );
       }
 
       sendPayload({
@@ -2822,26 +3288,43 @@
         lastDice: lastDice
       });
 
-      addRoomMessage(note, "system");
+      addRoomMessage(
+        note,
+        "system"
+      );
     }
 
     function nextPlayer(current) {
-      const players = getActivePlayers();
-      const index = players.indexOf(current);
+      const players =
+        getActivePlayers();
+
+      const index =
+        players.indexOf(current);
+
+      if (index === -1) {
+        return players[0] || "P1";
+      }
 
       return players[
-        (index + 1) % players.length
+        (index + 1) %
+        players.length
       ];
     }
 
     function isComputerTurn() {
-      return game.status === "playing" &&
-        game.playerTypes[game.turn] === "computer";
+      return (
+        game.status === "playing" &&
+        game.playerTypes[game.turn] ===
+        "computer"
+      );
     }
 
     function thisClientIsHost() {
-      return isHost ||
-        game.hostClientId === myClientId;
+      return (
+        isHost ||
+        game.hostClientId ===
+        myClientId
+      );
     }
 
     function maybeComputerMove() {
@@ -2859,10 +3342,22 @@
       setTimeout(function () {
         computerThinking = false;
 
+        if (
+          !isComputerTurn() ||
+          !thisClientIsHost()
+        ) {
+          return;
+        }
+
         const role = game.turn;
 
         if (!game.pendingMove) {
-          rollForRole(role, "Computer", true);
+          rollForRole(
+            role,
+            "Computer",
+            true
+          );
+
           return;
         }
 
@@ -2872,15 +3367,19 @@
         const points =
           game.powerPoints[role] || 0;
 
+        const selected =
+          game.pendingMove.selectedPower || 0;
+
         const target =
           position +
           game.pendingMove.dice +
-          game.pendingMove.selectedPower;
+          selected;
 
         if (
-          points > game.pendingMove.selectedPower &&
+          points > selected &&
           JUMPS[target + 1] &&
-          JUMPS[target + 1] > target + 1
+          JUMPS[target + 1] >
+          target + 1
         ) {
           adjustPendingMoveForRole(
             role,
@@ -2900,12 +3399,21 @@
       }, 900);
     }
 
-    function showDrama(kind, text) {
-      [dramaBanner, localDramaBanner].forEach(function (box) {
+    function showDrama(
+      kind,
+      text
+    ) {
+      [
+        dramaBanner,
+        localDramaBanner
+      ].forEach(function (box) {
         box.className =
-          (box.id === "localDramaBanner"
-            ? "local-drama-banner "
-            : "drama-banner ") +
+          (
+            box.id ===
+            "localDramaBanner"
+              ? "local-drama-banner "
+              : "drama-banner "
+          ) +
           kind +
           "-drama";
 
@@ -2918,38 +3426,69 @@
       liveStatus.textContent = text;
 
       if (kind === "snake") {
-        boardStageBox.classList.remove("snake-shake");
+        boardStageBox.classList.remove(
+          "snake-shake"
+        );
+
         void boardStageBox.offsetWidth;
-        boardStageBox.classList.add("snake-shake");
+
+        boardStageBox.classList.add(
+          "snake-shake"
+        );
       }
 
       if (kind === "ladder") {
-        boardStageBox.classList.remove("ladder-glow");
+        boardStageBox.classList.remove(
+          "ladder-glow"
+        );
+
         void boardStageBox.offsetWidth;
-        boardStageBox.classList.add("ladder-glow");
+
+        boardStageBox.classList.add(
+          "ladder-glow"
+        );
       }
 
       if (kind === "power") {
-        boardStageBox.classList.remove("power-glow");
+        boardStageBox.classList.remove(
+          "power-glow"
+        );
+
         void boardStageBox.offsetWidth;
-        boardStageBox.classList.add("power-glow");
+
+        boardStageBox.classList.add(
+          "power-glow"
+        );
       }
 
       if (kind === "six") {
-        hudDiceBox.classList.remove("dice-six");
+        hudDiceBox.classList.remove(
+          "dice-six"
+        );
+
         void hudDiceBox.offsetWidth;
-        hudDiceBox.classList.add("dice-six");
+
+        hudDiceBox.classList.add(
+          "dice-six"
+        );
       }
     }
 
     function boardPoint(number) {
       const zero = number - 1;
-      const rowFromBottom = Math.floor(zero / 10);
-      const rowFromTop = 9 - rowFromBottom;
 
-      let col = zero % 10;
+      const rowFromBottom =
+        Math.floor(zero / 10);
 
-      if (rowFromBottom % 2 === 1) {
+      const rowFromTop =
+        9 - rowFromBottom;
+
+      let col =
+        zero % 10;
+
+      if (
+        rowFromBottom % 2 === 1
+      ) {
         col = 9 - col;
       }
 
@@ -2964,61 +3503,92 @@
 
       const displayNumbers = [];
 
-      for (let row = 9; row >= 0; row--) {
+      for (
+        let row = 9;
+        row >= 0;
+        row--
+      ) {
         const rowNumbers = [];
 
-        for (let col = 0; col < 10; col++) {
-          rowNumbers.push(row * 10 + col + 1);
-        }
-
-        if ((9 - row) % 2 === 0) {
-          rowNumbers.reverse();
-        }
-
-        displayNumbers.push(...rowNumbers);
-      }
-
-      displayNumbers.forEach(function (number) {
-        const square =
-          document.createElement("div");
-
-        square.className = "square";
-        square.dataset.number = number;
-
-        if (JUMPS[number]) {
-          square.classList.add(
-            JUMPS[number] > number
-              ? "ladder-start"
-              : "snake-start"
+        for (
+          let col = 0;
+          col < 10;
+          col++
+        ) {
+          rowNumbers.push(
+            row * 10 +
+            col +
+            1
           );
         }
 
-        const num =
-          document.createElement("div");
-
-        num.className = "num";
-        num.textContent = number;
-
-        const mark =
-          document.createElement("div");
-
-        mark.className = "mark";
-
-        if (JUMPS[number]) {
-          mark.textContent =
-            JUMPS[number] > number
-              ? "🪜 " + JUMPS[number]
-              : "🐍 " + JUMPS[number];
+        if (
+          (9 - row) % 2 === 0
+        ) {
+          rowNumbers.reverse();
         }
 
-        const tokens =
-          document.createElement("div");
+        displayNumbers.push(
+          ...rowNumbers
+        );
+      }
 
-        tokens.className = "tokens";
+      displayNumbers.forEach(
+        function (number) {
+          const square =
+            document.createElement("div");
 
-        square.append(num, mark, tokens);
-        boardBox.appendChild(square);
-      });
+          square.className =
+            "square";
+
+          square.dataset.number =
+            number;
+
+          if (JUMPS[number]) {
+            square.classList.add(
+              JUMPS[number] > number
+                ? "ladder-start"
+                : "snake-start"
+            );
+          }
+
+          const num =
+            document.createElement("div");
+
+          num.className = "num";
+          num.textContent = number;
+
+          const mark =
+            document.createElement("div");
+
+          mark.className = "mark";
+
+          if (JUMPS[number]) {
+            mark.textContent =
+              JUMPS[number] > number
+                ? "🪜 " +
+                  JUMPS[number]
+                : "🐍 " +
+                  JUMPS[number];
+          }
+
+          const tokens =
+            document.createElement("div");
+
+          tokens.className =
+            "tokens";
+
+          square.append(
+            num,
+            mark,
+            tokens
+          );
+
+          boardBox.appendChild(
+            square
+          );
+        }
+      );
 
       drawBoardArt();
       renderGame();
@@ -3027,35 +3597,66 @@
     function drawBoardArt() {
       boardArt.innerHTML = "";
 
-      Object.keys(JUMPS).forEach(function (startText) {
-        const start = Number(startText);
-        const end = JUMPS[start];
+      Object.keys(JUMPS).forEach(
+        function (startText) {
+          const start =
+            Number(startText);
 
-        if (end > start) {
-          drawLadder(start, end);
+          const end =
+            JUMPS[start];
+
+          if (end > start) {
+            drawLadder(
+              start,
+              end
+            );
+          }
         }
-      });
+      );
 
-      Object.keys(JUMPS).forEach(function (startText) {
-        const start = Number(startText);
-        const end = JUMPS[start];
+      Object.keys(JUMPS).forEach(
+        function (startText) {
+          const start =
+            Number(startText);
 
-        if (end < start) {
-          drawSnake(start, end);
+          const end =
+            JUMPS[start];
+
+          if (end < start) {
+            drawSnake(
+              start,
+              end
+            );
+          }
         }
-      });
+      );
     }
 
-    function drawLadder(start, end) {
-      const a = boardPoint(start);
-      const b = boardPoint(end);
+    function drawLadder(
+      start,
+      end
+    ) {
+      const a =
+        boardPoint(start);
 
-      const dx = b.x - a.x;
-      const dy = b.y - a.y;
-      const len = Math.hypot(dx, dy) || 1;
+      const b =
+        boardPoint(end);
 
-      const nx = -dy / len;
-      const ny = dx / len;
+      const dx =
+        b.x - a.x;
+
+      const dy =
+        b.y - a.y;
+
+      const len =
+        Math.hypot(dx, dy) || 1;
+
+      const nx =
+        -dy / len;
+
+      const ny =
+        dx / len;
+
       const gap = 16;
 
       const firstStart = {
@@ -3094,40 +3695,105 @@
         "ladder-rail"
       );
 
-      for (let i = 1; i < 6; i++) {
+      for (
+        let i = 1;
+        i < 6;
+        i++
+      ) {
         const t = i / 6;
 
         addSvgLine(
-          firstStart.x + (firstEnd.x - firstStart.x) * t,
-          firstStart.y + (firstEnd.y - firstStart.y) * t,
-          secondStart.x + (secondEnd.x - secondStart.x) * t,
-          secondStart.y + (secondEnd.y - secondStart.y) * t,
+          firstStart.x +
+          (
+            firstEnd.x -
+            firstStart.x
+          ) * t,
+
+          firstStart.y +
+          (
+            firstEnd.y -
+            firstStart.y
+          ) * t,
+
+          secondStart.x +
+          (
+            secondEnd.x -
+            secondStart.x
+          ) * t,
+
+          secondStart.y +
+          (
+            secondEnd.y -
+            secondStart.y
+          ) * t,
+
           "ladder-rung"
         );
       }
     }
 
-    function drawSnake(start, end) {
-      const a = boardPoint(start);
-      const b = boardPoint(end);
+    function drawSnake(
+      start,
+      end
+    ) {
+      const a =
+        boardPoint(start);
 
-      const dx = b.x - a.x;
-      const dy = b.y - a.y;
-      const len = Math.hypot(dx, dy) || 1;
+      const b =
+        boardPoint(end);
 
-      const nx = -dy / len;
-      const ny = dx / len;
+      const dx =
+        b.x - a.x;
 
-      const c1x = a.x + dx * 0.28 + nx * 42;
-      const c1y = a.y + dy * 0.28 + ny * 42;
-      const c2x = a.x + dx * 0.68 - nx * 42;
-      const c2y = a.y + dy * 0.68 - ny * 42;
+      const dy =
+        b.y - a.y;
+
+      const len =
+        Math.hypot(dx, dy) || 1;
+
+      const nx =
+        -dy / len;
+
+      const ny =
+        dx / len;
+
+      const c1x =
+        a.x +
+        dx * 0.28 +
+        nx * 42;
+
+      const c1y =
+        a.y +
+        dy * 0.28 +
+        ny * 42;
+
+      const c2x =
+        a.x +
+        dx * 0.68 -
+        nx * 42;
+
+      const c2y =
+        a.y +
+        dy * 0.68 -
+        ny * 42;
 
       const pathText =
-        "M " + a.x + " " + a.y +
-        " C " + c1x + " " + c1y +
-        ", " + c2x + " " + c2y +
-        ", " + b.x + " " + b.y;
+        "M " +
+        a.x +
+        " " +
+        a.y +
+        " C " +
+        c1x +
+        " " +
+        c1y +
+        ", " +
+        c2x +
+        " " +
+        c2y +
+        ", " +
+        b.x +
+        " " +
+        b.y;
 
       const body =
         document.createElementNS(
@@ -3135,8 +3801,15 @@
           "path"
         );
 
-      body.setAttribute("d", pathText);
-      body.setAttribute("class", "snake-path");
+      body.setAttribute(
+        "d",
+        pathText
+      );
+
+      body.setAttribute(
+        "class",
+        "snake-path"
+      );
 
       const belly =
         document.createElementNS(
@@ -3144,8 +3817,15 @@
           "path"
         );
 
-      belly.setAttribute("d", pathText);
-      belly.setAttribute("class", "snake-belly");
+      belly.setAttribute(
+        "d",
+        pathText
+      );
+
+      belly.setAttribute(
+        "class",
+        "snake-belly"
+      );
 
       const head =
         document.createElementNS(
@@ -3153,45 +3833,120 @@
           "ellipse"
         );
 
-      head.setAttribute("cx", a.x);
-      head.setAttribute("cy", a.y);
-      head.setAttribute("rx", 21);
-      head.setAttribute("ry", 15);
-      head.setAttribute("class", "snake-head");
+      head.setAttribute(
+        "cx",
+        a.x
+      );
 
-      boardArt.append(body, belly, head);
+      head.setAttribute(
+        "cy",
+        a.y
+      );
 
-      addEye(a.x - 7, a.y - 5);
-      addEye(a.x + 7, a.y - 5);
+      head.setAttribute(
+        "rx",
+        21
+      );
+
+      head.setAttribute(
+        "ry",
+        15
+      );
+
+      head.setAttribute(
+        "class",
+        "snake-head"
+      );
+
+      boardArt.append(
+        body,
+        belly,
+        head
+      );
+
+      addEye(
+        a.x - 7,
+        a.y - 5
+      );
+
+      addEye(
+        a.x + 7,
+        a.y - 5
+      );
     }
 
-    function addSvgLine(x1, y1, x2, y2, className) {
+    function addSvgLine(
+      x1,
+      y1,
+      x2,
+      y2,
+      className
+    ) {
       const line =
         document.createElementNS(
           "http://www.w3.org/2000/svg",
           "line"
         );
 
-      line.setAttribute("x1", x1);
-      line.setAttribute("y1", y1);
-      line.setAttribute("x2", x2);
-      line.setAttribute("y2", y2);
-      line.setAttribute("class", className);
+      line.setAttribute(
+        "x1",
+        x1
+      );
 
-      boardArt.appendChild(line);
+      line.setAttribute(
+        "y1",
+        y1
+      );
+
+      line.setAttribute(
+        "x2",
+        x2
+      );
+
+      line.setAttribute(
+        "y2",
+        y2
+      );
+
+      line.setAttribute(
+        "class",
+        className
+      );
+
+      boardArt.appendChild(
+        line
+      );
     }
 
-    function addEye(x, y) {
+    function addEye(
+      x,
+      y
+    ) {
       const eye =
         document.createElementNS(
           "http://www.w3.org/2000/svg",
           "circle"
         );
 
-      eye.setAttribute("cx", x);
-      eye.setAttribute("cy", y);
-      eye.setAttribute("r", 4);
-      eye.setAttribute("class", "snake-eye");
+      eye.setAttribute(
+        "cx",
+        x
+      );
+
+      eye.setAttribute(
+        "cy",
+        y
+      );
+
+      eye.setAttribute(
+        "r",
+        4
+      );
+
+      eye.setAttribute(
+        "class",
+        "snake-eye"
+      );
 
       const pupil =
         document.createElementNS(
@@ -3199,18 +3954,37 @@
           "circle"
         );
 
-      pupil.setAttribute("cx", x);
-      pupil.setAttribute("cy", y);
-      pupil.setAttribute("r", 1.8);
-      pupil.setAttribute("class", "snake-pupil");
+      pupil.setAttribute(
+        "cx",
+        x
+      );
 
-      boardArt.append(eye, pupil);
+      pupil.setAttribute(
+        "cy",
+        y
+      );
+
+      pupil.setAttribute(
+        "r",
+        1.8
+      );
+
+      pupil.setAttribute(
+        "class",
+        "snake-pupil"
+      );
+
+      boardArt.append(
+        eye,
+        pupil
+      );
     }
 
     function handleServerMessage(data) {
       if (data.type === "system") {
         addRoomMessage(
-          data.message || "System message",
+          data.message ||
+          "System message",
           "system"
         );
 
@@ -3219,14 +3993,22 @@
 
       if (
         !data.message ||
-        typeof data.message !== "string"
+        typeof data.message !==
+        "string"
       ) {
         return;
       }
 
-      if (!data.message.startsWith(GAME_PREFIX)) {
+      if (
+        !data.message.startsWith(
+          GAME_PREFIX
+        )
+      ) {
         addRoomMessage(
-          (data.name || "User") +
+          (
+            data.name ||
+            "User"
+          ) +
           ": " +
           data.message
         );
@@ -3237,28 +4019,43 @@
       try {
         const payload =
           JSON.parse(
-            data.message.slice(GAME_PREFIX.length)
+            data.message.slice(
+              GAME_PREFIX.length
+            )
           );
 
-        handleGamePayload(payload);
+        handleGamePayload(
+          payload
+        );
       } catch (error) {
-        log("Bad game payload", error.message);
+        log(
+          "Bad game payload",
+          error.message
+        );
       }
     }
 
     function handleGamePayload(payload) {
-      if (!payload || !payload.kind) {
+      if (
+        !payload ||
+        !payload.kind
+      ) {
         return;
       }
 
-      if (payload.kind === "presence") {
-        lobby = Object.assign(
-          lobby,
-          payload.lobby || {}
-        );
+      if (
+        payload.kind === "presence"
+      ) {
+        lobby =
+          Object.assign(
+            lobby,
+            payload.lobby || {}
+          );
 
         if (
-          PLAYER_ORDER.includes(payload.role)
+          PLAYER_ORDER.includes(
+            payload.role
+          )
         ) {
           updateLobby(
             payload.role,
@@ -3271,57 +4068,102 @@
         return;
       }
 
-      if (payload.kind === "new-game") {
-        lobby = payload.lobby || lobby;
-        game = payload.game;
-        lastDice = payload.lastDice || "-";
+      if (
+        payload.kind === "new-game"
+      ) {
+        lobby =
+          payload.lobby ||
+          lobby;
+
+        game =
+          payload.game;
+
+        lastDice =
+          payload.lastDice ||
+          "-";
 
         ensurePowerPoints();
+        ensurePendingMoveShape();
+
+        isHost =
+          game.hostClientId ===
+          myClientId;
+
         renderGame();
         maybeComputerMove();
         return;
       }
 
-      if (payload.kind === "sync") {
-        lobby = payload.lobby || lobby;
+      if (
+        payload.kind === "sync"
+      ) {
+        lobby =
+          payload.lobby ||
+          lobby;
 
         if (
           payload.game &&
-          payload.game.moveNumber >= game.moveNumber
+          payload.game.moveNumber >=
+          game.moveNumber
         ) {
-          game = payload.game;
+          game =
+            payload.game;
         }
 
-        lastDice = payload.lastDice || lastDice;
+        lastDice =
+          payload.lastDice ||
+          lastDice;
 
         ensurePowerPoints();
+        ensurePendingMoveShape();
+
+        isHost =
+          game.hostClientId ===
+          myClientId;
+
         renderGame();
         maybeComputerMove();
         return;
       }
 
-      if (payload.kind === "move") {
+      if (
+        payload.kind === "move"
+      ) {
         if (
           payload.moveId &&
-          seenMoveIds.has(payload.moveId)
+          seenMoveIds.has(
+            payload.moveId
+          )
         ) {
           return;
         }
 
         if (payload.moveId) {
-          seenMoveIds.add(payload.moveId);
+          seenMoveIds.add(
+            payload.moveId
+          );
         }
 
         if (
           payload.game &&
-          payload.game.moveNumber >= game.moveNumber
+          payload.game.moveNumber >=
+          game.moveNumber
         ) {
-          game = payload.game;
+          game =
+            payload.game;
         }
 
-        lastDice = payload.lastDice || lastDice;
+        lastDice =
+          payload.lastDice ||
+          lastDice;
 
         ensurePowerPoints();
+        ensurePendingMoveShape();
+
+        isHost =
+          game.hostClientId ===
+          myClientId;
+
         renderGame();
 
         if (payload.drama) {
@@ -3332,7 +4174,8 @@
         }
 
         addRoomMessage(
-          payload.note || "A move was made.",
+          payload.note ||
+          "A move was made.",
           "system"
         );
 
@@ -3340,7 +4183,10 @@
         return;
       }
 
-      if (payload.kind === "room-chat") {
+      if (
+        payload.kind ===
+        "room-chat"
+      ) {
         addRoomMessage(
           payload.from +
           ": " +
@@ -3350,12 +4196,14 @@
     }
 
     function sendRoomChat() {
-      const text = chatInput.value.trim();
+      const text =
+        chatInput.value.trim();
 
       if (
         !text ||
         !ws ||
-        ws.readyState !== WebSocket.OPEN
+        ws.readyState !==
+        WebSocket.OPEN
       ) {
         return;
       }
@@ -3366,55 +4214,88 @@
         text: text
       });
 
-      addRoomMessage("You: " + text, "mine");
+      addRoomMessage(
+        "You: " +
+        text,
+        "mine"
+      );
 
       chatInput.value = "";
     }
 
     function renderBoardControls() {
-      const role = getRole();
+      const role =
+        getRole();
 
       const isMyPendingMove =
         game.pendingMove &&
-        game.pendingMove.role === role;
+        game.pendingMove.role ===
+        role;
 
       const finalMove =
         isMyPendingMove
-          ? Number(game.pendingMove.dice || 0) +
-            Number(game.pendingMove.selectedPower || 0)
+          ? Number(
+              game.pendingMove.dice ||
+              0
+            ) +
+            Number(
+              game.pendingMove
+                .selectedPower ||
+              0
+            )
           : null;
 
       document
-        .querySelectorAll(".board-final-move")
-        .forEach(function (box) {
-          box.textContent =
-            finalMove === null
-              ? "–"
-              : String(finalMove);
-        });
+        .querySelectorAll(
+          ".board-final-move"
+        )
+        .forEach(
+          function (box) {
+            box.textContent =
+              finalMove === null
+                ? "–"
+                : String(finalMove);
+          }
+        );
 
       const indicator =
-        document.getElementById("boardTurnIndicator");
+        document.getElementById(
+          "boardTurnIndicator"
+        );
 
-      indicator.classList.remove("my-turn");
+      indicator.classList.remove(
+        "my-turn"
+      );
 
-      if (game.status === "finished") {
+      if (
+        game.status ===
+        "finished"
+      ) {
         indicator.textContent =
           "🏁 Winner: " +
-          game.names[game.winner];
+          game.names[
+            game.winner
+          ];
 
         return;
       }
 
-      if (game.status !== "playing") {
+      if (
+        game.status !==
+        "playing"
+      ) {
         indicator.textContent =
           "Waiting for game";
 
         return;
       }
 
-      if (game.turn === role) {
-        indicator.classList.add("my-turn");
+      if (
+        game.turn === role
+      ) {
+        indicator.classList.add(
+          "my-turn"
+        );
 
         indicator.textContent =
           isMyPendingMove
@@ -3427,115 +4308,174 @@
       }
 
       indicator.textContent =
-        game.names[game.turn] +
+        game.names[
+          game.turn
+        ] +
         "'s turn";
     }
 
     function updateSpectatorControls() {
       const spectator =
-        getRole() === "spectator";
+        getRole() ===
+        "spectator";
 
       document
         .querySelectorAll(
           ".roll-dice-btn, .power-btn, .move-btn"
         )
-        .forEach(function (button) {
-          button.classList.toggle(
-            "hidden-for-spectator",
-            spectator
-          );
-        });
+        .forEach(
+          function (button) {
+            button.classList.toggle(
+              "hidden-for-spectator",
+              spectator
+            );
+          }
+        );
 
-      document.getElementById("spectatorNote").hidden =
-        !spectator;
+      document.getElementById(
+        "spectatorNote"
+      ).hidden = !spectator;
     }
 
     function updateGameplayButtonStates() {
-      const role = getRole();
+      const role =
+        getRole();
 
       const connected =
-        ws &&
-        ws.readyState === WebSocket.OPEN;
+        Boolean(
+          ws &&
+          ws.readyState ===
+          WebSocket.OPEN
+        );
 
       const myTurn =
-        game.status === "playing" &&
+        game.status ===
+        "playing" &&
         game.turn === role;
 
       const pending =
-        game.pendingMove &&
-        game.pendingMove.role === role;
+        Boolean(
+          game.pendingMove &&
+          game.pendingMove.role ===
+          role
+        );
 
       const selectedPower =
         pending
-          ? game.pendingMove.selectedPower || 0
+          ? Number(
+              game.pendingMove
+                .selectedPower ||
+              0
+            )
           : 0;
 
       const availablePower =
-        PLAYER_ORDER.includes(role)
-          ? game.powerPoints[role] || 0
+        PLAYER_ORDER.includes(
+          role
+        )
+          ? Number(
+              game.powerPoints[
+                role
+              ] ||
+              0
+            )
           : 0;
 
       document
-        .querySelectorAll(".roll-dice-btn")
-        .forEach(function (button) {
-          button.disabled =
-            !connected ||
-            !myTurn ||
-            Boolean(pending);
-        });
+        .querySelectorAll(
+          ".roll-dice-btn"
+        )
+        .forEach(
+          function (button) {
+            button.disabled =
+              !connected ||
+              !myTurn ||
+              pending;
+          }
+        );
 
       document
-        .querySelectorAll(".board-power-add-btn")
-        .forEach(function (button) {
-          button.disabled =
-            !connected ||
-            !myTurn ||
-            !pending ||
-            selectedPower >= availablePower;
-        });
+        .querySelectorAll(
+          ".board-power-add-btn"
+        )
+        .forEach(
+          function (button) {
+            button.disabled =
+              !connected ||
+              !myTurn ||
+              !pending ||
+              selectedPower >=
+              availablePower;
+          }
+        );
 
       document
-        .querySelectorAll(".board-power-remove-btn")
-        .forEach(function (button) {
-          button.disabled =
-            !connected ||
-            !myTurn ||
-            !pending ||
-            selectedPower <= 0;
-        });
+        .querySelectorAll(
+          ".board-power-remove-btn"
+        )
+        .forEach(
+          function (button) {
+            button.disabled =
+              !connected ||
+              !myTurn ||
+              !pending ||
+              selectedPower <= 0;
+          }
+        );
 
       document
-        .querySelectorAll(".move-btn")
-        .forEach(function (button) {
-          button.disabled =
-            !connected ||
-            !myTurn ||
-            !pending;
+        .querySelectorAll(
+          ".move-btn"
+        )
+        .forEach(
+          function (button) {
+            button.disabled =
+              !connected ||
+              !myTurn ||
+              !pending;
 
-          button.textContent =
-            pending
-              ? "Move " +
-                (
-                  game.pendingMove.dice +
-                  selectedPower
-                ) +
-                " Squares"
-              : "Make Move";
-        });
+            button.textContent =
+              pending
+                ? "Move " +
+                  (
+                    game.pendingMove
+                      .dice +
+                    selectedPower
+                  ) +
+                  " Squares"
+                : "Make Move";
+          }
+        );
 
       document
-        .querySelectorAll(".new-game-btn")
-        .forEach(function (button) {
-          button.disabled = !connected;
-        });
+        .querySelectorAll(
+          ".new-game-btn"
+        )
+        .forEach(
+          function (button) {
+            button.disabled =
+              !connected;
+          }
+        );
 
-      document.getElementById("connectBtn").disabled =
-        Boolean(connected);
+      document.getElementById(
+        "connectBtn"
+      ).disabled = connected;
 
-      document.getElementById("disconnectBtn").disabled =
+      document.getElementById(
+        "disconnectBtn"
+      ).disabled = !connected;
+
+      chatInput.disabled =
         !connected;
+    }
 
-      chatInput.disabled = !connected;
+    function updatePlayingLayout() {
+      document.body.classList.toggle(
+        "game-is-playing",
+        game.status ===
+        "playing"
+      );
     }
 
     function renderGame() {
@@ -3543,52 +4483,83 @@
       ensurePendingMoveShape();
 
       document
-        .querySelectorAll(".tokens")
-        .forEach(function (box) {
-          box.innerHTML = "";
-        });
+        .querySelectorAll(
+          ".tokens"
+        )
+        .forEach(
+          function (box) {
+            box.innerHTML = "";
+          }
+        );
 
-      PLAYER_ORDER.forEach(function (player) {
-        const position =
-          game.positions[player] || 0;
+      PLAYER_ORDER.forEach(
+        function (player) {
+          const position =
+            game.positions[
+              player
+            ] || 0;
 
-        if (position <= 0) {
-          return;
+          if (
+            position <= 0
+          ) {
+            return;
+          }
+
+          const square =
+            boardBox.querySelector(
+              '[data-number="' +
+              position +
+              '"]'
+            );
+
+          if (!square) {
+            return;
+          }
+
+          const token =
+            document.createElement(
+              "div"
+            );
+
+          token.className =
+            "token " +
+            player.toLowerCase();
+
+          if (
+            player === getRole()
+          ) {
+            token.classList.add(
+              "local-token"
+            );
+          }
+
+          if (
+            game.winner ===
+            player
+          ) {
+            token.classList.add(
+              "winner-token"
+            );
+          }
+
+          token.textContent =
+            player.replace(
+              "P",
+              ""
+            );
+
+          square
+            .querySelector(
+              ".tokens"
+            )
+            .appendChild(
+              token
+            );
         }
+      );
 
-        const square =
-          boardBox.querySelector(
-            '[data-number="' + position + '"]'
-          );
-
-        if (!square) {
-          return;
-        }
-
-        const token =
-          document.createElement("div");
-
-        token.className =
-          "token " +
-          player.toLowerCase();
-
-        if (player === getRole()) {
-          token.classList.add("local-token");
-        }
-
-        if (game.winner === player) {
-          token.classList.add("winner-token");
-        }
-
-        token.textContent =
-          player.replace("P", "");
-
-        square
-          .querySelector(".tokens")
-          .appendChild(token);
-      });
-
-      hudDiceBox.textContent = lastDice;
+      hudDiceBox.textContent =
+        lastDice;
 
       hudRoomBox.textContent =
         "Room: " +
@@ -3599,17 +4570,30 @@
         getRole() +
         ")";
 
-      if (game.status === "playing") {
+      if (
+        game.status ===
+        "playing"
+      ) {
         hudTurnBox.textContent =
-          game.turn === getRole()
+          game.turn ===
+          getRole()
             ? "Your turn, " +
-              game.names[game.turn]
+              game.names[
+                game.turn
+              ]
             : "Turn: " +
-              game.names[game.turn];
-      } else if (game.status === "finished") {
+              game.names[
+                game.turn
+              ];
+      } else if (
+        game.status ===
+        "finished"
+      ) {
         hudTurnBox.textContent =
           "Winner: " +
-          game.names[game.winner];
+          game.names[
+            game.winner
+          ];
       } else {
         hudTurnBox.textContent =
           "Status: waiting";
@@ -3625,41 +4609,61 @@
         getRole() +
         ")\n\n";
 
-      if (game.status === "waiting") {
+      if (
+        game.status ===
+        "waiting"
+      ) {
         statusText +=
           "Connect players and start a new game.";
-      } else if (game.status === "playing") {
+      } else if (
+        game.status ===
+        "playing"
+      ) {
         statusText +=
           "Current turn: " +
-          game.names[game.turn] +
+          game.names[
+            game.turn
+          ] +
           "\n" +
           "Power Points: " +
-          game.powerPoints[game.turn];
+          game.powerPoints[
+            game.turn
+          ];
 
-        if (game.pendingMove) {
+        if (
+          game.pendingMove
+        ) {
           statusText +=
             "\nDice: " +
-            game.pendingMove.dice +
+            game.pendingMove
+              .dice +
             "\nPower selected: " +
-            game.pendingMove.selectedPower +
+            game.pendingMove
+              .selectedPower +
             "\nFinal movement: " +
             (
-              game.pendingMove.dice +
-              game.pendingMove.selectedPower
+              game.pendingMove
+                .dice +
+              game.pendingMove
+                .selectedPower
             );
         }
       } else {
         statusText +=
           "Winner: " +
-          game.names[game.winner];
+          game.names[
+            game.winner
+          ];
       }
 
-      gameStateBox.textContent = statusText;
+      gameStateBox.textContent =
+        statusText;
 
       renderPendingMoveBox();
       renderRolePositions();
       renderPlayers();
       renderBoardControls();
+      updatePlayingLayout();
       updateSpectatorControls();
       updateGameplayButtonStates();
     }
@@ -3672,14 +4676,18 @@
         return;
       }
 
-      const pending = game.pendingMove;
+      const pending =
+        game.pendingMove;
+
       const finalMove =
         pending.dice +
         pending.selectedPower;
 
       pendingMoveBox.innerHTML =
         "<strong>" +
-        cleanText(pending.role) +
+        cleanText(
+          pending.role
+        ) +
         " is preparing a move.</strong>" +
         '<div class="pending-move-grid">' +
         '<div class="pending-move-stat">' +
@@ -3698,72 +4706,120 @@
     }
 
     function renderRolePositions() {
-      PLAYER_ORDER.forEach(function (player) {
-        const position =
-          game.positions[player] || 0;
+      PLAYER_ORDER.forEach(
+        function (player) {
+          const position =
+            game.positions[
+              player
+            ] || 0;
 
-        const points =
-          game.powerPoints[player];
+          const points =
+            game.powerPoints[
+              player
+            ];
 
-        document.getElementById(
-          "rolePos" + player
-        ).textContent =
-          (position || "Start") +
-          " | ⚡" +
-          points;
-      });
+          document.getElementById(
+            "rolePos" +
+            player
+          ).textContent =
+            (
+              position ||
+              "Start"
+            ) +
+            " | ⚡" +
+            points;
+        }
+      );
     }
 
     function renderPlayers() {
       playersBox.innerHTML = "";
 
       const players =
-        game.status === "waiting"
+        game.status ===
+        "waiting"
           ? PLAYER_ORDER
           : getActivePlayers();
 
-      players.forEach(function (player) {
-        const card =
-          document.createElement("div");
+      players.forEach(
+        function (player) {
+          const card =
+            document.createElement(
+              "div"
+            );
 
-        card.className =
-          "player-card" +
-          (game.turn === player
-            ? " active"
-            : "");
+          card.className =
+            "player-card" +
+            (
+              game.turn ===
+              player
+                ? " active"
+                : ""
+            );
 
-        const cpu =
-          game.playerTypes[player] === "computer"
-            ? '<span class="computer-badge">CPU</span>'
-            : "";
+          if (
+            isComputerTurn() &&
+            game.turn ===
+            player &&
+            thisClientIsHost()
+          ) {
+            card.classList.add(
+              "thinking"
+            );
+          }
 
-        const you =
-          player === getRole()
-            ? '<span class="you-badge">YOU</span>'
-            : "";
+          const cpu =
+            game.playerTypes[
+              player
+            ] ===
+            "computer"
+              ? '<span class="computer-badge">CPU</span>'
+              : "";
 
-        card.innerHTML =
-          '<span class="player-token-mini ' +
-          player.toLowerCase() +
-          '">' +
-          player.replace("P", "") +
-          "</span>" +
-          '<span class="player-meta">' +
-          "<strong>" +
-          player +
-          " - " +
-          cleanText(game.names[player]) +
-          you +
-          cpu +
-          '<span class="power-badge">⚡ ' +
-          game.powerPoints[player] +
-          "</span></strong>" +
-          "Position: " +
-          (game.positions[player] || 0) +
-          "</span>";
+          const you =
+            player ===
+            getRole()
+              ? '<span class="you-badge">YOU</span>'
+              : "";
 
-        playersBox.appendChild(card);
-      });
+          card.innerHTML =
+            '<span class="player-token-mini ' +
+            player.toLowerCase() +
+            '">' +
+            player.replace(
+              "P",
+              ""
+            ) +
+            "</span>" +
+            '<span class="player-meta">' +
+            "<strong>" +
+            player +
+            " - " +
+            cleanText(
+              game.names[
+                player
+              ]
+            ) +
+            you +
+            cpu +
+            '<span class="power-badge">⚡ ' +
+            game.powerPoints[
+              player
+            ] +
+            "</span></strong>" +
+            "Position: " +
+            (
+              game.positions[
+                player
+              ] || 0
+            ) +
+            "</span>";
+
+          playersBox.appendChild(
+            card
+          );
+        }
+      );
     }
 
     function clearLogs() {
@@ -3772,9 +4828,19 @@
     }
 
     function toggleGameFullscreen() {
-      if (!document.fullscreenElement) {
-        gameFocusBox.requestFullscreen();
-      } else {
+      if (
+        !document.fullscreenElement
+      ) {
+        if (
+          gameFocusBox
+            .requestFullscreen
+        ) {
+          gameFocusBox
+            .requestFullscreen();
+        }
+      } else if (
+        document.exitFullscreen
+      ) {
         document.exitFullscreen();
       }
     }
@@ -3789,7 +4855,10 @@
             ? "Exit Full Screen"
             : "Full Screen";
 
-        setTimeout(renderGame, 120);
+        setTimeout(
+          renderGame,
+          120
+        );
       }
     );
 
@@ -3797,31 +4866,38 @@
       .querySelectorAll(
         'input[name="playerRole"]'
       )
-      .forEach(function (radio) {
-        radio.addEventListener(
-          "change",
-          function () {
-            renderGame();
+      .forEach(
+        function (radio) {
+          radio.addEventListener(
+            "change",
+            function () {
+              renderGame();
 
-            if (
-              ws &&
-              ws.readyState === WebSocket.OPEN
-            ) {
-              announcePresence();
+              if (
+                ws &&
+                ws.readyState ===
+                WebSocket.OPEN
+              ) {
+                announcePresence();
+              }
             }
-          }
-        );
-      });
+          );
+        }
+      );
 
     document
-      .getElementById("roomName")
+      .getElementById(
+        "roomName"
+      )
       .addEventListener(
         "input",
         renderGame
       );
 
     document
-      .getElementById("playerName")
+      .getElementById(
+        "playerName"
+      )
       .addEventListener(
         "input",
         renderGame
@@ -3830,7 +4906,10 @@
     chatInput.addEventListener(
       "keydown",
       function (event) {
-        if (event.key === "Enter") {
+        if (
+          event.key ===
+          "Enter"
+        ) {
           event.preventDefault();
           sendRoomChat();
         }
@@ -3842,7 +4921,8 @@
       function () {
         if (
           ws &&
-          ws.readyState === WebSocket.OPEN
+          ws.readyState ===
+          WebSocket.OPEN
         ) {
           ws.close(
             1000,
@@ -3854,7 +4934,11 @@
 
     loadInterfaceView();
     buildBoard();
-    setConnectionStatus("Disconnected", false);
+
+    setConnectionStatus(
+      "Disconnected",
+      false
+    );
   </script>
 </body>
 
