@@ -26,6 +26,13 @@
   <link rel="sitemap" type="application/xml" title="Sitemap" href="https://dsa.learnwithchampak.live/sitemap.xml" />
 
   <meta name="theme-color" content="#2563eb" />
+  <meta name="application-name" content="DSA Learning Path" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="DSA Learning Path" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/assets/icons/icon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Programmer's Picnic by Champak Roy" />
@@ -2213,6 +2220,14 @@ Please guide me on how to start this DSA path and how to learn/practice properly
     }
 
     lessonSearch.addEventListener("input", filterLessons);
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js").catch(error => {
+          console.warn("Service worker registration failed:", error);
+        });
+      });
+    }
   </script>
 </body>
 </html>

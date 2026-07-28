@@ -1,90 +1,13 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JavaScript Fundamentals for React</title>
-    <meta name="description" content="A complete beginner-friendly JavaScript course to prepare students for React.">
-    <meta property="og:title" content="JavaScript Fundamentals for React">
-    <meta property="og:description" content="Detailed interactive lessons by Champak Roy.">
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-    <header>
-        <h1>JavaScript Fundamentals for React</h1>
-        <p>A proper 0 to React-ready JavaScript course with wide pages, detailed explanations, and working interactive
-            code runners.</p>
-    </header>
-    <main class="wrap">
-        <section class="card">
-            <h2>How to use this course</h2>
-            <p class="lead">Extract the ZIP, open this <code>index.html</code>, then open each lesson. Every lesson is
-                inside its own folder and every lesson file is named <code>index.html</code>.</p>
-            <div class="toc"><a href="#lessons">Start lessons</a><a href="11-mini-project/index.html">Open mini
-                    project</a></div>
-        </section>
-        <section class="card">
-            <h2>React readiness checklist</h2>
-            <p><span class="pill">let and const</span><span class="pill">functions</span><span class="pill">arrow
-                    functions</span><span class="pill">arrays</span><span class="pill">map()</span><span
-                    class="pill">filter()</span><span class="pill">objects</span><span
-                    class="pill">destructuring</span><span class="pill">spread</span><span
-                    class="pill">modules</span><span class="pill">async/await</span><span class="pill">events</span></p>
-        </section>
-        <section class="card" id="lessons">
-            <h2>Lessons</h2>
-            <div class="grid"><a class="lesson-link" href="01-what-is-javascript/index.html"><span class="badge">Lesson
-                        1</span>
-                    <h3>What is JavaScript?</h3>
-                    <p>Understand JavaScript, console, scripts, and why React needs it.</p>
-                </a>
-                <a class="lesson-link" href="02-variables-data-types/index.html"><span class="badge">Lesson 2</span>
-                    <h3>Variables and Data Types</h3>
-                    <p>Learn let, const, strings, numbers, booleans, null, undefined, arrays, and objects.</p>
-                </a>
-                <a class="lesson-link" href="03-operators-conditions/index.html"><span class="badge">Lesson 3</span>
-                    <h3>Operators and Conditions</h3>
-                    <p>Make decisions using arithmetic, comparison, logical operators, if/else, and ternary.</p>
-                </a>
-                <a class="lesson-link" href="04-loops-functions/index.html"><span class="badge">Lesson 4</span>
-                    <h3>Loops and Functions</h3>
-                    <p>Write reusable logic with functions and repeat work using loops.</p>
-                </a>
-                <a class="lesson-link" href="05-arrays-array-methods/index.html"><span class="badge">Lesson 5</span>
-                    <h3>Arrays and Array Methods</h3>
-                    <p>Master map, filter, find, includes, reduce, and keys for React lists.</p>
-                </a>
-                <a class="lesson-link" href="06-objects-destructuring/index.html"><span class="badge">Lesson 6</span>
-                    <h3>Objects and Destructuring</h3>
-                    <p>Use objects for real data and destructuring for clean React props.</p>
-                </a>
-                <a class="lesson-link" href="07-spread-rest/index.html"><span class="badge">Lesson 7</span>
-                    <h3>Spread and Rest Operators</h3>
-                    <p>Copy, combine, and update arrays and objects without mutation.</p>
-                </a>
-                <a class="lesson-link" href="08-modules/index.html"><span class="badge">Lesson 8</span>
-                    <h3>Modules: Import and Export</h3>
-                    <p>Split code into files using import and export, the standard React project style.</p>
-                </a>
-                <a class="lesson-link" href="09-promises-async-await/index.html"><span class="badge">Lesson 9</span>
-                    <h3>Promises and Async/Await</h3>
-                    <p>Prepare for API calls in React using promises, fetch, and async/await.</p>
-                </a>
-                <a class="lesson-link" href="10-dom-events-react-ready/index.html"><span class="badge">Lesson 10</span>
-                    <h3>DOM and Events: React Ready</h3>
-                    <p>Understand browser events before React event handlers.</p>
-                </a>
-                <a class="lesson-link" href="11-mini-project/index.html"><span class="badge">Lesson 11</span>
-                    <h3>Mini Project: Student Result App</h3>
-                    <p>Combine arrays, objects, functions, map, filter, destructuring, and template literals.</p>
-                </a>
-            </div>
-        </section>
-    </main>
-    <footer>Programmer's Picnic AI-ML Classes by Champak Roy</footer>
-    <script src="script.js"></script>
-</body>
-
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Arrays and Array Methods | JavaScript for React</title><meta name="description" content="Master map, filter, find, includes, reduce, and keys for React lists."><link rel="stylesheet" href="../style.css"></head><body><header><h1>Arrays and Array Methods</h1><p>Master map, filter, find, includes, reduce, and keys for React lists.</p></header><main class="lesson-wrap"><section class="card"><div class="nav"><a class="btn light" href="../index.html">← Main Index</a><a class="btn light" href="../04-loops-functions/index.html">Previous</a><a class="btn orange" href="../06-objects-destructuring/index.html">Next</a></div><h2>Lesson goal</h2><p class="lead">An array stores many values in order. React uses arrays constantly: menu items, products, students, todos, posts, cards, table rows, and components. The most important React array method is map because it converts data into visible user interface elements.</p><div class="note"><b>React connection:</b> This topic appears directly in React components, props, state, event handlers, rendering lists, API calls, or project folder structure.</div><h2>Explanation</h2><p>Read the code slowly. Do not only copy it. Ask three questions: What data is stored? What operation is performed? What output is produced? This habit will help you understand React JSX (JavaScript XML), props, state updates, and component logic.</p><h2>Interactive code practice</h2><p>Edit the code and click <b>Run Code</b>. The runner is local and works after extracting the ZIP.</p><div class="runner"><div class="runner-head"><b>Try it yourself</b><div><button class="orange" data-action="run" data-target="0">Run Code</button> <button data-action="reset" data-target="0">Reset</button></div></div><textarea id="code-0" data-original="const students = [&quot;Amit&quot;, &quot;Neha&quot;, &quot;Ravi&quot;];
+const messages = students.map((name, index) =&gt; `${index + 1}. Welcome ${name}`);
+console.log(messages);
+const marks = [35, 44, 91, 20, 78];
+console.log(marks.filter(m =&gt; m &gt;= 40));
+console.log(marks.find(m =&gt; m &gt; 90));
+console.log(marks.reduce((total, m) =&gt; total + m, 0));">const students = [&quot;Amit&quot;, &quot;Neha&quot;, &quot;Ravi&quot;];
+const messages = students.map((name, index) =&gt; `${index + 1}. Welcome ${name}`);
+console.log(messages);
+const marks = [35, 44, 91, 20, 78];
+console.log(marks.filter(m =&gt; m &gt;= 40));
+console.log(marks.find(m =&gt; m &gt; 90));
+console.log(marks.reduce((total, m) =&gt; total + m, 0));</textarea><div class="output" id="output-0">Output will appear here.</div></div><h2>Key points</h2><table><tr><th>Point</th><th>Why it matters for React</th></tr><tr><td>Clean JavaScript</td><td>React components are mostly JavaScript functions.</td></tr><tr><td>Readable names</td><td>Good names make component code easier to maintain.</td></tr><tr><td>Small steps</td><td>React apps are built by combining small pieces.</td></tr></table><div class="task"><b>Practice task:</b> Modify the example. Add your own data, print a different message, and intentionally make one mistake. Then fix it.</div><div class="quiz"><b>Check your understanding</b><p>How will this topic help when learning React?</p><button data-action="toggle" data-target="ans-0">Show answer</button><div class="answer" id="ans-0">It helps because React uses JavaScript to calculate values, pass data, handle events, render lists, and decide what should appear on the page.</div></div><div class="nav"><a class="btn light" href="../index.html">← Main Index</a><a class="btn light" href="../04-loops-functions/index.html">Previous</a><a class="btn orange" href="../06-objects-destructuring/index.html">Next</a></div></section></main><footer>Programmer's Picnic AI-ML Classes by Champak Roy</footer><script src="../script.js"></script></body></html>
