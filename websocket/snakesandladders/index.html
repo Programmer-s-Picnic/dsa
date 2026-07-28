@@ -2,27 +2,28 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
 
   <title>Snakes and Ladders Multiplayer | Programmer's Picnic by Champak Roy</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <meta name="description"
-    content="Play a multiplayer Snakes and Ladders game using a Cloudflare Durable Object WebSocket server. Includes Student View, Player View, fullscreen mode, computer player, spectators, dramatic effects, and Power Points." />
+    content="Play a multiplayer Snakes and Ladders game with Student View, Player View, computer player, spectators, fullscreen mode, dramatic effects, and Power Points.">
 
   <meta name="keywords"
-    content="Snakes and Ladders, multiplayer game, educational game, Student View, Player View, Cloudflare Durable Objects, WebSocket game, JavaScript game, Power Points, Champak Roy, Programmer's Picnic" />
+    content="Snakes and Ladders, multiplayer game, educational game, Student View, Player View, WebSocket game, Cloudflare Durable Objects, JavaScript game, Power Points, Champak Roy, Programmer's Picnic">
 
-  <meta name="author" content="Champak Roy" />
-  <meta name="theme-color" content="#f59e0b" />
+  <meta name="author" content="Champak Roy">
+  <meta name="theme-color" content="#f59e0b">
 
-  <meta property="og:title" content="Snakes and Ladders Multiplayer with Power Points" />
+  <meta property="og:title"
+    content="Snakes and Ladders Multiplayer with Power Points">
 
   <meta property="og:description"
-    content="A WebSocket-based Snakes and Ladders game with separate Student and Player views, computer player, fullscreen mode, spectator mode, dramatic effects, and Power Points." />
+    content="A WebSocket-based Snakes and Ladders game with Student View, Player View, computer player, fullscreen mode, spectator mode, dramatic effects, and Power Points.">
 
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="website">
 
   <!-- Google AdSense -->
   <script async
@@ -110,7 +111,7 @@
     .hero p {
       position: relative;
       z-index: 1;
-      max-width: 800px;
+      max-width: 850px;
       margin: 0;
       opacity: 0.96;
       font-size: 16px;
@@ -158,13 +159,13 @@
     }
 
     .view-button {
-      background: #fff7ed;
       color: #9a3412;
       border: 1px solid #fdba74;
+      background: #fff7ed;
       box-shadow: none;
     }
 
-    .view-button:hover {
+    .view-button:hover:not(:disabled) {
       background: #ffedd5;
     }
 
@@ -357,11 +358,6 @@
     button.dark {
       color: #fef3c7;
       background: var(--dark);
-    }
-
-    button.power {
-      color: #713f12;
-      background: #facc15;
     }
 
     button.hidden-for-spectator {
@@ -654,6 +650,156 @@
       align-items: start;
     }
 
+    .board-section {
+      min-width: 0;
+    }
+
+    .board-heading-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .board-heading-row h2 {
+      margin: 0;
+    }
+
+    .board-turn-indicator {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+      max-width: 65%;
+      padding: 6px 11px;
+      overflow: hidden;
+      color: #7c2d12;
+      border: 1px solid #fed7aa;
+      border-radius: 999px;
+      background: #fff7ed;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .board-turn-indicator.my-turn {
+      color: #166534;
+      border-color: #86efac;
+      background: #dcfce7;
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
+    }
+
+    .board-action-bar {
+      position: relative;
+      z-index: 20;
+      display: grid;
+      grid-template-columns:
+        minmax(110px, 1fr)
+        auto
+        minmax(70px, auto)
+        auto
+        minmax(130px, 1fr);
+      gap: 7px;
+      align-items: center;
+      width: min(100%, 820px);
+      margin-right: auto;
+      margin-left: auto;
+      padding: 8px;
+      border: 1px solid #fdba74;
+      background: rgba(255, 255, 255, 0.97);
+      box-shadow: 0 10px 24px rgba(120, 53, 15, 0.14);
+      backdrop-filter: blur(12px);
+    }
+
+    .board-action-bar-top {
+      margin-bottom: 7px;
+      border-radius: 18px 18px 12px 12px;
+    }
+
+    .board-action-bar-bottom {
+      margin-top: 7px;
+      border-radius: 12px 12px 18px 18px;
+    }
+
+    .board-action-bar button {
+      width: 100%;
+      min-height: 44px;
+      padding: 9px 11px;
+      border-radius: 13px;
+      white-space: nowrap;
+    }
+
+    .board-roll-btn {
+      color: #fef3c7;
+      background: #111827;
+    }
+
+    .board-roll-btn:hover:not(:disabled) {
+      background: #1f2937;
+    }
+
+    .board-power-add-btn {
+      min-width: 52px;
+      color: #713f12;
+      background: #facc15;
+    }
+
+    .board-power-add-btn:hover:not(:disabled) {
+      background: #eab308;
+    }
+
+    .board-power-remove-btn {
+      min-width: 52px;
+      color: white;
+      background: #dc2626;
+    }
+
+    .board-power-remove-btn:hover:not(:disabled) {
+      background: #b91c1c;
+    }
+
+    .board-make-move-btn {
+      color: white;
+      background: #16a34a;
+    }
+
+    .board-make-move-btn:hover:not(:disabled) {
+      background: #15803d;
+    }
+
+    .board-move-display {
+      display: grid;
+      place-items: center;
+      min-width: 70px;
+      min-height: 44px;
+      padding: 4px 9px;
+      color: #7c2d12;
+      border: 1px solid #fde68a;
+      border-radius: 13px;
+      background: #fffbeb;
+      text-align: center;
+    }
+
+    .board-move-display span {
+      display: block;
+      color: #92400e;
+      line-height: 1;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .board-move-display strong {
+      display: block;
+      margin-top: 2px;
+      color: #111827;
+      line-height: 1;
+      font-size: 21px;
+      font-weight: 1000;
+    }
+
     .board-wrap {
       overflow: visible;
       padding: 0;
@@ -667,7 +813,7 @@
       margin: auto;
       padding: 8px;
       border: 2px solid rgba(217, 119, 6, 0.24);
-      border-radius: 28px;
+      border-radius: 20px;
       background:
         radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.55), transparent 28%),
         linear-gradient(135deg, #fef3c7, #fed7aa);
@@ -854,10 +1000,6 @@
       align-self: start;
     }
 
-    .panel .dice-card {
-      display: none;
-    }
-
     .game-state {
       min-height: 128px;
       padding: 13px;
@@ -1009,32 +1151,6 @@
       font-size: 13px;
     }
 
-    .legend {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .legend div {
-      padding: 10px;
-      border-radius: 16px;
-      text-align: center;
-      font-weight: 900;
-    }
-
-    .legend .up {
-      color: #166534;
-      border: 1px solid #86efac;
-      background: #ecfdf5;
-    }
-
-    .legend .down {
-      color: #991b1b;
-      border: 1px solid #fecaca;
-      background: #fff1f2;
-    }
-
     .pending-move-box {
       margin-top: 10px;
       padding: 12px;
@@ -1075,21 +1191,6 @@
       font-size: 11px;
     }
 
-    button.make-move {
-      color: white;
-      background: #16a34a;
-    }
-
-    button.adjust {
-      color: #713f12;
-      background: #facc15;
-    }
-
-    button.adjust-remove {
-      color: white;
-      background: #dc2626;
-    }
-
     .drama-banner,
     .local-drama-banner {
       position: fixed;
@@ -1121,24 +1222,24 @@
     }
 
     .snake-drama {
-      background: linear-gradient(135deg, rgba(127, 29, 29, 0.98), rgba(220, 38, 38, 0.94));
+      background: linear-gradient(135deg, #7f1d1d, #dc2626);
     }
 
     .ladder-drama {
-      background: linear-gradient(135deg, rgba(20, 83, 45, 0.98), rgba(22, 163, 74, 0.94));
+      background: linear-gradient(135deg, #14532d, #16a34a);
     }
 
     .six-drama {
-      background: linear-gradient(135deg, rgba(146, 64, 14, 0.98), rgba(245, 158, 11, 0.94));
+      background: linear-gradient(135deg, #92400e, #f59e0b);
     }
 
     .win-drama {
-      background: linear-gradient(135deg, rgba(88, 28, 135, 0.98), rgba(245, 158, 11, 0.94));
+      background: linear-gradient(135deg, #581c87, #f59e0b);
     }
 
     .power-drama {
       color: #422006;
-      background: linear-gradient(135deg, rgba(250, 204, 21, 0.98), rgba(245, 158, 11, 0.94));
+      background: linear-gradient(135deg, #facc15, #f59e0b);
     }
 
     @keyframes dramaPop {
@@ -1174,20 +1275,20 @@
         transform: translateX(0);
       }
 
-      18% {
-        transform: translateX(-8px) rotate(-0.5deg);
+      20% {
+        transform: translateX(-8px);
       }
 
-      36% {
-        transform: translateX(8px) rotate(0.5deg);
+      40% {
+        transform: translateX(8px);
       }
 
-      54% {
-        transform: translateX(-6px) rotate(-0.4deg);
+      60% {
+        transform: translateX(-6px);
       }
 
-      72% {
-        transform: translateX(6px) rotate(0.4deg);
+      80% {
+        transform: translateX(6px);
       }
     }
 
@@ -1196,14 +1297,7 @@
     }
 
     @keyframes ladderGlow {
-      0%,
-      100% {
-        box-shadow:
-          inset 0 0 0 2px rgba(124, 45, 18, 0.08),
-          0 20px 48px rgba(120, 53, 15, 0.18);
-      }
-
-      45% {
+      50% {
         box-shadow:
           inset 0 0 0 4px rgba(22, 163, 74, 0.4),
           0 0 42px rgba(22, 163, 74, 0.48);
@@ -1215,14 +1309,7 @@
     }
 
     @keyframes powerGlow {
-      0%,
-      100% {
-        box-shadow:
-          inset 0 0 0 2px rgba(124, 45, 18, 0.08),
-          0 20px 48px rgba(120, 53, 15, 0.18);
-      }
-
-      45% {
+      50% {
         box-shadow:
           inset 0 0 0 4px rgba(250, 204, 21, 0.55),
           0 0 48px rgba(250, 204, 21, 0.52);
@@ -1234,11 +1321,6 @@
     }
 
     @keyframes diceSix {
-      0%,
-      100% {
-        transform: rotate(0) scale(1);
-      }
-
       25% {
         transform: rotate(-10deg) scale(1.12);
       }
@@ -1257,12 +1339,6 @@
     }
 
     @keyframes winnerPulse {
-      0%,
-      100% {
-        transform: scale(1);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.24);
-      }
-
       50% {
         transform: scale(1.32);
         box-shadow:
@@ -1276,12 +1352,6 @@
     }
 
     @keyframes thinkingPulse {
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
       50% {
         opacity: 0.7;
         transform: scale(1.04);
@@ -1298,31 +1368,8 @@
       display: block;
     }
 
-    body[data-interface-view="student"] .game-state {
-      min-height: 150px;
-    }
-
-    body[data-interface-view="student"] .pending-move-box {
-      font-size: 14px;
-    }
-
-    body[data-interface-view="student"] .player-card.active::after {
-      content: "Current turn";
-      grid-column: 1 / -1;
-      padding: 5px 8px;
-      color: #92400e;
-      border-radius: 10px;
-      background: #fef3c7;
-      text-align: center;
-      font-size: 11px;
-      font-weight: 1000;
-    }
-
     body[data-interface-view="player"] {
       padding: 8px;
-      background:
-        radial-gradient(circle at top left, #ffedd5 0, transparent 32%),
-        linear-gradient(135deg, #fff7ed, #fffbeb);
     }
 
     body[data-interface-view="player"] .wrap {
@@ -1359,46 +1406,31 @@
     body[data-interface-view="player"] .play-card {
       margin: 0;
       padding: 10px;
-      border-radius: 18px;
     }
 
     body[data-interface-view="player"] .play-topbar {
       top: 6px;
       margin-bottom: 8px;
       padding: 9px;
-      border-radius: 18px;
     }
 
     body[data-interface-view="player"] .game-area {
       grid-template-columns: minmax(0, 1fr) 285px;
-      gap: 10px;
     }
 
-    body[data-interface-view="player"] .board-stage {
+    body[data-interface-view="player"] .board-stage,
+    body[data-interface-view="player"] .board-action-bar {
       width: min(calc(100vw - 335px), calc(100vh - 125px), 940px);
-      min-width: 0;
     }
 
     body[data-interface-view="player"] .panel {
       max-height: calc(100vh - 115px);
       overflow-y: auto;
-      padding-right: 3px;
     }
 
-    body[data-interface-view="player"] .game-state {
-      min-height: 105px;
-      padding: 10px;
-      font-size: 12px;
-    }
-
-    body[data-interface-view="player"] .room-messages {
-      height: 115px;
-    }
-
-    body[data-interface-view="player"] .player-card {
-      padding: 7px 9px;
-    }
-
+    body[data-interface-view="player"] .hud-actions .roll-dice-btn,
+    body[data-interface-view="player"] .hud-actions .power-btn,
+    body[data-interface-view="player"] .hud-actions .move-btn,
     body[data-interface-view="player"] .hud-actions .sync-button {
       display: none;
     }
@@ -1409,9 +1441,7 @@
       overflow: auto;
       padding: 12px;
       border-radius: 0;
-      background:
-        radial-gradient(circle at top left, #ffedd5 0, transparent 34%),
-        linear-gradient(135deg, #fff7ed, #fffbeb);
+      background: linear-gradient(135deg, #fff7ed, #fffbeb);
     }
 
     #gameFocus:fullscreen .local-drama-banner {
@@ -1420,26 +1450,15 @@
 
     #gameFocus:fullscreen .play-topbar {
       top: 0;
-      margin-bottom: 10px;
     }
 
     #gameFocus:fullscreen .game-area {
       grid-template-columns: minmax(0, 1fr) 315px;
-      align-items: start;
     }
 
-    #gameFocus:fullscreen .board-stage {
+    #gameFocus:fullscreen .board-stage,
+    #gameFocus:fullscreen .board-action-bar {
       width: min(calc(100vw - 370px), calc(100vh - 112px), 900px);
-      min-width: 0;
-    }
-
-    #gameFocus:fullscreen .panel {
-      max-height: calc(100vh - 105px);
-      overflow: auto;
-    }
-
-    #gameFocus:fullscreen .room-messages {
-      height: 130px;
     }
 
     footer {
@@ -1463,39 +1482,29 @@
         overflow: visible;
       }
 
-      body[data-interface-view="student"] .sidebar .card {
-        margin-bottom: 0;
+      .game-area {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       body[data-interface-view="player"] .game-area {
         grid-template-columns: minmax(0, 1fr) 270px;
       }
 
-      body[data-interface-view="player"] .board-stage {
-        width: min(calc(100vw - 320px), calc(100vh - 130px), 860px);
-      }
-
-      .game-area {
-        grid-template-columns: 1fr;
-      }
-
-      .board-stage {
-        width: min(100%, 850px);
-      }
-
-      .panel {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        align-items: start;
+      body[data-interface-view="player"] .board-stage,
+      body[data-interface-view="player"] .board-action-bar,
+      #gameFocus:fullscreen .board-stage,
+      #gameFocus:fullscreen .board-action-bar {
+        width: min(100%, 860px);
       }
     }
 
     @media (max-width: 820px) {
       body {
         padding: 10px;
-      }
-
-      .hero {
-        padding: 20px;
       }
 
       .hero::after {
@@ -1505,8 +1514,8 @@
       .view-switcher {
         position: relative;
         top: auto;
-        align-items: stretch;
         flex-direction: column;
+        align-items: stretch;
       }
 
       .view-switcher-buttons {
@@ -1518,46 +1527,6 @@
         display: block;
       }
 
-      body[data-interface-view="student"] .sidebar .card {
-        margin-bottom: 14px;
-      }
-
-      body[data-interface-view="player"] {
-        padding: 4px;
-      }
-
-      body[data-interface-view="player"] .view-switcher {
-        margin: 0 0 5px;
-      }
-
-      body[data-interface-view="player"] .game-area {
-        display: block;
-      }
-
-      body[data-interface-view="player"] .board-stage {
-        width: 100%;
-        max-width: 100%;
-      }
-
-      body[data-interface-view="player"] .panel {
-        max-height: none;
-        margin-top: 10px;
-      }
-
-      body[data-interface-view="player"] .play-topbar {
-        position: relative;
-        top: auto;
-      }
-
-      body[data-interface-view="player"] .hud-actions {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      body[data-interface-view="player"] .hud-actions button {
-        width: 100%;
-      }
-
       .play-topbar {
         position: relative;
         top: auto;
@@ -1565,35 +1534,67 @@
       }
 
       .hud-actions {
-        justify-content: stretch;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .hud-actions button {
-        flex: 1 1 120px;
+      .board-heading-row {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
-      .panel {
-        grid-template-columns: 1fr;
+      .board-turn-indicator {
+        max-width: 100%;
       }
 
-      .board-stage {
+      .board-action-bar,
+      body[data-interface-view="player"] .board-action-bar,
+      #gameFocus:fullscreen .board-action-bar {
         width: 100%;
+        grid-template-columns: 1fr auto auto auto;
       }
 
-      .student-rule-grid {
-        grid-template-columns: 1fr;
+      .board-action-bar .board-roll-btn {
+        grid-column: 1 / 3;
       }
 
+      .board-action-bar .board-make-move-btn {
+        grid-column: 3 / 5;
+        grid-row: 1;
+      }
+
+      .board-action-bar .board-power-remove-btn {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      .board-action-bar .board-move-display {
+        grid-column: 2 / 4;
+        grid-row: 2;
+      }
+
+      .board-action-bar .board-power-add-btn {
+        grid-column: 4;
+        grid-row: 2;
+      }
+
+      body[data-interface-view="player"] .game-area,
       #gameFocus:fullscreen .game-area {
-        grid-template-columns: 1fr;
+        display: block;
       }
 
+      body[data-interface-view="player"] .board-stage,
       #gameFocus:fullscreen .board-stage {
         width: 100%;
       }
 
-      #gameFocus:fullscreen .panel {
+      body[data-interface-view="player"] .panel {
         max-height: none;
+        margin-top: 10px;
+      }
+
+      .panel {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -1602,21 +1603,24 @@
         grid-template-columns: 1fr;
       }
 
+      .hud-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .student-rule-grid,
       .pending-move-grid {
         grid-template-columns: 1fr;
       }
 
-      .hud-actions,
-      body[data-interface-view="player"] .hud-actions {
-        grid-template-columns: 1fr;
+      .board-action-bar {
+        gap: 5px;
+        padding: 6px;
       }
 
-      .mini-dice-box {
-        justify-content: center;
-      }
-
-      .hud-status {
-        text-align: center;
+      .board-action-bar button {
+        min-height: 42px;
+        padding: 8px 7px;
+        font-size: 12px;
       }
     }
 
@@ -1636,7 +1640,7 @@
   <div id="dramaBanner" class="drama-banner" aria-live="polite"></div>
 
   <div id="liveStatus" aria-live="polite"
-    style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+    style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
   </div>
 
   <main class="wrap">
@@ -1644,26 +1648,32 @@
       <h1>Multiplayer Snakes and Ladders</h1>
 
       <p>
-        Learn in the guided Student View or switch to the distraction-free Player View.
-        Includes computer players, spectators, fullscreen mode, drawn board graphics,
-        dramatic effects and Power Points.
+        Use the guided Student View or switch to the compact Player View.
+        Roll Dice, Power and Make Move controls are attached directly above
+        and below the board.
       </p>
     </section>
 
     <nav class="view-switcher" aria-label="Choose interface view">
       <div>
         <strong>Interface View</strong>
-        <small>Choose a guided learning interface or a compact playing interface.</small>
+        <small>Choose guided learning or compact gameplay.</small>
       </div>
 
       <div class="view-switcher-buttons">
-        <button id="studentViewBtn" class="view-button active" type="button"
-          onclick="setInterfaceView('student')" aria-pressed="true">
+        <button id="studentViewBtn"
+          class="view-button active"
+          type="button"
+          onclick="setInterfaceView('student')"
+          aria-pressed="true">
           🎓 Student View
         </button>
 
-        <button id="playerViewBtn" class="view-button" type="button"
-          onclick="setInterfaceView('player')" aria-pressed="false">
+        <button id="playerViewBtn"
+          class="view-button"
+          type="button"
+          onclick="setInterfaceView('player')"
+          aria-pressed="false">
           🎮 Player View
         </button>
       </div>
@@ -1672,7 +1682,8 @@
     <div class="ad-wrap">
       Advertisement
 
-      <ins class="adsbygoogle" style="display:block"
+      <ins class="adsbygoogle"
+        style="display:block"
         data-ad-client="ca-pub-8321261883090494"
         data-ad-slot="7782388330"
         data-ad-format="auto"
@@ -1692,57 +1703,41 @@
           <div class="student-steps">
             <div class="student-step">
               <span>1</span>
-
               <div>
                 <strong>Join the room</strong>
-                <p>
-                  Enter your name, select a player colour and connect to the game room.
-                </p>
+                <p>Enter your name, choose a player colour and connect.</p>
               </div>
             </div>
 
             <div class="student-step">
               <span>2</span>
-
               <div>
                 <strong>Start the game</strong>
-                <p>
-                  At least two players are required. A computer joins automatically
-                  when only one human player is available.
-                </p>
+                <p>Two to four players can play. A computer joins a single human.</p>
               </div>
             </div>
 
             <div class="student-step">
               <span>3</span>
-
               <div>
                 <strong>Roll the dice</strong>
-                <p>
-                  Click Roll Dice when it is your turn.
-                </p>
+                <p>Use the controls directly above or below the board.</p>
               </div>
             </div>
 
             <div class="student-step">
               <span>4</span>
-
               <div>
-                <strong>Select Power Points</strong>
-                <p>
-                  Add Power Points when you want to move farther than the dice result.
-                </p>
+                <strong>Select Power</strong>
+                <p>Add or remove Power Points before making the move.</p>
               </div>
             </div>
 
             <div class="student-step">
               <span>5</span>
-
               <div>
-                <strong>Make your move</strong>
-                <p>
-                  Check the final movement and click the green movement button.
-                </p>
+                <strong>Make the move</strong>
+                <p>The green button displays the final number of squares.</p>
               </div>
             </div>
           </div>
@@ -1750,22 +1745,22 @@
           <div class="student-rule-grid">
             <div class="student-rule ladder-rule">
               <strong>🪜 Ladder</strong>
-              <span>Climb to a higher square.</span>
+              <span>Climb upwards.</span>
             </div>
 
             <div class="student-rule snake-rule">
               <strong>🐍 Snake</strong>
-              <span>Fall to a lower square.</span>
+              <span>Fall downwards.</span>
             </div>
 
             <div class="student-rule power-rule">
-              <strong>⚡ Power Points</strong>
-              <span>Every player starts with 6.</span>
+              <strong>⚡ Power</strong>
+              <span>Each player starts with 6.</span>
             </div>
 
             <div class="student-rule target-rule">
-              <strong>🏁 Winning</strong>
-              <span>Reach exactly 100 after using all Power Points.</span>
+              <strong>🏁 Win</strong>
+              <span>Reach exactly 100 with no Power left.</span>
             </div>
           </div>
         </article>
@@ -1775,58 +1770,48 @@
 
           <label for="serverUrl">WebSocket Server</label>
 
-          <input disabled id="serverUrl"
-            value="wss://champak-durable-chat.champaksworld.workers.dev/chat"
-            autocomplete="off" />
+          <input id="serverUrl"
+            disabled
+            value="wss://champak-durable-chat.champaksworld.workers.dev/chat">
 
           <label for="roomName">Game Room</label>
-          <input id="roomName" value="snakes-main" autocomplete="off" />
+          <input id="roomName" value="snakes-main">
 
           <label for="playerName">Your Name</label>
-          <input id="playerName" value="Champak" autocomplete="off" />
+          <input id="playerName" value="Champak">
 
           <label>Your Role</label>
 
-          <div class="role-options" role="radiogroup" aria-label="Choose your role">
+          <div class="role-options">
             <label class="role-option">
-              <input type="radio" name="playerRole" value="P1" checked />
+              <input type="radio" name="playerRole" value="P1" checked>
               <span class="role-label-text">P1 - Blue</span>
               <span id="rolePosP1" class="coin-position">Start | ⚡6</span>
             </label>
 
             <label class="role-option">
-              <input type="radio" name="playerRole" value="P2" />
+              <input type="radio" name="playerRole" value="P2">
               <span class="role-label-text">P2 - Orange</span>
               <span id="rolePosP2" class="coin-position">Start | ⚡6</span>
             </label>
 
             <label class="role-option">
-              <input type="radio" name="playerRole" value="P3" />
+              <input type="radio" name="playerRole" value="P3">
               <span class="role-label-text">P3 - Green</span>
               <span id="rolePosP3" class="coin-position">Start | ⚡6</span>
             </label>
 
             <label class="role-option">
-              <input type="radio" name="playerRole" value="P4" />
+              <input type="radio" name="playerRole" value="P4">
               <span class="role-label-text">P4 - Purple</span>
               <span id="rolePosP4" class="coin-position">Start | ⚡6</span>
             </label>
 
             <label class="role-option">
-              <input type="radio" name="playerRole" value="spectator" />
+              <input type="radio" name="playerRole" value="spectator">
               <span class="role-label-text">Spectator</span>
               <span class="coin-position">Watch</span>
             </label>
-          </div>
-
-          <div class="note">
-            Minimum 2 players and maximum 4 players. If only one human joins,
-            the computer becomes the second player.
-          </div>
-
-          <div class="power-note">
-            Roll the dice, select optional Power Points, and then make the move.
-            Every player starts with 6 Power Points.
           </div>
 
           <div id="connectionStatus" class="status-pill">
@@ -1836,47 +1821,36 @@
 
           <div class="row">
             <button id="connectBtn" onclick="connectGame()">Connect</button>
-            <button id="disconnectBtn" class="danger" onclick="disconnectGame()">Disconnect</button>
+
+            <button id="disconnectBtn"
+              class="danger"
+              onclick="disconnectGame()">
+              Disconnect
+            </button>
           </div>
         </article>
 
         <article class="card">
-          <h2>Game Controls</h2>
+          <h2>Game Setup</h2>
 
           <div class="row">
-            <button class="new-game-btn" onclick="newGame()">New Game</button>
-
-            <button id="backupRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">
-              Roll Dice
+            <button class="new-game-btn" onclick="newGame()">
+              New Game
             </button>
 
-            <button id="backupAddPowerBtn" class="adjust power-btn"
-              onclick="adjustPendingMove(1)">
-              + Power
-            </button>
-
-            <button id="backupRemovePowerBtn" class="adjust-remove power-btn"
-              onclick="adjustPendingMove(-1)">
-              − Power
-            </button>
-
-            <button id="backupMakeMoveBtn" class="make-move move-btn"
-              onclick="makeMove()">
-              Make Move
+            <button class="secondary sync-button" onclick="syncGame()">
+              Sync Game
             </button>
           </div>
 
-          <div id="spectatorNote" class="spectator-note" hidden>
-            Spectator mode: watch the game. Movement controls are hidden.
+          <div id="spectatorNote"
+            class="spectator-note"
+            hidden>
+            Spectator mode: watch the game without controlling a token.
           </div>
 
           <div id="pendingMoveBox" class="pending-move-box">
             No dice rolled yet.
-          </div>
-
-          <div class="legend">
-            <div class="up">🪜 Ladder: go up</div>
-            <div class="down">🐍 Snake: go down</div>
           </div>
         </article>
 
@@ -1885,10 +1859,6 @@
             <summary>Advanced and Developer Tools</summary>
 
             <div class="row">
-              <button class="secondary sync-button" onclick="syncGame()">
-                Sync Game
-              </button>
-
               <button class="secondary" onclick="clearLogs()">
                 Clear Logs
               </button>
@@ -1902,7 +1872,10 @@
 
       <section>
         <article class="card play-card" id="gameFocus">
-          <div id="localDramaBanner" class="local-drama-banner" aria-live="polite"></div>
+          <div id="localDramaBanner"
+            class="local-drama-banner"
+            aria-live="polite">
+          </div>
 
           <div class="play-topbar">
             <div class="mini-dice-box">
@@ -1910,7 +1883,7 @@
 
               <div class="mini-label">
                 Dice
-                <small>Roll result</small>
+                <small>Latest roll</small>
               </div>
             </div>
 
@@ -1924,63 +1897,131 @@
                 New Game
               </button>
 
-              <button id="hudRollDiceBtn" class="roll-dice-btn" onclick="rollDice()">
+              <button class="roll-dice-btn" onclick="rollDice()">
                 Roll Dice
               </button>
 
-              <button id="hudAddPowerBtn" class="adjust power-btn"
-                onclick="adjustPendingMove(1)">
-                + Power
-              </button>
-
-              <button id="hudRemovePowerBtn" class="adjust-remove power-btn"
+              <button class="power-btn board-power-remove-btn"
                 onclick="adjustPendingMove(-1)">
                 − Power
               </button>
 
-              <button id="hudMakeMoveBtn" class="make-move move-btn"
+              <button class="power-btn board-power-add-btn"
+                onclick="adjustPendingMove(1)">
+                + Power
+              </button>
+
+              <button class="move-btn board-make-move-btn"
                 onclick="makeMove()">
                 Make Move
               </button>
 
-              <button class="secondary sync-button" onclick="syncGame()">
+              <button class="secondary sync-button"
+                onclick="syncGame()">
                 Sync
               </button>
 
-              <button class="dark fullscreen-btn" onclick="toggleGameFullscreen()">
+              <button class="dark fullscreen-btn"
+                onclick="toggleGameFullscreen()">
                 Full Screen
               </button>
             </div>
           </div>
 
           <div class="game-area">
-            <div>
-              <h2>Game Board</h2>
+            <div class="board-section">
+              <div class="board-heading-row">
+                <h2>Game Board</h2>
+
+                <span id="boardTurnIndicator"
+                  class="board-turn-indicator">
+                  Waiting for game
+                </span>
+              </div>
+
+              <!-- Controls directly above the board -->
+              <div class="board-action-bar board-action-bar-top">
+                <button class="roll-dice-btn board-roll-btn"
+                  onclick="rollDice()">
+                  🎲 Roll Dice
+                </button>
+
+                <button class="power-btn board-power-remove-btn"
+                  onclick="adjustPendingMove(-1)"
+                  aria-label="Remove one selected Power Point">
+                  − ⚡
+                </button>
+
+                <div class="board-move-display">
+                  <span>Move</span>
+                  <strong class="board-final-move">–</strong>
+                </div>
+
+                <button class="power-btn board-power-add-btn"
+                  onclick="adjustPendingMove(1)"
+                  aria-label="Add one Power Point">
+                  + ⚡
+                </button>
+
+                <button class="move-btn board-make-move-btn"
+                  onclick="makeMove()">
+                  Make Move
+                </button>
+              </div>
 
               <div class="board-wrap">
                 <div class="board-stage">
-                  <div id="board" class="board"
+                  <div id="board"
+                    class="board"
                     aria-label="Snakes and Ladders board">
                   </div>
 
-                  <svg id="boardArt" class="board-art"
+                  <svg id="boardArt"
+                    class="board-art"
                     viewBox="0 0 1000 1000"
                     preserveAspectRatio="none"
                     aria-hidden="true">
                   </svg>
                 </div>
               </div>
+
+              <!-- Controls directly below the board -->
+              <div class="board-action-bar board-action-bar-bottom">
+                <button class="roll-dice-btn board-roll-btn"
+                  onclick="rollDice()">
+                  🎲 Roll Dice
+                </button>
+
+                <button class="power-btn board-power-remove-btn"
+                  onclick="adjustPendingMove(-1)"
+                  aria-label="Remove one selected Power Point">
+                  − ⚡
+                </button>
+
+                <div class="board-move-display">
+                  <span>Move</span>
+                  <strong class="board-final-move">–</strong>
+                </div>
+
+                <button class="power-btn board-power-add-btn"
+                  onclick="adjustPendingMove(1)"
+                  aria-label="Add one Power Point">
+                  + ⚡
+                </button>
+
+                <button class="move-btn board-make-move-btn"
+                  onclick="makeMove()">
+                  Make Move
+                </button>
+              </div>
             </div>
 
             <div class="panel">
-              <div class="dice-card">
-                <h2>Dice</h2>
-                <div id="dice" class="dice">-</div>
-              </div>
-
               <div>
                 <h2>Status</h2>
-                <div id="gameState" class="game-state">Not connected.</div>
+                <div id="gameState" class="game-state">
+                  Not connected.
+                </div>
               </div>
 
               <div>
@@ -1995,8 +2036,7 @@
 
                 <div class="row">
                   <input id="chatInput"
-                    placeholder="Optional room message..."
-                    autocomplete="off" />
+                    placeholder="Optional room message...">
 
                   <button onclick="sendRoomChat()">Send</button>
                 </div>
@@ -2058,7 +2098,6 @@
     const debugLogBox = document.getElementById("debugLog");
     const messagesBox = document.getElementById("messages");
     const chatInput = document.getElementById("chatInput");
-    const diceBox = document.getElementById("dice");
     const hudDiceBox = document.getElementById("hudDice");
     const hudTurnBox = document.getElementById("hudTurn");
     const hudRoomBox = document.getElementById("hudRoom");
@@ -2112,11 +2151,11 @@
         game.powerPoints = {};
       }
 
-      for (const player of PLAYER_ORDER) {
+      PLAYER_ORDER.forEach(function (player) {
         if (game.powerPoints[player] === undefined) {
           game.powerPoints[player] = START_POWER_POINTS;
         }
-      }
+      });
     }
 
     function ensurePendingMoveShape() {
@@ -2131,12 +2170,16 @@
         );
       }
 
-      if (game.pendingMove.selectedPower < 0) {
-        game.pendingMove.selectedPower = 0;
-      }
+      game.pendingMove.selectedPower = Math.max(
+        0,
+        game.pendingMove.selectedPower
+      );
 
-      game.pendingMove.adjustment = game.pendingMove.selectedPower;
-      game.pendingMove.spent = game.pendingMove.selectedPower;
+      game.pendingMove.adjustment =
+        game.pendingMove.selectedPower;
+
+      game.pendingMove.spent =
+        game.pendingMove.selectedPower;
     }
 
     function getName() {
@@ -2194,6 +2237,7 @@
 
     function addRoomMessage(text, type = "") {
       const div = document.createElement("div");
+
       div.className = "msg" + (type ? " " + type : "");
       div.textContent = text;
 
@@ -2205,42 +2249,44 @@
       connectionStatus.className =
         "status-pill" + (connected ? " open" : "");
 
-      connectionStatus.querySelector("span:last-child").textContent = text;
+      connectionStatus
+        .querySelector("span:last-child")
+        .textContent = text;
 
       updateGameplayButtonStates();
     }
 
     function setInterfaceView(view, savePreference = true) {
-      const validView = view === "player" ? "player" : "student";
+      const validView = view === "player"
+        ? "player"
+        : "student";
 
       document.body.dataset.interfaceView = validView;
 
-      const studentButton = document.getElementById("studentViewBtn");
-      const playerButton = document.getElementById("playerViewBtn");
+      const studentButton =
+        document.getElementById("studentViewBtn");
 
-      if (studentButton) {
-        const active = validView === "student";
-        studentButton.classList.toggle("active", active);
-        studentButton.setAttribute("aria-pressed", String(active));
-      }
+      const playerButton =
+        document.getElementById("playerViewBtn");
 
-      if (playerButton) {
-        const active = validView === "player";
-        playerButton.classList.toggle("active", active);
-        playerButton.setAttribute("aria-pressed", String(active));
-      }
+      const studentActive = validView === "student";
+      const playerActive = validView === "player";
+
+      studentButton.classList.toggle("active", studentActive);
+      studentButton.setAttribute("aria-pressed", String(studentActive));
+
+      playerButton.classList.toggle("active", playerActive);
+      playerButton.setAttribute("aria-pressed", String(playerActive));
 
       if (savePreference) {
         try {
           localStorage.setItem(INTERFACE_VIEW_KEY, validView);
         } catch (error) {
-          log("Could not save interface preference", error.message);
+          log("Unable to save interface preference", error.message);
         }
       }
 
-      window.setTimeout(function () {
-        renderGame();
-      }, 60);
+      setTimeout(renderGame, 60);
     }
 
     function loadInterfaceView() {
@@ -2248,7 +2294,8 @@
 
       try {
         savedView =
-          localStorage.getItem(INTERFACE_VIEW_KEY) || "student";
+          localStorage.getItem(INTERFACE_VIEW_KEY) ||
+          "student";
       } catch {
         savedView = "student";
       }
@@ -2257,8 +2304,11 @@
     }
 
     function buildWebSocketUrl() {
-      const base = document.getElementById("serverUrl").value.trim();
-      const separator = base.includes("?") ? "&" : "?";
+      const base =
+        document.getElementById("serverUrl").value.trim();
+
+      const separator =
+        base.includes("?") ? "&" : "?";
 
       return (
         base +
@@ -2272,16 +2322,13 @@
 
     function connectGame() {
       if (ws && ws.readyState === WebSocket.OPEN) {
-        log("Already connected.");
         return;
       }
 
-      const url = buildWebSocketUrl();
-
       try {
-        ws = new WebSocket(url);
+        ws = new WebSocket(buildWebSocketUrl());
+
         setConnectionStatus("Connecting...", false);
-        log("Connecting", url);
 
         ws.onopen = function () {
           setConnectionStatus("Connected", true);
@@ -2315,22 +2362,12 @@
         };
 
         ws.onerror = function (event) {
-          log("WebSocket error", {
-            eventType: event.type,
-            readyState: ws ? ws.readyState : "no socket"
-          });
+          log("WebSocket error", event.type);
         };
 
-        ws.onclose = function (event) {
-          setConnectionStatus("Disconnected", false);
-
-          log("Disconnected", {
-            code: event.code,
-            reason: event.reason || "No reason given",
-            wasClean: event.wasClean
-          });
-
+        ws.onclose = function () {
           ws = null;
+          setConnectionStatus("Disconnected", false);
           renderGame();
         };
       } catch (error) {
@@ -2341,7 +2378,6 @@
 
     function disconnectGame() {
       if (!ws) {
-        log("No socket exists.");
         return;
       }
 
@@ -2354,7 +2390,6 @@
 
     function sendPayload(payload) {
       if (!ws || ws.readyState !== WebSocket.OPEN) {
-        log("Not connected. Cannot send.", payload);
         return false;
       }
 
@@ -2373,17 +2408,17 @@
         updateLobby(role, getName(), "human");
       }
 
-      renderGame();
-
       sendPayload({
         kind: "presence",
         name: getName(),
-        role,
+        role: role,
         room: getRoom(),
-        lobby,
-        game,
+        lobby: lobby,
+        game: game,
         time: new Date().toISOString()
       });
+
+      renderGame();
     }
 
     function updateLobby(role, name, type = "human") {
@@ -2393,39 +2428,39 @@
 
       lobby[role] = {
         name: name || role,
-        type: type || "human"
+        type: type
       };
 
       game.names[role] = name || role;
-      game.playerTypes[role] = type || "human";
+      game.playerTypes[role] = type;
     }
 
     function getActivePlayersFromLobby() {
       return PLAYER_ORDER.filter(function (player) {
-        return lobby[player];
+        return Boolean(lobby[player]);
       });
     }
 
     function getHumanPlayersFromLobby() {
       return PLAYER_ORDER.filter(function (player) {
-        return lobby[player] && lobby[player].type === "human";
+        return lobby[player] &&
+          lobby[player].type === "human";
       });
     }
 
     function ensureComputerIfSingleHuman() {
-      const humanPlayers = getHumanPlayersFromLobby();
+      const humans = getHumanPlayersFromLobby();
 
-      if (humanPlayers.length !== 1) {
+      if (humans.length !== 1) {
         return false;
       }
 
-      const humanRole = humanPlayers[0];
+      const humanRole = humans[0];
 
-      const computerRole = PLAYER_ORDER.find(function (player) {
-        return player !== humanRole && !lobby[player];
-      }) || PLAYER_ORDER.find(function (player) {
-        return player !== humanRole;
-      });
+      const computerRole =
+        PLAYER_ORDER.find(function (player) {
+          return player !== humanRole && !lobby[player];
+        });
 
       if (!computerRole) {
         return false;
@@ -2434,8 +2469,7 @@
       updateLobby(computerRole, "Computer", "computer");
 
       addRoomMessage(
-        "Computer joined as " + computerRole +
-        " because only one human player is playing.",
+        "Computer joined as " + computerRole + ".",
         "system"
       );
 
@@ -2446,25 +2480,16 @@
       let activePlayers = getActivePlayersFromLobby();
 
       if (activePlayers.length < 2) {
-        const addedComputer = ensureComputerIfSingleHuman();
+        ensureComputerIfSingleHuman();
         activePlayers = getActivePlayersFromLobby();
-
-        if (!addedComputer || activePlayers.length < 2) {
-          alert(
-            "At least 2 players are needed. Connect one human player first. " +
-            "If only one human is connected, the computer joins automatically."
-          );
-
-          return null;
-        }
       }
 
-      if (activePlayers.length > 4) {
-        alert("Maximum 4 players are allowed.");
+      if (activePlayers.length < 2) {
+        alert("At least one human player must connect first.");
         return null;
       }
 
-      return activePlayers;
+      return activePlayers.slice(0, 4);
     }
 
     function getActivePlayers() {
@@ -2477,18 +2502,12 @@
         });
       }
 
-      const fromLobby = getActivePlayersFromLobby();
-
-      if (fromLobby.length >= 2) {
-        return fromLobby;
-      }
-
-      return [];
+      return getActivePlayersFromLobby();
     }
 
     function newGame() {
       if (!ws || ws.readyState !== WebSocket.OPEN) {
-        alert("Connect to the room first.");
+        alert("Connect first.");
         return;
       }
 
@@ -2504,23 +2523,18 @@
       lobby = previousLobby;
       isHost = true;
 
-      for (const player of activePlayers) {
+      activePlayers.forEach(function (player) {
         const entry = lobby[player];
 
-        if (entry) {
-          game.names[player] = entry.name;
-          game.playerTypes[player] = entry.type;
-        }
-      }
+        game.names[player] = entry.name;
+        game.playerTypes[player] = entry.type;
+      });
 
       game.activePlayers = activePlayers;
       game.turn = activePlayers[0];
       game.status = "playing";
       game.hostClientId = myClientId || "local-host";
       game.gameId = Date.now().toString();
-      game.moveNumber = 0;
-
-      ensurePowerPoints();
 
       lastDice = "-";
       seenMoveIds.clear();
@@ -2530,20 +2544,12 @@
       sendPayload({
         kind: "new-game",
         from: getName(),
-        role: getRole(),
-        game,
-        lobby,
-        lastDice,
-        hostClientId: game.hostClientId,
-        time: new Date().toISOString()
+        game: game,
+        lobby: lobby,
+        lastDice: lastDice
       });
 
-      addRoomMessage(
-        getName() + " started a " +
-        activePlayers.length + "-player game.",
-        "system"
-      );
-
+      addRoomMessage("A new game started.", "system");
       maybeComputerMove();
     }
 
@@ -2551,495 +2557,253 @@
       sendPayload({
         kind: "sync",
         from: getName(),
-        game,
-        lobby,
-        lastDice,
-        hostClientId: game.hostClientId,
-        time: new Date().toISOString()
+        game: game,
+        lobby: lobby,
+        lastDice: lastDice
       });
-
-      log("Sync sent.");
     }
 
     function rollDice() {
       const role = getRole();
 
       if (role === "spectator") {
-        addRoomMessage(
-          "Spectator mode: you can watch, but you cannot roll the dice.",
-          "system"
-        );
-
-        updateSpectatorControls();
         return;
       }
 
       rollForRole(role, getName(), false);
     }
 
-    function rollForRole(role, actorName, isComputerRoll) {
-      ensurePowerPoints();
-
-      if (!ws || ws.readyState !== WebSocket.OPEN) {
-        if (!isComputerRoll) {
-          alert("Connect first.");
-        }
-
+    function rollForRole(role, actorName, computerRoll) {
+      if (
+        !ws ||
+        ws.readyState !== WebSocket.OPEN ||
+        game.status !== "playing" ||
+        game.turn !== role ||
+        game.pendingMove
+      ) {
         return;
       }
 
-      if (!PLAYER_ORDER.includes(role)) {
-        return;
-      }
+      const dice =
+        Math.floor(Math.random() * 6) + 1;
 
-      const activePlayers = getActivePlayers();
-
-      if (!activePlayers.includes(role)) {
-        if (!isComputerRoll) {
-          alert(
-            "You are not part of this game. Current players: " +
-            activePlayers.join(", ")
-          );
-        }
-
-        return;
-      }
-
-      if (game.status !== "playing") {
-        if (!isComputerRoll) {
-          alert("Start a new game first.");
-        }
-
-        return;
-      }
-
-      if (game.turn !== role) {
-        if (!isComputerRoll) {
-          alert("It is " + game.turn + "'s turn.");
-        }
-
-        return;
-      }
-
-      if (game.pendingMove && game.pendingMove.role === role) {
-        if (!isComputerRoll) {
-          alert(
-            "You have already rolled. Choose Power Points or make the move."
-          );
-        }
-
-        return;
-      }
-
-      const dice = Math.floor(Math.random() * 6) + 1;
       lastDice = String(dice);
 
       game.pendingMove = {
-        role,
-        actorName: actorName || getName(),
-        dice,
-        selectedPower: 0,
-        adjustment: 0,
-        spent: 0,
-        createdAt: new Date().toISOString()
+        role: role,
+        actorName: actorName,
+        dice: dice,
+        selectedPower: 0
       };
-
-      const note =
-        role + " rolled " + dice +
-        ". Select optional Power Points, then make the move.";
 
       game.moveNumber += 1;
 
-      const moveId = makeMoveId();
-      seenMoveIds.add(moveId);
-
       const drama = {
         kind: dice === 6 ? "six" : "power",
-
-        text: dice === 6
-          ? "🎲 " + role + " rolled a SIX! Choose Power or make the move."
-          : "🎲 " + role + " rolled " + dice + "."
+        text: role + " rolled " + dice + "."
       };
 
-      renderGame();
-      showDrama(drama.kind, drama.text);
+      finishStateUpdate(
+        role + " rolled " + dice + ".",
+        drama
+      );
 
-      sendPayload({
-        kind: "move",
-        moveId,
-        from: actorName || getName(),
-        role,
-        dice,
-        note,
-        drama,
-        game,
-        lastDice,
-        hostClientId: game.hostClientId,
-        time: new Date().toISOString()
-      });
-
-      addRoomMessage(note, "system");
-
-      if (isComputerRoll) {
+      if (computerRoll) {
         maybeComputerMove();
       }
     }
 
     function adjustPendingMove(delta) {
-      const role = getRole();
-
-      if (role === "spectator") {
-        addRoomMessage(
-          "Spectator mode: you cannot use Power Points.",
-          "system"
-        );
-
-        updateSpectatorControls();
-        return;
-      }
-
-      adjustPendingMoveForRole(role, delta, getName(), false);
+      adjustPendingMoveForRole(
+        getRole(),
+        delta,
+        getName(),
+        false
+      );
     }
 
     function adjustPendingMoveForRole(
       role,
       delta,
       actorName,
-      isComputerUse
+      computerUse
     ) {
       ensurePowerPoints();
 
-      if (!ws || ws.readyState !== WebSocket.OPEN) {
-        if (!isComputerUse) {
-          alert("Connect first.");
-        }
-
-        return;
-      }
-
-      if (!PLAYER_ORDER.includes(role)) {
-        return;
-      }
-
-      if (game.status !== "playing") {
-        if (!isComputerUse) {
-          alert("Start a new game first.");
-        }
-
-        return;
-      }
-
-      if (game.turn !== role) {
-        if (!isComputerUse) {
-          alert("It is " + game.turn + "'s turn.");
-        }
-
-        return;
-      }
-
-      if (!game.pendingMove || game.pendingMove.role !== role) {
-        if (!isComputerUse) {
-          alert("Roll the dice first.");
-        }
-
+      if (
+        game.status !== "playing" ||
+        game.turn !== role ||
+        !game.pendingMove ||
+        game.pendingMove.role !== role
+      ) {
         return;
       }
 
       ensurePendingMoveShape();
 
-      const currentSelected =
-        game.pendingMove.selectedPower || 0;
-
-      const available =
-        game.powerPoints[role] || 0;
-
-      const newSelected = currentSelected + delta;
-
-      if (newSelected < 0) {
-        if (!isComputerUse) {
-          alert("Selected Power Points cannot be negative.");
-        }
-
-        return;
-      }
-
-      if (newSelected > available) {
-        if (!isComputerUse) {
-          alert(
-            role + " has only " + available +
-            " Power Points left."
-          );
-        }
-
-        return;
-      }
-
-      game.pendingMove.selectedPower = newSelected;
-      game.pendingMove.adjustment = newSelected;
-      game.pendingMove.spent = newSelected;
-      game.moveNumber += 1;
-
-      const finalSteps =
-        game.pendingMove.dice +
+      const current =
         game.pendingMove.selectedPower;
 
-      const note =
-        role + " selected " + newSelected +
-        " Power Point(s). Final movement: " +
-        finalSteps + " squares.";
+      const available =
+        game.powerPoints[role];
 
-      const moveId = makeMoveId();
-      seenMoveIds.add(moveId);
+      const next = current + delta;
 
-      const drama = {
-        kind: "power",
-        text:
-          "⚡ " + role + " selected " +
-          newSelected + " Power Point(s)."
-      };
+      if (next < 0 || next > available) {
+        return;
+      }
 
-      renderGame();
-      showDrama(drama.kind, drama.text);
+      game.pendingMove.selectedPower = next;
+      game.moveNumber += 1;
 
-      sendPayload({
-        kind: "move",
-        moveId,
-        from: actorName || getName(),
-        role,
-        dice: 0,
-        note,
-        drama,
-        game,
-        lastDice,
-        hostClientId: game.hostClientId,
-        time: new Date().toISOString()
-      });
+      finishStateUpdate(
+        role + " selected " + next + " Power Point(s).",
+        {
+          kind: "power",
+          text: "⚡ Selected Power: " + next
+        }
+      );
 
-      addRoomMessage(note, "system");
-
-      if (isComputerUse) {
+      if (computerUse) {
         maybeComputerMove();
       }
     }
 
     function makeMove() {
-      const role = getRole();
-
-      if (role === "spectator") {
-        addRoomMessage(
-          "Spectator mode: you cannot make moves.",
-          "system"
-        );
-
-        updateSpectatorControls();
-        return;
-      }
-
-      makeMoveForRole(role, getName(), false);
+      makeMoveForRole(
+        getRole(),
+        getName(),
+        false
+      );
     }
 
     function makeMoveForRole(
       role,
       actorName,
-      isComputerMove
+      computerMove
     ) {
       ensurePowerPoints();
 
-      if (!ws || ws.readyState !== WebSocket.OPEN) {
-        if (!isComputerMove) {
-          alert("Connect first.");
-        }
-
+      if (
+        game.status !== "playing" ||
+        game.turn !== role ||
+        !game.pendingMove ||
+        game.pendingMove.role !== role
+      ) {
         return;
       }
-
-      if (!PLAYER_ORDER.includes(role)) {
-        return;
-      }
-
-      if (game.status !== "playing") {
-        if (!isComputerMove) {
-          alert("Start a new game first.");
-        }
-
-        return;
-      }
-
-      if (game.turn !== role) {
-        if (!isComputerMove) {
-          alert("It is " + game.turn + "'s turn.");
-        }
-
-        return;
-      }
-
-      if (!game.pendingMove || game.pendingMove.role !== role) {
-        if (!isComputerMove) {
-          alert("Roll the dice first.");
-        }
-
-        return;
-      }
-
-      ensurePendingMoveShape();
 
       const pending = game.pendingMove;
 
-      const selectedPower = Math.max(
-        0,
+      const selectedPower =
         Math.min(
           pending.selectedPower || 0,
-          game.powerPoints[role] || 0
-        )
-      );
+          game.powerPoints[role]
+        );
 
-      pending.selectedPower = selectedPower;
-      pending.adjustment = selectedPower;
-      pending.spent = selectedPower;
+      const finalSteps =
+        pending.dice + selectedPower;
 
-      const finalSteps = pending.dice + selectedPower;
-      const oldPosition = game.positions[role] || 0;
+      const oldPosition =
+        game.positions[role] || 0;
 
-      let nextPosition = oldPosition + finalSteps;
-      let landedPosition = nextPosition;
+      let landedPosition =
+        oldPosition + finalSteps;
+
+      let finalPosition = landedPosition;
 
       let note =
-        role + " makes move: dice " + pending.dice;
-
-      if (selectedPower > 0) {
-        note += " + " + selectedPower + " Power Point(s)";
-      }
-
-      note += " = " + finalSteps + " square(s). ";
+        role +
+        " moved " +
+        finalSteps +
+        " square(s).";
 
       let drama = null;
 
-      if (nextPosition > 100) {
-        nextPosition = oldPosition;
+      if (landedPosition > 100) {
+        finalPosition = oldPosition;
         landedPosition = oldPosition;
 
-        note +=
-          role + " needs exact 100. The coin stays at " +
-          oldPosition + ".";
-      } else {
-        note +=
-          role + " moved from " +
-          oldPosition + " to " +
-          nextPosition + ".";
+        note += " Exact 100 is required.";
+      } else if (JUMPS[landedPosition]) {
+        finalPosition = JUMPS[landedPosition];
 
-        if (JUMPS[nextPosition]) {
-          const jumpTo = JUMPS[nextPosition];
+        if (finalPosition > landedPosition) {
+          note +=
+            " Ladder from " +
+            landedPosition +
+            " to " +
+            finalPosition +
+            ".";
 
-          if (jumpTo > nextPosition) {
-            note +=
-              " Ladder climb! Climbed from " +
-              nextPosition + " to " + jumpTo + ".";
-          } else {
-            note +=
-              " Snake bite! Fell from " +
-              nextPosition + " to " + jumpTo + ".";
-          }
+          drama = {
+            kind: "ladder",
+            text: "🪜 Ladder climb!"
+          };
+        } else {
+          note +=
+            " Snake from " +
+            landedPosition +
+            " to " +
+            finalPosition +
+            ".";
 
-          nextPosition = jumpTo;
+          drama = {
+            kind: "snake",
+            text: "🐍 Snake bite!"
+          };
         }
       }
 
       game.powerPoints[role] -= selectedPower;
 
       if (
-        nextPosition === 100 &&
+        finalPosition === 100 &&
         game.powerPoints[role] > 0
       ) {
-        note +=
-          " But " + role + " still has " +
-          game.powerPoints[role] +
-          " Power Points. All points must be used before reaching 100.";
+        finalPosition = oldPosition;
 
-        nextPosition = oldPosition;
-        landedPosition = oldPosition;
-        game.positions[role] = oldPosition;
+        note +=
+          " Use all remaining Power Points before reaching 100.";
 
         drama = {
           kind: "power",
-          text:
-            "⚡ " + role +
-            " must use all Power Points before reaching 100!"
+          text: "⚡ Use all Power Points first!"
         };
+      }
 
-        game.pendingMove = null;
+      game.positions[role] = finalPosition;
+      game.pendingMove = null;
 
-        if (pending.dice !== 6) {
-          game.turn = nextPlayer(game.turn);
-        } else {
-          note += " Rolled 6, so another turn is awarded.";
-        }
-      } else {
-        game.positions[role] = nextPosition;
-        game.pendingMove = null;
+      if (
+        finalPosition === 100 &&
+        game.powerPoints[role] === 0
+      ) {
+        game.status = "finished";
+        game.winner = role;
 
-        if (
-          nextPosition === 100 &&
-          game.powerPoints[role] === 0
-        ) {
-          game.status = "finished";
-          game.winner = role;
-
-          note +=
-            " " + role +
-            " reached 100 after using all Power Points. Victory!";
-
-          drama = dramaFromMove(
-            role,
-            pending.dice,
-            oldPosition,
-            landedPosition,
-            nextPosition,
-            true
-          );
-        } else if (pending.dice === 6) {
-          note += " Rolled 6, so another turn is awarded.";
-
-          drama = dramaFromMove(
-            role,
-            pending.dice,
-            oldPosition,
-            landedPosition,
-            nextPosition,
-            false
-          );
-        } else {
-          game.turn = nextPlayer(game.turn);
-
-          drama = dramaFromMove(
-            role,
-            pending.dice,
-            oldPosition,
-            landedPosition,
-            nextPosition,
-            false
-          );
-        }
+        drama = {
+          kind: "win",
+          text: "🏁 " + role + " wins!"
+        };
+      } else if (pending.dice !== 6) {
+        game.turn = nextPlayer(role);
+      } else if (!drama) {
+        drama = {
+          kind: "six",
+          text: "🎲 Six! Roll again."
+        };
       }
 
       game.moveNumber += 1;
 
-      finishMove(
-        role,
-        actorName,
-        pending.dice,
-        note,
-        drama
-      );
+      finishStateUpdate(note, drama);
+      maybeComputerMove();
     }
 
-    function finishMove(
-      role,
-      actorName,
-      dice,
-      note,
-      drama
-    ) {
+    function finishStateUpdate(note, drama) {
       const moveId = makeMoveId();
+
       seenMoveIds.add(moveId);
 
       renderGame();
@@ -3050,134 +2814,82 @@
 
       sendPayload({
         kind: "move",
-        moveId,
-        from: actorName || getName(),
-        role,
-        dice,
-        note,
-        drama,
-        game,
-        lastDice,
-        hostClientId: game.hostClientId,
-        time: new Date().toISOString()
+        moveId: moveId,
+        from: getName(),
+        note: note,
+        drama: drama,
+        game: game,
+        lastDice: lastDice
       });
 
       addRoomMessage(note, "system");
-      maybeComputerMove();
     }
 
     function nextPlayer(current) {
-      const activePlayers = getActivePlayers();
-      const index = activePlayers.indexOf(current);
+      const players = getActivePlayers();
+      const index = players.indexOf(current);
 
-      if (index === -1) {
-        return activePlayers[0] || "P1";
-      }
-
-      return activePlayers[
-        (index + 1) % activePlayers.length
+      return players[
+        (index + 1) % players.length
       ];
     }
 
     function isComputerTurn() {
-      return (
-        game.status === "playing" &&
-        game.playerTypes[game.turn] === "computer"
-      );
+      return game.status === "playing" &&
+        game.playerTypes[game.turn] === "computer";
     }
 
     function thisClientIsHost() {
-      if (!game.hostClientId) {
-        return isHost;
-      }
-
-      return (
-        isHost ||
-        game.hostClientId === myClientId
-      );
+      return isHost ||
+        game.hostClientId === myClientId;
     }
 
     function maybeComputerMove() {
-      if (!isComputerTurn()) {
-        return;
-      }
-
-      if (!thisClientIsHost()) {
-        return;
-      }
-
-      if (computerThinking) {
+      if (
+        !isComputerTurn() ||
+        !thisClientIsHost() ||
+        computerThinking
+      ) {
         return;
       }
 
       computerThinking = true;
       renderPlayers();
 
-      window.setTimeout(function () {
+      setTimeout(function () {
         computerThinking = false;
-
-        if (
-          !isComputerTurn() ||
-          !thisClientIsHost()
-        ) {
-          return;
-        }
 
         const role = game.turn;
 
-        ensurePowerPoints();
-
-        if (
-          !game.pendingMove ||
-          game.pendingMove.role !== role
-        ) {
+        if (!game.pendingMove) {
           rollForRole(role, "Computer", true);
           return;
         }
 
-        ensurePendingMoveShape();
+        const position =
+          game.positions[role] || 0;
 
-        const position = game.positions[role] || 0;
-        const points = game.powerPoints[role] || 0;
-        const pending = game.pendingMove;
-        const currentSelected = pending.selectedPower || 0;
+        const points =
+          game.powerPoints[role] || 0;
 
-        const finalSteps =
-          pending.dice + currentSelected;
+        const target =
+          position +
+          game.pendingMove.dice +
+          game.pendingMove.selectedPower;
 
-        const target = position + finalSteps;
+        if (
+          points > game.pendingMove.selectedPower &&
+          JUMPS[target + 1] &&
+          JUMPS[target + 1] > target + 1
+        ) {
+          adjustPendingMoveForRole(
+            role,
+            1,
+            "Computer",
+            true
+          );
 
-        if (points > currentSelected) {
-          const plusTarget = target + 1;
-
-          if (
-            JUMPS[plusTarget] &&
-            JUMPS[plusTarget] > plusTarget
-          ) {
-            adjustPendingMoveForRole(
-              role,
-              1,
-              "Computer",
-              true
-            );
-
-            return;
-          }
-
-          if (
-            position >= 92 &&
-            target < 100 &&
-            Math.random() < 0.25
-          ) {
-            adjustPendingMoveForRole(
-              role,
-              1,
-              "Computer",
-              true
-            );
-
-            return;
-          }
+          return;
         }
 
         makeMoveForRole(
@@ -3188,71 +2900,8 @@
       }, 900);
     }
 
-    function dramaFromMove(
-      role,
-      dice,
-      oldPosition,
-      landedPosition,
-      finalPosition,
-      winner
-    ) {
-      if (winner) {
-        return {
-          kind: "win",
-          text:
-            "🏁 " + role +
-            " reached 100! Victory!"
-        };
-      }
-
-      if (finalPosition > landedPosition) {
-        return {
-          kind: "ladder",
-          text:
-            "🪜 " + role +
-            " climbs from " +
-            landedPosition +
-            " to " +
-            finalPosition + "!"
-        };
-      }
-
-      if (finalPosition < landedPosition) {
-        return {
-          kind: "snake",
-          text:
-            "🐍 Snake bite! " +
-            role +
-            " falls from " +
-            landedPosition +
-            " to " +
-            finalPosition + "!"
-        };
-      }
-
-      if (dice === 6) {
-        return {
-          kind: "six",
-          text:
-            "🎲 " + role +
-            " rolled a SIX! One more chance!"
-        };
-      }
-
-      return null;
-    }
-
     function showDrama(kind, text) {
-      const boxes = [
-        dramaBanner,
-        localDramaBanner
-      ];
-
-      boxes.forEach(function (box) {
-        if (!box) {
-          return;
-        }
-
+      [dramaBanner, localDramaBanner].forEach(function (box) {
         box.className =
           (box.id === "localDramaBanner"
             ? "local-drama-banner "
@@ -3268,36 +2917,28 @@
 
       liveStatus.textContent = text;
 
-      if (boardStageBox) {
-        if (kind === "snake") {
-          boardStageBox.classList.remove("snake-shake");
-          void boardStageBox.offsetWidth;
-          boardStageBox.classList.add("snake-shake");
-        }
+      if (kind === "snake") {
+        boardStageBox.classList.remove("snake-shake");
+        void boardStageBox.offsetWidth;
+        boardStageBox.classList.add("snake-shake");
+      }
 
-        if (kind === "ladder") {
-          boardStageBox.classList.remove("ladder-glow");
-          void boardStageBox.offsetWidth;
-          boardStageBox.classList.add("ladder-glow");
-        }
+      if (kind === "ladder") {
+        boardStageBox.classList.remove("ladder-glow");
+        void boardStageBox.offsetWidth;
+        boardStageBox.classList.add("ladder-glow");
+      }
 
-        if (kind === "power") {
-          boardStageBox.classList.remove("power-glow");
-          void boardStageBox.offsetWidth;
-          boardStageBox.classList.add("power-glow");
-        }
+      if (kind === "power") {
+        boardStageBox.classList.remove("power-glow");
+        void boardStageBox.offsetWidth;
+        boardStageBox.classList.add("power-glow");
       }
 
       if (kind === "six") {
-        [diceBox, hudDiceBox].forEach(function (box) {
-          if (!box) {
-            return;
-          }
-
-          box.classList.remove("dice-six");
-          void box.offsetWidth;
-          box.classList.add("dice-six");
-        });
+        hudDiceBox.classList.remove("dice-six");
+        void hudDiceBox.offsetWidth;
+        hudDiceBox.classList.add("dice-six");
       }
     }
 
@@ -3327,9 +2968,7 @@
         const rowNumbers = [];
 
         for (let col = 0; col < 10; col++) {
-          rowNumbers.push(
-            row * 10 + col + 1
-          );
+          rowNumbers.push(row * 10 + col + 1);
         }
 
         if ((9 - row) % 2 === 0) {
@@ -3339,25 +2978,30 @@
         displayNumbers.push(...rowNumbers);
       }
 
-      for (const number of displayNumbers) {
-        const square = document.createElement("div");
+      displayNumbers.forEach(function (number) {
+        const square =
+          document.createElement("div");
 
         square.className = "square";
-        square.dataset.number = String(number);
+        square.dataset.number = number;
 
         if (JUMPS[number]) {
-          if (JUMPS[number] > number) {
-            square.classList.add("ladder-start");
-          } else {
-            square.classList.add("snake-start");
-          }
+          square.classList.add(
+            JUMPS[number] > number
+              ? "ladder-start"
+              : "snake-start"
+          );
         }
 
-        const num = document.createElement("div");
+        const num =
+          document.createElement("div");
+
         num.className = "num";
         num.textContent = number;
 
-        const mark = document.createElement("div");
+        const mark =
+          document.createElement("div");
+
         mark.className = "mark";
 
         if (JUMPS[number]) {
@@ -3367,15 +3011,14 @@
               : "🐍 " + JUMPS[number];
         }
 
-        const tokens = document.createElement("div");
+        const tokens =
+          document.createElement("div");
+
         tokens.className = "tokens";
 
-        square.appendChild(num);
-        square.appendChild(mark);
-        square.appendChild(tokens);
-
+        square.append(num, mark, tokens);
         boardBox.appendChild(square);
-      }
+      });
 
       drawBoardArt();
       renderGame();
@@ -3384,23 +3027,23 @@
     function drawBoardArt() {
       boardArt.innerHTML = "";
 
-      for (const startText of Object.keys(JUMPS)) {
+      Object.keys(JUMPS).forEach(function (startText) {
         const start = Number(startText);
         const end = JUMPS[start];
 
         if (end > start) {
           drawLadder(start, end);
         }
-      }
+      });
 
-      for (const startText of Object.keys(JUMPS)) {
+      Object.keys(JUMPS).forEach(function (startText) {
         const start = Number(startText);
         const end = JUMPS[start];
 
         if (end < start) {
           drawSnake(start, end);
         }
-      }
+      });
     }
 
     function drawLadder(start, end) {
@@ -3415,34 +3058,50 @@
       const ny = dx / len;
       const gap = 16;
 
-      const x1 = a.x + nx * gap;
-      const y1 = a.y + ny * gap;
-      const x2 = b.x + nx * gap;
-      const y2 = b.y + ny * gap;
+      const firstStart = {
+        x: a.x + nx * gap,
+        y: a.y + ny * gap
+      };
 
-      const x3 = a.x - nx * gap;
-      const y3 = a.y - ny * gap;
-      const x4 = b.x - nx * gap;
-      const y4 = b.y - ny * gap;
+      const firstEnd = {
+        x: b.x + nx * gap,
+        y: b.y + ny * gap
+      };
 
-      addSvgLine(x1, y1, x2, y2, "ladder-rail");
-      addSvgLine(x3, y3, x4, y4, "ladder-rail");
+      const secondStart = {
+        x: a.x - nx * gap,
+        y: a.y - ny * gap
+      };
 
-      const rungs = 6;
+      const secondEnd = {
+        x: b.x - nx * gap,
+        y: b.y - ny * gap
+      };
 
-      for (let i = 1; i < rungs; i++) {
-        const t = i / rungs;
+      addSvgLine(
+        firstStart.x,
+        firstStart.y,
+        firstEnd.x,
+        firstEnd.y,
+        "ladder-rail"
+      );
 
-        const rx1 = x1 + (x2 - x1) * t;
-        const ry1 = y1 + (y2 - y1) * t;
-        const rx2 = x3 + (x4 - x3) * t;
-        const ry2 = y3 + (y4 - y3) * t;
+      addSvgLine(
+        secondStart.x,
+        secondStart.y,
+        secondEnd.x,
+        secondEnd.y,
+        "ladder-rail"
+      );
+
+      for (let i = 1; i < 6; i++) {
+        const t = i / 6;
 
         addSvgLine(
-          rx1,
-          ry1,
-          rx2,
-          ry2,
+          firstStart.x + (firstEnd.x - firstStart.x) * t,
+          firstStart.y + (firstEnd.y - firstStart.y) * t,
+          secondStart.x + (secondEnd.x - secondStart.x) * t,
+          secondStart.y + (secondEnd.y - secondStart.y) * t,
           "ladder-rung"
         );
       }
@@ -3458,108 +3117,60 @@
 
       const nx = -dy / len;
       const ny = dx / len;
-      const wiggle = 42;
 
-      const c1x =
-        a.x + dx * 0.28 + nx * wiggle;
+      const c1x = a.x + dx * 0.28 + nx * 42;
+      const c1y = a.y + dy * 0.28 + ny * 42;
+      const c2x = a.x + dx * 0.68 - nx * 42;
+      const c2y = a.y + dy * 0.68 - ny * 42;
 
-      const c1y =
-        a.y + dy * 0.28 + ny * wiggle;
-
-      const c2x =
-        a.x + dx * 0.68 - nx * wiggle;
-
-      const c2y =
-        a.y + dy * 0.68 - ny * wiggle;
-
-      const d =
+      const pathText =
         "M " + a.x + " " + a.y +
-        " C " + c1x + " " + c1y + ", " +
-        c2x + " " + c2y + ", " +
-        b.x + " " + b.y;
+        " C " + c1x + " " + c1y +
+        ", " + c2x + " " + c2y +
+        ", " + b.x + " " + b.y;
 
-      const body = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "path"
-      );
+      const body =
+        document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        );
 
-      body.setAttribute("d", d);
+      body.setAttribute("d", pathText);
       body.setAttribute("class", "snake-path");
-      boardArt.appendChild(body);
 
-      const belly = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "path"
-      );
+      const belly =
+        document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        );
 
-      belly.setAttribute("d", d);
+      belly.setAttribute("d", pathText);
       belly.setAttribute("class", "snake-belly");
-      boardArt.appendChild(belly);
 
-      const angle =
-        Math.atan2(dy, dx) * 180 / Math.PI;
-
-      const head = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "ellipse"
-      );
+      const head =
+        document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "ellipse"
+        );
 
       head.setAttribute("cx", a.x);
       head.setAttribute("cy", a.y);
-      head.setAttribute("rx", "21");
-      head.setAttribute("ry", "15");
+      head.setAttribute("rx", 21);
+      head.setAttribute("ry", 15);
       head.setAttribute("class", "snake-head");
 
-      head.setAttribute(
-        "transform",
-        "rotate(" +
-        angle + " " +
-        a.x + " " +
-        a.y + ")"
-      );
-
-      boardArt.appendChild(head);
+      boardArt.append(body, belly, head);
 
       addEye(a.x - 7, a.y - 5);
       addEye(a.x + 7, a.y - 5);
-
-      const tongue = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "path"
-      );
-
-      const tx =
-        a.x +
-        Math.cos(angle * Math.PI / 180) * 28;
-
-      const ty =
-        a.y +
-        Math.sin(angle * Math.PI / 180) * 28;
-
-      tongue.setAttribute(
-        "d",
-        "M " + a.x + " " + a.y +
-        " L " + tx + " " + ty
-      );
-
-      tongue.setAttribute("stroke", "#7f1d1d");
-      tongue.setAttribute("stroke-width", "2");
-      tongue.setAttribute("stroke-linecap", "round");
-
-      boardArt.appendChild(tongue);
     }
 
-    function addSvgLine(
-      x1,
-      y1,
-      x2,
-      y2,
-      className
-    ) {
-      const line = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "line"
-      );
+    function addSvgLine(x1, y1, x2, y2, className) {
+      const line =
+        document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "line"
+        );
 
       line.setAttribute("x1", x1);
       line.setAttribute("y1", y1);
@@ -3571,34 +3182,32 @@
     }
 
     function addEye(x, y) {
-      const eye = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "circle"
-      );
+      const eye =
+        document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle"
+        );
 
       eye.setAttribute("cx", x);
       eye.setAttribute("cy", y);
-      eye.setAttribute("r", "4");
+      eye.setAttribute("r", 4);
       eye.setAttribute("class", "snake-eye");
 
-      boardArt.appendChild(eye);
-
-      const pupil = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "circle"
-      );
+      const pupil =
+        document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle"
+        );
 
       pupil.setAttribute("cx", x);
       pupil.setAttribute("cy", y);
-      pupil.setAttribute("r", "1.8");
+      pupil.setAttribute("r", 1.8);
       pupil.setAttribute("class", "snake-pupil");
 
-      boardArt.appendChild(pupil);
+      boardArt.append(eye, pupil);
     }
 
     function handleServerMessage(data) {
-      log("Received", data);
-
       if (data.type === "system") {
         addRoomMessage(
           data.message || "System message",
@@ -3616,27 +3225,25 @@
       }
 
       if (!data.message.startsWith(GAME_PREFIX)) {
-        const sender = data.name || "User";
-
         addRoomMessage(
-          sender + ": " + data.message
+          (data.name || "User") +
+          ": " +
+          data.message
         );
 
         return;
       }
-
-      let payload;
 
       try {
-        payload = JSON.parse(
-          data.message.slice(GAME_PREFIX.length)
-        );
+        const payload =
+          JSON.parse(
+            data.message.slice(GAME_PREFIX.length)
+          );
+
+        handleGamePayload(payload);
       } catch (error) {
         log("Bad game payload", error.message);
-        return;
       }
-
-      handleGamePayload(payload);
     }
 
     function handleGamePayload(payload) {
@@ -3645,17 +3252,13 @@
       }
 
       if (payload.kind === "presence") {
-        if (payload.lobby) {
-          lobby = Object.assign(
-            lobby,
-            payload.lobby
-          );
-        }
+        lobby = Object.assign(
+          lobby,
+          payload.lobby || {}
+        );
 
         if (
-          payload.role &&
-          PLAYER_ORDER.includes(payload.role) &&
-          payload.name
+          PLAYER_ORDER.includes(payload.role)
         ) {
           updateLobby(
             payload.role,
@@ -3665,71 +3268,34 @@
         }
 
         renderGame();
-
-        addRoomMessage(
-          payload.name +
-          " joined as " +
-          payload.role,
-          "system"
-        );
-
         return;
       }
 
       if (payload.kind === "new-game") {
-        if (payload.lobby) {
-          lobby = payload.lobby;
-        }
-
+        lobby = payload.lobby || lobby;
         game = payload.game;
+        lastDice = payload.lastDice || "-";
 
         ensurePowerPoints();
-        ensurePendingMoveShape();
-
-        lastDice = payload.lastDice || "-";
-        isHost = game.hostClientId === myClientId;
-
         renderGame();
-
-        addRoomMessage(
-          payload.from +
-          " started a " +
-          game.activePlayers.length +
-          "-player game.",
-          "system"
-        );
-
         maybeComputerMove();
         return;
       }
 
       if (payload.kind === "sync") {
-        if (payload.lobby) {
-          lobby = payload.lobby;
-        }
+        lobby = payload.lobby || lobby;
 
         if (
           payload.game &&
           payload.game.moveNumber >= game.moveNumber
         ) {
           game = payload.game;
-          ensurePowerPoints();
-          ensurePendingMoveShape();
         }
 
-        lastDice =
-          payload.lastDice || lastDice;
+        lastDice = payload.lastDice || lastDice;
 
-        isHost =
-          game.hostClientId === myClientId;
-
+        ensurePowerPoints();
         renderGame();
-
-        addRoomMessage(
-          "Game synced from " + payload.from,
-          "system"
-        );
-
         maybeComputerMove();
         return;
       }
@@ -3751,17 +3317,11 @@
           payload.game.moveNumber >= game.moveNumber
         ) {
           game = payload.game;
-          ensurePowerPoints();
-          ensurePendingMoveShape();
         }
 
-        lastDice =
-          payload.lastDice ||
-          String(payload.dice || "-");
+        lastDice = payload.lastDice || lastDice;
 
-        isHost =
-          game.hostClientId === myClientId;
-
+        ensurePowerPoints();
         renderGame();
 
         if (payload.drama) {
@@ -3772,8 +3332,7 @@
         }
 
         addRoomMessage(
-          payload.note ||
-          payload.from + " moved.",
+          payload.note || "A move was made.",
           "system"
         );
 
@@ -3783,7 +3342,9 @@
 
       if (payload.kind === "room-chat") {
         addRoomMessage(
-          payload.from + ": " + payload.text
+          payload.from +
+          ": " +
+          payload.text
         );
       }
     }
@@ -3791,107 +3352,127 @@
     function sendRoomChat() {
       const text = chatInput.value.trim();
 
-      if (!text) {
-        return;
-      }
-
-      if (!ws || ws.readyState !== WebSocket.OPEN) {
-        alert("Connect first.");
+      if (
+        !text ||
+        !ws ||
+        ws.readyState !== WebSocket.OPEN
+      ) {
         return;
       }
 
       sendPayload({
         kind: "room-chat",
         from: getName(),
-        text,
-        time: new Date().toISOString()
+        text: text
       });
 
-      addRoomMessage(
-        "You: " + text,
-        "mine"
-      );
+      addRoomMessage("You: " + text, "mine");
 
       chatInput.value = "";
-      chatInput.focus();
+    }
+
+    function renderBoardControls() {
+      const role = getRole();
+
+      const isMyPendingMove =
+        game.pendingMove &&
+        game.pendingMove.role === role;
+
+      const finalMove =
+        isMyPendingMove
+          ? Number(game.pendingMove.dice || 0) +
+            Number(game.pendingMove.selectedPower || 0)
+          : null;
+
+      document
+        .querySelectorAll(".board-final-move")
+        .forEach(function (box) {
+          box.textContent =
+            finalMove === null
+              ? "–"
+              : String(finalMove);
+        });
+
+      const indicator =
+        document.getElementById("boardTurnIndicator");
+
+      indicator.classList.remove("my-turn");
+
+      if (game.status === "finished") {
+        indicator.textContent =
+          "🏁 Winner: " +
+          game.names[game.winner];
+
+        return;
+      }
+
+      if (game.status !== "playing") {
+        indicator.textContent =
+          "Waiting for game";
+
+        return;
+      }
+
+      if (game.turn === role) {
+        indicator.classList.add("my-turn");
+
+        indicator.textContent =
+          isMyPendingMove
+            ? "Your turn · Move " +
+              finalMove +
+              " squares"
+            : "Your turn · Roll the dice";
+
+        return;
+      }
+
+      indicator.textContent =
+        game.names[game.turn] +
+        "'s turn";
     }
 
     function updateSpectatorControls() {
-      const isSpectator =
+      const spectator =
         getRole() === "spectator";
 
-      const rollButtons =
-        document.querySelectorAll(".roll-dice-btn");
+      document
+        .querySelectorAll(
+          ".roll-dice-btn, .power-btn, .move-btn"
+        )
+        .forEach(function (button) {
+          button.classList.toggle(
+            "hidden-for-spectator",
+            spectator
+          );
+        });
 
-      const powerButtons =
-        document.querySelectorAll(".power-btn");
-
-      const moveButtons =
-        document.querySelectorAll(".move-btn");
-
-      const spectatorNote =
-        document.getElementById("spectatorNote");
-
-      rollButtons.forEach(function (button) {
-        button.classList.toggle(
-          "hidden-for-spectator",
-          isSpectator
-        );
-      });
-
-      powerButtons.forEach(function (button) {
-        button.classList.toggle(
-          "hidden-for-spectator",
-          isSpectator
-        );
-      });
-
-      moveButtons.forEach(function (button) {
-        button.classList.toggle(
-          "hidden-for-spectator",
-          isSpectator
-        );
-      });
-
-      if (spectatorNote) {
-        spectatorNote.hidden = !isSpectator;
-      }
+      document.getElementById("spectatorNote").hidden =
+        !spectator;
     }
 
     function updateGameplayButtonStates() {
       const role = getRole();
 
       const connected =
-        Boolean(
-          ws &&
-          ws.readyState === WebSocket.OPEN
-        );
+        ws &&
+        ws.readyState === WebSocket.OPEN;
 
-      const isPlayer =
-        PLAYER_ORDER.includes(role);
-
-      const activePlayers =
-        getActivePlayers();
-
-      const isMyTurn =
+      const myTurn =
         game.status === "playing" &&
-        game.turn === role &&
-        activePlayers.includes(role);
+        game.turn === role;
 
-      const hasPendingMove =
-        Boolean(
-          game.pendingMove &&
-          game.pendingMove.role === role
-        );
+      const pending =
+        game.pendingMove &&
+        game.pendingMove.role === role;
 
       const selectedPower =
-        hasPendingMove
-          ? Number(game.pendingMove.selectedPower || 0)
+        pending
+          ? game.pendingMove.selectedPower || 0
           : 0;
 
       const availablePower =
-        game.powerPoints && PLAYER_ORDER.includes(role)
-          ? Number(game.powerPoints[role] || 0)
+        PLAYER_ORDER.includes(role)
+          ? game.powerPoints[role] || 0
           : 0;
 
       document
@@ -3899,30 +3480,27 @@
         .forEach(function (button) {
           button.disabled =
             !connected ||
-            !isPlayer ||
-            !isMyTurn ||
-            hasPendingMove;
+            !myTurn ||
+            Boolean(pending);
         });
 
       document
-        .querySelectorAll('[onclick="adjustPendingMove(1)"]')
+        .querySelectorAll(".board-power-add-btn")
         .forEach(function (button) {
           button.disabled =
             !connected ||
-            !isPlayer ||
-            !isMyTurn ||
-            !hasPendingMove ||
+            !myTurn ||
+            !pending ||
             selectedPower >= availablePower;
         });
 
       document
-        .querySelectorAll('[onclick="adjustPendingMove(-1)"]')
+        .querySelectorAll(".board-power-remove-btn")
         .forEach(function (button) {
           button.disabled =
             !connected ||
-            !isPlayer ||
-            !isMyTurn ||
-            !hasPendingMove ||
+            !myTurn ||
+            !pending ||
             selectedPower <= 0;
         });
 
@@ -3931,20 +3509,18 @@
         .forEach(function (button) {
           button.disabled =
             !connected ||
-            !isPlayer ||
-            !isMyTurn ||
-            !hasPendingMove;
+            !myTurn ||
+            !pending;
 
-          if (hasPendingMove && isMyTurn) {
-            const finalMove =
-              Number(game.pendingMove.dice || 0) +
-              selectedPower;
-
-            button.textContent =
-              "Move " + finalMove + " Squares";
-          } else {
-            button.textContent = "Make Move";
-          }
+          button.textContent =
+            pending
+              ? "Move " +
+                (
+                  game.pendingMove.dice +
+                  selectedPower
+                ) +
+                " Squares"
+              : "Make Move";
         });
 
       document
@@ -3953,19 +3529,11 @@
           button.disabled = !connected;
         });
 
-      const disconnectButton =
-        document.getElementById("disconnectBtn");
+      document.getElementById("connectBtn").disabled =
+        Boolean(connected);
 
-      if (disconnectButton) {
-        disconnectButton.disabled = !connected;
-      }
-
-      const connectButton =
-        document.getElementById("connectBtn");
-
-      if (connectButton) {
-        connectButton.disabled = connected;
-      }
+      document.getElementById("disconnectBtn").disabled =
+        !connected;
 
       chatInput.disabled = !connected;
     }
@@ -3974,403 +3542,228 @@
       ensurePowerPoints();
       ensurePendingMoveShape();
 
-      const tokenBoxes =
-        boardBox.querySelectorAll(".tokens");
+      document
+        .querySelectorAll(".tokens")
+        .forEach(function (box) {
+          box.innerHTML = "";
+        });
 
-      tokenBoxes.forEach(function (box) {
-        box.innerHTML = "";
-      });
-
-      for (const player of PLAYER_ORDER) {
+      PLAYER_ORDER.forEach(function (player) {
         const position =
           game.positions[player] || 0;
 
         if (position <= 0) {
-          continue;
+          return;
         }
 
-        const square = boardBox.querySelector(
-          '[data-number="' + position + '"]'
-        );
+        const square =
+          boardBox.querySelector(
+            '[data-number="' + position + '"]'
+          );
 
         if (!square) {
-          continue;
+          return;
         }
 
         const token =
           document.createElement("div");
 
         token.className =
-          "token " + player.toLowerCase();
+          "token " +
+          player.toLowerCase();
 
         if (player === getRole()) {
           token.classList.add("local-token");
         }
 
-        if (
-          game.status === "finished" &&
-          game.winner === player
-        ) {
+        if (game.winner === player) {
           token.classList.add("winner-token");
         }
 
         token.textContent =
           player.replace("P", "");
 
-        token.setAttribute(
-          "aria-label",
-          player + " at square " + position
-        );
-
         square
           .querySelector(".tokens")
           .appendChild(token);
-      }
+      });
 
-      diceBox.textContent = lastDice;
       hudDiceBox.textContent = lastDice;
 
       hudRoomBox.textContent =
-        "Room: " + getRoom() +
-        " | You: " + getName() +
-        " (" + getRole() + ")";
+        "Room: " +
+        getRoom() +
+        " | You: " +
+        getName() +
+        " (" +
+        getRole() +
+        ")";
 
       if (game.status === "playing") {
-        const pendingText =
-          game.pendingMove &&
-          game.pendingMove.role === game.turn
-            ? " | Power: " +
-              (game.pendingMove.selectedPower || 0) +
-              " | Move: " +
-              (
-                game.pendingMove.dice +
-                (game.pendingMove.selectedPower || 0)
-              )
-            : "";
-
-        if (game.turn === getRole()) {
-          hudTurnBox.textContent =
-            "Your turn, " +
-            game.names[game.turn] +
-            " | ⚡ " +
-            game.powerPoints[game.turn] +
-            pendingText;
-        } else {
-          hudTurnBox.textContent =
-            "Turn: " +
-            game.turn +
-            " - " +
-            game.names[game.turn] +
-            " | ⚡ " +
-            game.powerPoints[game.turn] +
-            pendingText;
-        }
+        hudTurnBox.textContent =
+          game.turn === getRole()
+            ? "Your turn, " +
+              game.names[game.turn]
+            : "Turn: " +
+              game.names[game.turn];
       } else if (game.status === "finished") {
         hudTurnBox.textContent =
           "Winner: " +
-          game.winner +
-          " - " +
           game.names[game.winner];
       } else {
         hudTurnBox.textContent =
           "Status: waiting";
       }
 
-      let text = "";
-
-      text += "Room: " + getRoom() + "\n";
-      text +=
+      let statusText =
+        "Room: " +
+        getRoom() +
+        "\n" +
         "You: " +
         getName() +
         " (" +
         getRole() +
-        ")\n";
-
-      text +=
-        "Players: " +
-        (
-          getActivePlayers().join(", ") ||
-          "Waiting for players"
-        ) +
-        "\n\n";
+        ")\n\n";
 
       if (game.status === "waiting") {
-        text += "Status: Waiting\n";
-        text +=
-          "Connect, allow players to join and select New Game.";
+        statusText +=
+          "Connect players and start a new game.";
       } else if (game.status === "playing") {
-        text += "Status: Playing\n";
+        statusText +=
+          "Current turn: " +
+          game.names[game.turn] +
+          "\n" +
+          "Power Points: " +
+          game.powerPoints[game.turn];
 
-        if (game.turn === getRole()) {
-          text += "It is your turn.\n";
-        } else {
-          text +=
-            "Turn: " +
-            game.turn +
-            " - " +
-            game.names[game.turn] +
-            "\n";
-        }
-
-        text +=
-          "Power Points left: " +
-          game.powerPoints[game.turn] +
-          "\n";
-
-        if (
-          game.pendingMove &&
-          game.pendingMove.role === game.turn
-        ) {
-          text +=
-            "Dice: " +
+        if (game.pendingMove) {
+          statusText +=
+            "\nDice: " +
             game.pendingMove.dice +
-            "\n";
-
-          text +=
-            "Power selected: " +
-            (game.pendingMove.selectedPower || 0) +
-            "\n";
-
-          text +=
-            "Final movement: " +
+            "\nPower selected: " +
+            game.pendingMove.selectedPower +
+            "\nFinal movement: " +
             (
               game.pendingMove.dice +
-              (game.pendingMove.selectedPower || 0)
-            ) +
-            " squares\n";
-
-          text +=
-            "Adjust Power Points if required, then make the move.";
-        } else {
-          text += "Roll the dice to begin the turn.";
+              game.pendingMove.selectedPower
+            );
         }
-      } else if (game.status === "finished") {
-        text += "Status: Finished\n";
-        text +=
+      } else {
+        statusText +=
           "Winner: " +
-          game.winner +
-          " - " +
           game.names[game.winner];
       }
 
-      gameStateBox.textContent = text;
+      gameStateBox.textContent = statusText;
 
-      updateSpectatorControls();
       renderPendingMoveBox();
       renderRolePositions();
       renderPlayers();
+      renderBoardControls();
+      updateSpectatorControls();
       updateGameplayButtonStates();
     }
 
     function renderPendingMoveBox() {
-      if (!pendingMoveBox) {
-        return;
-      }
-
       if (!game.pendingMove) {
-        pendingMoveBox.innerHTML =
-          "No dice rolled yet. Roll the dice, select optional Power Points, then make the move.";
+        pendingMoveBox.textContent =
+          "No dice rolled yet.";
 
         return;
       }
 
       const pending = game.pendingMove;
-
-      const selected =
-        pending.selectedPower || 0;
-
       const finalMove =
-        pending.dice + selected;
-
-      const remaining =
-        Math.max(
-          0,
-          (game.powerPoints[pending.role] || 0) -
-          selected
-        );
+        pending.dice +
+        pending.selectedPower;
 
       pendingMoveBox.innerHTML =
         "<strong>" +
-        cleanText(
-          pending.role +
-          " is preparing a move."
-        ) +
-        "</strong>" +
-
+        cleanText(pending.role) +
+        " is preparing a move.</strong>" +
         '<div class="pending-move-grid">' +
-
         '<div class="pending-move-stat">' +
-        "<strong>" + pending.dice + "</strong>" +
-        "<span>Dice</span>" +
-        "</div>" +
-
+        "<strong>" +
+        pending.dice +
+        "</strong><span>Dice</span></div>" +
         '<div class="pending-move-stat">' +
-        "<strong>" + selected + "</strong>" +
-        "<span>Power selected</span>" +
-        "</div>" +
-
+        "<strong>" +
+        pending.selectedPower +
+        "</strong><span>Power</span></div>" +
         '<div class="pending-move-stat">' +
-        "<strong>" + finalMove + "</strong>" +
-        "<span>Final movement</span>" +
-        "</div>" +
-
-        "</div>" +
-
-        '<div style="margin-top:8px;">' +
-        "Power remaining after this move: " +
-        remaining +
+        "<strong>" +
+        finalMove +
+        "</strong><span>Final Move</span></div>" +
         "</div>";
     }
 
     function renderRolePositions() {
-      ensurePowerPoints();
-
-      for (const player of PLAYER_ORDER) {
-        const box =
-          document.getElementById(
-            "rolePos" + player
-          );
-
-        if (!box) {
-          continue;
-        }
-
+      PLAYER_ORDER.forEach(function (player) {
         const position =
           game.positions[player] || 0;
 
         const points =
           game.powerPoints[player];
 
-        if (position <= 0) {
-          box.textContent =
-            "Start | ⚡" + points;
-        } else if (position === 100) {
-          box.textContent =
-            "100 🏁 | ⚡" + points;
-        } else {
-          box.textContent =
-            position + " | ⚡" + points;
-        }
-      }
+        document.getElementById(
+          "rolePos" + player
+        ).textContent =
+          (position || "Start") +
+          " | ⚡" +
+          points;
+      });
     }
 
     function renderPlayers() {
-      ensurePowerPoints();
-      ensurePendingMoveShape();
-
       playersBox.innerHTML = "";
 
-      const playersToShow =
-        game.status === "playing" ||
-        game.status === "finished"
-          ? getActivePlayers()
-          : PLAYER_ORDER;
+      const players =
+        game.status === "waiting"
+          ? PLAYER_ORDER
+          : getActivePlayers();
 
-      for (const player of playersToShow) {
-        const div =
+      players.forEach(function (player) {
+        const card =
           document.createElement("div");
 
-        div.className =
+        card.className =
           "player-card" +
-          (game.turn === player ? " active" : "");
+          (game.turn === player
+            ? " active"
+            : "");
 
-        if (
-          isComputerTurn() &&
-          game.turn === player &&
-          thisClientIsHost()
-        ) {
-          div.classList.add("thinking");
-        }
-
-        const joinedText =
-          lobby[player] ? "Joined" : "Waiting";
-
-        const isComputer =
-          game.playerTypes[player] === "computer";
-
-        const computerBadge =
-          isComputer
+        const cpu =
+          game.playerTypes[player] === "computer"
             ? '<span class="computer-badge">CPU</span>'
             : "";
 
-        const powerBadge =
-          '<span class="power-badge">⚡ ' +
-          game.powerPoints[player] +
-          "</span>";
-
-        const youBadge =
+        const you =
           player === getRole()
             ? '<span class="you-badge">YOU</span>'
             : "";
 
-        const pendingBadge =
-          game.pendingMove &&
-          game.pendingMove.role === player
-            ? '<span class="pending-badge">' +
-              "Move " +
-              (
-                game.pendingMove.dice +
-                (game.pendingMove.selectedPower || 0)
-              ) +
-              "</span>"
-            : "";
-
-        div.innerHTML =
+        card.innerHTML =
           '<span class="player-token-mini ' +
           player.toLowerCase() +
           '">' +
           player.replace("P", "") +
           "</span>" +
-
           '<span class="player-meta">' +
-
           "<strong>" +
           player +
           " - " +
           cleanText(game.names[player]) +
-          youBadge +
-          computerBadge +
-          powerBadge +
-          pendingBadge +
-          "</strong>" +
-
+          you +
+          cpu +
+          '<span class="power-badge">⚡ ' +
+          game.powerPoints[player] +
+          "</span></strong>" +
           "Position: " +
           (game.positions[player] || 0) +
-          "<br>" +
-
-          "Status: " +
-          joinedText +
-
           "</span>";
 
-        playersBox.appendChild(div);
-      }
-
-      if (game.status === "waiting") {
-        const count =
-          getActivePlayersFromLobby().length;
-
-        const note =
-          document.createElement("div");
-
-        note.className = "player-card";
-
-        note.innerHTML =
-          '<span class="player-token-mini" style="background:#111827">?</span>' +
-
-          '<span class="player-meta">' +
-
-          "<strong>" +
-          count +
-          "/4 players joined</strong>" +
-
-          "Minimum 2 players required. " +
-          "A computer joins automatically when only one human is playing." +
-
-          "</span>";
-
-        playersBox.appendChild(note);
-      }
+        playersBox.appendChild(card);
+      });
     }
 
     function clearLogs() {
@@ -4379,15 +3772,9 @@
     }
 
     function toggleGameFullscreen() {
-      const target =
-        gameFocusBox ||
-        document.documentElement;
-
       if (!document.fullscreenElement) {
-        if (target.requestFullscreen) {
-          target.requestFullscreen();
-        }
-      } else if (document.exitFullscreen) {
+        gameFocusBox.requestFullscreen();
+      } else {
         document.exitFullscreen();
       }
     }
@@ -4395,29 +3782,25 @@
     document.addEventListener(
       "fullscreenchange",
       function () {
-        const button =
-          document.querySelector(".fullscreen-btn");
+        document.querySelector(
+          ".fullscreen-btn"
+        ).textContent =
+          document.fullscreenElement
+            ? "Exit Full Screen"
+            : "Full Screen";
 
-        if (button) {
-          button.textContent =
-            document.fullscreenElement
-              ? "Exit Full Screen"
-              : "Full Screen";
-        }
-
-        window.setTimeout(function () {
-          renderGame();
-        }, 120);
+        setTimeout(renderGame, 120);
       }
     );
 
     document
-      .querySelectorAll('input[name="playerRole"]')
+      .querySelectorAll(
+        'input[name="playerRole"]'
+      )
       .forEach(function (radio) {
         radio.addEventListener(
           "change",
           function () {
-            updateSpectatorControls();
             renderGame();
 
             if (
@@ -4432,16 +3815,17 @@
 
     document
       .getElementById("roomName")
-      .addEventListener("input", function () {
-        hudRoomBox.textContent =
-          "Room: " + getRoom();
-      });
+      .addEventListener(
+        "input",
+        renderGame
+      );
 
     document
       .getElementById("playerName")
-      .addEventListener("input", function () {
-        renderGame();
-      });
+      .addEventListener(
+        "input",
+        renderGame
+      );
 
     chatInput.addEventListener(
       "keydown",
@@ -4460,7 +3844,10 @@
           ws &&
           ws.readyState === WebSocket.OPEN
         ) {
-          ws.close(1000, "Page closed");
+          ws.close(
+            1000,
+            "Page closed"
+          );
         }
       }
     );
