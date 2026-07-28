@@ -9,10 +9,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <meta name="description"
-    content="Play multiplayer Snakes and Ladders with Student View, Player View, computer player, spectators, fullscreen mode, dramatic effects, and Power Points.">
+    content="Play multiplayer Snakes and Ladders with Student View, Player View, protected player positions, computer player, spectator mode, fullscreen mode, dramatic effects and Power Points.">
 
   <meta name="keywords"
-    content="Snakes and Ladders, multiplayer game, educational game, Student View, Player View, WebSocket game, Cloudflare Durable Objects, JavaScript game, Power Points, Champak Roy, Programmer's Picnic">
+    content="Snakes and Ladders, multiplayer game, educational game, WebSocket game, Cloudflare Durable Objects, JavaScript game, Power Points, Champak Roy, Programmer's Picnic">
 
   <meta name="author" content="Champak Roy">
   <meta name="theme-color" content="#f59e0b">
@@ -21,7 +21,7 @@
     content="Snakes and Ladders Multiplayer with Power Points">
 
   <meta property="og:description"
-    content="A WebSocket-based Snakes and Ladders game with Student View, Player View, computer player, spectator mode, fullscreen mode and Power Points.">
+    content="A multiplayer Snakes and Ladders game with protected player positions, Student View, Player View, computer player, spectators and Power Points.">
 
   <meta property="og:type" content="website">
 
@@ -63,8 +63,8 @@
       min-height: 100vh;
       padding: 14px;
       overflow-x: hidden;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
         radial-gradient(circle at top left, #ffedd5 0, transparent 34%),
         radial-gradient(circle at bottom right, #fde68a 0, transparent 30%),
@@ -158,24 +158,6 @@
       gap: 8px;
     }
 
-    .view-button {
-      color: #9a3412;
-      border: 1px solid #fdba74;
-      background: #fff7ed;
-      box-shadow: none;
-    }
-
-    .view-button:hover:not(:disabled) {
-      background: #ffedd5;
-    }
-
-    .view-button.active {
-      color: #fef3c7;
-      border-color: #111827;
-      background: #111827;
-      box-shadow: 0 8px 18px rgba(17, 24, 39, 0.18);
-    }
-
     .ad-wrap {
       min-height: 90px;
       margin: 12px 0;
@@ -215,8 +197,8 @@
     h2 {
       margin: 0 0 10px;
       color: #9a3412;
-      letter-spacing: -0.03em;
       font-size: 20px;
+      letter-spacing: -0.03em;
     }
 
     label {
@@ -248,6 +230,73 @@
       cursor: not-allowed;
     }
 
+    button {
+      padding: 10px 14px;
+      color: white;
+      border: 0;
+      border-radius: 999px;
+      background: var(--saffron);
+      box-shadow: 0 8px 18px rgba(217, 119, 6, 0.2);
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--saffron-dark);
+    }
+
+    button.secondary {
+      color: #9a3412;
+      border: 1px solid #fdba74;
+      background: #fff7ed;
+      box-shadow: none;
+    }
+
+    button.danger {
+      background: var(--red);
+    }
+
+    button.dark {
+      color: #fef3c7;
+      background: var(--dark);
+    }
+
+    button:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+      box-shadow: none;
+      filter: grayscale(0.25);
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    .role-option:focus-within {
+      outline: 4px solid rgba(37, 99, 235, 0.32);
+      outline-offset: 3px;
+    }
+
+    .view-button {
+      color: #9a3412;
+      border: 1px solid #fdba74;
+      background: #fff7ed;
+      box-shadow: none;
+    }
+
+    .view-button.active {
+      color: #fef3c7;
+      border-color: #111827;
+      background: #111827;
+      box-shadow: 0 8px 18px rgba(17, 24, 39, 0.18);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
     .role-options {
       display: grid;
       gap: 8px;
@@ -255,6 +304,7 @@
     }
 
     .role-option {
+      position: relative;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -267,6 +317,10 @@
       background: white;
       font-weight: 900;
       cursor: pointer;
+      transition:
+        opacity 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
     }
 
     .role-option input {
@@ -281,8 +335,76 @@
       box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.12);
     }
 
+    .role-option.occupied {
+      color: #6b7280;
+      border-color: #d1d5db;
+      background: #f3f4f6;
+      cursor: not-allowed;
+    }
+
+    .role-option.occupied:not(.mine) {
+      opacity: 0.7;
+    }
+
+    .role-option.occupied:not(.mine)::after {
+      content: "TAKEN";
+      position: absolute;
+      top: -7px;
+      right: 12px;
+      padding: 2px 7px;
+      color: white;
+      border-radius: 999px;
+      background: #dc2626;
+      font-size: 9px;
+      font-weight: 1000;
+    }
+
+    .role-option.mine {
+      color: #166534;
+      border-color: #22c55e;
+      background: #dcfce7;
+      opacity: 1;
+    }
+
+    .role-option.mine::after {
+      content: "YOURS";
+      position: absolute;
+      top: -7px;
+      right: 12px;
+      padding: 2px 7px;
+      color: white;
+      border-radius: 999px;
+      background: #16a34a;
+      font-size: 9px;
+      font-weight: 1000;
+    }
+
+    .role-option.pending {
+      border-color: #f59e0b;
+      background: #fef3c7;
+      animation: claimPulse 0.9s ease infinite;
+    }
+
+    @keyframes claimPulse {
+      50% {
+        opacity: 0.65;
+      }
+    }
+
     .role-label-text {
       flex: 1;
+      min-width: 0;
+    }
+
+    .role-owner {
+      display: block;
+      overflow: hidden;
+      margin-top: 2px;
+      color: #6b7280;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-size: 10px;
+      font-weight: 800;
     }
 
     .coin-position {
@@ -321,63 +443,6 @@
       background: #6b7280;
     }
 
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    button {
-      padding: 10px 14px;
-      color: white;
-      border: 0;
-      border-radius: 999px;
-      background: var(--saffron);
-      box-shadow: 0 8px 18px rgba(217, 119, 6, 0.2);
-      font: inherit;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    button:hover:not(:disabled) {
-      background: var(--saffron-dark);
-    }
-
-    button.secondary {
-      color: #9a3412;
-      border: 1px solid #fdba74;
-      background: #fff7ed;
-      box-shadow: none;
-    }
-
-    button.danger {
-      background: var(--red);
-    }
-
-    button.dark {
-      color: #fef3c7;
-      background: var(--dark);
-    }
-
-    button.hidden-for-spectator {
-      display: none !important;
-    }
-
-    button:disabled {
-      opacity: 0.42;
-      cursor: not-allowed;
-      box-shadow: none;
-      filter: grayscale(0.25);
-    }
-
-    button:focus-visible,
-    input:focus-visible,
-    .role-option:focus-within {
-      outline: 4px solid rgba(37, 99, 235, 0.32);
-      outline-offset: 3px;
-    }
-
     .status-pill {
       display: inline-flex;
       align-items: center;
@@ -402,6 +467,28 @@
       background: currentColor;
     }
 
+    .validation-message {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+      border-radius: 14px;
+      background: #fff1f2;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .validation-message.show {
+      display: block;
+    }
+
+    .validation-message.success {
+      color: #166534;
+      border-color: #86efac;
+      background: #ecfdf5;
+    }
+
     .note {
       margin-top: 10px;
       padding: 10px 12px;
@@ -411,17 +498,6 @@
       background: #fffbeb;
       font-size: 13px;
       font-weight: 800;
-    }
-
-    .power-note {
-      margin-top: 10px;
-      padding: 10px 12px;
-      color: #854d0e;
-      border: 1px solid #fde68a;
-      border-radius: 16px;
-      background: #fefce8;
-      font-size: 13px;
-      font-weight: 900;
     }
 
     .spectator-note {
@@ -542,8 +618,16 @@
       cursor: pointer;
     }
 
-    .advanced-card details[open] summary {
-      margin-bottom: 12px;
+    .debug-log {
+      max-height: 240px;
+      overflow: auto;
+      padding: 16px;
+      color: var(--code);
+      border-radius: 18px;
+      background: #111827;
+      white-space: pre-wrap;
+      line-height: 1.5;
+      font-size: 13px;
     }
 
     .play-card {
@@ -593,8 +677,8 @@
     }
 
     .mini-dice-box .dice {
-      min-width: 64px;
       width: 64px;
+      min-width: 64px;
       height: 64px;
       margin: 0;
       border-radius: 18px;
@@ -603,22 +687,18 @@
 
     .mini-label {
       color: #7c2d12;
-      line-height: 1.15;
       font-weight: 1000;
     }
 
     .mini-label small {
       display: block;
-      margin-top: 4px;
       color: var(--muted);
       font-size: 12px;
-      font-weight: 800;
     }
 
     .hud-status {
       min-width: 0;
       color: #7c2d12;
-      line-height: 1.25;
       font-weight: 1000;
     }
 
@@ -629,7 +709,6 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       font-size: 13px;
-      font-weight: 800;
     }
 
     .hud-actions {
@@ -637,10 +716,6 @@
       flex-wrap: wrap;
       justify-content: flex-end;
       gap: 8px;
-    }
-
-    .hud-actions button {
-      padding: 10px 13px;
     }
 
     .game-area {
@@ -687,7 +762,6 @@
       color: #166534;
       border-color: #86efac;
       background: #dcfce7;
-      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
     }
 
     .board-action-bar {
@@ -735,18 +809,10 @@
       background: #111827;
     }
 
-    .board-roll-btn:hover:not(:disabled) {
-      background: #1f2937;
-    }
-
     .board-power-add-btn {
       min-width: 52px;
       color: #713f12;
       background: #facc15;
-    }
-
-    .board-power-add-btn:hover:not(:disabled) {
-      background: #eab308;
     }
 
     .board-power-remove-btn {
@@ -755,17 +821,9 @@
       background: #dc2626;
     }
 
-    .board-power-remove-btn:hover:not(:disabled) {
-      background: #b91c1c;
-    }
-
     .board-make-move-btn {
       color: white;
       background: #16a34a;
-    }
-
-    .board-make-move-btn:hover:not(:disabled) {
-      background: #15803d;
     }
 
     .board-move-display {
@@ -788,7 +846,6 @@
       font-size: 10px;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
     }
 
     .board-move-display strong {
@@ -802,7 +859,6 @@
 
     .board-wrap {
       overflow: visible;
-      padding: 0;
     }
 
     .board-stage {
@@ -837,7 +893,6 @@
       z-index: 2;
       width: calc(100% - 16px);
       height: calc(100% - 16px);
-      overflow: visible;
       opacity: 0.92;
       pointer-events: none;
     }
@@ -854,25 +909,20 @@
       background:
         radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.82), transparent 26%),
         rgba(255, 247, 237, 0.74);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
     }
 
     .square:nth-child(even) {
       background:
         radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.86), transparent 26%),
-        rgba(255, 255, 255, 0.70);
+        rgba(255, 255, 255, 0.7);
     }
 
     .ladder-start {
-      background:
-        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.84), transparent 26%),
-        rgba(236, 253, 245, 0.78) !important;
+      background: rgba(236, 253, 245, 0.78) !important;
     }
 
     .snake-start {
-      background:
-        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.84), transparent 26%),
-        rgba(255, 241, 242, 0.78) !important;
+      background: rgba(255, 241, 242, 0.78) !important;
     }
 
     .num {
@@ -884,7 +934,6 @@
       color: #7c2d12;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.72);
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
       font-size: clamp(9px, 1vw, 12px);
       font-weight: 1000;
     }
@@ -950,9 +999,7 @@
       stroke: var(--red);
       stroke-width: 5.5;
       stroke-linecap: round;
-      stroke-linejoin: round;
       opacity: 0.82;
-      filter: drop-shadow(0 3px 5px rgba(153, 27, 27, 0.24));
     }
 
     .snake-belly {
@@ -961,14 +1008,12 @@
       stroke-width: 2;
       stroke-linecap: round;
       stroke-dasharray: 9 9;
-      opacity: 0.65;
     }
 
     .snake-head {
       fill: var(--red);
       stroke: #7f1d1d;
       stroke-width: 1.5;
-      opacity: 0.88;
     }
 
     .snake-eye {
@@ -983,15 +1028,12 @@
       stroke: var(--green);
       stroke-width: 5;
       stroke-linecap: round;
-      opacity: 0.85;
-      filter: drop-shadow(0 3px 5px rgba(22, 101, 52, 0.2));
     }
 
     .ladder-rung {
       stroke: #bbf7d0;
       stroke-width: 3.5;
       stroke-linecap: round;
-      opacity: 0.85;
     }
 
     .panel {
@@ -1017,7 +1059,6 @@
     }
 
     .player-card {
-      position: relative;
       display: grid;
       grid-template-columns: auto minmax(0, 1fr);
       gap: 10px;
@@ -1041,27 +1082,8 @@
       width: 30px;
       height: 30px;
       color: white;
-      border: 2px solid rgba(255, 255, 255, 0.85);
       border-radius: 999px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
-      font-size: 13px;
       font-weight: 1000;
-    }
-
-    .player-token-mini.p1 {
-      background: var(--blue);
-    }
-
-    .player-token-mini.p2 {
-      background: var(--saffron-dark);
-    }
-
-    .player-token-mini.p3 {
-      background: var(--green);
-    }
-
-    .player-token-mini.p4 {
-      background: var(--purple);
     }
 
     .player-meta {
@@ -1083,7 +1105,6 @@
       margin-left: 6px;
       padding: 2px 7px;
       border-radius: 999px;
-      vertical-align: middle;
       font-size: 11px;
       font-weight: 1000;
     }
@@ -1133,18 +1154,6 @@
       background: #ffedd5;
     }
 
-    .debug-log {
-      max-height: 240px;
-      overflow: auto;
-      padding: 16px;
-      color: var(--code);
-      border-radius: 18px;
-      background: #111827;
-      white-space: pre-wrap;
-      line-height: 1.5;
-      font-size: 13px;
-    }
-
     .pending-move-box {
       margin-top: 10px;
       padding: 12px;
@@ -1152,7 +1161,6 @@
       border: 1px solid #f59e0b;
       border-radius: 16px;
       background: #fef3c7;
-      line-height: 1.45;
       font-size: 13px;
       font-weight: 900;
     }
@@ -1179,8 +1187,6 @@
     }
 
     .pending-move-stat span {
-      display: block;
-      margin-top: 2px;
       color: #7c2d12;
       font-size: 11px;
     }
@@ -1195,13 +1201,11 @@
       padding: 18px 22px;
       opacity: 0;
       color: #fef3c7;
-      border: 2px solid rgba(255, 255, 255, 0.15);
       border-radius: 28px;
       background: rgba(17, 24, 39, 0.94);
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
       text-align: center;
       pointer-events: none;
-      transform: translateX(-50%) scale(0.92);
+      transform: translateX(-50%);
       font-size: clamp(20px, 4vw, 38px);
       font-weight: 1000;
     }
@@ -1237,25 +1241,14 @@
     }
 
     @keyframes dramaPop {
-      0% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-18px) scale(0.78);
-      }
-
-      14% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0) scale(1.04);
-      }
-
-      22%,
-      82% {
-        opacity: 1;
-        transform: translateX(-50%) scale(1);
-      }
-
+      0%,
       100% {
         opacity: 0;
-        transform: translateX(-50%) translateY(-18px) scale(0.94);
+      }
+
+      15%,
+      82% {
+        opacity: 1;
       }
     }
 
@@ -1264,11 +1257,6 @@
     }
 
     @keyframes snakeShake {
-      0%,
-      100% {
-        transform: translateX(0);
-      }
-
       20% {
         transform: translateX(-8px);
       }
@@ -1292,9 +1280,7 @@
 
     @keyframes ladderGlow {
       50% {
-        box-shadow:
-          inset 0 0 0 4px rgba(22, 163, 74, 0.4),
-          0 0 42px rgba(22, 163, 74, 0.48);
+        box-shadow: 0 0 42px rgba(22, 163, 74, 0.48);
       }
     }
 
@@ -1304,9 +1290,7 @@
 
     @keyframes powerGlow {
       50% {
-        box-shadow:
-          inset 0 0 0 4px rgba(250, 204, 21, 0.55),
-          0 0 48px rgba(250, 204, 21, 0.52);
+        box-shadow: 0 0 48px rgba(250, 204, 21, 0.52);
       }
     }
 
@@ -1315,16 +1299,8 @@
     }
 
     @keyframes diceSix {
-      25% {
-        transform: rotate(-10deg) scale(1.12);
-      }
-
       50% {
         transform: rotate(10deg) scale(1.2);
-      }
-
-      75% {
-        transform: rotate(-6deg) scale(1.08);
       }
     }
 
@@ -1335,37 +1311,19 @@
     @keyframes winnerPulse {
       50% {
         transform: scale(1.32);
-        box-shadow:
-          0 0 0 8px rgba(245, 158, 11, 0.22),
-          0 8px 18px rgba(0, 0, 0, 0.22);
       }
     }
 
-    .thinking {
-      animation: thinkingPulse 1s ease infinite;
-    }
-
-    @keyframes thinkingPulse {
-      50% {
-        opacity: 0.7;
-        transform: scale(1.04);
-      }
+    footer {
+      padding: 24px 10px;
+      color: #7c2d12;
+      text-align: center;
+      font-weight: 900;
     }
 
     body[data-interface-view="student"] .app-grid {
       grid-template-columns: 330px minmax(0, 1fr);
     }
-
-    body[data-interface-view="student"] .hero,
-    body[data-interface-view="student"] .ad-wrap,
-    body[data-interface-view="student"] .sidebar {
-      display: block;
-    }
-
-    /*
-      PLAYER VIEW:
-      The complete board, upper controls and lower controls fit within the viewport.
-    */
 
     body[data-interface-view="player"] {
       height: 100vh;
@@ -1419,7 +1377,6 @@
 
     body[data-interface-view="player"] .app-grid > section {
       height: 100%;
-      min-height: 0;
     }
 
     body[data-interface-view="player"] .play-card {
@@ -1430,7 +1387,6 @@
       margin: 0;
       padding: 7px;
       overflow: hidden;
-      border-radius: 18px;
     }
 
     body[data-interface-view="player"] .play-topbar {
@@ -1440,7 +1396,6 @@
       min-height: 54px;
       margin-bottom: 5px;
       padding: 5px 7px;
-      border-radius: 16px;
       grid-template-columns: auto minmax(0, 1fr) auto;
     }
 
@@ -1471,11 +1426,6 @@
       display: none;
     }
 
-    body[data-interface-view="player"] .hud-actions button {
-      min-height: 38px;
-      padding: 6px 10px;
-    }
-
     body[data-interface-view="player"] .game-area {
       flex: 1 1 auto;
       height: auto;
@@ -1490,7 +1440,6 @@
       flex-direction: column;
       width: 100%;
       height: 100%;
-      min-width: 0;
       min-height: 0;
     }
 
@@ -1498,15 +1447,6 @@
       flex: 0 0 auto;
       min-height: 24px;
       margin-bottom: 3px;
-    }
-
-    body[data-interface-view="player"] .board-heading-row h2 {
-      font-size: 16px;
-    }
-
-    body[data-interface-view="player"] .board-turn-indicator {
-      padding: 4px 8px;
-      font-size: 11px;
     }
 
     body[data-interface-view="player"] .board-action-bar {
@@ -1517,14 +1457,6 @@
       gap: 4px;
     }
 
-    body[data-interface-view="player"] .board-action-bar-top {
-      margin-bottom: 3px;
-    }
-
-    body[data-interface-view="player"] .board-action-bar-bottom {
-      margin-top: 3px;
-    }
-
     body[data-interface-view="player"] .board-action-bar button {
       min-height: 34px;
       padding: 5px 7px;
@@ -1532,13 +1464,7 @@
     }
 
     body[data-interface-view="player"] .board-move-display {
-      min-width: 58px;
       min-height: 34px;
-      padding: 3px 6px;
-    }
-
-    body[data-interface-view="player"] .board-move-display strong {
-      font-size: 17px;
     }
 
     body[data-interface-view="player"] .board-wrap {
@@ -1555,19 +1481,12 @@
       max-width: 100%;
       max-height: 100%;
       aspect-ratio: 1 / 1;
-      margin: auto;
     }
 
     body[data-interface-view="player"] .panel {
       min-height: 0;
       max-height: 100%;
       overflow-y: auto;
-      padding-right: 2px;
-    }
-
-    body[data-interface-view="player"] .panel h2 {
-      margin-bottom: 5px;
-      font-size: 16px;
     }
 
     body[data-interface-view="player"] .game-state {
@@ -1580,16 +1499,6 @@
       height: 105px;
       padding: 8px;
     }
-
-    body[data-interface-view="player"] .player-card {
-      padding: 6px 8px;
-      font-size: 11px;
-    }
-
-    /*
-      FULLSCREEN:
-      The board and both control bars remain visible.
-    */
 
     #gameFocus:fullscreen {
       display: flex;
@@ -1612,32 +1521,13 @@
       flex: 0 0 auto;
       min-height: 52px;
       margin-bottom: 5px;
-      padding: 5px;
-    }
-
-    #gameFocus:fullscreen .mini-dice-box {
-      min-width: 52px;
-    }
-
-    #gameFocus:fullscreen .mini-dice-box .dice {
-      width: 42px;
-      min-width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      font-size: 23px;
-    }
-
-    #gameFocus:fullscreen .mini-label {
-      display: none;
     }
 
     #gameFocus:fullscreen .game-area {
       flex: 1 1 auto;
-      height: auto;
       min-height: 0;
       overflow: hidden;
       grid-template-columns: minmax(0, 1fr) 300px;
-      gap: 7px;
     }
 
     #gameFocus:fullscreen .board-section {
@@ -1647,28 +1537,10 @@
       min-height: 0;
     }
 
-    #gameFocus:fullscreen .board-heading-row {
-      flex: 0 0 auto;
-      min-height: 24px;
-      margin-bottom: 3px;
-    }
-
     #gameFocus:fullscreen .board-action-bar {
       flex: 0 0 auto;
       width: min(100%, calc(100vh - 210px));
-      max-width: 920px;
       padding: 4px;
-      gap: 4px;
-    }
-
-    #gameFocus:fullscreen .board-action-bar button {
-      min-height: 34px;
-      padding: 5px 7px;
-      font-size: 12px;
-    }
-
-    #gameFocus:fullscreen .board-move-display {
-      min-height: 34px;
     }
 
     #gameFocus:fullscreen .board-wrap {
@@ -1684,20 +1556,11 @@
       height: 100%;
       max-width: 100%;
       max-height: 100%;
-      aspect-ratio: 1 / 1;
     }
 
     #gameFocus:fullscreen .panel {
-      min-height: 0;
       max-height: 100%;
       overflow-y: auto;
-    }
-
-    footer {
-      padding: 24px 10px;
-      color: #7c2d12;
-      text-align: center;
-      font-weight: 900;
     }
 
     @media (max-width: 1200px) {
@@ -1804,20 +1667,14 @@
       body[data-interface-view="player"] {
         height: auto;
         min-height: 100vh;
-        overflow-x: hidden;
         overflow-y: auto;
       }
 
-      body[data-interface-view="player"] .wrap {
-        height: auto;
-        min-height: 100vh;
-      }
-
+      body[data-interface-view="player"] .wrap,
       body[data-interface-view="player"] .app-grid,
       body[data-interface-view="player"] .play-card,
       body[data-interface-view="player"] .game-area {
         height: auto;
-        min-height: 0;
         overflow: visible;
       }
 
@@ -1841,8 +1698,6 @@
       body[data-interface-view="player"] .board-stage {
         width: 100%;
         height: auto;
-        max-width: 100%;
-        aspect-ratio: 1 / 1;
       }
 
       body[data-interface-view="player"] .panel {
@@ -1851,62 +1706,17 @@
         overflow: visible;
       }
 
-      #gameFocus:fullscreen .game-area {
-        display: block;
-        overflow-y: auto;
-      }
-
-      #gameFocus:fullscreen .board-section {
-        height: auto;
-      }
-
-      #gameFocus:fullscreen .board-action-bar {
-        width: 100%;
-      }
-
-      #gameFocus:fullscreen .board-wrap {
-        display: block;
-        overflow: visible;
-      }
-
-      #gameFocus:fullscreen .board-stage {
-        width: 100%;
-        height: auto;
-      }
-
-      #gameFocus:fullscreen .panel {
-        max-height: none;
-        margin-top: 10px;
-      }
-
       .panel {
         grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 520px) {
-      .view-switcher-buttons {
-        grid-template-columns: 1fr;
-      }
-
-      .hud-actions {
-        grid-template-columns: 1fr;
-      }
-
+      .view-switcher-buttons,
+      .hud-actions,
       .student-rule-grid,
       .pending-move-grid {
         grid-template-columns: 1fr;
-      }
-
-      .board-action-bar {
-        gap: 5px;
-        padding: 6px;
-      }
-
-      .board-action-bar button {
-        min-height: 42px;
-        padding: 8px 7px;
-        font-size: 12px;
       }
     }
 
@@ -1916,7 +1726,6 @@
       *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
       }
     }
   </style>
@@ -1935,8 +1744,8 @@
       <h1>Multiplayer Snakes and Ladders</h1>
 
       <p>
-        Use the guided Student View or switch to the compact Player View.
-        The complete board and both control bars remain visible during desktop gameplay.
+        Player positions are protected. A position already owned by another
+        connected player cannot be selected.
       </p>
     </section>
 
@@ -1991,8 +1800,10 @@
               <span>1</span>
 
               <div>
-                <strong>Join the room</strong>
-                <p>Enter your name, choose a player colour and connect.</p>
+                <strong>Choose a free position</strong>
+                <p>
+                  Positions already owned by another player are disabled.
+                </p>
               </div>
             </div>
 
@@ -2000,8 +1811,10 @@
               <span>2</span>
 
               <div>
-                <strong>Start the game</strong>
-                <p>Two to four players can play. A computer joins a single human.</p>
+                <strong>Connect to the room</strong>
+                <p>
+                  The game checks the room before confirming your position.
+                </p>
               </div>
             </div>
 
@@ -2009,8 +1822,10 @@
               <span>3</span>
 
               <div>
-                <strong>Roll the dice</strong>
-                <p>Use the controls directly above or below the board.</p>
+                <strong>Start the game</strong>
+                <p>
+                  A computer joins automatically when there is only one human.
+                </p>
               </div>
             </div>
 
@@ -2018,8 +1833,10 @@
               <span>4</span>
 
               <div>
-                <strong>Select Power</strong>
-                <p>Add or remove Power Points before making the move.</p>
+                <strong>Roll and select Power</strong>
+                <p>
+                  Use the controls directly above or below the board.
+                </p>
               </div>
             </div>
 
@@ -2027,8 +1844,10 @@
               <span>5</span>
 
               <div>
-                <strong>Make the move</strong>
-                <p>The green button displays the final number of squares.</p>
+                <strong>Reach exactly 100</strong>
+                <p>
+                  All Power Points must be used before winning.
+                </p>
               </div>
             </div>
           </div>
@@ -2050,8 +1869,8 @@
             </div>
 
             <div class="student-rule target-rule">
-              <strong>🏁 Win</strong>
-              <span>Reach exactly 100 with no Power left.</span>
+              <strong>🔒 Protected</strong>
+              <span>One connected owner per position.</span>
             </div>
           </div>
         </article>
@@ -2066,43 +1885,80 @@
             value="wss://champak-durable-chat.champaksworld.workers.dev/chat">
 
           <label for="roomName">Game Room</label>
-          <input id="roomName" value="snakes-main">
+          <input id="roomName" value="snakes-main" autocomplete="off">
 
           <label for="playerName">Your Name</label>
-          <input id="playerName" value="Champak">
+          <input id="playerName" value="Champak" autocomplete="off">
 
           <label>Your Role</label>
 
-          <div class="role-options">
-            <label class="role-option">
+          <div class="role-options" role="radiogroup" aria-label="Choose a free player role">
+            <label id="roleOptionP1" class="role-option">
               <input type="radio" name="playerRole" value="P1" checked>
-              <span class="role-label-text">P1 - Blue</span>
+
+              <span class="role-label-text">
+                P1 - Blue
+                <small id="roleOwnerP1" class="role-owner">Available</small>
+              </span>
+
               <span id="rolePosP1" class="coin-position">Start | ⚡6</span>
             </label>
 
-            <label class="role-option">
+            <label id="roleOptionP2" class="role-option">
               <input type="radio" name="playerRole" value="P2">
-              <span class="role-label-text">P2 - Orange</span>
+
+              <span class="role-label-text">
+                P2 - Orange
+                <small id="roleOwnerP2" class="role-owner">Available</small>
+              </span>
+
               <span id="rolePosP2" class="coin-position">Start | ⚡6</span>
             </label>
 
-            <label class="role-option">
+            <label id="roleOptionP3" class="role-option">
               <input type="radio" name="playerRole" value="P3">
-              <span class="role-label-text">P3 - Green</span>
+
+              <span class="role-label-text">
+                P3 - Green
+                <small id="roleOwnerP3" class="role-owner">Available</small>
+              </span>
+
               <span id="rolePosP3" class="coin-position">Start | ⚡6</span>
             </label>
 
-            <label class="role-option">
+            <label id="roleOptionP4" class="role-option">
               <input type="radio" name="playerRole" value="P4">
-              <span class="role-label-text">P4 - Purple</span>
+
+              <span class="role-label-text">
+                P4 - Purple
+                <small id="roleOwnerP4" class="role-owner">Available</small>
+              </span>
+
               <span id="rolePosP4" class="coin-position">Start | ⚡6</span>
             </label>
 
-            <label class="role-option">
+            <label id="roleOptionSpectator" class="role-option">
               <input type="radio" name="playerRole" value="spectator">
-              <span class="role-label-text">Spectator</span>
+
+              <span class="role-label-text">
+                Spectator
+                <small class="role-owner">Always available</small>
+              </span>
+
               <span class="coin-position">Watch</span>
             </label>
+          </div>
+
+          <div id="roleValidationMessage"
+            class="validation-message"
+            role="alert"
+            aria-live="assertive">
+          </div>
+
+          <div class="note">
+            The room is checked before a player position is confirmed. If two
+            people attempt the same free position simultaneously, the conflict
+            is resolved automatically and only one person keeps it.
           </div>
 
           <div id="connectionStatus" class="status-pill">
@@ -2136,9 +1992,7 @@
             </button>
           </div>
 
-          <div id="spectatorNote"
-            class="spectator-note"
-            hidden>
+          <div id="spectatorNote" class="spectator-note" hidden>
             Spectator mode: watch the game without controlling a token.
           </div>
 
@@ -2209,13 +2063,11 @@
                 Make Move
               </button>
 
-              <button class="secondary sync-button"
-                onclick="syncGame()">
+              <button class="secondary sync-button" onclick="syncGame()">
                 Sync
               </button>
 
-              <button class="dark fullscreen-btn"
-                onclick="toggleGameFullscreen()">
+              <button class="dark fullscreen-btn" onclick="toggleGameFullscreen()">
                 Full Screen
               </button>
             </div>
@@ -2226,21 +2078,18 @@
               <div class="board-heading-row">
                 <h2>Game Board</h2>
 
-                <span id="boardTurnIndicator"
-                  class="board-turn-indicator">
+                <span id="boardTurnIndicator" class="board-turn-indicator">
                   Waiting for game
                 </span>
               </div>
 
               <div class="board-action-bar board-action-bar-top">
-                <button class="roll-dice-btn board-roll-btn"
-                  onclick="rollDice()">
+                <button class="roll-dice-btn board-roll-btn" onclick="rollDice()">
                   🎲 Roll Dice
                 </button>
 
                 <button class="power-btn board-power-remove-btn"
-                  onclick="adjustPendingMove(-1)"
-                  aria-label="Remove one selected Power Point">
+                  onclick="adjustPendingMove(-1)">
                   − ⚡
                 </button>
 
@@ -2250,13 +2099,11 @@
                 </div>
 
                 <button class="power-btn board-power-add-btn"
-                  onclick="adjustPendingMove(1)"
-                  aria-label="Add one Power Point">
+                  onclick="adjustPendingMove(1)">
                   + ⚡
                 </button>
 
-                <button class="move-btn board-make-move-btn"
-                  onclick="makeMove()">
+                <button class="move-btn board-make-move-btn" onclick="makeMove()">
                   Make Move
                 </button>
               </div>
@@ -2278,14 +2125,12 @@
               </div>
 
               <div class="board-action-bar board-action-bar-bottom">
-                <button class="roll-dice-btn board-roll-btn"
-                  onclick="rollDice()">
+                <button class="roll-dice-btn board-roll-btn" onclick="rollDice()">
                   🎲 Roll Dice
                 </button>
 
                 <button class="power-btn board-power-remove-btn"
-                  onclick="adjustPendingMove(-1)"
-                  aria-label="Remove one selected Power Point">
+                  onclick="adjustPendingMove(-1)">
                   − ⚡
                 </button>
 
@@ -2295,13 +2140,11 @@
                 </div>
 
                 <button class="power-btn board-power-add-btn"
-                  onclick="adjustPendingMove(1)"
-                  aria-label="Add one Power Point">
+                  onclick="adjustPendingMove(1)">
                   + ⚡
                 </button>
 
-                <button class="move-btn board-make-move-btn"
-                  onclick="makeMove()">
+                <button class="move-btn board-make-move-btn" onclick="makeMove()">
                   Make Move
                 </button>
               </div>
@@ -2328,11 +2171,10 @@
 
                 <div class="row">
                   <input id="chatInput"
-                    placeholder="Optional room message...">
+                    placeholder="Optional room message..."
+                    autocomplete="off">
 
-                  <button onclick="sendRoomChat()">
-                    Send
-                  </button>
+                  <button onclick="sendRoomChat()">Send</button>
                 </div>
               </div>
             </div>
@@ -2351,6 +2193,16 @@
     const PLAYER_ORDER = ["P1", "P2", "P3", "P4"];
     const START_POWER_POINTS = 6;
     const INTERFACE_VIEW_KEY = "snakes-ladders-interface-view";
+
+    const ROLE_QUERY_DELAY = 500;
+    const SIMULTANEOUS_CLAIM_WINDOW = 1300;
+
+    const LOCAL_CLIENT_KEY = (
+      window.crypto &&
+      typeof crypto.randomUUID === "function"
+    )
+      ? crypto.randomUUID()
+      : Date.now() + "-" + Math.random().toString(16).slice(2);
 
     const JUMPS = {
       4: 14,
@@ -2378,7 +2230,13 @@
     let seenMoveIds = new Set();
     let computerThinking = false;
     let lastDice = "-";
+
     let lobby = {};
+    let claimedRole = "spectator";
+    let pendingRoleClaim = null;
+    let roleClaimTimer = null;
+    let lobbyRequestId = "";
+
     let game = createInitialGame();
 
     const boardBox = document.getElementById("board");
@@ -2388,6 +2246,7 @@
     const localDramaBanner = document.getElementById("localDramaBanner");
     const liveStatus = document.getElementById("liveStatus");
     const connectionStatus = document.getElementById("connectionStatus");
+    const roleValidationBox = document.getElementById("roleValidationMessage");
     const gameStateBox = document.getElementById("gameState");
     const debugLogBox = document.getElementById("debugLog");
     const messagesBox = document.getElementById("messages");
@@ -2440,6 +2299,17 @@
       };
     }
 
+    function createId() {
+      if (
+        window.crypto &&
+        typeof crypto.randomUUID === "function"
+      ) {
+        return crypto.randomUUID();
+      }
+
+      return Date.now() + "-" + Math.random().toString(16).slice(2);
+    }
+
     function ensurePowerPoints() {
       if (!game.powerPoints) {
         game.powerPoints = {};
@@ -2468,24 +2338,29 @@
         0,
         Number(game.pendingMove.selectedPower || 0)
       );
-
-      game.pendingMove.adjustment =
-        game.pendingMove.selectedPower;
-
-      game.pendingMove.spent =
-        game.pendingMove.selectedPower;
     }
 
     function getName() {
       return document.getElementById("playerName").value.trim() || "Guest";
     }
 
-    function getRole() {
+    function getSelectedRole() {
       const selected = document.querySelector(
         'input[name="playerRole"]:checked'
       );
 
       return selected ? selected.value : "spectator";
+    }
+
+    function getRole() {
+      if (
+        ws &&
+        ws.readyState === WebSocket.OPEN
+      ) {
+        return claimedRole;
+      }
+
+      return getSelectedRole();
     }
 
     function getRoom() {
@@ -2499,14 +2374,6 @@
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
-    }
-
-    function makeMoveId() {
-      if (window.crypto && crypto.randomUUID) {
-        return crypto.randomUUID();
-      }
-
-      return Date.now() + "-" + Math.random().toString(16).slice(2);
     }
 
     function log(title, data) {
@@ -2539,6 +2406,29 @@
       messagesBox.scrollTop = messagesBox.scrollHeight;
     }
 
+    function showRoleValidation(message, success = false) {
+      roleValidationBox.textContent = message;
+
+      roleValidationBox.className =
+        "validation-message show" +
+        (success ? " success" : "");
+    }
+
+    function clearRoleValidation() {
+      roleValidationBox.textContent = "";
+      roleValidationBox.className = "validation-message";
+    }
+
+    function selectRoleRadio(role) {
+      const radio = document.querySelector(
+        'input[name="playerRole"][value="' + role + '"]'
+      );
+
+      if (radio) {
+        radio.checked = true;
+      }
+    }
+
     function setConnectionStatus(text, connected) {
       connectionStatus.className =
         "status-pill" + (connected ? " open" : "");
@@ -2564,43 +2454,20 @@
       const playerButton =
         document.getElementById("playerViewBtn");
 
-      const studentActive =
-        validView === "student";
+      const studentActive = validView === "student";
+      const playerActive = validView === "player";
 
-      const playerActive =
-        validView === "player";
+      studentButton.classList.toggle("active", studentActive);
+      studentButton.setAttribute("aria-pressed", String(studentActive));
 
-      studentButton.classList.toggle(
-        "active",
-        studentActive
-      );
-
-      studentButton.setAttribute(
-        "aria-pressed",
-        String(studentActive)
-      );
-
-      playerButton.classList.toggle(
-        "active",
-        playerActive
-      );
-
-      playerButton.setAttribute(
-        "aria-pressed",
-        String(playerActive)
-      );
+      playerButton.classList.toggle("active", playerActive);
+      playerButton.setAttribute("aria-pressed", String(playerActive));
 
       if (savePreference) {
         try {
-          localStorage.setItem(
-            INTERFACE_VIEW_KEY,
-            validView
-          );
-        } catch (error) {
-          log(
-            "Unable to save interface preference",
-            error.message
-          );
+          localStorage.setItem(INTERFACE_VIEW_KEY, validView);
+        } catch {
+          /* Preference saving is optional. */
         }
       }
 
@@ -2612,9 +2479,8 @@
 
       try {
         savedView =
-          localStorage.getItem(
-            INTERFACE_VIEW_KEY
-          ) || "student";
+          localStorage.getItem(INTERFACE_VIEW_KEY) ||
+          "student";
       } catch {
         savedView = "student";
       }
@@ -2639,6 +2505,101 @@
       );
     }
 
+    function sendPayload(payload) {
+      if (
+        !ws ||
+        ws.readyState !== WebSocket.OPEN
+      ) {
+        return false;
+      }
+
+      ws.send(JSON.stringify({
+        type: "chat",
+        message:
+          GAME_PREFIX +
+          JSON.stringify(payload)
+      }));
+
+      return true;
+    }
+
+    function sanitiseLobbyForSending() {
+      const cleanLobby = {};
+
+      PLAYER_ORDER.forEach(function (role) {
+        const entry = lobby[role];
+
+        if (!entry) {
+          return;
+        }
+
+        cleanLobby[role] = {
+          name: entry.name,
+          type: entry.type,
+          clientKey: entry.clientKey,
+          claimId: entry.claimId
+        };
+      });
+
+      return cleanLobby;
+    }
+
+    function mergeLobbySnapshot(snapshot) {
+      if (!snapshot || typeof snapshot !== "object") {
+        return;
+      }
+
+      PLAYER_ORDER.forEach(function (role) {
+        const incoming = snapshot[role];
+
+        if (!incoming || !incoming.clientKey) {
+          return;
+        }
+
+        const current = lobby[role];
+
+        if (
+          current &&
+          current.clientKey === LOCAL_CLIENT_KEY
+        ) {
+          return;
+        }
+
+        if (!current) {
+          lobby[role] = {
+            name: incoming.name || role,
+            type: incoming.type || "human",
+            clientKey: incoming.clientKey,
+            claimId: incoming.claimId || "",
+            localSeenAt: Date.now()
+          };
+
+          return;
+        }
+
+        if (current.clientKey === incoming.clientKey) {
+          current.name = incoming.name || current.name;
+          current.type = incoming.type || current.type;
+          current.claimId = incoming.claimId || current.claimId;
+          current.localSeenAt = current.localSeenAt || Date.now();
+        }
+      });
+
+      refreshRoleAvailability();
+    }
+
+    function requestLobbyState() {
+      lobbyRequestId = createId();
+
+      sendPayload({
+        kind: "role-status-request",
+        requestId: lobbyRequestId,
+        requesterClientKey: LOCAL_CLIENT_KEY,
+        requesterName: getName(),
+        time: new Date().toISOString()
+      });
+    }
+
     function connectGame() {
       if (
         ws &&
@@ -2647,30 +2608,23 @@
         return;
       }
 
-      try {
-        ws = new WebSocket(
-          buildWebSocketUrl()
-        );
+      clearRoleValidation();
 
-        setConnectionStatus(
-          "Connecting...",
-          false
-        );
+      try {
+        ws = new WebSocket(buildWebSocketUrl());
+
+        setConnectionStatus("Connecting...", false);
 
         ws.onopen = function () {
-          setConnectionStatus(
-            "Connected",
-            true
-          );
+          claimedRole = "spectator";
 
-          addRoomMessage(
-            getName() +
-            " connected as " +
-            getRole(),
-            "system"
-          );
+          setConnectionStatus("Checking room...", true);
 
-          announcePresence();
+          requestLobbyState();
+
+          window.setTimeout(function () {
+            attemptRoleClaim(getSelectedRole());
+          }, ROLE_QUERY_DELAY);
         };
 
         ws.onmessage = function (event) {
@@ -2694,32 +2648,24 @@
         };
 
         ws.onerror = function (event) {
-          log(
-            "WebSocket error",
-            event.type
-          );
+          log("WebSocket error", event.type);
         };
 
         ws.onclose = function () {
+          clearTimeout(roleClaimTimer);
+
           ws = null;
+          pendingRoleClaim = null;
+          claimedRole = "spectator";
+          lobby = {};
 
-          setConnectionStatus(
-            "Disconnected",
-            false
-          );
-
+          setConnectionStatus("Disconnected", false);
+          refreshRoleAvailability();
           renderGame();
         };
       } catch (error) {
-        setConnectionStatus(
-          "Connection failed",
-          false
-        );
-
-        log(
-          "Connection failed",
-          error.message
-        );
+        setConnectionStatus("Connection failed", false);
+        showRoleValidation("Connection failed: " + error.message);
       }
     }
 
@@ -2728,103 +2674,448 @@
         return;
       }
 
-      ws.close(
-        1000,
-        "Closed by user"
-      );
+      releaseClaimedRole();
 
+      ws.close(1000, "Closed by user");
       ws = null;
 
-      setConnectionStatus(
-        "Disconnected",
-        false
-      );
+      claimedRole = "spectator";
+      pendingRoleClaim = null;
+      lobby = {};
 
+      setConnectionStatus("Disconnected", false);
+      refreshRoleAvailability();
       renderGame();
     }
 
-    function sendPayload(payload) {
+    function releaseClaimedRole() {
+      if (!PLAYER_ORDER.includes(claimedRole)) {
+        return;
+      }
+
+      const oldRole = claimedRole;
+      const current = lobby[oldRole];
+
+      if (
+        current &&
+        current.clientKey === LOCAL_CLIENT_KEY
+      ) {
+        delete lobby[oldRole];
+      }
+
+      sendPayload({
+        kind: "role-release",
+        role: oldRole,
+        clientKey: LOCAL_CLIENT_KEY,
+        name: getName(),
+        time: new Date().toISOString()
+      });
+
+      claimedRole = "spectator";
+    }
+
+    function attemptRoleClaim(role) {
+      clearTimeout(roleClaimTimer);
+      clearRoleValidation();
+
       if (
         !ws ||
         ws.readyState !== WebSocket.OPEN
       ) {
-        return false;
+        return;
       }
 
-      ws.send(JSON.stringify({
-        type: "chat",
-        message:
-          GAME_PREFIX +
-          JSON.stringify(payload)
-      }));
+      if (role === "spectator") {
+        const previousRole = claimedRole;
 
-      return true;
-    }
+        if (PLAYER_ORDER.includes(previousRole)) {
+          releaseClaimedRole();
+        }
 
-    function announcePresence() {
-      const role = getRole();
+        claimedRole = "spectator";
+        selectRoleRadio("spectator");
 
-      if (PLAYER_ORDER.includes(role)) {
-        updateLobby(
-          role,
-          getName(),
-          "human"
+        announcePresence();
+        refreshRoleAvailability();
+        renderGame();
+
+        showRoleValidation(
+          "Spectator mode selected.",
+          true
         );
+
+        return;
       }
 
-      sendPayload({
-        kind: "presence",
-        name: getName(),
-        role: role,
-        room: getRoom(),
-        lobby: lobby,
-        game: game,
-        time: new Date().toISOString()
-      });
-
-      renderGame();
-    }
-
-    function updateLobby(
-      role,
-      name,
-      type = "human"
-    ) {
       if (!PLAYER_ORDER.includes(role)) {
         return;
       }
 
-      lobby[role] = {
-        name: name || role,
-        type: type
+      const existing = lobby[role];
+
+      if (
+        existing &&
+        existing.clientKey !== LOCAL_CLIENT_KEY
+      ) {
+        rejectRoleClaim(
+          role,
+          role + " is already taken by " + existing.name + "."
+        );
+
+        return;
+      }
+
+      if (
+        claimedRole === role &&
+        existing &&
+        existing.clientKey === LOCAL_CLIENT_KEY
+      ) {
+        selectRoleRadio(role);
+        refreshRoleAvailability();
+
+        showRoleValidation(
+          role + " is already assigned to you.",
+          true
+        );
+
+        return;
+      }
+
+      const claimId = createId();
+
+      pendingRoleClaim = {
+        role: role,
+        claimId: claimId,
+        previousRole: claimedRole
       };
 
-      game.names[role] = name || role;
-      game.playerTypes[role] = type;
+      refreshRoleAvailability();
+
+      requestLobbyState();
+
+      roleClaimTimer = window.setTimeout(function () {
+        if (
+          !pendingRoleClaim ||
+          pendingRoleClaim.claimId !== claimId
+        ) {
+          return;
+        }
+
+        const latestExisting = lobby[role];
+
+        if (
+          latestExisting &&
+          latestExisting.clientKey !== LOCAL_CLIENT_KEY
+        ) {
+          rejectRoleClaim(
+            role,
+            role + " was taken by " + latestExisting.name + "."
+          );
+
+          return;
+        }
+
+        confirmLocalRoleClaim(role, claimId);
+      }, ROLE_QUERY_DELAY);
+    }
+
+    function confirmLocalRoleClaim(role, claimId) {
+      const previousRole = claimedRole;
+
+      lobby[role] = {
+        name: getName(),
+        type: "human",
+        clientKey: LOCAL_CLIENT_KEY,
+        claimId: claimId,
+        localSeenAt: Date.now()
+      };
+
+      claimedRole = role;
+      pendingRoleClaim = null;
+
+      sendPayload({
+        kind: "role-claim",
+        role: role,
+        name: getName(),
+        type: "human",
+        clientKey: LOCAL_CLIENT_KEY,
+        claimId: claimId,
+        time: new Date().toISOString()
+      });
+
+      if (
+        PLAYER_ORDER.includes(previousRole) &&
+        previousRole !== role
+      ) {
+        const oldEntry = lobby[previousRole];
+
+        if (
+          oldEntry &&
+          oldEntry.clientKey === LOCAL_CLIENT_KEY
+        ) {
+          delete lobby[previousRole];
+        }
+
+        sendPayload({
+          kind: "role-release",
+          role: previousRole,
+          clientKey: LOCAL_CLIENT_KEY,
+          name: getName(),
+          time: new Date().toISOString()
+        });
+      }
+
+      updateGameIdentityFromLobby();
+      selectRoleRadio(role);
+      refreshRoleAvailability();
+      announcePresence();
+      renderGame();
+
+      setConnectionStatus("Connected as " + role, true);
+
+      showRoleValidation(
+        role + " is now securely assigned to you.",
+        true
+      );
+    }
+
+    function rejectRoleClaim(role, message) {
+      clearTimeout(roleClaimTimer);
+
+      const previousRole =
+        pendingRoleClaim
+          ? pendingRoleClaim.previousRole
+          : claimedRole;
+
+      pendingRoleClaim = null;
+
+      if (
+        PLAYER_ORDER.includes(previousRole) &&
+        lobby[previousRole] &&
+        lobby[previousRole].clientKey === LOCAL_CLIENT_KEY
+      ) {
+        claimedRole = previousRole;
+        selectRoleRadio(previousRole);
+      } else {
+        claimedRole = "spectator";
+        selectRoleRadio("spectator");
+      }
+
+      refreshRoleAvailability();
+      renderGame();
+
+      showRoleValidation(message);
+      addRoomMessage(message, "system");
+    }
+
+    function loseClaimedRole(role, winnerName) {
+      if (claimedRole !== role) {
+        return;
+      }
+
+      claimedRole = "spectator";
+      pendingRoleClaim = null;
+
+      selectRoleRadio("spectator");
+      refreshRoleAvailability();
+      renderGame();
+
+      const message =
+        role +
+        " was assigned to " +
+        winnerName +
+        " because both players requested it at the same time. You are now a spectator.";
+
+      showRoleValidation(message);
+      addRoomMessage(message, "system");
+    }
+
+    function handleIncomingRoleClaim(payload) {
+      const role = payload.role;
+
+      if (
+        !PLAYER_ORDER.includes(role) ||
+        !payload.clientKey ||
+        !payload.claimId
+      ) {
+        return;
+      }
+
+      if (payload.clientKey === LOCAL_CLIENT_KEY) {
+        return;
+      }
+
+      const existing = lobby[role];
+
+      if (!existing) {
+        lobby[role] = {
+          name: payload.name || role,
+          type: payload.type || "human",
+          clientKey: payload.clientKey,
+          claimId: payload.claimId,
+          localSeenAt: Date.now()
+        };
+
+        refreshRoleAvailability();
+        updateGameIdentityFromLobby();
+        renderGame();
+        return;
+      }
+
+      if (existing.clientKey === payload.clientKey) {
+        existing.name = payload.name || existing.name;
+        existing.claimId = payload.claimId || existing.claimId;
+        existing.localSeenAt = existing.localSeenAt || Date.now();
+
+        refreshRoleAvailability();
+        return;
+      }
+
+      const existingAge =
+        Date.now() -
+        Number(existing.localSeenAt || Date.now());
+
+      let incomingWins = false;
+
+      if (existingAge <= SIMULTANEOUS_CLAIM_WINDOW) {
+        const existingClaimId = String(existing.claimId || "~");
+        const incomingClaimId = String(payload.claimId);
+
+        incomingWins =
+          incomingClaimId.localeCompare(existingClaimId) < 0;
+      }
+
+      if (incomingWins) {
+        const displacedClientKey = existing.clientKey;
+
+        lobby[role] = {
+          name: payload.name || role,
+          type: payload.type || "human",
+          clientKey: payload.clientKey,
+          claimId: payload.claimId,
+          localSeenAt: Date.now()
+        };
+
+        sendPayload({
+          kind: "role-denied",
+          role: role,
+          targetClientKey: displacedClientKey,
+          winnerClientKey: payload.clientKey,
+          winnerName: payload.name || role,
+          reason: "Simultaneous claim conflict",
+          time: new Date().toISOString()
+        });
+
+        if (displacedClientKey === LOCAL_CLIENT_KEY) {
+          loseClaimedRole(role, payload.name || role);
+        }
+      } else {
+        sendPayload({
+          kind: "role-denied",
+          role: role,
+          targetClientKey: payload.clientKey,
+          winnerClientKey: existing.clientKey,
+          winnerName: existing.name,
+          reason: "Position already owned",
+          time: new Date().toISOString()
+        });
+      }
+
+      refreshRoleAvailability();
+      updateGameIdentityFromLobby();
+      renderGame();
+    }
+
+    function refreshRoleAvailability() {
+      PLAYER_ORDER.forEach(function (role) {
+        const option = document.getElementById("roleOption" + role);
+        const radio = option.querySelector("input");
+        const ownerBox = document.getElementById("roleOwner" + role);
+        const entry = lobby[role];
+
+        const mine =
+          Boolean(
+            entry &&
+            entry.clientKey === LOCAL_CLIENT_KEY
+          );
+
+        const occupied =
+          Boolean(
+            entry &&
+            entry.clientKey !== LOCAL_CLIENT_KEY
+          );
+
+        const pending =
+          Boolean(
+            pendingRoleClaim &&
+            pendingRoleClaim.role === role
+          );
+
+        option.classList.toggle("mine", mine);
+        option.classList.toggle("occupied", occupied || mine);
+        option.classList.toggle("pending", pending);
+
+        radio.disabled = occupied;
+
+        if (mine) {
+          ownerBox.textContent = "Assigned to you";
+        } else if (occupied) {
+          ownerBox.textContent =
+            "Taken by " +
+            (entry.name || "another player");
+        } else if (pending) {
+          ownerBox.textContent = "Checking availability...";
+        } else {
+          ownerBox.textContent = "Available";
+        }
+      });
+    }
+
+    function announcePresence() {
+      sendPayload({
+        kind: "presence",
+        name: getName(),
+        role: claimedRole,
+        clientKey: LOCAL_CLIENT_KEY,
+        lobby: sanitiseLobbyForSending(),
+        game: game,
+        time: new Date().toISOString()
+      });
+    }
+
+    function updateGameIdentityFromLobby() {
+      PLAYER_ORDER.forEach(function (role) {
+        const entry = lobby[role];
+
+        if (entry) {
+          game.names[role] = entry.name || role;
+          game.playerTypes[role] = entry.type || "human";
+        } else if (
+          game.status === "waiting"
+        ) {
+          game.names[role] = "Player " + role.replace("P", "");
+          game.playerTypes[role] = "";
+        }
+      });
     }
 
     function getActivePlayersFromLobby() {
-      return PLAYER_ORDER.filter(
-        function (player) {
-          return Boolean(lobby[player]);
-        }
-      );
+      return PLAYER_ORDER.filter(function (role) {
+        return Boolean(lobby[role]);
+      });
     }
 
     function getHumanPlayersFromLobby() {
-      return PLAYER_ORDER.filter(
-        function (player) {
-          return (
-            lobby[player] &&
-            lobby[player].type === "human"
-          );
-        }
-      );
+      return PLAYER_ORDER.filter(function (role) {
+        return (
+          lobby[role] &&
+          lobby[role].type === "human"
+        );
+      });
     }
 
     function ensureComputerIfSingleHuman() {
-      const humans =
-        getHumanPlayersFromLobby();
+      const humans = getHumanPlayersFromLobby();
 
       if (humans.length !== 1) {
         return false;
@@ -2833,51 +3124,75 @@
       const humanRole = humans[0];
 
       const computerRole =
-        PLAYER_ORDER.find(
-          function (player) {
-            return (
-              player !== humanRole &&
-              !lobby[player]
-            );
-          }
-        );
+        PLAYER_ORDER.find(function (role) {
+          return role !== humanRole && !lobby[role];
+        });
 
       if (!computerRole) {
         return false;
       }
 
-      updateLobby(
-        computerRole,
-        "Computer",
-        "computer"
-      );
+      lobby[computerRole] = {
+        name: "Computer",
+        type: "computer",
+        clientKey: "computer:" + LOCAL_CLIENT_KEY,
+        claimId: "computer:" + createId(),
+        localSeenAt: Date.now()
+      };
+
+      game.names[computerRole] = "Computer";
+      game.playerTypes[computerRole] = "computer";
+
+      sendPayload({
+        kind: "role-claim",
+        role: computerRole,
+        name: "Computer",
+        type: "computer",
+        clientKey: lobby[computerRole].clientKey,
+        claimId: lobby[computerRole].claimId,
+        time: new Date().toISOString()
+      });
 
       addRoomMessage(
-        "Computer joined as " +
-        computerRole +
-        ".",
+        "Computer joined as " + computerRole + ".",
         "system"
       );
 
+      refreshRoleAvailability();
       return true;
     }
 
     function validatePlayerCountForStart() {
-      let activePlayers =
-        getActivePlayersFromLobby();
+      if (!PLAYER_ORDER.includes(claimedRole)) {
+        alert(
+          "You must own a player position before starting a game."
+        );
+
+        return null;
+      }
+
+      const ownedEntry = lobby[claimedRole];
+
+      if (
+        !ownedEntry ||
+        ownedEntry.clientKey !== LOCAL_CLIENT_KEY
+      ) {
+        alert(
+          "Your selected player position is not confirmed. Choose a free position first."
+        );
+
+        return null;
+      }
+
+      let activePlayers = getActivePlayersFromLobby();
 
       if (activePlayers.length < 2) {
         ensureComputerIfSingleHuman();
-
-        activePlayers =
-          getActivePlayersFromLobby();
+        activePlayers = getActivePlayersFromLobby();
       }
 
       if (activePlayers.length < 2) {
-        alert(
-          "At least one human player must connect first."
-        );
-
+        alert("At least two players are required.");
         return null;
       }
 
@@ -2889,11 +3204,9 @@
         Array.isArray(game.activePlayers) &&
         game.activePlayers.length >= 2
       ) {
-        return game.activePlayers.filter(
-          function (player) {
-            return PLAYER_ORDER.includes(player);
-          }
-        );
+        return game.activePlayers.filter(function (role) {
+          return PLAYER_ORDER.includes(role);
+        });
       }
 
       return getActivePlayersFromLobby();
@@ -2921,23 +3234,18 @@
       lobby = previousLobby;
       isHost = true;
 
-      activePlayers.forEach(
-        function (player) {
-          const entry = lobby[player];
+      activePlayers.forEach(function (role) {
+        const entry = lobby[role];
 
-          game.names[player] = entry.name;
-          game.playerTypes[player] = entry.type;
-        }
-      );
+        game.names[role] = entry.name;
+        game.playerTypes[role] = entry.type;
+      });
 
       game.activePlayers = activePlayers;
       game.turn = activePlayers[0];
       game.status = "playing";
-      game.hostClientId =
-        myClientId || "local-host";
-
-      game.gameId =
-        Date.now().toString();
+      game.hostClientId = LOCAL_CLIENT_KEY;
+      game.gameId = Date.now().toString();
 
       lastDice = "-";
       seenMoveIds.clear();
@@ -2948,15 +3256,12 @@
         kind: "new-game",
         from: getName(),
         game: game,
-        lobby: lobby,
-        lastDice: lastDice
+        lobby: sanitiseLobbyForSending(),
+        lastDice: lastDice,
+        time: new Date().toISOString()
       });
 
-      addRoomMessage(
-        "A new game started.",
-        "system"
-      );
-
+      addRoomMessage("A new game started.", "system");
       maybeComputerMove();
     }
 
@@ -2965,30 +3270,21 @@
         kind: "sync",
         from: getName(),
         game: game,
-        lobby: lobby,
-        lastDice: lastDice
+        lobby: sanitiseLobbyForSending(),
+        lastDice: lastDice,
+        time: new Date().toISOString()
       });
     }
 
     function rollDice() {
-      const role = getRole();
-
-      if (role === "spectator") {
+      if (!PLAYER_ORDER.includes(claimedRole)) {
         return;
       }
 
-      rollForRole(
-        role,
-        getName(),
-        false
-      );
+      rollForRole(claimedRole, getName(), false);
     }
 
-    function rollForRole(
-      role,
-      actorName,
-      computerRoll
-    ) {
+    function rollForRole(role, actorName, computerRoll) {
       if (
         !ws ||
         ws.readyState !== WebSocket.OPEN ||
@@ -3000,9 +3296,7 @@
       }
 
       const dice =
-        Math.floor(
-          Math.random() * 6
-        ) + 1;
+        Math.floor(Math.random() * 6) + 1;
 
       lastDice = String(dice);
 
@@ -3015,25 +3309,12 @@
 
       game.moveNumber += 1;
 
-      const drama = {
-        kind:
-          dice === 6
-            ? "six"
-            : "power",
-
-        text:
-          role +
-          " rolled " +
-          dice +
-          "."
-      };
-
       finishStateUpdate(
-        role +
-        " rolled " +
-        dice +
-        ".",
-        drama
+        role + " rolled " + dice + ".",
+        {
+          kind: dice === 6 ? "six" : "power",
+          text: role + " rolled " + dice + "."
+        }
       );
 
       if (computerRoll) {
@@ -3043,7 +3324,7 @@
 
     function adjustPendingMove(delta) {
       adjustPendingMoveForRole(
-        getRole(),
+        claimedRole,
         delta,
         getName(),
         false
@@ -3067,16 +3348,13 @@
         return;
       }
 
-      ensurePendingMoveShape();
-
       const current =
-        game.pendingMove.selectedPower;
+        Number(game.pendingMove.selectedPower || 0);
 
       const available =
-        game.powerPoints[role];
+        Number(game.powerPoints[role] || 0);
 
-      const next =
-        current + delta;
+      const next = current + delta;
 
       if (
         next < 0 ||
@@ -3085,21 +3363,14 @@
         return;
       }
 
-      game.pendingMove.selectedPower =
-        next;
-
+      game.pendingMove.selectedPower = next;
       game.moveNumber += 1;
 
       finishStateUpdate(
-        role +
-        " selected " +
-        next +
-        " Power Point(s).",
+        role + " selected " + next + " Power Point(s).",
         {
           kind: "power",
-          text:
-            "⚡ Selected Power: " +
-            next
+          text: "⚡ Selected Power: " + next
         }
       );
 
@@ -3110,7 +3381,7 @@
 
     function makeMove() {
       makeMoveForRole(
-        getRole(),
+        claimedRole,
         getName(),
         false
       );
@@ -3132,21 +3403,20 @@
         return;
       }
 
-      const pending =
-        game.pendingMove;
+      const pending = game.pendingMove;
 
       const selectedPower =
         Math.min(
-          pending.selectedPower || 0,
-          game.powerPoints[role]
+          Number(pending.selectedPower || 0),
+          Number(game.powerPoints[role] || 0)
         );
 
       const finalSteps =
-        pending.dice +
+        Number(pending.dice) +
         selectedPower;
 
       const oldPosition =
-        game.positions[role] || 0;
+        Number(game.positions[role] || 0);
 
       let landedPosition =
         oldPosition + finalSteps;
@@ -3166,16 +3436,11 @@
         finalPosition = oldPosition;
         landedPosition = oldPosition;
 
-        note +=
-          " Exact 100 is required.";
+        note += " Exact 100 is required.";
       } else if (JUMPS[landedPosition]) {
-        finalPosition =
-          JUMPS[landedPosition];
+        finalPosition = JUMPS[landedPosition];
 
-        if (
-          finalPosition >
-          landedPosition
-        ) {
+        if (finalPosition > landedPosition) {
           note +=
             " Ladder from " +
             landedPosition +
@@ -3202,8 +3467,7 @@
         }
       }
 
-      game.powerPoints[role] -=
-        selectedPower;
+      game.powerPoints[role] -= selectedPower;
 
       if (
         finalPosition === 100 &&
@@ -3216,14 +3480,11 @@
 
         drama = {
           kind: "power",
-          text:
-            "⚡ Use all Power Points first!"
+          text: "⚡ Use all Power Points first!"
         };
       }
 
-      game.positions[role] =
-        finalPosition;
-
+      game.positions[role] = finalPosition;
       game.pendingMove = null;
 
       if (
@@ -3235,47 +3496,32 @@
 
         drama = {
           kind: "win",
-          text:
-            "🏁 " +
-            role +
-            " wins!"
+          text: "🏁 " + role + " wins!"
         };
       } else if (pending.dice !== 6) {
         game.turn = nextPlayer(role);
       } else if (!drama) {
         drama = {
           kind: "six",
-          text:
-            "🎲 Six! Roll again."
+          text: "🎲 Six! Roll again."
         };
       }
 
       game.moveNumber += 1;
 
-      finishStateUpdate(
-        note,
-        drama
-      );
-
+      finishStateUpdate(note, drama);
       maybeComputerMove();
     }
 
-    function finishStateUpdate(
-      note,
-      drama
-    ) {
-      const moveId =
-        makeMoveId();
+    function finishStateUpdate(note, drama) {
+      const moveId = createId();
 
       seenMoveIds.add(moveId);
 
       renderGame();
 
       if (drama) {
-        showDrama(
-          drama.kind,
-          drama.text
-        );
+        showDrama(drama.kind, drama.text);
       }
 
       sendPayload({
@@ -3285,21 +3531,16 @@
         note: note,
         drama: drama,
         game: game,
-        lastDice: lastDice
+        lastDice: lastDice,
+        time: new Date().toISOString()
       });
 
-      addRoomMessage(
-        note,
-        "system"
-      );
+      addRoomMessage(note, "system");
     }
 
     function nextPlayer(current) {
-      const players =
-        getActivePlayers();
-
-      const index =
-        players.indexOf(current);
+      const players = getActivePlayers();
+      const index = players.indexOf(current);
 
       if (index === -1) {
         return players[0] || "P1";
@@ -3314,16 +3555,14 @@
     function isComputerTurn() {
       return (
         game.status === "playing" &&
-        game.playerTypes[game.turn] ===
-        "computer"
+        game.playerTypes[game.turn] === "computer"
       );
     }
 
     function thisClientIsHost() {
       return (
         isHost ||
-        game.hostClientId ===
-        myClientId
+        game.hostClientId === LOCAL_CLIENT_KEY
       );
     }
 
@@ -3339,7 +3578,7 @@
       computerThinking = true;
       renderPlayers();
 
-      setTimeout(function () {
+      window.setTimeout(function () {
         computerThinking = false;
 
         if (
@@ -3352,34 +3591,28 @@
         const role = game.turn;
 
         if (!game.pendingMove) {
-          rollForRole(
-            role,
-            "Computer",
-            true
-          );
-
+          rollForRole(role, "Computer", true);
           return;
         }
 
         const position =
-          game.positions[role] || 0;
+          Number(game.positions[role] || 0);
 
         const points =
-          game.powerPoints[role] || 0;
+          Number(game.powerPoints[role] || 0);
 
         const selected =
-          game.pendingMove.selectedPower || 0;
+          Number(game.pendingMove.selectedPower || 0);
 
         const target =
           position +
-          game.pendingMove.dice +
+          Number(game.pendingMove.dice) +
           selected;
 
         if (
           points > selected &&
           JUMPS[target + 1] &&
-          JUMPS[target + 1] >
-          target + 1
+          JUMPS[target + 1] > target + 1
         ) {
           adjustPendingMoveForRole(
             role,
@@ -3391,26 +3624,15 @@
           return;
         }
 
-        makeMoveForRole(
-          role,
-          "Computer",
-          true
-        );
+        makeMoveForRole(role, "Computer", true);
       }, 900);
     }
 
-    function showDrama(
-      kind,
-      text
-    ) {
-      [
-        dramaBanner,
-        localDramaBanner
-      ].forEach(function (box) {
+    function showDrama(kind, text) {
+      [dramaBanner, localDramaBanner].forEach(function (box) {
         box.className =
           (
-            box.id ===
-            "localDramaBanner"
+            box.id === "localDramaBanner"
               ? "local-drama-banner "
               : "drama-banner "
           ) +
@@ -3426,69 +3648,38 @@
       liveStatus.textContent = text;
 
       if (kind === "snake") {
-        boardStageBox.classList.remove(
-          "snake-shake"
-        );
-
+        boardStageBox.classList.remove("snake-shake");
         void boardStageBox.offsetWidth;
-
-        boardStageBox.classList.add(
-          "snake-shake"
-        );
+        boardStageBox.classList.add("snake-shake");
       }
 
       if (kind === "ladder") {
-        boardStageBox.classList.remove(
-          "ladder-glow"
-        );
-
+        boardStageBox.classList.remove("ladder-glow");
         void boardStageBox.offsetWidth;
-
-        boardStageBox.classList.add(
-          "ladder-glow"
-        );
+        boardStageBox.classList.add("ladder-glow");
       }
 
       if (kind === "power") {
-        boardStageBox.classList.remove(
-          "power-glow"
-        );
-
+        boardStageBox.classList.remove("power-glow");
         void boardStageBox.offsetWidth;
-
-        boardStageBox.classList.add(
-          "power-glow"
-        );
+        boardStageBox.classList.add("power-glow");
       }
 
       if (kind === "six") {
-        hudDiceBox.classList.remove(
-          "dice-six"
-        );
-
+        hudDiceBox.classList.remove("dice-six");
         void hudDiceBox.offsetWidth;
-
-        hudDiceBox.classList.add(
-          "dice-six"
-        );
+        hudDiceBox.classList.add("dice-six");
       }
     }
 
     function boardPoint(number) {
       const zero = number - 1;
+      const rowFromBottom = Math.floor(zero / 10);
+      const rowFromTop = 9 - rowFromBottom;
 
-      const rowFromBottom =
-        Math.floor(zero / 10);
+      let col = zero % 10;
 
-      const rowFromTop =
-        9 - rowFromBottom;
-
-      let col =
-        zero % 10;
-
-      if (
-        rowFromBottom % 2 === 1
-      ) {
+      if (rowFromBottom % 2 === 1) {
         col = 9 - col;
       }
 
@@ -3503,92 +3694,54 @@
 
       const displayNumbers = [];
 
-      for (
-        let row = 9;
-        row >= 0;
-        row--
-      ) {
+      for (let row = 9; row >= 0; row--) {
         const rowNumbers = [];
 
-        for (
-          let col = 0;
-          col < 10;
-          col++
-        ) {
-          rowNumbers.push(
-            row * 10 +
-            col +
-            1
-          );
+        for (let col = 0; col < 10; col++) {
+          rowNumbers.push(row * 10 + col + 1);
         }
 
-        if (
-          (9 - row) % 2 === 0
-        ) {
+        if ((9 - row) % 2 === 0) {
           rowNumbers.reverse();
         }
 
-        displayNumbers.push(
-          ...rowNumbers
-        );
+        displayNumbers.push(...rowNumbers);
       }
 
-      displayNumbers.forEach(
-        function (number) {
-          const square =
-            document.createElement("div");
+      displayNumbers.forEach(function (number) {
+        const square = document.createElement("div");
 
-          square.className =
-            "square";
+        square.className = "square";
+        square.dataset.number = number;
 
-          square.dataset.number =
-            number;
-
-          if (JUMPS[number]) {
-            square.classList.add(
-              JUMPS[number] > number
-                ? "ladder-start"
-                : "snake-start"
-            );
-          }
-
-          const num =
-            document.createElement("div");
-
-          num.className = "num";
-          num.textContent = number;
-
-          const mark =
-            document.createElement("div");
-
-          mark.className = "mark";
-
-          if (JUMPS[number]) {
-            mark.textContent =
-              JUMPS[number] > number
-                ? "🪜 " +
-                  JUMPS[number]
-                : "🐍 " +
-                  JUMPS[number];
-          }
-
-          const tokens =
-            document.createElement("div");
-
-          tokens.className =
-            "tokens";
-
-          square.append(
-            num,
-            mark,
-            tokens
-          );
-
-          boardBox.appendChild(
-            square
+        if (JUMPS[number]) {
+          square.classList.add(
+            JUMPS[number] > number
+              ? "ladder-start"
+              : "snake-start"
           );
         }
-      );
+
+        const num = document.createElement("div");
+        num.className = "num";
+        num.textContent = number;
+
+        const mark = document.createElement("div");
+        mark.className = "mark";
+
+        if (JUMPS[number]) {
+          mark.textContent =
+            JUMPS[number] > number
+              ? "🪜 " + JUMPS[number]
+              : "🐍 " + JUMPS[number];
+        }
+
+        const tokens = document.createElement("div");
+        tokens.className = "tokens";
+
+        square.append(num, mark, tokens);
+        boardBox.appendChild(square);
+      });
 
       drawBoardArt();
       renderGame();
@@ -3597,185 +3750,76 @@
     function drawBoardArt() {
       boardArt.innerHTML = "";
 
-      Object.keys(JUMPS).forEach(
-        function (startText) {
-          const start =
-            Number(startText);
+      Object.keys(JUMPS).forEach(function (startText) {
+        const start = Number(startText);
+        const end = JUMPS[start];
 
-          const end =
-            JUMPS[start];
-
-          if (end > start) {
-            drawLadder(
-              start,
-              end
-            );
-          }
+        if (end > start) {
+          drawLadder(start, end);
         }
-      );
+      });
 
-      Object.keys(JUMPS).forEach(
-        function (startText) {
-          const start =
-            Number(startText);
+      Object.keys(JUMPS).forEach(function (startText) {
+        const start = Number(startText);
+        const end = JUMPS[start];
 
-          const end =
-            JUMPS[start];
-
-          if (end < start) {
-            drawSnake(
-              start,
-              end
-            );
-          }
+        if (end < start) {
+          drawSnake(start, end);
         }
-      );
+      });
     }
 
-    function drawLadder(
-      start,
-      end
-    ) {
-      const a =
-        boardPoint(start);
+    function drawLadder(start, end) {
+      const a = boardPoint(start);
+      const b = boardPoint(end);
 
-      const b =
-        boardPoint(end);
-
-      const dx =
-        b.x - a.x;
-
-      const dy =
-        b.y - a.y;
-
-      const len =
-        Math.hypot(dx, dy) || 1;
-
-      const nx =
-        -dy / len;
-
-      const ny =
-        dx / len;
-
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const len = Math.hypot(dx, dy) || 1;
+      const nx = -dy / len;
+      const ny = dx / len;
       const gap = 16;
 
-      const firstStart = {
-        x: a.x + nx * gap,
-        y: a.y + ny * gap
-      };
+      const x1 = a.x + nx * gap;
+      const y1 = a.y + ny * gap;
+      const x2 = b.x + nx * gap;
+      const y2 = b.y + ny * gap;
 
-      const firstEnd = {
-        x: b.x + nx * gap,
-        y: b.y + ny * gap
-      };
+      const x3 = a.x - nx * gap;
+      const y3 = a.y - ny * gap;
+      const x4 = b.x - nx * gap;
+      const y4 = b.y - ny * gap;
 
-      const secondStart = {
-        x: a.x - nx * gap,
-        y: a.y - ny * gap
-      };
+      addSvgLine(x1, y1, x2, y2, "ladder-rail");
+      addSvgLine(x3, y3, x4, y4, "ladder-rail");
 
-      const secondEnd = {
-        x: b.x - nx * gap,
-        y: b.y - ny * gap
-      };
-
-      addSvgLine(
-        firstStart.x,
-        firstStart.y,
-        firstEnd.x,
-        firstEnd.y,
-        "ladder-rail"
-      );
-
-      addSvgLine(
-        secondStart.x,
-        secondStart.y,
-        secondEnd.x,
-        secondEnd.y,
-        "ladder-rail"
-      );
-
-      for (
-        let i = 1;
-        i < 6;
-        i++
-      ) {
+      for (let i = 1; i < 6; i++) {
         const t = i / 6;
 
         addSvgLine(
-          firstStart.x +
-          (
-            firstEnd.x -
-            firstStart.x
-          ) * t,
-
-          firstStart.y +
-          (
-            firstEnd.y -
-            firstStart.y
-          ) * t,
-
-          secondStart.x +
-          (
-            secondEnd.x -
-            secondStart.x
-          ) * t,
-
-          secondStart.y +
-          (
-            secondEnd.y -
-            secondStart.y
-          ) * t,
-
+          x1 + (x2 - x1) * t,
+          y1 + (y2 - y1) * t,
+          x3 + (x4 - x3) * t,
+          y3 + (y4 - y3) * t,
           "ladder-rung"
         );
       }
     }
 
-    function drawSnake(
-      start,
-      end
-    ) {
-      const a =
-        boardPoint(start);
+    function drawSnake(start, end) {
+      const a = boardPoint(start);
+      const b = boardPoint(end);
 
-      const b =
-        boardPoint(end);
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const len = Math.hypot(dx, dy) || 1;
+      const nx = -dy / len;
+      const ny = dx / len;
 
-      const dx =
-        b.x - a.x;
-
-      const dy =
-        b.y - a.y;
-
-      const len =
-        Math.hypot(dx, dy) || 1;
-
-      const nx =
-        -dy / len;
-
-      const ny =
-        dx / len;
-
-      const c1x =
-        a.x +
-        dx * 0.28 +
-        nx * 42;
-
-      const c1y =
-        a.y +
-        dy * 0.28 +
-        ny * 42;
-
-      const c2x =
-        a.x +
-        dx * 0.68 -
-        nx * 42;
-
-      const c2y =
-        a.y +
-        dy * 0.68 -
-        ny * 42;
+      const c1x = a.x + dx * 0.28 + nx * 42;
+      const c1y = a.y + dy * 0.28 + ny * 42;
+      const c2x = a.x + dx * 0.68 - nx * 42;
+      const c2y = a.y + dy * 0.68 - ny * 42;
 
       const pathText =
         "M " +
@@ -3795,196 +3839,82 @@
         " " +
         b.y;
 
-      const body =
-        document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "path"
-        );
-
-      body.setAttribute(
-        "d",
-        pathText
+      const body = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
       );
 
-      body.setAttribute(
-        "class",
-        "snake-path"
+      body.setAttribute("d", pathText);
+      body.setAttribute("class", "snake-path");
+
+      const belly = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
       );
 
-      const belly =
-        document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "path"
-        );
+      belly.setAttribute("d", pathText);
+      belly.setAttribute("class", "snake-belly");
 
-      belly.setAttribute(
-        "d",
-        pathText
+      const head = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "ellipse"
       );
 
-      belly.setAttribute(
-        "class",
-        "snake-belly"
-      );
+      head.setAttribute("cx", a.x);
+      head.setAttribute("cy", a.y);
+      head.setAttribute("rx", 21);
+      head.setAttribute("ry", 15);
+      head.setAttribute("class", "snake-head");
 
-      const head =
-        document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "ellipse"
-        );
+      boardArt.append(body, belly, head);
 
-      head.setAttribute(
-        "cx",
-        a.x
-      );
-
-      head.setAttribute(
-        "cy",
-        a.y
-      );
-
-      head.setAttribute(
-        "rx",
-        21
-      );
-
-      head.setAttribute(
-        "ry",
-        15
-      );
-
-      head.setAttribute(
-        "class",
-        "snake-head"
-      );
-
-      boardArt.append(
-        body,
-        belly,
-        head
-      );
-
-      addEye(
-        a.x - 7,
-        a.y - 5
-      );
-
-      addEye(
-        a.x + 7,
-        a.y - 5
-      );
+      addEye(a.x - 7, a.y - 5);
+      addEye(a.x + 7, a.y - 5);
     }
 
-    function addSvgLine(
-      x1,
-      y1,
-      x2,
-      y2,
-      className
-    ) {
-      const line =
-        document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "line"
-        );
-
-      line.setAttribute(
-        "x1",
-        x1
+    function addSvgLine(x1, y1, x2, y2, className) {
+      const line = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "line"
       );
 
-      line.setAttribute(
-        "y1",
-        y1
-      );
+      line.setAttribute("x1", x1);
+      line.setAttribute("y1", y1);
+      line.setAttribute("x2", x2);
+      line.setAttribute("y2", y2);
+      line.setAttribute("class", className);
 
-      line.setAttribute(
-        "x2",
-        x2
-      );
-
-      line.setAttribute(
-        "y2",
-        y2
-      );
-
-      line.setAttribute(
-        "class",
-        className
-      );
-
-      boardArt.appendChild(
-        line
-      );
+      boardArt.appendChild(line);
     }
 
-    function addEye(
-      x,
-      y
-    ) {
-      const eye =
-        document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "circle"
-        );
-
-      eye.setAttribute(
-        "cx",
-        x
+    function addEye(x, y) {
+      const eye = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
       );
 
-      eye.setAttribute(
-        "cy",
-        y
+      eye.setAttribute("cx", x);
+      eye.setAttribute("cy", y);
+      eye.setAttribute("r", 4);
+      eye.setAttribute("class", "snake-eye");
+
+      const pupil = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
       );
 
-      eye.setAttribute(
-        "r",
-        4
-      );
+      pupil.setAttribute("cx", x);
+      pupil.setAttribute("cy", y);
+      pupil.setAttribute("r", 1.8);
+      pupil.setAttribute("class", "snake-pupil");
 
-      eye.setAttribute(
-        "class",
-        "snake-eye"
-      );
-
-      const pupil =
-        document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "circle"
-        );
-
-      pupil.setAttribute(
-        "cx",
-        x
-      );
-
-      pupil.setAttribute(
-        "cy",
-        y
-      );
-
-      pupil.setAttribute(
-        "r",
-        1.8
-      );
-
-      pupil.setAttribute(
-        "class",
-        "snake-pupil"
-      );
-
-      boardArt.append(
-        eye,
-        pupil
-      );
+      boardArt.append(eye, pupil);
     }
 
     function handleServerMessage(data) {
       if (data.type === "system") {
         addRoomMessage(
-          data.message ||
-          "System message",
+          data.message || "System message",
           "system"
         );
 
@@ -3993,22 +3923,14 @@
 
       if (
         !data.message ||
-        typeof data.message !==
-        "string"
+        typeof data.message !== "string"
       ) {
         return;
       }
 
-      if (
-        !data.message.startsWith(
-          GAME_PREFIX
-        )
-      ) {
+      if (!data.message.startsWith(GAME_PREFIX)) {
         addRoomMessage(
-          (
-            data.name ||
-            "User"
-          ) +
+          (data.name || "User") +
           ": " +
           data.message
         );
@@ -4017,153 +3939,202 @@
       }
 
       try {
-        const payload =
-          JSON.parse(
-            data.message.slice(
-              GAME_PREFIX.length
-            )
-          );
+        const payload = JSON.parse(
+          data.message.slice(GAME_PREFIX.length)
+        );
 
-        handleGamePayload(
-          payload
-        );
+        handleGamePayload(payload);
       } catch (error) {
-        log(
-          "Bad game payload",
-          error.message
-        );
+        log("Bad game payload", error.message);
       }
     }
 
     function handleGamePayload(payload) {
-      if (
-        !payload ||
-        !payload.kind
-      ) {
+      if (!payload || !payload.kind) {
         return;
       }
 
-      if (
-        payload.kind === "presence"
-      ) {
-        lobby =
-          Object.assign(
-            lobby,
-            payload.lobby || {}
-          );
-
+      if (payload.kind === "role-status-request") {
         if (
-          PLAYER_ORDER.includes(
-            payload.role
-          )
+          payload.requesterClientKey !== LOCAL_CLIENT_KEY
         ) {
-          updateLobby(
-            payload.role,
-            payload.name,
-            "human"
-          );
+          sendPayload({
+            kind: "role-status-response",
+            requestId: payload.requestId,
+            targetClientKey: payload.requesterClientKey,
+            responderClientKey: LOCAL_CLIENT_KEY,
+            lobby: sanitiseLobbyForSending(),
+            game: game,
+            lastDice: lastDice,
+            time: new Date().toISOString()
+          });
         }
 
-        renderGame();
         return;
       }
 
-      if (
-        payload.kind === "new-game"
-      ) {
-        lobby =
-          payload.lobby ||
-          lobby;
+      if (payload.kind === "role-status-response") {
+        if (
+          payload.targetClientKey !== LOCAL_CLIENT_KEY
+        ) {
+          return;
+        }
 
-        game =
-          payload.game;
-
-        lastDice =
-          payload.lastDice ||
-          "-";
-
-        ensurePowerPoints();
-        ensurePendingMoveShape();
-
-        isHost =
-          game.hostClientId ===
-          myClientId;
-
-        renderGame();
-        maybeComputerMove();
-        return;
-      }
-
-      if (
-        payload.kind === "sync"
-      ) {
-        lobby =
-          payload.lobby ||
-          lobby;
+        mergeLobbySnapshot(payload.lobby);
 
         if (
           payload.game &&
-          payload.game.moveNumber >=
-          game.moveNumber
+          payload.game.moveNumber >= game.moveNumber
         ) {
-          game =
-            payload.game;
+          game = payload.game;
+          lastDice = payload.lastDice || lastDice;
         }
 
-        lastDice =
-          payload.lastDice ||
-          lastDice;
+        if (pendingRoleClaim) {
+          const occupied =
+            lobby[pendingRoleClaim.role];
+
+          if (
+            occupied &&
+            occupied.clientKey !== LOCAL_CLIENT_KEY
+          ) {
+            rejectRoleClaim(
+              pendingRoleClaim.role,
+              pendingRoleClaim.role +
+              " is already taken by " +
+              occupied.name +
+              "."
+            );
+          }
+        }
+
+        renderGame();
+        return;
+      }
+
+      if (payload.kind === "role-claim") {
+        handleIncomingRoleClaim(payload);
+        return;
+      }
+
+      if (payload.kind === "role-denied") {
+        if (
+          payload.targetClientKey !== LOCAL_CLIENT_KEY
+        ) {
+          return;
+        }
+
+        const winnerName =
+          payload.winnerName || "another player";
+
+        if (
+          pendingRoleClaim &&
+          pendingRoleClaim.role === payload.role
+        ) {
+          rejectRoleClaim(
+            payload.role,
+            payload.role +
+            " belongs to " +
+            winnerName +
+            "."
+          );
+        } else if (claimedRole === payload.role) {
+          loseClaimedRole(
+            payload.role,
+            winnerName
+          );
+        }
+
+        return;
+      }
+
+      if (payload.kind === "role-release") {
+        const current = lobby[payload.role];
+
+        if (
+          current &&
+          current.clientKey === payload.clientKey
+        ) {
+          delete lobby[payload.role];
+
+          updateGameIdentityFromLobby();
+          refreshRoleAvailability();
+          renderGame();
+        }
+
+        return;
+      }
+
+      if (payload.kind === "presence") {
+        mergeLobbySnapshot(payload.lobby);
+        updateGameIdentityFromLobby();
+        renderGame();
+        return;
+      }
+
+      if (payload.kind === "new-game") {
+        mergeLobbySnapshot(payload.lobby);
+
+        game = payload.game;
+        lastDice = payload.lastDice || "-";
 
         ensurePowerPoints();
         ensurePendingMoveShape();
 
         isHost =
-          game.hostClientId ===
-          myClientId;
+          game.hostClientId === LOCAL_CLIENT_KEY;
 
         renderGame();
         maybeComputerMove();
         return;
       }
 
-      if (
-        payload.kind === "move"
-      ) {
+      if (payload.kind === "sync") {
+        mergeLobbySnapshot(payload.lobby);
+
+        if (
+          payload.game &&
+          payload.game.moveNumber >= game.moveNumber
+        ) {
+          game = payload.game;
+        }
+
+        lastDice = payload.lastDice || lastDice;
+
+        ensurePowerPoints();
+        ensurePendingMoveShape();
+
+        isHost =
+          game.hostClientId === LOCAL_CLIENT_KEY;
+
+        renderGame();
+        maybeComputerMove();
+        return;
+      }
+
+      if (payload.kind === "move") {
         if (
           payload.moveId &&
-          seenMoveIds.has(
-            payload.moveId
-          )
+          seenMoveIds.has(payload.moveId)
         ) {
           return;
         }
 
         if (payload.moveId) {
-          seenMoveIds.add(
-            payload.moveId
-          );
+          seenMoveIds.add(payload.moveId);
         }
 
         if (
           payload.game &&
-          payload.game.moveNumber >=
-          game.moveNumber
+          payload.game.moveNumber >= game.moveNumber
         ) {
-          game =
-            payload.game;
+          game = payload.game;
         }
 
-        lastDice =
-          payload.lastDice ||
-          lastDice;
+        lastDice = payload.lastDice || lastDice;
 
         ensurePowerPoints();
         ensurePendingMoveShape();
-
-        isHost =
-          game.hostClientId ===
-          myClientId;
-
         renderGame();
 
         if (payload.drama) {
@@ -4174,8 +4145,7 @@
         }
 
         addRoomMessage(
-          payload.note ||
-          "A move was made.",
+          payload.note || "A move was made.",
           "system"
         );
 
@@ -4183,10 +4153,7 @@
         return;
       }
 
-      if (
-        payload.kind ===
-        "room-chat"
-      ) {
+      if (payload.kind === "room-chat") {
         addRoomMessage(
           payload.from +
           ": " +
@@ -4196,14 +4163,12 @@
     }
 
     function sendRoomChat() {
-      const text =
-        chatInput.value.trim();
+      const text = chatInput.value.trim();
 
       if (
         !text ||
         !ws ||
-        ws.readyState !==
-        WebSocket.OPEN
+        ws.readyState !== WebSocket.OPEN
       ) {
         return;
       }
@@ -4214,88 +4179,52 @@
         text: text
       });
 
-      addRoomMessage(
-        "You: " +
-        text,
-        "mine"
-      );
-
+      addRoomMessage("You: " + text, "mine");
       chatInput.value = "";
     }
 
     function renderBoardControls() {
-      const role =
-        getRole();
+      const role = claimedRole;
 
       const isMyPendingMove =
         game.pendingMove &&
-        game.pendingMove.role ===
-        role;
+        game.pendingMove.role === role;
 
       const finalMove =
         isMyPendingMove
-          ? Number(
-              game.pendingMove.dice ||
-              0
-            ) +
-            Number(
-              game.pendingMove
-                .selectedPower ||
-              0
-            )
+          ? Number(game.pendingMove.dice || 0) +
+            Number(game.pendingMove.selectedPower || 0)
           : null;
 
       document
-        .querySelectorAll(
-          ".board-final-move"
-        )
-        .forEach(
-          function (box) {
-            box.textContent =
-              finalMove === null
-                ? "–"
-                : String(finalMove);
-          }
-        );
+        .querySelectorAll(".board-final-move")
+        .forEach(function (box) {
+          box.textContent =
+            finalMove === null
+              ? "–"
+              : String(finalMove);
+        });
 
       const indicator =
-        document.getElementById(
-          "boardTurnIndicator"
-        );
+        document.getElementById("boardTurnIndicator");
 
-      indicator.classList.remove(
-        "my-turn"
-      );
+      indicator.classList.remove("my-turn");
 
-      if (
-        game.status ===
-        "finished"
-      ) {
+      if (game.status === "finished") {
         indicator.textContent =
           "🏁 Winner: " +
-          game.names[
-            game.winner
-          ];
+          game.names[game.winner];
 
         return;
       }
 
-      if (
-        game.status !==
-        "playing"
-      ) {
-        indicator.textContent =
-          "Waiting for game";
-
+      if (game.status !== "playing") {
+        indicator.textContent = "Waiting for game";
         return;
       }
 
-      if (
-        game.turn === role
-      ) {
-        indicator.classList.add(
-          "my-turn"
-        );
+      if (game.turn === role) {
+        indicator.classList.add("my-turn");
 
         indicator.textContent =
           isMyPendingMove
@@ -4308,258 +4237,193 @@
       }
 
       indicator.textContent =
-        game.names[
-          game.turn
-        ] +
+        game.names[game.turn] +
         "'s turn";
     }
 
     function updateSpectatorControls() {
       const spectator =
-        getRole() ===
-        "spectator";
+        claimedRole === "spectator";
 
       document
         .querySelectorAll(
           ".roll-dice-btn, .power-btn, .move-btn"
         )
-        .forEach(
-          function (button) {
-            button.classList.toggle(
-              "hidden-for-spectator",
-              spectator
-            );
-          }
-        );
+        .forEach(function (button) {
+          button.style.display =
+            spectator
+              ? "none"
+              : "";
+        });
 
-      document.getElementById(
-        "spectatorNote"
-      ).hidden = !spectator;
+      document.getElementById("spectatorNote").hidden =
+        !spectator;
     }
 
     function updateGameplayButtonStates() {
-      const role =
-        getRole();
+      const role = claimedRole;
 
       const connected =
         Boolean(
           ws &&
-          ws.readyState ===
-          WebSocket.OPEN
+          ws.readyState === WebSocket.OPEN
         );
 
+      const validOwnership =
+        PLAYER_ORDER.includes(role) &&
+        lobby[role] &&
+        lobby[role].clientKey === LOCAL_CLIENT_KEY;
+
       const myTurn =
-        game.status ===
-        "playing" &&
+        validOwnership &&
+        game.status === "playing" &&
         game.turn === role;
 
       const pending =
         Boolean(
           game.pendingMove &&
-          game.pendingMove.role ===
-          role
+          game.pendingMove.role === role
         );
 
       const selectedPower =
         pending
-          ? Number(
-              game.pendingMove
-                .selectedPower ||
-              0
-            )
+          ? Number(game.pendingMove.selectedPower || 0)
           : 0;
 
       const availablePower =
-        PLAYER_ORDER.includes(
-          role
-        )
-          ? Number(
-              game.powerPoints[
-                role
-              ] ||
-              0
-            )
+        validOwnership
+          ? Number(game.powerPoints[role] || 0)
           : 0;
 
       document
-        .querySelectorAll(
-          ".roll-dice-btn"
-        )
-        .forEach(
-          function (button) {
-            button.disabled =
-              !connected ||
-              !myTurn ||
-              pending;
-          }
-        );
+        .querySelectorAll(".roll-dice-btn")
+        .forEach(function (button) {
+          button.disabled =
+            !connected ||
+            !myTurn ||
+            pending;
+        });
 
       document
-        .querySelectorAll(
-          ".board-power-add-btn"
-        )
-        .forEach(
-          function (button) {
-            button.disabled =
-              !connected ||
-              !myTurn ||
-              !pending ||
-              selectedPower >=
-              availablePower;
-          }
-        );
+        .querySelectorAll(".board-power-add-btn")
+        .forEach(function (button) {
+          button.disabled =
+            !connected ||
+            !myTurn ||
+            !pending ||
+            selectedPower >= availablePower;
+        });
 
       document
-        .querySelectorAll(
-          ".board-power-remove-btn"
-        )
-        .forEach(
-          function (button) {
-            button.disabled =
-              !connected ||
-              !myTurn ||
-              !pending ||
-              selectedPower <= 0;
-          }
-        );
+        .querySelectorAll(".board-power-remove-btn")
+        .forEach(function (button) {
+          button.disabled =
+            !connected ||
+            !myTurn ||
+            !pending ||
+            selectedPower <= 0;
+        });
 
       document
-        .querySelectorAll(
-          ".move-btn"
-        )
-        .forEach(
-          function (button) {
-            button.disabled =
-              !connected ||
-              !myTurn ||
-              !pending;
+        .querySelectorAll(".move-btn")
+        .forEach(function (button) {
+          button.disabled =
+            !connected ||
+            !myTurn ||
+            !pending;
 
-            button.textContent =
-              pending
-                ? "Move " +
-                  (
-                    game.pendingMove
-                      .dice +
-                    selectedPower
-                  ) +
-                  " Squares"
-                : "Make Move";
-          }
-        );
+          button.textContent =
+            pending
+              ? "Move " +
+                (
+                  Number(game.pendingMove.dice) +
+                  selectedPower
+                ) +
+                " Squares"
+              : "Make Move";
+        });
 
       document
-        .querySelectorAll(
-          ".new-game-btn"
-        )
-        .forEach(
-          function (button) {
-            button.disabled =
-              !connected;
-          }
-        );
+        .querySelectorAll(".new-game-btn")
+        .forEach(function (button) {
+          button.disabled =
+            !connected ||
+            !validOwnership ||
+            Boolean(pendingRoleClaim);
+        });
 
-      document.getElementById(
-        "connectBtn"
-      ).disabled = connected;
+      document.getElementById("connectBtn").disabled =
+        connected;
 
-      document.getElementById(
-        "disconnectBtn"
-      ).disabled = !connected;
-
-      chatInput.disabled =
+      document.getElementById("disconnectBtn").disabled =
         !connected;
+
+      document.getElementById("roomName").disabled =
+        connected;
+
+      chatInput.disabled = !connected;
     }
 
     function updatePlayingLayout() {
       document.body.classList.toggle(
         "game-is-playing",
-        game.status ===
-        "playing"
+        game.status === "playing"
       );
     }
 
     function renderGame() {
       ensurePowerPoints();
       ensurePendingMoveShape();
+      refreshRoleAvailability();
 
       document
-        .querySelectorAll(
-          ".tokens"
-        )
-        .forEach(
-          function (box) {
-            box.innerHTML = "";
-          }
-        );
+        .querySelectorAll(".tokens")
+        .forEach(function (box) {
+          box.innerHTML = "";
+        });
 
-      PLAYER_ORDER.forEach(
-        function (player) {
-          const position =
-            game.positions[
-              player
-            ] || 0;
+      PLAYER_ORDER.forEach(function (player) {
+        const position =
+          Number(game.positions[player] || 0);
 
-          if (
-            position <= 0
-          ) {
-            return;
-          }
-
-          const square =
-            boardBox.querySelector(
-              '[data-number="' +
-              position +
-              '"]'
-            );
-
-          if (!square) {
-            return;
-          }
-
-          const token =
-            document.createElement(
-              "div"
-            );
-
-          token.className =
-            "token " +
-            player.toLowerCase();
-
-          if (
-            player === getRole()
-          ) {
-            token.classList.add(
-              "local-token"
-            );
-          }
-
-          if (
-            game.winner ===
-            player
-          ) {
-            token.classList.add(
-              "winner-token"
-            );
-          }
-
-          token.textContent =
-            player.replace(
-              "P",
-              ""
-            );
-
-          square
-            .querySelector(
-              ".tokens"
-            )
-            .appendChild(
-              token
-            );
+        if (position <= 0) {
+          return;
         }
-      );
 
-      hudDiceBox.textContent =
-        lastDice;
+        const square =
+          boardBox.querySelector(
+            '[data-number="' +
+            position +
+            '"]'
+          );
+
+        if (!square) {
+          return;
+        }
+
+        const token = document.createElement("div");
+
+        token.className =
+          "token " +
+          player.toLowerCase();
+
+        if (player === claimedRole) {
+          token.classList.add("local-token");
+        }
+
+        if (game.winner === player) {
+          token.classList.add("winner-token");
+        }
+
+        token.textContent =
+          player.replace("P", "");
+
+        square
+          .querySelector(".tokens")
+          .appendChild(token);
+      });
+
+      hudDiceBox.textContent = lastDice;
 
       hudRoomBox.textContent =
         "Room: " +
@@ -4567,33 +4431,20 @@
         " | You: " +
         getName() +
         " (" +
-        getRole() +
+        claimedRole +
         ")";
 
-      if (
-        game.status ===
-        "playing"
-      ) {
+      if (game.status === "playing") {
         hudTurnBox.textContent =
-          game.turn ===
-          getRole()
+          game.turn === claimedRole
             ? "Your turn, " +
-              game.names[
-                game.turn
-              ]
+              game.names[game.turn]
             : "Turn: " +
-              game.names[
-                game.turn
-              ];
-      } else if (
-        game.status ===
-        "finished"
-      ) {
+              game.names[game.turn];
+      } else if (game.status === "finished") {
         hudTurnBox.textContent =
           "Winner: " +
-          game.names[
-            game.winner
-          ];
+          game.names[game.winner];
       } else {
         hudTurnBox.textContent =
           "Status: waiting";
@@ -4606,58 +4457,47 @@
         "You: " +
         getName() +
         " (" +
-        getRole() +
+        claimedRole +
         ")\n\n";
 
-      if (
-        game.status ===
-        "waiting"
-      ) {
+      if (pendingRoleClaim) {
         statusText +=
-          "Connect players and start a new game.";
-      } else if (
-        game.status ===
-        "playing"
-      ) {
+          "Checking " +
+          pendingRoleClaim.role +
+          " availability...";
+      } else if (game.status === "waiting") {
+        statusText +=
+          PLAYER_ORDER.includes(claimedRole)
+            ? claimedRole +
+              " is securely assigned to you.\nStart a new game when ready."
+            : "You are watching as a spectator.";
+      } else if (game.status === "playing") {
         statusText +=
           "Current turn: " +
-          game.names[
-            game.turn
-          ] +
+          game.names[game.turn] +
           "\n" +
           "Power Points: " +
-          game.powerPoints[
-            game.turn
-          ];
+          game.powerPoints[game.turn];
 
-        if (
-          game.pendingMove
-        ) {
+        if (game.pendingMove) {
           statusText +=
             "\nDice: " +
-            game.pendingMove
-              .dice +
+            game.pendingMove.dice +
             "\nPower selected: " +
-            game.pendingMove
-              .selectedPower +
+            game.pendingMove.selectedPower +
             "\nFinal movement: " +
             (
-              game.pendingMove
-                .dice +
-              game.pendingMove
-                .selectedPower
+              Number(game.pendingMove.dice) +
+              Number(game.pendingMove.selectedPower)
             );
         }
       } else {
         statusText +=
           "Winner: " +
-          game.names[
-            game.winner
-          ];
+          game.names[game.winner];
       }
 
-      gameStateBox.textContent =
-        statusText;
+      gameStateBox.textContent = statusText;
 
       renderPendingMoveBox();
       renderRolePositions();
@@ -4676,18 +4516,15 @@
         return;
       }
 
-      const pending =
-        game.pendingMove;
+      const pending = game.pendingMove;
 
       const finalMove =
-        pending.dice +
-        pending.selectedPower;
+        Number(pending.dice) +
+        Number(pending.selectedPower || 0);
 
       pendingMoveBox.innerHTML =
         "<strong>" +
-        cleanText(
-          pending.role
-        ) +
+        cleanText(pending.role) +
         " is preparing a move.</strong>" +
         '<div class="pending-move-grid">' +
         '<div class="pending-move-stat">' +
@@ -4706,120 +4543,92 @@
     }
 
     function renderRolePositions() {
-      PLAYER_ORDER.forEach(
-        function (player) {
-          const position =
-            game.positions[
-              player
-            ] || 0;
+      PLAYER_ORDER.forEach(function (player) {
+        const position =
+          Number(game.positions[player] || 0);
 
-          const points =
-            game.powerPoints[
-              player
-            ];
+        const points =
+          Number(game.powerPoints[player] || 0);
 
-          document.getElementById(
-            "rolePos" +
-            player
-          ).textContent =
-            (
-              position ||
-              "Start"
-            ) +
-            " | ⚡" +
-            points;
-        }
-      );
+        document.getElementById(
+          "rolePos" + player
+        ).textContent =
+          (
+            position > 0
+              ? position
+              : "Start"
+          ) +
+          " | ⚡" +
+          points;
+      });
     }
 
     function renderPlayers() {
       playersBox.innerHTML = "";
 
       const players =
-        game.status ===
-        "waiting"
+        game.status === "waiting"
           ? PLAYER_ORDER
           : getActivePlayers();
 
-      players.forEach(
-        function (player) {
-          const card =
-            document.createElement(
-              "div"
-            );
+      players.forEach(function (player) {
+        const card = document.createElement("div");
 
-          card.className =
-            "player-card" +
-            (
-              game.turn ===
-              player
-                ? " active"
-                : ""
-            );
-
-          if (
-            isComputerTurn() &&
-            game.turn ===
-            player &&
-            thisClientIsHost()
-          ) {
-            card.classList.add(
-              "thinking"
-            );
-          }
-
-          const cpu =
-            game.playerTypes[
-              player
-            ] ===
-            "computer"
-              ? '<span class="computer-badge">CPU</span>'
-              : "";
-
-          const you =
-            player ===
-            getRole()
-              ? '<span class="you-badge">YOU</span>'
-              : "";
-
-          card.innerHTML =
-            '<span class="player-token-mini ' +
-            player.toLowerCase() +
-            '">' +
-            player.replace(
-              "P",
-              ""
-            ) +
-            "</span>" +
-            '<span class="player-meta">' +
-            "<strong>" +
-            player +
-            " - " +
-            cleanText(
-              game.names[
-                player
-              ]
-            ) +
-            you +
-            cpu +
-            '<span class="power-badge">⚡ ' +
-            game.powerPoints[
-              player
-            ] +
-            "</span></strong>" +
-            "Position: " +
-            (
-              game.positions[
-                player
-              ] || 0
-            ) +
-            "</span>";
-
-          playersBox.appendChild(
-            card
+        card.className =
+          "player-card" +
+          (
+            game.turn === player
+              ? " active"
+              : ""
           );
-        }
-      );
+
+        const cpu =
+          game.playerTypes[player] === "computer"
+            ? '<span class="computer-badge">CPU</span>'
+            : "";
+
+        const you =
+          player === claimedRole
+            ? '<span class="you-badge">YOU</span>'
+            : "";
+
+        const lobbyEntry = lobby[player];
+
+        const ownershipText =
+          lobbyEntry
+            ? (
+                lobbyEntry.clientKey === LOCAL_CLIENT_KEY
+                  ? "Securely assigned to you"
+                  : "Owned by " + lobbyEntry.name
+              )
+            : "Available";
+
+        card.innerHTML =
+          '<span class="player-token-mini ' +
+          player.toLowerCase() +
+          '">' +
+          player.replace("P", "") +
+          "</span>" +
+          '<span class="player-meta">' +
+          "<strong>" +
+          player +
+          " - " +
+          cleanText(game.names[player]) +
+          you +
+          cpu +
+          '<span class="power-badge">⚡ ' +
+          game.powerPoints[player] +
+          "</span></strong>" +
+          "Position: " +
+          (
+            game.positions[player] || 0
+          ) +
+          "<br>" +
+          cleanText(ownershipText) +
+          "</span>";
+
+        playersBox.appendChild(card);
+      });
     }
 
     function clearLogs() {
@@ -4828,19 +4637,11 @@
     }
 
     function toggleGameFullscreen() {
-      if (
-        !document.fullscreenElement
-      ) {
-        if (
-          gameFocusBox
-            .requestFullscreen
-        ) {
-          gameFocusBox
-            .requestFullscreen();
+      if (!document.fullscreenElement) {
+        if (gameFocusBox.requestFullscreen) {
+          gameFocusBox.requestFullscreen();
         }
-      } else if (
-        document.exitFullscreen
-      ) {
+      } else if (document.exitFullscreen) {
         document.exitFullscreen();
       }
     }
@@ -4855,61 +4656,78 @@
             ? "Exit Full Screen"
             : "Full Screen";
 
-        setTimeout(
-          renderGame,
-          120
-        );
+        setTimeout(renderGame, 120);
       }
     );
 
     document
-      .querySelectorAll(
-        'input[name="playerRole"]'
-      )
-      .forEach(
-        function (radio) {
-          radio.addEventListener(
-            "change",
-            function () {
-              renderGame();
+      .querySelectorAll('input[name="playerRole"]')
+      .forEach(function (radio) {
+        radio.addEventListener(
+          "change",
+          function () {
+            const requestedRole = radio.value;
 
-              if (
-                ws &&
-                ws.readyState ===
-                WebSocket.OPEN
-              ) {
-                announcePresence();
-              }
+            if (
+              ws &&
+              ws.readyState === WebSocket.OPEN
+            ) {
+              attemptRoleClaim(requestedRole);
+            } else {
+              clearRoleValidation();
+              refreshRoleAvailability();
+              renderGame();
             }
-          );
+          }
+        );
+      });
+
+    document
+      .getElementById("roomName")
+      .addEventListener(
+        "input",
+        function () {
+          lobby = {};
+          claimedRole = "spectator";
+          pendingRoleClaim = null;
+
+          refreshRoleAvailability();
+          renderGame();
         }
       );
 
     document
-      .getElementById(
-        "roomName"
-      )
+      .getElementById("playerName")
       .addEventListener(
         "input",
-        renderGame
-      );
+        function () {
+          if (
+            PLAYER_ORDER.includes(claimedRole) &&
+            lobby[claimedRole] &&
+            lobby[claimedRole].clientKey === LOCAL_CLIENT_KEY
+          ) {
+            lobby[claimedRole].name = getName();
+            game.names[claimedRole] = getName();
 
-    document
-      .getElementById(
-        "playerName"
-      )
-      .addEventListener(
-        "input",
-        renderGame
+            sendPayload({
+              kind: "role-claim",
+              role: claimedRole,
+              name: getName(),
+              type: "human",
+              clientKey: LOCAL_CLIENT_KEY,
+              claimId: lobby[claimedRole].claimId,
+              time: new Date().toISOString()
+            });
+          }
+
+          renderGame();
+        }
       );
 
     chatInput.addEventListener(
       "keydown",
       function (event) {
-        if (
-          event.key ===
-          "Enter"
-        ) {
+        if (event.key === "Enter") {
           event.preventDefault();
           sendRoomChat();
         }
@@ -4921,9 +4739,10 @@
       function () {
         if (
           ws &&
-          ws.readyState ===
-          WebSocket.OPEN
+          ws.readyState === WebSocket.OPEN
         ) {
+          releaseClaimedRole();
+
           ws.close(
             1000,
             "Page closed"
@@ -4934,6 +4753,7 @@
 
     loadInterfaceView();
     buildBoard();
+    refreshRoleAvailability();
 
     setConnectionStatus(
       "Disconnected",
