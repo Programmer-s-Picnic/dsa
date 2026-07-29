@@ -28,16 +28,17 @@
     section{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(18px,3vw,30px);margin-bottom:22px;box-shadow:var(--shadow)}h2{color:var(--navy);font-size:clamp(1.55rem,3vw,2.35rem);line-height:1.2;margin:0 0 12px}h3{color:#094a7d;margin:25px 0 8px}h4{margin:20px 0 5px}.muted{color:var(--muted)}.note,.checkpoint,.warning{border-left:5px solid var(--blue);background:var(--sky);padding:12px 15px;border-radius:10px;margin:14px 0}.checkpoint{border-color:var(--green);background:#eaf9f0}.warning{border-color:var(--orange);background:#fff6e7}
     pre{position:relative;overflow:auto;background:var(--code);color:#eaf8ff;border:1px solid #1c4468;border-radius:14px;padding:18px;line-height:1.55;tab-size:2}code{font-family:"Cascadia Code","Consolas",monospace;font-size:.92em}.copy{position:absolute;right:8px;top:8px;border:1px solid #ffffff55;background:#153657;color:#fff;border-radius:8px;padding:5px 9px;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.card{border:1px solid var(--line);border-radius:15px;padding:15px;background:#fbfdff}.card h3{margin-top:0}.steps{counter-reset:step;list-style:none;padding:0}.steps li{counter-increment:step;margin:14px 0;padding-left:46px;position:relative}.steps li:before{content:counter(step);position:absolute;left:0;top:0;width:32px;height:32px;display:grid;place-items:center;background:var(--blue);color:#fff;border-radius:50%;font-weight:900}
     table{border-collapse:collapse;width:100%;display:block;overflow:auto}th,td{border:1px solid var(--line);padding:9px 11px;text-align:left}th{background:var(--sky)}details{border:1px solid var(--line);border-radius:12px;margin:10px 0;background:#fbfdff}summary{cursor:pointer;padding:12px 15px;font-weight:900;color:var(--navy)}details>div{padding:0 15px 15px}.progress{height:8px;background:#dcecf8;border-radius:99px;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#19a7ce);width:0}.ad{min-height:75px;display:grid;place-items:center;border:1px dashed #a7c8df;color:var(--muted);border-radius:12px;margin:18px 0}.quiz label{display:block;margin:6px 0}.result{font-weight:850;margin-top:12px}.footer{text-align:center;padding:30px;color:var(--muted)}
-    @media(max-width:880px){.layout{grid-template-columns:1fr}.side{position:static;max-height:none;columns:2}.side h2{column-span:all}.grid{grid-template-columns:1fr}.top nav{display:none}}@media(max-width:520px){.side{columns:1}header{padding:38px 0}section{border-radius:14px}pre{font-size:.8rem;padding:14px}}
+    .screenshots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:18px 0}.screenshots figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#f7fbff}.screenshots img{display:block;width:100%;height:auto}.screenshots figcaption{padding:9px 12px;color:var(--muted);font-size:.9rem;font-weight:700}
+    @media(max-width:880px){.layout{grid-template-columns:1fr}.side{position:static;max-height:none;columns:2}.side h2{column-span:all}.grid,.screenshots{grid-template-columns:1fr}.top nav{display:none}}@media(max-width:520px){.side{columns:1}header{padding:38px 0}section{border-radius:14px}pre{font-size:.8rem;padding:14px}}
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"React from 0 to Infinity","description":"A complete practical React course from Hello World to production applications.","provider":{"@type":"Person","name":"Champak Roy","url":"https://www.learnwithchampak.live/"}}</script>
 </head>
 <body>
-  <div class="top"><div class="wrap topin"><a class="brand" href="#">Programmer's Picnic · Champak Roy</a><nav><a href="#start">Start</a><a href="#hooks">Hooks</a><a href="#data">APIs</a><a href="#redux">Redux</a><a href="#projects">Projects</a></nav></div></div>
+  <div class="top"><div class="wrap topin"><a class="brand" href="#">Programmer's Picnic · Champak Roy</a><nav><a href="#start">Start</a><a href="#hooks">Hooks</a><a href="#data">APIs</a><a href="#redux">Redux</a><a href="#deployment">Publish</a><a href="#projects">Projects</a></nav></div></div>
   <header><div class="wrap hero"><span class="tag">Zero → Infinity learning path</span><h1>React from 0 to Infinity</h1><p class="lead">Begin by clearing the generated project to one honest “Hello World”. Then build upward—JavaScript XML (JSX), components, props, state, every built-in hook, forms, routing, Fetch, Axios, Redux Toolkit, authentication patterns, performance, testing and production deployment.</p><div class="actions"><a class="btn" href="#start">Begin at zero</a><a class="btn alt" href="#roadmap">See roadmap</a><a class="btn alt" href="filesandfolders/">File structure lesson</a></div></div></header>
   <main class="wrap"><div class="layout">
     <aside class="side" aria-label="Course contents"><h2>Course contents</h2>
-      <a href="#roadmap">1. Roadmap</a><a href="#start">2. Install + clean Hello World</a><a href="#mental-model">3. React mental model</a><a href="#jsx">4. JSX</a><a href="#components">5. Components and props</a><a href="#events-state">6. Events and state</a><a href="#rendering">7. Rendering lists</a><a href="#forms">8. Forms</a><a href="#hooks">9. Hooks overview</a><a href="#core-hooks">10. Core hooks</a><a href="#advanced-hooks">11. Advanced hooks</a><a href="#react19-hooks">12. React 19 hooks</a><a href="#custom-hooks">13. Custom hooks</a><a href="#data">14. Fetch and Axios</a><a href="#router">15. React Router</a><a href="#redux">16. Redux Toolkit</a><a href="#architecture">17. Architecture</a><a href="#quality">18. Errors, tests, performance</a><a href="#deployment">19. Build and deploy</a><a href="#projects">20. Projects</a><a href="#quiz">21. Quiz</a>
+      <a href="#roadmap">1. Roadmap</a><a href="#start">2. Install + clean Hello World</a><a href="#mental-model">3. React mental model</a><a href="#jsx">4. JSX</a><a href="#components">5. Components and props</a><a href="#events-state">6. Events and state</a><a href="#rendering">7. Rendering lists</a><a href="#forms">8. Forms</a><a href="#hooks">9. Hooks overview</a><a href="#core-hooks">10. Core hooks</a><a href="#advanced-hooks">11. Advanced hooks</a><a href="#react19-hooks">12. React 19 hooks</a><a href="#custom-hooks">13. Custom hooks</a><a href="#data">14. Fetch and Axios</a><a href="#router">15. React Router</a><a href="#redux">16. Redux Toolkit</a><a href="#architecture">17. Architecture</a><a href="#quality">18. Errors, tests, performance</a><a href="#deployment">19. Publish to GitHub Pages</a><a href="#projects">20. Projects</a><a href="#quiz">21. Quiz</a>
     </aside>
     <article>
       <section id="roadmap"><h2>1. The complete roadmap</h2><p>Do not try to memorize React. Build a mental model, type the examples, deliberately break them, and repair them.</p>
@@ -50,6 +51,18 @@
 cd react-zero-infinity
 npm install
 npm run dev</code></pre>
+        <h3>Installation screenshots</h3>
+        <p>Follow the original terminal screenshots below. They show the Vite prompts, framework and variant selection, package installation, and the first development-server run.</p>
+        <div class="screenshots">
+          <figure><img src="assets/screenshots/0.png" alt="Starting React project creation with Vite in the terminal" loading="lazy"><figcaption>1. Start the Vite project creator.</figcaption></figure>
+          <figure><img src="assets/screenshots/1.png" alt="Selecting React from the Vite framework menu" loading="lazy"><figcaption>2. Select React as the framework.</figcaption></figure>
+          <figure><img src="assets/screenshots/2.png" alt="Selecting the JavaScript variant for the React project" loading="lazy"><figcaption>3. Select the JavaScript variant.</figcaption></figure>
+          <figure><img src="assets/screenshots/9.png" alt="Confirming the Vite project creation choices" loading="lazy"><figcaption>4. Confirm the project choices.</figcaption></figure>
+          <figure><img src="assets/screenshots/10.png" alt="The default Vite React page running in a browser" loading="lazy"><figcaption>5. The generated React starter page.</figcaption></figure>
+          <figure><img src="assets/screenshots/11.png" alt="React project folder shown in PowerShell" loading="lazy"><figcaption>6. Enter and inspect the project folder.</figcaption></figure>
+          <figure><img src="assets/screenshots/12.png" alt="Installing React project packages in PowerShell" loading="lazy"><figcaption>7. Install the project packages.</figcaption></figure>
+          <figure><img src="assets/screenshots/5.png" alt="Vite React starter application in the browser" loading="lazy"><figcaption>8. Run the development server and open the local URL.</figcaption></figure>
+        </div>
         <p>Open the local address shown in the terminal. Now remove the demonstration content. Delete <code>src/assets/react.svg</code> and empty <code>src/App.css</code>. Replace <code>src/App.jsx</code> with:</p>
         <pre><code>function App() {
   return &lt;h1&gt;Hello World&lt;/h1&gt;
@@ -635,8 +648,146 @@ export const { useGetStudentsQuery } = studentsApi</code></pre>
 &lt;/Suspense&gt;</code></pre>
       </section>
 
-      <section id="deployment"><h2>19. Production build and deployment</h2><pre><code>npm run build
-npm run preview</code></pre><p>Deploy the generated <code>dist</code> folder. For client-side routing, configure the host to send unknown application routes back to <code>index.html</code>. Before publishing, check:</p><ul><li>No console errors or exposed secrets.</li><li>Loading, empty and error states exist.</li><li>Keyboard navigation, labels, contrast and responsive layouts work.</li><li><code>npm run build</code> completes.</li><li>Lazy-loaded routes and direct URL refreshes work.</li></ul>
+      <section id="deployment"><h2>19. Build and publish to GitHub Pages</h2>
+        <p>GitHub Pages can host the production version of a Vite React application. Do not upload <code>node_modules</code>, and do not publish the raw <code>src</code> folder. GitHub Actions will install the packages, run Vite, and publish the generated <code>dist</code> folder whenever you push to <code>main</code>.</p>
+
+        <h3>Step 1: test the production build locally</h3>
+        <pre><code>npm run build
+npm run preview</code></pre>
+        <p>Open the preview address displayed in the terminal. Fix build errors before continuing.</p>
+
+        <h3>Step 2: set Vite's base path</h3>
+        <p>If the repository is named <code>react-zero-infinity</code> and its site address will be <code>https://USERNAME.github.io/react-zero-infinity/</code>, update <code>vite.config.js</code>:</p>
+        <pre><code>import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  base: '/react-zero-infinity/',
+})</code></pre>
+        <div class="note"><strong>Choose the correct base:</strong> use <code>'/REPOSITORY-NAME/'</code> for a project site. Use <code>'/'</code> for <code>USERNAME.github.io</code> or a custom domain such as <code>react.learnwithchampak.live</code>. The spelling and capitalisation must match the repository name.</div>
+
+        <h3>Step 3: add the GitHub Pages workflow</h3>
+        <p>Create <code>.github/workflows/deploy.yml</code> in the project root:</p>
+        <pre><code>name: Deploy React site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Build with Vite
+        run: npm run build
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload built site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4</code></pre>
+
+        <h3>Step 4: create the repository and push the project</h3>
+        <p>Create an empty GitHub repository named <code>react-zero-infinity</code>. Do not add another README if the local project already contains files. Then run:</p>
+        <pre><code>git init
+git add .
+git commit -m "Create React course project"
+git branch -M main
+git remote add origin https://github.com/USERNAME/react-zero-infinity.git
+git push -u origin main</code></pre>
+        <p>Replace <code>USERNAME</code> with your GitHub username.</p>
+        <h3>Original Git and publishing screenshots</h3>
+        <div class="screenshots">
+          <figure><img src="assets/screenshots/3.png" alt="Listing the React project files before Git publication" loading="lazy"><figcaption>1. Check the project files before publishing.</figcaption></figure>
+          <figure><img src="assets/screenshots/4.png" alt="Git initialization and project file output in PowerShell" loading="lazy"><figcaption>2. Initialize Git and prepare the files.</figcaption></figure>
+          <figure><img src="assets/screenshots/6.png" alt="Adding the GitHub remote repository in PowerShell" loading="lazy"><figcaption>3. Add the GitHub repository as the remote.</figcaption></figure>
+          <figure><img src="assets/screenshots/7.png" alt="Pushing the React project to GitHub" loading="lazy"><figcaption>4. Push the main branch to GitHub.</figcaption></figure>
+          <figure><img src="assets/screenshots/8.png" alt="Successful Git push output for the React project" loading="lazy"><figcaption>5. Confirm that the push completed.</figcaption></figure>
+          <figure><img src="assets/screenshots/13.png" alt="Git commit and push commands for a React project" loading="lazy"><figcaption>6. Commit and publish later updates.</figcaption></figure>
+          <figure><img src="assets/screenshots/14.png" alt="Running the React development server after publication setup" loading="lazy"><figcaption>7. Continue development and verify the app locally.</figcaption></figure>
+        </div>
+
+        <h3>Step 5: enable GitHub Pages</h3>
+        <ol class="steps">
+          <li>Open the repository on GitHub.</li>
+          <li>Select <strong>Settings → Pages</strong>.</li>
+          <li>Under <strong>Build and deployment</strong>, set <strong>Source</strong> to <strong>GitHub Actions</strong>.</li>
+          <li>Open the <strong>Actions</strong> tab and wait for “Deploy React site to GitHub Pages” to finish.</li>
+          <li>Open <code>https://USERNAME.github.io/react-zero-infinity/</code>.</li>
+        </ol>
+        <div class="checkpoint"><strong>Every later update is simple:</strong><pre><code>git add .
+git commit -m "Update React project"
+git push</code></pre>The workflow rebuilds and republishes the site automatically.</div>
+
+        <h3>React Router on GitHub Pages</h3>
+        <p>GitHub Pages cannot normally redirect an unknown path such as <code>/courses/7</code> to React's <code>index.html</code>. The simplest reliable course solution is a hash router:</p>
+        <pre><code>import { createHashRouter, RouterProvider } from 'react-router-dom'
+
+const router = createHashRouter([
+  { path: '/', element: &lt;Home /&gt; },
+  { path: '/courses', element: &lt;Courses /&gt; },
+  { path: '/courses/:courseId', element: &lt;CourseDetails /&gt; },
+])
+
+createRoot(document.getElementById('root')).render(
+  &lt;RouterProvider router={router} /&gt;
+)</code></pre>
+        <p>The address will contain <code>#</code>, for example <code>.../react-zero-infinity/#/courses</code>, but opening or refreshing a route will work. A custom <code>404.html</code> redirect is another option, but it adds complexity.</p>
+
+        <h3>Optional custom domain</h3>
+        <p>For a domain such as <code>react.learnwithchampak.live</code>, set <code>base: '/'</code>, enter the domain under <strong>Settings → Pages → Custom domain</strong>, and configure the required DNS record with the domain provider. Put a file named <code>CNAME</code> inside <code>public</code> so Vite copies it into every build:</p>
+        <pre><code>react.learnwithchampak.live</code></pre>
+
+        <h3>Common GitHub Pages problems</h3>
+        <table>
+          <thead><tr><th>Problem</th><th>Likely cause</th><th>Fix</th></tr></thead>
+          <tbody>
+            <tr><td>Blank page</td><td>Wrong Vite <code>base</code></td><td>Use the exact repository path and push again.</td></tr>
+            <tr><td>CSS or JavaScript returns 404</td><td>Assets point to <code>/assets</code> instead of the project path</td><td>Correct <code>base</code>; avoid hard-coded root asset URLs.</td></tr>
+            <tr><td>Workflow fails at <code>npm ci</code></td><td><code>package-lock.json</code> is missing or outdated</td><td>Run <code>npm install</code> locally and commit the lock file.</td></tr>
+            <tr><td>Refreshing a route shows 404</td><td><code>BrowserRouter</code> needs server rewrites</td><td>Use <code>createHashRouter</code> or add a tested 404 fallback.</td></tr>
+            <tr><td>Site shows an old version</td><td>Deployment still running or cached</td><td>Check Actions, then hard-refresh the page.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Final publication checklist</h3>
+        <ul><li>No console errors or exposed secrets.</li><li>Loading, empty and error states exist.</li><li>Keyboard navigation, labels, contrast and responsive layouts work.</li><li><code>npm run build</code> completes locally.</li><li>The workflow has a green tick in GitHub Actions.</li><li>Images, CSS, lazy-loaded modules and routes work from the published URL.</li></ul>
       </section>
 
       <section id="projects"><h2>20. Projects from zero to infinity</h2>
