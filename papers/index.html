@@ -500,8 +500,15 @@
 
   <script>
     "use strict";
+    const queryString = window.location.search;
 
-    const questionsJson = "questions.json";
+    // 2. Parse the parameters
+    const urlParams = new URLSearchParams(queryString);
+
+    // 3. Get specific values by their key names
+    const questionsJson = urlParams.get('file');
+
+
     const state = { data: null, bank: [], selected: [], evaluated: false };
     const $ = id => document.getElementById(id);
     const esc = value => String(value).replace(/[&<>"']/g, character => ({
@@ -556,29 +563,29 @@
               <div class="field">
                 <label for="duration">${esc(ui.durationLabel)}</label>
                 <select id="duration">${ui.durations.map(item =>
-                  `<option value="${esc(item.value)}"${item.selected ? " selected" : ""}>${esc(item.label)}</option>`
-                ).join("")}</select>
+        `<option value="${esc(item.value)}"${item.selected ? " selected" : ""}>${esc(item.label)}</option>`
+      ).join("")}</select>
               </div>
               <div class="field">
                 <label for="difficulty">${esc(ui.difficultyLabel)}</label>
                 <select id="difficulty">${ui.difficulties.map(item =>
-                  `<option value="${esc(item.value)}"${item.selected ? " selected" : ""}>${esc(item.label)}</option>`
-                ).join("")}</select>
+        `<option value="${esc(item.value)}"${item.selected ? " selected" : ""}>${esc(item.label)}</option>`
+      ).join("")}</select>
               </div>
             </div>
             <span class="legend">${esc(ui.includeUnitsLabel)}</span>
             <div class="checks" id="unitChecks">${metadata.units.map(unit =>
-              `<label class="check" title="${esc(unit.name)}"><input type="checkbox" value="${unit.id}" checked> ${esc(unit.shortLabel)}</label>`
-            ).join("")}</div>
+        `<label class="check" title="${esc(unit.name)}"><input type="checkbox" value="${unit.id}" checked> ${esc(unit.shortLabel)}</label>`
+      ).join("")}</div>
             <div class="grid2">${typeControls}</div>
             <label class="check"><input id="includeAnswers" type="checkbox"> ${esc(ui.showAnswersImmediatelyLabel)}</label>
             <button class="btn primary" id="generateBtn">${esc(ui.buttons.generate)}</button>
             <button class="btn secondary" id="newVersionBtn" disabled>${esc(ui.buttons.regenerate)}</button>
             <button class="btn outline" id="printBtn" disabled>${esc(ui.buttons.print)}</button>
             <div id="bankStatus" class="status">${esc(fill(ui.messages.ready, {
-              count: state.bank.length,
-              courseCode: metadata.courseCode
-            }))}</div>
+        count: state.bank.length,
+        courseCode: metadata.courseCode
+      }))}</div>
           </aside>
           <section class="paper" id="paper" aria-live="polite">
             <div class="empty"><div><strong>${esc(ui.emptyTitle)}</strong>${esc(ui.emptyText)}</div></div>
@@ -746,9 +753,8 @@
         const answer = question.type === "mcq"
           ? `${String.fromCharCode(65 + question.answer)}. ${question.options[question.answer]} — ${question.explanation}`
           : question.answer;
-        return `<div class="answer"><strong>${number}. ${esc(question.id)}</strong>${
-          question.type === "program" ? `<pre>${esc(answer)}</pre>` : `<p>${esc(answer)}</p>`
-        }</div>`;
+        return `<div class="answer"><strong>${number}. ${esc(question.id)}</strong>${question.type === "program" ? `<pre>${esc(answer)}</pre>` : `<p>${esc(answer)}</p>`
+          }</div>`;
       }).join("")}`;
     }
 
