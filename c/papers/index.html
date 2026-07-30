@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="theme-color" content="">
+  <style>
+    :root {
+      --navy: #082f49;
+      --blue: #0b5cab;
+      --sky: #eaf5ff;
+      --line: #cbddeb;
+      --ink: #172638;
+      --muted: #5c6f82;
+      --white: #fff;
+      --green: #087443;
+      --red: #b42318;
+      --amber: #a15c00
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      background: #f4f8fc;
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55
+    }
+
+    button,
+    input,
+    select {
+      font: inherit
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 28px));
+      margin: auto
+    }
+
+    header {
+      background: linear-gradient(125deg, #062a45, #0b5cab 62%, #1488cc);
+      color: #fff;
+      padding: 30px 0 46px
+    }
+
+    header .eyebrow {
+      margin: 0 0 8px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .75rem;
+      font-weight: 800;
+      color: #bfe5ff
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.05
+    }
+
+    header p {
+      max-width: 760px;
+      margin: 13px 0 0;
+      color: #e5f4ff
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 22px;
+      margin-top: -25px;
+      padding-bottom: 50px
+    }
+
+    .panel,
+    .paper {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 12px 35px rgba(8, 47, 73, .09)
+    }
+
+    .panel {
+      padding: 20px;
+      align-self: start;
+      position: sticky;
+      top: 14px
+    }
+
+    .panel h2 {
+      font-size: 1.15rem;
+      margin: 0 0 16px;
+      color: var(--navy)
+    }
+
+    .field {
+      margin-bottom: 14px
+    }
+
+    .field label,
+    .legend {
+      display: block;
+      font-weight: 750;
+      font-size: .88rem;
+      margin-bottom: 6px
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 10px 11px;
+      border: 1px solid #b9ccdb;
+      border-radius: 9px;
+      background: #fff;
+      color: var(--ink)
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px
+    }
+
+    .checks {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 15px
+    }
+
+    .check {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      font-size: .86rem
+    }
+
+    .check input {
+      accent-color: var(--blue)
+    }
+
+    .btn {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-weight: 800
+    }
+
+    .primary {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 7px 18px rgba(11, 92, 171, .22)
+    }
+
+    .secondary {
+      background: #e8f2fb;
+      color: var(--navy);
+      margin-top: 8px
+    }
+
+    .outline {
+      background: #fff;
+      border: 1px solid #9db8ce;
+      color: var(--navy);
+      margin-top: 8px
+    }
+
+    .btn:hover {
+      filter: brightness(.96)
+    }
+
+    .btn:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 3px solid #7cc8ff;
+      outline-offset: 2px
+    }
+
+    .paper {
+      padding: clamp(18px, 4vw, 38px);
+      min-height: 650px
+    }
+
+    .empty {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      min-height: 570px;
+      color: var(--muted)
+    }
+
+    .empty strong {
+      display: block;
+      color: var(--navy);
+      font-size: 1.25rem;
+      margin-bottom: 5px
+    }
+
+    .paper-head {
+      text-align: center;
+      border-bottom: 2px solid var(--navy);
+      padding-bottom: 16px;
+      margin-bottom: 18px
+    }
+
+    .paper-head h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.65rem
+    }
+
+    .paper-head p {
+      margin: 4px 0
+    }
+
+    .paper-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      font-weight: 700;
+      margin-top: 13px
+    }
+
+    .student-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      margin: 18px 0;
+      font-size: .9rem
+    }
+
+    .line {
+      border-bottom: 1px solid #53697b;
+      display: inline-block;
+      min-width: 190px;
+      height: 1.3em
+    }
+
+    .instructions {
+      background: var(--sky);
+      border-left: 4px solid var(--blue);
+      padding: 12px 15px;
+      margin: 16px 0;
+      border-radius: 7px
+    }
+
+    .instructions h3 {
+      margin: 0 0 5px;
+      font-size: 1rem
+    }
+
+    .instructions ul {
+      margin: 5px 0;
+      padding-left: 20px
+    }
+
+    .section {
+      margin-top: 25px
+    }
+
+    .section-title {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 8px;
+      padding: 9px 13px;
+      margin: 0 0 13px;
+      font-size: 1.05rem
+    }
+
+    .question {
+      border-bottom: 1px dashed #b9c9d6;
+      padding: 10px 3px 15px;
+      margin-bottom: 7px
+    }
+
+    .qtop {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start
+    }
+
+    .qnum {
+      font-weight: 800;
+      color: var(--blue);
+      min-width: 29px
+    }
+
+    .qtext {
+      flex: 1
+    }
+
+    .marks {
+      font-weight: 700;
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: .85rem
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px 18px;
+      margin: 10px 0 0 36px
+    }
+
+    .option {
+      display: flex;
+      gap: 7px;
+      align-items: flex-start;
+      padding: 5px;
+      border-radius: 7px
+    }
+
+    .option input {
+      margin-top: 5px;
+      accent-color: var(--blue)
+    }
+
+    .option.correct {
+      background: #e8f8ef;
+      color: #075b36
+    }
+
+    .option.wrong {
+      background: #fff0ef;
+      color: #93231a
+    }
+
+    .feedback {
+      margin: 8px 0 0 36px;
+      font-size: .88rem;
+      font-weight: 700
+    }
+
+    .feedback.ok {
+      color: var(--green)
+    }
+
+    .feedback.bad {
+      color: var(--red)
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 24px 0
+    }
+
+    .actions .btn {
+      width: auto
+    }
+
+    .score {
+      padding: 15px;
+      border: 1px solid #9fd0b7;
+      background: #eaf8f0;
+      border-radius: 10px;
+      color: #075b36;
+      font-weight: 800;
+      margin: 18px 0
+    }
+
+    .answer-key {
+      border-top: 3px double var(--navy);
+      margin-top: 28px;
+      padding-top: 20px
+    }
+
+    .answer-key h2 {
+      color: var(--navy)
+    }
+
+    .answer {
+      background: #f6f9fc;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 12px;
+      margin: 10px 0
+    }
+
+    .answer strong {
+      color: var(--blue)
+    }
+
+    pre {
+      white-space: pre-wrap;
+      overflow: auto;
+      background: #071d2c;
+      color: #eef8ff;
+      padding: 15px;
+      border-radius: 9px;
+      line-height: 1.55
+    }
+
+    .status {
+      font-size: .84rem;
+      margin-top: 10px;
+      color: var(--muted)
+    }
+
+    .status.error {
+      color: var(--red);
+      font-weight: 700
+    }
+
+    .hidden {
+      display: none !important
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 0 15px 30px
+    }
+
+    @media(max-width:850px) {
+      .layout {
+        grid-template-columns: 1fr
+      }
+
+      .panel {
+        position: static
+      }
+
+      .options {
+        grid-template-columns: 1fr
+      }
+
+      .student-row {
+        grid-template-columns: 1fr
+      }
+
+      .line {
+        min-width: 150px
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff
+      }
+
+      .no-print,
+      header,
+      footer {
+        display: none !important
+      }
+
+      .wrap {
+        width: 100%
+      }
+
+      .layout {
+        display: block;
+        margin: 0
+      }
+
+      .paper {
+        box-shadow: none;
+        border: 0;
+        padding: 0
+      }
+
+      .answer-key {
+        break-before: page
+      }
+
+      .question {
+        break-inside: avoid
+      }
+
+      .options {
+        margin-left: 30px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script>
+    "use strict";
+
+    const questionsJson = "questions.json";
+    const state = { data: null, bank: [], selected: [], evaluated: false };
+    const $ = id => document.getElementById(id);
+    const esc = value => String(value).replace(/[&<>"']/g, character => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[character]);
+    const fill = (template, values) => Object.entries(values).reduce(
+      (text, [key, value]) => text.replaceAll(`{${key}}`, String(value)),
+      template
+    );
+    const shuffle = items => {
+      const copy = [...items];
+      for (let index = copy.length - 1; index > 0; index--) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [copy[index], copy[randomIndex]] = [copy[randomIndex], copy[index]];
+      }
+      return copy;
+    };
+
+    function applyDocumentMetadata(metadata) {
+      document.title = metadata.browserTitle;
+      document.querySelector('meta[name="description"]').content = metadata.description;
+      document.querySelector('meta[name="author"]').content = metadata.author;
+      document.querySelector('meta[name="theme-color"]').content = metadata.themeColor;
+    }
+
+    function buildApplication() {
+      const { metadata, interface: ui } = state.data;
+      const typeControls = ui.questionTypes.map(type => {
+        const available = state.bank.filter(question => question.type === type.key).length;
+        return `<div class="field">
+          <label for="${esc(type.key)}Count">${esc(type.label)}</label>
+          <input id="${esc(type.key)}Count" type="number" min="0" max="${available}" value="${type.defaultCount}">
+        </div>`;
+      }).join("");
+
+      $("app").innerHTML = `
+        <header>
+          <div class="wrap">
+            <p class="eyebrow">${esc(metadata.brand)}</p>
+            <h1>${esc(metadata.appTitle)}</h1>
+            <p>${esc(metadata.intro)}</p>
+          </div>
+        </header>
+        <main class="wrap layout">
+          <aside class="panel no-print" aria-label="${esc(ui.settingsAriaLabel)}">
+            <h2>${esc(ui.settingsPanelTitle)}</h2>
+            <div class="field">
+              <label for="paperTitle">${esc(ui.paperTitleLabel)}</label>
+              <input id="paperTitle" value="${esc(ui.defaultPaperTitle)}">
+            </div>
+            <div class="grid2">
+              <div class="field">
+                <label for="duration">${esc(ui.durationLabel)}</label>
+                <select id="duration">${ui.durations.map(item =>
+                  `<option value="${esc(item.value)}"${item.selected ? " selected" : ""}>${esc(item.label)}</option>`
+                ).join("")}</select>
+              </div>
+              <div class="field">
+                <label for="difficulty">${esc(ui.difficultyLabel)}</label>
+                <select id="difficulty">${ui.difficulties.map(item =>
+                  `<option value="${esc(item.value)}"${item.selected ? " selected" : ""}>${esc(item.label)}</option>`
+                ).join("")}</select>
+              </div>
+            </div>
+            <span class="legend">${esc(ui.includeUnitsLabel)}</span>
+            <div class="checks" id="unitChecks">${metadata.units.map(unit =>
+              `<label class="check" title="${esc(unit.name)}"><input type="checkbox" value="${unit.id}" checked> ${esc(unit.shortLabel)}</label>`
+            ).join("")}</div>
+            <div class="grid2">${typeControls}</div>
+            <label class="check"><input id="includeAnswers" type="checkbox"> ${esc(ui.showAnswersImmediatelyLabel)}</label>
+            <button class="btn primary" id="generateBtn">${esc(ui.buttons.generate)}</button>
+            <button class="btn secondary" id="newVersionBtn" disabled>${esc(ui.buttons.regenerate)}</button>
+            <button class="btn outline" id="printBtn" disabled>${esc(ui.buttons.print)}</button>
+            <div id="bankStatus" class="status">${esc(fill(ui.messages.ready, {
+              count: state.bank.length,
+              courseCode: metadata.courseCode
+            }))}</div>
+          </aside>
+          <section class="paper" id="paper" aria-live="polite">
+            <div class="empty"><div><strong>${esc(ui.emptyTitle)}</strong>${esc(ui.emptyText)}</div></div>
+          </section>
+        </main>
+        <footer>${esc(ui.footer)}</footer>`;
+
+      $("generateBtn").addEventListener("click", generate);
+      $("newVersionBtn").addEventListener("click", generate);
+      $("printBtn").addEventListener("click", () => window.print());
+    }
+
+    function requestedCounts() {
+      return Object.fromEntries(state.data.interface.questionTypes.map(type => [
+        type.key,
+        +$(`${type.key}Count`).value || 0
+      ]));
+    }
+
+    function choose(type, count, units, difficulty) {
+      let pool = state.bank.filter(question =>
+        question.type === type &&
+        units.includes(question.unit) &&
+        (difficulty === "mixed" || question.difficulty === difficulty)
+      );
+      if (difficulty !== "mixed" && pool.length < count) {
+        pool = state.bank.filter(question => question.type === type && units.includes(question.unit));
+      }
+      return shuffle(pool).slice(0, count);
+    }
+
+    function generate() {
+      const ui = state.data.interface;
+      if (!state.bank.length) {
+        alert(ui.messages.bankNotReady);
+        return;
+      }
+      const units = [...document.querySelectorAll("#unitChecks input:checked")].map(input => +input.value);
+      if (!units.length) {
+        alert(ui.messages.selectUnit);
+        return;
+      }
+      const counts = requestedCounts();
+      const difficulty = $("difficulty").value;
+      state.selected = ui.questionTypes.flatMap(type =>
+        choose(type.key, counts[type.key], units, difficulty)
+      );
+      if (!state.selected.length) {
+        alert(ui.messages.selectQuestion);
+        return;
+      }
+      state.evaluated = false;
+      renderPaper();
+      $("newVersionBtn").disabled = false;
+      $("printBtn").disabled = false;
+      window.scrollTo({ top: document.querySelector(".layout").offsetTop - 12, behavior: "smooth" });
+    }
+
+    function renderPaper() {
+      const { metadata, interface: ui } = state.data;
+      const paper = ui.paper;
+      const total = state.selected.reduce((sum, question) => sum + question.marks, 0);
+      let number = 0;
+      let html = `
+        <div class="paper-head">
+          <h2>${esc($("paperTitle").value || ui.defaultPaperTitle)}</h2>
+          <p>${esc(metadata.courseCode)} • ${esc(metadata.courseName)}</p>
+          <div class="paper-meta">
+            <span>${esc(paper.durationPrefix)} ${esc($("duration").value)}</span>
+            <span>${esc(paper.maximumMarksPrefix)} ${total}</span>
+          </div>
+        </div>
+        <div class="student-row">
+          <div>${esc(paper.nameLabel)} <span class="line"></span></div>
+          <div>${esc(paper.rollNumberLabel)} <span class="line"></span></div>
+        </div>
+        <div class="instructions">
+          <h3>${esc(paper.instructionsTitle)}</h3>
+          <ul>${paper.instructions.map(instruction => `<li>${esc(instruction)}</li>`).join("")}</ul>
+        </div>`;
+
+      for (const type of ui.questionTypes) {
+        const questions = state.selected.filter(question => question.type === type.key);
+        if (!questions.length) continue;
+        html += `<section class="section" data-type="${esc(type.key)}"><h3 class="section-title">${esc(type.sectionTitle)}</h3>`;
+        for (const question of questions) {
+          number++;
+          html += `<article class="question" data-id="${esc(question.id)}">
+            <div class="qtop">
+              <span class="qnum">${number}.</span>
+              <span class="qtext">${esc(question.question)}</span>
+              <span class="marks">[${question.marks}]</span>
+            </div>`;
+          if (type.key === "mcq") {
+            html += `<div class="options">${question.options.map((option, index) =>
+              `<label class="option" data-option="${index}">
+                <input type="radio" name="${esc(question.id)}" value="${index}">
+                <span>(${String.fromCharCode(65 + index)}) ${esc(option)}</span>
+              </label>`
+            ).join("")}</div><div class="feedback" id="feedback-${esc(question.id)}"></div>`;
+          }
+          html += "</article>";
+        }
+        html += "</section>";
+      }
+
+      const hasMcq = state.selected.some(question => question.type === "mcq");
+      const answerButtonText = $("includeAnswers").checked ? ui.buttons.hideAnswers : ui.buttons.showAnswers;
+      html += `<div class="actions no-print">
+        ${hasMcq ? `<button class="btn primary" id="evaluateBtn">${esc(ui.buttons.evaluate)}</button>` : ""}
+        <button class="btn secondary" id="answerBtn">${esc(answerButtonText)}</button>
+      </div>
+      <div id="scoreBox"></div>
+      <div id="answers" class="answer-key ${$("includeAnswers").checked ? "" : "hidden"}">${answerKey()}</div>`;
+      $("paper").innerHTML = html;
+      if (hasMcq) $("evaluateBtn").addEventListener("click", evaluate);
+      $("answerBtn").addEventListener("click", toggleAnswers);
+    }
+
+    function evaluate() {
+      const messages = state.data.interface.messages;
+      const mcqs = state.selected.filter(question => question.type === "mcq");
+      let correct = 0;
+      let answered = 0;
+      for (const question of mcqs) {
+        const chosen = document.querySelector(`input[name="${question.id}"]:checked`);
+        const feedback = $(`feedback-${question.id}`);
+        const answerLetter = String.fromCharCode(65 + question.answer);
+        document.querySelectorAll(`[data-id="${question.id}"] .option`).forEach(option =>
+          option.classList.remove("correct", "wrong")
+        );
+        document.querySelector(`[data-id="${question.id}"] [data-option="${question.answer}"]`).classList.add("correct");
+        if (chosen) {
+          answered++;
+          if (+chosen.value === question.answer) {
+            correct++;
+            feedback.textContent = messages.correct;
+            feedback.className = "feedback ok";
+          } else {
+            chosen.closest(".option").classList.add("wrong");
+            feedback.textContent = fill(messages.incorrect, { answer: answerLetter });
+            feedback.className = "feedback bad";
+          }
+        } else {
+          feedback.textContent = fill(messages.notAnswered, { answer: answerLetter });
+          feedback.className = "feedback bad";
+        }
+      }
+      const percent = mcqs.length ? Math.round(correct / mcqs.length * 100) : 0;
+      $("scoreBox").innerHTML = `<div class="score">${esc(fill(messages.score, {
+        correct,
+        total: mcqs.length,
+        percent,
+        answered
+      }))}</div>`;
+      state.evaluated = true;
+      $("scoreBox").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function answerKey() {
+      const ui = state.data.interface;
+      let number = 0;
+      return `<h2>${esc(ui.paper.answerKeyTitle)}</h2>${state.selected.map(question => {
+        number++;
+        const answer = question.type === "mcq"
+          ? `${String.fromCharCode(65 + question.answer)}. ${question.options[question.answer]} — ${question.explanation}`
+          : question.answer;
+        return `<div class="answer"><strong>${number}. ${esc(question.id)}</strong>${
+          question.type === "program" ? `<pre>${esc(answer)}</pre>` : `<p>${esc(answer)}</p>`
+        }</div>`;
+      }).join("")}`;
+    }
+
+    function toggleAnswers() {
+      const ui = state.data.interface;
+      $("answers").classList.toggle("hidden");
+      $("answerBtn").textContent = $("answers").classList.contains("hidden")
+        ? ui.buttons.showAnswers
+        : ui.buttons.hideAnswers;
+    }
+
+    async function loadApplication() {
+      const response = await fetch(questionsJson, { cache: "no-store" });
+      if (!response.ok) throw new Error(`DATA_LOAD_ERROR_${response.status}`);
+      state.data = await response.json();
+      state.bank = state.data.questions;
+      applyDocumentMetadata(state.data.metadata);
+      buildApplication();
+    }
+
+    loadApplication().catch(error => console.error(error));
+  </script>
+</body>
+
+</html>
