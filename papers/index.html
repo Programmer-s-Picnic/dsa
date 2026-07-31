@@ -144,45 +144,6 @@
       margin-bottom: 15px
     }
 
-    .unit-topics {
-      margin: 0 0 16px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: #f7fbff;
-      overflow: hidden
-    }
-
-    .unit-topics summary {
-      cursor: pointer;
-      padding: 10px 12px;
-      color: var(--navy);
-      font-weight: 800
-    }
-
-    .topics-list {
-      max-height: 290px;
-      overflow: auto;
-      padding: 0 12px 10px
-    }
-
-    .topic-unit {
-      border-top: 1px solid var(--line);
-      padding: 9px 0
-    }
-
-    .topic-unit h3 {
-      margin: 0 0 5px;
-      font-size: .88rem;
-      color: var(--blue)
-    }
-
-    .topic-unit ul {
-      margin: 0;
-      padding-left: 19px;
-      font-size: .82rem;
-      color: var(--muted)
-    }
-
     .check {
       display: flex;
       gap: 7px;
@@ -539,14 +500,15 @@
 
   <script>
     "use strict";
+    const queryString = window.location.search;
 
-    const subjects = [
-      { file: "cquestions.json", label: "C Programming" },
-      { file: "C++questions.json", label: "C++ Programming" },
-      { file: "javaquestions.json", label: "Java Programming" },
-      { file: "sqlquestions.json", label: "RDBMS and SQL" }
-    ];
-    let questionsJson = subjects[0].file;
+    // 2. Parse the parameters
+    const urlParams = new URLSearchParams(queryString);
+
+    // 3. Get specific values by their key names
+    const questionsJson = urlParams.get('file');
+
+
     const state = { data: null, bank: [], selected: [], evaluated: false };
     const $ = id => document.getElementById(id);
     const esc = value => String(value).replace(/[&<>"']/g, character => ({
@@ -594,12 +556,6 @@
           <aside class="panel no-print" aria-label="${esc(ui.settingsAriaLabel)}">
             <h2>${esc(ui.settingsPanelTitle)}</h2>
             <div class="field">
-              <label for="subjectSelect">Subject</label>
-              <select id="subjectSelect">${subjects.map(subject =>
-        `<option value="${esc(subject.file)}"${subject.file === questionsJson ? " selected" : ""}>${esc(subject.label)}</option>`
-      ).join("")}</select>
-            </div>
-            <div class="field">
               <label for="paperTitle">${esc(ui.paperTitleLabel)}</label>
               <input id="paperTitle" value="${esc(ui.defaultPaperTitle)}">
             </div>
@@ -621,10 +577,6 @@
             <div class="checks" id="unitChecks">${metadata.units.map(unit =>
         `<label class="check" title="${esc(unit.name)}"><input type="checkbox" value="${unit.id}" checked> ${esc(unit.shortLabel)}</label>`
       ).join("")}</div>
-            <details class="unit-topics" open>
-              <summary>Topics in Selected Units</summary>
-              <div class="topics-list" id="unitTopics"></div>
-            </details>
             <div class="grid2">${typeControls}</div>
             <label class="check"><input id="includeAnswers" type="checkbox"> ${esc(ui.showAnswersImmediatelyLabel)}</label>
             <button class="btn primary" id="generateBtn">${esc(ui.buttons.generate)}</button>
@@ -644,24 +596,6 @@
       $("generateBtn").addEventListener("click", generate);
       $("newVersionBtn").addEventListener("click", generate);
       $("printBtn").addEventListener("click", () => window.print());
-      $("subjectSelect").addEventListener("change", event => loadApplication(event.target.value));
-      document.querySelectorAll("#unitChecks input").forEach(input =>
-        input.addEventListener("change", renderUnitTopics)
-      );
-      renderUnitTopics();
-    }
-
-    function renderUnitTopics() {
-      const selectedUnits = new Set(
-        [...document.querySelectorAll("#unitChecks input:checked")].map(input => +input.value)
-      );
-      const units = state.data.metadata.units.filter(unit => selectedUnits.has(unit.id));
-      $("unitTopics").innerHTML = units.length
-        ? units.map(unit => `<section class="topic-unit">
-            <h3>${esc(unit.name)}</h3>
-            <ul>${(unit.topics || []).map(topic => `<li>${esc(topic)}</li>`).join("")}</ul>
-          </section>`).join("")
-        : `<p>${esc(state.data.interface.messages.selectUnit)}</p>`;
     }
 
     function requestedCounts() {
@@ -832,14 +766,11 @@
         : ui.buttons.hideAnswers;
     }
 
-    async function loadApplication(file = questionsJson) {
-      questionsJson = file;
+    async function loadApplication() {
       const response = await fetch(questionsJson, { cache: "no-store" });
       if (!response.ok) throw new Error(`DATA_LOAD_ERROR_${response.status}`);
       state.data = await response.json();
       state.bank = state.data.questions;
-      state.selected = [];
-      state.evaluated = false;
       applyDocumentMetadata(state.data.metadata);
       buildApplication();
     }
