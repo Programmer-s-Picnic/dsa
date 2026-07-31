@@ -155,6 +155,56 @@
       accent-color: var(--blue)
     }
 
+    .unit-topics {
+      margin: 4px 0 18px
+    }
+
+    .unit-topics-title {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: .92rem
+    }
+
+    .unit-topic {
+      margin: 0 0 8px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f8fbfe;
+      overflow: hidden
+    }
+
+    .unit-topic:not(.selected) {
+      opacity: .62
+    }
+
+    .unit-topic summary {
+      cursor: pointer;
+      padding: 9px 11px;
+      color: var(--navy);
+      font-size: .86rem;
+      font-weight: 800
+    }
+
+    .unit-topic summary:hover {
+      background: #edf6fd
+    }
+
+    .unit-topic summary:focus-visible {
+      outline: 3px solid #7cc8ff;
+      outline-offset: -3px
+    }
+
+    .unit-topic ul {
+      margin: 0;
+      padding: 0 13px 11px 30px;
+      color: #40566c;
+      font-size: .82rem
+    }
+
+    .unit-topic li+li {
+      margin-top: 4px
+    }
+
     .btn {
       width: 100%;
       border: 0;
@@ -577,6 +627,15 @@
             <div class="checks" id="unitChecks">${metadata.units.map(unit =>
         `<label class="check" title="${esc(unit.name)}"><input type="checkbox" value="${unit.id}" checked> ${esc(unit.shortLabel)}</label>`
       ).join("")}</div>
+            <section class="unit-topics" aria-labelledby="unitTopicsTitle">
+              <h3 class="unit-topics-title" id="unitTopicsTitle">Topics in Each Unit</h3>
+              <div id="unitTopics">${metadata.units.map(unit => `
+                <details class="unit-topic selected" data-unit="${unit.id}">
+                  <summary>${esc(unit.name)}</summary>
+                  <ul>${(unit.topics || []).map(topic => `<li>${esc(topic)}</li>`).join("")}</ul>
+                </details>`).join("")}
+              </div>
+            </section>
             <div class="grid2">${typeControls}</div>
             <label class="check"><input id="includeAnswers" type="checkbox"> ${esc(ui.showAnswersImmediatelyLabel)}</label>
             <button class="btn primary" id="generateBtn">${esc(ui.buttons.generate)}</button>
@@ -596,6 +655,20 @@
       $("generateBtn").addEventListener("click", generate);
       $("newVersionBtn").addEventListener("click", generate);
       $("printBtn").addEventListener("click", () => window.print());
+      document.querySelectorAll("#unitChecks input").forEach(input =>
+        input.addEventListener("change", updateUnitTopics)
+      );
+    }
+
+    function updateUnitTopics() {
+      const selectedUnits = new Set(
+        [...document.querySelectorAll("#unitChecks input:checked")].map(input => input.value)
+      );
+      document.querySelectorAll("#unitTopics .unit-topic").forEach(unit => {
+        const selected = selectedUnits.has(unit.dataset.unit);
+        unit.classList.toggle("selected", selected);
+        if (!selected) unit.open = false;
+      });
     }
 
     function requestedCounts() {
