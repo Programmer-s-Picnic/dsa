@@ -596,8 +596,8 @@
             <div class="field">
               <label for="subjectSelect">Subject</label>
               <select id="subjectSelect">${subjects.map(subject =>
-                `<option value="${esc(subject.file)}"${subject.file === questionsJson ? " selected" : ""}>${esc(subject.label)}</option>`
-              ).join("")}</select>
+        `<option value="${esc(subject.file)}"${subject.file === questionsJson ? " selected" : ""}>${esc(subject.label)}</option>`
+      ).join("")}</select>
             </div>
             <div class="field">
               <label for="paperTitle">${esc(ui.paperTitleLabel)}</label>
@@ -607,20 +607,20 @@
               <div class="field">
                 <label for="duration">${esc(ui.durationLabel)}</label>
                 <select id="duration">${ui.durations.map(item =>
-                  `<option value="${esc(item.value)}"${item.selected ? " selected" : ""}>${esc(item.label)}</option>`
-                ).join("")}</select>
+        `<option value="${esc(item.value)}"${item.selected ? " selected" : ""}>${esc(item.label)}</option>`
+      ).join("")}</select>
               </div>
               <div class="field">
                 <label for="difficulty">${esc(ui.difficultyLabel)}</label>
                 <select id="difficulty">${ui.difficulties.map(item =>
-                  `<option value="${esc(item.value)}"${item.selected ? " selected" : ""}>${esc(item.label)}</option>`
-                ).join("")}</select>
+        `<option value="${esc(item.value)}"${item.selected ? " selected" : ""}>${esc(item.label)}</option>`
+      ).join("")}</select>
               </div>
             </div>
             <span class="legend">${esc(ui.includeUnitsLabel)}</span>
             <div class="checks" id="unitChecks">${metadata.units.map(unit =>
-              `<label class="check" title="${esc(unit.name)}"><input type="checkbox" value="${unit.id}" checked> ${esc(unit.shortLabel)}</label>`
-            ).join("")}</div>
+        `<label class="check" title="${esc(unit.name)}"><input type="checkbox" value="${unit.id}" checked> ${esc(unit.shortLabel)}</label>`
+      ).join("")}</div>
             <details class="unit-topics" open>
               <summary>Topics in Selected Units</summary>
               <div class="topics-list" id="unitTopics"></div>
@@ -631,9 +631,9 @@
             <button class="btn secondary" id="newVersionBtn" disabled>${esc(ui.buttons.regenerate)}</button>
             <button class="btn outline" id="printBtn" disabled>${esc(ui.buttons.print)}</button>
             <div id="bankStatus" class="status">${esc(fill(ui.messages.ready, {
-              count: state.bank.length,
-              courseCode: metadata.courseCode
-            }))}</div>
+        count: state.bank.length,
+        courseCode: metadata.courseCode
+      }))}</div>
           </aside>
           <section class="paper" id="paper" aria-live="polite">
             <div class="empty"><div><strong>${esc(ui.emptyTitle)}</strong>${esc(ui.emptyText)}</div></div>
@@ -819,9 +819,8 @@
         const answer = question.type === "mcq"
           ? `${String.fromCharCode(65 + question.answer)}. ${question.options[question.answer]} — ${question.explanation}`
           : question.answer;
-        return `<div class="answer"><strong>${number}. ${esc(question.id)}</strong>${
-          question.type === "program" ? `<pre>${esc(answer)}</pre>` : `<p>${esc(answer)}</p>`
-        }</div>`;
+        return `<div class="answer"><strong>${number}. ${esc(question.id)}</strong>${question.type === "program" ? `<pre>${esc(answer)}</pre>` : `<p>${esc(answer)}</p>`
+          }</div>`;
       }).join("")}`;
     }
 
