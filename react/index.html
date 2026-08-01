@@ -1,81 +1,601 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>React from 0 to Infinity | Complete Course by Champak Roy</title>
-  <meta name="description" content="Learn React from installation and Hello World through components, every React hook, forms, Fetch, Axios, routing, Redux Toolkit, testing, performance and deployment.">
-  <meta name="keywords" content="React course, React hooks, Fetch API, Axios, Redux Toolkit, React Router, Champak Roy, Programmer's Picnic">
+  <meta name="description"
+    content="Learn React from installation and Hello World through components, every React hook, forms, Fetch, Axios, routing, Redux Toolkit, testing, performance and deployment.">
+  <meta name="keywords"
+    content="React course, React hooks, Fetch API, Axios, Redux Toolkit, React Router, Champak Roy, Programmer's Picnic">
   <meta name="author" content="Champak Roy">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://react.learnwithchampak.live/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="React from 0 to Infinity">
-  <meta property="og:description" content="A complete practical React course—from a clean Hello World to production architecture.">
+  <meta property="og:description"
+    content="A complete practical React course—from a clean Hello World to production architecture.">
   <meta property="og:url" content="https://react.learnwithchampak.live/">
   <meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0868ac">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-GSTQRQMLEE");</script>
-  <script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments) } gtag("js", new Date()); gtag("config", "G-GSTQRQMLEE");</script>
+  <script async crossorigin="anonymous"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494&host=ca-host-pub-1556223355139109"></script>
   <style>
-    :root{--blue:#0868ac;--navy:#062f59;--sky:#eaf6ff;--ink:#142033;--muted:#5d6b80;--line:#cfe2f2;--orange:#ff9f1c;--green:#137a45;--code:#071525;--white:#fff;--shadow:0 16px 40px rgba(8,104,172,.12)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:76px}body{margin:0;background:linear-gradient(180deg,#f8fcff,#edf7ff);color:var(--ink);font:16px/1.7 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--blue);font-weight:750}.wrap{width:min(1240px,calc(100% - 28px));margin:auto}
-    .top{position:sticky;top:0;z-index:20;background:rgba(6,47,89,.97);color:#fff;box-shadow:0 5px 18px #062f5933}.topin{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px}.brand{font-weight:950}.top a{color:#fff;text-decoration:none}.top nav{display:flex;gap:8px;flex-wrap:wrap}.top nav a{border:1px solid #ffffff44;border-radius:999px;padding:5px 10px;font-size:.88rem}
-    header{background:radial-gradient(circle at 80% 10%,#ffffff27,transparent 30%),linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:58px 0}.hero{max-width:980px}.tag{display:inline-block;border:1px solid #ffffff55;background:#ffffff18;padding:6px 12px;border-radius:999px;font-weight:850}h1{font-size:clamp(2.35rem,6vw,5.25rem);line-height:1.02;margin:18px 0}.lead{font-size:1.18rem;max-width:900px;color:#eef8ff}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.btn{display:inline-block;padding:11px 17px;border-radius:12px;text-decoration:none;background:var(--orange);color:#172033;font-weight:900}.btn.alt{background:#fff;color:var(--navy)}
-    main{padding:32px 0 70px}.layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:24px;align-items:start}.side{position:sticky;top:78px;max-height:calc(100vh - 94px);overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:var(--shadow)}.side h2{font-size:1.05rem;margin:4px 8px 9px}.side a{display:block;padding:6px 8px;color:var(--ink);text-decoration:none;border-radius:8px;font-size:.91rem}.side a:hover,.side a.active{background:var(--sky);color:var(--blue)}
-    section{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(18px,3vw,30px);margin-bottom:22px;box-shadow:var(--shadow)}h2{color:var(--navy);font-size:clamp(1.55rem,3vw,2.35rem);line-height:1.2;margin:0 0 12px}h3{color:#094a7d;margin:25px 0 8px}h4{margin:20px 0 5px}.muted{color:var(--muted)}.note,.checkpoint,.warning{border-left:5px solid var(--blue);background:var(--sky);padding:12px 15px;border-radius:10px;margin:14px 0}.checkpoint{border-color:var(--green);background:#eaf9f0}.warning{border-color:var(--orange);background:#fff6e7}
-    pre{position:relative;overflow:auto;background:var(--code);color:#eaf8ff;border:1px solid #1c4468;border-radius:14px;padding:18px;line-height:1.55;tab-size:2}code{font-family:"Cascadia Code","Consolas",monospace;font-size:.92em}.copy{position:absolute;right:8px;top:8px;border:1px solid #ffffff55;background:#153657;color:#fff;border-radius:8px;padding:5px 9px;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.card{border:1px solid var(--line);border-radius:15px;padding:15px;background:#fbfdff}.card h3{margin-top:0}.steps{counter-reset:step;list-style:none;padding:0}.steps li{counter-increment:step;margin:14px 0;padding-left:46px;position:relative}.steps li:before{content:counter(step);position:absolute;left:0;top:0;width:32px;height:32px;display:grid;place-items:center;background:var(--blue);color:#fff;border-radius:50%;font-weight:900}
-    table{border-collapse:collapse;width:100%;display:block;overflow:auto}th,td{border:1px solid var(--line);padding:9px 11px;text-align:left}th{background:var(--sky)}details{border:1px solid var(--line);border-radius:12px;margin:10px 0;background:#fbfdff}summary{cursor:pointer;padding:12px 15px;font-weight:900;color:var(--navy)}details>div{padding:0 15px 15px}.progress{height:8px;background:#dcecf8;border-radius:99px;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),#19a7ce);width:0}.ad{min-height:75px;display:grid;place-items:center;border:1px dashed #a7c8df;color:var(--muted);border-radius:12px;margin:18px 0}.quiz label{display:block;margin:6px 0}.result{font-weight:850;margin-top:12px}.footer{text-align:center;padding:30px;color:var(--muted)}
-    .screenshots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:18px 0}.screenshots figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#f7fbff}.screenshots img{display:block;width:100%;height:auto}.screenshots figcaption{padding:9px 12px;color:var(--muted);font-size:.9rem;font-weight:700}
-    @media(max-width:880px){.layout{grid-template-columns:1fr}.side{position:static;max-height:none;columns:2}.side h2{column-span:all}.grid,.screenshots{grid-template-columns:1fr}.top nav{display:none}}@media(max-width:520px){.side{columns:1}header{padding:38px 0}section{border-radius:14px}pre{font-size:.8rem;padding:14px}}
-  </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"React from 0 to Infinity","description":"A complete practical React course from Hello World to production applications.","provider":{"@type":"Person","name":"Champak Roy","url":"https://www.learnwithchampak.live/"}}</script>
-</head>
-<body>
-  <div class="top"><div class="wrap topin"><a class="brand" href="#">Programmer's Picnic · Champak Roy</a><nav><a href="#start">Start</a><a href="#hooks">Hooks</a><a href="#data">APIs</a><a href="#redux">Redux</a><a href="#deployment">Publish</a><a href="#projects">Projects</a></nav></div></div>
-  <header><div class="wrap hero"><span class="tag">Zero → Infinity learning path</span><h1>React from 0 to Infinity</h1><p class="lead">Begin by clearing the generated project to one honest “Hello World”. Then build upward—JavaScript XML (JSX), components, props, state, every built-in hook, forms, routing, Fetch, Axios, Redux Toolkit, authentication patterns, performance, testing and production deployment.</p><div class="actions"><a class="btn" href="#start">Begin at zero</a><a class="btn alt" href="#roadmap">See roadmap</a><a class="btn alt" href="filesandfolders/">File structure lesson</a></div></div></header>
-  <main class="wrap"><div class="layout">
-    <aside class="side" aria-label="Course contents"><h2>Course contents</h2>
-      <a href="#roadmap">1. Roadmap</a><a href="#start">2. Install + clean Hello World</a><a href="#mental-model">3. React mental model</a><a href="#jsx">4. JSX</a><a href="#components">5. Components and props</a><a href="#events-state">6. Events and state</a><a href="#rendering">7. Rendering lists</a><a href="#forms">8. Forms</a><a href="#hooks">9. Hooks overview</a><a href="#core-hooks">10. Core hooks</a><a href="#advanced-hooks">11. Advanced hooks</a><a href="#react19-hooks">12. React 19 hooks</a><a href="#custom-hooks">13. Custom hooks</a><a href="#data">14. Fetch and Axios</a><a href="#router">15. React Router</a><a href="#redux">16. Redux Toolkit</a><a href="#architecture">17. Architecture</a><a href="#quality">18. Errors, tests, performance</a><a href="#deployment">19. Publish to GitHub Pages</a><a href="#projects">20. Projects</a><a href="#quiz">21. Quiz</a>
-    </aside>
-    <article>
-      <section id="roadmap"><h2>1. The complete roadmap</h2><p>Do not try to memorize React. Build a mental model, type the examples, deliberately break them, and repair them.</p>
-        <div class="grid"><div class="card"><h3>Zero</h3><p>Node.js, Vite, Hello World, JSX and components.</p></div><div class="card"><h3>Foundation</h3><p>Props, state, events, conditional rendering, lists and forms.</p></div><div class="card"><h3>Power</h3><p>Hooks, data fetching, routing, reusable logic and context.</p></div><div class="card"><h3>Infinity</h3><p>Redux Toolkit, architecture, testing, optimization and deployment.</p></div></div>
-        <h3>Prerequisites</h3><p>Comfort with variables, functions, arrays, objects, destructuring, modules, promises and <code>async/await</code>. React is JavaScript with a component model; weak JavaScript creates mysterious React.</p>
-      </section>
+    :root {
+      --blue: #0868ac;
+      --navy: #062f59;
+      --sky: #eaf6ff;
+      --ink: #142033;
+      --muted: #5d6b80;
+      --line: #cfe2f2;
+      --orange: #ff9f1c;
+      --green: #137a45;
+      --code: #071525;
+      --white: #fff;
+      --shadow: 0 16px 40px rgba(8, 104, 172, .12)
+    }
 
-      <section id="start"><h2>2. Installation → a completely clean Hello World</h2><p>We use Vite, a fast build tool. In a terminal:</p>
-        <pre><code>npm create vite@latest react-zero-infinity -- --template react
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 76px
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #f8fcff, #edf7ff);
+      color: var(--ink);
+      font: 16px/1.7 system-ui, -apple-system, "Segoe UI", sans-serif
+    }
+
+    a {
+      color: var(--blue);
+      font-weight: 750
+    }
+
+    .wrap {
+      width: min(1240px, calc(100% - 28px));
+      margin: auto
+    }
+
+    .top {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(6, 47, 89, .97);
+      color: #fff;
+      box-shadow: 0 5px 18px #062f5933
+    }
+
+    .topin {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 62px
+    }
+
+    .brand {
+      font-weight: 950
+    }
+
+    .top a {
+      color: #fff;
+      text-decoration: none
+    }
+
+    .top nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .top nav a {
+      border: 1px solid #ffffff44;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: .88rem
+    }
+
+    header {
+      background: radial-gradient(circle at 80% 10%, #ffffff27, transparent 30%), linear-gradient(135deg, var(--navy), var(--blue));
+      color: #fff;
+      padding: 58px 0
+    }
+
+    .hero {
+      max-width: 980px
+    }
+
+    .tag {
+      display: inline-block;
+      border: 1px solid #ffffff55;
+      background: #ffffff18;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 850
+    }
+
+    h1 {
+      font-size: clamp(2.35rem, 6vw, 5.25rem);
+      line-height: 1.02;
+      margin: 18px 0
+    }
+
+    .lead {
+      font-size: 1.18rem;
+      max-width: 900px;
+      color: #eef8ff
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 25px
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 11px 17px;
+      border-radius: 12px;
+      text-decoration: none;
+      background: var(--orange);
+      color: #172033;
+      font-weight: 900
+    }
+
+    .btn.alt {
+      background: #fff;
+      color: var(--navy)
+    }
+
+    main {
+      padding: 32px 0 70px
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start
+    }
+
+    .side {
+      position: sticky;
+      top: 78px;
+      max-height: calc(100vh - 94px);
+      overflow: auto;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: var(--shadow)
+    }
+
+    .side h2 {
+      font-size: 1.05rem;
+      margin: 4px 8px 9px
+    }
+
+    .side a {
+      display: block;
+      padding: 6px 8px;
+      color: var(--ink);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: .91rem
+    }
+
+    .side a:hover,
+    .side a.active {
+      background: var(--sky);
+      color: var(--blue)
+    }
+
+    section {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: clamp(18px, 3vw, 30px);
+      margin-bottom: 22px;
+      box-shadow: var(--shadow)
+    }
+
+    h2 {
+      color: var(--navy);
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+      line-height: 1.2;
+      margin: 0 0 12px
+    }
+
+    h3 {
+      color: #094a7d;
+      margin: 25px 0 8px
+    }
+
+    h4 {
+      margin: 20px 0 5px
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    .note,
+    .checkpoint,
+    .warning {
+      border-left: 5px solid var(--blue);
+      background: var(--sky);
+      padding: 12px 15px;
+      border-radius: 10px;
+      margin: 14px 0
+    }
+
+    .checkpoint {
+      border-color: var(--green);
+      background: #eaf9f0
+    }
+
+    .warning {
+      border-color: var(--orange);
+      background: #fff6e7
+    }
+
+    pre {
+      position: relative;
+      overflow: auto;
+      background: var(--code);
+      color: #eaf8ff;
+      border: 1px solid #1c4468;
+      border-radius: 14px;
+      padding: 18px;
+      line-height: 1.55;
+      tab-size: 2
+    }
+
+    code {
+      font-family: "Cascadia Code", "Consolas", monospace;
+      font-size: .92em
+    }
+
+    .copy {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      border: 1px solid #ffffff55;
+      background: #153657;
+      color: #fff;
+      border-radius: 8px;
+      padding: 5px 9px;
+      cursor: pointer
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 15px;
+      background: #fbfdff
+    }
+
+    .card h3 {
+      margin-top: 0
+    }
+
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0
+    }
+
+    .steps li {
+      counter-increment: step;
+      margin: 14px 0;
+      padding-left: 46px;
+      position: relative
+    }
+
+    .steps li:before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 50%;
+      font-weight: 900
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      display: block;
+      overflow: auto
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 9px 11px;
+      text-align: left
+    }
+
+    th {
+      background: var(--sky)
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin: 10px 0;
+      background: #fbfdff
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 12px 15px;
+      font-weight: 900;
+      color: var(--navy)
+    }
+
+    details>div {
+      padding: 0 15px 15px
+    }
+
+    .progress {
+      height: 8px;
+      background: #dcecf8;
+      border-radius: 99px;
+      overflow: hidden
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), #19a7ce);
+      width: 0
+    }
+
+    .ad {
+      min-height: 75px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed #a7c8df;
+      color: var(--muted);
+      border-radius: 12px;
+      margin: 18px 0
+    }
+
+    .quiz label {
+      display: block;
+      margin: 6px 0
+    }
+
+    .result {
+      font-weight: 850;
+      margin-top: 12px
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted)
+    }
+
+    .screenshots {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 18px 0
+    }
+
+    .screenshots figure {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #f7fbff
+    }
+
+    .screenshots img {
+      display: block;
+      width: 100%;
+      height: auto
+    }
+
+    .screenshots figcaption {
+      padding: 9px 12px;
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 700
+    }
+
+    @media(max-width:880px) {
+      .layout {
+        grid-template-columns: 1fr
+      }
+
+      .side {
+        position: static;
+        max-height: none;
+        columns: 2
+      }
+
+      .side h2 {
+        column-span: all
+      }
+
+      .grid,
+      .screenshots {
+        grid-template-columns: 1fr
+      }
+
+      .top nav {
+        display: none
+      }
+    }
+
+    @media(max-width:520px) {
+      .side {
+        columns: 1
+      }
+
+      header {
+        padding: 38px 0
+      }
+
+      section {
+        border-radius: 14px
+      }
+
+      pre {
+        font-size: .8rem;
+        padding: 14px
+      }
+    }
+  </style>
+  <script
+    type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"React from 0 to Infinity","description":"A complete practical React course from Hello World to production applications.","provider":{"@type":"Person","name":"Champak Roy","url":"https://www.learnwithchampak.live/"}}</script>
+</head>
+
+<body>
+  <div class="top">
+    <div class="wrap topin"><a class="brand" href="#">Programmer's Picnic · Champak Roy</a>
+      <nav><a href="#start">Start</a><a href="#full-code">Full code</a><a href="#hooks">Hooks</a><a
+          href="#data">APIs</a><a href="#redux">Redux</a><a href="#deployment">Publish</a></nav>
+    </div>
+  </div>
+  <header>
+    <div class="wrap hero"><span class="tag">Zero → Infinity learning path</span>
+      <h1>React from 0 to Infinity</h1>
+      <p class="lead">Begin by clearing the generated project to one honest “Hello World”. Then build upward—JavaScript
+        XML (JSX), components, props, state, every built-in hook, forms, routing, Fetch, Axios, Redux Toolkit,
+        authentication patterns, performance, testing and production deployment.</p>
+      <div class="actions"><a class="btn" href="#start">Begin at zero</a><a class="btn alt" href="#roadmap">See
+          roadmap</a><a class="btn alt" href="filesandfolders/">File structure lesson</a></div>
+    </div>
+  </header>
+  <main class="wrap">
+    <div class="layout">
+      <aside class="side" aria-label="Course contents">
+        <h2>Course contents</h2>
+        <a href="#roadmap">1. Roadmap</a><a href="#start">2. Install + clean Hello World</a><a href="#full-code">★ Full
+          code at every stage</a><a href="#mental-model">3. React mental model</a><a href="#jsx">4. JSX</a><a
+          href="#components">5. Components and props</a><a href="#events-state">6. Events and state</a><a
+          href="#rendering">7. Rendering lists</a><a href="#forms">8. Forms</a><a href="#hooks">9. Hooks overview</a><a
+          href="#core-hooks">10. Core hooks</a><a href="#advanced-hooks">11. Advanced hooks</a><a
+          href="#react19-hooks">12. React 19 hooks</a><a href="#custom-hooks">13. Custom hooks</a><a href="#data">14.
+          Fetch and Axios</a><a href="#router">15. React Router</a><a href="#redux">16. Redux Toolkit</a><a
+          href="#architecture">17. Architecture</a><a href="#quality">18. Errors, tests, performance</a><a
+          href="#deployment">19. Publish to GitHub Pages</a><a href="#projects">20. Projects</a><a href="#quiz">21.
+          Quiz</a>
+      </aside>
+      <article>
+        <section id="roadmap">
+          <h2>1. The complete roadmap</h2>
+          <p>Do not try to memorize React. Build a mental model, type the examples, deliberately break them, and repair
+            them.</p>
+          <div class="grid">
+            <div class="card">
+              <h3>Zero</h3>
+              <p>Node.js, Vite, Hello World, JSX and components.</p>
+            </div>
+            <div class="card">
+              <h3>Foundation</h3>
+              <p>Props, state, events, conditional rendering, lists and forms.</p>
+            </div>
+            <div class="card">
+              <h3>Power</h3>
+              <p>Hooks, data fetching, routing, reusable logic and context.</p>
+            </div>
+            <div class="card">
+              <h3>Infinity</h3>
+              <p>Redux Toolkit, architecture, testing, optimization and deployment.</p>
+            </div>
+          </div>
+          <h3>Prerequisites</h3>
+          <p>Comfort with variables, functions, arrays, objects, destructuring, modules, promises and
+            <code>async/await</code>. React is JavaScript with a component model; weak JavaScript creates mysterious
+            React.</p>
+        </section>
+
+        <section id="start">
+          <h2>2. Installation → a completely clean Hello World</h2>
+          <p>We use Vite, a fast build tool. In a terminal:</p>
+          <pre><code>npm create vite@latest react-zero-infinity -- --template react
 cd react-zero-infinity
 npm install
 npm run dev</code></pre>
-        <h3>Installation screenshots</h3>
-        <p>Follow the original terminal screenshots below. They show the Vite prompts, framework and variant selection, package installation, and the first development-server run.</p>
-        <div class="screenshots">
-          <figure><img src="assets/screenshots/0.png" alt="Starting React project creation with Vite in the terminal" loading="lazy"><figcaption>1. Start the Vite project creator.</figcaption></figure>
-          <figure><img src="assets/screenshots/1.png" alt="Selecting React from the Vite framework menu" loading="lazy"><figcaption>2. Select React as the framework.</figcaption></figure>
-          <figure><img src="assets/screenshots/2.png" alt="Selecting the JavaScript variant for the React project" loading="lazy"><figcaption>3. Select the JavaScript variant.</figcaption></figure>
-          <figure><img src="assets/screenshots/9.png" alt="Confirming the Vite project creation choices" loading="lazy"><figcaption>4. Confirm the project choices.</figcaption></figure>
-          <figure><img src="assets/screenshots/10.png" alt="The default Vite React page running in a browser" loading="lazy"><figcaption>5. The generated React starter page.</figcaption></figure>
-          <figure><img src="assets/screenshots/11.png" alt="React project folder shown in PowerShell" loading="lazy"><figcaption>6. Enter and inspect the project folder.</figcaption></figure>
-          <figure><img src="assets/screenshots/12.png" alt="Installing React project packages in PowerShell" loading="lazy"><figcaption>7. Install the project packages.</figcaption></figure>
-          <figure><img src="assets/screenshots/5.png" alt="Vite React starter application in the browser" loading="lazy"><figcaption>8. Run the development server and open the local URL.</figcaption></figure>
-        </div>
-        <p>Open the local address shown in the terminal. Now remove the demonstration content. Delete <code>src/assets/react.svg</code> and empty <code>src/App.css</code>. Replace <code>src/App.jsx</code> with:</p>
-        <pre><code>function App() {
+          <h3>Installation screenshots</h3>
+          <p>Follow the original terminal screenshots below. They show the Vite prompts, framework and variant
+            selection, package installation, and the first development-server run.</p>
+          <div class="screenshots">
+            <figure><img src="assets/screenshots/0.png" alt="Starting React project creation with Vite in the terminal"
+                loading="lazy">
+              <figcaption>1. Start the Vite project creator.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/1.png" alt="Selecting React from the Vite framework menu"
+                loading="lazy">
+              <figcaption>2. Select React as the framework.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/2.png" alt="Selecting the JavaScript variant for the React project"
+                loading="lazy">
+              <figcaption>3. Select the JavaScript variant.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/9.png" alt="Confirming the Vite project creation choices"
+                loading="lazy">
+              <figcaption>4. Confirm the project choices.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/10.png" alt="The default Vite React page running in a browser"
+                loading="lazy">
+              <figcaption>5. The generated React starter page.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/11.png" alt="React project folder shown in PowerShell" loading="lazy">
+              <figcaption>6. Enter and inspect the project folder.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/12.png" alt="Installing React project packages in PowerShell"
+                loading="lazy">
+              <figcaption>7. Install the project packages.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/5.png" alt="Vite React starter application in the browser"
+                loading="lazy">
+              <figcaption>8. Run the development server and open the local URL.</figcaption>
+            </figure>
+          </div>
+          <p>Open the local address shown in the terminal. Now remove the demonstration content. Delete
+            <code>src/assets/react.svg</code> and empty <code>src/App.css</code>. Replace <code>src/App.jsx</code> with:
+          </p>
+          <pre><code>function App() {
   return &lt;h1&gt;Hello World&lt;/h1&gt;
 }
 
 export default App</code></pre>
-        <p>Replace <code>src/index.css</code> with:</p><pre><code>* { box-sizing: border-box; }
+          <p>Replace <code>src/index.css</code> with:</p>
+          <pre><code>* { box-sizing: border-box; }
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   padding: 2rem;
 }</code></pre>
-        <p>Keep <code>src/main.jsx</code> simple:</p><pre><code>import { StrictMode } from 'react'
+          <p>Keep <code>src/main.jsx</code> simple:</p>
+          <pre><code>import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
@@ -85,17 +605,566 @@ createRoot(document.getElementById('root')).render(
     &lt;App /&gt;
   &lt;/StrictMode&gt;
 )</code></pre>
-        <div class="checkpoint"><strong>Checkpoint:</strong> the browser must show only “Hello World”. If it does, your clean starting point works.</div>
-        <p><code>StrictMode</code> adds development checks. It may intentionally run some logic twice in development to reveal unsafe side effects; production does not do this.</p>
-      </section>
+          <div class="checkpoint"><strong>Checkpoint:</strong> the browser must show only “Hello World”. If it does,
+            your clean starting point works.</div>
+          <p><code>StrictMode</code> adds development checks. It may intentionally run some logic twice in development
+            to reveal unsafe side effects; production does not do this.</p>
+        </section>
 
-      <section id="mental-model"><h2>3. The React mental model</h2>
-        <div class="grid"><div class="card"><h3>Component</h3><p>A JavaScript function that returns user interface.</p></div><div class="card"><h3>Props</h3><p>Read-only inputs passed from parent to child.</p></div><div class="card"><h3>State</h3><p>A component's memory. Changing it requests a render.</p></div><div class="card"><h3>Render</h3><p>React calls components to calculate what the screen should show.</p></div></div>
-        <div class="note"><strong>Core formula:</strong> UI = f(props, state). Keep rendering pure: same inputs should produce the same output.</div>
-      </section>
+        <section id="full-code">
+          <h2>Full code at every stage</h2>
+          <p>Use this as the practical path through the course. At every stage, replace the named files completely with
+            the code shown. Never mix a new stage with fragments left over from an earlier one. Keep
+            <code>src/main.jsx</code> and <code>src/index.css</code> from Stage 1 unless a later stage explicitly
+            replaces them.</p>
+          <div class="note"><strong>How to study:</strong> finish one stage, run <code>npm run dev</code>, test it in
+            the browser, and only then open the next stage.</div>
 
-      <section id="jsx"><h2>4. JavaScript XML (JSX)</h2><p>JSX looks like HTML but becomes JavaScript. Use <code>className</code>, camelCase event names and braces for JavaScript expressions.</p>
-        <pre><code>const student = { name: 'Avinash', score: 92 }
+          <details open>
+            <summary>Stage 1 — Clean Vite project: Hello World (complete files)</summary>
+            <div>
+              <h3>src/App.jsx</h3>
+              <pre><code>function App() {
+  return &lt;h1&gt;Hello World&lt;/h1&gt;
+}
+
+export default App</code></pre>
+              <h3>src/main.jsx</h3>
+              <pre><code>import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+)</code></pre>
+              <h3>src/index.css</h3>
+              <pre><code>* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  color: #142033;
+  background: #eef8ff;
+}
+
+button, input { font: inherit; }</code></pre>
+            </div>
+          </details>
+
+          <details>
+            <summary>Stage 2 — Components and props (complete files)</summary>
+            <div>
+              <h3>src/Greeting.jsx</h3>
+              <pre><code>function Greeting({ name, subject }) {
+  return (
+    &lt;article className="card"&gt;
+      &lt;h2&gt;Hello, {name}!&lt;/h2&gt;
+      &lt;p&gt;Welcome to {subject}.&lt;/p&gt;
+    &lt;/article&gt;
+  )
+}
+
+export default Greeting</code></pre>
+              <h3>src/App.jsx</h3>
+              <pre><code>import Greeting from './Greeting.jsx'
+
+function App() {
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;React Students&lt;/h1&gt;
+      &lt;Greeting name="Ananya" subject="React" /&gt;
+      &lt;Greeting name="Ravi" subject="Components" /&gt;
+    &lt;/main&gt;
+  )
+}
+
+export default App</code></pre>
+              <h3>Add to src/index.css</h3>
+              <pre><code>.card {
+  max-width: 520px;
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #b9d9ef;
+  border-radius: 12px;
+  background: white;
+}</code></pre>
+            </div>
+          </details>
+
+          <details>
+            <summary>Stage 3 — State, events and conditional rendering (complete App)</summary>
+            <div>
+              <h3>src/App.jsx</h3>
+              <pre><code>import { useState } from 'react'
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Practice Counter&lt;/h1&gt;
+      &lt;p&gt;Completed questions: &lt;strong&gt;{count}&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;{count &gt;= 5 ? 'Excellent progress!' : 'Complete five questions.'}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(value =&gt; value + 1)}&gt;+1&lt;/button&gt;
+      &lt;button onClick={() =&gt; setCount(value =&gt; Math.max(0, value - 1))}&gt;-1&lt;/button&gt;
+      &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+    &lt;/main&gt;
+  )
+}
+
+export default App</code></pre>
+            </div>
+          </details>
+
+          <details>
+            <summary>Stage 4 — Controlled form and list (complete App)</summary>
+            <div>
+              <h3>src/App.jsx</h3>
+              <pre><code>import { useState } from 'react'
+
+function App() {
+  const [name, setName] = useState('')
+  const [students, setStudents] = useState([])
+
+  function addStudent(event) {
+    event.preventDefault()
+    const cleanName = name.trim()
+    if (!cleanName) return
+    setStudents(current =&gt; [
+      ...current,
+      { id: crypto.randomUUID(), name: cleanName }
+    ])
+    setName('')
+  }
+
+  function removeStudent(id) {
+    setStudents(current =&gt; current.filter(student =&gt; student.id !== id))
+  }
+
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Student List&lt;/h1&gt;
+      &lt;form onSubmit={addStudent}&gt;
+        &lt;label htmlFor="name"&gt;Student name&lt;/label&gt;
+        &lt;input id="name" value={name}
+          onChange={event =&gt; setName(event.target.value)} /&gt;
+        &lt;button type="submit"&gt;Add&lt;/button&gt;
+      &lt;/form&gt;
+      {students.length === 0 ? &lt;p&gt;No students yet.&lt;/p&gt; : (
+        &lt;ul&gt;{students.map(student =&gt; (
+          &lt;li key={student.id}&gt;
+            {student.name}{' '}
+            &lt;button onClick={() =&gt; removeStudent(student.id)}&gt;Delete&lt;/button&gt;
+          &lt;/li&gt;
+        ))}&lt;/ul&gt;
+      )}
+    &lt;/main&gt;
+  )
+}
+
+export default App</code></pre>
+            </div>
+          </details>
+
+          <details>
+            <summary>Stage 5 — useEffect and Fetch API (complete App)</summary>
+            <div>
+              <h3>src/App.jsx</h3>
+              <pre><code>import { useEffect, useState } from 'react'
+
+function App() {
+  const [users, setUsers] = useState([])
+  const [status, setStatus] = useState('loading')
+  const [error, setError] = useState('')
+
+  useEffect(() =&gt; {
+    const controller = new AbortController()
+
+    async function loadUsers() {
+      try {
+        setStatus('loading')
+        const response = await fetch(
+          'https://jsonplaceholder.typicode.com/users',
+          { signal: controller.signal }
+        )
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+        setUsers(await response.json())
+        setStatus('success')
+      } catch (problem) {
+        if (problem.name !== 'AbortError') {
+          setError(problem.message)
+          setStatus('error')
+        }
+      }
+    }
+
+    loadUsers()
+    return () =&gt; controller.abort()
+  }, [])
+
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Users from Fetch&lt;/h1&gt;
+      {status === 'loading' &amp;&amp; &lt;p&gt;Loading…&lt;/p&gt;}
+      {status === 'error' &amp;&amp; &lt;p role="alert"&gt;Error: {error}&lt;/p&gt;}
+      {status === 'success' &amp;&amp; (
+        &lt;ul&gt;{users.map(user =&gt; &lt;li key={user.id}&gt;{user.name}&lt;/li&gt;)}&lt;/ul&gt;
+      )}
+    &lt;/main&gt;
+  )
+}
+
+export default App</code></pre>
+            </div>
+          </details>
+
+          <details>
+            <summary>Stage 6 — Axios with a reusable service (complete files)</summary>
+            <div>
+              <pre><code>npm install axios</code></pre>
+              <h3>src/services/api.js</h3>
+              <pre><code>import axios from 'axios'
+
+export const api = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com',
+  timeout: 8000
+})</code></pre>
+              <h3>src/App.jsx</h3>
+              <pre><code>import { useEffect, useState } from 'react'
+import { api } from './services/api.js'
+
+function App() {
+  const [posts, setPosts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() =&gt; {
+    const controller = new AbortController()
+    api.get('/posts?_limit=8', { signal: controller.signal })
+      .then(response =&gt; setPosts(response.data))
+      .catch(problem =&gt; {
+        if (problem.code !== 'ERR_CANCELED') setError(problem.message)
+      })
+      .finally(() =&gt; setLoading(false))
+    return () =&gt; controller.abort()
+  }, [])
+
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Posts with Axios&lt;/h1&gt;
+      {loading &amp;&amp; &lt;p&gt;Loading…&lt;/p&gt;}
+      {error &amp;&amp; &lt;p role="alert"&gt;{error}&lt;/p&gt;}
+      &lt;ul&gt;{posts.map(post =&gt; &lt;li key={post.id}&gt;{post.title}&lt;/li&gt;)}&lt;/ul&gt;
+    &lt;/main&gt;
+  )
+}
+
+export default App</code></pre>
+            </div>
+          </details>
+
+          <details>
+            <summary>Stage 7 — React Router (complete files)</summary>
+            <div>
+              <pre><code>npm install react-router-dom</code></pre>
+              <h3>src/main.jsx</h3>
+              <pre><code>import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  &lt;StrictMode&gt;
+    &lt;BrowserRouter&gt;&lt;App /&gt;&lt;/BrowserRouter&gt;
+  &lt;/StrictMode&gt;
+)</code></pre>
+              <h3>src/App.jsx</h3>
+              <pre><code>import { NavLink, Route, Routes, useParams } from 'react-router-dom'
+
+function Home() { return &lt;h2&gt;Home&lt;/h2&gt; }
+function Courses() { return &lt;h2&gt;Courses&lt;/h2&gt; }
+function Course() {
+  const { courseId } = useParams()
+  return &lt;h2&gt;Course: {courseId}&lt;/h2&gt;
+}
+function NotFound() { return &lt;h2&gt;Page not found&lt;/h2&gt; }
+
+function App() {
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Learning Portal&lt;/h1&gt;
+      &lt;nav&gt;
+        &lt;NavLink to="/"&gt;Home&lt;/NavLink&gt; {' | '}
+        &lt;NavLink to="/courses"&gt;Courses&lt;/NavLink&gt; {' | '}
+        &lt;NavLink to="/courses/react"&gt;React&lt;/NavLink&gt;
+      &lt;/nav&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/courses" element={&lt;Courses /&gt;} /&gt;
+        &lt;Route path="/courses/:courseId" element={&lt;Course /&gt;} /&gt;
+        &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/main&gt;
+  )
+}
+
+export default App</code></pre>
+            </div>
+          </details>
+
+          <details>
+            <summary>Stage 8 — Context plus useReducer (complete App)</summary>
+            <div>
+              <h3>src/App.jsx</h3>
+              <pre><code>import { createContext, useContext, useReducer } from 'react'
+
+const TasksContext = createContext(null)
+const DispatchContext = createContext(null)
+
+function reducer(tasks, action) {
+  if (action.type === 'add') {
+    return [...tasks, { id: crypto.randomUUID(), text: action.text, done: false }]
+  }
+  if (action.type === 'toggle') {
+    return tasks.map(task =&gt; task.id === action.id
+      ? { ...task, done: !task.done } : task)
+  }
+  if (action.type === 'delete') return tasks.filter(task =&gt; task.id !== action.id)
+  throw new Error(`Unknown action: ${action.type}`)
+}
+
+function TaskList() {
+  const tasks = useContext(TasksContext)
+  const dispatch = useContext(DispatchContext)
+  return &lt;ul&gt;{tasks.map(task =&gt; &lt;li key={task.id}&gt;
+    &lt;label&gt;&lt;input type="checkbox" checked={task.done}
+      onChange={() =&gt; dispatch({ type: 'toggle', id: task.id })} /&gt;
+      {task.text}&lt;/label&gt;
+    &lt;button onClick={() =&gt; dispatch({ type: 'delete', id: task.id })}&gt;Delete&lt;/button&gt;
+  &lt;/li&gt;)}&lt;/ul&gt;
+}
+
+function App() {
+  const [tasks, dispatch] = useReducer(reducer, [])
+  function submit(event) {
+    event.preventDefault()
+    const text = new FormData(event.currentTarget).get('task').trim()
+    if (text) dispatch({ type: 'add', text })
+    event.currentTarget.reset()
+  }
+  return &lt;TasksContext.Provider value={tasks}&gt;
+    &lt;DispatchContext.Provider value={dispatch}&gt;
+      &lt;main&gt;&lt;h1&gt;Tasks&lt;/h1&gt;
+        &lt;form onSubmit={submit}&gt;&lt;input name="task" required /&gt;&lt;button&gt;Add&lt;/button&gt;&lt;/form&gt;
+        &lt;TaskList /&gt;
+      &lt;/main&gt;
+    &lt;/DispatchContext.Provider&gt;
+  &lt;/TasksContext.Provider&gt;
+}
+
+export default App</code></pre>
+            </div>
+          </details>
+
+          <details>
+            <summary>Stage 9 — Redux Toolkit (complete files)</summary>
+            <div>
+              <pre><code>npm install @reduxjs/toolkit react-redux</code></pre>
+              <h3>src/app/store.js</h3>
+              <pre><code>import { configureStore } from '@reduxjs/toolkit'
+import counterReducer from '../features/counter/counterSlice.js'
+
+export const store = configureStore({
+  reducer: { counter: counterReducer }
+})</code></pre>
+              <h3>src/features/counter/counterSlice.js</h3>
+              <pre><code>import { createSlice } from '@reduxjs/toolkit'
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: { value: 0 },
+  reducers: {
+    increment: state =&gt; { state.value += 1 },
+    decrement: state =&gt; { state.value -= 1 },
+    reset: state =&gt; { state.value = 0 }
+  }
+})
+
+export const { increment, decrement, reset } = counterSlice.actions
+export default counterSlice.reducer</code></pre>
+              <h3>src/main.jsx</h3>
+              <pre><code>import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { Provider } from 'react-redux'
+import { store } from './app/store.js'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  &lt;StrictMode&gt;&lt;Provider store={store}&gt;&lt;App /&gt;&lt;/Provider&gt;&lt;/StrictMode&gt;
+)</code></pre>
+              <h3>src/App.jsx</h3>
+              <pre><code>import { useDispatch, useSelector } from 'react-redux'
+import { decrement, increment, reset } from './features/counter/counterSlice.js'
+
+function App() {
+  const count = useSelector(state =&gt; state.counter.value)
+  const dispatch = useDispatch()
+  return &lt;main&gt;
+    &lt;h1&gt;Redux Counter: {count}&lt;/h1&gt;
+    &lt;button onClick={() =&gt; dispatch(increment())}&gt;+1&lt;/button&gt;
+    &lt;button onClick={() =&gt; dispatch(decrement())}&gt;-1&lt;/button&gt;
+    &lt;button onClick={() =&gt; dispatch(reset())}&gt;Reset&lt;/button&gt;
+  &lt;/main&gt;
+}
+
+export default App</code></pre>
+            </div>
+          </details>
+
+          <details>
+            <summary>Stage 10 — Test the app (complete test and configuration)</summary>
+            <div>
+              <pre><code>npm install -D vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event</code></pre>
+              <h3>vite.config.js</h3>
+              <pre><code>import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  test: { environment: 'jsdom', setupFiles: './src/test/setup.js' }
+})</code></pre>
+              <h3>src/test/setup.js</h3>
+              <pre><code>import '@testing-library/jest-dom/vitest'</code></pre>
+              <h3>src/App.test.jsx</h3>
+              <pre><code>import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { Provider } from 'react-redux'
+import { store } from './app/store.js'
+import App from './App.jsx'
+
+test('increments the Redux counter', async () =&gt; {
+  const user = userEvent.setup()
+  render(&lt;Provider store={store}&gt;&lt;App /&gt;&lt;/Provider&gt;)
+  await user.click(screen.getByRole('button', { name: '+1' }))
+  expect(screen.getByRole('heading')).toHaveTextContent('Redux Counter: 1')
+})</code></pre>
+              <h3>package.json script to add</h3>
+              <pre><code>"scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "lint": "eslint .",
+  "preview": "vite preview",
+  "test": "vitest"
+}</code></pre>
+            </div>
+          </details>
+
+          <details>
+            <summary>Stage 11 — Publish to GitHub Pages (complete deployment files)</summary>
+            <div>
+              <p>This snapshot assumes the repository is named <code>react-zero-infinity</code>. Replace the name if
+                yours is different.</p>
+              <h3>vite.config.js</h3>
+              <pre><code>import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  base: '/react-zero-infinity/',
+  plugins: [react()],
+  test: { environment: 'jsdom', setupFiles: './src/test/setup.js' }
+})</code></pre>
+              <h3>.github/workflows/deploy.yml</h3>
+              <pre><code>name: Deploy React to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4</code></pre>
+              <h3>Commands</h3>
+              <pre><code>npm run test -- --run
+npm run build
+git init
+git add .
+git commit -m "Complete React course project"
+git branch -M main
+git remote add origin https://github.com/USERNAME/react-zero-infinity.git
+git push -u origin main</code></pre>
+              <div class="checkpoint"><strong>Finished:</strong> in GitHub, choose <em>Settings → Pages → Source →
+                  GitHub Actions</em>. Every later push to <code>main</code> republishes the app.</div>
+            </div>
+          </details>
+        </section>
+
+        <section id="mental-model">
+          <h2>3. The React mental model</h2>
+          <div class="grid">
+            <div class="card">
+              <h3>Component</h3>
+              <p>A JavaScript function that returns user interface.</p>
+            </div>
+            <div class="card">
+              <h3>Props</h3>
+              <p>Read-only inputs passed from parent to child.</p>
+            </div>
+            <div class="card">
+              <h3>State</h3>
+              <p>A component's memory. Changing it requests a render.</p>
+            </div>
+            <div class="card">
+              <h3>Render</h3>
+              <p>React calls components to calculate what the screen should show.</p>
+            </div>
+          </div>
+          <div class="note"><strong>Core formula:</strong> UI = f(props, state). Keep rendering pure: same inputs should
+            produce the same output.</div>
+        </section>
+
+        <section id="jsx">
+          <h2>4. JavaScript XML (JSX)</h2>
+          <p>JSX looks like HTML but becomes JavaScript. Use <code>className</code>, camelCase event names and braces
+            for JavaScript expressions.</p>
+          <pre><code>const student = { name: 'Avinash', score: 92 }
 
 function App() {
   return (
@@ -105,11 +1174,19 @@ function App() {
     &lt;/main&gt;
   )
 }</code></pre>
-        <h3>Rules</h3><ul><li>Return one parent element or a fragment <code>&lt;&gt;...&lt;/&gt;</code>.</li><li>Close every tag.</li><li>Put statements before <code>return</code>; put expressions inside braces.</li><li>Use <code>style={{ color: 'navy' }}</code> for inline styles.</li></ul>
-      </section>
+          <h3>Rules</h3>
+          <ul>
+            <li>Return one parent element or a fragment <code>&lt;&gt;...&lt;/&gt;</code>.</li>
+            <li>Close every tag.</li>
+            <li>Put statements before <code>return</code>; put expressions inside braces.</li>
+            <li>Use <code>style={{ color: 'navy' }}</code> for inline styles.</li>
+          </ul>
+        </section>
 
-      <section id="components"><h2>5. Components and props</h2>
-        <h3>Example 1: a reusable greeting</h3><pre><code>function Greeting({ name, subject = 'React' }) {
+        <section id="components">
+          <h2>5. Components and props</h2>
+          <h3>Example 1: a reusable greeting</h3>
+          <pre><code>function Greeting({ name, subject = 'React' }) {
   return &lt;h2&gt;Hello {name}. Let us learn {subject}.&lt;/h2&gt;
 }
 
@@ -121,7 +1198,8 @@ export default function App() {
     &lt;/&gt;
   )
 }</code></pre>
-        <h3>Example 2: composition with children</h3><pre><code>function Card({ title, children }) {
+          <h3>Example 2: composition with children</h3>
+          <pre><code>function Card({ title, children }) {
   return (
     &lt;article className="card"&gt;
       &lt;h2&gt;{title}&lt;/h2&gt;
@@ -131,11 +1209,13 @@ export default function App() {
 }
 
 &lt;Card title="Lesson 1"&gt;&lt;p&gt;Components can contain components.&lt;/p&gt;&lt;/Card&gt;</code></pre>
-        <div class="warning">Never change a prop inside a child. Ask the parent to change data by calling a callback prop.</div>
-      </section>
+          <div class="warning">Never change a prop inside a child. Ask the parent to change data by calling a callback
+            prop.</div>
+        </section>
 
-      <section id="events-state"><h2>6. Events and state</h2>
-        <pre><code>import { useState } from 'react'
+        <section id="events-state">
+          <h2>6. Events and state</h2>
+          <pre><code>import { useState } from 'react'
 
 export default function Counter() {
   const [count, setCount] = useState(0)
@@ -146,16 +1226,18 @@ export default function Counter() {
 
   return &lt;button onClick={increase}&gt;Count: {count}&lt;/button&gt;
 }</code></pre>
-        <p>Pass a function to an event: <code>onClick={increase}</code>, not <code>onClick={increase()}</code>. When the next state depends on the previous state, use the updater form.</p>
-        <pre><code>// Wrong: mutates the existing array
+          <p>Pass a function to an event: <code>onClick={increase}</code>, not <code>onClick={increase()}</code>. When
+            the next state depends on the previous state, use the updater form.</p>
+          <pre><code>// Wrong: mutates the existing array
 students.push(newStudent)
 
 // Correct: creates a new array
 setStudents(current =&gt; [...current, newStudent])</code></pre>
-      </section>
+        </section>
 
-      <section id="rendering"><h2>7. Conditional rendering and lists</h2>
-        <pre><code>function Status({ loggedIn }) {
+        <section id="rendering">
+          <h2>7. Conditional rendering and lists</h2>
+          <pre><code>function Status({ loggedIn }) {
   return loggedIn ? &lt;p&gt;Dashboard&lt;/p&gt; : &lt;p&gt;Please sign in&lt;/p&gt;
 }
 
@@ -173,11 +1255,14 @@ function StudentList() {
     &lt;/ul&gt;
   )
 }</code></pre>
-        <p>A key identifies an item between renders. Prefer a stable database ID; avoid an array index when items can move, be deleted or inserted.</p>
-      </section>
+          <p>A key identifies an item between renders. Prefer a stable database ID; avoid an array index when items can
+            move, be deleted or inserted.</p>
+        </section>
 
-      <section id="forms"><h2>8. Controlled forms</h2>
-        <h3>One field</h3><pre><code>import { useState } from 'react'
+        <section id="forms">
+          <h2>8. Controlled forms</h2>
+          <h3>One field</h3>
+          <pre><code>import { useState } from 'react'
 
 function NameForm() {
   const [name, setName] = useState('')
@@ -194,7 +1279,8 @@ function NameForm() {
     &lt;/form&gt;
   )
 }</code></pre>
-        <h3>Several fields</h3><pre><code>const [form, setForm] = useState({ name: '', email: '' })
+          <h3>Several fields</h3>
+          <pre><code>const [form, setForm] = useState({ name: '', email: '' })
 
 function change(event) {
   const { name, value } = event.target
@@ -203,33 +1289,90 @@ function change(event) {
 
 &lt;input name="name" value={form.name} onChange={change} /&gt;
 &lt;input name="email" value={form.email} onChange={change} /&gt;</code></pre>
-      </section>
+        </section>
 
-      <section id="hooks"><h2>9. Hooks: rules and map</h2><p>Hooks let function components use React features. Call hooks only at the top level of a component or custom hook—not inside loops, conditions or ordinary functions.</p>
-        <table><thead><tr><th>Need</th><th>Hook</th></tr></thead><tbody>
-          <tr><td>Local memory</td><td><code>useState</code>, <code>useReducer</code></td></tr><tr><td>Synchronize outside React</td><td><code>useEffect</code>, <code>useEffectEvent</code>, <code>useLayoutEffect</code>, <code>useInsertionEffect</code></td></tr><tr><td>Share/read context</td><td><code>useContext</code></td></tr><tr><td>DOM or mutable value</td><td><code>useRef</code>, <code>useImperativeHandle</code></td></tr><tr><td>Performance</td><td><code>useMemo</code>, <code>useCallback</code>, <code>useTransition</code>, <code>useDeferredValue</code></td></tr><tr><td>IDs/external stores/debugging</td><td><code>useId</code>, <code>useSyncExternalStore</code>, <code>useDebugValue</code></td></tr><tr><td>React 19 actions/resources</td><td><code>useActionState</code>, <code>useOptimistic</code>, <code>use</code>, <code>useFormStatus</code> (React DOM)</td></tr>
-        </tbody></table>
-      </section>
+        <section id="hooks">
+          <h2>9. Hooks: rules and map</h2>
+          <p>Hooks let function components use React features. Call hooks only at the top level of a component or custom
+            hook—not inside loops, conditions or ordinary functions.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Need</th>
+                <th>Hook</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Local memory</td>
+                <td><code>useState</code>, <code>useReducer</code></td>
+              </tr>
+              <tr>
+                <td>Synchronize outside React</td>
+                <td><code>useEffect</code>, <code>useEffectEvent</code>, <code>useLayoutEffect</code>,
+                  <code>useInsertionEffect</code></td>
+              </tr>
+              <tr>
+                <td>Share/read context</td>
+                <td><code>useContext</code></td>
+              </tr>
+              <tr>
+                <td>DOM or mutable value</td>
+                <td><code>useRef</code>, <code>useImperativeHandle</code></td>
+              </tr>
+              <tr>
+                <td>Performance</td>
+                <td><code>useMemo</code>, <code>useCallback</code>, <code>useTransition</code>,
+                  <code>useDeferredValue</code></td>
+              </tr>
+              <tr>
+                <td>IDs/external stores/debugging</td>
+                <td><code>useId</code>, <code>useSyncExternalStore</code>, <code>useDebugValue</code></td>
+              </tr>
+              <tr>
+                <td>React 19 actions/resources</td>
+                <td><code>useActionState</code>, <code>useOptimistic</code>, <code>use</code>,
+                  <code>useFormStatus</code> (React DOM)</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
 
-      <section id="core-hooks"><h2>10. Core hooks—two examples each</h2>
-        <details open><summary>useState — local component memory</summary><div>
-          <h4>Example A: counter</h4><pre><code>const [count, setCount] = useState(0)
+        <section id="core-hooks">
+          <h2>10. Core hooks—two examples each</h2>
+          <details open>
+            <summary>useState — local component memory</summary>
+            <div>
+              <h4>Example A: counter</h4>
+              <pre><code>const [count, setCount] = useState(0)
 &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;{count}&lt;/button&gt;</code></pre>
-          <h4>Example B: immutable object update</h4><pre><code>const [student, setStudent] = useState({ name: 'Saurabh', score: 80 })
+              <h4>Example B: immutable object update</h4>
+              <pre><code>const [student, setStudent] = useState({ name: 'Saurabh', score: 80 })
 setStudent(s =&gt; ({ ...s, score: s.score + 5 }))</code></pre>
-        </div></details>
-        <details><summary>useEffect — synchronize with an external system</summary><div>
-          <h4>Example A: document title</h4><pre><code>useEffect(() =&gt; {
+            </div>
+          </details>
+          <details>
+            <summary>useEffect — synchronize with an external system</summary>
+            <div>
+              <h4>Example A: document title</h4>
+              <pre><code>useEffect(() =&gt; {
   document.title = `Count: ${count}`
 }, [count])</code></pre>
-          <h4>Example B: timer with cleanup</h4><pre><code>useEffect(() =&gt; {
+              <h4>Example B: timer with cleanup</h4>
+              <pre><code>useEffect(() =&gt; {
   const id = setInterval(() =&gt; setSeconds(s =&gt; s + 1), 1000)
   return () =&gt; clearInterval(id)
 }, [])</code></pre>
-          <p>An empty dependency array means “connect after mounting, disconnect on unmount.” Include every reactive value used by the effect. Do not use an effect to calculate data that can be calculated during render.</p>
-        </div></details>
-        <details><summary>useContext — read shared nearby data</summary><div>
-          <h4>Example A: theme</h4><pre><code>const ThemeContext = createContext('light')
+              <p>An empty dependency array means “connect after mounting, disconnect on unmount.” Include every reactive
+                value used by the effect. Do not use an effect to calculate data that can be calculated during render.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>useContext — read shared nearby data</summary>
+            <div>
+              <h4>Example A: theme</h4>
+              <pre><code>const ThemeContext = createContext('light')
 
 function App() {
   return &lt;ThemeContext value="dark"&gt;&lt;Toolbar /&gt;&lt;/ThemeContext&gt;
@@ -238,61 +1381,106 @@ function Toolbar() {
   const theme = useContext(ThemeContext)
   return &lt;button className={theme}&gt;Save&lt;/button&gt;
 }</code></pre>
-          <h4>Example B: signed-in user</h4><pre><code>const UserContext = createContext(null)
+              <h4>Example B: signed-in user</h4>
+              <pre><code>const UserContext = createContext(null)
 function Profile() {
   const user = useContext(UserContext)
   return &lt;p&gt;{user ? user.name : 'Guest'}&lt;/p&gt;
 }</code></pre>
-        </div></details>
-        <details><summary>useReducer — structured state transitions</summary><div>
-          <h4>Example A: counter actions</h4><pre><code>function reducer(state, action) {
+            </div>
+          </details>
+          <details>
+            <summary>useReducer — structured state transitions</summary>
+            <div>
+              <h4>Example A: counter actions</h4>
+              <pre><code>function reducer(state, action) {
   if (action.type === 'increment') return { count: state.count + 1 }
   if (action.type === 'reset') return { count: 0 }
   throw Error('Unknown action')
 }
 const [state, dispatch] = useReducer(reducer, { count: 0 })
 &lt;button onClick={() =&gt; dispatch({ type: 'increment' })}&gt;{state.count}&lt;/button&gt;</code></pre>
-          <h4>Example B: task list</h4><pre><code>function tasksReducer(tasks, action) {
+              <h4>Example B: task list</h4>
+              <pre><code>function tasksReducer(tasks, action) {
   switch (action.type) {
     case 'added': return [...tasks, { id: crypto.randomUUID(), text: action.text }]
     case 'deleted': return tasks.filter(t =&gt; t.id !== action.id)
     default: throw Error('Unknown action')
   }
 }</code></pre>
-        </div></details>
-        <details><summary>useRef — DOM access or mutable value without rendering</summary><div>
-          <h4>Example A: focus an input</h4><pre><code>const inputRef = useRef(null)
+            </div>
+          </details>
+          <details>
+            <summary>useRef — DOM access or mutable value without rendering</summary>
+            <div>
+              <h4>Example A: focus an input</h4>
+              <pre><code>const inputRef = useRef(null)
 &lt;input ref={inputRef} /&gt;
 &lt;button onClick={() =&gt; inputRef.current.focus()}&gt;Focus&lt;/button&gt;</code></pre>
-          <h4>Example B: retain a timer ID</h4><pre><code>const timerRef = useRef(null)
+              <h4>Example B: retain a timer ID</h4>
+              <pre><code>const timerRef = useRef(null)
 function start() { timerRef.current = setInterval(tick, 1000) }
 function stop() { clearInterval(timerRef.current) }</code></pre>
-        </div></details>
-      </section>
+            </div>
+          </details>
+        </section>
 
-      <section id="advanced-hooks"><h2>11. Advanced and specialized hooks—two examples each</h2>
-        <details><summary>useMemo — cache an expensive calculated value</summary><div><h4>Example A: filtered list</h4><pre><code>const visible = useMemo(
+        <section id="advanced-hooks">
+          <h2>11. Advanced and specialized hooks—two examples each</h2>
+          <details>
+            <summary>useMemo — cache an expensive calculated value</summary>
+            <div>
+              <h4>Example A: filtered list</h4>
+              <pre><code>const visible = useMemo(
   () =&gt; products.filter(p =&gt; p.name.includes(query)),
   [products, query]
-)</code></pre><h4>Example B: expensive statistics</h4><pre><code>const report = useMemo(() =&gt; calculateReport(scores), [scores])</code></pre><p>It is a performance tool, not a correctness tool.</p></div></details>
-        <details><summary>useCallback — cache a function identity</summary><div><h4>Example A: memoized child callback</h4><pre><code>const addTask = useCallback(text =&gt; {
+)</code></pre>
+              <h4>Example B: expensive statistics</h4>
+              <pre><code>const report = useMemo(() =&gt; calculateReport(scores), [scores])</code></pre>
+              <p>It is a performance tool, not a correctness tool.</p>
+            </div>
+          </details>
+          <details>
+            <summary>useCallback — cache a function identity</summary>
+            <div>
+              <h4>Example A: memoized child callback</h4>
+              <pre><code>const addTask = useCallback(text =&gt; {
   setTasks(ts =&gt; [...ts, { id: crypto.randomUUID(), text }])
-}, [])</code></pre><h4>Example B: stable fetch function</h4><pre><code>const loadUser = useCallback(async () =&gt; {
+}, [])</code></pre>
+              <h4>Example B: stable fetch function</h4>
+              <pre><code>const loadUser = useCallback(async () =&gt; {
   const response = await fetch(`/api/users/${userId}`)
   setUser(await response.json())
-}, [userId])</code></pre></div></details>
-        <details><summary>useLayoutEffect — measure layout before paint</summary><div><h4>Example A: tooltip position</h4><pre><code>useLayoutEffect(() =&gt; {
+}, [userId])</code></pre>
+            </div>
+          </details>
+          <details>
+            <summary>useLayoutEffect — measure layout before paint</summary>
+            <div>
+              <h4>Example A: tooltip position</h4>
+              <pre><code>useLayoutEffect(() =&gt; {
   setHeight(ref.current.getBoundingClientRect().height)
-}, [])</code></pre><h4>Example B: restore scroll immediately</h4><pre><code>useLayoutEffect(() =&gt; {
+}, [])</code></pre>
+              <h4>Example B: restore scroll immediately</h4>
+              <pre><code>useLayoutEffect(() =&gt; {
   listRef.current.scrollTop = savedScroll
-}, [savedScroll])</code></pre><p>Prefer <code>useEffect</code>; layout effects block painting.</p></div></details>
-        <details><summary>useEffectEvent — non-reactive logic called from an effect</summary><div><h4>Example A: log a visit with the latest cart size</h4><pre><code>const onVisit = useEffectEvent(visitedUrl =&gt; {
+}, [savedScroll])</code></pre>
+              <p>Prefer <code>useEffect</code>; layout effects block painting.</p>
+            </div>
+          </details>
+          <details>
+            <summary>useEffectEvent — non-reactive logic called from an effect</summary>
+            <div>
+              <h4>Example A: log a visit with the latest cart size</h4>
+              <pre><code>const onVisit = useEffectEvent(visitedUrl =&gt; {
   logVisit(visitedUrl, cart.length)
 })
 
 useEffect(() =&gt; {
   onVisit(url)
-}, [url])</code></pre><h4>Example B: connection notification uses the latest theme</h4><pre><code>const onConnected = useEffectEvent(() =&gt; {
+}, [url])</code></pre>
+              <h4>Example B: connection notification uses the latest theme</h4>
+              <pre><code>const onConnected = useEffectEvent(() =&gt; {
   showNotification('Connected', theme)
 })
 
@@ -301,34 +1489,83 @@ useEffect(() =&gt; {
   connection.on('connected', onConnected)
   connection.connect()
   return () =&gt; connection.disconnect()
-}, [roomId])</code></pre><p>Effect Events are called only from effects. They let the effect react to one value while still reading the latest version of another value.</p></div></details>
-        <details><summary>useImperativeHandle — expose a small ref API</summary><div><h4>Example A: focus</h4><pre><code>const FancyInput = forwardRef(function FancyInput(props, ref) {
+}, [roomId])</code></pre>
+              <p>Effect Events are called only from effects. They let the effect react to one value while still reading
+                the latest version of another value.</p>
+            </div>
+          </details>
+          <details>
+            <summary>useImperativeHandle — expose a small ref API</summary>
+            <div>
+              <h4>Example A: focus</h4>
+              <pre><code>const FancyInput = forwardRef(function FancyInput(props, ref) {
   const input = useRef(null)
   useImperativeHandle(ref, () =&gt; ({ focus: () =&gt; input.current.focus() }))
   return &lt;input ref={input} /&gt;
-})</code></pre><h4>Example B: dialog controls</h4><pre><code>useImperativeHandle(ref, () =&gt; ({
+})</code></pre>
+              <h4>Example B: dialog controls</h4>
+              <pre><code>useImperativeHandle(ref, () =&gt; ({
   open: () =&gt; dialog.current.showModal(),
   close: () =&gt; dialog.current.close()
-}), [])</code></pre></div></details>
-        <details><summary>useDebugValue — label custom hooks in React DevTools</summary><div><h4>Example A: online status</h4><pre><code>function useOnlineStatus() {
+}), [])</code></pre>
+            </div>
+          </details>
+          <details>
+            <summary>useDebugValue — label custom hooks in React DevTools</summary>
+            <div>
+              <h4>Example A: online status</h4>
+              <pre><code>function useOnlineStatus() {
   const online = useSyncExternalStore(subscribe, getSnapshot)
   useDebugValue(online ? 'Online' : 'Offline')
   return online
-}</code></pre><h4>Example B: delayed formatting</h4><pre><code>useDebugValue(date, value =&gt; value.toLocaleDateString())</code></pre></div></details>
-        <details><summary>useId — stable accessibility IDs</summary><div><h4>Example A: label and input</h4><pre><code>const id = useId()
+}</code></pre>
+              <h4>Example B: delayed formatting</h4>
+              <pre><code>useDebugValue(date, value =&gt; value.toLocaleDateString())</code></pre>
+            </div>
+          </details>
+          <details>
+            <summary>useId — stable accessibility IDs</summary>
+            <div>
+              <h4>Example A: label and input</h4>
+              <pre><code>const id = useId()
 &lt;label htmlFor={id}&gt;Email&lt;/label&gt;
-&lt;input id={id} /&gt;</code></pre><h4>Example B: related hint</h4><pre><code>const id = useId()
+&lt;input id={id} /&gt;</code></pre>
+              <h4>Example B: related hint</h4>
+              <pre><code>const id = useId()
 &lt;input aria-describedby={`${id}-hint`} /&gt;
-&lt;small id={`${id}-hint`}&gt;At least 8 characters&lt;/small&gt;</code></pre><p>Do not use <code>useId</code> for list keys.</p></div></details>
-        <details><summary>useTransition — mark non-urgent updates</summary><div><h4>Example A: slow tab switch</h4><pre><code>const [isPending, startTransition] = useTransition()
-startTransition(() =&gt; setTab(nextTab))</code></pre><h4>Example B: large search result update</h4><pre><code>setInput(value)
+&lt;small id={`${id}-hint`}&gt;At least 8 characters&lt;/small&gt;</code></pre>
+              <p>Do not use <code>useId</code> for list keys.</p>
+            </div>
+          </details>
+          <details>
+            <summary>useTransition — mark non-urgent updates</summary>
+            <div>
+              <h4>Example A: slow tab switch</h4>
+              <pre><code>const [isPending, startTransition] = useTransition()
+startTransition(() =&gt; setTab(nextTab))</code></pre>
+              <h4>Example B: large search result update</h4>
+              <pre><code>setInput(value)
 startTransition(() =&gt; setQuery(value))
-return isPending &amp;&amp; &lt;p&gt;Updating…&lt;/p&gt;</code></pre></div></details>
-        <details><summary>useDeferredValue — let a slow view lag behind</summary><div><h4>Example A: search results</h4><pre><code>const deferredQuery = useDeferredValue(query)
-&lt;Results query={deferredQuery} /&gt;</code></pre><h4>Example B: chart</h4><pre><code>const deferredData = useDeferredValue(data)
+return isPending &amp;&amp; &lt;p&gt;Updating…&lt;/p&gt;</code></pre>
+            </div>
+          </details>
+          <details>
+            <summary>useDeferredValue — let a slow view lag behind</summary>
+            <div>
+              <h4>Example A: search results</h4>
+              <pre><code>const deferredQuery = useDeferredValue(query)
+&lt;Results query={deferredQuery} /&gt;</code></pre>
+              <h4>Example B: chart</h4>
+              <pre><code>const deferredData = useDeferredValue(data)
 const stale = deferredData !== data
-&lt;Chart data={deferredData} style={{ opacity: stale ? .5 : 1 }} /&gt;</code></pre></div></details>
-        <details><summary>useSyncExternalStore — safely subscribe outside React</summary><div><h4>Example A: browser online status</h4><pre><code>const online = useSyncExternalStore(
+&lt;Chart data={deferredData} style={{ opacity: stale ? .5 : 1 }} /&gt;</code></pre>
+            </div>
+          </details>
+          <details>
+            <summary>useSyncExternalStore — safely subscribe outside React</summary>
+            <div>
+              <h4>Example A: browser online status</h4>
+              <pre><code>const online = useSyncExternalStore(
   callback =&gt; {
     addEventListener('online', callback)
     addEventListener('offline', callback)
@@ -339,21 +1576,39 @@ const stale = deferredData !== data
   },
   () =&gt; navigator.onLine,
   () =&gt; true
-)</code></pre><h4>Example B: tiny external store</h4><pre><code>const todos = useSyncExternalStore(
+)</code></pre>
+              <h4>Example B: tiny external store</h4>
+              <pre><code>const todos = useSyncExternalStore(
   todoStore.subscribe,
   todoStore.getSnapshot,
   todoStore.getServerSnapshot
-)</code></pre></div></details>
-        <details><summary>useInsertionEffect — CSS-in-JS library hook</summary><div><h4>Example A: insert a style rule</h4><pre><code>useInsertionEffect(() =&gt; {
+)</code></pre>
+            </div>
+          </details>
+          <details>
+            <summary>useInsertionEffect — CSS-in-JS library hook</summary>
+            <div>
+              <h4>Example A: insert a style rule</h4>
+              <pre><code>useInsertionEffect(() =&gt; {
   const style = document.createElement('style')
   style.textContent = rule
   document.head.append(style)
   return () =&gt; style.remove()
-}, [rule])</code></pre><h4>Example B: register atomic CSS</h4><pre><code>useInsertionEffect(() =&gt; styleRegistry.add(className, css), [className, css])</code></pre><p>Application code almost never needs this hook; it exists mainly for styling libraries.</p></div></details>
-      </section>
+}, [rule])</code></pre>
+              <h4>Example B: register atomic CSS</h4>
+              <pre><code>useInsertionEffect(() =&gt; styleRegistry.add(className, css), [className, css])</code></pre>
+              <p>Application code almost never needs this hook; it exists mainly for styling libraries.</p>
+            </div>
+          </details>
+        </section>
 
-      <section id="react19-hooks"><h2>12. React 19 actions and resource hooks—two examples each</h2>
-        <details open><summary>useActionState — state driven by a form action</summary><div><h4>Example A: validation</h4><pre><code>async function save(previous, formData) {
+        <section id="react19-hooks">
+          <h2>12. React 19 actions and resource hooks—two examples each</h2>
+          <details open>
+            <summary>useActionState — state driven by a form action</summary>
+            <div>
+              <h4>Example A: validation</h4>
+              <pre><code>async function save(previous, formData) {
   const name = formData.get('name')
   if (!name) return { error: 'Name is required' }
   return { message: `Saved ${name}` }
@@ -364,12 +1619,20 @@ const [state, formAction, pending] = useActionState(save, {})
   &lt;input name="name" /&gt;
   &lt;button disabled={pending}&gt;Save&lt;/button&gt;
   &lt;p&gt;{state.error || state.message}&lt;/p&gt;
-&lt;/form&gt;</code></pre><h4>Example B: quantity action</h4><pre><code>async function updateQuantity(previous, formData) {
+&lt;/form&gt;</code></pre>
+              <h4>Example B: quantity action</h4>
+              <pre><code>async function updateQuantity(previous, formData) {
   const quantity = Number(formData.get('quantity'))
   return await api.updateCart({ quantity })
 }
-const [cart, updateCart, isPending] = useActionState(updateQuantity, initialCart)</code></pre></div></details>
-        <details><summary>useOptimistic — show an immediate temporary result</summary><div><h4>Example A: optimistic message</h4><pre><code>const [optimisticMessages, addOptimistic] = useOptimistic(
+const [cart, updateCart, isPending] = useActionState(updateQuantity, initialCart)</code></pre>
+            </div>
+          </details>
+          <details>
+            <summary>useOptimistic — show an immediate temporary result</summary>
+            <div>
+              <h4>Example A: optimistic message</h4>
+              <pre><code>const [optimisticMessages, addOptimistic] = useOptimistic(
   messages,
   (current, text) =&gt; [...current, { id: 'pending', text, sending: true }]
 )
@@ -377,24 +1640,42 @@ async function send(formData) {
   const text = formData.get('message')
   addOptimistic(text)
   await saveMessage(text)
-}</code></pre><h4>Example B: instant like count</h4><pre><code>const [optimisticLikes, addLike] = useOptimistic(likes, n =&gt; n + 1)
+}</code></pre>
+              <h4>Example B: instant like count</h4>
+              <pre><code>const [optimisticLikes, addLike] = useOptimistic(likes, n =&gt; n + 1)
 async function like() {
   addLike()
   await api.like(postId)
-}</code></pre></div></details>
-        <details><summary>use — read a Promise or context resource</summary><div><h4>Example A: promise data under Suspense</h4><pre><code>function Comments({ commentsPromise }) {
+}</code></pre>
+            </div>
+          </details>
+          <details>
+            <summary>use — read a Promise or context resource</summary>
+            <div>
+              <h4>Example A: promise data under Suspense</h4>
+              <pre><code>function Comments({ commentsPromise }) {
   const comments = use(commentsPromise)
   return comments.map(c =&gt; &lt;p key={c.id}&gt;{c.body}&lt;/p&gt;)
 }
 
 &lt;Suspense fallback={&lt;p&gt;Loading…&lt;/p&gt;}&gt;
   &lt;Comments commentsPromise={promise} /&gt;
-&lt;/Suspense&gt;</code></pre><h4>Example B: conditional context read</h4><pre><code>function Heading({ showTheme }) {
+&lt;/Suspense&gt;</code></pre>
+              <h4>Example B: conditional context read</h4>
+              <pre><code>function Heading({ showTheme }) {
   if (!showTheme) return &lt;h2&gt;Plain&lt;/h2&gt;
   const theme = use(ThemeContext)
   return &lt;h2 className={theme}&gt;Themed&lt;/h2&gt;
-}</code></pre><p><code>use</code> is a React API with hook-like behavior and special rules. Promise integration is especially relevant with frameworks and Suspense-enabled data sources.</p></div></details>
-        <details><summary>useFormStatus — inspect a parent form submission (react-dom)</summary><div><h4>Example A: pending submit button</h4><pre><code>import { useFormStatus } from 'react-dom'
+}</code></pre>
+              <p><code>use</code> is a React API with hook-like behavior and special rules. Promise integration is
+                especially relevant with frameworks and Suspense-enabled data sources.</p>
+            </div>
+          </details>
+          <details>
+            <summary>useFormStatus — inspect a parent form submission (react-dom)</summary>
+            <div>
+              <h4>Example A: pending submit button</h4>
+              <pre><code>import { useFormStatus } from 'react-dom'
 
 function SubmitButton() {
   const { pending } = useFormStatus()
@@ -404,15 +1685,24 @@ function SubmitButton() {
 &lt;form action={saveStudent}&gt;
   &lt;input name="name" /&gt;
   &lt;SubmitButton /&gt;
-&lt;/form&gt;</code></pre><h4>Example B: show the value currently being submitted</h4><pre><code>function SubmissionStatus() {
+&lt;/form&gt;</code></pre>
+              <h4>Example B: show the value currently being submitted</h4>
+              <pre><code>function SubmissionStatus() {
   const { pending, data } = useFormStatus()
   if (!pending) return null
   return &lt;p&gt;Submitting {data?.get('email')}…&lt;/p&gt;
-}</code></pre><p>The component calling <code>useFormStatus</code> must be inside the form it observes; it cannot observe a form returned by that same component.</p></div></details>
-      </section>
+}</code></pre>
+              <p>The component calling <code>useFormStatus</code> must be inside the form it observes; it cannot observe
+                a form returned by that same component.</p>
+            </div>
+          </details>
+        </section>
 
-      <section id="custom-hooks"><h2>13. Custom hooks</h2><p>A custom hook packages reusable stateful logic. Its name must begin with <code>use</code>.</p>
-        <h3>Example 1: useLocalStorage</h3><pre><code>function useLocalStorage(key, initialValue) {
+        <section id="custom-hooks">
+          <h2>13. Custom hooks</h2>
+          <p>A custom hook packages reusable stateful logic. Its name must begin with <code>use</code>.</p>
+          <h3>Example 1: useLocalStorage</h3>
+          <pre><code>function useLocalStorage(key, initialValue) {
   const [value, setValue] = useState(() =&gt; {
     const saved = localStorage.getItem(key)
     return saved ? JSON.parse(saved) : initialValue
@@ -424,7 +1714,8 @@ function SubmitButton() {
 
   return [value, setValue]
 }</code></pre>
-        <h3>Example 2: useOnlineStatus</h3><pre><code>function useOnlineStatus() {
+          <h3>Example 2: useOnlineStatus</h3>
+          <pre><code>function useOnlineStatus() {
   return useSyncExternalStore(
     notify =&gt; {
       addEventListener('online', notify)
@@ -438,10 +1729,12 @@ function SubmitButton() {
     () =&gt; true
   )
 }</code></pre>
-      </section>
+        </section>
 
-      <section id="data"><h2>14. Data fetching: Fetch and Axios</h2>
-        <h3>Fetch API: GET with loading, error and cancellation</h3><pre><code>useEffect(() =&gt; {
+        <section id="data">
+          <h2>14. Data fetching: Fetch and Axios</h2>
+          <h3>Fetch API: GET with loading, error and cancellation</h3>
+          <pre><code>useEffect(() =&gt; {
   const controller = new AbortController()
 
   async function load() {
@@ -462,14 +1755,17 @@ function SubmitButton() {
   load()
   return () =&gt; controller.abort()
 }, [])</code></pre>
-        <h3>Fetch API: POST</h3><pre><code>const response = await fetch('/api/students', {
+          <h3>Fetch API: POST</h3>
+          <pre><code>const response = await fetch('/api/students', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ name: 'Avinash' })
 })
 if (!response.ok) throw new Error('Save failed')
 const created = await response.json()</code></pre>
-        <h3>Axios setup</h3><pre><code>npm install axios</code></pre><pre><code>// src/services/api.js
+          <h3>Axios setup</h3>
+          <pre><code>npm install axios</code></pre>
+          <pre><code>// src/services/api.js
 import axios from 'axios'
 
 export const api = axios.create({
@@ -482,7 +1778,8 @@ api.interceptors.request.use(config =&gt; {
   if (token) config.headers.Authorization = `Bearer ${token}`
   return config
 })</code></pre>
-        <h3>Axios GET and POST</h3><pre><code>const { data } = await api.get('/users')
+          <h3>Axios GET and POST</h3>
+          <pre><code>const { data } = await api.get('/users')
 setUsers(data)
 
 const { data: created } = await api.post('/posts', {
@@ -490,12 +1787,45 @@ const { data: created } = await api.post('/posts', {
   body: 'From zero to infinity',
   userId: 1
 })</code></pre>
-        <table><thead><tr><th>Fetch</th><th>Axios</th></tr></thead><tbody><tr><td>Built into browsers</td><td>Install a package</td></tr><tr><td>Check <code>response.ok</code> yourself</td><td>Rejects non-2xx responses by default</td></tr><tr><td>Call <code>response.json()</code></td><td>Parsed data in <code>response.data</code></td></tr><tr><td>AbortController</td><td>AbortController supported</td></tr><tr><td>Simple and dependency-free</td><td>Convenient interceptors, defaults and transformations</td></tr></tbody></table>
-        <div class="note">For larger applications, learn a server-state library such as TanStack Query after mastering the raw pattern. It handles caching, retries, deduplication and invalidation; Redux is not automatically required for API data.</div>
-      </section>
+          <table>
+            <thead>
+              <tr>
+                <th>Fetch</th>
+                <th>Axios</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Built into browsers</td>
+                <td>Install a package</td>
+              </tr>
+              <tr>
+                <td>Check <code>response.ok</code> yourself</td>
+                <td>Rejects non-2xx responses by default</td>
+              </tr>
+              <tr>
+                <td>Call <code>response.json()</code></td>
+                <td>Parsed data in <code>response.data</code></td>
+              </tr>
+              <tr>
+                <td>AbortController</td>
+                <td>AbortController supported</td>
+              </tr>
+              <tr>
+                <td>Simple and dependency-free</td>
+                <td>Convenient interceptors, defaults and transformations</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note">For larger applications, learn a server-state library such as TanStack Query after mastering
+            the raw pattern. It handles caching, retries, deduplication and invalidation; Redux is not automatically
+            required for API data.</div>
+        </section>
 
-      <section id="router"><h2>15. React Router</h2><pre><code>npm install react-router-dom</code></pre>
-        <pre><code>import { BrowserRouter, Routes, Route, Link, Outlet, useParams } from 'react-router-dom'
+        <section id="router">
+          <h2>15. React Router</h2>
+          <pre><code>npm install react-router-dom</code></pre>
+          <pre><code>import { BrowserRouter, Routes, Route, Link, Outlet, useParams } from 'react-router-dom'
 
 function Layout() {
   return (
@@ -524,12 +1854,19 @@ function App() {
       &lt;/Routes&gt;
     &lt;/BrowserRouter&gt;
   )
-}</code></pre><p>Use <code>Link</code> for internal navigation, <code>useNavigate</code> after an action, <code>useSearchParams</code> for query strings and nested routes for shared layouts.</p>
-      </section>
+}</code></pre>
+          <p>Use <code>Link</code> for internal navigation, <code>useNavigate</code> after an action,
+            <code>useSearchParams</code> for query strings and nested routes for shared layouts.</p>
+        </section>
 
-      <section id="redux"><h2>16. Redux Toolkit: predictable global state</h2><p>Use local state first. Use context for stable, broadly shared values such as theme or authentication. Consider Redux Toolkit when many distant components coordinate complex updates and you need excellent debugging.</p>
-        <pre><code>npm install @reduxjs/toolkit react-redux</code></pre>
-        <h3>1. Create a slice</h3><pre><code>// src/features/counter/counterSlice.js
+        <section id="redux">
+          <h2>16. Redux Toolkit: predictable global state</h2>
+          <p>Use local state first. Use context for stable, broadly shared values such as theme or authentication.
+            Consider Redux Toolkit when many distant components coordinate complex updates and you need excellent
+            debugging.</p>
+          <pre><code>npm install @reduxjs/toolkit react-redux</code></pre>
+          <h3>1. Create a slice</h3>
+          <pre><code>// src/features/counter/counterSlice.js
 import { createSlice } from '@reduxjs/toolkit'
 
 const counterSlice = createSlice({
@@ -543,20 +1880,23 @@ const counterSlice = createSlice({
 
 export const { increment, addBy } = counterSlice.actions
 export default counterSlice.reducer</code></pre>
-        <h3>2. Configure the store</h3><pre><code>// src/app/store.js
+          <h3>2. Configure the store</h3>
+          <pre><code>// src/app/store.js
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from '../features/counter/counterSlice'
 
 export const store = configureStore({
   reducer: { counter: counterReducer }
 })</code></pre>
-        <h3>3. Provide the store</h3><pre><code>import { Provider } from 'react-redux'
+          <h3>3. Provide the store</h3>
+          <pre><code>import { Provider } from 'react-redux'
 import { store } from './app/store'
 
 createRoot(document.getElementById('root')).render(
   &lt;Provider store={store}&gt;&lt;App /&gt;&lt;/Provider&gt;
 )</code></pre>
-        <h3>4. Read and dispatch</h3><pre><code>import { useDispatch, useSelector } from 'react-redux'
+          <h3>4. Read and dispatch</h3>
+          <pre><code>import { useDispatch, useSelector } from 'react-redux'
 import { increment } from './counterSlice'
 
 function Counter() {
@@ -564,7 +1904,8 @@ function Counter() {
   const dispatch = useDispatch()
   return &lt;button onClick={() =&gt; dispatch(increment())}&gt;{value}&lt;/button&gt;
 }</code></pre>
-        <h3>Async thunk</h3><pre><code>export const fetchStudents = createAsyncThunk(
+          <h3>Async thunk</h3>
+          <pre><code>export const fetchStudents = createAsyncThunk(
   'students/fetchStudents',
   async (_, { signal }) =&gt; {
     const response = await fetch('/api/students', { signal })
@@ -585,7 +1926,8 @@ extraReducers: builder =&gt; {
       state.error = action.error.message
     })
 }</code></pre>
-        <h3>Redux Toolkit Query (RTK Query)</h3><pre><code>export const studentsApi = createApi({
+          <h3>Redux Toolkit Query (RTK Query)</h3>
+          <pre><code>export const studentsApi = createApi({
   reducerPath: 'studentsApi',
   baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
   tagTypes: ['Student'],
@@ -598,9 +1940,11 @@ extraReducers: builder =&gt; {
 })
 
 export const { useGetStudentsQuery } = studentsApi</code></pre>
-      </section>
+        </section>
 
-      <section id="architecture"><h2>17. Professional architecture</h2><pre><code>src/
+        <section id="architecture">
+          <h2>17. Professional architecture</h2>
+          <pre><code>src/
 ├── app/
 │   ├── store.js
 │   └── router.jsx
@@ -621,12 +1965,18 @@ export const { useGetStudentsQuery } = studentsApi</code></pre>
 ├── utils/
 ├── App.jsx
 └── main.jsx</code></pre>
-        <p>Keep code near the feature that owns it. Avoid one enormous <code>components</code> folder. Keep secrets off the client; Vite variables exposed to browser code use the <code>VITE_</code> prefix and are visible to users.</p>
-        <p>Continue with the dedicated <a href="filesandfolders/">React file and folder structure lesson</a>.</p>
-      </section>
+          <p>Keep code near the feature that owns it. Avoid one enormous <code>components</code> folder. Keep secrets
+            off the client; Vite variables exposed to browser code use the <code>VITE_</code> prefix and are visible to
+            users.</p>
+          <p>Continue with the dedicated <a href="filesandfolders/">React file and folder structure lesson</a>.</p>
+        </section>
 
-      <section id="quality"><h2>18. Error handling, testing and performance</h2>
-        <h3>Error boundary</h3><p>Error boundaries catch rendering errors below them. At present they are class components unless supplied by a library.</p><pre><code>class ErrorBoundary extends React.Component {
+        <section id="quality">
+          <h2>18. Error handling, testing and performance</h2>
+          <h3>Error boundary</h3>
+          <p>Error boundaries catch rendering errors below them. At present they are class components unless supplied by
+            a library.</p>
+          <pre><code>class ErrorBoundary extends React.Component {
   state = { failed: false }
   static getDerivedStateFromError() { return { failed: true } }
   componentDidCatch(error, info) { console.error(error, info) }
@@ -634,42 +1984,59 @@ export const { useGetStudentsQuery } = studentsApi</code></pre>
     return this.state.failed ? &lt;h2&gt;Something went wrong.&lt;/h2&gt; : this.props.children
   }
 }</code></pre>
-        <h3>Testing with Vitest and React Testing Library</h3><pre><code>npm install -D vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event</code></pre><pre><code>test('increments the counter', async () =&gt; {
+          <h3>Testing with Vitest and React Testing Library</h3>
+          <pre><code>npm install -D vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event</code></pre>
+          <pre><code>test('increments the counter', async () =&gt; {
   const user = userEvent.setup()
   render(&lt;Counter /&gt;)
   await user.click(screen.getByRole('button', { name: /count/i }))
   expect(screen.getByRole('button')).toHaveTextContent('1')
 })</code></pre>
-        <h3>Performance order</h3><ol><li>Measure with React DevTools Profiler.</li><li>Keep state close to where it is used.</li><li>Avoid unnecessary effects and duplicated state.</li><li>Split large bundles with <code>lazy</code> and <code>Suspense</code>.</li><li>Only then use <code>memo</code>, <code>useMemo</code> or <code>useCallback</code>.</li></ol>
-        <pre><code>const AdminPage = lazy(() =&gt; import('./pages/AdminPage'))
+          <h3>Performance order</h3>
+          <ol>
+            <li>Measure with React DevTools Profiler.</li>
+            <li>Keep state close to where it is used.</li>
+            <li>Avoid unnecessary effects and duplicated state.</li>
+            <li>Split large bundles with <code>lazy</code> and <code>Suspense</code>.</li>
+            <li>Only then use <code>memo</code>, <code>useMemo</code> or <code>useCallback</code>.</li>
+          </ol>
+          <pre><code>const AdminPage = lazy(() =&gt; import('./pages/AdminPage'))
 
 &lt;Suspense fallback={&lt;p&gt;Loading page…&lt;/p&gt;}&gt;
   &lt;AdminPage /&gt;
 &lt;/Suspense&gt;</code></pre>
-      </section>
+        </section>
 
-      <section id="deployment"><h2>19. Build and publish to GitHub Pages</h2>
-        <p>GitHub Pages can host the production version of a Vite React application. Do not upload <code>node_modules</code>, and do not publish the raw <code>src</code> folder. GitHub Actions will install the packages, run Vite, and publish the generated <code>dist</code> folder whenever you push to <code>main</code>.</p>
+        <section id="deployment">
+          <h2>19. Build and publish to GitHub Pages</h2>
+          <p>GitHub Pages can host the production version of a Vite React application. Do not upload
+            <code>node_modules</code>, and do not publish the raw <code>src</code> folder. GitHub Actions will install
+            the packages, run Vite, and publish the generated <code>dist</code> folder whenever you push to
+            <code>main</code>.</p>
 
-        <h3>Step 1: test the production build locally</h3>
-        <pre><code>npm run build
+          <h3>Step 1: test the production build locally</h3>
+          <pre><code>npm run build
 npm run preview</code></pre>
-        <p>Open the preview address displayed in the terminal. Fix build errors before continuing.</p>
+          <p>Open the preview address displayed in the terminal. Fix build errors before continuing.</p>
 
-        <h3>Step 2: set Vite's base path</h3>
-        <p>If the repository is named <code>react-zero-infinity</code> and its site address will be <code>https://USERNAME.github.io/react-zero-infinity/</code>, update <code>vite.config.js</code>:</p>
-        <pre><code>import { defineConfig } from 'vite'
+          <h3>Step 2: set Vite's base path</h3>
+          <p>If the repository is named <code>react-zero-infinity</code> and its site address will be
+            <code>https://USERNAME.github.io/react-zero-infinity/</code>, update <code>vite.config.js</code>:</p>
+          <pre><code>import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
   base: '/react-zero-infinity/',
 })</code></pre>
-        <div class="note"><strong>Choose the correct base:</strong> use <code>'/REPOSITORY-NAME/'</code> for a project site. Use <code>'/'</code> for <code>USERNAME.github.io</code> or a custom domain such as <code>react.learnwithchampak.live</code>. The spelling and capitalisation must match the repository name.</div>
+          <div class="note"><strong>Choose the correct base:</strong> use <code>'/REPOSITORY-NAME/'</code> for a project
+            site. Use <code>'/'</code> for <code>USERNAME.github.io</code> or a custom domain such as
+            <code>react.learnwithchampak.live</code>. The spelling and capitalisation must match the repository name.
+          </div>
 
-        <h3>Step 3: add the GitHub Pages workflow</h3>
-        <p>Create <code>.github/workflows/deploy.yml</code> in the project root:</p>
-        <pre><code>name: Deploy React site to GitHub Pages
+          <h3>Step 3: add the GitHub Pages workflow</h3>
+          <p>Create <code>.github/workflows/deploy.yml</code> in the project root:</p>
+          <pre><code>name: Deploy React site to GitHub Pages
 
 on:
   push:
@@ -723,41 +2090,66 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4</code></pre>
 
-        <h3>Step 4: create the repository and push the project</h3>
-        <p>Create an empty GitHub repository named <code>react-zero-infinity</code>. Do not add another README if the local project already contains files. Then run:</p>
-        <pre><code>git init
+          <h3>Step 4: create the repository and push the project</h3>
+          <p>Create an empty GitHub repository named <code>react-zero-infinity</code>. Do not add another README if the
+            local project already contains files. Then run:</p>
+          <pre><code>git init
 git add .
 git commit -m "Create React course project"
 git branch -M main
 git remote add origin https://github.com/USERNAME/react-zero-infinity.git
 git push -u origin main</code></pre>
-        <p>Replace <code>USERNAME</code> with your GitHub username.</p>
-        <h3>Original Git and publishing screenshots</h3>
-        <div class="screenshots">
-          <figure><img src="assets/screenshots/3.png" alt="Listing the React project files before Git publication" loading="lazy"><figcaption>1. Check the project files before publishing.</figcaption></figure>
-          <figure><img src="assets/screenshots/4.png" alt="Git initialization and project file output in PowerShell" loading="lazy"><figcaption>2. Initialize Git and prepare the files.</figcaption></figure>
-          <figure><img src="assets/screenshots/6.png" alt="Adding the GitHub remote repository in PowerShell" loading="lazy"><figcaption>3. Add the GitHub repository as the remote.</figcaption></figure>
-          <figure><img src="assets/screenshots/7.png" alt="Pushing the React project to GitHub" loading="lazy"><figcaption>4. Push the main branch to GitHub.</figcaption></figure>
-          <figure><img src="assets/screenshots/8.png" alt="Successful Git push output for the React project" loading="lazy"><figcaption>5. Confirm that the push completed.</figcaption></figure>
-          <figure><img src="assets/screenshots/13.png" alt="Git commit and push commands for a React project" loading="lazy"><figcaption>6. Commit and publish later updates.</figcaption></figure>
-          <figure><img src="assets/screenshots/14.png" alt="Running the React development server after publication setup" loading="lazy"><figcaption>7. Continue development and verify the app locally.</figcaption></figure>
-        </div>
+          <p>Replace <code>USERNAME</code> with your GitHub username.</p>
+          <h3>Original Git and publishing screenshots</h3>
+          <div class="screenshots">
+            <figure><img src="assets/screenshots/3.png" alt="Listing the React project files before Git publication"
+                loading="lazy">
+              <figcaption>1. Check the project files before publishing.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/4.png" alt="Git initialization and project file output in PowerShell"
+                loading="lazy">
+              <figcaption>2. Initialize Git and prepare the files.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/6.png" alt="Adding the GitHub remote repository in PowerShell"
+                loading="lazy">
+              <figcaption>3. Add the GitHub repository as the remote.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/7.png" alt="Pushing the React project to GitHub" loading="lazy">
+              <figcaption>4. Push the main branch to GitHub.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/8.png" alt="Successful Git push output for the React project"
+                loading="lazy">
+              <figcaption>5. Confirm that the push completed.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/13.png" alt="Git commit and push commands for a React project"
+                loading="lazy">
+              <figcaption>6. Commit and publish later updates.</figcaption>
+            </figure>
+            <figure><img src="assets/screenshots/14.png"
+                alt="Running the React development server after publication setup" loading="lazy">
+              <figcaption>7. Continue development and verify the app locally.</figcaption>
+            </figure>
+          </div>
 
-        <h3>Step 5: enable GitHub Pages</h3>
-        <ol class="steps">
-          <li>Open the repository on GitHub.</li>
-          <li>Select <strong>Settings → Pages</strong>.</li>
-          <li>Under <strong>Build and deployment</strong>, set <strong>Source</strong> to <strong>GitHub Actions</strong>.</li>
-          <li>Open the <strong>Actions</strong> tab and wait for “Deploy React site to GitHub Pages” to finish.</li>
-          <li>Open <code>https://USERNAME.github.io/react-zero-infinity/</code>.</li>
-        </ol>
-        <div class="checkpoint"><strong>Every later update is simple:</strong><pre><code>git add .
+          <h3>Step 5: enable GitHub Pages</h3>
+          <ol class="steps">
+            <li>Open the repository on GitHub.</li>
+            <li>Select <strong>Settings → Pages</strong>.</li>
+            <li>Under <strong>Build and deployment</strong>, set <strong>Source</strong> to <strong>GitHub
+                Actions</strong>.</li>
+            <li>Open the <strong>Actions</strong> tab and wait for “Deploy React site to GitHub Pages” to finish.</li>
+            <li>Open <code>https://USERNAME.github.io/react-zero-infinity/</code>.</li>
+          </ol>
+          <div class="checkpoint"><strong>Every later update is simple:</strong>
+            <pre><code>git add .
 git commit -m "Update React project"
-git push</code></pre>The workflow rebuilds and republishes the site automatically.</div>
+git push</code></pre>The workflow rebuilds and republishes the site automatically.
+          </div>
 
-        <h3>React Router on GitHub Pages</h3>
-        <p>GitHub Pages cannot normally redirect an unknown path such as <code>/courses/7</code> to React's <code>index.html</code>. The simplest reliable course solution is a hash router:</p>
-        <pre><code>import { createHashRouter, RouterProvider } from 'react-router-dom'
+          <h3>React Router on GitHub Pages</h3>
+          <p>GitHub Pages cannot normally redirect an unknown path such as <code>/courses/7</code> to React's
+            <code>index.html</code>. The simplest reliable course solution is a hash router:</p>
+          <pre><code>import { createHashRouter, RouterProvider } from 'react-router-dom'
 
 const router = createHashRouter([
   { path: '/', element: &lt;Home /&gt; },
@@ -768,49 +2160,134 @@ const router = createHashRouter([
 createRoot(document.getElementById('root')).render(
   &lt;RouterProvider router={router} /&gt;
 )</code></pre>
-        <p>The address will contain <code>#</code>, for example <code>.../react-zero-infinity/#/courses</code>, but opening or refreshing a route will work. A custom <code>404.html</code> redirect is another option, but it adds complexity.</p>
+          <p>The address will contain <code>#</code>, for example <code>.../react-zero-infinity/#/courses</code>, but
+            opening or refreshing a route will work. A custom <code>404.html</code> redirect is another option, but it
+            adds complexity.</p>
 
-        <h3>Optional custom domain</h3>
-        <p>For a domain such as <code>react.learnwithchampak.live</code>, set <code>base: '/'</code>, enter the domain under <strong>Settings → Pages → Custom domain</strong>, and configure the required DNS record with the domain provider. Put a file named <code>CNAME</code> inside <code>public</code> so Vite copies it into every build:</p>
-        <pre><code>react.learnwithchampak.live</code></pre>
+          <h3>Optional custom domain</h3>
+          <p>For a domain such as <code>react.learnwithchampak.live</code>, set <code>base: '/'</code>, enter the domain
+            under <strong>Settings → Pages → Custom domain</strong>, and configure the required DNS record with the
+            domain provider. Put a file named <code>CNAME</code> inside <code>public</code> so Vite copies it into every
+            build:</p>
+          <pre><code>react.learnwithchampak.live</code></pre>
 
-        <h3>Common GitHub Pages problems</h3>
-        <table>
-          <thead><tr><th>Problem</th><th>Likely cause</th><th>Fix</th></tr></thead>
-          <tbody>
-            <tr><td>Blank page</td><td>Wrong Vite <code>base</code></td><td>Use the exact repository path and push again.</td></tr>
-            <tr><td>CSS or JavaScript returns 404</td><td>Assets point to <code>/assets</code> instead of the project path</td><td>Correct <code>base</code>; avoid hard-coded root asset URLs.</td></tr>
-            <tr><td>Workflow fails at <code>npm ci</code></td><td><code>package-lock.json</code> is missing or outdated</td><td>Run <code>npm install</code> locally and commit the lock file.</td></tr>
-            <tr><td>Refreshing a route shows 404</td><td><code>BrowserRouter</code> needs server rewrites</td><td>Use <code>createHashRouter</code> or add a tested 404 fallback.</td></tr>
-            <tr><td>Site shows an old version</td><td>Deployment still running or cached</td><td>Check Actions, then hard-refresh the page.</td></tr>
-          </tbody>
-        </table>
+          <h3>Common GitHub Pages problems</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Problem</th>
+                <th>Likely cause</th>
+                <th>Fix</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Blank page</td>
+                <td>Wrong Vite <code>base</code></td>
+                <td>Use the exact repository path and push again.</td>
+              </tr>
+              <tr>
+                <td>CSS or JavaScript returns 404</td>
+                <td>Assets point to <code>/assets</code> instead of the project path</td>
+                <td>Correct <code>base</code>; avoid hard-coded root asset URLs.</td>
+              </tr>
+              <tr>
+                <td>Workflow fails at <code>npm ci</code></td>
+                <td><code>package-lock.json</code> is missing or outdated</td>
+                <td>Run <code>npm install</code> locally and commit the lock file.</td>
+              </tr>
+              <tr>
+                <td>Refreshing a route shows 404</td>
+                <td><code>BrowserRouter</code> needs server rewrites</td>
+                <td>Use <code>createHashRouter</code> or add a tested 404 fallback.</td>
+              </tr>
+              <tr>
+                <td>Site shows an old version</td>
+                <td>Deployment still running or cached</td>
+                <td>Check Actions, then hard-refresh the page.</td>
+              </tr>
+            </tbody>
+          </table>
 
-        <h3>Final publication checklist</h3>
-        <ul><li>No console errors or exposed secrets.</li><li>Loading, empty and error states exist.</li><li>Keyboard navigation, labels, contrast and responsive layouts work.</li><li><code>npm run build</code> completes locally.</li><li>The workflow has a green tick in GitHub Actions.</li><li>Images, CSS, lazy-loaded modules and routes work from the published URL.</li></ul>
-      </section>
+          <h3>Final publication checklist</h3>
+          <ul>
+            <li>No console errors or exposed secrets.</li>
+            <li>Loading, empty and error states exist.</li>
+            <li>Keyboard navigation, labels, contrast and responsive layouts work.</li>
+            <li><code>npm run build</code> completes locally.</li>
+            <li>The workflow has a green tick in GitHub Actions.</li>
+            <li>Images, CSS, lazy-loaded modules and routes work from the published URL.</li>
+          </ul>
+        </section>
 
-      <section id="projects"><h2>20. Projects from zero to infinity</h2>
-        <div class="grid"><div class="card"><h3>Level 1: Student counter</h3><p>State, events, conditional messages and reset.</p></div><div class="card"><h3>Level 2: Task manager</h3><p>Forms, lists, filtering, local storage and custom hooks.</p></div><div class="card"><h3>Level 3: Course browser</h3><p>Router, Fetch/Axios, loading, errors, search and pagination.</p></div><div class="card"><h3>Level 4: Learning portal</h3><p>Authentication UI, protected routes, Redux Toolkit, API mutations and tests.</p></div></div>
-        <h3>Capstone requirements</h3><ul><li>Feature-based folders.</li><li>At least five routes and one dynamic route.</li><li>Accessible controlled forms with validation.</li><li>Real API with cancellation and error handling.</li><li>Local state, context, a custom hook and justified Redux usage.</li><li>Unit/component tests, lazy loading and a production build.</li></ul>
-      </section>
+        <section id="projects">
+          <h2>20. Projects from zero to infinity</h2>
+          <div class="grid">
+            <div class="card">
+              <h3>Level 1: Student counter</h3>
+              <p>State, events, conditional messages and reset.</p>
+            </div>
+            <div class="card">
+              <h3>Level 2: Task manager</h3>
+              <p>Forms, lists, filtering, local storage and custom hooks.</p>
+            </div>
+            <div class="card">
+              <h3>Level 3: Course browser</h3>
+              <p>Router, Fetch/Axios, loading, errors, search and pagination.</p>
+            </div>
+            <div class="card">
+              <h3>Level 4: Learning portal</h3>
+              <p>Authentication UI, protected routes, Redux Toolkit, API mutations and tests.</p>
+            </div>
+          </div>
+          <h3>Capstone requirements</h3>
+          <ul>
+            <li>Feature-based folders.</li>
+            <li>At least five routes and one dynamic route.</li>
+            <li>Accessible controlled forms with validation.</li>
+            <li>Real API with cancellation and error handling.</li>
+            <li>Local state, context, a custom hook and justified Redux usage.</li>
+            <li>Unit/component tests, lazy loading and a production build.</li>
+          </ul>
+        </section>
 
-      <section class="quiz" id="quiz"><h2>21. Knowledge check</h2>
-        <form id="quizForm">
-          <fieldset><legend>1. Which value should be used as a list key?</legend><label><input type="radio" name="q1" value="a"> Array index always</label><label><input type="radio" name="q1" value="b"> Stable unique item ID</label></fieldset>
-          <fieldset><legend>2. Which hook synchronizes with an external system?</legend><label><input type="radio" name="q2" value="a"> useEffect</label><label><input type="radio" name="q2" value="b"> useMemo</label></fieldset>
-          <fieldset><legend>3. What is the recommended modern Redux package?</legend><label><input type="radio" name="q3" value="a"> Handwritten Redux only</label><label><input type="radio" name="q3" value="b"> Redux Toolkit</label></fieldset>
-          <button class="btn" type="submit">Check answers</button><p class="result" id="quizResult" aria-live="polite"></p>
-        </form>
-      </section>
-      <section><h2>Where to practise</h2><p>Type every example in your Vite project. Change names, values and API endpoints. A lesson becomes a skill only after you predict what the code will do, run it, and explain the result in your own words.</p><p><a class="btn" href="https://editor.learnwithchampak.live/" target="_blank" rel="noopener">Open coding editors</a></p></section>
-    </article>
-  </div></main>
+        <section class="quiz" id="quiz">
+          <h2>21. Knowledge check</h2>
+          <form id="quizForm">
+            <fieldset>
+              <legend>1. Which value should be used as a list key?</legend><label><input type="radio" name="q1"
+                  value="a"> Array index always</label><label><input type="radio" name="q1" value="b"> Stable unique
+                item ID</label>
+            </fieldset>
+            <fieldset>
+              <legend>2. Which hook synchronizes with an external system?</legend><label><input type="radio" name="q2"
+                  value="a"> useEffect</label><label><input type="radio" name="q2" value="b"> useMemo</label>
+            </fieldset>
+            <fieldset>
+              <legend>3. What is the recommended modern Redux package?</legend><label><input type="radio" name="q3"
+                  value="a"> Handwritten Redux only</label><label><input type="radio" name="q3" value="b"> Redux
+                Toolkit</label>
+            </fieldset>
+            <button class="btn" type="submit">Check answers</button>
+            <p class="result" id="quizResult" aria-live="polite"></p>
+          </form>
+        </section>
+        <section>
+          <h2>Where to practise</h2>
+          <p>Type every example in your Vite project. Change names, values and API endpoints. A lesson becomes a skill
+            only after you predict what the code will do, run it, and explain the result in your own words.</p>
+          <p><a class="btn" href="https://editor.learnwithchampak.live/" target="_blank" rel="noopener">Open coding
+              editors</a></p>
+        </section>
+      </article>
+    </div>
+  </main>
   <footer class="footer">React from 0 to Infinity · Programmer's Picnic by Champak Roy</footer>
   <script>
-    document.querySelectorAll('pre').forEach(pre=>{const b=document.createElement('button');b.className='copy';b.type='button';b.textContent='Copy';b.addEventListener('click',async()=>{await navigator.clipboard.writeText(pre.querySelector('code')?.innerText||pre.innerText);b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1200)});pre.append(b)})
-    document.getElementById('quizForm').addEventListener('submit',e=>{e.preventDefault();const d=new FormData(e.currentTarget);const score=(d.get('q1')==='b')+(d.get('q2')==='a')+(d.get('q3')==='b');document.getElementById('quizResult').textContent=`Score: ${score}/3${score===3?' — Excellent. Continue to the projects.':' — Review the related sections and try again.'}`})
-    const links=[...document.querySelectorAll('.side a')],sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.hash==='#'+entry.target.id))}),{rootMargin:'-20% 0px -70%'});sections.forEach(s=>observer.observe(s))
+    document.querySelectorAll('pre').forEach(pre => { const b = document.createElement('button'); b.className = 'copy'; b.type = 'button'; b.textContent = 'Copy'; b.addEventListener('click', async () => { await navigator.clipboard.writeText(pre.querySelector('code')?.innerText || pre.innerText); b.textContent = 'Copied'; setTimeout(() => b.textContent = 'Copy', 1200) }); pre.append(b) })
+    document.getElementById('quizForm').addEventListener('submit', e => { e.preventDefault(); const d = new FormData(e.currentTarget); const score = (d.get('q1') === 'b') + (d.get('q2') === 'a') + (d.get('q3') === 'b'); document.getElementById('quizResult').textContent = `Score: ${score}/3${score === 3 ? ' — Excellent. Continue to the projects.' : ' — Review the related sections and try again.'}` })
+    const links = [...document.querySelectorAll('.side a')], sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean); const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) links.forEach(a => a.classList.toggle('active', a.hash === '#' + entry.target.id)) }), { rootMargin: '-20% 0px -70%' }); sections.forEach(s => observer.observe(s))
   </script>
 </body>
+
 </html>
