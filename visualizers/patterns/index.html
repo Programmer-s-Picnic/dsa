@@ -126,6 +126,38 @@
             text-align: left;
         }
 
+        .video-section {
+            width: min(900px, 95vw);
+            margin: 24px auto;
+            padding: 18px;
+            box-sizing: border-box;
+            border: 2px solid #00897b;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+
+        .video-section h2 {
+            margin-top: 0;
+            color: #00695c;
+        }
+
+        .video-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #000;
+        }
+
+        .video-frame iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         .python-section h2 {
             margin-top: 0;
             color: #00695c;
@@ -207,6 +239,18 @@
     <div class="grid-box">
         <div id="grid"></div>
     </div>
+
+    <section class="video-section" aria-labelledby="videoTitle">
+        <h2 id="videoTitle">Learn How to Build Grid Patterns</h2>
+        <div class="video-frame">
+            <iframe src="https://www.youtube-nocookie.com/embed/GlmZg64sebM"
+                title="Python grid pattern lesson by Learn With Champak"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+        </div>
+    </section>
 
     <section class="python-section" aria-labelledby="pythonTitle">
         <h2 id="pythonTitle">Python Code for This Grid</h2>
