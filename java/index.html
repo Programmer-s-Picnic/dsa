@@ -1,896 +1,329 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-    
-        gtag('config', 'G-GSTQRQMLEE');
-    </script>
-
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
-<script src="../assets/js/pwd.js"></script>
-<script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js"></script>
-<meta content="#0b67b2" name="theme-color"/><title>Java Arithmetic Operators and Math Class Methods | AI/ML with Champak Roy, Varanasi</title><meta content="Study Java Arithmetic Operators and Math Class Methods with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." name="description"/><meta content="AI ML classes Varanasi, study AIML with Champak Roy, Champak Roy Varanasi, Programmer's Picnic, Java Arithmetic Operators and Math Class Methods, Python lessons, machine learning lessons, data structures algorithms, learnwithchampak" name="keywords"/><meta content="Champak Roy" name="author"/><meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/><link href="https://dsa.learnwithchampak.live/java/arithmetic/" rel="canonical"/><meta content="website" property="og:type"/><meta content="Programmer's Picnic by Champak Roy" property="og:site_name"/><meta content="Java Arithmetic Operators and Math Class Methods | AI/ML with Champak Roy, Varanasi" property="og:title"/><meta content="Study Java Arithmetic Operators and Math Class Methods with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." property="og:description"/><meta content="https://dsa.learnwithchampak.live/java/arithmetic/" property="og:url"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="summary_large_image" name="twitter:card"/><meta content="Java Arithmetic Operators and Math Class Methods | AI/ML with Champak Roy, Varanasi" name="twitter:title"/><meta content="Study Java Arithmetic Operators and Math Class Methods with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice." name="twitter:description"/><meta content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png" name="twitter:image"/>
-
-<style>
-    :root{
-      --bg:#fff8eb;
-      --card:#ffffff;
-      --ink:#1f2937;
-      --muted:#6b7280;
-      --brand:#d97706;
-      --brand-2:#f59e0b;
-      --line:#ead7b0;
-      --soft:#fff4d6;
-      --soft-2:#fff9ec;
-      --code:#111827;
-      --code-text:#f9fafb;
-      --ok:#166534;
-      --bad:#991b1b;
-      --info:#1d4ed8;
-      --shadow:0 16px 32px rgba(217,119,6,0.10);
-      --radius:18px;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(245,158,11,0.14), transparent 24%),
-        radial-gradient(circle at bottom left, rgba(217,119,6,0.10), transparent 25%),
-        var(--bg);
-      color:var(--ink);
-      line-height:1.65;
-    }
-
-    header{
-      background:linear-gradient(135deg,var(--brand),var(--brand-2));
-      color:#fff;
-      padding:34px 20px;
-      text-align:center;
-      box-shadow:0 10px 25px rgba(0,0,0,0.10);
-    }
-
-    header h1{
-      margin:0 0 10px;
-      font-size:clamp(1.9rem,4vw,3rem);
-      line-height:1.15;
-    }
-
-    header p{
-      margin:0;
-      font-size:1.02rem;
-      opacity:0.95;
-    }
-
-    .container{
-      max-width:1100px;
-      margin:0 auto;
-      padding:22px;
-    }
-
-    .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:22px;
-      margin-bottom:22px;
-      box-shadow:var(--shadow);
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.3fr .9fr;
-      gap:18px;
-    }
-
-    .mini-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:12px;
-      margin-top:16px;
-    }
-
-    .mini{
-      background:var(--soft-2);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:14px;
-    }
-
-    h2{
-      margin-top:0;
-      color:var(--brand);
-      font-size:1.55rem;
-    }
-
-    h3{
-      color:#9a5a05;
-      margin-bottom:8px;
-    }
-
-    p, li{
-      font-size:1rem;
-    }
-
-    .muted{
-      color:var(--muted);
-    }
-
-    ul, ol{
-      padding-left:22px;
-    }
-
-    code{
-      background:#fff2cf;
-      padding:2px 6px;
-      border-radius:6px;
-      border:1px solid #f1d18a;
-    }
-
-    pre{
-      background:var(--code);
-      color:var(--code-text);
-      padding:16px;
-      border-radius:14px;
-      overflow:auto;
-      border:1px solid rgba(255,255,255,0.08);
-      line-height:1.55;
-      font-size:0.96rem;
-    }
-
-    .table-wrap{
-      overflow:auto;
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      background:#fffdfa;
-      border:1px solid var(--line);
-      border-radius:14px;
-      overflow:hidden;
-    }
-
-    th, td{
-      padding:12px 10px;
-      border-bottom:1px solid var(--line);
-      text-align:left;
-      vertical-align:top;
-    }
-
-    th{
-      background:#fff1cc;
-      color:#8a5206;
-    }
-
-    .quiz-toolbar{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:18px;
-      padding:14px;
-      background:var(--soft-2);
-      border:1px solid var(--line);
-      border-radius:14px;
-    }
-
-    .quiz-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    button{
-      border:none;
-      background:var(--brand);
-      color:#fff;
-      padding:11px 16px;
-      border-radius:12px;
-      font-weight:700;
-      cursor:pointer;
-      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
-      box-shadow:0 8px 20px rgba(217,119,6,0.20);
-    }
-
-    button:hover{
-      background:var(--brand-2);
-      transform:translateY(-1px);
-    }
-
-    button.secondary{
-      background:#fff;
-      color:var(--brand);
-      border:1px solid var(--line);
-      box-shadow:none;
-    }
-
-    button.secondary:hover{
-      background:#fff7e8;
-    }
-
-    .question-card{
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:18px;
-      margin-bottom:16px;
-      background:#fffdfa;
-    }
-
-    .question-head{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
-      margin-bottom:10px;
-    }
-
-    .question-number{
-      font-weight:800;
-      color:var(--brand);
-    }
-
-    .topic-tag{
-      font-size:0.83rem;
-      padding:6px 10px;
-      background:#fff2cf;
-      border:1px solid #efd393;
-      border-radius:999px;
-      color:#8a5206;
-      white-space:nowrap;
-    }
-
-    .question-text{
-      margin:0 0 14px;
-      font-size:1.05rem;
-      font-weight:600;
-    }
-
-    .options{
-      display:grid;
-      gap:10px;
-    }
-
-    .option{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      padding:12px 14px;
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:#fff;
-      cursor:pointer;
-      transition:border-color .18s ease, background .18s ease, transform .18s ease;
-    }
-
-    .option:hover{
-      border-color:#e9ba56;
-      background:#fff9ec;
-      transform:translateY(-1px);
-    }
-
-    .option input{
-      margin-top:4px;
-      accent-color:var(--brand);
-      transform:scale(1.1);
-    }
-
-    .option.correct{
-      border-color:#86d4a1;
-      background:#ecfdf3;
-    }
-
-    .option.incorrect{
-      border-color:#e6a8a8;
-      background:#fef2f2;
-    }
-
-    .feedback{
-      margin-top:12px;
-      padding:12px 14px;
-      border-radius:12px;
-      font-weight:600;
-      display:none;
-    }
-
-    .feedback.show{
-      display:block;
-    }
-
-    .feedback.correct{
-      background:#ecfdf3;
-      color:var(--ok);
-      border:1px solid #a7e2bb;
-    }
-
-    .feedback.incorrect{
-      background:#fef2f2;
-      color:var(--bad);
-      border:1px solid #efb2b2;
-    }
-
-    .result-box{
-      margin-top:18px;
-      padding:18px;
-      border-radius:16px;
-      background:#fff7e8;
-      border:1px solid var(--line);
-      display:none;
-    }
-
-    .result-box.show{
-      display:block;
-    }
-
-    .score-big{
-      font-size:2rem;
-      font-weight:800;
-      color:var(--brand);
-      margin:0 0 8px;
-    }
-
-    .result-note{
-      margin:0;
-      color:var(--muted);
-    }
-
-    .assignment{
-      padding:14px;
-      border-radius:14px;
-      background:var(--soft-2);
-      border:1px solid var(--line);
-      margin-bottom:12px;
-    }
-
-    .footer-note{
-      text-align:center;
-      color:var(--muted);
-      font-size:0.95rem;
-      padding-bottom:24px;
-    }
-
-    @media (max-width: 860px){
-      .hero-grid{
-        grid-template-columns:1fr;
-      }
-      .question-head{
-        flex-direction:column;
-      }
-      .quiz-toolbar{
-        align-items:flex-start;
-      }
-    }
-  </style>
-<link href="../../assets/css/theme.css" rel="stylesheet"/><script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "LearningResource",
-  "name": "Java Arithmetic Operators and Math Class Methods | AI/ML with Champak Roy, Varanasi",
-  "description": "Study Java Arithmetic Operators and Math Class Methods with Champak Roy of Varanasi. Practical AI/ML, Python, DSA and web development lessons from beginner level to advanced practice.",
-  "url": "https://dsa.learnwithchampak.live/java/arithmetic/",
-  "image": "https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png",
-  "inLanguage": "en",
-  "creator": {
-    "@type": "Person",
-    "name": "Champak Roy",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Varanasi",
-      "addressCountry": "IN"
-    }
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Programmer's Picnic by Champak Roy",
-    "url": "https://dsa.learnwithchampak.live"
-  },
-  "about": [
-    "Artificial Intelligence",
-    "Machine Learning",
-    "Python",
-    "Data Structures and Algorithms",
-    "Web Development"
-  ],
-  "audience": {
-    "@type": "Audience",
-    "audienceType": "Students and beginner programmers"
-  },
-  "isAccessibleForFree": true
-}</script></head>
-<body data-root="../../"><div data-root="../../" id="site-header"></div>
-<header>
-<h1 id="speak0">Java Arithmetic Operators and Math Class Methods</h1>
-<p id="speak1">A complete lesson with examples, assignments, and interactive MCQ questions implemented using JavaScript.</p>
-</header>
-<main class="container" id="main-content">
-<section class="card hero-grid">
-<div>
-<h2 id="speak2">What you will learn</h2>
-<p id="speak3">
-          In this lesson, you will learn how Java performs basic mathematical calculations using arithmetic operators such as addition, subtraction, multiplication, division, and modulus. You will also learn how to use the <code>Math</code> class to perform common mathematical tasks such as finding the maximum value, square root, power, absolute value, and random number generation.
-        </p>
-<p id="speak4">
-          After reading the lesson, you can solve the assignments and then attempt the interactive quiz. The quiz checks your answers using JavaScript and gives instant feedback.
-        </p>
-</div>
-<div class="mini-grid">
-<div class="mini">
-<strong id="speak5">Part 1</strong>
-<p class="muted" id="speak6">Arithmetic operators in Java</p>
-</div>
-<div class="mini">
-<strong id="speak7">Part 2</strong>
-<p class="muted" id="speak8">Math class methods</p>
-</div>
-<div class="mini">
-<strong id="speak9">Part 3</strong>
-<p class="muted" id="speak10">Assignments for practice</p>
-</div>
-<div class="mini">
-<strong id="speak11">Part 4</strong>
-<p class="muted" id="speak12">Interactive MCQ quiz</p>
-</div>
-</div>
-</section>
-<section class="card">
-<h2 id="speak13">Arithmetic Operators in Java</h2>
-<p id="speak14">
-        Arithmetic operators are symbols used to perform mathematical operations on variables and values. These are some of the first operators every Java learner uses.
-      </p>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th id="speak15">Operator</th>
-<th id="speak16">Meaning</th>
-<th id="speak17">Example</th>
-<th id="speak18">Result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>+</td>
-<td id="speak19">Addition</td>
-<td><code>10 + 5</code></td>
-<td>15</td>
-</tr>
-<tr>
-<td>-</td>
-<td id="speak20">Subtraction</td>
-<td><code>10 - 5</code></td>
-<td>5</td>
-</tr>
-<tr>
-<td>*</td>
-<td id="speak21">Multiplication</td>
-<td><code>10 * 5</code></td>
-<td>50</td>
-</tr>
-<tr>
-<td>/</td>
-<td id="speak22">Division</td>
-<td><code>10 / 5</code></td>
-<td>2</td>
-</tr>
-<tr>
-<td>%</td>
-<td id="speak23">Modulus or remainder</td>
-<td><code>10 % 3</code></td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="speak24">Example program</h3>
-<pre id="speak25">public class Main {
-    public static void main(String[] args) {
-        int a = 12;
-        int b = 5;
-
-        System.out.println("Addition: " + (a + b));
-        System.out.println("Subtraction: " + (a - b));
-        System.out.println("Multiplication: " + (a * b));
-        System.out.println("Division: " + (a / b));
-        System.out.println("Remainder: " + (a % b));
-    }
-}</pre>
-<p id="speak26">
-        Notice the division result. Since both <code>a</code> and <code>b</code> are integers, Java performs integer division. That means the decimal part is removed. So <code>12 / 5</code> becomes <code>2</code>, not <code>2.4</code>.
-      </p>
-<pre id="speak27">double x = 12;
-double y = 5;
-System.out.println(x / y); // 2.4</pre>
-</section>
-<section class="card">
-<h2 id="speak28">Increment and Decrement</h2>
-<p id="speak29">
-        Java also provides shortcut operators to increase or decrease a value by one.
-      </p>
-<pre id="speak30">int count = 7;
-
-count++; // count becomes 8
-count--; // count becomes 7 again
-
-System.out.println(count);</pre>
-<p id="speak31">
-        The increment operator <code>++</code> adds one. The decrement operator <code>--</code> subtracts one.
-      </p>
-</section>
-<section class="card">
-<h2 id="speak32">Math Class Methods in Java</h2>
-<p id="speak33">
-        The <code>Math</code> class in Java contains many useful built-in methods. These methods help you perform mathematical operations quickly without writing your own logic for every task.
-      </p>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th id="speak34">Method</th>
-<th id="speak35">Purpose</th>
-<th id="speak36">Example</th>
-<th id="speak37">Output</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Math.max(a, b)</code></td>
-<td id="speak38">Returns the larger value</td>
-<td><code>Math.max(7, 11)</code></td>
-<td>11</td>
-</tr>
-<tr>
-<td><code>Math.min(a, b)</code></td>
-<td id="speak39">Returns the smaller value</td>
-<td><code>Math.min(7, 11)</code></td>
-<td>7</td>
-</tr>
-<tr>
-<td><code>Math.sqrt(x)</code></td>
-<td id="speak40">Returns square root</td>
-<td><code>Math.sqrt(81)</code></td>
-<td>9.0</td>
-</tr>
-<tr>
-<td><code>Math.pow(a, b)</code></td>
-<td id="speak41">Returns a raised to power b</td>
-<td><code>Math.pow(2, 4)</code></td>
-<td>16.0</td>
-</tr>
-<tr>
-<td><code>Math.abs(x)</code></td>
-<td id="speak42">Returns absolute value</td>
-<td><code>Math.abs(-14)</code></td>
-<td>14</td>
-</tr>
-<tr>
-<td><code>Math.random()</code></td>
-<td id="speak43">Returns random decimal from 0.0 to less than 1.0</td>
-<td><code>Math.random()</code></td>
-<td>Example: 0.738...</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="speak44">Example program using Math methods</h3>
-<pre id="speak45">public class Main {
-    public static void main(String[] args) {
-        System.out.println(Math.max(15, 22));
-        System.out.println(Math.min(15, 22));
-        System.out.println(Math.sqrt(64));
-        System.out.println(Math.pow(3, 4));
-        System.out.println(Math.abs(-90));
-        System.out.println(Math.random());
-    }
-}</pre>
-<p id="speak46">
-        To generate a random integer from 1 to 100, you can write:
-      </p>
-<pre id="speak47">int randomNumber = (int)(Math.random() * 100) + 1;
-System.out.println(randomNumber);</pre>
-</section>
-<section class="card">
-<h2 id="speak48">Assignments</h2>
-<div class="assignment" id="speak49">
-<strong>Assignment 1:</strong> Write a Java program that takes two numbers and prints their addition, subtraction, multiplication, division, and remainder.
-      </div>
-<div class="assignment" id="speak50">
-<strong>Assignment 2:</strong> Write a Java program to calculate the area and perimeter of a rectangle using arithmetic operators.
-      </div>
-<div class="assignment" id="speak51">
-<strong>Assignment 3:</strong> Write a Java program to check whether a number is even or odd using the modulus operator.
-      </div>
-<div class="assignment" id="speak52">
-<strong>Assignment 4:</strong> Write a Java program that finds the maximum and minimum of two given numbers using <code>Math.max()</code> and <code>Math.min()</code>.
-      </div>
-<div class="assignment" id="speak53">
-<strong>Assignment 5:</strong> Write a Java program to calculate the square root of a given number using <code>Math.sqrt()</code>.
-      </div>
-<div class="assignment" id="speak54">
-<strong>Assignment 6:</strong> Write a Java program to calculate a number raised to a power using <code>Math.pow()</code>.
-      </div>
-<div class="assignment" id="speak55">
-<strong>Assignment 7:</strong> Write a Java program to convert a negative number to a positive number using <code>Math.abs()</code>.
-      </div>
-<div class="assignment" id="speak56">
-<strong>Assignment 8:</strong> Write a Java program to generate a random number from 1 to 50.
-      </div>
-</section>
-<section class="card">
-<h2 id="speak57">Interactive MCQ Quiz</h2>
-<p id="speak58">
-        Select one answer for each question and click <strong>Check Answers</strong>. The quiz is implemented using JavaScript and shows your score instantly.
-      </p>
-<div class="quiz-toolbar">
-<div id="speak59"><strong>Total Questions:</strong> <span id="totalQuestions">0</span></div>
-<div class="quiz-actions">
-<button id="checkBtn" type="button">Check Answers</button>
-<button class="secondary" id="resetBtn" type="button">Reset Quiz</button>
-</div>
-</div>
-<div id="quizContainer"></div>
-<div aria-live="polite" class="result-box" id="resultBox">
-<p class="score-big" id="scoreText">0 / 0</p>
-<p class="result-note" id="resultNote">Your result will appear here.</p>
-</div>
-</section>
-<section class="card">
-<h2 id="speak60">Quick Revision</h2>
-<ul>
-<li id="speak61">Use <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, and <code>%</code> for arithmetic operations.</li>
-<li id="speak62">Use <code>%</code> when you need the remainder.</li>
-<li id="speak63">Integer division removes the decimal part.</li>
-<li id="speak64">Use <code>Math.max()</code> and <code>Math.min()</code> to compare values.</li>
-<li id="speak65">Use <code>Math.sqrt()</code> for square root and <code>Math.pow()</code> for powers.</li>
-<li id="speak66">Use <code>Math.abs()</code> to get the positive distance from zero.</li>
-<li id="speak67">Use <code>Math.random()</code> for random decimal values.</li>
-</ul>
-</section>
-<p class="footer-note" id="speak68">Programmer’s Picnic Java lesson page with interactive quiz and speak tags.</p>
-</main>
-<script>
-    const quizData = [
-      {
-        topic: "Arithmetic Operators",
-        question: "What is the value of 15 % 4 in Java?",
-        options: ["3", "4", "2", "1"],
-        answer: 3,
-        explanation: "The modulus operator returns the remainder. 15 divided by 4 leaves remainder 3."
-      },
-      {
-        topic: "Arithmetic Operators",
-        question: "What will be the output of 9 / 2 if both numbers are int in Java?",
-        options: ["4", "4.5", "5", "Compiler error"],
-        answer: 0,
-        explanation: "Integer division removes the decimal part, so 9 / 2 becomes 4."
-      },
-      {
-        topic: "Arithmetic Operators",
-        question: "Which operator is used for multiplication in Java?",
-        options: ["x", "#", "*", "%"],
-        answer: 2,
-        explanation: "The multiplication operator in Java is *."
-      },
-      {
-        topic: "Arithmetic Operators",
-        question: "Which operator gives the remainder after division?",
-        options: ["*", "/", "%", "+"],
-        answer: 2,
-        explanation: "The % operator gives the remainder."
-      },
-      {
-        topic: "Arithmetic Operators",
-        question: "If int a = 7; a++; what is the new value of a?",
-        options: ["6", "7", "8", "9"],
-        answer: 2,
-        explanation: "The increment operator ++ increases the value by 1."
-      },
-      {
-        topic: "Arithmetic Operators",
-        question: "If int a = 10; int b = 3; what is the value of a / b?",
-        options: ["3", "3.33", "4", "1"],
-        answer: 0,
-        explanation: "Because both values are integers, Java performs integer division."
-      },
-      {
-        topic: "Math Class",
-        question: "Which method returns the square root of a number?",
-        options: ["Math.root()", "Math.sqrt()", "Math.square()", "Math.pow()"],
-        answer: 1,
-        explanation: "Math.sqrt() returns the square root of a number."
-      },
-      {
-        topic: "Math Class",
-        question: "What is the output of Math.pow(2, 5)?",
-        options: ["7", "10", "25", "32"],
-        answer: 3,
-        explanation: "Math.pow(2, 5) means 2 raised to the power 5, which is 32."
-      },
-      {
-        topic: "Math Class",
-        question: "What does Math.abs(-18) return?",
-        options: ["-18", "18", "0", "1"],
-        answer: 1,
-        explanation: "Math.abs() returns the absolute value, so Math.abs(-18) is 18."
-      },
-      {
-        topic: "Math Class",
-        question: "Which method returns the larger of two values?",
-        options: ["Math.big()", "Math.max()", "Math.large()", "Math.high()"],
-        answer: 1,
-        explanation: "Math.max() returns the larger value."
-      },
-      {
-        topic: "Math Class",
-        question: "Which method returns the smaller of two values?",
-        options: ["Math.low()", "Math.small()", "Math.min()", "Math.less()"],
-        answer: 2,
-        explanation: "Math.min() returns the smaller value."
-      },
-      {
-        topic: "Math Class",
-        question: "What is the range of Math.random()?",
-        options: ["0 to 1 inclusive", "1 to 100", "0.0 to less than 1.0", "-1 to 1"],
-        answer: 2,
-        explanation: "Math.random() returns a double from 0.0 up to but not including 1.0."
-      },
-      {
-        topic: "Mixed",
-        question: "How can you generate a random integer from 1 to 10?",
-        options: [
-          "(int)(Math.random() * 10)",
-          "(int)(Math.random() * 10) + 1",
-          "Math.random(1,10)",
-          "Math.intRandom(10)"
-        ],
-        answer: 1,
-        explanation: "Multiplying by 10 gives values from 0 to less than 10. Adding 1 shifts the range to 1 through 10."
-      },
-      {
-        topic: "Mixed",
-        question: "What is the result of Math.max(4, Math.min(9, 6))?",
-        options: ["9", "6", "4", "10"],
-        answer: 1,
-        explanation: "Math.min(9, 6) is 6, then Math.max(4, 6) is 6."
-      },
-      {
-        topic: "Mixed",
-        question: "What will be printed by System.out.println(5 + 2 * 3); ?",
-        options: ["21", "11", "15", "13"],
-        answer: 1,
-        explanation: "Multiplication happens before addition, so 2 * 3 = 6, then 5 + 6 = 11."
-      },
-      {
-        topic: "Mixed",
-        question: "Which of the following expressions checks if a number n is even?",
-        options: ["n / 2 == 0", "n % 2 == 0", "n * 2 == 0", "n + 2 == 0"],
-        answer: 1,
-        explanation: "If n % 2 equals 0, the number is even."
-      }
-    ];
-
-    const quizContainer = document.getElementById("quizContainer");
-    const totalQuestions = document.getElementById("totalQuestions");
-    const resultBox = document.getElementById("resultBox");
-    const scoreText = document.getElementById("scoreText");
-    const resultNote = document.getElementById("resultNote");
-    const checkBtn = document.getElementById("checkBtn");
-    const resetBtn = document.getElementById("resetBtn");
-
-    function createQuiz() {
-      quizContainer.innerHTML = "";
-      totalQuestions.textContent = quizData.length;
-
-      quizData.forEach((item, index) => {
-        const card = document.createElement("div");
-        card.className = "question-card";
-        card.dataset.answer = item.answer;
-
-        const optionsHtml = item.options.map((option, optionIndex) => {
-          return `
-            <label class="option" data-option-index="${optionIndex}">
-              <input type="radio" name="question-${index}" value="${optionIndex}">
-              <span>${option}</span>
-            </label>
-          `;
-        }).join("");
-
-        card.innerHTML = `
-          <div class="question-head">
-            <div class="question-number">Question ${index + 1}</div>
-            <div class="topic-tag">${item.topic}</div>
-          </div>
-          <p class="question-text">${item.question}</p>
-          <div class="options">${optionsHtml}</div>
-          <div class="feedback" id="feedback-${index}"></div>
-        `;
-
-        quizContainer.appendChild(card);
-      });
-    }
-
-    function checkAnswers() {
-      let score = 0;
-      const cards = quizContainer.querySelectorAll(".question-card");
-
-      cards.forEach((card, index) => {
-        const selected = card.querySelector(`input[name="question-${index}"]:checked`);
-        const correctIndex = Number(card.dataset.answer);
-        const feedback = card.querySelector(".feedback");
-        const optionLabels = card.querySelectorAll(".option");
-
-        optionLabels.forEach(label => {
-          label.classList.remove("correct", "incorrect");
-        });
-
-        if (selected) {
-          const selectedIndex = Number(selected.value);
-
-          if (selectedIndex === correctIndex) {
-            score++;
-            optionLabels[selectedIndex].classList.add("correct");
-            feedback.className = "feedback show correct";
-            feedback.textContent = "Correct. " + quizData[index].explanation;
-          } else {
-            optionLabels[selectedIndex].classList.add("incorrect");
-            optionLabels[correctIndex].classList.add("correct");
-            feedback.className = "feedback show incorrect";
-            feedback.textContent = "Incorrect. " + quizData[index].explanation;
-          }
-        } else {
-          optionLabels[correctIndex].classList.add("correct");
-          feedback.className = "feedback show incorrect";
-          feedback.textContent = "No answer selected. " + quizData[index].explanation;
-        }
-      });
-
-      scoreText.textContent = `${score} / ${quizData.length}`;
-      resultNote.textContent = getResultMessage(score, quizData.length);
-      resultBox.classList.add("show");
-      resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-
-    function getResultMessage(score, total) {
-      const percent = (score / total) * 100;
-
-      if (percent === 100) {
-        return "Excellent work. You answered every question correctly.";
-      }
-      if (percent >= 80) {
-        return "Very good. You have a strong understanding of arithmetic operators and Math methods.";
-      }
-      if (percent >= 60) {
-        return "Good effort. Revise a few concepts and try again.";
-      }
-      if (percent >= 40) {
-        return "You understand some basics, but more revision will help a lot.";
-      }
-      return "Please review the lesson carefully and try the quiz again.";
-    }
-
-    function resetQuiz() {
-      createQuiz();
-      resultBox.classList.remove("show");
-      scoreText.textContent = "0 / 0";
-      resultNote.textContent = "Your result will appear here.";
-      window.scrollTo({ top: quizContainer.offsetTop - 20, behavior: "smooth" });
-    }
-
-    checkBtn.addEventListener("click", checkAnswers);
-    resetBtn.addEventListener("click", resetQuiz);
-
-    createQuiz();
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#123a63">
+  <title>Class 10 Java — Start Here | ICSE Computer Applications | Learn With Champak</title>
+  <meta name="description" content="Class 10 Java study hub with diagnostic, ICSE Computer Applications syllabus links, previous papers, printable question paper generators, a 7-day rescue plan and guided Java lessons.">
+  <meta name="keywords" content="ICSE Class 10 Java, ICSE Computer Applications syllabus 2027, ICSE Computer Applications previous papers, Java question paper generator, Class 10 Java mock test, Java tuition, Learn With Champak, Programmer's Picnic, Champak Roy">
+  <meta name="author" content="Champak Roy">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <link rel="canonical" href="https://dsa.learnwithchampak.live/java/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Programmer's Picnic / Learn With Champak">
+  <meta property="og:title" content="Class 10 Java — Start Here">
+  <meta property="og:description" content="A student-first Java starter: find your level, follow a 7-day plan, practise code and get guided help when needed.">
+  <meta property="og:url" content="https://dsa.learnwithchampak.live/java/">
+  <meta property="og:image" content="https://dsa.learnwithchampak.live/java/assets/images/class-10-java-start-og.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Class 10 Java — Start Here">
+  <meta name="twitter:description" content="Diagnostic + 7-day Java study path + exam-oriented practice for Class 10 students.">
+  <meta name="twitter:image" content="https://dsa.learnwithchampak.live/java/assets/images/class-10-java-start-og.svg">
+
+  <link rel="stylesheet" href="assets/css/course.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+    gtag('js',new Date());gtag('config','G-GSTQRQMLEE');
   </script>
-<div data-root="../../" id="site-footer"></div><script defer="True" src="../../assets/js/include.js"></script></body>
+  <script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+  <script src="https://programmer-s-picnic.github.io/json-images/find-on-page.js" defer></script>
+  <script src="assets/js/course.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Course",
+    "name":"Class 10 Java — Start Here",
+    "description":"A guided school Java starter with diagnostic practice, foundations, operators, input, decisions, loops and a path toward advanced Class 10 Java topics.",
+    "provider":{"@type":"Organization","name":"Programmer's Picnic / Learn With Champak"},
+    "url":"https://dsa.learnwithchampak.live/java/",
+    "educationalLevel":"Secondary school / Class 10",
+    "inLanguage":"en"
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./" aria-label="Learn With Champak Java home">
+        <span class="brand-mark">J</span>
+        <span><strong>Class 10 Java</strong><small>Programmer's Picnic · Learn With Champak</small></span>
+      </a>
+      <nav class="topnav" aria-label="Main navigation">
+        <a href="syllabus/">Syllabus</a>
+        <a href="question-paper-generator/">Paper generator</a>
+        <a href="previous-papers/">Previous papers</a>
+        <a href="#lessons">Lessons</a>
+        <a class="nav-cta" href="https://learnwithchampak.live/#onlinewithchampak">Get guided help</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow">CLASS 10 · JAVA · START HERE</div>
+          <h1>Stop wondering what to study next.</h1>
+          <p class="hero-lead">This page gives a Class 10 student one clear route: check the basics, fix weak areas, practise code every day, and move toward exam-style Java problems.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#diagnostic">Take the 5-question starter check</a>
+            <a class="btn btn-secondary" href="question-paper-generator/">Generate a practice paper</a>
+            <a class="btn btn-secondary" href="terms/">Start from Java foundations</a>
+          </div>
+          <div class="microcopy">No long setup. No random playlist. Start with the next useful task.</div>
+        </div>
+
+        <aside class="hero-card" aria-label="What the student will do">
+          <div class="hero-card-label">YOUR FIRST 45 MINUTES</div>
+          <ol class="first-session">
+            <li><span>01</span><div><strong>5 min</strong><br>Take the diagnostic below.</div></li>
+            <li><span>02</span><div><strong>15 min</strong><br>Revise the weakest concept.</div></li>
+            <li><span>03</span><div><strong>15 min</strong><br>Trace two short programs by hand.</div></li>
+            <li><span>04</span><div><strong>10 min</strong><br>Write one program without copying.</div></li>
+          </ol>
+          <div class="session-rule"><strong>Rule:</strong> predict the output before you run the code.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Course principles">
+      <div><strong>Concept</strong><span>Understand what Java is doing.</span></div>
+      <div><strong>Trace</strong><span>Predict values and output on paper.</span></div>
+      <div><strong>Code</strong><span>Write from a blank editor.</span></div>
+      <div><strong>Exam</strong><span>Move toward school-style questions.</span></div>
+    </section>
+
+    <section class="section exam-centre" id="exam-centre">
+      <div class="section-heading split-heading">
+        <div>
+          <div class="kicker">SYLLABUS + PAPERS + PRACTICE</div>
+          <h2>Your Class 10 Java exam centre.</h2>
+          <p>Do not study from an undefined list. Check the official syllabus, study the paper pattern, practise previous papers and generate fresh papers whenever you need another test.</p>
+        </div>
+        <a class="text-link" href="syllabus/">See the complete syllabus map</a>
+      </div>
+
+      <div class="exam-tool-grid">
+        <a class="exam-tool-card primary-tool" href="question-paper-generator/">
+          <span class="tool-number">01</span>
+          <div><strong>Question Paper Generator</strong><p>Create a new printable ICSE-style 100-mark mock, Section A test, programming paper or topic test.</p><span class="tool-action">Generate a paper</span></div>
+        </a>
+        <a class="exam-tool-card" href="syllabus/">
+          <span class="tool-number">02</span>
+          <div><strong>Syllabus & Exam Blueprint</strong><p>Current ICSE Class X Computer Applications route, topic checklist and official CISCE links.</p><span class="tool-action">Open syllabus</span></div>
+        </a>
+        <a class="exam-tool-card" href="previous-papers/">
+          <span class="tool-number">03</span>
+          <div><strong>Previous Papers</strong><p>Official CISCE paper-analysis booklets, specimen papers and competency-focused practice material.</p><span class="tool-action">Open paper archive</span></div>
+        </a>
+      </div>
+
+      <div class="exam-pattern-note">
+        <strong>ICSE-style generator pattern:</strong> 100 marks, two hours; Section A = 40 marks and Section B = 60 marks. The generated questions are original practice questions, not official CISCE papers.
+      </div>
+    </section>
+
+    <section class="section" id="diagnostic">
+      <div class="section-heading split-heading">
+        <div>
+          <div class="kicker">STARTER DIAGNOSTIC</div>
+          <h2>First, find the gap.</h2>
+          <p>Answer five basic questions. The page will suggest where to begin. This is not an exam; it prevents wasting time on lessons you already know.</p>
+        </div>
+        <div class="diagnostic-status" id="diag-status">0 / 5 answered</div>
+      </div>
+
+      <form id="diagnostic-form" class="diagnostic-grid">
+        <fieldset class="question" data-q="1">
+          <legend>1. A class in Java is best described as:</legend>
+          <label><input type="radio" name="q1" value="a"> A loop that repeats code</label>
+          <label><input type="radio" name="q1" value="b"> A blueprint used to create objects</label>
+          <label><input type="radio" name="q1" value="c"> A number stored in memory</label>
+        </fieldset>
+
+        <fieldset class="question" data-q="2">
+          <legend>2. Which Scanner method normally reads an integer?</legend>
+          <label><input type="radio" name="q2" value="a"> nextInt()</label>
+          <label><input type="radio" name="q2" value="b"> printInt()</label>
+          <label><input type="radio" name="q2" value="c"> readNumber()</label>
+        </fieldset>
+
+        <fieldset class="question" data-q="3">
+          <legend>3. If <code>int x = 5; x++;</code>, what is x afterwards?</legend>
+          <label><input type="radio" name="q3" value="a"> 4</label>
+          <label><input type="radio" name="q3" value="b"> 5</label>
+          <label><input type="radio" name="q3" value="c"> 6</label>
+        </fieldset>
+
+        <fieldset class="question" data-q="4">
+          <legend>4. The condition inside an <code>if</code> statement must finally evaluate to:</legend>
+          <label><input type="radio" name="q4" value="a"> boolean</label>
+          <label><input type="radio" name="q4" value="b"> String</label>
+          <label><input type="radio" name="q4" value="c"> char</label>
+        </fieldset>
+
+        <fieldset class="question" data-q="5">
+          <legend>5. Which loop is usually the clearest when the number of repetitions is known?</legend>
+          <label><input type="radio" name="q5" value="a"> for</label>
+          <label><input type="radio" name="q5" value="b"> if</label>
+          <label><input type="radio" name="q5" value="c"> switch</label>
+        </fieldset>
+      </form>
+
+      <div class="diagnostic-actions">
+        <button class="btn btn-dark" type="button" id="check-diagnostic">Check my level</button>
+        <button class="btn btn-quiet" type="button" id="reset-diagnostic">Reset</button>
+      </div>
+
+      <div class="diagnostic-result" id="diagnostic-result" hidden aria-live="polite"></div>
+    </section>
+
+    <section class="section tinted" id="plan">
+      <div class="section-heading">
+        <div class="kicker">7-DAY RESCUE PLAN</div>
+        <h2>One week to rebuild the foundation.</h2>
+        <p>For a student who has reached Class 10 but feels that Java is a collection of disconnected rules, this is the quickest sensible reset.</p>
+      </div>
+
+      <div class="week-grid">
+        <a class="day-card" href="terms/"><span class="day">Day 1</span><strong>Objects, classes & Java language</strong><p>Understand the vocabulary before memorising syntax.</p></a>
+        <a class="day-card" href="arithmetic/"><span class="day">Day 2</span><strong>Expressions & operators</strong><p>Arithmetic, precedence, increment/decrement and Math methods.</p></a>
+        <a class="day-card" href="scanner/"><span class="day">Day 3</span><strong>Input with Scanner</strong><p>Turn fixed programs into programs that accept data.</p></a>
+        <a class="day-card" href="boolean/"><span class="day">Day 4</span><strong>Boolean logic</strong><p>Build the conditions that control decisions.</p></a>
+        <a class="day-card" href="if-else-ternary-switch/"><span class="day">Day 5</span><strong>Decisions</strong><p>if, else, ternary and switch.</p></a>
+        <a class="day-card" href="loops/for/"><span class="day">Day 6</span><strong>Loops</strong><p>for, while and repeated calculations.</p></a>
+        <a class="day-card" href="loops/nested/"><span class="day">Day 7</span><strong>Nested loops + test</strong><p>Patterns, tracing and a mixed revision session.</p></a>
+      </div>
+    </section>
+
+    <section class="section" id="class10-focus">
+      <div class="focus-grid">
+        <div>
+          <div class="kicker">CLASS 10 FOCUS</div>
+          <h2>The destination is bigger than loops.</h2>
+          <p>Once the foundation is stable, a Class 10 Java learner should move into the topics where longer programs become important: user-defined methods, classes and constructors, arrays, strings, searching/sorting and mixed problem solving.</p>
+          <p class="board-note"><strong>ICSE students:</strong> this page is designed to grow into an ICSE Computer Applications revision and practice route. <strong>CBSE-affiliated school students:</strong> use it when Java is being taught by your school or as programming enrichment; the current CBSE Class X Computer Applications syllabus itself is not a Java syllabus.</p>
+        </div>
+        <div class="focus-list">
+          <div><span>01</span><strong>User-defined methods & overloading</strong><em>Next expansion</em></div>
+          <div><span>02</span><strong>Constructors & class design</strong><em>Next expansion</em></div>
+          <div><span>03</span><strong>Arrays + searching + sorting</strong><em>Next expansion</em></div>
+          <div><span>04</span><strong>String handling</strong><em>Next expansion</em></div>
+          <div><span>05</span><strong>Board-style mixed programs</strong><em>Next expansion</em></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tinted" id="lessons">
+      <div class="section-heading split-heading">
+        <div>
+          <div class="kicker">CURRENT LESSON LIBRARY</div>
+          <h2>Use the full learning path when you need it.</h2>
+          <p>Search a topic, mark lessons complete, and return later. Progress is stored in this browser.</p>
+        </div>
+        <div class="progress-mini">
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+          <div id="progress-text">0 lessons completed</div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-wrap"><label class="sr-only" for="course-search">Search lessons</label><input id="course-search" type="search" placeholder="Search Scanner, loops, operators, OOP..."></div>
+        <div class="filter-group" aria-label="Filter lessons">
+          <button class="filter-btn active" type="button" data-filter="all">All</button>
+          <button class="filter-btn" type="button" data-filter="foundation">Foundation</button>
+          <button class="filter-btn" type="button" data-filter="decisions">Decisions</button>
+          <button class="filter-btn" type="button" data-filter="loops">Loops</button>
+        </div>
+      </div>
+
+      <div class="course-grid starter-library">
+        <article class="course-card" data-lesson="terms" data-status="available" data-href="terms/" data-track="foundation" data-tags="oop object class encapsulation inheritance polymorphism abstraction java basics">
+          <div class="card-top"><span class="step">01</span><span class="badge orange">Start here</span></div><h3>OOP Terms & Java Basics</h3><p>Objects, classes, OOP principles and the basic structure of Java programs.</p><div class="card-actions"><a class="lesson-link" href="terms/">Open lesson</a><label class="done-toggle"><input type="checkbox"> Done</label></div>
+        </article>
+        <article class="course-card" data-lesson="ides" data-status="available" data-href="ides/" data-track="foundation" data-tags="ide jdk eclipse netbeans vscode intellij java compiler">
+          <div class="card-top"><span class="step">02</span><span class="badge">Setup</span></div><h3>Install Java & Choose an IDE</h3><p>JDK, compilation and practical IDE choices for writing Java.</p><div class="card-actions"><a class="lesson-link" href="ides/">Open lesson</a><label class="done-toggle"><input type="checkbox"> Done</label></div>
+        </article>
+        <article class="course-card" data-lesson="keywords" data-status="available" data-href="keywords/" data-track="foundation" data-tags="keywords identifiers tokens reserved contextual">
+          <div class="card-top"><span class="step">03</span><span class="badge">Language</span></div><h3>Java Keywords</h3><p>Recognise important Java words and where they appear.</p><div class="card-actions"><a class="lesson-link" href="keywords/">Open lesson</a><label class="done-toggle"><input type="checkbox"> Done</label></div>
+        </article>
+        <article class="course-card" data-lesson="arithmetic" data-status="available" data-href="arithmetic/" data-track="foundation" data-tags="arithmetic operators math increment decrement precedence expressions">
+          <div class="card-top"><span class="step">04</span><span class="badge">Expressions</span></div><h3>Arithmetic & Math Methods</h3><p>Operators, expressions, precedence, counters and useful Math methods.</p><div class="card-actions"><a class="lesson-link" href="arithmetic/">Open lesson</a><label class="done-toggle"><input type="checkbox"> Done</label></div>
+        </article>
+        <article class="course-card" data-lesson="scanner" data-status="available" data-href="scanner/" data-track="foundation" data-tags="scanner input nextint nextline user input">
+          <div class="card-top"><span class="step">05</span><span class="badge">Input</span></div><h3>Scanner: Taking Input</h3><p>Read integers, decimal values, words and lines correctly.</p><div class="card-actions"><a class="lesson-link" href="scanner/">Open lesson</a><label class="done-toggle"><input type="checkbox"> Done</label></div>
+        </article>
+        <article class="course-card" data-lesson="io" data-status="available" data-href="io/" data-track="foundation" data-tags="stdin stdout stderr scanner system out err formatted output">
+          <div class="card-top"><span class="step">06</span><span class="badge">I/O</span></div><h3>Input & Output</h3><p>Standard input, output, error output and formatted output.</p><div class="card-actions"><a class="lesson-link" href="io/">Open lesson</a><label class="done-toggle"><input type="checkbox"> Done</label></div>
+        </article>
+        <article class="course-card" data-lesson="boolean" data-status="available" data-href="boolean/" data-track="decisions" data-tags="boolean relational logical and or not comparison operators">
+          <div class="card-top"><span class="step">07</span><span class="badge">Logic</span></div><h3>Boolean & Logical Operators</h3><p>Create true/false expressions and combine conditions correctly.</p><div class="card-actions"><a class="lesson-link" href="boolean/">Open lesson</a><label class="done-toggle"><input type="checkbox"> Done</label></div>
+        </article>
+        <article class="course-card" data-lesson="decisions" data-status="available" data-href="if-else-ternary-switch/" data-track="decisions" data-tags="if else ternary switch decision selection condition">
+          <div class="card-top"><span class="step">08</span><span class="badge">Selection</span></div><h3>if, else, Ternary & switch</h3><p>Choose which statements execute based on conditions.</p><div class="card-actions"><a class="lesson-link" href="if-else-ternary-switch/">Open lesson</a><label class="done-toggle"><input type="checkbox"> Done</label></div>
+        </article>
+        <article class="course-card" data-lesson="for" data-status="available" data-href="loops/for/" data-track="loops" data-tags="for loop repetition counter series">
+          <div class="card-top"><span class="step">09</span><span class="badge">Loops</span></div><h3>for Loop</h3><p>Use counters and repetition for series and repeated calculations.</p><div class="card-actions"><a class="lesson-link" href="loops/for/">Open lesson</a><label class="done-toggle"><input type="checkbox"> Done</label></div>
+        </article>
+        <article class="course-card" data-lesson="while" data-status="available" data-href="loops/while/" data-track="loops" data-tags="while loop do while repetition condition">
+          <div class="card-top"><span class="step">10</span><span class="badge">Loops</span></div><h3>while Loop</h3><p>Repeat while a condition remains true and understand loop control.</p><div class="card-actions"><a class="lesson-link" href="loops/while/">Open lesson</a><label class="done-toggle"><input type="checkbox"> Done</label></div>
+        </article>
+        <article class="course-card" data-lesson="nested" data-status="available" data-href="loops/nested/" data-track="loops" data-tags="nested loops pattern rows columns iteration">
+          <div class="card-top"><span class="step">11</span><span class="badge">Practice</span></div><h3>Nested Loops</h3><p>Trace row/column logic and build pattern-based programs.</p><div class="card-actions"><a class="lesson-link" href="loops/nested/">Open lesson</a><label class="done-toggle"><input type="checkbox"> Done</label></div>
+        </article>
+      </div>
+      <div id="no-results" class="no-results">No lesson matches that search/filter.</div>
+
+      <div class="continue-bar">
+        <div><span>Next recommended lesson</span><strong id="next-title">OOP Terms & Java Basics</strong></div>
+        <a id="next-link" class="btn btn-dark" href="terms/">Continue</a>
+      </div>
+    </section>
+
+    <section class="section help-section" id="guided-help">
+      <div class="help-card">
+        <div>
+          <div class="kicker light">WHEN SELF-STUDY STOPS WORKING</div>
+          <h2>Bring the exact doubt. Fix the exact gap.</h2>
+          <p>Guided study should not mean sitting through another generic lecture. A student can bring the program, error, chapter or exam question that is causing trouble and work from there.</p>
+          <div class="help-points">
+            <span>Program tracing</span><span>Debugging</span><span>School assignments</span><span>Exam revision</span><span>Concept gaps</span><span>Practice planning</span>
+          </div>
+        </div>
+        <div class="help-actions">
+          <a class="btn btn-light" href="https://learnwithchampak.live/#onlinewithchampak">Study online with Champak</a>
+          <a class="btn btn-outline-light" href="https://www.youtube.com/@champaksworld/featured" target="_blank" rel="noopener">See teaching videos</a>
+          <button class="btn btn-outline-light" type="button" id="share-page">Share this starter page</button>
+          <div class="share-status" id="share-status" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section parent-section">
+      <div class="parent-grid">
+        <div>
+          <div class="kicker">FOR PARENTS</div>
+          <h2>What useful Java practice looks like.</h2>
+        </div>
+        <div class="parent-points">
+          <div><strong>Not just watching</strong><p>The student should write and run code in every session.</p></div>
+          <div><strong>Not just memorising</strong><p>The student should explain why each line changes the program state.</p></div>
+          <div><strong>Not random questions</strong><p>Practice should move from one concept to mixed exam-style problems.</p></div>
+          <div><strong>Visible progress</strong><p>Weak topics should become a short, explicit list that shrinks over time.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><strong>Programmer's Picnic · Learn With Champak</strong><br><span>Java learning for school students — concept, trace, code, exam.</span></div>
+      <a href="#top">Back to top</a>
+    </div>
+  </footer>
+</body>
 </html>
