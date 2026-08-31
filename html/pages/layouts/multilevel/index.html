@@ -1,1726 +1,1887 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-GSTQRQMLEE");
-    </script>
-
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b67b2" />
-    <title>CSS Flexbox + Grid: 0 to Infinity | Learn With Champak</title>
-    <meta
-      name="description"
-      content="Learn CSS Flexbox and Grid from absolute zero to advanced responsive layouts. Progressive examples, visual demos, challenges, mini-projects and an embedded HTML preview editor."
-    />
-    <meta
-      name="keywords"
-      content="CSS Flexbox, CSS Grid, Flexbox tutorial, CSS Grid tutorial, responsive CSS, HTML CSS beginner, advanced CSS layouts, Learn With Champak, Champak Roy"
-    />
-    <meta name="author" content="Champak Roy" />
-    <meta
-      name="robots"
-      content="index, follow, max-image-preview:large, max-snippet:-1"
-    />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:site_name"
-      content="Programmer's Picnic by Champak Roy"
-    />
-    <meta property="og:title" content="CSS Flexbox + Grid: 0 to Infinity" />
-    <meta
-      property="og:description"
-      content="Start with display:flex and display:grid. Finish by building responsive, nested, production-style layouts."
-    />
-    <meta
-      property="og:image"
-      content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-
-    <style>
-      :root {
-        --blue: #0b67b2;
-        --blue2: #0e7fd1;
-        --dark: #17324d;
-        --text: #26384a;
-        --muted: #617487;
-        --line: #d8e3ec;
-        --soft: #f4f9fd;
-        --soft2: #eaf5fd;
-        --white: #fff;
-        --green: #0f7b4d;
-        --green-soft: #effbf5;
-        --amber: #8a5a00;
-        --amber-soft: #fff8df;
-        --red: #a33a3a;
-        --red-soft: #fff3f3;
-        --radius: 18px;
-        --shadow: 0 10px 30px rgba(25, 72, 110, 0.1);
-        --max: 1180px;
-        --code: #102334;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        line-height: 1.65;
-        color: var(--text);
-        background: #f7fafc;
-      }
-      a {
-        color: inherit;
-      }
-      code,
-      pre {
-        font-family: Consolas, Monaco, "Courier New", monospace;
-      }
-      code:not(pre code) {
-        background: #eef3f7;
-        border: 1px solid #dbe5ed;
-        border-radius: 6px;
-        padding: 0.08rem 0.35rem;
-        color: #17324d;
-      }
-      .wrap {
-        width: min(var(--max), calc(100% - 28px));
-        margin: auto;
-      }
-
-      .hero {
-        background: linear-gradient(135deg, #e8f5ff 0%, #fff 55%, #effbf5 100%);
-        border-bottom: 1px solid var(--line);
-        padding: 42px 0 32px;
-      }
-      .eyebrow {
-        margin: 0 0 6px;
-        color: var(--blue);
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        font-size: 0.82rem;
-      }
-      .hero h1 {
-        margin: 0 0 10px;
-        font-size: clamp(2.2rem, 6vw, 4.6rem);
-        line-height: 1.02;
-        color: var(--dark);
-      }
-      .hero p {
-        margin: 0;
-        max-width: 850px;
-        font-size: 1.08rem;
-        color: var(--muted);
-      }
-      .badges {
-        display: flex;
-        gap: 9px;
-        flex-wrap: wrap;
-        margin-top: 18px;
-      }
-      .badge {
-        background: #fff;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 7px 11px;
-        font-weight: 800;
-        color: var(--blue);
-      }
-      .hero-actions {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 20px;
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        border: 0;
-        border-radius: 10px;
-        padding: 10px 14px;
-        font-weight: 900;
-        cursor: pointer;
-      }
-      .btn-primary {
-        background: var(--blue);
-        color: #fff;
-      }
-      .btn-secondary {
-        background: #fff;
-        color: var(--blue);
-        border: 1px solid var(--line);
-      }
-
-      .course-nav {
-        position: sticky;
-        top: 0;
-        z-index: 30;
-        background: rgba(247, 250, 252, 0.96);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--line);
-      }
-      .course-nav .wrap {
-        display: flex;
-        gap: 7px;
-        overflow: auto;
-        padding: 9px 0;
-        scrollbar-width: thin;
-      }
-      .course-nav a {
-        white-space: nowrap;
-        text-decoration: none;
-        background: #fff;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 7px 10px;
-        font-size: 0.84rem;
-        font-weight: 800;
-        color: var(--muted);
-      }
-      .course-nav a:hover {
-        color: var(--blue);
-        border-color: #b9d6eb;
-      }
-
-      main {
-        padding: 28px 0 54px;
-      }
-      .course-intro {
-        display: grid;
-        grid-template-columns: 1.3fr 0.7fr;
-        gap: 18px;
-        align-items: stretch;
-      }
-      .card {
-        background: var(--white);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        padding: 24px;
-        margin-bottom: 20px;
-      }
-      .card-flat {
-        background: #fff;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 16px;
-      }
-      h2 {
-        margin: 0 0 8px;
-        color: var(--dark);
-        font-size: clamp(1.5rem, 3vw, 2.15rem);
-      }
-      h3 {
-        color: var(--dark);
-        margin: 22px 0 8px;
-      }
-      p {
-        margin-top: 8px;
-      }
-      .lead {
-        font-size: 1.06rem;
-        color: var(--muted);
-      }
-      .level-kicker {
-        display: inline-block;
-        color: var(--blue);
-        font-weight: 900;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        margin-bottom: 4px;
-      }
-      .level-title {
-        display: flex;
-        gap: 12px;
-        align-items: flex-start;
-      }
-      .level-no {
-        flex: 0 0 auto;
-        width: 46px;
-        height: 46px;
-        border-radius: 13px;
-        background: linear-gradient(135deg, var(--blue), var(--blue2));
-        color: #fff;
-        display: grid;
-        place-items: center;
-        font-weight: 900;
-      }
-      .level-title h2 {
-        margin-top: 1px;
-      }
-
-      .rule-grid,
-      .two-col,
-      .three-col {
-        display: grid;
-        gap: 14px;
-        margin-top: 16px;
-      }
-      .rule-grid,
-      .two-col {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .three-col {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      .rule {
-        border: 2px solid var(--line);
-        border-radius: 14px;
-        padding: 18px;
-        background: var(--soft);
-      }
-      .rule strong {
-        display: block;
-        font-size: 1.14rem;
-        color: var(--blue);
-        margin-bottom: 4px;
-      }
-      .checklist {
-        margin: 8px 0 0;
-        padding-left: 22px;
-      }
-      .checklist li {
-        margin: 6px 0;
-      }
-
-      .memory {
-        margin-top: 14px;
-        padding: 13px 15px;
-        border-left: 5px solid var(--green);
-        background: var(--green-soft);
-        border-radius: 10px;
-      }
-      .memory strong {
-        color: var(--green);
-      }
-      .warning {
-        margin-top: 14px;
-        padding: 13px 15px;
-        border-left: 5px solid var(--amber);
-        background: var(--amber-soft);
-        border-radius: 10px;
-      }
-      .bug {
-        margin-top: 14px;
-        padding: 13px 15px;
-        border-left: 5px solid var(--red);
-        background: var(--red-soft);
-        border-radius: 10px;
-      }
-
-      .demo-label {
-        font-weight: 900;
-        margin: 18px 0 8px;
-        color: var(--dark);
-      }
-      .stage {
-        border: 2px dashed #b8ccdc;
-        border-radius: 14px;
-        padding: 12px;
-        background: var(--soft);
-      }
-      .item {
-        min-height: 58px;
-        border: 1px solid #c8d9e6;
-        border-radius: 10px;
-        background: #fff;
-        display: grid;
-        place-items: center;
-        font-weight: 900;
-        color: var(--blue);
-        padding: 10px;
-        text-align: center;
-      }
-      .item.tall {
-        min-height: 100px;
-      }
-      .item.soft {
-        background: #edf7ff;
-      }
-      .item.green {
-        background: #effbf5;
-        color: #0f7b4d;
-        border-color: #c9eadb;
-      }
-      .item.amber {
-        background: #fff8df;
-        color: #8a5a00;
-        border-color: #ecdba5;
-      }
-
-      .demo-flex {
-        display: flex;
-        gap: 10px;
-      }
-      .demo-flex > .item {
-        flex: 1;
-      }
-      .demo-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-      }
-      .demo-wrap {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .demo-wrap .item {
-        flex: 1 1 160px;
-      }
-      .justify-demo {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-      }
-      .align-demo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        min-height: 150px;
-      }
-      .align-demo .item:nth-child(2) {
-        min-height: 100px;
-      }
-      .responsive-demo {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 10px;
-      }
-      .span-demo {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-      }
-      .span-demo .wide {
-        grid-column: span 2;
-      }
-      .span-demo .hero-wide {
-        grid-column: 1 / -1;
-      }
-      .areas-demo {
-        display: grid;
-        grid-template-columns: 180px 1fr;
-        grid-template-areas: "head head" "side main" "foot foot";
-        gap: 10px;
-      }
-      .areas-demo .head {
-        grid-area: head;
-      }
-      .areas-demo .side {
-        grid-area: side;
-      }
-      .areas-demo .main {
-        grid-area: main;
-      }
-      .areas-demo .foot {
-        grid-area: foot;
-      }
-
-      .codebox {
-        margin-top: 14px;
-        border-radius: 14px;
-        overflow: hidden;
-        border: 1px solid #23384d;
-        background: var(--code);
-      }
-      .codebar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        padding: 9px 12px;
-        background: #17324d;
-        color: #fff;
-      }
-      .codebar span {
-        font-weight: 900;
-      }
-      .copy {
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        background: #244967;
-        color: #fff;
-        border-radius: 8px;
-        padding: 7px 10px;
-        cursor: pointer;
-        font-weight: 800;
-      }
-      pre {
-        margin: 0;
-        padding: 16px;
-        overflow: auto;
-        color: #edf7ff;
-        font-size: 0.92rem;
-        line-height: 1.55;
-        tab-size: 2;
-      }
-
-      .practice-row {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        margin-top: 14px;
-      }
-      .practice-row a {
-        font-weight: 900;
-        text-decoration: none;
-        color: var(--blue);
-        border: 1px solid #bfd8ea;
-        background: #f5fbff;
-        border-radius: 9px;
-        padding: 8px 11px;
-      }
-
-      .property-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 14px;
-        font-size: 0.95rem;
-      }
-      .property-table th,
-      .property-table td {
-        border: 1px solid var(--line);
-        padding: 10px;
-        text-align: left;
-        vertical-align: top;
-      }
-      .property-table th {
-        background: #eef6fb;
-        color: var(--dark);
-      }
-
-      .project-shell {
-        display: grid;
-        grid-template-columns: 180px 1fr;
-        gap: 12px;
-      }
-      .project-sidebar {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-      .project-main {
-        display: grid;
-        gap: 12px;
-      }
-      .project-toolbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .project-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 10px;
-      }
-
-      .challenge {
-        background: #fffdf4;
-        border-color: #eadca7;
-      }
-      .challenge-list {
-        margin: 10px 0 0;
-        padding-left: 22px;
-      }
-      .challenge-list li {
-        margin: 7px 0;
-      }
-
-      .editor-card {
-        padding: 0;
-        overflow: hidden;
-        scroll-margin-top: 70px;
-      }
-      .editor-head {
-        padding: 20px 22px;
-        border-bottom: 1px solid var(--line);
-        background: #fff;
-      }
-      .editor-head h2 {
-        margin-bottom: 4px;
-      }
-      .editor-wrap {
-        background: #eaf2f8;
-        padding: 10px;
-      }
-      iframe {
-        width: 100%;
-        height: 760px;
-        border: 1px solid #b9cddd;
-        border-radius: 12px;
-        background: #fff;
-        display: block;
-      }
-      .editor-link {
-        display: inline-block;
-        margin-top: 10px;
-        color: var(--blue);
-        font-weight: 900;
-      }
-
-      .roadmap {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        margin-top: 16px;
-      }
-      .roadmap a {
-        text-decoration: none;
-        border: 1px solid var(--line);
-        background: #fff;
-        border-radius: 12px;
-        padding: 12px;
-        font-weight: 800;
-        color: var(--dark);
-      }
-      .roadmap a span {
-        display: block;
-        color: var(--blue);
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        margin-bottom: 3px;
-      }
-
-      .final-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-      }
-      footer {
-        text-align: center;
-        color: var(--muted);
-        padding: 10px 14px 45px;
-      }
-
-      @media (max-width: 900px) {
-        .course-intro,
-        .roadmap,
-        .three-col,
-        .final-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-        .project-shell,
-        .areas-demo {
-          grid-template-columns: 1fr;
-          grid-template-areas: none;
-        }
-        .areas-demo .head,
-        .areas-demo .side,
-        .areas-demo .main,
-        .areas-demo .foot {
-          grid-area: auto;
-        }
-      }
-      @media (max-width: 700px) {
-        .course-intro,
-        .rule-grid,
-        .two-col,
-        .three-col,
-        .roadmap,
-        .final-grid {
-          grid-template-columns: 1fr;
-        }
-        .demo-flex {
-          flex-direction: column;
-        }
-        .demo-grid,
-        .span-demo {
-          grid-template-columns: 1fr;
-        }
-        .span-demo .wide,
-        .span-demo .hero-wide {
-          grid-column: auto;
-        }
-        .card {
-          padding: 18px;
-        }
-        .level-title {
-          gap: 9px;
-        }
-        .level-no {
-          width: 40px;
-          height: 40px;
-        }
-        iframe {
-          height: 650px;
-        }
-        .property-table {
-          font-size: 0.86rem;
-        }
-        .property-table th,
-        .property-table td {
-          padding: 8px;
-        }
-      }
-    </style>
-
-    <link href="../../../../assets/css/theme.css" rel="stylesheet" />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LearningResource",
-        "name": "CSS Flexbox + Grid: 0 to Infinity",
-        "description": "A progressive course on CSS Flexbox and Grid from absolute beginner concepts through responsive and nested layouts.",
-        "creator": { "@type": "Person", "name": "Champak Roy" },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Programmer's Picnic by Champak Roy"
-        },
-        "educationalLevel": ["Beginner", "Intermediate", "Advanced"],
-        "learningResourceType": "Lesson",
-        "teaches": [
-          "CSS Flexbox",
-          "CSS Grid",
-          "Responsive Layout",
-          "Nested Layouts",
-          "Layout Debugging"
-        ],
-        "isAccessibleForFree": true
-      }
-    </script>
-  </head>
-  <body data-root="../../../../">
-    <div data-root="../../../../" id="site-header"></div>
-
-    <header class="hero" id="top">
-      <div class="wrap">
-        <p class="eyebrow">Learn With Champak • 0 → ∞</p>
-        <h1>Flexbox + Grid</h1>
-        <p>
-          Start with two CSS lines. Finish by building responsive navigation,
-          galleries, dashboards, page shells and nested layouts. Every level is
-          small enough to practise immediately.
-        </p>
-        <div class="badges">
-          <span class="badge">Absolute Beginner</span>
-          <span class="badge">Flexbox</span>
-          <span class="badge">CSS Grid</span>
-          <span class="badge">Responsive</span>
-          <span class="badge">Projects</span>
-          <span class="badge">Debugging</span>
-        </div>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#level0">Start at Zero</a>
-          <a class="btn btn-secondary" href="#editor">Open Practice Editor</a>
-          <a class="btn btn-secondary" href="#infinity">Jump to Infinity</a>
-        </div>
-      </div>
-    </header>
-
-    <nav class="course-nav" aria-label="Course levels">
-      <div class="wrap">
-        <a href="#level0">0 Mental model</a>
-        <a href="#level1">1 Flex</a>
-        <a href="#level2">2 Direction</a>
-        <a href="#level3">3 Alignment</a>
-        <a href="#level4">4 Flex sizing</a>
-        <a href="#level5">5 Grid</a>
-        <a href="#level6">6 Grid sizing</a>
-        <a href="#level7">7 Placement</a>
-        <a href="#level8">8 Responsive</a>
-        <a href="#level9">9 Nesting</a>
-        <a href="#level10">10 Patterns</a>
-        <a href="#level11">11 Debugging</a>
-        <a href="#level12">12 Advanced</a>
-        <a href="#projects">Projects</a>
-        <a href="#editor">Editor</a>
-        <a href="#infinity">∞</a>
-      </div>
-    </nav>
-
-    <main class="wrap">
-      <section class="course-intro">
-        <div class="card">
-          <h2>The whole course in one sentence</h2>
-          <div class="rule-grid">
-            <div class="rule">
-              <strong>Flexbox</strong>Arrange and align items mainly along one
-              axis: a row or a column.
-            </div>
-            <div class="rule">
-              <strong>Grid</strong>Design rows and columns together, then place
-              items into that structure.
-            </div>
-          </div>
-          <div class="memory">
-            <strong>Golden rule:</strong> use the simplest layout that expresses
-            what you want. Flex and Grid are partners, not competitors.
-          </div>
-        </div>
-        <aside class="card">
-          <h2>How to study</h2>
-          <ol class="checklist">
-            <li>Read one level.</li>
-            <li>Copy its smallest example.</li>
-            <li>Paste it into the editor.</li>
-            <li>Change one value.</li>
-            <li>Predict the result before looking.</li>
-          </ol>
-        </aside>
-      </section>
-
-      <section class="card" id="level0">
-        <div class="level-title">
-          <span class="level-no">0</span>
-          <div>
-            <span class="level-kicker">Absolute zero</span>
-            <h2>Parent controls layout</h2>
-          </div>
-        </div>
-        <p class="lead">
-          Before Flexbox or Grid, understand one fact: layout is normally
-          declared on the <strong>parent</strong>, and it arranges the parent's
-          direct children.
-        </p>
-        <div class="stage">
-          <div class="item soft">
-            PARENT
-            <div style="display: flex; gap: 8px; width: 100%; margin-top: 8px">
-              <div class="item" style="flex: 1">Child A</div>
-              <div class="item" style="flex: 1">Child B</div>
-              <div class="item" style="flex: 1">Child C</div>
-            </div>
-          </div>
-        </div>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Normal HTML</span
-            ><button class="copy" data-copy="c0">Copy</button>
-          </div>
-          <pre id="c0"><code>&lt;div class="parent"&gt;
-  &lt;div&gt;A&lt;/div&gt;
-  &lt;div&gt;B&lt;/div&gt;
-  &lt;div&gt;C&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-        </div>
-        <div class="memory">
-          <strong>Say it aloud:</strong> “I style the parent to arrange the
-          children.”
-        </div>
-        <div class="practice-row"><a href="#editor">Practise Level 0</a></div>
-      </section>
-
-      <section class="card" id="level1">
-        <div class="level-title">
-          <span class="level-no">1</span>
-          <div>
-            <span class="level-kicker">First Flexbox</span>
-            <h2>One line changes the layout</h2>
-          </div>
-        </div>
-        <p class="lead">
-          Block elements normally stack. Put <code>display:flex</code> on their
-          parent and the direct children become flex items.
-        </p>
-        <div class="demo-label">Result</div>
-        <div class="stage">
-          <div class="demo-flex">
-            <div class="item">A</div>
-            <div class="item">B</div>
-            <div class="item">C</div>
-          </div>
-        </div>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Smallest Flexbox</span
-            ><button class="copy" data-copy="c1">Copy</button>
-          </div>
-          <pre id="c1"><code>&lt;div class="flex"&gt;
-  &lt;div&gt;A&lt;/div&gt;
-  &lt;div&gt;B&lt;/div&gt;
-  &lt;div&gt;C&lt;/div&gt;
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GSTQRQMLEE');</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b67b2">
+  <title>CSS Flexbox + Grid: Detailed 0 to Infinity | Learn With Champak</title>
+  <meta name="description" content="A detailed step-by-step CSS Flexbox and Grid course from absolute HTML/CSS beginnings to responsive dashboards, debugging and advanced layout. Every stage includes full runnable HTML.">
+  <meta name="keywords" content="CSS Flexbox, CSS Grid, Flexbox tutorial, Grid tutorial, HTML CSS beginner, responsive layout, full code examples, Learn With Champak, Champak Roy">
+  <meta name="author" content="Champak Roy">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="Programmer's Picnic by Champak Roy">
+  <meta property="og:title" content="CSS Flexbox + Grid: Detailed 0 to Infinity"><meta property="og:description" content="46 progressive stages. Every stage includes complete runnable HTML and an embedded practice editor.">
+  <meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"><meta name="twitter:card" content="summary_large_image">
+  <style>
+:root{
+  --blue:#0b67b2;--blue2:#0d7bc8;--ink:#1e3447;--text:#31485c;--muted:#647a8d;
+  --line:#d6e2eb;--soft:#f3f8fc;--soft2:#eaf5fd;--green:#137a50;--green-bg:#ecfbf4;
+  --amber:#875800;--amber-bg:#fff8dc;--red:#9a3333;--code:#102334;--radius:18px;
+  --shadow:0 10px 30px rgba(25,72,110,.09);--max:1200px
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;line-height:1.65;color:var(--text);background:#f7fafc}
+a{color:inherit} code,pre{font-family:Consolas,Monaco,"Courier New",monospace}
+code:not(pre code){background:#edf3f7;border:1px solid #dce6ed;border-radius:6px;padding:.08rem .35rem;color:#17324d}
+.wrap{width:min(var(--max),calc(100% - 28px));margin:auto}
+.hero{padding:44px 0 34px;background:linear-gradient(135deg,#e8f5ff,#fff 54%,#eefbf5);border-bottom:1px solid var(--line)}
+.eyebrow{margin:0 0 6px;color:var(--blue);font-weight:900;text-transform:uppercase;letter-spacing:.08em;font-size:.82rem}
+.hero h1{margin:0 0 12px;color:var(--ink);font-size:clamp(2.4rem,7vw,5rem);line-height:1}
+.hero p{max-width:900px;margin:0;color:var(--muted);font-size:1.08rem}.hero-actions,.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.badge{padding:7px 11px;border:1px solid var(--line);background:#fff;border-radius:999px;font-weight:800;color:var(--blue)}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:10px 14px;border-radius:10px;font-weight:900;border:1px solid transparent}
+.btn.primary{background:var(--blue);color:#fff}.btn.secondary{background:#fff;color:var(--blue);border-color:var(--line)}
+.sticky-nav{position:sticky;top:0;z-index:40;background:rgba(247,250,252,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.sticky-nav .wrap{display:flex;gap:7px;overflow:auto;padding:9px 0}.sticky-nav a{white-space:nowrap;text-decoration:none;padding:7px 10px;border:1px solid var(--line);background:#fff;border-radius:999px;color:var(--muted);font-size:.84rem;font-weight:800}
+.floating-editor{position:fixed;right:16px;bottom:16px;z-index:50;text-decoration:none;background:var(--blue);color:white;border-radius:999px;padding:11px 15px;font-weight:900;box-shadow:0 8px 24px rgba(11,103,178,.28)}
+main{padding:28px 0 60px}.orientation,.phase-card,.step,.reference,.infinity{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:20px}
+.orientation-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.roadmap a{text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--soft);font-weight:800}.roadmap small{display:block;color:var(--blue);text-transform:uppercase;font-weight:900}
+.phase-card{background:linear-gradient(135deg,#f1f8fd,#fff);border-left:6px solid var(--blue);scroll-margin-top:72px}.phase-card h2{margin:0;color:var(--ink)}
+.step{scroll-margin-top:72px}.step-head{display:flex;gap:13px;align-items:flex-start}.step-no{flex:0 0 auto;min-width:50px;height:50px;padding:0 10px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--blue2));color:white;font-weight:900}.step h2{margin:0;color:var(--ink);font-size:clamp(1.45rem,3vw,2.05rem)}
+.concept{margin:5px 0 0;color:var(--blue);font-weight:900}.explain{margin-top:15px;padding:15px 17px;border:1px solid var(--line);border-radius:13px;background:var(--soft)}
+.lesson-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.panel{border:1px solid var(--line);border-radius:13px;padding:15px;background:#fff}.panel h3{margin:0 0 8px;color:var(--ink)}
+.demo-stage{border:2px dashed #b5cad9;border-radius:13px;padding:16px;background:#f7fbfe;min-height:110px}.demo-stage .visual-parent{display:flex;gap:8px;flex-wrap:wrap}.demo-stage .visual-box{padding:12px 16px;border:2px solid #0b67b2;border-radius:9px;background:white;font-weight:900;color:#0b67b2}
+.memory,.practice,.note{margin-top:14px;padding:13px 15px;border-radius:10px}.memory{background:var(--green-bg);border-left:5px solid var(--green)}.practice{background:var(--amber-bg);border-left:5px solid #c18400}.note{background:#f5f7fa;border-left:5px solid #8799aa}.practice strong,.memory strong{color:var(--ink)}
+.codebox{margin-top:12px;border:1px solid #20394e;border-radius:13px;overflow:hidden;background:var(--code)}.codebar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;background:#17324d;color:#fff}.codebar span{font-weight:900}.copy{border:1px solid rgba(255,255,255,.25);background:#27506f;color:white;border-radius:8px;padding:7px 10px;font-weight:800;cursor:pointer}pre{margin:0;padding:16px;overflow:auto;color:#edf7ff;font-size:.9rem;line-height:1.55;tab-size:2}
+.full-code{margin-top:14px;border:1px solid #c9dae6;border-radius:13px;background:#f8fbfd;overflow:hidden}.full-code summary{cursor:pointer;padding:13px 15px;font-weight:900;color:var(--blue);background:#eef7fd}.full-code[open] summary{border-bottom:1px solid #c9dae6}.full-code .codebox{margin:0;border:0;border-radius:0}.step-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.step-actions a{text-decoration:none;font-weight:900;color:var(--blue);border:1px solid #bfd8ea;background:#f6fbff;border-radius:9px;padding:8px 11px}
+.editor-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;scroll-margin-top:72px}.editor-head{padding:22px}.editor-head h2{margin:0;color:var(--ink)}.editor-wrap{padding:10px;background:#eaf2f8}.editor-wrap iframe{width:100%;height:760px;border:1px solid #b9cddd;border-radius:12px;background:#fff;display:block}.editor-link{display:inline-block;margin-top:10px;font-weight:900;color:var(--blue)}
+.ref-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.ref-box{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}.ref-box h3{margin:0 0 8px;color:var(--ink)}
+.infinity{background:linear-gradient(135deg,#eff8ff,#fff,#effbf5)}.infinity h2{margin:0;color:var(--ink)}
+footer{text-align:center;color:var(--muted);padding:0 16px 46px}
+@media(max-width:850px){.orientation-grid,.lesson-grid{grid-template-columns:1fr}.roadmap{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.roadmap,.ref-grid{grid-template-columns:1fr}.orientation,.phase-card,.step,.reference,.infinity{padding:18px}.step-no{min-width:42px;height:42px}.editor-wrap iframe{height:650px}.floating-editor{right:10px;bottom:10px}}
+</style>
+  <link href="../../../../assets/css/theme.css" rel="stylesheet">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"CSS Flexbox + Grid: Detailed 0 to Infinity","description":"A progressive Flexbox and Grid course with 46 stages and full runnable HTML at every stage.","provider":{"@type":"Organization","name":"Programmer's Picnic by Champak Roy"},"creator":{"@type":"Person","name":"Champak Roy"},"educationalLevel":["Beginner","Intermediate","Advanced"],"isAccessibleForFree":true}</script>
+</head>
+<body data-root="../../../../">
+<div data-root="../../../../" id="site-header"></div>
+<header class="hero" id="top"><div class="wrap"><p class="eyebrow">Learn With Champak · Detailed 0 → ∞</p><h1>Flexbox + Grid</h1><p>Start before Flexbox: HTML, CSS, boxes, parents and normal flow. Then move one idea at a time through Flexbox, Grid, responsive layouts, nesting, debugging and a complete dashboard. <strong>Every stage has a complete runnable HTML option.</strong></p><div class="badges"><span class="badge">46 stages</span><span class="badge">Absolute zero first</span><span class="badge">Full HTML every stage</span><span class="badge">Flexbox</span><span class="badge">Grid</span><span class="badge">Responsive</span><span class="badge">Projects</span></div><div class="hero-actions"><a class="btn primary" href="#phase-A">Start from absolute zero</a><a class="btn secondary" href="#editor">Open embedded editor</a><a class="btn secondary" href="#infinity">Jump to ∞</a></div></div></header>
+<nav class="sticky-nav" aria-label="Course phases"><div class="wrap"><a href="#phase-A">A: Absolute Zero</a><a href="#phase-B">B: Flexbox Foundations</a><a href="#phase-C">C: Grid Foundations</a><a href="#phase-D">D: Responsive Real Layouts</a><a href="#phase-E">E: Advanced + Debugging</a><a href="#phase-F">F: Infinity Project</a><a href="#editor">Editor</a><a href="#reference">Reference</a><a href="#infinity">∞</a></div></nav>
+<a class="floating-editor" href="#editor">Practice Editor</a>
+<main class="wrap">
+<section class="orientation"><div class="orientation-grid"><div><p class="eyebrow">How to use this course</p><h2 style="margin:0;color:var(--ink)">One new idea at a time</h2><p>Do not read ten properties and try to remember them. At each stage: read the idea, predict the result, open the full code, paste it into the editor, then change exactly one value. The lesson deliberately repeats simple boxes so your attention stays on layout.</p><div class="memory"><strong>Core mental model:</strong> find the parent → identify its direct children → decide whether the relationship is mainly one-dimensional (Flexbox) or two-dimensional (Grid).</div></div><div class="panel"><h3>Every step contains</h3><ol><li>One concept</li><li>Smallest useful code</li><li>Result to expect</li><li>A change-it-yourself task</li><li><strong>Complete runnable HTML</strong></li><li>Link back to the embedded editor</li></ol></div></div><div class="roadmap"><a href="#phase-A"><small>Phase A</small>Absolute Zero<br><span style="color:var(--muted);font-weight:400">HTML, CSS, boxes, parents and normal flow</span></a><a href="#phase-B"><small>Phase B</small>Flexbox Foundations<br><span style="color:var(--muted);font-weight:400">One-dimensional layout from first line to mini-project</span></a><a href="#phase-C"><small>Phase C</small>Grid Foundations<br><span style="color:var(--muted);font-weight:400">Rows, columns, responsive tracks and named areas</span></a><a href="#phase-D"><small>Phase D</small>Responsive Real Layouts<br><span style="color:var(--muted);font-weight:400">Media queries, nesting, page shells and dashboards</span></a><a href="#phase-E"><small>Phase E</small>Advanced + Debugging<br><span style="color:var(--muted);font-weight:400">Overflow, content sizing, fluid design, subgrid and accessibility</span></a><a href="#phase-F"><small>Phase F</small>Infinity Project<br><span style="color:var(--muted);font-weight:400">Design from a layout plan instead of memorising properties</span></a></div></section>
+<section class="editor-card" id="editor"><div class="editor-head"><p class="eyebrow">Your laboratory</p><h2>Embedded HTML editor</h2><p>Open a stage’s “Full runnable HTML”, copy it, paste it here, run it, and then complete the “Change this” task. You can also open the editor separately.</p><a class="editor-link" href="https://editor.learnwithchampak.live/samples/html/preview/" target="_blank" rel="noopener">Open editor in a new tab</a></div><div class="editor-wrap"><iframe src="https://editor.learnwithchampak.live/samples/html/preview/" title="Learn With Champak HTML Editor and Preview" loading="lazy" allow="clipboard-read; clipboard-write; fullscreen" allowfullscreen></iframe></div></section>
+<section class="phase-card" id="phase-A"><p class="eyebrow">Phase A</p><h2>Absolute Zero</h2><p style="margin-bottom:0">HTML, CSS, boxes, parents and normal flow</p></section>
+<section class="step" id="step-0">
+  <div class="step-head"><div class="step-no">0</div><div><p class="eyebrow">Phase A · Step 0</p><h2>What are HTML and CSS?</h2><p class="concept">HTML creates the things. CSS changes how they look and where they sit.</p></div></div>
+  <div class="explain">Before Flexbox or Grid, understand the two jobs. HTML gives us headings, paragraphs and boxes. CSS selects those things and styles them.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-0">Copy</button></div><pre id="key-0"><code>&lt;h1&gt;Hello&lt;/h1&gt;
+&lt;p&gt;This is HTML.&lt;/p&gt;</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change the heading text, then change the color in CSS.</div>
+  <div class="note"><strong>Important:</strong> Flexbox and Grid are CSS layout systems. We will reach them gradually.</div>
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 0 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-0">Copy Full Code</button></div><pre id="full-0"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 0: What are HTML and CSS?&lt;/title&gt;
+  &lt;style&gt;
+body { font-family: Arial, sans-serif; padding: 24px; }
+h1 { color: #0b67b2; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Hello&lt;/h1&gt;
+&lt;p&gt;This is HTML. CSS makes the heading blue.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-1">Next step →</a></div>
+</section>
+<section class="step" id="step-1">
+  <div class="step-head"><div class="step-no">1</div><div><p class="eyebrow">Phase A · Step 1</p><h2>Make your first box with <div></h2><p class="concept">A <div> is a general-purpose container.</p></div></div>
+  <div class="explain">A container can hold text or other elements. Layout becomes easier when you learn to see a page as containers inside containers.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-1">Copy</button></div><pre id="key-1"><code>&lt;div&gt;My first box&lt;/div&gt;</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Add a second <div>. Notice where it appears before using Flexbox or Grid.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 1 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-1">Copy Full Code</button></div><pre id="full-1"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 1: Make your first box with &lt;div&gt;&lt;/title&gt;
+  &lt;style&gt;
+body { font-family: Arial, sans-serif; padding: 24px; }
+div { border: 2px solid #0b67b2; padding: 20px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;My first box&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-2">Next step →</a></div>
+</section>
+<section class="step" id="step-2">
+  <div class="step-head"><div class="step-no">2</div><div><p class="eyebrow">Phase A · Step 2</p><h2>Give boxes classes</h2><p class="concept">A class gives a reusable name to one or more elements.</p></div></div>
+  <div class="explain">Instead of styling every div, name the kind of box you want. CSS classes begin with a dot.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-2">Copy</button></div><pre id="key-2"><code>&lt;div class=&quot;box&quot;&gt;A&lt;/div&gt;
+&lt;div class=&quot;box&quot;&gt;B&lt;/div&gt;</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Rename class="box" to class="card" in both HTML and CSS.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 2 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-2">Copy Full Code</button></div><pre id="full-2"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 2: Give boxes classes&lt;/title&gt;
+  &lt;style&gt;
+body {
+  margin: 0;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+  background: #f5f8fb;
+  color: #203040;
+}
+.box {
+  padding: 18px;
+  border: 2px solid #0b67b2;
+  border-radius: 10px;
+  background: white;
+  text-align: center;
+  font-weight: bold;
+}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;box&quot;&gt;A&lt;/div&gt;
+&lt;br&gt;
+&lt;div class=&quot;box&quot;&gt;B&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-3">Next step →</a></div>
+</section>
+<section class="step" id="step-3">
+  <div class="step-head"><div class="step-no">3</div><div><p class="eyebrow">Phase A · Step 3</p><h2>Understand width, padding, border and margin</h2><p class="concept">Every element is a rectangular box.</p></div></div>
+  <div class="explain">Content sits inside padding, padding sits inside the border, and margin creates space outside the border. This is the box model.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-3">Copy</button></div><pre id="key-3"><code>.box {
+  width: 220px;
+  padding: 20px;
+  border: 4px solid #0b67b2;
+  margin: 20px;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change padding from 20px to 50px. Then change margin to 0.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 3 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-3">Copy Full Code</button></div><pre id="full-3"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 3: Understand width, padding, border and margin&lt;/title&gt;
+  &lt;style&gt;
+body { font-family: Arial, sans-serif; }
+.box { width:220px; padding:20px; border:4px solid #0b67b2; margin:20px; background:#fff; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;box&quot;&gt;Content → padding → border → margin&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-4">Next step →</a></div>
+</section>
+<section class="step" id="step-4">
+  <div class="step-head"><div class="step-no">4</div><div><p class="eyebrow">Phase A · Step 4</p><h2>Parent and children</h2><p class="concept">Flexbox and Grid are usually applied to a parent.</p></div></div>
+  <div class="explain">The parent controls the layout of its direct children. This is the single most important relationship in this course.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-4">Copy</button></div><pre id="key-4"><code>&lt;div class=&quot;parent&quot;&gt;
+  &lt;div class=&quot;child&quot;&gt;A&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;B&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;C&lt;/div&gt;
+&lt;/div&gt;</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Add a fourth child. Do not add any Flexbox yet.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 4 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-4">Copy Full Code</button></div><pre id="full-4"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 4: Parent and children&lt;/title&gt;
+  &lt;style&gt;
+body { font-family:Arial,sans-serif; padding:24px; }
+.parent { border:3px dashed #7997ad; padding:12px; }
+.child { border:2px solid #0b67b2; padding:14px; margin:8px 0; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;
+  &lt;div class=&quot;child&quot;&gt;A&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;B&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;C&lt;/div&gt;
 &lt;/div&gt;
-
-&lt;style&gt;
-.flex {
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-5">Next step →</a></div>
+</section>
+<section class="step" id="step-5">
+  <div class="step-head"><div class="step-no">5</div><div><p class="eyebrow">Phase A · Step 5</p><h2>See normal document flow</h2><p class="concept">Block elements naturally stack vertically.</p></div></div>
+  <div class="explain">Before layout CSS, divs usually take available width and appear one below another. Flexbox/Grid deliberately change this arrangement.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-5">Copy</button></div><pre id="key-5"><code>.parent { border: 3px dashed #7997ad; }
+.child { padding: 16px; border: 2px solid #0b67b2; }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Predict what will happen when the parent becomes display:flex in the next stage.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 5 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-5">Copy Full Code</button></div><pre id="full-5"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 5: See normal document flow&lt;/title&gt;
+  &lt;style&gt;
+body { font-family:Arial,sans-serif; padding:24px; }
+.parent { border:3px dashed #7997ad; padding:12px; }
+.child { padding:16px; border:2px solid #0b67b2; background:white; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;
+  &lt;div class=&quot;child&quot;&gt;One&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;Two&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;Three&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-6">Next step →</a></div>
+</section><section class="phase-card" id="phase-B"><p class="eyebrow">Phase B</p><h2>Flexbox Foundations</h2><p style="margin-bottom:0">One-dimensional layout from first line to mini-project</p></section>
+<section class="step" id="step-6">
+  <div class="step-head"><div class="step-no">6</div><div><p class="eyebrow">Phase B · Step 6</p><h2>Your first Flexbox</h2><p class="concept">One line changes the children from normal block flow into flex items.</p></div></div>
+  <div class="explain">Apply display:flex to the parent—not to every child. The direct children become flex items.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-6">Copy</button></div><pre id="key-6"><code>.parent {
   display: flex;
-  gap: 10px;
-}
-&lt;/style&gt;</code></pre>
-        </div>
-        <div class="memory">
-          <strong>First Flexbox line:</strong> <code>display: flex;</code>
-        </div>
-      </section>
-
-      <section class="card" id="level2">
-        <div class="level-title">
-          <span class="level-no">2</span>
-          <div>
-            <span class="level-kicker">Direction + wrapping</span>
-            <h2>Row, column, gap and wrap</h2>
-          </div>
-        </div>
-        <div class="two-col">
-          <div class="card-flat">
-            <h3 style="margin-top: 0">Direction</h3>
-            <p>
-              <code>flex-direction: row</code> is the default. Use
-              <code>column</code> to stack flex items vertically.
-            </p>
-          </div>
-          <div class="card-flat">
-            <h3 style="margin-top: 0">Wrapping</h3>
-            <p>
-              <code>flex-wrap: wrap</code> lets items move onto another line
-              when there is not enough room.
-            </p>
-          </div>
-        </div>
-        <div class="demo-label">Flexible wrapping</div>
-        <div class="stage">
-          <div class="demo-wrap">
-            <div class="item">One</div>
-            <div class="item">Two</div>
-            <div class="item">Three</div>
-            <div class="item">Four</div>
-          </div>
-        </div>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Direction and wrap</span
-            ><button class="copy" data-copy="c2">Copy</button>
-          </div>
-          <pre id="c2"><code>.parent {
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Remove display:flex, run it, then put it back. Compare.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 6 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-6">Copy Full Code</button></div><pre id="full-6"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 6: Your first Flexbox&lt;/title&gt;
+  &lt;style&gt;
+body { font-family:Arial,sans-serif; padding:24px; }
+.parent { display:flex; border:3px dashed #7997ad; padding:12px; }
+.child { padding:16px; border:2px solid #0b67b2; background:white; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;
+  &lt;div class=&quot;child&quot;&gt;One&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;Two&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;Three&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-7">Next step →</a></div>
+</section>
+<section class="step" id="step-7">
+  <div class="step-head"><div class="step-no">7</div><div><p class="eyebrow">Phase B · Step 7</p><h2>Main axis and cross axis</h2><p class="concept">Flexbox always has a main axis and a cross axis.</p></div></div>
+  <div class="explain">With the default flex-direction:row, the main axis runs left→right and the cross axis runs top→bottom. justify-content works on the main axis; align-items works on the cross axis.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-7">Copy</button></div><pre id="key-7"><code>.parent {
   display: flex;
-  flex-direction: row; /* try column */
-  flex-wrap: wrap;
+  /* main axis → */
+  /* cross axis ↓ */
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Keep this axis idea in mind. It explains most Flexbox properties.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 7 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-7">Copy Full Code</button></div><pre id="full-7"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 7: Main axis and cross axis&lt;/title&gt;
+  &lt;style&gt;
+body {font-family:Arial,sans-serif;padding:24px}.parent{display:flex;min-height:180px;border:3px dashed #7997ad;padding:12px}.child{padding:16px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;
+  &lt;div class=&quot;child&quot;&gt;A&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;B&lt;/div&gt;
+  &lt;div class=&quot;child&quot;&gt;C&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-8">Next step →</a></div>
+</section>
+<section class="step" id="step-8">
+  <div class="step-head"><div class="step-no">8</div><div><p class="eyebrow">Phase B · Step 8</p><h2>Change flex direction</h2><p class="concept">flex-direction chooses the main axis.</p></div></div>
+  <div class="explain">row is horizontal. column is vertical. row-reverse and column-reverse reverse the visual direction.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-8">Copy</button></div><pre id="key-8"><code>.parent {
+  display: flex;
+  flex-direction: column;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Try row, column, row-reverse and column-reverse one by one.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 8 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-8">Copy Full Code</button></div><pre id="full-8"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 8: Change flex direction&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;flex-direction:column;gap:10px;border:3px dashed #7997ad;padding:12px}.child{padding:16px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-9">Next step →</a></div>
+</section>
+<section class="step" id="step-9">
+  <div class="step-head"><div class="step-no">9</div><div><p class="eyebrow">Phase B · Step 9</p><h2>Add clean spacing with gap</h2><p class="concept">gap creates space between flex items without outside-edge margin problems.</p></div></div>
+  <div class="explain">For modern Flexbox, gap is usually simpler than putting margin on every child.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-9">Copy</button></div><pre id="key-9"><code>.parent {
+  display: flex;
   gap: 16px;
-}
-
-.parent &gt; div {
-  flex: 1 1 180px;
-}</code></pre>
-        </div>
-        <div class="warning">
-          <strong>Try this:</strong> resize the browser. Wrapped Flexbox
-          responds to available width without a media query.
-        </div>
-      </section>
-
-      <section class="card" id="level3">
-        <div class="level-title">
-          <span class="level-no">3</span>
-          <div>
-            <span class="level-kicker">Alignment</span>
-            <h2>Main axis vs cross axis</h2>
-          </div>
-        </div>
-        <p class="lead">
-          <code>justify-content</code> works on the <strong>main axis</strong>.
-          <code>align-items</code> works on the <strong>cross axis</strong>. If
-          you change <code>flex-direction</code>, the axes change too.
-        </p>
-        <div class="two-col">
-          <div>
-            <div class="demo-label">justify-content: space-between</div>
-            <div class="stage">
-              <div class="justify-demo">
-                <div class="item">A</div>
-                <div class="item">B</div>
-                <div class="item">C</div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="demo-label">align-items: center</div>
-            <div class="stage">
-              <div class="align-demo">
-                <div class="item">A</div>
-                <div class="item">Tall B</div>
-                <div class="item">C</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <table class="property-table">
-          <tr>
-            <th>Property</th>
-            <th>Useful values</th>
-            <th>Question it answers</th>
-          </tr>
-          <tr>
-            <td><code>justify-content</code></td>
-            <td>
-              start, center, end, space-between, space-around, space-evenly
-            </td>
-            <td>How should free space be used along the main axis?</td>
-          </tr>
-          <tr>
-            <td><code>align-items</code></td>
-            <td>stretch, start, center, end</td>
-            <td>How should items align on the cross axis?</td>
-          </tr>
-          <tr>
-            <td><code>align-content</code></td>
-            <td>start, center, space-between, stretch</td>
-            <td>
-              How should multiple wrapped lines align when extra cross-axis
-              space exists?
-            </td>
-          </tr>
-        </table>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Center anything</span
-            ><button class="copy" data-copy="c3">Copy</button>
-          </div>
-          <pre id="c3"><code>.parent {
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Try gap:0, gap:8px, gap:32px.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 9 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-9">Copy Full Code</button></div><pre id="full-9"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 9: Add clean spacing with gap&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;gap:16px;border:3px dashed #7997ad;padding:12px}.child{padding:16px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-10">Next step →</a></div>
+</section>
+<section class="step" id="step-10">
+  <div class="step-head"><div class="step-no">10</div><div><p class="eyebrow">Phase B · Step 10</p><h2>Move items along the main axis</h2><p class="concept">justify-content distributes free space on the main axis.</p></div></div>
+  <div class="explain">Common values are flex-start, center, flex-end, space-between, space-around and space-evenly.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-10">Copy</button></div><pre id="key-10"><code>.parent {
+  display: flex;
+  justify-content: space-between;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Test all six common justify-content values.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 10 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-10">Copy Full Code</button></div><pre id="full-10"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 10: Move items along the main axis&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;justify-content:space-between;gap:10px;border:3px dashed #7997ad;padding:12px}.child{padding:16px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-11">Next step →</a></div>
+</section>
+<section class="step" id="step-11">
+  <div class="step-head"><div class="step-no">11</div><div><p class="eyebrow">Phase B · Step 11</p><h2>Move items along the cross axis</h2><p class="concept">align-items aligns flex items on the cross axis.</p></div></div>
+  <div class="explain">To see vertical alignment in a row, the parent needs extra height.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-11">Copy</button></div><pre id="key-11"><code>.parent {
+  display: flex;
+  min-height: 220px;
+  align-items: center;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Try flex-start, center, flex-end and stretch.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 11 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-11">Copy Full Code</button></div><pre id="full-11"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 11: Move items along the cross axis&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;min-height:220px;align-items:center;gap:10px;border:3px dashed #7997ad;padding:12px}.child{padding:16px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;Short&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Medium box&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Tall?&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-12">Next step →</a></div>
+</section>
+<section class="step" id="step-12">
+  <div class="step-head"><div class="step-no">12</div><div><p class="eyebrow">Phase B · Step 12</p><h2>Center something both ways</h2><p class="concept">Combine justify-content and align-items.</p></div></div>
+  <div class="explain">This is the classic “center a box” Flexbox pattern.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-12">Copy</button></div><pre id="key-12"><code>.parent {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 300px;
-}</code></pre>
-        </div>
-      </section>
-
-      <section class="card" id="level4">
-        <div class="level-title">
-          <span class="level-no">4</span>
-          <div>
-            <span class="level-kicker">Flex item sizing</span>
-            <h2>grow, shrink and basis</h2>
-          </div>
-        </div>
-        <p class="lead">
-          Flexbox is powerful because items can negotiate available space.
-        </p>
-        <table class="property-table">
-          <tr>
-            <th>Property</th>
-            <th>Meaning</th>
-            <th>Common use</th>
-          </tr>
-          <tr>
-            <td><code>flex-grow</code></td>
-            <td>How strongly an item takes extra space.</td>
-            <td><code>flex-grow:1</code></td>
-          </tr>
-          <tr>
-            <td><code>flex-shrink</code></td>
-            <td>How strongly an item may shrink when space is tight.</td>
-            <td><code>flex-shrink:0</code> for fixed controls</td>
-          </tr>
-          <tr>
-            <td><code>flex-basis</code></td>
-            <td>Preferred starting size before grow/shrink.</td>
-            <td><code>flex-basis:200px</code></td>
-          </tr>
-          <tr>
-            <td><code>flex</code></td>
-            <td>Shorthand: grow shrink basis.</td>
-            <td><code>flex:1 1 220px</code></td>
-          </tr>
-        </table>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Responsive flex cards</span
-            ><button class="copy" data-copy="c4">Copy</button>
-          </div>
-          <pre id="c4"><code>.cards {
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change justify-content only. Then restore center and change align-items only.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 12 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-12">Copy Full Code</button></div><pre id="full-12"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 12: Center something both ways&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;justify-content:center;align-items:center;min-height:300px;border:3px dashed #7997ad}.child{padding:24px;border:2px solid #0b67b2;background:white;border-radius:10px}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;Perfectly centered&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-13">Next step →</a></div>
+</section>
+<section class="step" id="step-13">
+  <div class="step-head"><div class="step-no">13</div><div><p class="eyebrow">Phase B · Step 13</p><h2>Allow items to wrap</h2><p class="concept">flex-wrap lets items move to another line when space runs out.</p></div></div>
+  <div class="explain">Without wrapping, Flexbox tries to keep items on one line and may shrink them.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-13">Copy</button></div><pre id="key-13"><code>.parent {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 12px;
 }
-
-.card {
-  flex: 1 1 220px;
-}</code></pre>
-        </div>
-        <div class="bug">
-          <strong>Common mystery:</strong> a flex child containing long text may
-          refuse to shrink as expected. Try <code>min-width:0</code> on that
-          child.
-        </div>
-      </section>
-
-      <section class="card" id="level5">
-        <div class="level-title">
-          <span class="level-no">5</span>
-          <div>
-            <span class="level-kicker">First Grid</span>
-            <h2>Rows and columns</h2>
-          </div>
-        </div>
-        <p class="lead">
-          Grid starts when the parent gets <code>display:grid</code>. Then
-          define the columns you want.
-        </p>
-        <div class="demo-label">Three equal columns</div>
-        <div class="stage">
-          <div class="demo-grid">
-            <div class="item">1</div>
-            <div class="item">2</div>
-            <div class="item">3</div>
-            <div class="item">4</div>
-            <div class="item">5</div>
-            <div class="item">6</div>
-          </div>
-        </div>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Smallest useful Grid</span
-            ><button class="copy" data-copy="c5">Copy</button>
-          </div>
-          <pre id="c5"><code>.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}</code></pre>
-        </div>
-        <div class="memory">
-          <strong><code>1fr</code></strong> means one fraction of the available
-          grid space. Three <code>1fr</code> columns share it equally.
-        </div>
-      </section>
-
-      <section class="card" id="level6">
-        <div class="level-title">
-          <span class="level-no">6</span>
-          <div>
-            <span class="level-kicker">Smart Grid sizing</span>
-            <h2>repeat(), minmax(), auto-fit and auto-fill</h2>
-          </div>
-        </div>
-        <p class="lead">
-          This is where Grid becomes a responsive-layout machine.
-        </p>
-        <div class="demo-label">Resize-friendly cards</div>
-        <div class="stage">
-          <div class="responsive-demo">
-            <div class="item">A</div>
-            <div class="item">B</div>
-            <div class="item">C</div>
-            <div class="item">D</div>
-            <div class="item">E</div>
-          </div>
-        </div>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Responsive Grid without a media query</span
-            ><button class="copy" data-copy="c6">Copy</button>
-          </div>
-          <pre id="c6"><code>.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}</code></pre>
-        </div>
-        <div class="two-col">
-          <div class="card-flat">
-            <h3 style="margin-top: 0">auto-fit</h3>
-            <p>
-              Empty tracks collapse, so existing items can stretch and use the
-              available room.
-            </p>
-          </div>
-          <div class="card-flat">
-            <h3 style="margin-top: 0">auto-fill</h3>
-            <p>
-              Keeps room for as many tracks as fit, even when some tracks have
-              no item.
-            </p>
-          </div>
-        </div>
-        <div class="memory">
-          <strong>High-value pattern:</strong>
-          <code>repeat(auto-fit, minmax(...))</code> solves a huge number of
-          responsive card layouts.
-        </div>
-      </section>
-
-      <section class="card" id="level7">
-        <div class="level-title">
-          <span class="level-no">7</span>
-          <div>
-            <span class="level-kicker">Grid placement</span>
-            <h2>Span tracks and name areas</h2>
-          </div>
-        </div>
-        <div class="demo-label">Items can span multiple columns</div>
-        <div class="stage">
-          <div class="span-demo">
-            <div class="item hero-wide">Full width</div>
-            <div class="item wide">Two columns</div>
-            <div class="item">One</div>
-            <div class="item">One</div>
-            <div class="item">One</div>
-          </div>
-        </div>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Column spanning</span
-            ><button class="copy" data-copy="c7a">Copy</button>
-          </div>
-          <pre id="c7a"><code>.wide {
-  grid-column: span 2;
-}
-
-.full {
-  grid-column: 1 / -1;
-}</code></pre>
-        </div>
-
-        <h3>Named grid areas</h3>
-        <div class="stage">
-          <div class="areas-demo">
-            <div class="item head">Header</div>
-            <div class="item side">Sidebar</div>
-            <div class="item main tall">Main</div>
-            <div class="item foot">Footer</div>
-          </div>
-        </div>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Readable page shell</span
-            ><button class="copy" data-copy="c7b">Copy</button>
-          </div>
-          <pre id="c7b"><code>.page {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  grid-template-areas:
-    "header header"
-    "sidebar main"
-    "footer footer";
-}
-
-header { grid-area: header; }
-aside  { grid-area: sidebar; }
-main   { grid-area: main; }
-footer { grid-area: footer; }</code></pre>
-        </div>
-      </section>
-
-      <section class="card" id="level8">
-        <div class="level-title">
-          <span class="level-no">8</span>
-          <div>
-            <span class="level-kicker">Responsive design</span>
-            <h2>Let content decide, then add media queries</h2>
-          </div>
-        </div>
-        <p class="lead">
-          Modern layouts often start fluid. Add a media query only when the
-          design actually needs a structural change.
-        </p>
-        <div class="two-col">
-          <div class="card-flat">
-            <h3 style="margin-top: 0">Fluid Grid</h3>
-            <pre
-              style="background: var(--code); border-radius: 10px"
-            ><code>grid-template-columns:
-  repeat(auto-fit,
-    minmax(220px,1fr));</code></pre>
-          </div>
-          <div class="card-flat">
-            <h3 style="margin-top: 0">Structural breakpoint</h3>
-            <pre
-              style="background: var(--code); border-radius: 10px"
-            ><code>@media (max-width:700px) {
-  .page {
-    grid-template-columns:1fr;
-  }
-}</code></pre>
-          </div>
-        </div>
-        <div class="warning">
-          <strong>Avoid breakpoint collecting.</strong> Do not add 5 different
-          breakpoints merely because devices have different names. Add one when
-          your content stops fitting well.
-        </div>
-      </section>
-
-      <section class="card" id="level9">
-        <div class="level-title">
-          <span class="level-no">9</span>
-          <div>
-            <span class="level-kicker">Real layouts</span>
-            <h2>Nest Flexbox inside Grid and Grid inside Flexbox</h2>
-          </div>
-        </div>
-        <p class="lead">
-          Each container makes its own layout decision. A Grid child can itself
-          become a Flex container. A Flex child can itself become a Grid
-          container.
-        </p>
-        <div class="stage project-shell">
-          <aside class="project-sidebar">
-            <div class="item">Home</div>
-            <div class="item">Lessons</div>
-            <div class="item">Projects</div>
-          </aside>
-          <div class="project-main">
-            <div class="item project-toolbar">
-              <strong>Dashboard</strong><span>Search &nbsp; Profile</span>
-            </div>
-            <div class="project-cards">
-              <div class="item">Card 1</div>
-              <div class="item">Card 2</div>
-              <div class="item">Card 3</div>
-              <div class="item">Card 4</div>
-            </div>
-          </div>
-        </div>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Grid outside, Flex inside</span
-            ><button class="copy" data-copy="c9">Copy</button>
-          </div>
-          <pre id="c9"><code>.page {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 16px;
-}
-
-.toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-  gap: 16px;
-}</code></pre>
-        </div>
-        <div class="memory">
-          <strong>This is the real skill:</strong> not “Flex or Grid?” for the
-          whole page, but “Which layout fits this particular container?”
-        </div>
-      </section>
-
-      <section class="card" id="level10">
-        <div class="level-title">
-          <span class="level-no">10</span>
-          <div>
-            <span class="level-kicker">Design patterns</span>
-            <h2>Know the layouts you will reuse constantly</h2>
-          </div>
-        </div>
-        <div class="three-col">
-          <div class="card-flat">
-            <h3 style="margin-top: 0">Navbar</h3>
-            <p>Flexbox: logo on one side, links/actions on the other.</p>
-          </div>
-          <div class="card-flat">
-            <h3 style="margin-top: 0">Card gallery</h3>
-            <p>Grid: repeated items with equal track logic.</p>
-          </div>
-          <div class="card-flat">
-            <h3 style="margin-top: 0">Centered hero</h3>
-            <p>Flexbox or Grid with centering.</p>
-          </div>
-          <div class="card-flat">
-            <h3 style="margin-top: 0">Sidebar + content</h3>
-            <p>Grid: explicit page columns.</p>
-          </div>
-          <div class="card-flat">
-            <h3 style="margin-top: 0">Buttons / chips</h3>
-            <p>Flexbox with wrap and gap.</p>
-          </div>
-          <div class="card-flat">
-            <h3 style="margin-top: 0">Dashboard</h3>
-            <p>Grid shell + nested card grids + Flex toolbars.</p>
-          </div>
-        </div>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Navbar pattern</span
-            ><button class="copy" data-copy="c10">Copy</button>
-          </div>
-          <pre id="c10"><code>.nav {
+.child { width: 180px; }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Resize the browser. Then remove flex-wrap and compare.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 13 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-13">Copy Full Code</button></div><pre id="full-13"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 13: Allow items to wrap&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;flex-wrap:wrap;gap:12px;border:3px dashed #7997ad;padding:12px}.child{width:180px;padding:16px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;Item 1&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Item 2&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Item 3&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Item 4&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Item 5&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Item 6&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-14">Next step →</a></div>
+</section>
+<section class="step" id="step-14">
+  <div class="step-head"><div class="step-no">14</div><div><p class="eyebrow">Phase B · Step 14</p><h2>Choose a starting size with flex-basis</h2><p class="concept">flex-basis is the preferred main-axis starting size.</p></div></div>
+  <div class="explain">It is often more useful than width inside a flexible row.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-14">Copy</button></div><pre id="key-14"><code>.child {
+  flex-basis: 180px;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Try flex-basis:120px and 250px. Watch when wrapping occurs.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 14 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-14">Copy Full Code</button></div><pre id="full-14"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 14: Choose a starting size with flex-basis&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;flex-wrap:wrap;gap:12px}.child{flex-basis:180px;padding:16px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;Card 1&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Card 2&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Card 3&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Card 4&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Card 5&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-15">Next step →</a></div>
+</section>
+<section class="step" id="step-15">
+  <div class="step-head"><div class="step-no">15</div><div><p class="eyebrow">Phase B · Step 15</p><h2>Let items grow</h2><p class="concept">flex-grow decides how leftover space is shared.</p></div></div>
+  <div class="explain">A grow value of 2 asks an item to receive twice the share of leftover space compared with an item whose grow value is 1.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-15">Copy</button></div><pre id="key-15"><code>.a { flex-grow: 1; }
+.b { flex-grow: 2; }
+.c { flex-grow: 1; }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Set B to flex-grow:5. Explain the result in your own words.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 15 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-15">Copy Full Code</button></div><pre id="full-15"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 15: Let items grow&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;gap:10px}.child{padding:16px;border:2px solid #0b67b2;background:white}.a,.c{flex-grow:1}.b{flex-grow:2}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child a&quot;&gt;1 share&lt;/div&gt;&lt;div class=&quot;child b&quot;&gt;2 shares&lt;/div&gt;&lt;div class=&quot;child c&quot;&gt;1 share&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-16">Next step →</a></div>
+</section>
+<section class="step" id="step-16">
+  <div class="step-head"><div class="step-no">16</div><div><p class="eyebrow">Phase B · Step 16</p><h2>Control shrinking</h2><p class="concept">flex-shrink decides how items give up space when there is not enough room.</p></div></div>
+  <div class="explain">Use flex-shrink:0 when an item should resist shrinking, but be careful: it can force overflow.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-16">Copy</button></div><pre id="key-16"><code>.fixed {
+  width: 240px;
+  flex-shrink: 0;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Remove flex-shrink:0. Then make both items non-shrinking and observe overflow.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 16 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-16">Copy Full Code</button></div><pre id="full-16"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 16: Control shrinking&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;gap:10px;width:420px;max-width:100%;border:3px dashed #7997ad}.child{width:240px;padding:16px;border:2px solid #0b67b2;background:white}.fixed{flex-shrink:0}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child fixed&quot;&gt;I do not shrink&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;I can shrink&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-17">Next step →</a></div>
+</section>
+<section class="step" id="step-17">
+  <div class="step-head"><div class="step-no">17</div><div><p class="eyebrow">Phase B · Step 17</p><h2>Use the flex shorthand</h2><p class="concept">flex combines grow, shrink and basis.</p></div></div>
+  <div class="explain">flex:1 is a common way to make siblings share available space. flex:1 1 200px means grow, shrink and start around 200px.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-17">Copy</button></div><pre id="key-17"><code>.child {
+  flex: 1 1 200px;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change 200px to 300px. Resize the page and watch the breakpoints happen naturally.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 17 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-17">Copy Full Code</button></div><pre id="full-17"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 17: Use the flex shorthand&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;flex-wrap:wrap;gap:12px}.child{flex:1 1 200px;padding:16px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;Flexible 1&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Flexible 2&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Flexible 3&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Flexible 4&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-18">Next step →</a></div>
+</section>
+<section class="step" id="step-18">
+  <div class="step-head"><div class="step-no">18</div><div><p class="eyebrow">Phase B · Step 18</p><h2>Override one item with align-self</h2><p class="concept">align-self changes cross-axis alignment for one flex item.</p></div></div>
+  <div class="explain">The parent may align every item one way while a special child opts out.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-18">Copy</button></div><pre id="key-18"><code>.parent { align-items: flex-start; }
+.special { align-self: flex-end; }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Try align-self:center and stretch.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 18 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-18">Copy Full Code</button></div><pre id="full-18"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 18: Override one item with align-self&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;align-items:flex-start;min-height:220px;gap:10px;border:3px dashed #7997ad}.child{padding:16px;border:2px solid #0b67b2;background:white}.special{align-self:flex-end}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;child special&quot;&gt;Special&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-19">Next step →</a></div>
+</section>
+<section class="step" id="step-19">
+  <div class="step-head"><div class="step-no">19</div><div><p class="eyebrow">Phase B · Step 19</p><h2>Visual order and source order</h2><p class="concept">order can visually rearrange flex items, but it does not rewrite the document’s logical order.</p></div></div>
+  <div class="explain">Use order sparingly. Keyboard and screen-reader order can still follow the HTML source, so important reading order should usually stay meaningful in the markup.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-19">Copy</button></div><pre id="key-19"><code>.first-visually { order: -1; }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Remove order. Then move the element in the HTML instead and compare the idea.</div>
+  <div class="note"><strong>Important:</strong> Prefer meaningful HTML order; use CSS order only when there is a strong reason.</div>
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 19 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-19">Copy Full Code</button></div><pre id="full-19"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 19: Visual order and source order&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:flex;gap:10px}.child{padding:16px;border:2px solid #0b67b2;background:white}.first-visually{order:-1}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;HTML first&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;HTML second&lt;/div&gt;&lt;div class=&quot;child first-visually&quot;&gt;HTML third, visual first&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-20">Next step →</a></div>
+</section>
+<section class="step" id="step-20">
+  <div class="step-head"><div class="step-no">20</div><div><p class="eyebrow">Phase B · Step 20</p><h2>Flexbox mini-project: navigation bar</h2><p class="concept">A navbar is a natural one-dimensional layout.</p></div></div>
+  <div class="explain">Use Flexbox for the outer bar and again for the link group. This is your first nested flex layout.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-20">Copy</button></div><pre id="key-20"><code>.nav {
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   gap:16px;
-}
-
-.nav-links {
-  display:flex;
-  gap:12px;
   flex-wrap:wrap;
-}</code></pre>
-        </div>
-      </section>
-
-      <section class="card" id="level11">
-        <div class="level-title">
-          <span class="level-no">11</span>
-          <div>
-            <span class="level-kicker">Debugging</span>
-            <h2>When Flexbox or Grid “doesn't work”</h2>
-          </div>
-        </div>
-        <table class="property-table">
-          <tr>
-            <th>Problem</th>
-            <th>Likely reason</th>
-            <th>Check</th>
-          </tr>
-          <tr>
-            <td>Items are not moving</td>
-            <td>The parent is not a flex/grid container.</td>
-            <td>
-              Is <code>display:flex</code> or <code>display:grid</code> on the
-              correct parent?
-            </td>
-          </tr>
-          <tr>
-            <td>Alignment seems to do nothing</td>
-            <td>No free space exists on that axis.</td>
-            <td>Give the container width/height or inspect available space.</td>
-          </tr>
-          <tr>
-            <td><code>align-content</code> does nothing</td>
-            <td>You have only one flex line.</td>
-            <td>Use wrapping and enough cross-axis space.</td>
-          </tr>
-          <tr>
-            <td>Flex child overflows</td>
-            <td>Intrinsic minimum size prevents shrinking.</td>
-            <td>Try <code>min-width:0</code>.</td>
-          </tr>
-          <tr>
-            <td>Grid gets too wide</td>
-            <td>A track or content has a large minimum size.</td>
-            <td>Try <code>minmax(0,1fr)</code> or constrain the content.</td>
-          </tr>
-          <tr>
-            <td>Unexpected Grid items appear</td>
-            <td>Implicit rows/columns were created.</td>
-            <td>Inspect placement and <code>grid-auto-*</code>.</td>
-          </tr>
-          <tr>
-            <td>Order looks visually right but keyboard flow is odd</td>
-            <td>Visual reordering differs from DOM order.</td>
-            <td>
-              Keep meaningful source order; avoid using CSS order as content
-              logic.
-            </td>
-          </tr>
-        </table>
-        <div class="memory">
-          <strong>Best debugging tool:</strong> use the browser DevTools layout
-          overlays for Flexbox and Grid, then inspect the parent before the
-          child.
-        </div>
-      </section>
-
-      <section class="card" id="level12">
-        <div class="level-title">
-          <span class="level-no">12</span>
-          <div>
-            <span class="level-kicker">Advanced control</span>
-            <h2>Intrinsic sizing, subgrid and dense packing</h2>
-          </div>
-        </div>
-        <h3>min-content, max-content and fit-content()</h3>
-        <p>
-          These sizing tools let the content itself influence track or box size.
-          They are useful when fixed pixels are too rigid and
-          <code>1fr</code> is too broad.
-        </p>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Content-aware sidebar</span
-            ><button class="copy" data-copy="c12a">Copy</button>
-          </div>
-          <pre id="c12a"><code>.page {
+}
+.links { display:flex; gap:12px; }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Add two more links. Then use margin-left:auto on the links and see another common navbar pattern.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 20 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-20">Copy Full Code</button></div><pre id="full-20"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 20: Flexbox mini-project: navigation bar&lt;/title&gt;
+  &lt;style&gt;
+body{margin:0;font-family:Arial,sans-serif}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:16px 24px;background:#0b67b2;color:white}.brand{font-weight:bold;font-size:1.25rem}.links{display:flex;gap:12px;flex-wrap:wrap}.links a{color:white;text-decoration:none;padding:8px 10px;background:rgba(255,255,255,.12);border-radius:8px}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;nav class=&quot;nav&quot;&gt;&lt;div class=&quot;brand&quot;&gt;Learn With Champak&lt;/div&gt;&lt;div class=&quot;links&quot;&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;a href=&quot;#&quot;&gt;Lessons&lt;/a&gt;&lt;a href=&quot;#&quot;&gt;Practice&lt;/a&gt;&lt;/div&gt;&lt;/nav&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-21">Next step →</a></div>
+</section><section class="phase-card" id="phase-C"><p class="eyebrow">Phase C</p><h2>Grid Foundations</h2><p style="margin-bottom:0">Rows, columns, responsive tracks and named areas</p></section>
+<section class="step" id="step-21">
+  <div class="step-head"><div class="step-no">21</div><div><p class="eyebrow">Phase C · Step 21</p><h2>Your first CSS Grid</h2><p class="concept">display:grid turns direct children into grid items.</p></div></div>
+  <div class="explain">Grid does not become visibly “grid-like” until you define tracks such as columns or rows.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-21">Copy</button></div><pre id="key-21"><code>.parent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change two columns to three: 1fr 1fr 1fr.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 21 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-21">Copy Full Code</button></div><pre id="full-21"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 21: Your first CSS Grid&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{display:grid;grid-template-columns:1fr 1fr;gap:10px}.child{padding:18px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div class=&quot;child&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;C&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;D&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-22">Next step →</a></div>
+</section>
+<section class="step" id="step-22">
+  <div class="step-head"><div class="step-no">22</div><div><p class="eyebrow">Phase C · Step 22</p><h2>Make columns with fixed units</h2><p class="concept">grid-template-columns defines the column tracks.</p></div></div>
+  <div class="explain">Start with explicit pixel widths so the track idea is obvious.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-22">Copy</button></div><pre id="key-22"><code>.grid {
   display:grid;
-  grid-template-columns: fit-content(260px) minmax(0,1fr);
+  grid-template-columns: 150px 250px;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Try 100px 300px, then 200px 200px. Notice fixed tracks do not care about available width.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 22 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-22">Copy Full Code</button></div><pre id="full-22"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 22: Make columns with fixed units&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.grid{display:grid;grid-template-columns:150px 250px;gap:10px;max-width:100%}.item{padding:18px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;grid&quot;&gt;&lt;div class=&quot;item&quot;&gt;150px column&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;250px column&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-23">Next step →</a></div>
+</section>
+<section class="step" id="step-23">
+  <div class="step-head"><div class="step-no">23</div><div><p class="eyebrow">Phase C · Step 23</p><h2>Meet the fr unit</h2><p class="concept">fr means a fraction of the available grid space.</p></div></div>
+  <div class="explain">1fr 1fr creates equal flexible columns. 1fr 2fr gives the second column roughly twice the share of remaining space.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-23">Copy</button></div><pre id="key-23"><code>.grid {
+  display:grid;
+  grid-template-columns: 1fr 2fr;
+  gap:12px;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Try 1fr 1fr 1fr and then 2fr 1fr 1fr.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 23 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-23">Copy Full Code</button></div><pre id="full-23"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 23: Meet the fr unit&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.grid{display:grid;grid-template-columns:1fr 2fr;gap:12px}.item{padding:18px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;grid&quot;&gt;&lt;div class=&quot;item&quot;&gt;1fr&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;2fr&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-24">Next step →</a></div>
+</section>
+<section class="step" id="step-24">
+  <div class="step-head"><div class="step-no">24</div><div><p class="eyebrow">Phase C · Step 24</p><h2>Stop repeating yourself with repeat()</h2><p class="concept">repeat() writes repeated tracks more clearly.</p></div></div>
+  <div class="explain">repeat(4,1fr) means four equal flexible columns.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-24">Copy</button></div><pre id="key-24"><code>.grid {
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change 4 to 2, 3 and 5.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 24 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-24">Copy Full Code</button></div><pre id="full-24"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 24: Stop repeating yourself with repeat()&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.item{padding:18px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;grid&quot;&gt;&lt;div class=&quot;item&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;8&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-25">Next step →</a></div>
+</section>
+<section class="step" id="step-25">
+  <div class="step-head"><div class="step-no">25</div><div><p class="eyebrow">Phase C · Step 25</p><h2>Rows and gap</h2><p class="concept">Grid has both column tracks and row tracks.</p></div></div>
+  <div class="explain">Rows can be explicit with grid-template-rows, or they can be created automatically as more items are placed.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-25">Copy</button></div><pre id="key-25"><code>.grid {
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: 80px 140px;
+  gap:12px;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change the first row from 80px to auto. Compare.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 25 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-25">Copy Full Code</button></div><pre id="full-25"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 25: Rows and gap&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:80px 140px;gap:12px}.item{padding:18px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;grid&quot;&gt;&lt;div class=&quot;item&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;6&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-26">Next step →</a></div>
+</section>
+<section class="step" id="step-26">
+  <div class="step-head"><div class="step-no">26</div><div><p class="eyebrow">Phase C · Step 26</p><h2>Align content inside grid cells</h2><p class="concept">place-items is shorthand for align-items and justify-items.</p></div></div>
+  <div class="explain">Unlike Flexbox alignment, Grid can align each item inside its own cell in two dimensions.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-26">Copy</button></div><pre id="key-26"><code>.grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-auto-rows:120px;
+  place-items:center;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Try place-items:start, end, stretch and center.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 26 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-26">Copy Full Code</button></div><pre id="full-26"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 26: Align content inside grid cells&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:120px;place-items:center;gap:10px;border:3px dashed #7997ad}.item{padding:18px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;grid&quot;&gt;&lt;div class=&quot;item&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-27">Next step →</a></div>
+</section>
+<section class="step" id="step-27">
+  <div class="step-head"><div class="step-no">27</div><div><p class="eyebrow">Phase C · Step 27</p><h2>Let Grid auto-place items</h2><p class="concept">Grid automatically fills cells in source order unless you tell an item to go somewhere special.</p></div></div>
+  <div class="explain">This automatic placement makes ordinary card collections very easy.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-27">Copy</button></div><pre id="key-27"><code>.grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Add Card 8 and Card 9. Predict which row and column each one gets.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 27 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-27">Copy Full Code</button></div><pre id="full-27"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 27: Let Grid auto-place items&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.item{padding:18px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;grid&quot;&gt;&lt;div class=&quot;item&quot;&gt;Card 1&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Card 2&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Card 3&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Card 4&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Card 5&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Card 6&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Card 7&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-28">Next step →</a></div>
+</section>
+<section class="step" id="step-28">
+  <div class="step-head"><div class="step-no">28</div><div><p class="eyebrow">Phase C · Step 28</p><h2>Give tracks limits with minmax()</h2><p class="concept">minmax(min,max) lets a track stay within useful limits.</p></div></div>
+  <div class="explain">This is one of the keys to responsive Grid. A card can have a minimum width but still grow when room exists.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-28">Copy</button></div><pre id="key-28"><code>.grid {
+  display:grid;
+  grid-template-columns:repeat(3, minmax(140px, 1fr));
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change 140px to 220px. What happens on a narrow screen?</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 28 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-28">Copy Full Code</button></div><pre id="full-28"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 28: Give tracks limits with minmax()&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.grid{display:grid;grid-template-columns:repeat(3,minmax(140px,1fr));gap:12px}.item{padding:18px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;grid&quot;&gt;&lt;div class=&quot;item&quot;&gt;Card 1&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Card 2&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Card 3&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Card 4&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Card 5&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Card 6&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-29">Next step →</a></div>
+</section>
+<section class="step" id="step-29">
+  <div class="step-head"><div class="step-no">29</div><div><p class="eyebrow">Phase C · Step 29</p><h2>Responsive cards with auto-fit</h2><p class="concept">auto-fit lets the browser choose how many tracks fit.</p></div></div>
+  <div class="explain">repeat(auto-fit,minmax(180px,1fr)) is a powerful responsive card pattern that often needs no media query.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-29">Copy</button></div><pre id="key-29"><code>.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
   gap:16px;
-}</code></pre>
-        </div>
-
-        <h3>Subgrid</h3>
-        <p>
-          <code>subgrid</code> lets a nested grid align its tracks with tracks
-          from the parent grid instead of inventing an unrelated inner track
-          system.
-        </p>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Subgrid concept</span
-            ><button class="copy" data-copy="c12b">Copy</button>
-          </div>
-          <pre id="c12b"><code>.cards {
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Resize continuously. Count how many columns appear at different widths.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 29 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-29">Copy Full Code</button></div><pre id="full-29"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 29: Responsive cards with auto-fit&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}.item{padding:24px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;grid&quot;&gt;&lt;div class=&quot;item&quot;&gt;Responsive 1&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Responsive 2&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Responsive 3&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Responsive 4&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Responsive 5&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Responsive 6&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Responsive 7&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;Responsive 8&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-30">Next step →</a></div>
+</section>
+<section class="step" id="step-30">
+  <div class="step-head"><div class="step-no">30</div><div><p class="eyebrow">Phase C · Step 30</p><h2>Make an item span columns</h2><p class="concept">A grid item can occupy more than one track.</p></div></div>
+  <div class="explain">grid-column:span 2 means “use two column tracks from wherever I am auto-placed.”</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-30">Copy</button></div><pre id="key-30"><code>.wide {
+  grid-column: span 2;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Make the wide item span 3. Then try span 4.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 30 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-30">Copy Full Code</button></div><pre id="full-30"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 30: Make an item span columns&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.item{padding:18px;border:2px solid #0b67b2;background:white}.wide{grid-column:span 2}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;grid&quot;&gt;&lt;div class=&quot;item wide&quot;&gt;I span 2 columns&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;C&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;D&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;E&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-31">Next step →</a></div>
+</section>
+<section class="step" id="step-31">
+  <div class="step-head"><div class="step-no">31</div><div><p class="eyebrow">Phase C · Step 31</p><h2>Place items using grid lines</h2><p class="concept">Grid tracks are separated by numbered lines.</p></div></div>
+  <div class="explain">grid-column:1 / -1 means start at the first column line and finish at the final line—useful for full-width headers.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-31">Copy</button></div><pre id="key-31"><code>.header {
+  grid-column: 1 / -1;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change the header to grid-column:1 / 3 and identify the lines.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 31 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-31">Copy Full Code</button></div><pre id="full-31"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 31: Place items using grid lines&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.item{padding:18px;border:2px solid #0b67b2;background:white}.header{grid-column:1 / -1;background:#e8f5ff}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;grid&quot;&gt;&lt;div class=&quot;item header&quot;&gt;Full-width header&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;item&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-32">Next step →</a></div>
+</section>
+<section class="step" id="step-32">
+  <div class="step-head"><div class="step-no">32</div><div><p class="eyebrow">Phase C · Step 32</p><h2>Name page regions with grid-template-areas</h2><p class="concept">Named areas make page-shell CSS readable.</p></div></div>
+  <div class="explain">Instead of remembering line numbers, give regions names such as header, sidebar, main and footer.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-32">Copy</button></div><pre id="key-32"><code>.page {
+  display:grid;
+  grid-template-columns:220px 1fr;
+  grid-template-areas:
+    &quot;header header&quot;
+    &quot;side   main&quot;
+    &quot;footer footer&quot;;
+}
+header { grid-area:header; }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Swap the sidebar and main names in grid-template-areas and observe the visual change.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 32 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-32">Copy Full Code</button></div><pre id="full-32"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 32: Name page regions with grid-template-areas&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.page{display:grid;grid-template-columns:220px 1fr;grid-template-areas:&quot;header header&quot; &quot;side main&quot; &quot;footer footer&quot;;gap:10px}.region{padding:22px;border:2px solid #0b67b2;background:white}.head{grid-area:header}.side{grid-area:side}.main{grid-area:main}.foot{grid-area:footer}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;page&quot;&gt;&lt;header class=&quot;region head&quot;&gt;Header&lt;/header&gt;&lt;aside class=&quot;region side&quot;&gt;Sidebar&lt;/aside&gt;&lt;main class=&quot;region main&quot;&gt;Main&lt;/main&gt;&lt;footer class=&quot;region foot&quot;&gt;Footer&lt;/footer&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-33">Next step →</a></div>
+</section>
+<section class="step" id="step-33">
+  <div class="step-head"><div class="step-no">33</div><div><p class="eyebrow">Phase C · Step 33</p><h2>Grid mini-project: responsive gallery</h2><p class="concept">A gallery is a natural repeated two-dimensional layout.</p></div></div>
+  <div class="explain">Use auto-fit + minmax so the gallery adapts from many columns to one column without many breakpoints.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-33">Copy</button></div><pre id="key-33"><code>.gallery {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:14px;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change minmax(160px,1fr) to 240px. Decide which minimum feels better.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 33 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-33">Copy Full Code</button></div><pre id="full-33"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 33: Grid mini-project: responsive gallery&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px;background:#f5f8fb}.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}.photo{aspect-ratio:4/3;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,#dff1ff,#fff);border:2px solid #0b67b2;font-weight:bold}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;gallery&quot;&gt;&lt;div class=&quot;photo&quot;&gt;Photo 1&lt;/div&gt;&lt;div class=&quot;photo&quot;&gt;Photo 2&lt;/div&gt;&lt;div class=&quot;photo&quot;&gt;Photo 3&lt;/div&gt;&lt;div class=&quot;photo&quot;&gt;Photo 4&lt;/div&gt;&lt;div class=&quot;photo&quot;&gt;Photo 5&lt;/div&gt;&lt;div class=&quot;photo&quot;&gt;Photo 6&lt;/div&gt;&lt;div class=&quot;photo&quot;&gt;Photo 7&lt;/div&gt;&lt;div class=&quot;photo&quot;&gt;Photo 8&lt;/div&gt;&lt;div class=&quot;photo&quot;&gt;Photo 9&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-34">Next step →</a></div>
+</section><section class="phase-card" id="phase-D"><p class="eyebrow">Phase D</p><h2>Responsive Real Layouts</h2><p style="margin-bottom:0">Media queries, nesting, page shells and dashboards</p></section>
+<section class="step" id="step-34">
+  <div class="step-head"><div class="step-no">34</div><div><p class="eyebrow">Phase D · Step 34</p><h2>Use media queries when the design needs a specific change</h2><p class="concept">Not every responsive change should be automatic.</p></div></div>
+  <div class="explain">A media query applies CSS only when a condition is true. Use it when the layout itself should change at a chosen width.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-34">Copy</button></div><pre id="key-34"><code>.page {
+  display:grid;
+  grid-template-columns:220px 1fr;
+}
+@media (max-width:700px) {
+  .page { grid-template-columns:1fr; }
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change 700px to 900px. Resize and find exactly when the layout collapses.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 34 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-34">Copy Full Code</button></div><pre id="full-34"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 34: Use media queries when the design needs a specific change&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.page{display:grid;grid-template-columns:220px 1fr;gap:12px}.box{padding:22px;border:2px solid #0b67b2;background:white}@media(max-width:700px){.page{grid-template-columns:1fr}}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;page&quot;&gt;&lt;aside class=&quot;box&quot;&gt;Sidebar&lt;/aside&gt;&lt;main class=&quot;box&quot;&gt;Main content&lt;/main&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-35">Next step →</a></div>
+</section>
+<section class="step" id="step-35">
+  <div class="step-head"><div class="step-no">35</div><div><p class="eyebrow">Phase D · Step 35</p><h2>Put Flexbox inside Grid</h2><p class="concept">Real pages use more than one layout system.</p></div></div>
+  <div class="explain">Grid can define the large page structure while Flexbox arranges small controls inside a grid region.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-35">Copy</button></div><pre id="key-35"><code>.page { display:grid; grid-template-columns:220px 1fr; }
+.toolbar { display:flex; justify-content:space-between; gap:12px; }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Add a third button. Then make the action group wrap on a very narrow width.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 35 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-35">Copy Full Code</button></div><pre id="full-35"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 35: Put Flexbox inside Grid&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.page{display:grid;grid-template-columns:220px 1fr;gap:12px}.side,.main{border:2px solid #0b67b2;background:white;padding:16px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px;background:#eef7ff}.actions{display:flex;gap:8px}.actions button{padding:8px 12px} @media(max-width:700px){.page{grid-template-columns:1fr}}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;page&quot;&gt;&lt;aside class=&quot;side&quot;&gt;Sidebar&lt;/aside&gt;&lt;main class=&quot;main&quot;&gt;&lt;div class=&quot;toolbar&quot;&gt;&lt;strong&gt;Dashboard&lt;/strong&gt;&lt;div class=&quot;actions&quot;&gt;&lt;button&gt;Save&lt;/button&gt;&lt;button&gt;Share&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;p&gt;Main content&lt;/p&gt;&lt;/main&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-36">Next step →</a></div>
+</section>
+<section class="step" id="step-36">
+  <div class="step-head"><div class="step-no">36</div><div><p class="eyebrow">Phase D · Step 36</p><h2>Put Grid inside Flexbox</h2><p class="concept">A Flexbox region can contain a Grid collection.</p></div></div>
+  <div class="explain">For example, a vertical app shell can be a column flex container while the content area contains a responsive card grid.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-36">Copy</button></div><pre id="key-36"><code>.app { display:flex; flex-direction:column; min-height:100vh; }
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Add enough cards to create several rows.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 36 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-36">Copy Full Code</button></div><pre id="full-36"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 36: Put Grid inside Flexbox&lt;/title&gt;
+  &lt;style&gt;
+body{margin:0;font-family:Arial,sans-serif}.app{display:flex;flex-direction:column;min-height:100vh}.top{padding:16px;background:#0b67b2;color:white}.content{flex:1;padding:20px;background:#f5f8fb}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.card{padding:22px;border:2px solid #0b67b2;background:white}.foot{padding:14px;text-align:center;background:#ddebf5}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;app&quot;&gt;&lt;header class=&quot;top&quot;&gt;Header&lt;/header&gt;&lt;main class=&quot;content&quot;&gt;&lt;div class=&quot;cards&quot;&gt;&lt;div class=&quot;card&quot;&gt;Card 1&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;Card 2&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;Card 3&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;Card 4&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;Card 5&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;Card 6&lt;/div&gt;&lt;/div&gt;&lt;/main&gt;&lt;footer class=&quot;foot&quot;&gt;Footer&lt;/footer&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-37">Next step →</a></div>
+</section>
+<section class="step" id="step-37">
+  <div class="step-head"><div class="step-no">37</div><div><p class="eyebrow">Phase D · Step 37</p><h2>Build a complete responsive page shell</h2><p class="concept">Now combine header, sidebar, main content and footer.</p></div></div>
+  <div class="explain">This is a practical page architecture: Grid for shell, Flexbox for header actions, Grid for cards.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-37">Copy</button></div><pre id="key-37"><code>.shell {
+  display:grid;
+  grid-template-columns:240px minmax(0,1fr);
+  grid-template-areas:&quot;top top&quot; &quot;side main&quot; &quot;foot foot&quot;;
+}
+@media(max-width:760px){
+  .shell { grid-template-columns:1fr; grid-template-areas:&quot;top&quot; &quot;side&quot; &quot;main&quot; &quot;foot&quot;; }
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> On mobile, try hiding the sidebar instead of stacking it. Which behaviour fits your project?</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 37 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-37">Copy Full Code</button></div><pre id="full-37"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 37: Build a complete responsive page shell&lt;/title&gt;
+  &lt;style&gt;
+body{margin:0;font-family:Arial,sans-serif}.shell{min-height:100vh;display:grid;grid-template-columns:240px minmax(0,1fr);grid-template-areas:&quot;top top&quot; &quot;side main&quot; &quot;foot foot&quot;;grid-template-rows:auto 1fr auto}.top{grid-area:top;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 22px;background:#0b67b2;color:white}.side{grid-area:side;padding:18px;background:#eaf4fb}.main{grid-area:main;padding:18px;background:#f7fafc}.foot{grid-area:foot;padding:14px;text-align:center;background:#dceaf4}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.card{padding:20px;border:1px solid #bcd1df;background:white;border-radius:10px}@media(max-width:760px){.shell{grid-template-columns:1fr;grid-template-areas:&quot;top&quot; &quot;side&quot; &quot;main&quot; &quot;foot&quot;}}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;shell&quot;&gt;&lt;header class=&quot;top&quot;&gt;&lt;strong&gt;Site&lt;/strong&gt;&lt;span&gt;Login&lt;/span&gt;&lt;/header&gt;&lt;aside class=&quot;side&quot;&gt;Sidebar navigation&lt;/aside&gt;&lt;main class=&quot;main&quot;&gt;&lt;h1&gt;Content&lt;/h1&gt;&lt;div class=&quot;cards&quot;&gt;&lt;div class=&quot;card&quot;&gt;Card 1&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;Card 2&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;Card 3&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;Card 4&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;Card 5&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;Card 6&lt;/div&gt;&lt;/div&gt;&lt;/main&gt;&lt;footer class=&quot;foot&quot;&gt;Footer&lt;/footer&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-38">Next step →</a></div>
+</section>
+<section class="step" id="step-38">
+  <div class="step-head"><div class="step-no">38</div><div><p class="eyebrow">Phase D · Step 38</p><h2>Dashboard project</h2><p class="concept">Dashboards are excellent Grid + Flex practice.</p></div></div>
+  <div class="explain">Use Grid for the dashboard shell and summary cards; use Flexbox for the toolbar and small action groups.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-38">Copy</button></div><pre id="key-38"><code>.dashboard { display:grid; grid-template-columns:220px minmax(0,1fr); gap:16px; }
+.toolbar { display:flex; justify-content:space-between; flex-wrap:wrap; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Add a fourth stat. Then change the content split from 2fr 1fr to 3fr 2fr.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 38 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-38">Copy Full Code</button></div><pre id="full-38"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 38: Dashboard project&lt;/title&gt;
+  &lt;style&gt;
+body{margin:0;font-family:Arial,sans-serif;background:#f5f8fb;color:#203040}.dashboard{display:grid;grid-template-columns:220px minmax(0,1fr);gap:16px;min-height:100vh}.sidebar{padding:20px;background:#17324d;color:white}.main{padding:20px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}.actions{display:flex;gap:8px}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.stat,.panel{padding:20px;background:white;border:1px solid #d3e0e9;border-radius:12px}.content{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:12px}@media(max-width:800px){.dashboard{grid-template-columns:1fr}.content{grid-template-columns:1fr}}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;dashboard&quot;&gt;&lt;aside class=&quot;sidebar&quot;&gt;&lt;h2&gt;Menu&lt;/h2&gt;&lt;p&gt;Overview&lt;/p&gt;&lt;p&gt;Students&lt;/p&gt;&lt;p&gt;Lessons&lt;/p&gt;&lt;/aside&gt;&lt;main class=&quot;main&quot;&gt;&lt;div class=&quot;toolbar&quot;&gt;&lt;h1&gt;Dashboard&lt;/h1&gt;&lt;div class=&quot;actions&quot;&gt;&lt;button&gt;Export&lt;/button&gt;&lt;button&gt;Add&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;section class=&quot;stats&quot;&gt;&lt;div class=&quot;stat&quot;&gt;&lt;strong&gt;120&lt;/strong&gt;&lt;br&gt;Students&lt;/div&gt;&lt;div class=&quot;stat&quot;&gt;&lt;strong&gt;18&lt;/strong&gt;&lt;br&gt;Lessons&lt;/div&gt;&lt;div class=&quot;stat&quot;&gt;&lt;strong&gt;92%&lt;/strong&gt;&lt;br&gt;Completion&lt;/div&gt;&lt;/section&gt;&lt;section class=&quot;content&quot;&gt;&lt;div class=&quot;panel&quot;&gt;Main chart / table area&lt;/div&gt;&lt;div class=&quot;panel&quot;&gt;Recent activity&lt;/div&gt;&lt;/section&gt;&lt;/main&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-39">Next step →</a></div>
+</section><section class="phase-card" id="phase-E"><p class="eyebrow">Phase E</p><h2>Advanced + Debugging</h2><p style="margin-bottom:0">Overflow, content sizing, fluid design, subgrid and accessibility</p></section>
+<section class="step" id="step-39">
+  <div class="step-head"><div class="step-no">39</div><div><p class="eyebrow">Phase E · Step 39</p><h2>Debug Flexbox systematically</h2><p class="concept">Most Flexbox bugs come from applying a property to the wrong element or misunderstanding the axis.</p></div></div>
+  <div class="explain">Check: Is display:flex on the correct parent? Are the things you want to arrange direct children? What is the current flex-direction? Is there actually free space for justify-content to distribute?</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-39">Copy</button></div><pre id="key-39"><code>/* Debug checklist */
+.parent {
+  outline:3px dashed red;
+  display:flex;
+}
+.parent &gt; * { outline:2px solid blue; }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Intentionally put display:flex on one child instead of the parent. Diagnose why the siblings do not line up.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 39 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-39">Copy Full Code</button></div><pre id="full-39"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 39: Debug Flexbox systematically&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.parent{outline:3px dashed #c43;display:flex;gap:10px;padding:12px}.parent&gt;*{outline:2px solid #1670b5;padding:16px;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;parent&quot;&gt;&lt;div&gt;A&lt;/div&gt;&lt;div&gt;B&lt;/div&gt;&lt;div&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-40">Next step →</a></div>
+</section>
+<section class="step" id="step-40">
+  <div class="step-head"><div class="step-no">40</div><div><p class="eyebrow">Phase E · Step 40</p><h2>Debug Grid systematically</h2><p class="concept">Grid bugs often come from track sizing, overflowing content or placing an item outside the intended lines.</p></div></div>
+  <div class="explain">Temporarily add outlines, inspect the parent’s grid-template-columns, and use minmax(0,1fr) or min-width:0 when long content refuses to shrink.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-40">Copy</button></div><pre id="key-40"><code>.page {
+  display:grid;
+  grid-template-columns:220px minmax(0,1fr);
+}
+.main { min-width:0; }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Replace minmax(0,1fr) with 1fr and remove min-width:0. Test with long content.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 40 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-40">Copy Full Code</button></div><pre id="full-40"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 40: Debug Grid systematically&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.page{display:grid;grid-template-columns:220px minmax(0,1fr);gap:12px;outline:3px dashed #c43}.side,.main{outline:2px solid #1670b5;padding:14px;background:white}.main{min-width:0;overflow-wrap:anywhere}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;page&quot;&gt;&lt;aside class=&quot;side&quot;&gt;Sidebar&lt;/aside&gt;&lt;main class=&quot;main&quot;&gt;VeryLongUnbrokenContentThatWouldOtherwiseTryToForceTheTrackWiderThanExpected_1234567890&lt;/main&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-41">Next step →</a></div>
+</section>
+<section class="step" id="step-41">
+  <div class="step-head"><div class="step-no">41</div><div><p class="eyebrow">Phase E · Step 41</p><h2>Use content-aware track sizes</h2><p class="concept">Grid tracks can respond to both content and available space.</p></div></div>
+  <div class="explain">min-content, max-content, auto, minmax() and fit-content() help when fixed widths are too rigid.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-41">Copy</button></div><pre id="key-41"><code>.page {
+  display:grid;
+  grid-template-columns:max-content minmax(0,1fr);
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Change max-content to 180px, then auto. Compare how the sidebar is sized.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 41 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-41">Copy Full Code</button></div><pre id="full-41"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 41: Use content-aware track sizes&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.page{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:12px}.side,.main{padding:18px;border:2px solid #0b67b2;background:white}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;page&quot;&gt;&lt;aside class=&quot;side&quot;&gt;Menu item with natural width&lt;/aside&gt;&lt;main class=&quot;main&quot;&gt;The main column takes the remaining space.&lt;/main&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-42">Next step →</a></div>
+</section>
+<section class="step" id="step-42">
+  <div class="step-head"><div class="step-no">42</div><div><p class="eyebrow">Phase E · Step 42</p><h2>Use clamp() for fluid sizing</h2><p class="concept">Layout often works better when typography and spacing also scale fluidly.</p></div></div>
+  <div class="explain">clamp(min, preferred, max) keeps a value within safe limits while allowing it to grow with the viewport.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-42">Copy</button></div><pre id="key-42"><code>h1 {
+  font-size:clamp(2rem, 6vw, 5rem);
+}
+.wrapper {
+  padding:clamp(16px, 4vw, 56px);
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Resize the page slowly and watch the heading, page padding and gap scale without sudden jumps.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 42 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-42">Copy Full Code</button></div><pre id="full-42"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 42: Use clamp() for fluid sizing&lt;/title&gt;
+  &lt;style&gt;
+body{margin:0;font-family:Arial,sans-serif}.wrapper{padding:clamp(16px,4vw,56px);background:#eaf6ff;min-height:100vh}.wrapper h1{font-size:clamp(2rem,6vw,5rem);margin:0 0 16px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:clamp(10px,2vw,24px)}.card{padding:20px;background:white;border:2px solid #0b67b2}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;main class=&quot;wrapper&quot;&gt;&lt;h1&gt;Fluid layout&lt;/h1&gt;&lt;div class=&quot;cards&quot;&gt;&lt;div class=&quot;card&quot;&gt;A&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;B&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;C&lt;/div&gt;&lt;/div&gt;&lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-43">Next step →</a></div>
+</section>
+<section class="step" id="step-43">
+  <div class="step-head"><div class="step-no">43</div><div><p class="eyebrow">Phase E · Step 43</p><h2>Understand subgrid</h2><p class="concept">subgrid lets a nested grid reuse the parent’s track definition where supported.</p></div></div>
+  <div class="explain">It is useful when child components need their internal rows or columns to line up with siblings. It is an advanced tool, not a requirement for ordinary layouts.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-43">Copy</button></div><pre id="key-43"><code>.cards {
   display:grid;
   grid-template-columns:repeat(3,1fr);
 }
-
 .card {
   display:grid;
-  grid-template-rows:subgrid;
   grid-row:span 3;
-}</code></pre>
-        </div>
-
-        <h3>Dense auto-placement</h3>
-        <p>
-          <code>grid-auto-flow:dense</code> may backfill visual holes when items
-          have different spans. Use it carefully because visual order can differ
-          from source order.
-        </p>
-        <div class="warning">
-          <strong>Advanced does not mean automatically better.</strong> Prefer
-          simple, predictable source order and layout rules unless the design
-          genuinely benefits from more complex placement.
-        </div>
-      </section>
-
-      <section class="card" id="projects">
-        <div class="level-title">
-          <span class="level-no">P</span>
-          <div>
-            <span class="level-kicker">Build to learn</span>
-            <h2>Project ladder</h2>
-          </div>
-        </div>
-        <p class="lead">
-          Do these in order. Each project forces you to reuse earlier ideas
-          instead of memorising properties.
-        </p>
-        <div class="roadmap">
-          <a href="#editor"><span>Project 1</span>Three-button toolbar</a>
-          <a href="#editor"><span>Project 2</span>Responsive navbar</a>
-          <a href="#editor"><span>Project 3</span>Profile card row</a>
-          <a href="#editor"><span>Project 4</span>Product card grid</a>
-          <a href="#editor"><span>Project 5</span>Photo gallery</a>
-          <a href="#editor"><span>Project 6</span>Sidebar + article</a>
-          <a href="#editor"><span>Project 7</span>Responsive dashboard</a>
-          <a href="#editor"><span>Project 8</span>Complete landing page</a>
-        </div>
-
-        <h3>Capstone: responsive dashboard</h3>
-        <div class="stage project-shell">
-          <aside class="project-sidebar">
-            <div class="item">Overview</div>
-            <div class="item">Students</div>
-            <div class="item">Lessons</div>
-            <div class="item">Settings</div>
-          </aside>
-          <div class="project-main">
-            <div class="item project-toolbar">
-              <strong>Learn With Champak</strong
-              ><span>Search &nbsp; Account</span>
-            </div>
-            <div class="project-cards">
-              <div class="item tall">Metric 1</div>
-              <div class="item tall">Metric 2</div>
-              <div class="item tall">Metric 3</div>
-              <div class="item tall">Metric 4</div>
-            </div>
-            <div class="item" style="min-height: 180px">
-              Main content / chart / lesson list
-            </div>
-          </div>
-        </div>
-        <div class="codebox">
-          <div class="codebar">
-            <span>Capstone starter</span
-            ><button class="copy" data-copy="capstone">Copy</button>
-          </div>
-          <pre id="capstone"><code>&lt;div class="dashboard"&gt;
-  &lt;aside&gt;...navigation...&lt;/aside&gt;
-  &lt;main&gt;
-    &lt;header class="toolbar"&gt;...&lt;/header&gt;
-    &lt;section class="cards"&gt;...&lt;/section&gt;
-  &lt;/main&gt;
-&lt;/div&gt;
-
-&lt;style&gt;
-.dashboard {
-  display:grid;
-  grid-template-columns:220px minmax(0,1fr);
-  gap:16px;
-}
-
-.toolbar {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.cards {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:16px;
-}
-
-@media (max-width:700px) {
-  .dashboard { grid-template-columns:1fr; }
-}
-&lt;/style&gt;</code></pre>
-        </div>
-      </section>
-
-      <section class="card challenge" id="challenges">
-        <h2>Challenge ladder: prove that you know it</h2>
-        <ol class="challenge-list">
-          <li>Make 4 boxes in one row with Flexbox.</li>
-          <li>Center them horizontally.</li>
-          <li>Center them vertically inside a 300px container.</li>
-          <li>Make them wrap when the screen narrows.</li>
-          <li>Make one item grow twice as much as the others.</li>
-          <li>Create a 3-column Grid.</li>
-          <li>Make the first item span all columns.</li>
-          <li>Replace fixed columns with <code>auto-fit + minmax()</code>.</li>
-          <li>Create a 220px sidebar and flexible main content.</li>
-          <li>Collapse the sidebar layout to one column on small screens.</li>
-          <li>Put a Flexbox toolbar inside the Grid main area.</li>
-          <li>Put a responsive Grid of cards under the toolbar.</li>
-          <li>Build the capstone without looking at the solution.</li>
-        </ol>
-      </section>
-
-      <section class="card editor-card" id="editor">
-        <div class="editor-head">
-          <span class="level-kicker">Your laboratory</span>
-          <h2>Practise in the embedded HTML editor</h2>
-          <p class="lead" style="margin: 0">
-            Copy any example above, paste it here, then change one value at a
-            time and predict what will happen.
-          </p>
-          <a
-            class="editor-link"
-            href="https://editor.learnwithchampak.live/samples/html/preview/"
-            target="_blank"
-            rel="noopener"
-            >Open editor in a new tab</a
-          >
-        </div>
-        <div class="editor-wrap">
-          <iframe
-            src="https://editor.learnwithchampak.live/samples/html/preview/"
-            title="Learn With Champak HTML Editor and Preview"
-            loading="lazy"
-            allow="clipboard-read; clipboard-write; fullscreen"
-            allowfullscreen
-          ></iframe>
-        </div>
-      </section>
-
-      <section class="card" id="reference">
-        <h2>Fast reference: what belongs where?</h2>
-        <div class="final-grid">
-          <div class="rule">
-            <strong>Flex container</strong><code>display</code>,
-            <code>flex-direction</code>, <code>flex-wrap</code>,
-            <code>justify-content</code>, <code>align-items</code>,
-            <code>align-content</code>, <code>gap</code>
-          </div>
-          <div class="rule">
-            <strong>Flex item</strong><code>flex</code>, <code>flex-grow</code>,
-            <code>flex-shrink</code>, <code>flex-basis</code>,
-            <code>align-self</code>, <code>order</code>
-          </div>
-          <div class="rule">
-            <strong>Grid container</strong><code>grid-template-columns</code>,
-            <code>grid-template-rows</code>, <code>grid-template-areas</code>,
-            <code>grid-auto-flow</code>, <code>justify-items</code>,
-            <code>align-items</code>, <code>gap</code>
-          </div>
-          <div class="rule">
-            <strong>Grid item</strong><code>grid-column</code>,
-            <code>grid-row</code>, <code>grid-area</code>,
-            <code>justify-self</code>, <code>align-self</code>
-          </div>
-        </div>
-      </section>
-
-      <section class="card" id="infinity">
-        <div class="level-title">
-          <span class="level-no">∞</span>
-          <div>
-            <span class="level-kicker">Infinity</span>
-            <h2>You no longer memorise layouts — you design them</h2>
-          </div>
-        </div>
-        <p class="lead">
-          “Infinity” is not another CSS property. It is the point where you can
-          look at a design, divide it into containers, choose Flexbox or Grid
-          for each container, make it responsive, and debug it when it breaks.
-        </p>
-        <div class="rule-grid">
-          <div class="rule">
-            <strong>Think in containers</strong>Break a page into navbar, hero,
-            sidebar, toolbar, cards, forms, footer and other independent layout
-            regions.
-          </div>
-          <div class="rule">
-            <strong>Choose the smallest tool</strong>Use Flexbox for one-axis
-            distribution/alignment and Grid when explicit rows + columns make
-            the structure clearer.
-          </div>
-          <div class="rule">
-            <strong>Let content breathe</strong>Prefer fluid sizing, wrapping,
-            <code>minmax()</code>, fractional tracks and meaningful minimum
-            widths over rigid pixel layouts.
-          </div>
-          <div class="rule">
-            <strong>Preserve source meaning</strong>Visual rearrangement should
-            not destroy logical reading, focus or accessibility order.
-          </div>
-        </div>
-        <div class="memory">
-          <strong>The final test:</strong> build a page from a screenshot
-          without copying its CSS. If you can explain why each container uses
-          Flexbox or Grid, you have reached the useful meaning of “0 → ∞”.
-        </div>
-        <div class="practice-row">
-          <a href="#top">Back to Level 0</a
-          ><a href="#editor">Build something now</a>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      Learn With Champak — Flexbox + Grid, from the first parent container to
-      complete responsive layouts.
-    </footer>
-
-    <script>
-      document.querySelectorAll("[data-copy]").forEach(function (button) {
-        button.addEventListener("click", function () {
-          var target = document.getElementById(
-            button.getAttribute("data-copy"),
-          );
-          if (!target) return;
-          navigator.clipboard.writeText(target.innerText).then(function () {
-            var old = button.textContent;
-            button.textContent = "Copied";
-            setTimeout(function () {
-              button.textContent = old;
-            }, 1000);
-          });
-        });
-      });
-    </script>
-
-    <div data-root="../../../../" id="site-footer"></div>
-    <script defer src="../../../../assets/js/include.js"></script>
-  </body>
-</html>
+  grid-template-rows:subgrid;
+}</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> First understand the non-subgrid fallback. Then inspect whether your browser applies the @supports block.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 43 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-43">Copy Full Code</button></div><pre id="full-43"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 43: Understand subgrid&lt;/title&gt;
+  &lt;style&gt;
+body{font-family:Arial,sans-serif;padding:24px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{display:grid;grid-template-rows:auto 1fr auto;gap:8px;padding:16px;border:2px solid #0b67b2;background:white}@supports(grid-template-rows:subgrid){.cards{grid-auto-rows:auto}.card{grid-row:span 3;grid-template-rows:subgrid}}@media(max-width:700px){.cards{grid-template-columns:1fr}}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;cards&quot;&gt;&lt;article class=&quot;card&quot;&gt;&lt;h2&gt;Short title&lt;/h2&gt;&lt;p&gt;Short text.&lt;/p&gt;&lt;button&gt;Open&lt;/button&gt;&lt;/article&gt;&lt;article class=&quot;card&quot;&gt;&lt;h2&gt;A much longer title that wraps&lt;/h2&gt;&lt;p&gt;More text in this card to create a different natural height.&lt;/p&gt;&lt;button&gt;Open&lt;/button&gt;&lt;/article&gt;&lt;article class=&quot;card&quot;&gt;&lt;h2&gt;Third&lt;/h2&gt;&lt;p&gt;Text.&lt;/p&gt;&lt;button&gt;Open&lt;/button&gt;&lt;/article&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-44">Next step →</a></div>
+</section>
+<section class="step" id="step-44">
+  <div class="step-head"><div class="step-no">44</div><div><p class="eyebrow">Phase E · Step 44</p><h2>Accessibility: visual layout must not destroy meaning</h2><p class="concept">Good layout keeps the source order logical.</p></div></div>
+  <div class="explain">Flexbox and Grid can move things visually, but users may navigate by keyboard, screen reader or source order. Build semantic HTML first, then style it.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-44">Copy</button></div><pre id="key-44"><code>&lt;header&gt;...&lt;/header&gt;
+&lt;nav&gt;...&lt;/nav&gt;
+&lt;main&gt;...&lt;/main&gt;
+&lt;aside&gt;...&lt;/aside&gt;
+&lt;footer&gt;...&lt;/footer&gt;</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Tab through any interactive elements you add. Make sure the focus order still makes sense.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 44 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-44">Copy Full Code</button></div><pre id="full-44"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 44: Accessibility: visual layout must not destroy meaning&lt;/title&gt;
+  &lt;style&gt;
+body{margin:0;font-family:Arial,sans-serif}.page{display:grid;grid-template-columns:1fr 260px;grid-template-areas:&quot;head head&quot; &quot;main side&quot; &quot;foot foot&quot;;gap:12px;padding:16px}.box{padding:18px;border:2px solid #0b67b2;background:white}header{grid-area:head}main{grid-area:main}aside{grid-area:side}footer{grid-area:foot}@media(max-width:700px){.page{grid-template-columns:1fr;grid-template-areas:&quot;head&quot; &quot;main&quot; &quot;side&quot; &quot;foot&quot;}}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;page&quot;&gt;&lt;header class=&quot;box&quot;&gt;Header and navigation&lt;/header&gt;&lt;main class=&quot;box&quot;&gt;&lt;h1&gt;Main content first&lt;/h1&gt;&lt;p&gt;The important reading content remains logically before the sidebar.&lt;/p&gt;&lt;/main&gt;&lt;aside class=&quot;box&quot;&gt;Supporting information&lt;/aside&gt;&lt;footer class=&quot;box&quot;&gt;Footer&lt;/footer&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#step-45">Next step →</a></div>
+</section><section class="phase-card" id="phase-F"><p class="eyebrow">Phase F</p><h2>Infinity Project</h2><p style="margin-bottom:0">Design from a layout plan instead of memorising properties</p></section>
+<section class="step" id="step-45">
+  <div class="step-head"><div class="step-no">45</div><div><p class="eyebrow">Phase F · Step 45</p><h2>Capstone: build from a layout plan</h2><p class="concept">At infinity, you choose containers and layout systems deliberately.</p></div></div>
+  <div class="explain">Plan first: page shell = Grid; toolbar = Flexbox; summary cards = Grid; action group = Flexbox; content split = Grid; mobile behaviour = media query.</div>
+  <div class="lesson-grid">
+    <div class="panel">
+      <h3>Smallest useful code</h3>
+      <div class="codebox"><div class="codebar"><span>Focus on this</span><button class="copy" data-copy="key-45">Copy</button></div><pre id="key-45"><code>/* 1. Shell */
+.app { display:grid; grid-template-columns:230px minmax(0,1fr); }
+/* 2. Toolbar */
+.toolbar { display:flex; justify-content:space-between; flex-wrap:wrap; }
+/* 3. Cards */
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }</code></pre></div>
+    </div>
+    <div class="panel">
+      <h3>What you should see</h3>
+      <div class="demo-stage"><div class="visual-parent"><div class="visual-box">Parent / layout</div><div class="visual-box">Child A</div><div class="visual-box">Child B</div></div></div>
+      <p style="margin-bottom:0;color:var(--muted)">Run the full example below for the exact result. The diagram is only a mental model.</p>
+    </div>
+  </div>
+  <div class="practice"><strong>Change this:</strong> Delete the CSS and rebuild the capstone from the plan comments only. That is the final exercise.</div>
+  
+  <details class="full-code">
+    <summary>Full runnable HTML for Step 45 — open/collapse</summary>
+    <div class="codebox"><div class="codebar"><span>Complete file: HTML + CSS</span><button class="copy" data-copy="full-45">Copy Full Code</button></div><pre id="full-45"><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Step 45: Capstone: build from a layout plan&lt;/title&gt;
+  &lt;style&gt;
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fa;color:#1e3040}.app{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh}.sidebar{padding:22px;background:#17324d;color:white}.main{padding:22px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.actions{display:flex;gap:8px;flex-wrap:wrap}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:18px 0}.card,.panel{background:white;border:1px solid #d2dfe8;border-radius:12px;padding:18px}.content{display:grid;grid-template-columns:minmax(0,2fr) minmax(240px,1fr);gap:14px}.list{display:grid;gap:10px}.list&gt;div{padding:12px;background:#eef6fb;border-radius:8px}@media(max-width:820px){.app{grid-template-columns:1fr}.sidebar{display:none}.content{grid-template-columns:1fr}}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;app&quot;&gt;&lt;aside class=&quot;sidebar&quot;&gt;&lt;h2&gt;Learn&lt;/h2&gt;&lt;p&gt;Dashboard&lt;/p&gt;&lt;p&gt;Lessons&lt;/p&gt;&lt;p&gt;Projects&lt;/p&gt;&lt;p&gt;Profile&lt;/p&gt;&lt;/aside&gt;&lt;main class=&quot;main&quot;&gt;&lt;div class=&quot;toolbar&quot;&gt;&lt;div&gt;&lt;small&gt;Welcome back&lt;/small&gt;&lt;h1&gt;Learning Dashboard&lt;/h1&gt;&lt;/div&gt;&lt;div class=&quot;actions&quot;&gt;&lt;button&gt;Search&lt;/button&gt;&lt;button&gt;Share&lt;/button&gt;&lt;button&gt;New Project&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;section class=&quot;cards&quot;&gt;&lt;div class=&quot;card&quot;&gt;&lt;strong&gt;12&lt;/strong&gt;&lt;br&gt;Lessons&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;&lt;strong&gt;8&lt;/strong&gt;&lt;br&gt;Projects&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;&lt;strong&gt;72%&lt;/strong&gt;&lt;br&gt;Progress&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;br&gt;Challenges&lt;/div&gt;&lt;/section&gt;&lt;section class=&quot;content&quot;&gt;&lt;article class=&quot;panel&quot;&gt;&lt;h2&gt;Current lesson&lt;/h2&gt;&lt;p&gt;Build a responsive page from containers. Decide whether each container needs one-dimensional or two-dimensional control.&lt;/p&gt;&lt;div class=&quot;list&quot;&gt;&lt;div&gt;1. Identify the parent&lt;/div&gt;&lt;div&gt;2. Identify its direct children&lt;/div&gt;&lt;div&gt;3. Choose Flex or Grid&lt;/div&gt;&lt;div&gt;4. Add responsiveness&lt;/div&gt;&lt;/div&gt;&lt;/article&gt;&lt;aside class=&quot;panel&quot;&gt;&lt;h2&gt;Next&lt;/h2&gt;&lt;p&gt;Rebuild this layout without looking at the CSS.&lt;/p&gt;&lt;/aside&gt;&lt;/section&gt;&lt;/main&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+  </details>
+  <div class="step-actions"><a href="#editor">Try this in the editor</a><a href="#infinity">Go to Infinity →</a></div>
+</section>
+<section class="reference" id="reference"><p class="eyebrow">Fast reference</p><h2 style="margin-top:0;color:var(--ink)">Which element receives which property?</h2><div class="ref-grid"><div class="ref-box"><h3>Flex parent</h3><code>display:flex</code>, <code>flex-direction</code>, <code>flex-wrap</code>, <code>justify-content</code>, <code>align-items</code>, <code>align-content</code>, <code>gap</code></div><div class="ref-box"><h3>Flex child</h3><code>flex</code>, <code>flex-grow</code>, <code>flex-shrink</code>, <code>flex-basis</code>, <code>align-self</code>, <code>order</code></div><div class="ref-box"><h3>Grid parent</h3><code>display:grid</code>, <code>grid-template-columns</code>, <code>grid-template-rows</code>, <code>grid-template-areas</code>, <code>grid-auto-flow</code>, <code>place-items</code>, <code>gap</code></div><div class="ref-box"><h3>Grid child</h3><code>grid-column</code>, <code>grid-row</code>, <code>grid-area</code>, <code>justify-self</code>, <code>align-self</code></div></div></section>
+<section class="infinity" id="infinity"><div class="step-head"><div class="step-no">∞</div><div><p class="eyebrow">Infinity</p><h2>You can now design a layout instead of copying one</h2></div></div><p>The useful meaning of “∞” is not knowing every CSS property. It is being able to look at a page, divide it into containers, choose the right layout system for each container, make it responsive, and debug it when content or screen size changes.</p><div class="ref-grid"><div class="ref-box"><h3>1. Draw containers</h3>Header, sidebar, toolbar, cards, article, footer.</div><div class="ref-box"><h3>2. Ask one axis or two?</h3>One main row/column → Flexbox. Explicit rows + columns → Grid.</div><div class="ref-box"><h3>3. Prefer fluid rules</h3>Use <code>fr</code>, <code>minmax()</code>, wrapping and useful minimums before hard-coded widths everywhere.</div><div class="ref-box"><h3>4. Test ugly cases</h3>Very long text, many items, one item, narrow phone, wide screen, zoom, keyboard navigation.</div></div><div class="practice"><strong>Final challenge:</strong> rebuild Step 45 without looking at its CSS. Explain aloud why each parent uses Flexbox or Grid.</div><div class="step-actions"><a href="#top">Back to the beginning</a><a href="#editor">Build something now</a></div></section>
+</main>
+<footer>Learn With Champak — Flexbox + Grid from absolute zero to independent responsive layout design.</footer>
+<script>
+document.querySelectorAll('[data-copy]').forEach(function(button){button.addEventListener('click',function(){var target=document.getElementById(button.getAttribute('data-copy'));if(!target)return;var text=target.innerText;function done(){var old=button.textContent;button.textContent='Copied';setTimeout(function(){button.textContent=old},1000)}if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(done)}else{var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();done()}})});
+</script>
+<div data-root="../../../../" id="site-footer"></div><script defer src="../../../../assets/js/include.js"></script>
+</body></html>
