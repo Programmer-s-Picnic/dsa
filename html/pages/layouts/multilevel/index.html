@@ -18,31 +18,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0b67b2" />
-    <title>
-      Flexbox and CSS Grid — Very Simple Lesson | Learn With Champak
-    </title>
+    <title>CSS Flexbox + Grid: 0 to Infinity | Learn With Champak</title>
     <meta
       name="description"
-      content="A very simple beginner lesson on CSS Flexbox and CSS Grid. Learn one-direction layouts with Flexbox, rows and columns with Grid, then practise in the embedded HTML editor."
+      content="Learn CSS Flexbox and Grid from absolute zero to advanced responsive layouts. Progressive examples, visual demos, challenges, mini-projects and an embedded HTML preview editor."
     />
     <meta
       name="keywords"
-      content="CSS Flexbox, CSS Grid, HTML CSS beginner lesson, flex vs grid, Learn With Champak, Champak Roy, web development"
+      content="CSS Flexbox, CSS Grid, Flexbox tutorial, CSS Grid tutorial, responsive CSS, HTML CSS beginner, advanced CSS layouts, Learn With Champak, Champak Roy"
     />
     <meta name="author" content="Champak Roy" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1"
+    />
     <meta property="og:type" content="website" />
     <meta
       property="og:site_name"
       content="Programmer's Picnic by Champak Roy"
     />
-    <meta
-      property="og:title"
-      content="Flexbox and CSS Grid — Very Simple Lesson"
-    />
+    <meta property="og:title" content="CSS Flexbox + Grid: 0 to Infinity" />
     <meta
       property="og:description"
-      content="Flex = one direction. Grid = rows and columns. Learn both with tiny examples and practise in the embedded editor."
+      content="Start with display:flex and display:grid. Finish by building responsive, nested, production-style layouts."
     />
     <meta
       property="og:image"
@@ -53,19 +51,25 @@
     <style>
       :root {
         --blue: #0b67b2;
+        --blue2: #0e7fd1;
         --dark: #17324d;
         --text: #26384a;
         --muted: #617487;
         --line: #d8e3ec;
         --soft: #f4f9fd;
-        --soft2: #eef6fb;
+        --soft2: #eaf5fd;
         --white: #fff;
         --green: #0f7b4d;
-        --radius: 16px;
+        --green-soft: #effbf5;
+        --amber: #8a5a00;
+        --amber-soft: #fff8df;
+        --red: #a33a3a;
+        --red-soft: #fff3f3;
+        --radius: 18px;
         --shadow: 0 10px 30px rgba(25, 72, 110, 0.1);
-        --max: 1100px;
+        --max: 1180px;
+        --code: #102334;
       }
-
       * {
         box-sizing: border-box;
       }
@@ -75,7 +79,7 @@
       body {
         margin: 0;
         font-family: Arial, Helvetica, sans-serif;
-        line-height: 1.6;
+        line-height: 1.65;
         color: var(--text);
         background: #f7fafc;
       }
@@ -86,25 +90,40 @@
       pre {
         font-family: Consolas, Monaco, "Courier New", monospace;
       }
+      code:not(pre code) {
+        background: #eef3f7;
+        border: 1px solid #dbe5ed;
+        border-radius: 6px;
+        padding: 0.08rem 0.35rem;
+        color: #17324d;
+      }
       .wrap {
         width: min(var(--max), calc(100% - 28px));
         margin: auto;
       }
 
       .hero {
-        background: linear-gradient(135deg, #eaf5fd, #fff);
+        background: linear-gradient(135deg, #e8f5ff 0%, #fff 55%, #effbf5 100%);
         border-bottom: 1px solid var(--line);
-        padding: 42px 0 34px;
+        padding: 42px 0 32px;
+      }
+      .eyebrow {
+        margin: 0 0 6px;
+        color: var(--blue);
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.82rem;
       }
       .hero h1 {
         margin: 0 0 10px;
-        font-size: clamp(2rem, 5vw, 3.4rem);
-        line-height: 1.08;
+        font-size: clamp(2.2rem, 6vw, 4.6rem);
+        line-height: 1.02;
         color: var(--dark);
       }
       .hero p {
         margin: 0;
-        max-width: 780px;
+        max-width: 850px;
         font-size: 1.08rem;
         color: var(--muted);
       }
@@ -119,12 +138,75 @@
         border: 1px solid var(--line);
         border-radius: 999px;
         padding: 7px 11px;
-        font-weight: 700;
+        font-weight: 800;
         color: var(--blue);
+      }
+      .hero-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border: 0;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: var(--blue);
+        color: #fff;
+      }
+      .btn-secondary {
+        background: #fff;
+        color: var(--blue);
+        border: 1px solid var(--line);
+      }
+
+      .course-nav {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(247, 250, 252, 0.96);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .course-nav .wrap {
+        display: flex;
+        gap: 7px;
+        overflow: auto;
+        padding: 9px 0;
+        scrollbar-width: thin;
+      }
+      .course-nav a {
+        white-space: nowrap;
+        text-decoration: none;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 7px 10px;
+        font-size: 0.84rem;
+        font-weight: 800;
+        color: var(--muted);
+      }
+      .course-nav a:hover {
+        color: var(--blue);
+        border-color: #b9d6eb;
       }
 
       main {
-        padding: 26px 0 52px;
+        padding: 28px 0 54px;
+      }
+      .course-intro {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr;
+        gap: 18px;
+        align-items: stretch;
       }
       .card {
         background: var(--white);
@@ -134,24 +216,70 @@
         padding: 24px;
         margin-bottom: 20px;
       }
+      .card-flat {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+      }
       h2 {
         margin: 0 0 8px;
         color: var(--dark);
-        font-size: clamp(1.45rem, 3vw, 2rem);
+        font-size: clamp(1.5rem, 3vw, 2.15rem);
       }
       h3 {
         color: var(--dark);
+        margin: 22px 0 8px;
+      }
+      p {
+        margin-top: 8px;
       }
       .lead {
-        font-size: 1.08rem;
+        font-size: 1.06rem;
         color: var(--muted);
       }
-
-      .rule-grid {
+      .level-kicker {
+        display: inline-block;
+        color: var(--blue);
+        font-weight: 900;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 4px;
+      }
+      .level-title {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .level-no {
+        flex: 0 0 auto;
+        width: 46px;
+        height: 46px;
+        border-radius: 13px;
+        background: linear-gradient(135deg, var(--blue), var(--blue2));
+        color: #fff;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        margin-top: 18px;
+        place-items: center;
+        font-weight: 900;
+      }
+      .level-title h2 {
+        margin-top: 1px;
+      }
+
+      .rule-grid,
+      .two-col,
+      .three-col {
+        display: grid;
+        gap: 14px;
+        margin-top: 16px;
+      }
+      .rule-grid,
+      .two-col {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .three-col {
+        grid-template-columns: repeat(3, 1fr);
       }
       .rule {
         border: 2px solid var(--line);
@@ -161,13 +289,45 @@
       }
       .rule strong {
         display: block;
-        font-size: 1.2rem;
+        font-size: 1.14rem;
         color: var(--blue);
         margin-bottom: 4px;
       }
+      .checklist {
+        margin: 8px 0 0;
+        padding-left: 22px;
+      }
+      .checklist li {
+        margin: 6px 0;
+      }
+
+      .memory {
+        margin-top: 14px;
+        padding: 13px 15px;
+        border-left: 5px solid var(--green);
+        background: var(--green-soft);
+        border-radius: 10px;
+      }
+      .memory strong {
+        color: var(--green);
+      }
+      .warning {
+        margin-top: 14px;
+        padding: 13px 15px;
+        border-left: 5px solid var(--amber);
+        background: var(--amber-soft);
+        border-radius: 10px;
+      }
+      .bug {
+        margin-top: 14px;
+        padding: 13px 15px;
+        border-left: 5px solid var(--red);
+        background: var(--red-soft);
+        border-radius: 10px;
+      }
 
       .demo-label {
-        font-weight: 800;
+        font-weight: 900;
         margin: 18px 0 8px;
         color: var(--dark);
       }
@@ -184,23 +344,95 @@
         background: #fff;
         display: grid;
         place-items: center;
-        font-weight: 800;
+        font-weight: 900;
         color: var(--blue);
         padding: 10px;
         text-align: center;
       }
+      .item.tall {
+        min-height: 100px;
+      }
+      .item.soft {
+        background: #edf7ff;
+      }
+      .item.green {
+        background: #effbf5;
+        color: #0f7b4d;
+        border-color: #c9eadb;
+      }
+      .item.amber {
+        background: #fff8df;
+        color: #8a5a00;
+        border-color: #ecdba5;
+      }
 
-      .flex-demo {
+      .demo-flex {
         display: flex;
         gap: 10px;
       }
-      .flex-demo .item {
+      .demo-flex > .item {
         flex: 1;
       }
-      .grid-demo {
+      .demo-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
+      }
+      .demo-wrap {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .demo-wrap .item {
+        flex: 1 1 160px;
+      }
+      .justify-demo {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .align-demo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 150px;
+      }
+      .align-demo .item:nth-child(2) {
+        min-height: 100px;
+      }
+      .responsive-demo {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+      }
+      .span-demo {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .span-demo .wide {
+        grid-column: span 2;
+      }
+      .span-demo .hero-wide {
+        grid-column: 1 / -1;
+      }
+      .areas-demo {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        grid-template-areas: "head head" "side main" "foot foot";
+        gap: 10px;
+      }
+      .areas-demo .head {
+        grid-area: head;
+      }
+      .areas-demo .side {
+        grid-area: side;
+      }
+      .areas-demo .main {
+        grid-area: main;
+      }
+      .areas-demo .foot {
+        grid-area: foot;
       }
 
       .codebox {
@@ -208,7 +440,7 @@
         border-radius: 14px;
         overflow: hidden;
         border: 1px solid #23384d;
-        background: #102334;
+        background: var(--code);
       }
       .codebar {
         display: flex;
@@ -220,7 +452,7 @@
         color: #fff;
       }
       .codebar span {
-        font-weight: 800;
+        font-weight: 900;
       }
       .copy {
         border: 1px solid rgba(255, 255, 255, 0.25);
@@ -229,73 +461,95 @@
         border-radius: 8px;
         padding: 7px 10px;
         cursor: pointer;
-        font-weight: 700;
+        font-weight: 800;
       }
       pre {
         margin: 0;
         padding: 16px;
         overflow: auto;
         color: #edf7ff;
-        font-size: 0.94rem;
+        font-size: 0.92rem;
         line-height: 1.55;
+        tab-size: 2;
       }
 
-      .remember {
-        margin-top: 14px;
-        padding: 13px 15px;
-        border-left: 5px solid var(--green);
-        background: #effbf5;
-        border-radius: 10px;
-      }
-      .remember strong {
-        color: var(--green);
-      }
-
-      .combine-demo {
-        display: grid;
-        gap: 12px;
-      }
-      .toolbar {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-        padding: 12px;
-        border: 1px solid #c8d9e6;
-        border-radius: 12px;
-        background: #fff;
-      }
-      .toolbar-group {
+      .practice-row {
         display: flex;
         gap: 8px;
         flex-wrap: wrap;
+        margin-top: 14px;
       }
-      .small-btn {
-        border: 0;
-        border-radius: 8px;
-        background: #dfeefa;
+      .practice-row a {
+        font-weight: 900;
+        text-decoration: none;
         color: var(--blue);
-        font-weight: 800;
+        border: 1px solid #bfd8ea;
+        background: #f5fbff;
+        border-radius: 9px;
         padding: 8px 11px;
       }
-      .cards {
+
+      .property-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 14px;
+        font-size: 0.95rem;
+      }
+      .property-table th,
+      .property-table td {
+        border: 1px solid var(--line);
+        padding: 10px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .property-table th {
+        background: #eef6fb;
+        color: var(--dark);
+      }
+
+      .project-shell {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 180px 1fr;
+        gap: 12px;
+      }
+      .project-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .project-main {
+        display: grid;
+        gap: 12px;
+      }
+      .project-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .project-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 10px;
       }
 
-      .steps {
-        margin: 12px 0 0;
+      .challenge {
+        background: #fffdf4;
+        border-color: #eadca7;
+      }
+      .challenge-list {
+        margin: 10px 0 0;
         padding-left: 22px;
       }
-      .steps li {
+      .challenge-list li {
         margin: 7px 0;
       }
 
       .editor-card {
         padding: 0;
         overflow: hidden;
+        scroll-margin-top: 70px;
       }
       .editor-head {
         padding: 20px 22px;
@@ -311,7 +565,7 @@
       }
       iframe {
         width: 100%;
-        height: 700px;
+        height: 760px;
         border: 1px solid #b9cddd;
         border-radius: 12px;
         background: #fff;
@@ -321,41 +575,101 @@
         display: inline-block;
         margin-top: 10px;
         color: var(--blue);
+        font-weight: 900;
+      }
+
+      .roadmap {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .roadmap a {
+        text-decoration: none;
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 12px;
+        padding: 12px;
         font-weight: 800;
+        color: var(--dark);
+      }
+      .roadmap a span {
+        display: block;
+        color: var(--blue);
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        margin-bottom: 3px;
       }
 
-      .challenge {
-        background: #fffdf4;
-        border: 1px solid #eadca7;
+      .final-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
       }
-      .challenge code {
-        background: #f3f6f8;
-        padding: 2px 6px;
-        border-radius: 6px;
-      }
-
       footer {
         text-align: center;
         color: var(--muted);
         padding: 10px 14px 45px;
       }
 
-      @media (max-width: 720px) {
-        .rule-grid {
+      @media (max-width: 900px) {
+        .course-intro,
+        .roadmap,
+        .three-col,
+        .final-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .project-shell,
+        .areas-demo {
+          grid-template-columns: 1fr;
+          grid-template-areas: none;
+        }
+        .areas-demo .head,
+        .areas-demo .side,
+        .areas-demo .main,
+        .areas-demo .foot {
+          grid-area: auto;
+        }
+      }
+      @media (max-width: 700px) {
+        .course-intro,
+        .rule-grid,
+        .two-col,
+        .three-col,
+        .roadmap,
+        .final-grid {
           grid-template-columns: 1fr;
         }
-        .flex-demo {
+        .demo-flex {
           flex-direction: column;
         }
-        .grid-demo,
-        .cards {
+        .demo-grid,
+        .span-demo {
           grid-template-columns: 1fr;
+        }
+        .span-demo .wide,
+        .span-demo .hero-wide {
+          grid-column: auto;
         }
         .card {
           padding: 18px;
         }
+        .level-title {
+          gap: 9px;
+        }
+        .level-no {
+          width: 40px;
+          height: 40px;
+        }
         iframe {
-          height: 620px;
+          height: 650px;
+        }
+        .property-table {
+          font-size: 0.86rem;
+        }
+        .property-table th,
+        .property-table td {
+          padding: 8px;
         }
       }
     </style>
@@ -365,15 +679,22 @@
       {
         "@context": "https://schema.org",
         "@type": "LearningResource",
-        "name": "Flexbox and CSS Grid — Very Simple Lesson",
-        "description": "A beginner lesson explaining Flexbox and CSS Grid with tiny examples and an embedded HTML editor.",
+        "name": "CSS Flexbox + Grid: 0 to Infinity",
+        "description": "A progressive course on CSS Flexbox and Grid from absolute beginner concepts through responsive and nested layouts.",
         "creator": { "@type": "Person", "name": "Champak Roy" },
         "publisher": {
           "@type": "Organization",
           "name": "Programmer's Picnic by Champak Roy"
         },
-        "educationalLevel": "Beginner",
+        "educationalLevel": ["Beginner", "Intermediate", "Advanced"],
         "learningResourceType": "Lesson",
+        "teaches": [
+          "CSS Flexbox",
+          "CSS Grid",
+          "Responsive Layout",
+          "Nested Layouts",
+          "Layout Debugging"
+        ],
         "isAccessibleForFree": true
       }
     </script>
@@ -381,58 +702,150 @@
   <body data-root="../../../../">
     <div data-root="../../../../" id="site-header"></div>
 
-    <header class="hero">
+    <header class="hero" id="top">
       <div class="wrap">
+        <p class="eyebrow">Learn With Champak • 0 → ∞</p>
         <h1>Flexbox + Grid</h1>
         <p>
-          A very simple lesson. Learn just two ideas, see tiny examples, then
-          change the code yourself in the editor.
+          Start with two CSS lines. Finish by building responsive navigation,
+          galleries, dashboards, page shells and nested layouts. Every level is
+          small enough to practise immediately.
         </p>
         <div class="badges">
-          <span class="badge">Beginner</span>
+          <span class="badge">Absolute Beginner</span>
           <span class="badge">Flexbox</span>
           <span class="badge">CSS Grid</span>
-          <span class="badge">Learn by changing code</span>
+          <span class="badge">Responsive</span>
+          <span class="badge">Projects</span>
+          <span class="badge">Debugging</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#level0">Start at Zero</a>
+          <a class="btn btn-secondary" href="#editor">Open Practice Editor</a>
+          <a class="btn btn-secondary" href="#infinity">Jump to Infinity</a>
         </div>
       </div>
     </header>
 
+    <nav class="course-nav" aria-label="Course levels">
+      <div class="wrap">
+        <a href="#level0">0 Mental model</a>
+        <a href="#level1">1 Flex</a>
+        <a href="#level2">2 Direction</a>
+        <a href="#level3">3 Alignment</a>
+        <a href="#level4">4 Flex sizing</a>
+        <a href="#level5">5 Grid</a>
+        <a href="#level6">6 Grid sizing</a>
+        <a href="#level7">7 Placement</a>
+        <a href="#level8">8 Responsive</a>
+        <a href="#level9">9 Nesting</a>
+        <a href="#level10">10 Patterns</a>
+        <a href="#level11">11 Debugging</a>
+        <a href="#level12">12 Advanced</a>
+        <a href="#projects">Projects</a>
+        <a href="#editor">Editor</a>
+        <a href="#infinity">∞</a>
+      </div>
+    </nav>
+
     <main class="wrap">
-      <section class="card" id="idea">
-        <h2>1. Remember only this</h2>
-        <div class="rule-grid">
-          <div class="rule">
-            <strong>Flexbox = one direction</strong>
-            Put items in a row or a column.
+      <section class="course-intro">
+        <div class="card">
+          <h2>The whole course in one sentence</h2>
+          <div class="rule-grid">
+            <div class="rule">
+              <strong>Flexbox</strong>Arrange and align items mainly along one
+              axis: a row or a column.
+            </div>
+            <div class="rule">
+              <strong>Grid</strong>Design rows and columns together, then place
+              items into that structure.
+            </div>
           </div>
-          <div class="rule">
-            <strong>Grid = rows + columns</strong>
-            Make a table-like layout of boxes.
+          <div class="memory">
+            <strong>Golden rule:</strong> use the simplest layout that expresses
+            what you want. Flex and Grid are partners, not competitors.
           </div>
         </div>
+        <aside class="card">
+          <h2>How to study</h2>
+          <ol class="checklist">
+            <li>Read one level.</li>
+            <li>Copy its smallest example.</li>
+            <li>Paste it into the editor.</li>
+            <li>Change one value.</li>
+            <li>Predict the result before looking.</li>
+          </ol>
+        </aside>
       </section>
 
-      <section class="card" id="flex">
-        <h2>2. Flexbox</h2>
+      <section class="card" id="level0">
+        <div class="level-title">
+          <span class="level-no">0</span>
+          <div>
+            <span class="level-kicker">Absolute zero</span>
+            <h2>Parent controls layout</h2>
+          </div>
+        </div>
         <p class="lead">
-          We have three boxes. We want them next to each other.
+          Before Flexbox or Grid, understand one fact: layout is normally
+          declared on the <strong>parent</strong>, and it arranges the parent's
+          direct children.
         </p>
+        <div class="stage">
+          <div class="item soft">
+            PARENT
+            <div style="display: flex; gap: 8px; width: 100%; margin-top: 8px">
+              <div class="item" style="flex: 1">Child A</div>
+              <div class="item" style="flex: 1">Child B</div>
+              <div class="item" style="flex: 1">Child C</div>
+            </div>
+          </div>
+        </div>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Normal HTML</span
+            ><button class="copy" data-copy="c0">Copy</button>
+          </div>
+          <pre id="c0"><code>&lt;div class="parent"&gt;
+  &lt;div&gt;A&lt;/div&gt;
+  &lt;div&gt;B&lt;/div&gt;
+  &lt;div&gt;C&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        <div class="memory">
+          <strong>Say it aloud:</strong> “I style the parent to arrange the
+          children.”
+        </div>
+        <div class="practice-row"><a href="#editor">Practise Level 0</a></div>
+      </section>
 
+      <section class="card" id="level1">
+        <div class="level-title">
+          <span class="level-no">1</span>
+          <div>
+            <span class="level-kicker">First Flexbox</span>
+            <h2>One line changes the layout</h2>
+          </div>
+        </div>
+        <p class="lead">
+          Block elements normally stack. Put <code>display:flex</code> on their
+          parent and the direct children become flex items.
+        </p>
         <div class="demo-label">Result</div>
         <div class="stage">
-          <div class="flex-demo">
+          <div class="demo-flex">
             <div class="item">A</div>
             <div class="item">B</div>
             <div class="item">C</div>
           </div>
         </div>
-
         <div class="codebox">
           <div class="codebar">
-            <span>Flexbox code</span
-            ><button class="copy" data-copy="flex-code">Copy</button>
+            <span>Smallest Flexbox</span
+            ><button class="copy" data-copy="c1">Copy</button>
           </div>
-          <pre id="flex-code"><code>&lt;div class="flex"&gt;
+          <pre id="c1"><code>&lt;div class="flex"&gt;
   &lt;div&gt;A&lt;/div&gt;
   &lt;div&gt;B&lt;/div&gt;
   &lt;div&gt;C&lt;/div&gt;
@@ -445,19 +858,217 @@
 }
 &lt;/style&gt;</code></pre>
         </div>
-
-        <div class="remember">
-          <strong>Main line:</strong> <code>display: flex;</code>
+        <div class="memory">
+          <strong>First Flexbox line:</strong> <code>display: flex;</code>
         </div>
       </section>
 
-      <section class="card" id="grid">
-        <h2>3. Grid</h2>
-        <p class="lead">Now we want six boxes in three columns.</p>
-
-        <div class="demo-label">Result</div>
+      <section class="card" id="level2">
+        <div class="level-title">
+          <span class="level-no">2</span>
+          <div>
+            <span class="level-kicker">Direction + wrapping</span>
+            <h2>Row, column, gap and wrap</h2>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="card-flat">
+            <h3 style="margin-top: 0">Direction</h3>
+            <p>
+              <code>flex-direction: row</code> is the default. Use
+              <code>column</code> to stack flex items vertically.
+            </p>
+          </div>
+          <div class="card-flat">
+            <h3 style="margin-top: 0">Wrapping</h3>
+            <p>
+              <code>flex-wrap: wrap</code> lets items move onto another line
+              when there is not enough room.
+            </p>
+          </div>
+        </div>
+        <div class="demo-label">Flexible wrapping</div>
         <div class="stage">
-          <div class="grid-demo">
+          <div class="demo-wrap">
+            <div class="item">One</div>
+            <div class="item">Two</div>
+            <div class="item">Three</div>
+            <div class="item">Four</div>
+          </div>
+        </div>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Direction and wrap</span
+            ><button class="copy" data-copy="c2">Copy</button>
+          </div>
+          <pre id="c2"><code>.parent {
+  display: flex;
+  flex-direction: row; /* try column */
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.parent &gt; div {
+  flex: 1 1 180px;
+}</code></pre>
+        </div>
+        <div class="warning">
+          <strong>Try this:</strong> resize the browser. Wrapped Flexbox
+          responds to available width without a media query.
+        </div>
+      </section>
+
+      <section class="card" id="level3">
+        <div class="level-title">
+          <span class="level-no">3</span>
+          <div>
+            <span class="level-kicker">Alignment</span>
+            <h2>Main axis vs cross axis</h2>
+          </div>
+        </div>
+        <p class="lead">
+          <code>justify-content</code> works on the <strong>main axis</strong>.
+          <code>align-items</code> works on the <strong>cross axis</strong>. If
+          you change <code>flex-direction</code>, the axes change too.
+        </p>
+        <div class="two-col">
+          <div>
+            <div class="demo-label">justify-content: space-between</div>
+            <div class="stage">
+              <div class="justify-demo">
+                <div class="item">A</div>
+                <div class="item">B</div>
+                <div class="item">C</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="demo-label">align-items: center</div>
+            <div class="stage">
+              <div class="align-demo">
+                <div class="item">A</div>
+                <div class="item">Tall B</div>
+                <div class="item">C</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <table class="property-table">
+          <tr>
+            <th>Property</th>
+            <th>Useful values</th>
+            <th>Question it answers</th>
+          </tr>
+          <tr>
+            <td><code>justify-content</code></td>
+            <td>
+              start, center, end, space-between, space-around, space-evenly
+            </td>
+            <td>How should free space be used along the main axis?</td>
+          </tr>
+          <tr>
+            <td><code>align-items</code></td>
+            <td>stretch, start, center, end</td>
+            <td>How should items align on the cross axis?</td>
+          </tr>
+          <tr>
+            <td><code>align-content</code></td>
+            <td>start, center, space-between, stretch</td>
+            <td>
+              How should multiple wrapped lines align when extra cross-axis
+              space exists?
+            </td>
+          </tr>
+        </table>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Center anything</span
+            ><button class="copy" data-copy="c3">Copy</button>
+          </div>
+          <pre id="c3"><code>.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}</code></pre>
+        </div>
+      </section>
+
+      <section class="card" id="level4">
+        <div class="level-title">
+          <span class="level-no">4</span>
+          <div>
+            <span class="level-kicker">Flex item sizing</span>
+            <h2>grow, shrink and basis</h2>
+          </div>
+        </div>
+        <p class="lead">
+          Flexbox is powerful because items can negotiate available space.
+        </p>
+        <table class="property-table">
+          <tr>
+            <th>Property</th>
+            <th>Meaning</th>
+            <th>Common use</th>
+          </tr>
+          <tr>
+            <td><code>flex-grow</code></td>
+            <td>How strongly an item takes extra space.</td>
+            <td><code>flex-grow:1</code></td>
+          </tr>
+          <tr>
+            <td><code>flex-shrink</code></td>
+            <td>How strongly an item may shrink when space is tight.</td>
+            <td><code>flex-shrink:0</code> for fixed controls</td>
+          </tr>
+          <tr>
+            <td><code>flex-basis</code></td>
+            <td>Preferred starting size before grow/shrink.</td>
+            <td><code>flex-basis:200px</code></td>
+          </tr>
+          <tr>
+            <td><code>flex</code></td>
+            <td>Shorthand: grow shrink basis.</td>
+            <td><code>flex:1 1 220px</code></td>
+          </tr>
+        </table>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Responsive flex cards</span
+            ><button class="copy" data-copy="c4">Copy</button>
+          </div>
+          <pre id="c4"><code>.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card {
+  flex: 1 1 220px;
+}</code></pre>
+        </div>
+        <div class="bug">
+          <strong>Common mystery:</strong> a flex child containing long text may
+          refuse to shrink as expected. Try <code>min-width:0</code> on that
+          child.
+        </div>
+      </section>
+
+      <section class="card" id="level5">
+        <div class="level-title">
+          <span class="level-no">5</span>
+          <div>
+            <span class="level-kicker">First Grid</span>
+            <h2>Rows and columns</h2>
+          </div>
+        </div>
+        <p class="lead">
+          Grid starts when the parent gets <code>display:grid</code>. Then
+          define the columns you want.
+        </p>
+        <div class="demo-label">Three equal columns</div>
+        <div class="stage">
+          <div class="demo-grid">
             <div class="item">1</div>
             <div class="item">2</div>
             <div class="item">3</div>
@@ -466,86 +1077,532 @@
             <div class="item">6</div>
           </div>
         </div>
-
         <div class="codebox">
           <div class="codebar">
-            <span>Grid code</span
-            ><button class="copy" data-copy="grid-code">Copy</button>
+            <span>Smallest useful Grid</span
+            ><button class="copy" data-copy="c5">Copy</button>
           </div>
-          <pre id="grid-code"><code>&lt;div class="grid"&gt;
-  &lt;div&gt;1&lt;/div&gt;
-  &lt;div&gt;2&lt;/div&gt;
-  &lt;div&gt;3&lt;/div&gt;
-  &lt;div&gt;4&lt;/div&gt;
-  &lt;div&gt;5&lt;/div&gt;
-  &lt;div&gt;6&lt;/div&gt;
+          <pre id="c5"><code>.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}</code></pre>
+        </div>
+        <div class="memory">
+          <strong><code>1fr</code></strong> means one fraction of the available
+          grid space. Three <code>1fr</code> columns share it equally.
+        </div>
+      </section>
+
+      <section class="card" id="level6">
+        <div class="level-title">
+          <span class="level-no">6</span>
+          <div>
+            <span class="level-kicker">Smart Grid sizing</span>
+            <h2>repeat(), minmax(), auto-fit and auto-fill</h2>
+          </div>
+        </div>
+        <p class="lead">
+          This is where Grid becomes a responsive-layout machine.
+        </p>
+        <div class="demo-label">Resize-friendly cards</div>
+        <div class="stage">
+          <div class="responsive-demo">
+            <div class="item">A</div>
+            <div class="item">B</div>
+            <div class="item">C</div>
+            <div class="item">D</div>
+            <div class="item">E</div>
+          </div>
+        </div>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Responsive Grid without a media query</span
+            ><button class="copy" data-copy="c6">Copy</button>
+          </div>
+          <pre id="c6"><code>.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}</code></pre>
+        </div>
+        <div class="two-col">
+          <div class="card-flat">
+            <h3 style="margin-top: 0">auto-fit</h3>
+            <p>
+              Empty tracks collapse, so existing items can stretch and use the
+              available room.
+            </p>
+          </div>
+          <div class="card-flat">
+            <h3 style="margin-top: 0">auto-fill</h3>
+            <p>
+              Keeps room for as many tracks as fit, even when some tracks have
+              no item.
+            </p>
+          </div>
+        </div>
+        <div class="memory">
+          <strong>High-value pattern:</strong>
+          <code>repeat(auto-fit, minmax(...))</code> solves a huge number of
+          responsive card layouts.
+        </div>
+      </section>
+
+      <section class="card" id="level7">
+        <div class="level-title">
+          <span class="level-no">7</span>
+          <div>
+            <span class="level-kicker">Grid placement</span>
+            <h2>Span tracks and name areas</h2>
+          </div>
+        </div>
+        <div class="demo-label">Items can span multiple columns</div>
+        <div class="stage">
+          <div class="span-demo">
+            <div class="item hero-wide">Full width</div>
+            <div class="item wide">Two columns</div>
+            <div class="item">One</div>
+            <div class="item">One</div>
+            <div class="item">One</div>
+          </div>
+        </div>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Column spanning</span
+            ><button class="copy" data-copy="c7a">Copy</button>
+          </div>
+          <pre id="c7a"><code>.wide {
+  grid-column: span 2;
+}
+
+.full {
+  grid-column: 1 / -1;
+}</code></pre>
+        </div>
+
+        <h3>Named grid areas</h3>
+        <div class="stage">
+          <div class="areas-demo">
+            <div class="item head">Header</div>
+            <div class="item side">Sidebar</div>
+            <div class="item main tall">Main</div>
+            <div class="item foot">Footer</div>
+          </div>
+        </div>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Readable page shell</span
+            ><button class="copy" data-copy="c7b">Copy</button>
+          </div>
+          <pre id="c7b"><code>.page {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
+}
+
+header { grid-area: header; }
+aside  { grid-area: sidebar; }
+main   { grid-area: main; }
+footer { grid-area: footer; }</code></pre>
+        </div>
+      </section>
+
+      <section class="card" id="level8">
+        <div class="level-title">
+          <span class="level-no">8</span>
+          <div>
+            <span class="level-kicker">Responsive design</span>
+            <h2>Let content decide, then add media queries</h2>
+          </div>
+        </div>
+        <p class="lead">
+          Modern layouts often start fluid. Add a media query only when the
+          design actually needs a structural change.
+        </p>
+        <div class="two-col">
+          <div class="card-flat">
+            <h3 style="margin-top: 0">Fluid Grid</h3>
+            <pre
+              style="background: var(--code); border-radius: 10px"
+            ><code>grid-template-columns:
+  repeat(auto-fit,
+    minmax(220px,1fr));</code></pre>
+          </div>
+          <div class="card-flat">
+            <h3 style="margin-top: 0">Structural breakpoint</h3>
+            <pre
+              style="background: var(--code); border-radius: 10px"
+            ><code>@media (max-width:700px) {
+  .page {
+    grid-template-columns:1fr;
+  }
+}</code></pre>
+          </div>
+        </div>
+        <div class="warning">
+          <strong>Avoid breakpoint collecting.</strong> Do not add 5 different
+          breakpoints merely because devices have different names. Add one when
+          your content stops fitting well.
+        </div>
+      </section>
+
+      <section class="card" id="level9">
+        <div class="level-title">
+          <span class="level-no">9</span>
+          <div>
+            <span class="level-kicker">Real layouts</span>
+            <h2>Nest Flexbox inside Grid and Grid inside Flexbox</h2>
+          </div>
+        </div>
+        <p class="lead">
+          Each container makes its own layout decision. A Grid child can itself
+          become a Flex container. A Flex child can itself become a Grid
+          container.
+        </p>
+        <div class="stage project-shell">
+          <aside class="project-sidebar">
+            <div class="item">Home</div>
+            <div class="item">Lessons</div>
+            <div class="item">Projects</div>
+          </aside>
+          <div class="project-main">
+            <div class="item project-toolbar">
+              <strong>Dashboard</strong><span>Search &nbsp; Profile</span>
+            </div>
+            <div class="project-cards">
+              <div class="item">Card 1</div>
+              <div class="item">Card 2</div>
+              <div class="item">Card 3</div>
+              <div class="item">Card 4</div>
+            </div>
+          </div>
+        </div>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Grid outside, Flex inside</span
+            ><button class="copy" data-copy="c9">Copy</button>
+          </div>
+          <pre id="c9"><code>.page {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+  gap: 16px;
+}</code></pre>
+        </div>
+        <div class="memory">
+          <strong>This is the real skill:</strong> not “Flex or Grid?” for the
+          whole page, but “Which layout fits this particular container?”
+        </div>
+      </section>
+
+      <section class="card" id="level10">
+        <div class="level-title">
+          <span class="level-no">10</span>
+          <div>
+            <span class="level-kicker">Design patterns</span>
+            <h2>Know the layouts you will reuse constantly</h2>
+          </div>
+        </div>
+        <div class="three-col">
+          <div class="card-flat">
+            <h3 style="margin-top: 0">Navbar</h3>
+            <p>Flexbox: logo on one side, links/actions on the other.</p>
+          </div>
+          <div class="card-flat">
+            <h3 style="margin-top: 0">Card gallery</h3>
+            <p>Grid: repeated items with equal track logic.</p>
+          </div>
+          <div class="card-flat">
+            <h3 style="margin-top: 0">Centered hero</h3>
+            <p>Flexbox or Grid with centering.</p>
+          </div>
+          <div class="card-flat">
+            <h3 style="margin-top: 0">Sidebar + content</h3>
+            <p>Grid: explicit page columns.</p>
+          </div>
+          <div class="card-flat">
+            <h3 style="margin-top: 0">Buttons / chips</h3>
+            <p>Flexbox with wrap and gap.</p>
+          </div>
+          <div class="card-flat">
+            <h3 style="margin-top: 0">Dashboard</h3>
+            <p>Grid shell + nested card grids + Flex toolbars.</p>
+          </div>
+        </div>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Navbar pattern</span
+            ><button class="copy" data-copy="c10">Copy</button>
+          </div>
+          <pre id="c10"><code>.nav {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.nav-links {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}</code></pre>
+        </div>
+      </section>
+
+      <section class="card" id="level11">
+        <div class="level-title">
+          <span class="level-no">11</span>
+          <div>
+            <span class="level-kicker">Debugging</span>
+            <h2>When Flexbox or Grid “doesn't work”</h2>
+          </div>
+        </div>
+        <table class="property-table">
+          <tr>
+            <th>Problem</th>
+            <th>Likely reason</th>
+            <th>Check</th>
+          </tr>
+          <tr>
+            <td>Items are not moving</td>
+            <td>The parent is not a flex/grid container.</td>
+            <td>
+              Is <code>display:flex</code> or <code>display:grid</code> on the
+              correct parent?
+            </td>
+          </tr>
+          <tr>
+            <td>Alignment seems to do nothing</td>
+            <td>No free space exists on that axis.</td>
+            <td>Give the container width/height or inspect available space.</td>
+          </tr>
+          <tr>
+            <td><code>align-content</code> does nothing</td>
+            <td>You have only one flex line.</td>
+            <td>Use wrapping and enough cross-axis space.</td>
+          </tr>
+          <tr>
+            <td>Flex child overflows</td>
+            <td>Intrinsic minimum size prevents shrinking.</td>
+            <td>Try <code>min-width:0</code>.</td>
+          </tr>
+          <tr>
+            <td>Grid gets too wide</td>
+            <td>A track or content has a large minimum size.</td>
+            <td>Try <code>minmax(0,1fr)</code> or constrain the content.</td>
+          </tr>
+          <tr>
+            <td>Unexpected Grid items appear</td>
+            <td>Implicit rows/columns were created.</td>
+            <td>Inspect placement and <code>grid-auto-*</code>.</td>
+          </tr>
+          <tr>
+            <td>Order looks visually right but keyboard flow is odd</td>
+            <td>Visual reordering differs from DOM order.</td>
+            <td>
+              Keep meaningful source order; avoid using CSS order as content
+              logic.
+            </td>
+          </tr>
+        </table>
+        <div class="memory">
+          <strong>Best debugging tool:</strong> use the browser DevTools layout
+          overlays for Flexbox and Grid, then inspect the parent before the
+          child.
+        </div>
+      </section>
+
+      <section class="card" id="level12">
+        <div class="level-title">
+          <span class="level-no">12</span>
+          <div>
+            <span class="level-kicker">Advanced control</span>
+            <h2>Intrinsic sizing, subgrid and dense packing</h2>
+          </div>
+        </div>
+        <h3>min-content, max-content and fit-content()</h3>
+        <p>
+          These sizing tools let the content itself influence track or box size.
+          They are useful when fixed pixels are too rigid and
+          <code>1fr</code> is too broad.
+        </p>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Content-aware sidebar</span
+            ><button class="copy" data-copy="c12a">Copy</button>
+          </div>
+          <pre id="c12a"><code>.page {
+  display:grid;
+  grid-template-columns: fit-content(260px) minmax(0,1fr);
+  gap:16px;
+}</code></pre>
+        </div>
+
+        <h3>Subgrid</h3>
+        <p>
+          <code>subgrid</code> lets a nested grid align its tracks with tracks
+          from the parent grid instead of inventing an unrelated inner track
+          system.
+        </p>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Subgrid concept</span
+            ><button class="copy" data-copy="c12b">Copy</button>
+          </div>
+          <pre id="c12b"><code>.cards {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+}
+
+.card {
+  display:grid;
+  grid-template-rows:subgrid;
+  grid-row:span 3;
+}</code></pre>
+        </div>
+
+        <h3>Dense auto-placement</h3>
+        <p>
+          <code>grid-auto-flow:dense</code> may backfill visual holes when items
+          have different spans. Use it carefully because visual order can differ
+          from source order.
+        </p>
+        <div class="warning">
+          <strong>Advanced does not mean automatically better.</strong> Prefer
+          simple, predictable source order and layout rules unless the design
+          genuinely benefits from more complex placement.
+        </div>
+      </section>
+
+      <section class="card" id="projects">
+        <div class="level-title">
+          <span class="level-no">P</span>
+          <div>
+            <span class="level-kicker">Build to learn</span>
+            <h2>Project ladder</h2>
+          </div>
+        </div>
+        <p class="lead">
+          Do these in order. Each project forces you to reuse earlier ideas
+          instead of memorising properties.
+        </p>
+        <div class="roadmap">
+          <a href="#editor"><span>Project 1</span>Three-button toolbar</a>
+          <a href="#editor"><span>Project 2</span>Responsive navbar</a>
+          <a href="#editor"><span>Project 3</span>Profile card row</a>
+          <a href="#editor"><span>Project 4</span>Product card grid</a>
+          <a href="#editor"><span>Project 5</span>Photo gallery</a>
+          <a href="#editor"><span>Project 6</span>Sidebar + article</a>
+          <a href="#editor"><span>Project 7</span>Responsive dashboard</a>
+          <a href="#editor"><span>Project 8</span>Complete landing page</a>
+        </div>
+
+        <h3>Capstone: responsive dashboard</h3>
+        <div class="stage project-shell">
+          <aside class="project-sidebar">
+            <div class="item">Overview</div>
+            <div class="item">Students</div>
+            <div class="item">Lessons</div>
+            <div class="item">Settings</div>
+          </aside>
+          <div class="project-main">
+            <div class="item project-toolbar">
+              <strong>Learn With Champak</strong
+              ><span>Search &nbsp; Account</span>
+            </div>
+            <div class="project-cards">
+              <div class="item tall">Metric 1</div>
+              <div class="item tall">Metric 2</div>
+              <div class="item tall">Metric 3</div>
+              <div class="item tall">Metric 4</div>
+            </div>
+            <div class="item" style="min-height: 180px">
+              Main content / chart / lesson list
+            </div>
+          </div>
+        </div>
+        <div class="codebox">
+          <div class="codebar">
+            <span>Capstone starter</span
+            ><button class="copy" data-copy="capstone">Copy</button>
+          </div>
+          <pre id="capstone"><code>&lt;div class="dashboard"&gt;
+  &lt;aside&gt;...navigation...&lt;/aside&gt;
+  &lt;main&gt;
+    &lt;header class="toolbar"&gt;...&lt;/header&gt;
+    &lt;section class="cards"&gt;...&lt;/section&gt;
+  &lt;/main&gt;
 &lt;/div&gt;
 
 &lt;style&gt;
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+.dashboard {
+  display:grid;
+  grid-template-columns:220px minmax(0,1fr);
+  gap:16px;
+}
+
+.toolbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.cards {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:16px;
+}
+
+@media (max-width:700px) {
+  .dashboard { grid-template-columns:1fr; }
 }
 &lt;/style&gt;</code></pre>
         </div>
-
-        <div class="remember">
-          <strong>Main lines:</strong> <code>display: grid;</code> and
-          <code>grid-template-columns</code>.
-        </div>
       </section>
 
-      <section class="card" id="both">
-        <h2>4. Use both together</h2>
-        <p class="lead">
-          A real page often uses Flexbox for a small row and Grid for the main
-          boxes.
-        </p>
-
-        <div class="stage combine-demo">
-          <div class="toolbar">
-            <strong>My Website</strong>
-            <div class="toolbar-group">
-              <button class="small-btn">Home</button>
-              <button class="small-btn">About</button>
-              <button class="small-btn">Contact</button>
-            </div>
-          </div>
-          <div class="cards">
-            <div class="item">Card 1</div>
-            <div class="item">Card 2</div>
-            <div class="item">Card 3</div>
-          </div>
-        </div>
-
-        <div class="remember">
-          <strong>Easy decision:</strong> menu/button row → Flexbox. Repeated
-          cards → Grid.
-        </div>
-      </section>
-
-      <section class="card challenge" id="practice">
-        <h2>5. Tiny practice</h2>
-        <ol class="steps">
-          <li>Make 4 boxes with Flexbox.</li>
-          <li>
-            Change Flexbox from a row to a column using
-            <code>flex-direction: column;</code>.
-          </li>
-          <li>Make 6 boxes with Grid.</li>
-          <li>Change the Grid from 3 columns to 2 columns.</li>
-          <li>
-            Try changing <code>gap: 10px</code> to <code>gap: 30px</code>.
-          </li>
+      <section class="card challenge" id="challenges">
+        <h2>Challenge ladder: prove that you know it</h2>
+        <ol class="challenge-list">
+          <li>Make 4 boxes in one row with Flexbox.</li>
+          <li>Center them horizontally.</li>
+          <li>Center them vertically inside a 300px container.</li>
+          <li>Make them wrap when the screen narrows.</li>
+          <li>Make one item grow twice as much as the others.</li>
+          <li>Create a 3-column Grid.</li>
+          <li>Make the first item span all columns.</li>
+          <li>Replace fixed columns with <code>auto-fit + minmax()</code>.</li>
+          <li>Create a 220px sidebar and flexible main content.</li>
+          <li>Collapse the sidebar layout to one column on small screens.</li>
+          <li>Put a Flexbox toolbar inside the Grid main area.</li>
+          <li>Put a responsive Grid of cards under the toolbar.</li>
+          <li>Build the capstone without looking at the solution.</li>
         </ol>
       </section>
 
       <section class="card editor-card" id="editor">
         <div class="editor-head">
-          <h2>6. Try it in the editor</h2>
+          <span class="level-kicker">Your laboratory</span>
+          <h2>Practise in the embedded HTML editor</h2>
           <p class="lead" style="margin: 0">
-            Type or paste HTML/CSS below and watch the preview.
+            Copy any example above, paste it here, then change one value at a
+            time and predict what will happen.
           </p>
           <a
             class="editor-link"
@@ -566,21 +1623,83 @@
         </div>
       </section>
 
-      <section class="card" id="summary">
-        <h2>Final summary</h2>
-        <div class="rule-grid">
-          <div class="rule"><strong>Flexbox</strong>One row or one column.</div>
-          <div class="rule"><strong>Grid</strong>Rows and columns.</div>
+      <section class="card" id="reference">
+        <h2>Fast reference: what belongs where?</h2>
+        <div class="final-grid">
+          <div class="rule">
+            <strong>Flex container</strong><code>display</code>,
+            <code>flex-direction</code>, <code>flex-wrap</code>,
+            <code>justify-content</code>, <code>align-items</code>,
+            <code>align-content</code>, <code>gap</code>
+          </div>
+          <div class="rule">
+            <strong>Flex item</strong><code>flex</code>, <code>flex-grow</code>,
+            <code>flex-shrink</code>, <code>flex-basis</code>,
+            <code>align-self</code>, <code>order</code>
+          </div>
+          <div class="rule">
+            <strong>Grid container</strong><code>grid-template-columns</code>,
+            <code>grid-template-rows</code>, <code>grid-template-areas</code>,
+            <code>grid-auto-flow</code>, <code>justify-items</code>,
+            <code>align-items</code>, <code>gap</code>
+          </div>
+          <div class="rule">
+            <strong>Grid item</strong><code>grid-column</code>,
+            <code>grid-row</code>, <code>grid-area</code>,
+            <code>justify-self</code>, <code>align-self</code>
+          </div>
         </div>
-        <p style="margin-bottom: 0">
-          <strong>Do not overthink it.</strong> Start with the simpler one. You
-          can use Flexbox and Grid on the same page.
+      </section>
+
+      <section class="card" id="infinity">
+        <div class="level-title">
+          <span class="level-no">∞</span>
+          <div>
+            <span class="level-kicker">Infinity</span>
+            <h2>You no longer memorise layouts — you design them</h2>
+          </div>
+        </div>
+        <p class="lead">
+          “Infinity” is not another CSS property. It is the point where you can
+          look at a design, divide it into containers, choose Flexbox or Grid
+          for each container, make it responsive, and debug it when it breaks.
         </p>
+        <div class="rule-grid">
+          <div class="rule">
+            <strong>Think in containers</strong>Break a page into navbar, hero,
+            sidebar, toolbar, cards, forms, footer and other independent layout
+            regions.
+          </div>
+          <div class="rule">
+            <strong>Choose the smallest tool</strong>Use Flexbox for one-axis
+            distribution/alignment and Grid when explicit rows + columns make
+            the structure clearer.
+          </div>
+          <div class="rule">
+            <strong>Let content breathe</strong>Prefer fluid sizing, wrapping,
+            <code>minmax()</code>, fractional tracks and meaningful minimum
+            widths over rigid pixel layouts.
+          </div>
+          <div class="rule">
+            <strong>Preserve source meaning</strong>Visual rearrangement should
+            not destroy logical reading, focus or accessibility order.
+          </div>
+        </div>
+        <div class="memory">
+          <strong>The final test:</strong> build a page from a screenshot
+          without copying its CSS. If you can explain why each container uses
+          Flexbox or Grid, you have reached the useful meaning of “0 → ∞”.
+        </div>
+        <div class="practice-row">
+          <a href="#top">Back to Level 0</a
+          ><a href="#editor">Build something now</a>
+        </div>
       </section>
     </main>
 
     <footer>
-      Learn With Champak — practise by changing one CSS line at a time.
+      Learn With Champak — Flexbox + Grid, from the first parent container to
+      complete responsive layouts.
     </footer>
 
     <script>
