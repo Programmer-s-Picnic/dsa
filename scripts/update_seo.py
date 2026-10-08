@@ -249,11 +249,87 @@ def update_sitemap():
         SITEMAP.write_text(result, encoding="utf-8")
     return len(valid)
 
+def update_html_sitemap():
+    groups = {}
+    for file in sorted(ROOT.rglob("*.html")):
+        p = file.relative_to(ROOT).as_posix()
+        if p == "sitemap.html" or not in_sitemap(p):
+            continue
+        content = file.read_text(encoding="utf-8")
+        if has_noindex(content):
+            continue
+        tm = re.search(r'<title[^>]*>(.*?)</title>', content, re.I | re.S)
+        title = html.unescape(re.sub(r'<[^>]+>', '', tm.group(1))).strip() if tm else p
+        title = re.sub(r'\\s+', ' ', title)
+        group = p.split("/", 1)[0] if "/" in p else "Start"
+        groups.setdefault(group, []).append((title, "/" + canonical_path(p)))
+
+    preferred = ["Start", "python", "java", "javascript", "aspnet", "sql", "react",
+                 "question-bank", "visualizers", "questions", "flutter", "html",
+                 "spring", "websocket", "tools", "projects"]
+    labels = {
+        "Start": "Start Here", "python": "Python", "java": "Java",
+        "javascript": "JavaScript", "aspnet": "ASP.NET Core", "sql": "SQL",
+        "react": "React", "question-bank": "Question Banks",
+        "visualizers": "Visualizers", "questions": "Guided Questions",
+        "flutter": "Flutter", "html": "HTML / CSS", "spring": "Spring",
+        "websocket": "WebSocket", "tools": "Learning Tools", "projects": "Projects"
+    }
+    cards = []
+    for group in preferred:
+        items = groups.get(group, [])
+        if not items:
+            continue
+        links = "\n".join(
+            f'<a class="lesson" href="{attr(href)}"><strong>{attr(title)}</strong><span>{attr(href)}</span></a>'
+            for title, href in items
+        )
+        cards.append(f'<section class="card"><h2>{attr(labels.get(group, group.title()))}</h2>{links}</section>')
+
+    page = f'''<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Programming Lessons & DSA Learning Map | Learn With Champak</title>
+<meta name="description" content="Browse the curated programming, DSA, Python, Java, JavaScript, ASP.NET, SQL and AI/ML learning pages on Programmer's Picnic.">
+<meta name="author" content="Champak Roy"><meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="{BASE}/sitemap.html"><link rel="icon" href="/assets/icons/icon-192.png">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Programmer's Picnic">
+<meta property="og:title" content="Programming Lessons & DSA Learning Map">
+<meta property="og:description" content="A curated map of useful lessons and learning tools.">
+<meta property="og:url" content="{BASE}/sitemap.html"><meta property="og:image" content="{IMAGE}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{IMAGE}">
+{ADS_TAG}
+<style>
+*{{box-sizing:border-box}}body{{margin:0;font:16px/1.6 system-ui,Segoe UI,sans-serif;background:#f4faff;color:#17324b}}
+header{{background:linear-gradient(135deg,#dff2ff,#f8fcff);padding:46px 20px;border-bottom:1px solid #c5def2}}
+.wrap{{max-width:1100px;margin:auto}}h1{{margin:.2rem 0;color:#103f73;font-size:clamp(2rem,5vw,3.5rem)}}p{{max-width:780px}}
+nav{{margin-top:16px}}nav a{{margin-right:16px;color:#075aa9;font-weight:700}}
+.grid{{max-width:1100px;margin:28px auto;padding:0 20px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}}
+.card{{background:white;border:1px solid #c9e0f3;border-radius:16px;padding:20px;box-shadow:0 8px 28px #164c7410}}
+.card h2{{margin-top:0;color:#11558c}}.lesson{{display:block;padding:11px 0;border-top:1px solid #e4eef7;text-decoration:none;color:#163e64}}
+.lesson:first-of-type{{border-top:0}}.lesson strong{{display:block}}.lesson span{{font-size:.78rem;color:#64788d;word-break:break-all}}
+footer{{margin-top:30px;background:#123c67;color:white;padding:28px 20px}}footer a{{color:white}}
+@media(max-width:720px){{.grid{{grid-template-columns:1fr}}}}
+</style></head><body>
+<header><div class="wrap"><small>Programmer's Picnic · Learn With Champak</small>
+<h1>Programming Learning Map</h1><p>Only the strongest public lessons and learning tools are listed here. Experimental source files, duplicate milestones and framework templates are deliberately excluded from search navigation.</p>
+<nav><a href="/">Start with DSA</a><a href="/python/start/">Python</a><a href="/java/">Java</a><a href="/javascript/">JavaScript</a><a href="/aspnet/">ASP.NET Core</a></nav>
+</div></header><main class="grid">{''.join(cards)}</main>
+<footer><div class="wrap">Developed and maintained by Champak Roy · <a href="/">Programmer's Picnic</a></div></footer>
+</body></html>'''
+    target = ROOT / "sitemap.html"
+    old = target.read_text(encoding="utf-8") if target.exists() else ""
+    if old != page:
+        target.write_text(page, encoding="utf-8")
+        return True
+    return False
+
 def main():
     paths = sorted(ROOT.rglob("*.html"))
     modified = [p.relative_to(ROOT).as_posix() for p in paths if update(p)]
     ad_updated = [p.relative_to(ROOT).as_posix() for p in paths if add_ads(p)]
     sitemap_count = update_sitemap()
+    html_sitemap_updated = update_html_sitemap()
     report = {
         "site": BASE,
         "scanned": len(paths),
@@ -261,7 +337,8 @@ def main():
         "modified": modified,
         "ads_updated": ad_updated,
         "sitemap_count": sitemap_count,
-        "strategy": "curated strong pages; source/demo pages noindex; canonical home URL is /"
+        "strategy": "curated strong pages; source/demo pages noindex; canonical home URL is /",
+        "html_sitemap_updated": html_sitemap_updated
     }
     print(
         f"SEO checked {len(paths)} HTML files; metadata updates {len(modified)}, "
