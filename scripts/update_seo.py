@@ -1,89 +1,220 @@
 #!/usr/bin/env python3
-"""Non-destructive SEO audit and metadata updater for published HTML pages."""
+"""SEO hygiene for the public DSA learning site.
+
+Goals:
+- one canonical URL per page (including / for the home page)
+- keep low-value source/demo pages out of Google's index
+- generate a curated sitemap from strong learning pages only
+- keep AdSense/metadata present on indexable public pages
+"""
 from pathlib import Path
+from datetime import date
 import html, re, json
+import xml.etree.ElementTree as ET
+
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://dsa.learnwithchampak.live"
 IMAGE = BASE + "/assets/images/og-aiml-champak-roy-varanasi.png"
-EXCLUDE = ("spring/e-commerce/spring-boot-reference/src/", "projects/kbc-quiz-project/angular-version/src/", "projects/kbc/tracks/angular/final-project/src/")
-def meta_present(head, key, typ="name"):
-    return bool(re.search(r'<meta\b(?=[^>]*\b'+typ+r'\s*=\s*["\']'+re.escape(key)+r'["\'])[^>]*>', head, re.I))
+SITEMAP = ROOT / "sitemap.xml"
+AD_CLIENT = "ca-pub-8321261883090494"
+ADS_TAG = ('<script async crossorigin="anonymous" '
+           'src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + AD_CLIENT + '"></script>')
+
+NEVER_INDEX = {
+    "404.html", "offline.html", "kbc.html", "header.html", "footer.html",
+    "googleb7b1c7873cdfb988.html",
+    "python/sorting/bubble-sort/test.html",
+    "html/pages/animation/createlemnt.html",
+    "html/android/pin/lesson/index.html",
+    "html/pages/speaker/lesson/index.html",
+}
+NOINDEX_PREFIXES = (
+    "projects/kbc/milestone-code/",
+    "spring/e-commerce/spring-boot-reference/src/",
+    "projects/kbc-quiz-project/angular-version/src/",
+    "projects/kbc/tracks/angular/final-project/src/",
+)
+
+# Strong pages we actively submit to Google. Other public pages can still be
+# reached through navigation, but are not forced into the XML sitemap.
+SITEMAP_PREFIXES = (
+    "aspnet/",
+    "python/",
+    "java/",
+    "javascript/",
+    "question-bank/",
+    "react/",
+    "visualizers/",
+    "questions/",
+)
+SITEMAP_EXACT = {
+    "index.html",
+    "sitemap.html",
+    "sql/index.html",
+    "tools/learning-path-finder/index.html",
+    "flutter/index.html",
+    "flutter/commandline/index.html",
+    "flutter/firebase/1/index.html",
+    "spring/database/sqlite/index.html",
+    "websocket/index.html",
+    "websocket/chat/index.html",
+    "websocket/chat/lesson/index.html",
+    "html/img/index.html",
+    "html/tables/index.html",
+    "html/timeout-interval/index.html",
+    "html/pages/animation/index.html",
+    "html/pages/before-upper/index.html",
+    "projects/kbc/index.html",
+    "projects/kbc/courses/index.html",
+    "projects/kbc/final-project/index.html",
+    "projects/kbc-quiz-project/js-version/index.html",
+    "projects/kbc-quiz-project/react-version/index.html",
+    "projects/kbc/tracks/html-js/final-project/index.html",
+    "projects/kbc/tracks/react/final-project/index.html",
+}
+
 def attr(s):
     return html.escape(s, quote=True)
+
+def canonical_path(p):
+    if p == "index.html":
+        return ""
+    if p.endswith("/index.html"):
+        return p[:-10]
+    return p
+
+def page_url(p):
+    suffix = canonical_path(p)
+    return BASE + "/" + suffix
+
+def is_public_path(p):
+    if p in NEVER_INDEX:
+        return False
+    if p.startswith(NOINDEX_PREFIXES):
+        return False
+    if "/src/app/" in "/" + p:
+        return False
+    if p.startswith("projects/") and ("/milestone-code/" in p or "/src/" in p):
+        return False
+    return True
+
+def in_sitemap(p):
+    if not is_public_path(p):
+        return False
+    if p in SITEMAP_EXACT:
+        return True
+    if p.startswith("projects/kbc/lessons/"):
+        return False
+    if re.match(r"projects/kbc/tracks/[^/]+/(?:lessons|dashboard)", p):
+        return False
+    return p.startswith(SITEMAP_PREFIXES)
+
+def meta_present(head, key, typ="name"):
+    return bool(re.search(
+        r'<meta\b(?=[^>]*\b' + typ + r'\s*=\s*["\']' + re.escape(key) + r'["\'])[^>]*>',
+        head, re.I
+    ))
+
+def replace_robots(head, directive):
+    pattern = re.compile(r'<meta\b(?=[^>]*\bname\s*=\s*["\']robots["\'])[^>]*>', re.I)
+    tag = f'<meta name="robots" content="{directive}">'
+    if pattern.search(head):
+        return pattern.sub(tag, head, count=1)
+    return tag + "\n" + head
+
 def update(path):
     p = path.relative_to(ROOT).as_posix()
-    if p in ("header.html", "footer.html", "googleb7b1c7873cdfb988.html") or p.startswith(EXCLUDE):
+    if p in {"header.html", "footer.html", "googleb7b1c7873cdfb988.html"}:
         return False
+
     content = path.read_text(encoding="utf-8")
-    m = re.search(r'<head(?:\s[^>]*)?>', content, re.I)
-    close = re.search(r'</head\s*>', content, re.I)
-    if not m or not close: return False
-    head = content[m.end():close.start()]
+    open_head = re.search(r'<head(?:\s[^>]*)?>', content, re.I)
+    close_head = re.search(r'</head\s*>', content, re.I)
+    if not open_head or not close_head:
+        return False
+
+    head = content[open_head.end():close_head.start()]
     title_match = re.search(r'<title[^>]*>(.*?)</title>', head, re.I | re.S)
     title = html.unescape(re.sub(r'<[^>]+>', '', title_match.group(1))).strip() if title_match else p.replace("/", " ").replace(".html", "")
     title = re.sub(r'\s+', ' ', title)[:125]
+
     desc_match = re.search(r'<meta\b(?=[^>]*\bname\s*=\s*["\']description["\'])[^>]*>', head, re.I)
     existing_desc = None
     if desc_match:
-        attrmatch = re.search(r'\bcontent\s*=\s*(["\'])(.*?)\1', desc_match.group(0), re.I | re.S)
-        if attrmatch: existing_desc = html.unescape(attrmatch.group(2))
-    desc = existing_desc or ("Learn " + title.split("|")[0].strip()[:70] + " with Champak Roy at Programmer's Picnic. Explore practical examples, lessons and programming exercises.")
+        am = re.search(r'\bcontent\s*=\s*(["\'])(.*?)\1', desc_match.group(0), re.I | re.S)
+        if am:
+            existing_desc = html.unescape(am.group(2))
+    desc = existing_desc or (
+        "Learn " + title.split("|")[0].strip()[:70] +
+        " with Champak Roy at Programmer's Picnic. Practical examples, lessons and programming exercises."
+    )
     desc = desc[:160]
-    url = BASE + "/" + (p[:-10] if p.endswith("/index.html") else p)
+
+    url = page_url(p)
+    public = is_public_path(p)
+    directive = "index, follow, max-image-preview:large" if public else "noindex, follow"
+
+    head = replace_robots(head, directive)
     tags = []
-    for key, val in (("description", desc), ("author", "Champak Roy"), ("robots", "index, follow, max-image-preview:large"), ("twitter:card", "summary_large_image"), ("twitter:title", title), ("twitter:description", desc), ("twitter:image", IMAGE)):
-        if not meta_present(head, key): tags.append(f'<meta name="{key}" content="{attr(val)}">')
-    for key,val in (("og:type", "article"), ("og:site_name", "Programmer\'s Picnic"), ("og:title", title), ("og:description", desc), ("og:url", url), ("og:image", IMAGE)):
-        if not meta_present(head, key, "property"): tags.append(f'<meta property="{key}" content="{attr(val)}">')
+    for key, val in (
+        ("description", desc), ("author", "Champak Roy"),
+        ("twitter:card", "summary_large_image"),
+        ("twitter:title", title), ("twitter:description", desc), ("twitter:image", IMAGE)
+    ):
+        if not meta_present(head, key):
+            tags.append(f'<meta name="{key}" content="{attr(val)}">')
+
+    for key, val in (
+        ("og:type", "article"), ("og:site_name", "Programmer's Picnic"),
+        ("og:title", title), ("og:description", desc), ("og:url", url), ("og:image", IMAGE)
+    ):
+        if not meta_present(head, key, "property"):
+            tags.append(f'<meta property="{key}" content="{attr(val)}">')
+
     canonical = re.search(r'<link\b(?=[^>]*\brel\s*=\s*["\']canonical["\'])[^>]*>', head, re.I)
+    canonical_tag = f'<link rel="canonical" href="{attr(url)}">'
     if canonical:
-        if not p.startswith("projects/"): head = head.replace(canonical.group(0), f'<link rel="canonical" href="{attr(url)}">')
-    else: tags.append(f'<link rel="canonical" href="{attr(url)}">')
+        head = head[:canonical.start()] + canonical_tag + head[canonical.end():]
+    else:
+        tags.append(canonical_tag)
+
     ogurl = re.search(r'<meta\b(?=[^>]*\bproperty\s*=\s*["\']og:url["\'])[^>]*>', head, re.I)
-    if ogurl and not p.startswith("projects/"): head = head.replace(ogurl.group(0), f'<meta property="og:url" content="{attr(url)}">')
-    updated = content[:m.end()] + "\n" + "\n".join(tags) + ("\n" if tags else "") + head + content[close.start():]
+    if ogurl:
+        replacement = f'<meta property="og:url" content="{attr(url)}">'
+        head = head[:ogurl.start()] + replacement + head[ogurl.end():]
+
+    updated = content[:open_head.end()] + "\n" + "\n".join(tags) + ("\n" if tags else "") + head + content[close_head.start():]
     if updated != content:
         path.write_text(updated, encoding="utf-8")
         return True
     return False
 
-# Canonical XML sitemap generation, preserving editorial exclusions and lastmod dates.
-from datetime import date
-import xml.etree.ElementTree as ET
-from urllib.parse import urlparse
-SITEMAP = ROOT / "sitemap.xml"
-AD_CLIENT = "ca-pub-8321261883090494"
-ADS_TAG = ('<script async crossorigin="anonymous" '
-           'src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + AD_CLIENT + '"></script>')
-NEVER_INDEX = ("404.html", "offline.html", "kbc.html", "header.html", "footer.html",
-               "googleb7b1c7873cdfb988.html", "python/sorting/bubble-sort/test.html",
-               "html/pages/animation/createlemnt.html")
-INDEX_EXCLUDE_PREFIX = ("projects/kbc/milestone-code/", "spring/e-commerce/spring-boot-reference/src/",
-                        "projects/kbc-quiz-project/angular-version/src/",
-                        "projects/kbc/tracks/angular/final-project/src/")
-INDEX_EXCLUDE_PARTIAL = ("/src/app/",)
-REDIRECT_ALIASES = ("html/android/pin/lesson/index.html", "html/pages/speaker/lesson/index.html")
-def is_public_path(p):
-    if p in NEVER_INDEX or p in REDIRECT_ALIASES: return False
-    if p.startswith(INDEX_EXCLUDE_PREFIX) or any(part in "/"+p for part in INDEX_EXCLUDE_PARTIAL): return False
-    if p.startswith("projects/") and ("/milestone-code/" in p or "/src/" in p): return False
-    return True
 def has_noindex(content):
     head = content.split("</head>", 1)[0]
-    return bool(re.search(r'<meta\b(?=[^>]*name\s*=\s*["\']robots["\'])[^>]*content\s*=\s*["\'][^"\']*noindex', head, re.I))
+    return bool(re.search(
+        r'<meta\b(?=[^>]*name\s*=\s*["\']robots["\'])[^>]*content\s*=\s*["\'][^"\']*noindex',
+        head, re.I
+    ))
+
 def add_ads(path):
     p = path.relative_to(ROOT).as_posix()
-    if not is_public_path(p): return False
+    if not is_public_path(p):
+        return False
     s = path.read_text(encoding="utf-8")
-    if not re.search(r'<head(?:\s[^>]*)?>', s, re.I) or has_noindex(s): return False
-    if AD_CLIENT in s: return False
-    # Load official AdSense script once. Ad placement itself is managed by AdSense Auto ads.
-    revised = re.sub(r'<head(?:\s[^>]*)?>', lambda m: m.group(0)+"\n"+ADS_TAG+"\n", s, count=1, flags=re.I)
-    if revised == s: return False
+    if not re.search(r'<head(?:\s[^>]*)?>', s, re.I) or has_noindex(s):
+        return False
+    if AD_CLIENT in s:
+        return False
+    revised = re.sub(
+        r'<head(?:\s[^>]*)?>',
+        lambda m: m.group(0) + "\n" + ADS_TAG + "\n",
+        s, count=1, flags=re.I
+    )
+    if revised == s:
+        return False
     path.write_text(revised, encoding="utf-8")
     return True
-def canonical_path(p):
-    return p[:-10] if p.endswith("/index.html") else p
+
 def update_sitemap():
     ET.register_namespace("", "http://www.sitemaps.org/schemas/sitemap/0.9")
     ns = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
@@ -91,31 +222,31 @@ def update_sitemap():
     if SITEMAP.exists():
         doc = ET.parse(SITEMAP)
         for entry in doc.getroot():
-            loc = entry.findtext(ns+"loc")
+            loc = entry.findtext(ns + "loc")
             if loc:
-                existing[loc] = entry.findtext(ns+"lastmod") or "2026-10-08"
-    # Preserve sitemap's curated lessons and add only new top-level lesson/course pages.
+                existing[loc] = entry.findtext(ns + "lastmod") or date.today().isoformat()
+
     valid = {}
-    files = sorted(ROOT.rglob("*.html"))
-    for file in files:
+    for file in sorted(ROOT.rglob("*.html")):
         p = file.relative_to(ROOT).as_posix()
-        if not is_public_path(p): continue
+        if not in_sitemap(p):
+            continue
         content = file.read_text(encoding="utf-8")
-        if has_noindex(content): continue
-        url = BASE+"/"+canonical_path(p)
-        # Keep prior listed pages; automatically add new lessons and main course pages.
-        eligible_new = p == "index.html" or p.startswith("aspnet/") or "/lessons/" in p or p in ("sitemap.html",)
-        if url not in existing and not eligible_new: continue
+        if has_noindex(content):
+            continue
+        url = page_url(p)
         valid[url] = existing.get(url, date.today().isoformat())
-    root = ET.Element(ns+"urlset")
+
+    root = ET.Element(ns + "urlset")
     for url in sorted(valid):
-        entry = ET.SubElement(root, ns+"url")
-        ET.SubElement(entry, ns+"loc").text = url
-        ET.SubElement(entry, ns+"lastmod").text = valid[url]
-    new = ET.tostring(root, encoding="unicode", xml_declaration=False)
-    result = '<?xml version="1.0" encoding="UTF-8"?>\n'+new+'\n'
+        entry = ET.SubElement(root, ns + "url")
+        ET.SubElement(entry, ns + "loc").text = url
+        ET.SubElement(entry, ns + "lastmod").text = valid[url]
+
+    result = '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(root, encoding="unicode", xml_declaration=False) + "\n"
     old = SITEMAP.read_text(encoding="utf-8") if SITEMAP.exists() else ""
-    if old != result: SITEMAP.write_text(result, encoding="utf-8")
+    if old != result:
+        SITEMAP.write_text(result, encoding="utf-8")
     return len(valid)
 
 def main():
@@ -123,6 +254,20 @@ def main():
     modified = [p.relative_to(ROOT).as_posix() for p in paths if update(p)]
     ad_updated = [p.relative_to(ROOT).as_posix() for p in paths if add_ads(p)]
     sitemap_count = update_sitemap()
-    print(f"SEO checked {len(paths)} HTML files; metadata updates {len(modified)}, ads updates {len(ad_updated)}, sitemap URLs {sitemap_count}")
-    (ROOT / "seo-update-report.json").write_text(json.dumps({"site":BASE,"scanned":len(paths),"modified_count":len(modified),"modified":modified,"ads_updated":ad_updated,"sitemap_count":sitemap_count},indent=2)+"\n",encoding="utf-8")
-if __name__ == "__main__": main()
+    report = {
+        "site": BASE,
+        "scanned": len(paths),
+        "modified_count": len(modified),
+        "modified": modified,
+        "ads_updated": ad_updated,
+        "sitemap_count": sitemap_count,
+        "strategy": "curated strong pages; source/demo pages noindex; canonical home URL is /"
+    }
+    print(
+        f"SEO checked {len(paths)} HTML files; metadata updates {len(modified)}, "
+        f"ads updates {len(ad_updated)}, sitemap URLs {sitemap_count}"
+    )
+    (ROOT / "seo-update-report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+
+if __name__ == "__main__":
+    main()
