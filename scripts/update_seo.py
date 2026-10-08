@@ -46,9 +46,83 @@ def update(path):
         path.write_text(updated, encoding="utf-8")
         return True
     return False
+
+# Canonical XML sitemap generation, preserving editorial exclusions and lastmod dates.
+from datetime import date
+import xml.etree.ElementTree as ET
+from urllib.parse import urlparse
+SITEMAP = ROOT / "sitemap.xml"
+AD_CLIENT = "ca-pub-8321261883090494"
+ADS_TAG = ('<script async crossorigin="anonymous" '
+           'src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + AD_CLIENT + '"></script>')
+NEVER_INDEX = ("404.html", "offline.html", "kbc.html", "header.html", "footer.html",
+               "googleb7b1c7873cdfb988.html", "python/sorting/bubble-sort/test.html",
+               "html/pages/animation/createlemnt.html")
+INDEX_EXCLUDE_PREFIX = ("projects/kbc/milestone-code/", "spring/e-commerce/spring-boot-reference/src/",
+                        "projects/kbc-quiz-project/angular-version/src/",
+                        "projects/kbc/tracks/angular/final-project/src/")
+INDEX_EXCLUDE_PARTIAL = ("/src/app/",)
+REDIRECT_ALIASES = ("html/android/pin/lesson/index.html", "html/pages/speaker/lesson/index.html")
+def is_public_path(p):
+    if p in NEVER_INDEX or p in REDIRECT_ALIASES: return False
+    if p.startswith(INDEX_EXCLUDE_PREFIX) or any(part in "/"+p for part in INDEX_EXCLUDE_PARTIAL): return False
+    if p.startswith("projects/") and ("/milestone-code/" in p or "/src/" in p): return False
+    return True
+def has_noindex(content):
+    head = content.split("</head>", 1)[0]
+    return bool(re.search(r'<meta\b(?=[^>]*name\s*=\s*["\']robots["\'])[^>]*content\s*=\s*["\'][^"\']*noindex', head, re.I))
+def add_ads(path):
+    p = path.relative_to(ROOT).as_posix()
+    if not is_public_path(p): return False
+    s = path.read_text(encoding="utf-8")
+    if not re.search(r'<head(?:\s[^>]*)?>', s, re.I) or has_noindex(s): return False
+    if AD_CLIENT in s: return False
+    # Load official AdSense script once. Ad placement itself is managed by AdSense Auto ads.
+    revised = re.sub(r'<head(?:\s[^>]*)?>', lambda m: m.group(0)+"\n"+ADS_TAG+"\n", s, count=1, flags=re.I)
+    if revised == s: return False
+    path.write_text(revised, encoding="utf-8")
+    return True
+def canonical_path(p):
+    return p[:-10] if p.endswith("/index.html") else p
+def update_sitemap():
+    ET.register_namespace("", "http://www.sitemaps.org/schemas/sitemap/0.9")
+    ns = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+    existing = {}
+    if SITEMAP.exists():
+        doc = ET.parse(SITEMAP)
+        for entry in doc.getroot():
+            loc = entry.findtext(ns+"loc")
+            if loc:
+                existing[loc] = entry.findtext(ns+"lastmod") or "2026-10-08"
+    # Preserve sitemap's curated lessons and add only new top-level lesson/course pages.
+    valid = {}
+    files = sorted(ROOT.rglob("*.html"))
+    for file in files:
+        p = file.relative_to(ROOT).as_posix()
+        if not is_public_path(p): continue
+        content = file.read_text(encoding="utf-8")
+        if has_noindex(content): continue
+        url = BASE+"/"+canonical_path(p)
+        # Keep prior listed pages; automatically add new lessons and main course pages.
+        eligible_new = p == "index.html" or p.startswith("aspnet/") or "/lessons/" in p or p in ("sitemap.html",)
+        if url not in existing and not eligible_new: continue
+        valid[url] = existing.get(url, date.today().isoformat())
+    root = ET.Element(ns+"urlset")
+    for url in sorted(valid):
+        entry = ET.SubElement(root, ns+"url")
+        ET.SubElement(entry, ns+"loc").text = url
+        ET.SubElement(entry, ns+"lastmod").text = valid[url]
+    new = ET.tostring(root, encoding="unicode", xml_declaration=False)
+    result = '<?xml version="1.0" encoding="UTF-8"?>\n'+new+'\n'
+    old = SITEMAP.read_text(encoding="utf-8") if SITEMAP.exists() else ""
+    if old != result: SITEMAP.write_text(result, encoding="utf-8")
+    return len(valid)
+
 def main():
     paths = sorted(ROOT.rglob("*.html"))
     modified = [p.relative_to(ROOT).as_posix() for p in paths if update(p)]
-    print(f"SEO scanned {len(paths)} HTML files, updated {len(modified)}")
-    (ROOT / "seo-update-report.json").write_text(json.dumps({"site":BASE,"scanned":len(paths),"modified_count":len(modified),"modified":modified},indent=2)+"\n",encoding="utf-8")
+    ad_updated = [p.relative_to(ROOT).as_posix() for p in paths if add_ads(p)]
+    sitemap_count = update_sitemap()
+    print(f"SEO checked {len(paths)} HTML files; metadata updates {len(modified)}, ads updates {len(ad_updated)}, sitemap URLs {sitemap_count}")
+    (ROOT / "seo-update-report.json").write_text(json.dumps({"site":BASE,"scanned":len(paths),"modified_count":len(modified),"modified":modified,"ads_updated":ad_updated,"sitemap_count":sitemap_count},indent=2)+"\n",encoding="utf-8")
 if __name__ == "__main__": main()

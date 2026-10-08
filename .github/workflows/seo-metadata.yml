@@ -1,16 +1,16 @@
-name: Normalize HTML SEO metadata
+name: Maintain SEO, AdSense and Sitemap
 on:
   push:
     branches: [main]
-    paths:
-      - 'scripts/update_seo.py'
-      - '.github/workflows/seo-metadata.yml'
-      - 'aspnet/**'
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: site-metadata-main
+  cancel-in-progress: false
 jobs:
-  seo:
+  maintenance:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,14 +19,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Add missing SEO metadata to HTML pages
+      - name: Update public page SEO, AdSense loader and XML sitemap
         run: python scripts/update_seo.py
-      - name: Commit changed pages
+      - name: Validate sitemap XML
+        run: python -c "import xml.etree.ElementTree as ET; ET.parse('sitemap.xml'); print('Sitemap XML valid')"
+      - name: Commit and publish generated site metadata
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- '*.html' seo-update-report.json
+          git add -- '*.html' sitemap.xml seo-update-report.json
           if ! git diff --cached --quiet; then
-            git commit -m "Normalize page-level SEO metadata and canonical links"
-            git push
+            git commit -m "Maintain SEO tags, Google ads and sitemap automatically"
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
