@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-copy-code]').forEach(btn=>btn.addEventListener('click',async()=>{const code=btn.closest('.example')?.querySelector('code')?.textContent||'';try{await navigator.clipboard.writeText(code);const old=btn.textContent;btn.textContent='Copied ✓';setTimeout(()=>{btn.textContent=old},1800)}catch(e){btn.textContent='Select code manually';}}));

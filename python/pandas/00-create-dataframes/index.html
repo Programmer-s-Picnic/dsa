@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en-IN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pandas Lesson 0: Create DataFrames Directly in Python | Learn With Champak</title><meta name="description" content="Learn to create pandas DataFrames from dictionaries, lists of dictionaries, rows and custom indexes without using a CSV. Runnable beginner examples."><meta name="keywords" content="pandas tutorial, DataFrame tutorial, pandas DataFrame creation, pandas loc iloc, pandas filter, modify dataframe, Python data analysis, 0 to infinity, Learn With Champak"><meta name="author" content="Champak Roy"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#eaf5ff">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/python/pandas/00-create-dataframes/"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><link rel="icon" href="/assets/icons/icon-192.png">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Programmer's Picnic by Champak Roy"><meta property="og:title" content="Pandas Lesson 0: Create DataFrames Directly in Python"><meta property="og:description" content="Learn to create pandas DataFrames from dictionaries, lists of dictionaries, rows and custom indexes without using a CSV. Runnable beginner examples."><meta property="og:url" content="https://dsa.learnwithchampak.live/python/pandas/00-create-dataframes/"><meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pandas Lesson 0: Create DataFrames Directly in Python"><meta name="twitter:description" content="Learn to create pandas DataFrames from dictionaries, lists of dictionaries, rows and custom indexes without using a CSV. Runnable beginner examples."><meta name="twitter:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Pandas Lesson 0: Create DataFrames Directly in Python","description":"Learn to create pandas DataFrames from dictionaries, lists of dictionaries, rows and custom indexes without using a CSV. Runnable beginner examples.","url":"https://dsa.learnwithchampak.live/python/pandas/00-create-dataframes/","inLanguage":"en-IN","isAccessibleForFree":true,"educationalLevel":"Beginner","provider":{"@type":"Organization","name":"Programmer's Picnic"},"author":{"@type":"Person","name":"Champak Roy"}}</script>
+<script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GSTQRQMLEE');</script>
+<link rel="stylesheet" href="/assets/css/theme.css"><link rel="stylesheet" href="/assets/css/pandas-course.css"></head>
+<body><div id="site-header" data-root="/"></div><main id="main-content"><div class="course-hero"><div class="eyebrow">Programmer's Picnic · Python / Pandas · Lesson 0</div><h1>Create DataFrames Directly</h1><p class="lead">Start from plain Python values. Learn what a row, column and index are before opening any file.</p><p class="meta">0 to infinity · Learn by making real DataFrames · No file required</p><nav class="course-nav" aria-label="Pandas course navigation"><a href="/python/pandas/" >Course index</a><a href="/python/pandas/00-create-dataframes/" aria-current="page">0 · Create</a><a href="/python/pandas/01-search-dataframes/" >1 · Search</a><a href="/python/pandas/02-change-dataframes/" >2 · Change</a><a href="/python/pandas/sql/">Later · SQL + Pandas</a><a href="/python/numpycleaning/">Previous topic: NumPy</a></nav></div><section class="lesson-panel"><h2>Setup and your first result</h2><p>Install once using <code>python -m pip install pandas</code>. Use <code>import pandas as pd</code> in each program. Our starter class register looks like this:</p><div class="responsive-table"><table><thead><tr><th>Row</th><th>Name</th><th>City</th><th>Marks</th><th>FeePaid</th></tr></thead><tbody><tr><td>0</td><td>Asha</td><td>Varanasi</td><td>88</td><td>True</td></tr><tr><td>1</td><td>Ravi</td><td>Ranchi</td><td>42</td><td>False</td></tr><tr><td>2</td><td>Meera</td><td>Varanasi</td><td>76</td><td>True</td></tr><tr><td>3</td><td>Kabir</td><td>Patna</td><td>91</td><td>False</td></tr></tbody></table></div><div class="callout">A dictionary key becomes a column name. Each list supplies values for that column. All lists must have the same length.</div></section><section class="lesson-panel" id="step-1"><div class="step-label">Step 1</div><h2>A table from a dictionary of lists</h2><p>The easiest beginner method is to enter each column as a list. DataFrame adds the row numbers 0, 1, 2 and 3 automatically.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+print(students)</code></pre></div><p class="tip"><strong>Remember:</strong> Start with four students and four columns. Data is not loaded from any file.</p></section><section class="lesson-panel" id="step-2"><div class="step-label">Step 2</div><h2>A table from a list of dictionaries</h2><p>You can also create one dictionary per student (one row). Pandas brings together matching keys as columns.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;Name&quot;: &quot;Asha&quot;, &quot;Marks&quot;: 88, &quot;City&quot;: &quot;Varanasi&quot;},
+    {&quot;Name&quot;: &quot;Ravi&quot;, &quot;Marks&quot;: 42, &quot;City&quot;: &quot;Ranchi&quot;},
+    {&quot;Name&quot;: &quot;Meera&quot;, &quot;Marks&quot;: 76, &quot;City&quot;: &quot;Varanasi&quot;}
+])
+print(students)</code></pre></div><p class="tip"><strong>Remember:</strong> This approach is convenient when each record is collected separately.</p></section><section class="lesson-panel" id="step-3"><div class="step-label">Step 3</div><h2>A table from rows (list of lists)</h2><p>When you write rows instead of columns, provide column names explicitly so the table remains easy to understand.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+rows = [
+    [101, &quot;Asha&quot;, 88],
+    [102, &quot;Ravi&quot;, 42],
+    [103, &quot;Meera&quot;, 76]
+]
+students = pd.DataFrame(rows, columns=[&quot;ID&quot;, &quot;Name&quot;, &quot;Marks&quot;])
+print(students)</code></pre></div><p class="tip"><strong>Remember:</strong> A wrong number of column labels raises an error; each row should fit the given columns.</p></section><section class="lesson-panel" id="step-4"><div class="step-label">Step 4</div><h2>Give rows meaningful labels</h2><p>The index is a row identifier. It is not always the same thing as a student's ID. Here we give rows labels of our own.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame(
+    {&quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;], &quot;Marks&quot;: [88, 42, 76]},
+    index=[&quot;S101&quot;, &quot;S102&quot;, &quot;S103&quot;]
+)
+print(students)
+print(students.loc[&quot;S102&quot;, &quot;Marks&quot;])   # 42</code></pre></div><p class="tip"><strong>Remember:</strong> Use .loc with labels. You will learn it properly in Lesson 1.</p></section><section class="lesson-panel" id="step-5"><div class="step-label">Step 5</div><h2>Explore the table you made</h2><p>Inspect columns, rows, size, types and samples. These are fast ways to understand a new DataFrame.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+print(students.head(2))
+print(students.tail(2))
+print(students.shape)       # (4, 4)
+print(students.columns.tolist())
+print(students.dtypes)
+print(students.info())</code></pre></div><p class="tip"><strong>Remember:</strong> Shape means (number of rows, number of columns). info() prints a summary and returns None; call it without print if you do not need to display None.</p></section><section class="lesson-panel" id="step-6"><div class="step-label">Step 6</div><h2>Choose the column order</h2><p>A DataFrame can be constructed with a chosen order. Pass the columns you want, rather than relying on accidental display order.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+records = {&quot;Marks&quot;: [88, 42], &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;]}
+students = pd.DataFrame(records, columns=[&quot;Name&quot;, &quot;Marks&quot;])
+print(students)</code></pre></div><p class="tip"><strong>Remember:</strong> The resulting DataFrame contains Name first, then Marks.</p></section><div class="challenge"><h3>Practice A · Your own shop</h3><p>Make a DataFrame with <code>Item</code>, <code>Price</code> and <code>Stock</code>. Print its shape and first two rows.</p><details><summary>Reveal a possible solution</summary><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+shop = pd.DataFrame({
+    &quot;Item&quot;: [&quot;Notebook&quot;, &quot;Pen&quot;, &quot;Pencil&quot;],
+    &quot;Price&quot;: [50, 10, 5],
+    &quot;Stock&quot;: [12, 40, 25]
+})
+print(shop.shape)   # (3, 3)
+print(shop.head(2))</code></pre></div></details></div><section class="resource"><h2>Checkpoint</h2><p>Before continuing, be able to explain: what is a DataFrame, how does a dictionary become columns, and what do <code>shape</code> and <code>index</code> mean?</p><p><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">Official DataFrame constructor reference</a>.</p></section>
+<div class="actions"><a href="/python/pandas/">← Previous lesson</a><a href="/python/pandas/">Course index</a><a class="primary" href="/python/pandas/01-search-dataframes/">Next lesson →</a></div><p class="footer-note">Part of Programmer's Picnic · Developed and maintained by Champak Roy · Examples use manually created DataFrames, and are intended for practice.</p></main><div id="site-footer" data-root="/"></div>
+<script defer src="/assets/js/include.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/pandas-course.js"></script></body></html>

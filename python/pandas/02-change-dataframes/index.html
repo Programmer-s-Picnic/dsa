@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en-IN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pandas Lesson 2: Change and Update DataFrame Values | Learn With Champak</title><meta name="description" content="Learn to edit Pandas DataFrames safely using loc, at, iat, add columns and rows, rename, remove and calculate values without chained assignment."><meta name="keywords" content="pandas tutorial, DataFrame tutorial, pandas DataFrame creation, pandas loc iloc, pandas filter, modify dataframe, Python data analysis, 0 to infinity, Learn With Champak"><meta name="author" content="Champak Roy"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#eaf5ff">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/python/pandas/02-change-dataframes/"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><link rel="icon" href="/assets/icons/icon-192.png">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Programmer's Picnic by Champak Roy"><meta property="og:title" content="Pandas Lesson 2: Change and Update DataFrame Values"><meta property="og:description" content="Learn to edit Pandas DataFrames safely using loc, at, iat, add columns and rows, rename, remove and calculate values without chained assignment."><meta property="og:url" content="https://dsa.learnwithchampak.live/python/pandas/02-change-dataframes/"><meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pandas Lesson 2: Change and Update DataFrame Values"><meta name="twitter:description" content="Learn to edit Pandas DataFrames safely using loc, at, iat, add columns and rows, rename, remove and calculate values without chained assignment."><meta name="twitter:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Pandas Lesson 2: Change and Update DataFrame Values","description":"Learn to edit Pandas DataFrames safely using loc, at, iat, add columns and rows, rename, remove and calculate values without chained assignment.","url":"https://dsa.learnwithchampak.live/python/pandas/02-change-dataframes/","inLanguage":"en-IN","isAccessibleForFree":true,"educationalLevel":"Beginner","provider":{"@type":"Organization","name":"Programmer's Picnic"},"author":{"@type":"Person","name":"Champak Roy"}}</script>
+<script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GSTQRQMLEE');</script>
+<link rel="stylesheet" href="/assets/css/theme.css"><link rel="stylesheet" href="/assets/css/pandas-course.css"></head>
+<body><div id="site-header" data-root="/"></div><main id="main-content"><div class="course-hero"><div class="eyebrow">Programmer's Picnic · Python / Pandas · Lesson 2</div><h1>Change and Update DataFrames</h1><p class="lead">Correct a value, modify only matching rows, calculate new columns and add or remove records without fragile chained assignment.</p><p class="meta">0 to infinity · Learn by making real DataFrames · No file required</p><nav class="course-nav" aria-label="Pandas course navigation"><a href="/python/pandas/" >Course index</a><a href="/python/pandas/00-create-dataframes/" >0 · Create</a><a href="/python/pandas/01-search-dataframes/" >1 · Search</a><a href="/python/pandas/02-change-dataframes/" aria-current="page">2 · Change</a><a href="/python/pandas/sql/">Later · SQL + Pandas</a><a href="/python/numpycleaning/">Previous topic: NumPy</a></nav></div><section class="lesson-panel"><h2>Start from this table</h2><p>Each exercise below rebuilds the same sample DataFrame, so changes in one example do not accidentally affect the next.</p><div class="responsive-table"><table><thead><tr><th>Row</th><th>Name</th><th>City</th><th>Marks</th><th>FeePaid</th></tr></thead><tbody><tr><td>0</td><td>Asha</td><td>Varanasi</td><td>88</td><td>True</td></tr><tr><td>1</td><td>Ravi</td><td>Ranchi</td><td>42</td><td>False</td></tr><tr><td>2</td><td>Meera</td><td>Varanasi</td><td>76</td><td>True</td></tr><tr><td>3</td><td>Kabir</td><td>Patna</td><td>91</td><td>False</td></tr></tbody></table></div><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})</code></pre></div><div class="callout"><strong>Modern pandas rule:</strong> Edit a DataFrame using a single <code>.loc[row_selection, column_selection]</code> operation. Avoid expressions such as <code>students["Marks"][mask] = 50</code> — chained assignment does not update the original under Copy-on-Write.</div></section><section class="lesson-panel" id="step-1"><div class="step-label">Step 1</div><h2>Correct a specific student&#39;s marks</h2><p>Select a row by condition and the column to edit in one step. Print the updated row to verify.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+students.loc[students[&quot;Name&quot;] == &quot;Ravi&quot;, &quot;Marks&quot;] = 52
+print(students.loc[students[&quot;Name&quot;] == &quot;Ravi&quot;])</code></pre></div><p class="tip"><strong>Remember:</strong> This updates the original DataFrame directly and intentionally.</p></section><section class="lesson-panel" id="step-2"><div class="step-label">Step 2</div><h2>Edit one cell with .at or .iat</h2><p>Use <code>.at</code> when you already know the row and column label. Use <code>.iat</code> when you know their integer positions.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+students.at[0, &quot;City&quot;] = &quot;Prayagraj&quot;
+students.iat[1, 2] = 49
+print(students)</code></pre></div><p class="tip"><strong>Remember:</strong> Use the right accessor for your indexing scheme; label 0 and position 0 only coincide with the default RangeIndex.</p></section><section class="lesson-panel" id="step-3"><div class="step-label">Step 3</div><h2>Update many matching rows together</h2><p>Use a mask to change several rows in a single operation, keeping the others unchanged.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+students.loc[students[&quot;Marks&quot;] &lt; 50, &quot;Marks&quot;] = 50
+students.loc[students[&quot;City&quot;] == &quot;Varanasi&quot;, &quot;FeePaid&quot;] = True
+print(students)</code></pre></div><p class="tip"><strong>Remember:</strong> A conditional assignment is safer than manually searching and editing each matching row.</p></section><section class="lesson-panel" id="step-4"><div class="step-label">Step 4</div><h2>Add calculated or descriptive columns</h2><p>Assign a new column directly; its values are calculated row by row. Then update some statuses.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+students[&quot;Bonus&quot;] = 5
+students[&quot;FinalMarks&quot;] = (students[&quot;Marks&quot;] + students[&quot;Bonus&quot;]).clip(upper=100)
+students[&quot;Status&quot;] = &quot;On track&quot;
+students.loc[students[&quot;Marks&quot;] &lt; 50, &quot;Status&quot;] = &quot;Needs practice&quot;
+print(students[[&quot;Name&quot;, &quot;FinalMarks&quot;, &quot;Status&quot;]])</code></pre></div><p class="tip"><strong>Remember:</strong> The new columns align with the existing rows.</p></section><section class="lesson-panel" id="step-5"><div class="step-label">Step 5</div><h2>Replace text values and rename a column</h2><p>You can produce a modified Series, then assign it back. Rename a column and retain the returned DataFrame.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+students[&quot;City&quot;] = students[&quot;City&quot;].replace({&quot;Ranchi&quot;: &quot;Ranchi City&quot;})
+students = students.rename(columns={&quot;Marks&quot;: &quot;Score&quot;})
+print(students)</code></pre></div><p class="tip"><strong>Remember:</strong> Assign the result of operations such as rename() when you want to keep the change.</p></section><section class="lesson-panel" id="step-6"><div class="step-label">Step 6</div><h2>Add another student</h2><p>For a simple default row index, add a new row using a matching list of values. For large collections, gather records before constructing a DataFrame.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+students.loc[len(students)] = [&quot;Nina&quot;, &quot;Varanasi&quot;, 83, True]
+print(students.tail(2))</code></pre></div><p class="tip"><strong>Remember:</strong> Values must match the DataFrame's column order. This simple pattern assumes the default consecutive row index.</p></section><section class="lesson-panel" id="step-7"><div class="step-label">Step 7</div><h2>Remove a row or column</h2><p>Create a filtered DataFrame when removing rows, or use drop() for named columns. Assign the result to keep it.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+students = students.loc[students[&quot;Name&quot;] != &quot;Ravi&quot;].copy()
+students = students.drop(columns=[&quot;FeePaid&quot;])
+print(students)</code></pre></div><p class="tip"><strong>Remember:</strong> A new filtered DataFrame has the original row labels until you explicitly reset_index(drop=True).</p></section><section class="lesson-panel" id="step-8"><div class="step-label">Step 8</div><h2>Update with two conditions</h2><p>Combine the search skills from Lesson 1 and the editing skills from Lesson 2.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+mask = (students[&quot;City&quot;] == &quot;Varanasi&quot;) &amp; (students[&quot;Marks&quot;] &gt;= 75)
+students.loc[mask, &quot;Marks&quot;] = (students.loc[mask, &quot;Marks&quot;] + 3).clip(upper=100)
+print(students[[&quot;Name&quot;, &quot;Marks&quot;]])</code></pre></div><p class="tip"><strong>Remember:</strong> The assignment targets the DataFrame once. This pattern works with pandas Copy-on-Write.</p></section><div class="challenge"><h3>Practice C · Fix and reward marks</h3><p>Correct Ravi's marks to 55, give all students scoring at least 80 a bonus of 5 (maximum 100), and display the final results.</p><details><summary>Reveal a possible solution</summary><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+students.loc[students[&quot;Name&quot;] == &quot;Ravi&quot;, &quot;Marks&quot;] = 55
+mask = students[&quot;Marks&quot;] &gt;= 80
+students.loc[mask, &quot;Marks&quot;] = (students.loc[mask, &quot;Marks&quot;] + 5).clip(upper=100)
+print(students[[&quot;Name&quot;, &quot;Marks&quot;]])</code></pre></div></details></div><section class="resource"><h2>Capstone — one script from creation to correction</h2><p>Here is the entire beginner workflow in one program: create → search → change → verify.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+# Find students who need help.
+print(&quot;Before correction:&quot;)
+print(students.loc[students[&quot;Marks&quot;] &lt; 50, [&quot;Name&quot;, &quot;Marks&quot;]])
+
+# Correct a score and give a small reward to high scorers.
+students.loc[students[&quot;Name&quot;] == &quot;Ravi&quot;, &quot;Marks&quot;] = 52
+students[&quot;Eligible&quot;] = students[&quot;Marks&quot;] &gt;= 75
+
+print(&quot;After correction:&quot;)
+print(students[[&quot;Name&quot;, &quot;Marks&quot;, &quot;Eligible&quot;]])</code></pre></div><p>Official guidance: <a href="https://pandas.pydata.org/docs/user_guide/copy_on_write.html">Copy-on-Write and chained assignment</a>. Next on the roadmap: missing values, duplicates and data cleaning.</p></section>
+<div class="actions"><a href="/python/pandas/01-search-dataframes/">← Previous lesson</a><a href="/python/pandas/">Course index</a><a class="primary" href="/python/pandas/sql/">Next lesson →</a></div><p class="footer-note">Part of Programmer's Picnic · Developed and maintained by Champak Roy · Examples use manually created DataFrames, and are intended for practice.</p></main><div id="site-footer" data-root="/"></div>
+<script defer src="/assets/js/include.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/pandas-course.js"></script></body></html>

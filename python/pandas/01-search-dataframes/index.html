@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en-IN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pandas Lesson 1: Search and Filter DataFrames | Learn With Champak</title><meta name="description" content="Learn pandas searches, selecting columns, loc, iloc, Boolean masks, multiple conditions, isin, between and contains with practical student data."><meta name="keywords" content="pandas tutorial, DataFrame tutorial, pandas DataFrame creation, pandas loc iloc, pandas filter, modify dataframe, Python data analysis, 0 to infinity, Learn With Champak"><meta name="author" content="Champak Roy"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#eaf5ff">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/python/pandas/01-search-dataframes/"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><link rel="icon" href="/assets/icons/icon-192.png">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Programmer's Picnic by Champak Roy"><meta property="og:title" content="Pandas Lesson 1: Search and Filter DataFrames"><meta property="og:description" content="Learn pandas searches, selecting columns, loc, iloc, Boolean masks, multiple conditions, isin, between and contains with practical student data."><meta property="og:url" content="https://dsa.learnwithchampak.live/python/pandas/01-search-dataframes/"><meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pandas Lesson 1: Search and Filter DataFrames"><meta name="twitter:description" content="Learn pandas searches, selecting columns, loc, iloc, Boolean masks, multiple conditions, isin, between and contains with practical student data."><meta name="twitter:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Pandas Lesson 1: Search and Filter DataFrames","description":"Learn pandas searches, selecting columns, loc, iloc, Boolean masks, multiple conditions, isin, between and contains with practical student data.","url":"https://dsa.learnwithchampak.live/python/pandas/01-search-dataframes/","inLanguage":"en-IN","isAccessibleForFree":true,"educationalLevel":"Beginner","provider":{"@type":"Organization","name":"Programmer's Picnic"},"author":{"@type":"Person","name":"Champak Roy"}}</script>
+<script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GSTQRQMLEE');</script>
+<link rel="stylesheet" href="/assets/css/theme.css"><link rel="stylesheet" href="/assets/css/pandas-course.css"></head>
+<body><div id="site-header" data-root="/"></div><main id="main-content"><div class="course-hero"><div class="eyebrow">Programmer's Picnic · Python / Pandas · Lesson 1</div><h1>Search, Select and Filter DataFrames</h1><p class="lead">Find exactly the rows and values you need: by name, by score, by index position and by multiple conditions.</p><p class="meta">0 to infinity · Learn by making real DataFrames · No file required</p><nav class="course-nav" aria-label="Pandas course navigation"><a href="/python/pandas/" >Course index</a><a href="/python/pandas/00-create-dataframes/" >0 · Create</a><a href="/python/pandas/01-search-dataframes/" aria-current="page">1 · Search</a><a href="/python/pandas/02-change-dataframes/" >2 · Change</a><a href="/python/pandas/sql/">Later · SQL + Pandas</a><a href="/python/numpycleaning/">Previous topic: NumPy</a></nav></div><section class="lesson-panel"><h2>Our sample data</h2><p>All examples use the same students. Every code box begins with its own DataFrame, so you can copy and run it independently.</p><div class="responsive-table"><table><thead><tr><th>Row</th><th>Name</th><th>City</th><th>Marks</th><th>FeePaid</th></tr></thead><tbody><tr><td>0</td><td>Asha</td><td>Varanasi</td><td>88</td><td>True</td></tr><tr><td>1</td><td>Ravi</td><td>Ranchi</td><td>42</td><td>False</td></tr><tr><td>2</td><td>Meera</td><td>Varanasi</td><td>76</td><td>True</td></tr><tr><td>3</td><td>Kabir</td><td>Patna</td><td>91</td><td>False</td></tr></tbody></table></div><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+print(students)</code></pre></div><p class="tip"><strong>Vocabulary:</strong> Selecting a column is different from filtering rows. Searching often combines both.</p></section><section class="lesson-panel" id="step-1"><div class="step-label">Step 1</div><h2>Select one column, or several</h2><p>A single column name returns a Series. A list of column names returns a DataFrame.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+print(students[&quot;Name&quot;])
+print(students[[&quot;Name&quot;, &quot;Marks&quot;]])</code></pre></div><p class="tip"><strong>Remember:</strong> Use double square brackets for a DataFrame of multiple columns.</p></section><section class="lesson-panel" id="step-2"><div class="step-label">Step 2</div><h2>Find a student by an exact name</h2><p>Build a condition for matching names. Pandas uses == to test equality.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+match = students[students[&quot;Name&quot;] == &quot;Meera&quot;]
+print(match)</code></pre></div><p class="tip"><strong>Remember:</strong> For a match, compare every row: the result is a Boolean mask (True or False for each row).</p></section><section class="lesson-panel" id="step-3"><div class="step-label">Step 3</div><h2>Select with .loc and .iloc</h2><p>Use <code>.loc</code> for row and column <strong>labels</strong>; <code>.iloc</code> for integer <strong>positions</strong>.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+print(students.loc[1, &quot;Name&quot;])        # Ravi
+print(students.loc[0:2, [&quot;Name&quot;, &quot;Marks&quot;]])
+print(students.iloc[1, 2])             # 42
+print(students.iloc[0:2, 0:3])</code></pre></div><p class="tip"><strong>Remember:</strong> .loc[0:2] includes label 2; .iloc[0:2] stops before position 2.</p></section><section class="lesson-panel" id="step-4"><div class="step-label">Step 4</div><h2>Search by a condition</h2><p>Filter students who obtained at least 75 marks; choose only the columns relevant to the answer.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+high_scorers = students.loc[students[&quot;Marks&quot;] &gt;= 75, [&quot;Name&quot;, &quot;Marks&quot;]]
+print(high_scorers)</code></pre></div><p class="tip"><strong>Remember:</strong> Use <, <=, >, >=, == and != to compare values.</p></section><section class="lesson-panel" id="step-5"><div class="step-label">Step 5</div><h2>Search with two conditions</h2><p>Each comparison needs its own parentheses. Use <code>&amp;</code> for AND; <code>|</code> for OR; <code>~</code> to reverse a condition.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+varanasi_top = students.loc[
+    (students[&quot;City&quot;] == &quot;Varanasi&quot;) &amp; (students[&quot;Marks&quot;] &gt;= 75),
+    [&quot;Name&quot;, &quot;City&quot;, &quot;Marks&quot;]
+]
+print(varanasi_top)
+
+support_or_unpaid = students.loc[
+    (students[&quot;Marks&quot;] &lt; 50) | (~students[&quot;FeePaid&quot;]),
+    [&quot;Name&quot;, &quot;Marks&quot;, &quot;FeePaid&quot;]
+]
+print(support_or_unpaid)</code></pre></div><p class="tip"><strong>Remember:</strong> Do not use Python and/or directly between pandas Series; use & and |.</p></section><section class="lesson-panel" id="step-6"><div class="step-label">Step 6</div><h2>Find items in a list or a range</h2><p>Use <code>isin()</code> to match several cities and <code>between()</code> for a numerical range.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+print(students[students[&quot;City&quot;].isin([&quot;Ranchi&quot;, &quot;Patna&quot;])])
+print(students[students[&quot;Marks&quot;].between(70, 90)])</code></pre></div><p class="tip"><strong>Remember:</strong> between(70, 90) includes both 70 and 90 by default.</p></section><section class="lesson-panel" id="step-7"><div class="step-label">Step 7</div><h2>Search inside text</h2><p>String methods help search text columns. Set <code>regex=False</code> for a literal substring and <code>na=False</code> to ignore missing names.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+found = students.loc[
+    students[&quot;Name&quot;].str.contains(&quot;a&quot;, case=False, regex=False, na=False),
+    [&quot;Name&quot;, &quot;City&quot;]
+]
+print(found)</code></pre></div><p class="tip"><strong>Remember:</strong> String searches can be case-sensitive; case=False makes this search ignore letter case.</p></section><section class="lesson-panel" id="step-8"><div class="step-label">Step 8</div><h2>Quickly count matching rows</h2><p>Use a condition to count true values and see category frequencies.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+print((students[&quot;Marks&quot;] &gt;= 75).sum())
+print(students[&quot;City&quot;].value_counts())
+print(len(students))</code></pre></div><p class="tip"><strong>Remember:</strong> True counts as 1 when summed; value_counts gives the frequency of each city.</p></section><div class="challenge"><h3>Practice B · Locate records</h3><p>Display only <code>Name</code> and <code>Marks</code> for students from Varanasi with marks of at least 80.</p><details><summary>Reveal a possible solution</summary><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;],
+    &quot;City&quot;: [&quot;Varanasi&quot;, &quot;Ranchi&quot;, &quot;Varanasi&quot;, &quot;Patna&quot;],
+    &quot;Marks&quot;: [88, 42, 76, 91],
+    &quot;FeePaid&quot;: [True, False, True, False]
+})
+
+answer = students.loc[
+    (students[&quot;City&quot;] == &quot;Varanasi&quot;) &amp; (students[&quot;Marks&quot;] &gt;= 80),
+    [&quot;Name&quot;, &quot;Marks&quot;]
+]
+print(answer)  # Asha</code></pre></div></details></div><section class="resource"><h2>Checkpoint</h2><p>Can you find Ravi, select a single cell, find students with marks below 50 and locate students from either Varanasi or Ranchi?</p><p><a href="https://pandas.pydata.org/docs/user_guide/indexing.html">Official guide to indexing and selecting</a>.</p></section>
+<div class="actions"><a href="/python/pandas/00-create-dataframes/">← Previous lesson</a><a href="/python/pandas/">Course index</a><a class="primary" href="/python/pandas/02-change-dataframes/">Next lesson →</a></div><p class="footer-note">Part of Programmer's Picnic · Developed and maintained by Champak Roy · Examples use manually created DataFrames, and are intended for practice.</p></main><div id="site-footer" data-root="/"></div>
+<script defer src="/assets/js/include.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/pandas-course.js"></script></body></html>
