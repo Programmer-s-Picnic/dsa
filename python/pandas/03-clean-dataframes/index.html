@@ -178,7 +178,7 @@ students.loc[invalid, &quot;Marks&quot;] = float(&quot;nan&quot;)
 assert students[&quot;StudentID&quot;].is_unique, &quot;Conflicting student IDs need review&quot;
 assert students[&quot;Name&quot;].notna().all()
 assert students[&quot;Marks&quot;].dropna().between(0, 100).all()
-print(&quot;All defined checks passed&quot;)</code></pre></div><p class="tip"><strong>Remember:</strong> Assertions are useful teaching checks; for production pipelines use explicit validation and error handling rather than relying only on assertions.</p></section><section class="lesson-panel" id="step-10"><div class="step-label">Step 10 / 11</div><h2>Identify outliers without deleting them</h2><p>A rare value can still be real. Use the IQR method as an exploratory flag only after checking the valid score range.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+print(&quot;All defined checks passed&quot;)</code></pre></div><p class="tip"><strong>Remember:</strong> Assertions are useful teaching checks; for production pipelines use explicit validation and error handling rather than relying only on assertions.</p></section><section class="lesson-panel" id="step-10"><div class="step-label">Step 10 / 11</div><h2>Identify outliers without deleting them</h2><p>A rare value can still be real. Use the IQR method as an exploratory flag only after checking the valid score range. This independent illustration adds more observations so you can see a potential outlier.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
 
 students = pd.DataFrame([
     {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
@@ -191,16 +191,19 @@ students = pd.DataFrame([
     {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
 ])
 
-students[&quot;Marks&quot;] = pd.to_numeric(students[&quot;Marks&quot;], errors=&quot;coerce&quot;)
-valid = students.loc[students[&quot;Marks&quot;].between(0, 100), &quot;Marks&quot;]
-if len(valid) &gt;= 4:
-    q1, q3 = valid.quantile([0.25, 0.75])
-    iqr = q3 - q1
-    low, high = q1 - 1.5 * iqr, q3 + 1.5 * iqr
-    unusual = valid[(valid &lt; low) | (valid &gt; high)]
-    print(&quot;Potential outliers:&quot;, unusual.to_dict())
-else:
-    print(&quot;Too few valid scores for a useful IQR illustration&quot;)</code></pre></div><p class="tip"><strong>Remember:</strong> A small class register is not suitable for strong outlier conclusions. Flag, investigate, and retain records until you have evidence.</p></section><section class="lesson-panel" id="step-11"><div class="step-label">Step 11 / 11</div><h2>Check how much data changed</h2><p>An audit describes the number of records entering and leaving your process. It helps identify accidental losses.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+# A slightly larger manually-created sample makes outliers visible.
+scores = pd.DataFrame({
+    &quot;Name&quot;: [&quot;Asha&quot;, &quot;Ravi&quot;, &quot;Meera&quot;, &quot;Kabir&quot;, &quot;Nina&quot;, &quot;Rahul&quot;, &quot;Tara&quot;, &quot;Ishan&quot;],
+    &quot;Marks&quot;: [52, 54, 56, 57, 60, 62, 64, 98]
+})
+valid = scores.loc[scores[&quot;Marks&quot;].between(0, 100), [&quot;Name&quot;, &quot;Marks&quot;]]
+q1, q3 = valid[&quot;Marks&quot;].quantile([0.25, 0.75])
+iqr = q3 - q1
+low, high = q1 - 1.5 * iqr, q3 + 1.5 * iqr
+unusual = (valid[&quot;Marks&quot;] &lt; low) | (valid[&quot;Marks&quot;] &gt; high)
+print(&quot;Potential outliers:&quot;)
+print(valid.loc[unusual, [&quot;Name&quot;, &quot;Marks&quot;]])  # Ishan: 98
+# Flag for review; do not delete automatically.</code></pre></div><p class="tip"><strong>Remember:</strong> A small class register is not suitable for strong outlier conclusions. Flag, investigate, and retain records until you have evidence.</p></section><section class="lesson-panel" id="step-11"><div class="step-label">Step 11 / 11</div><h2>Check how much data changed</h2><p>An audit describes the number of records entering and leaving your process. It helps identify accidental losses.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
 
 students = pd.DataFrame([
     {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
