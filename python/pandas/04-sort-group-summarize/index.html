@@ -1,0 +1,547 @@
+<!doctype html><html lang="en-IN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pandas Level 4: Sorting, GroupBy and DataFrame Aggregation from Zero | Learn With Champak</title><meta name="description" content="Learn Pandas sorting, sort_values, sort_index, groupby, agg, count vs size, summary statistics, multi-column grouping, transform and rankings with a hands-on DataFrame report.">
+<meta name="keywords" content="pandas groupby tutorial, pandas sort_values, pandas aggregation, agg pandas, count vs size, DataFrame sorting, transform pandas, groupby multiple columns, beginner pandas, 0 to infinity">
+<meta name="author" content="Champak Roy"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#eaf5ff">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/python/pandas/04-sort-group-summarize/"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><link rel="icon" href="/assets/icons/icon-192.png">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Programmer's Picnic by Champak Roy">
+<meta property="og:title" content="Pandas Level 4: Sorting, GroupBy and DataFrame Aggregation from Zero"><meta property="og:description" content="Learn Pandas sorting, sort_values, sort_index, groupby, agg, count vs size, summary statistics, multi-column grouping, transform and rankings with a hands-on DataFrame report.">
+<meta property="og:url" content="https://dsa.learnwithchampak.live/python/pandas/04-sort-group-summarize/"><meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pandas Level 4: Sorting, GroupBy and DataFrame Aggregation from Zero"><meta name="twitter:description" content="Learn Pandas sorting, sort_values, sort_index, groupby, agg, count vs size, summary statistics, multi-column grouping, transform and rankings with a hands-on DataFrame report."><meta name="twitter:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Pandas Level 4: Sorting, GroupBy and DataFrame Aggregation from Zero","description":"Learn Pandas sorting, sort_values, sort_index, groupby, agg, count vs size, summary statistics, multi-column grouping, transform and rankings with a hands-on DataFrame report.","url":"https://dsa.learnwithchampak.live/python/pandas/04-sort-group-summarize/","learningResourceType":"Lesson","educationalLevel":"Beginner to Intermediate","inLanguage":"en-IN","isAccessibleForFree":true,"author":{"@type":"Person","name":"Champak Roy"},"provider":{"@type":"Organization","name":"Programmer's Picnic"},"isPartOf":{"@type":"Course","name":"Pandas from 0 to Infinity","url":"https://dsa.learnwithchampak.live/python/pandas/"}}</script>
+<script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GSTQRQMLEE');</script>
+<link rel="stylesheet" href="/assets/css/theme.css"><link rel="stylesheet" href="/assets/css/pandas-course.css"></head>
+<body><div id="site-header" data-root="/"></div><main id="main-content"><div class="course-hero"><div class="eyebrow">Programmer's Picnic · Pandas 0 to Infinity · Level 4</div><h1>Sort, Group and Summarise DataFrames</h1><p class="lead">Move beyond individual records: rank students, compare cities, calculate course averages and produce clear reports using <code>sort_values()</code>, <code>groupby()</code> and <code>agg()</code>.</p><p class="meta">Beginner → Intermediate · 12 guided steps · No CSV or database needed</p><nav class="course-nav" aria-label="Pandas course navigation"><a href="/python/pandas/">Course index</a><a href="/python/pandas/00-create-dataframes/">0 · Create</a><a href="/python/pandas/01-search-dataframes/">1 · Search</a><a href="/python/pandas/02-change-dataframes/">2 · Change</a><a href="/python/pandas/03-clean-dataframes/">3 · Clean</a><a href="/python/pandas/04-sort-group-summarize/" aria-current="page">4 · Sort &amp; Group</a><a href="/python/pandas/sql/">Advanced: Pandas + SQL</a></nav></div><section class="lesson-panel"><h2>What you will build</h2><p>A student performance report containing an overall summary, top-five leaderboard, city and course summaries, city–course breakdown, and top two performers in each city.</p><p>All records are created directly in Python. There are <strong>12 students</strong>, and one student has no recorded mark. That missing value is intentional: it helps demonstrate that <code>count()</code> and <code>size()</code> answer different questions.</p>
+<div class="responsive-table"><table><thead><tr><th>City</th><th>Number of students</th><th>Students with marks</th><th>Mean marks</th></tr></thead><tbody><tr><td>Patna</td><td>3</td><td>2</td><td>90.50</td></tr><tr><td>Ranchi</td><td>4</td><td>4</td><td>62.75</td></tr><tr><td>Varanasi</td><td>5</td><td>5</td><td>80.40</td></tr></tbody></table></div>
+<p class="tip"><strong>Prerequisite:</strong> Level 3 covered cleaning. This level assumes scores have been validated. Missing scores are left as missing, never silently replaced with zero. Install Pandas with <code>python -m pip install pandas</code>.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+print(students)</code></pre></div></section><section class="lesson-panel"><h2>Learning route</h2><div class="course-nav"><a href="#step-1">Sorting</a><a href="#step-4">Quick summaries</a><a href="#step-7">GroupBy</a><a href="#step-9">Multiple groups</a><a href="#step-10">Transform</a><a href="#step-12">Reports</a><a href="#project">Mini-project</a><a href="#practice">Exercises</a></div><p>Copy any example to your Python editor. Every step recreates the same sample table, so the snippets work independently.</p></section><section class="lesson-panel" id="step-1"><div class="step-label">Step 1 of 12</div><h2>Sort a DataFrame with sort_values()</h2><p>Sort ascending or descending by a column. The returned table is sorted; the original is not changed unless you assign the result.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+by_marks = students.sort_values(&quot;Marks&quot;, ascending=False, na_position=&quot;last&quot;)
+print(by_marks[[&quot;Name&quot;, &quot;Marks&quot;]].head(5))
+print(&quot;Original first student:&quot;, students.loc[0, &quot;Name&quot;])</code></pre></div><p class="tip"><strong>Remember:</strong> Arjun's missing mark stays at the bottom with <code>na_position="last"</code>. Highest is Pooja with 95.</p></section><section class="lesson-panel" id="step-2"><div class="step-label">Step 2 of 12</div><h2>Sort by more than one column</h2><p>First sort by <code>City</code> alphabetically; within each city sort marks descending; use name to break ties consistently.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+ordered = students.sort_values(
+    [&quot;City&quot;, &quot;Marks&quot;, &quot;Name&quot;],
+    ascending=[True, False, True],
+    na_position=&quot;last&quot;
+)
+print(ordered[[&quot;City&quot;, &quot;Name&quot;, &quot;Marks&quot;]])</code></pre></div><p class="tip"><strong>Remember:</strong> The <code>ascending</code> list corresponds, in order, to the listed sort columns.</p></section><section class="lesson-panel" id="step-3"><div class="step-label">Step 3 of 12</div><h2>Sort by index and reset row labels</h2><p>Sorting values preserves each original row label. You can reset the labels for presentation, or use <code>sort_index()</code> to recover index order.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+ranked = students.sort_values(&quot;Marks&quot;, ascending=False)
+print(ranked[[&quot;Name&quot;, &quot;Marks&quot;]].head(3))
+print(ranked.sort_index()[[&quot;Name&quot;, &quot;Marks&quot;]].head(3))
+print(ranked.reset_index(drop=True)[[&quot;Name&quot;, &quot;Marks&quot;]].head(3))</code></pre></div><p class="tip"><strong>Remember:</strong> <code>sort_index()</code> orders row labels, not values. <code>reset_index(drop=True)</code> creates new consecutive labels.</p></section><section class="lesson-panel" id="step-4"><div class="step-label">Step 4 of 12</div><h2>Compute whole-column statistics</h2><p>You already know how to select columns. Now summarise them using <code>sum()</code>, <code>mean()</code>, <code>median()</code>, <code>min()</code>, <code>max()</code> and <code>describe()</code>.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+print(&quot;Mean marks:&quot;, round(students[&quot;Marks&quot;].mean(), 2))
+print(&quot;Median:&quot;, students[&quot;Marks&quot;].median())
+print(&quot;Highest:&quot;, students[&quot;Marks&quot;].max())
+print(&quot;Lowest:&quot;, students[&quot;Marks&quot;].min())
+print(&quot;Study hours:&quot;, students[&quot;Hours&quot;].sum())
+print(students[[&quot;Marks&quot;, &quot;Hours&quot;]].describe().round(2))</code></pre></div><p class="tip"><strong>Remember:</strong> For numeric data, these summary functions skip missing values by default. Mean marks are approximately 75.82.</p></section><section class="lesson-panel" id="step-5"><div class="step-label">Step 5 of 12</div><h2>Understand count() versus size()</h2><p><code>len(df)</code> and <code>groupby().size()</code> count rows; <code>count()</code> counts nonmissing entries in the selected column.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+print(&quot;All rows:&quot;, len(students))             # 12
+print(&quot;Marks recorded:&quot;, students[&quot;Marks&quot;].count())  # 11
+print(&quot;Missing marks:&quot;, students[&quot;Marks&quot;].isna().sum())  # 1
+print(&quot;City row counts:&quot;)
+print(students.groupby(&quot;City&quot;).size())
+print(&quot;City nonmissing marks:&quot;)
+print(students.groupby(&quot;City&quot;)[&quot;Marks&quot;].count())</code></pre></div><p class="tip"><strong>Remember:</strong> Patna has 3 students but only 2 recorded scores. Its average uses 2 scores—not a made-up zero for Arjun.</p></section><section class="lesson-panel" id="step-6"><div class="step-label">Step 6 of 12</div><h2>See how many students belong to each category</h2><p>Use <code>value_counts()</code> for simple frequencies. The example also introduces quick proportions.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+print(students[&quot;City&quot;].value_counts())
+print(students[&quot;Course&quot;].value_counts())
+print(&quot;City proportions:&quot;)
+print((students[&quot;City&quot;].value_counts(normalize=True) * 100).round(1))</code></pre></div><p class="tip"><strong>Remember:</strong> The category counts include only nonmissing category values unless you set <code>dropna=False</code>.</p></section><section class="lesson-panel" id="step-7"><div class="step-label">Step 7 of 12</div><h2>Group by a column</h2><p><code>groupby("City")</code> creates groups of rows that share the same city. Select <code>Marks</code> and calculate a separate average for each.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+by_city = students.groupby(&quot;City&quot;)[&quot;Marks&quot;].mean()
+print(by_city.round(2))
+print(&quot;Students per course:&quot;)
+print(students.groupby(&quot;Course&quot;).size())</code></pre></div><p class="tip"><strong>Remember:</strong> <code>groupby()</code> constructs grouped operations; it does not create multiple independent Python DataFrames by itself.</p></section><section class="lesson-panel" id="step-8"><div class="step-label">Step 8 of 12</div><h2>Calculate several statistics using agg()</h2><p>Named aggregation gives descriptive column names without complex renaming. With <code>as_index=False</code>, the group label stays a normal column.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+city_report = (
+    students.groupby(&quot;City&quot;, as_index=False)
+    .agg(
+        Students=(&quot;StudentID&quot;, &quot;size&quot;),
+        ValidMarks=(&quot;Marks&quot;, &quot;count&quot;),
+        AverageMarks=(&quot;Marks&quot;, &quot;mean&quot;),
+        BestMarks=(&quot;Marks&quot;, &quot;max&quot;),
+        TotalHours=(&quot;Hours&quot;, &quot;sum&quot;)
+    )
+    .round({&quot;AverageMarks&quot;: 2})
+    .sort_values(&quot;AverageMarks&quot;, ascending=False)
+)
+print(city_report)</code></pre></div><p class="tip"><strong>Remember:</strong> <code>size</code> is a row count, while <code>count</code> excludes missing values in the specified column.</p></section><section class="lesson-panel" id="step-9"><div class="step-label">Step 9 of 12</div><h2>Group by two columns</h2><p>Summaries can answer narrower questions such as: How many students took each course in each city?</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+city_course = (
+    students.groupby([&quot;City&quot;, &quot;Course&quot;], as_index=False)
+    .agg(
+        Students=(&quot;StudentID&quot;, &quot;size&quot;),
+        AverageMarks=(&quot;Marks&quot;, &quot;mean&quot;)
+    )
+    .round({&quot;AverageMarks&quot;: 2})
+)
+print(city_course)
+print(&quot;Total city-course combinations:&quot;, len(city_course))</code></pre></div><p class="tip"><strong>Remember:</strong> When a group has only missing marks, its mean is missing; do not treat it as zero.</p></section><section class="lesson-panel" id="step-10"><div class="step-label">Step 10 of 12</div><h2>Keep every row using transform()</h2><p><code>agg()</code> usually reduces each group to a summary row. <code>transform()</code> produces a value aligned to each original row—great for comparing people with their city average.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+students[&quot;CityAverage&quot;] = (
+    students.groupby(&quot;City&quot;)[&quot;Marks&quot;].transform(&quot;mean&quot;).round(2)
+)
+students[&quot;AboveCityAverage&quot;] = (
+    students[&quot;Marks&quot;].gt(students[&quot;CityAverage&quot;])
+    .where(students[&quot;Marks&quot;].notna(), pd.NA)
+)
+print(students[[&quot;Name&quot;, &quot;City&quot;, &quot;Marks&quot;, &quot;CityAverage&quot;, &quot;AboveCityAverage&quot;]])</code></pre></div><p class="tip"><strong>Remember:</strong> Arjun has no recorded mark: his comparison should remain missing instead of being classified as above or below average.</p></section><section class="lesson-panel" id="step-11"><div class="step-label">Step 11 of 12</div><h2>Find top performers in each group</h2><p>To get the top two in each city, sort first and then use <code>groupby().head(2)</code>. This is not the same as taking the top two in the entire table.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+top_two = (
+    students.sort_values(
+        [&quot;City&quot;, &quot;Marks&quot;, &quot;Name&quot;],
+        ascending=[True, False, True],
+        na_position=&quot;last&quot;
+    )
+    .groupby(&quot;City&quot;, sort=False)
+    .head(2)[[&quot;City&quot;, &quot;Name&quot;, &quot;Marks&quot;]]
+    .reset_index(drop=True)
+)
+print(top_two)</code></pre></div><p class="tip"><strong>Remember:</strong> The <code>head(2)</code> method returns up to two rows per group; if a group has fewer than two valid marks, filter them out first if required.</p></section><section class="lesson-panel" id="step-12"><div class="step-label">Step 12 of 12</div><h2>Put summaries together into a report</h2><p>Build separate tables for overall statistics, city averages and course averages. Sort each summary in a useful order.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+overview = {
+    &quot;Students&quot;: len(students),
+    &quot;RecordedMarks&quot;: students[&quot;Marks&quot;].count(),
+    &quot;AverageMarks&quot;: round(students[&quot;Marks&quot;].mean(), 2),
+    &quot;TotalHours&quot;: students[&quot;Hours&quot;].sum(),
+}
+courses = (
+    students.groupby(&quot;Course&quot;, as_index=False)
+    .agg(Students=(&quot;StudentID&quot;, &quot;size&quot;), AverageMarks=(&quot;Marks&quot;, &quot;mean&quot;))
+    .round({&quot;AverageMarks&quot;: 2})
+    .sort_values(&quot;AverageMarks&quot;, ascending=False)
+)
+print(&quot;Overview:&quot;, overview)
+print(courses)</code></pre></div><p class="tip"><strong>Remember:</strong> You can build a report entirely in memory. Data export and visualisation come later in the course.</p></section><section class="lesson-panel" id="project"><div class="step-label">Complete beginner project</div><h2>Student Performance Report — runnable Python project</h2><p>Run one standalone program to produce seven results: overview, top-five leaderboard, city summary, course summary, city-course groups, top two per city, and every student's comparison with their city average. It retains the original DataFrame and checks important input rules.</p>
+<p><a href="https://github.com/Programmer-s-Picnic/dsa/blob/main/python/pandas/04-sort-group-summarize/student_report.py">Open student_report.py</a> · <a href="https://github.com/Programmer-s-Picnic/dsa/blob/main/python/pandas/04-sort-group-summarize/test_student_report.py">View unit tests</a></p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>&quot;&quot;&quot;Pandas 0 to Infinity — Level 4: sorting and summarising DataFrames.
+
+Run directly: python python/pandas/04-sort-group-summarize/student_report.py
+No CSV, Excel or database file is required.
+&quot;&quot;&quot;
+
+import pandas as pd
+
+
+def make_students():
+    &quot;&quot;&quot;Create clean, validated sample data with one legitimately missing mark.&quot;&quot;&quot;
+    return pd.DataFrame([
+        (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+        (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+        (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+        (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+        (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+        (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+        (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+        (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+        (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+        (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+        (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+        (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+    ], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+
+def make_report(source):
+    &quot;&quot;&quot;Return independently useful report tables without changing input data.&quot;&quot;&quot;
+    df = source.copy(deep=True)
+    required = {&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;}
+    if not required.issubset(df.columns):
+        raise ValueError(&quot;Missing required report columns&quot;)
+    if df[&quot;StudentID&quot;].duplicated().any():
+        raise ValueError(&quot;StudentID must be unique; review duplicate records&quot;)
+    if not pd.api.types.is_numeric_dtype(df[&quot;Marks&quot;]):
+        raise TypeError(&quot;Marks must be numeric; clean input before grouping&quot;)
+    if not pd.api.types.is_numeric_dtype(df[&quot;Hours&quot;]):
+        raise TypeError(&quot;Hours must be numeric; clean input before grouping&quot;)
+    if not df[&quot;Marks&quot;].dropna().between(0, 100).all():
+        raise ValueError(&quot;Marks must be between 0 and 100&quot;)
+    if not df[&quot;Hours&quot;].dropna().ge(0).all():
+        raise ValueError(&quot;Hours cannot be negative&quot;)
+
+    leaderboard = (
+        df.sort_values(
+            [&quot;Marks&quot;, &quot;Name&quot;], ascending=[False, True], na_position=&quot;last&quot;
+        )[[&quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;]]
+        .head(5)
+        .reset_index(drop=True)
+    )
+
+    city_report = (
+        df.groupby(&quot;City&quot;, as_index=False)
+        .agg(
+            Students=(&quot;StudentID&quot;, &quot;size&quot;),
+            ValidMarks=(&quot;Marks&quot;, &quot;count&quot;),
+            AverageMarks=(&quot;Marks&quot;, &quot;mean&quot;),
+            HighestMarks=(&quot;Marks&quot;, &quot;max&quot;),
+            TotalHours=(&quot;Hours&quot;, &quot;sum&quot;),
+        )
+        .round({&quot;AverageMarks&quot;: 2})
+        .sort_values([&quot;AverageMarks&quot;, &quot;City&quot;], ascending=[False, True])
+        .reset_index(drop=True)
+    )
+
+    course_report = (
+        df.groupby(&quot;Course&quot;, as_index=False)
+        .agg(
+            Students=(&quot;StudentID&quot;, &quot;size&quot;),
+            ValidMarks=(&quot;Marks&quot;, &quot;count&quot;),
+            AverageMarks=(&quot;Marks&quot;, &quot;mean&quot;),
+            TotalHours=(&quot;Hours&quot;, &quot;sum&quot;),
+        )
+        .round({&quot;AverageMarks&quot;: 2})
+        .sort_values([&quot;AverageMarks&quot;, &quot;Course&quot;], ascending=[False, True])
+        .reset_index(drop=True)
+    )
+
+    city_course = (
+        df.groupby([&quot;City&quot;, &quot;Course&quot;], as_index=False)
+        .agg(Students=(&quot;StudentID&quot;, &quot;size&quot;), AverageMarks=(&quot;Marks&quot;, &quot;mean&quot;))
+        .round({&quot;AverageMarks&quot;: 2})
+        .sort_values([&quot;City&quot;, &quot;Course&quot;])
+        .reset_index(drop=True)
+    )
+
+    top_two_per_city = (
+        df.sort_values(
+            [&quot;City&quot;, &quot;Marks&quot;, &quot;Name&quot;],
+            ascending=[True, False, True],
+            na_position=&quot;last&quot;,
+        )
+        .groupby(&quot;City&quot;, sort=False)
+        .head(2)[[&quot;City&quot;, &quot;Name&quot;, &quot;Marks&quot;]]
+        .reset_index(drop=True)
+    )
+
+    compared = df.copy()
+    compared[&quot;CityAverage&quot;] = (
+        compared.groupby(&quot;City&quot;)[&quot;Marks&quot;].transform(&quot;mean&quot;).round(2)
+    )
+    compared[&quot;AboveCityAverage&quot;] = (
+        compared[&quot;Marks&quot;].gt(compared[&quot;CityAverage&quot;])
+        .where(compared[&quot;Marks&quot;].notna(), pd.NA)
+    )
+
+    overview = {
+        &quot;total_students&quot;: int(len(df)),
+        &quot;marks_recorded&quot;: int(df[&quot;Marks&quot;].count()),
+        &quot;marks_missing&quot;: int(df[&quot;Marks&quot;].isna().sum()),
+        &quot;overall_average&quot;: float(round(df[&quot;Marks&quot;].mean(), 2)),
+        &quot;total_study_hours&quot;: float(df[&quot;Hours&quot;].sum()),
+    }
+
+    return {
+        &quot;overview&quot;: overview,
+        &quot;leaderboard&quot;: leaderboard,
+        &quot;city_report&quot;: city_report,
+        &quot;course_report&quot;: course_report,
+        &quot;city_course&quot;: city_course,
+        &quot;top_two_per_city&quot;: top_two_per_city,
+        &quot;compared&quot;: compared,
+    }
+
+
+if __name__ == &quot;__main__&quot;:
+    students = make_students()
+    report = make_report(students)
+    print(&quot;OVERVIEW&quot;)
+    for label, value in report[&quot;overview&quot;].items():
+        print(f&quot;{label}: {value}&quot;)
+    for title in (
+        &quot;leaderboard&quot;, &quot;city_report&quot;, &quot;course_report&quot;,
+        &quot;city_course&quot;, &quot;top_two_per_city&quot;,
+    ):
+        print(&quot;\n&quot; + title.upper())
+        print(report[title].to_string(index=False))
+    print(&quot;\nCITY AVERAGE COMPARISON&quot;)
+    print(report[&quot;compared&quot;][[&quot;Name&quot;, &quot;City&quot;, &quot;Marks&quot;, &quot;CityAverage&quot;, &quot;AboveCityAverage&quot;]].to_string(index=False))
+</code></pre></div>
+<h3>Expected report highlights</h3><div class="responsive-table"><table><thead><tr><th>Indicator</th><th>Expected result</th></tr></thead><tbody>
+<tr><td>Students</td><td>12</td></tr><tr><td>Marks recorded / missing</td><td>11 / 1</td></tr><tr><td>Overall average</td><td>75.82</td></tr><tr><td>Total study hours</td><td>68</td></tr><tr><td>Top performer</td><td>Pooja — 95</td></tr><tr><td>Highest city average</td><td>Patna — 90.50, based on 2 recorded marks</td></tr><tr><td>Highest course average</td><td>SQL — 80.50</td></tr></tbody></table></div>
+<p>Run: <code>python python/pandas/04-sort-group-summarize/student_report.py</code>. Tests: <code>python -m unittest discover -s python/pandas/04-sort-group-summarize -p "test_*.py"</code>.</p></section><section class="challenge" id="practice"><h2>Practice tasks</h2><div class="checkpoint">
+<h3>Challenge 1 — Find the top three students</h3><p>Sort by marks descending and show only names and marks. Do not discard the missing score from the source data.</p>
+<details><summary>Reveal a solution</summary><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+answer = students.sort_values(&quot;Marks&quot;, ascending=False, na_position=&quot;last&quot;).head(3)
+print(answer[[&quot;Name&quot;, &quot;Marks&quot;]])</code></pre></div></details>
+<h3>Challenge 2 — Course attendance</h3><p>For each course, show the number of students and total hours, with the busiest course first.</p>
+<details><summary>Reveal a solution</summary><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+answer = (students.groupby(&quot;Course&quot;, as_index=False)
+          .agg(Students=(&quot;StudentID&quot;, &quot;size&quot;), TotalHours=(&quot;Hours&quot;, &quot;sum&quot;))
+          .sort_values(&quot;TotalHours&quot;, ascending=False))
+print(answer)</code></pre></div></details>
+<h3>Challenge 3 — Summaries with missing marks</h3><p>Group by city and compare total rows versus recorded marks. What explains the difference for Patna?</p>
+<details><summary>Reveal a solution</summary><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+answer = students.groupby(&quot;City&quot;).agg(
+    Students=(&quot;StudentID&quot;, &quot;size&quot;), ValidMarks=(&quot;Marks&quot;, &quot;count&quot;)
+)
+answer[&quot;MissingMarks&quot;] = answer[&quot;Students&quot;] - answer[&quot;ValidMarks&quot;]
+print(answer)  # Patna: 1 missing mark</code></pre></div></details>
+<h3>Challenge 4 — Above the city average</h3><p>Add each city's mean to individual rows and show students strictly above their city mean.</p>
+<details><summary>Reveal a solution</summary><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    (101, &quot;Asha&quot;, &quot;Varanasi&quot;, &quot;Python&quot;, 88, 6),
+    (102, &quot;Ravi&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 42, 4),
+    (103, &quot;Meera&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 8),
+    (104, &quot;Kabir&quot;, &quot;Patna&quot;, &quot;Pandas&quot;, 91, 7),
+    (105, &quot;Nina&quot;, &quot;Ranchi&quot;, &quot;Python&quot;, 84, 5),
+    (106, &quot;Ishan&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 67, 3),
+    (107, &quot;Tara&quot;, &quot;Patna&quot;, &quot;SQL&quot;, 90, 9),
+    (108, &quot;Rahul&quot;, &quot;Varanasi&quot;, &quot;Pandas&quot;, 76, 6),
+    (109, &quot;Sita&quot;, &quot;Ranchi&quot;, &quot;Pandas&quot;, 55, 4),
+    (110, &quot;Arjun&quot;, &quot;Patna&quot;, &quot;Python&quot;, None, 2),
+    (111, &quot;Pooja&quot;, &quot;Varanasi&quot;, &quot;SQL&quot;, 95, 8),
+    (112, &quot;Dev&quot;, &quot;Ranchi&quot;, &quot;SQL&quot;, 70, 6),
+], columns=[&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, &quot;Course&quot;, &quot;Marks&quot;, &quot;Hours&quot;])
+
+students[&quot;CityMean&quot;] = students.groupby(&quot;City&quot;)[&quot;Marks&quot;].transform(&quot;mean&quot;)
+print(students.loc[students[&quot;Marks&quot;] &gt; students[&quot;CityMean&quot;],
+                   [&quot;Name&quot;, &quot;City&quot;, &quot;Marks&quot;, &quot;CityMean&quot;]])</code></pre></div></details>
+</div></section><section class="resource"><h2>What you have learned</h2><p>Sort without changing the source; summarise numeric columns; distinguish row counts from valid entries; calculate category frequencies; group by one or more columns; create named aggregations; use <code>transform()</code>; and produce rankings for each group.</p><p>Read more in the official documentation: <a href="https://pandas.pydata.org/docs/user_guide/groupby.html">GroupBy guide</a> · <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html">sort_values</a> · <a href="https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.agg.html">GroupBy.agg</a>.</p><p><strong>Level 5 is next:</strong> merging, joining, concatenating and reshaping DataFrames. The separate <a href="/python/pandas/sql/">Pandas with SQL</a> lesson remains available as an advanced reference.</p></section><div class="actions"><a href="/python/pandas/03-clean-dataframes/">← Level 3: Cleaning</a><a href="/python/pandas/">Course index</a><a class="primary" href="/python/pandas/sql/">Advanced: SQL + Pandas →</a></div><p class="footer-note">Programmer's Picnic · Learn With Champak · Developed and maintained by Champak Roy · Practical Python lessons from 0 to infinity.</p></main><div id="site-footer" data-root="/"></div>
+<script defer src="/assets/js/include.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/pandas-course.js"></script></body></html>
