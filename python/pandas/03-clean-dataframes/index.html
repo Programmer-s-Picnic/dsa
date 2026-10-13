@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en-IN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pandas Lesson 3: Clean DataFrames — Missing Values, Duplicates and Validation | Learn With Champak</title>
+<meta name="description" content="Hands-on Pandas data cleaning from Level 0: create a messy DataFrame directly, detect missing values, remove true duplicates, clean text, correct numeric types, validate ranges and keep an audit trail."><meta name="keywords" content="pandas data cleaning, missing data pandas, drop_duplicates, pd.to_numeric, pandas validation, fillna, isna, DataFrame tutorial, learn with champak, beginner pandas"><meta name="author" content="Champak Roy"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#eaf5ff">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/python/pandas/03-clean-dataframes/"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><link rel="icon" href="/assets/icons/icon-192.png">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Programmer's Picnic by Champak Roy"><meta property="og:title" content="Pandas Lesson 3: Clean DataFrames — Missing Values, Duplicates and Validation"><meta property="og:description" content="Hands-on Pandas data cleaning from Level 0: create a messy DataFrame directly, detect missing values, remove true duplicates, clean text, correct numeric types, validate ranges and keep an audit trail."><meta property="og:url" content="https://dsa.learnwithchampak.live/python/pandas/03-clean-dataframes/"><meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pandas Lesson 3: Clean DataFrames — Missing Values, Duplicates and Validation"><meta name="twitter:description" content="Hands-on Pandas data cleaning from Level 0: create a messy DataFrame directly, detect missing values, remove true duplicates, clean text, correct numeric types, validate ranges and keep an audit trail."><meta name="twitter:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Pandas Lesson 3: Clean DataFrames — Missing Values, Duplicates and Validation","description":"Hands-on Pandas data cleaning from Level 0: create a messy DataFrame directly, detect missing values, remove true duplicates, clean text, correct numeric types, validate ranges and keep an audit trail.","url":"https://dsa.learnwithchampak.live/python/pandas/03-clean-dataframes/","learningResourceType":"Lesson","educationalLevel":"Beginner","isAccessibleForFree":true,"inLanguage":"en-IN","author":{"@type":"Person","name":"Champak Roy"},"provider":{"@type":"Organization","name":"Programmer's Picnic"},"isPartOf":{"@type":"Course","name":"Pandas from 0 to Infinity","url":"https://dsa.learnwithchampak.live/python/pandas/"}}</script><script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GSTQRQMLEE')</script>
+<link rel="stylesheet" href="/assets/css/theme.css"><link rel="stylesheet" href="/assets/css/pandas-course.css"></head><body>
+<div id="site-header" data-root="/"></div><main id="main-content"><div class="course-hero"><div class="eyebrow">Programmer's Picnic · Python / Pandas · Level 3</div><h1>Clean DataFrames: Missing Values, Duplicates and Validation</h1><p class="lead">Turn a messy student register into reliable data. Every example starts with a DataFrame created in Python — no CSV, Excel or database required.</p><p class="meta">From 0 to infinity · Practical lesson · Copy-and-run examples · Python 3 + pandas</p>
+<nav class="course-nav" aria-label="Pandas course navigation"><a href="/python/pandas/">Course index</a><a href="/python/pandas/00-create-dataframes/">0 · Create</a><a href="/python/pandas/01-search-dataframes/">1 · Search</a><a href="/python/pandas/02-change-dataframes/">2 · Change</a><a href="/python/pandas/03-clean-dataframes/" aria-current="page">3 · Clean</a><a href="/python/pandas/sql/">Later · SQL + Pandas</a></nav></div><section class="lesson-panel"><div class="step-label">Before we begin</div><h2>What makes data dirty?</h2><p>Real tables can contain <strong>missing marks, duplicates, inconsistent city spellings, spaces, numbers stored as text, impossible scores and incomplete records.</strong> Cleaning means applying explicit rules and recording what changed—not simply removing anything unusual.</p><div class="responsive-table"><table><thead><tr><th>StudentID</th><th>Name</th><th>City</th><th>Marks</th><th>Problem</th></tr></thead><tbody><tr><td>101</td><td>" Asha "</td><td>" Varanasi "</td><td>"88"</td><td>Extra spaces, string score</td></tr><tr><td>103</td><td>Meera</td><td>VARANASI</td><td>None</td><td>Missing score, repeated record</td></tr><tr><td>104</td><td>" Kabir"</td><td>Patna</td><td>"108"</td><td>Out-of-range mark</td></tr><tr><td>105</td><td>Nina</td><td>None</td><td>"-4"</td><td>Missing city, impossible mark</td></tr><tr><td>106</td><td>None</td><td>Ranchi</td><td>"absent"</td><td>Name missing, nonnumeric mark</td></tr></tbody></table></div><p>Run <code>python -m pip install pandas</code> once if needed. We preserve the original data with <code>.copy(deep=True)</code> before changing anything.</p><div class="callout"><strong>Cleaning policy for this exercise:</strong> Keep unknown marks missing and flag them. We may fill the optional attendance field with the observed median, but we record that decision. Remove only exact duplicate rows and rows without the required name. A repeated student ID with conflicting details must be reviewed rather than silently dropped.</div></section><section class="lesson-panel" id="step-1"><div class="step-label">Step 1 / 11</div><h2>Create and inspect deliberately messy data</h2><p>Start by building your own DataFrame. A snapshot makes the original available for later comparison.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+    {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+    {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+    {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+    {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+])
+
+original = students.copy(deep=True)
+print(students)
+print(&quot;Shape:&quot;, students.shape)     # (8, 5)
+print(students.dtypes)
+print(&quot;Missing per column:&quot;)
+print(students.isna().sum())</code></pre></div><p class="tip"><strong>Remember:</strong> <code>None</code> is missing; the string <code>"absent"</code> is not automatically treated as missing.</p></section><section class="lesson-panel" id="step-2"><div class="step-label">Step 2 / 11</div><h2>Find empty and missing cells</h2><p>Use <code>isna()</code> and <code>notna()</code> to search missing values. Blank strings containing spaces also require cleanup.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+    {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+    {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+    {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+    {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+])
+
+print(students.isna().sum())
+print(students.loc[students[&quot;Marks&quot;].isna(), [&quot;StudentID&quot;, &quot;Name&quot;, &quot;Marks&quot;]])
+print(&quot;Missing entries in the table:&quot;, int(students.isna().sum().sum()))
+print(&quot;Known marks:&quot;, students[&quot;Marks&quot;].notna().sum())</code></pre></div><p class="tip"><strong>Remember:</strong> <code>isna()</code> checks missing values; do not compare directly with <code>== None</code> or <code>== pd.NA</code>.</p></section><section class="lesson-panel" id="step-3"><div class="step-label">Step 3 / 11</div><h2>Standardise names and city names</h2><p>Trim leading/trailing spaces, convert blank strings to missing values and make city names consistent. Nullable string dtype preserves missing values.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+    {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+    {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+    {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+    {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+])
+
+for column in [&quot;Name&quot;, &quot;City&quot;]:
+    students[column] = (
+        students[column]
+        .astype(&quot;string&quot;)
+        .str.strip()
+        .replace(&quot;&quot;, pd.NA)
+        .str.title()
+    )
+print(students[[&quot;Name&quot;, &quot;City&quot;]])</code></pre></div><p class="tip"><strong>Remember:</strong> Title case is a convenient demonstration; real names may need special-case rules. Do not silently rewrite official identity records.</p></section><section class="lesson-panel" id="step-4"><div class="step-label">Step 4 / 11</div><h2>Detect and remove exact duplicates</h2><p>Check duplicate rows before removing them. Use the entire row for a safe demonstration; <code>StudentID</code> duplicates are a separate issue.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+    {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+    {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+    {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+    {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+])
+
+print(&quot;Repeated exact rows:&quot;, int(students.duplicated().sum()))
+print(students.loc[students.duplicated(keep=False)])
+students = students.drop_duplicates().copy()
+print(&quot;Rows after removal:&quot;, len(students))
+print(&quot;Repeated IDs:&quot;, students[&quot;StudentID&quot;].duplicated().sum())</code></pre></div><p class="tip"><strong>Remember:</strong> <code>drop_duplicates(subset=["StudentID"])</code> could discard a genuine conflicting record. Investigate key collisions instead.</p></section><section class="lesson-panel" id="step-5"><div class="step-label">Step 5 / 11</div><h2>Convert numbers stored as text</h2><p><code>pd.to_numeric(errors="coerce")</code> parses numeric strings and marks unparseable text, such as <code>"absent"</code>, as missing.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+    {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+    {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+    {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+    {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+])
+
+before = students[&quot;Marks&quot;].notna()
+students[&quot;Marks&quot;] = pd.to_numeric(students[&quot;Marks&quot;], errors=&quot;coerce&quot;)
+students[&quot;Attendance&quot;] = pd.to_numeric(students[&quot;Attendance&quot;], errors=&quot;coerce&quot;)
+failed_to_parse = before &amp; students[&quot;Marks&quot;].isna()
+print(&quot;Unparseable marks:&quot;, int(failed_to_parse.sum()))
+print(students.loc[failed_to_parse, [&quot;Name&quot;, &quot;Marks&quot;]])
+print(students.dtypes)</code></pre></div><p class="tip"><strong>Remember:</strong> Always check how many inputs became missing after conversion. Numeric-looking text might include legitimate formatting that needs explicit treatment.</p></section><section class="lesson-panel" id="step-6"><div class="step-label">Step 6 / 11</div><h2>Validate marks using business rules</h2><p>Student marks must lie between 0 and 100. Invalid entries must be flagged for investigation. This beginner example sets impossible scores to missing rather than guessing a correction.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+    {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+    {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+    {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+    {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+])
+
+students[&quot;Marks&quot;] = pd.to_numeric(students[&quot;Marks&quot;], errors=&quot;coerce&quot;)
+invalid = students[&quot;Marks&quot;].notna() &amp; ~students[&quot;Marks&quot;].between(0, 100)
+print(&quot;Invalid values found:&quot;)
+print(students.loc[invalid, [&quot;StudentID&quot;, &quot;Marks&quot;]])
+students.loc[invalid, &quot;Marks&quot;] = float(&quot;nan&quot;)
+print(students[[&quot;Name&quot;, &quot;Marks&quot;]])</code></pre></div><p class="tip"><strong>Remember:</strong> Never replace a score of 108 with 100 automatically unless a documented policy authorises that choice.</p></section><section class="lesson-panel" id="step-7"><div class="step-label">Step 7 / 11</div><h2>Decide which missing values to fill</h2><p>Different columns require different decisions: keep unknown marks missing, use <code>"Unknown"</code> for missing city, and optionally fill missing attendance with the observed median.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+    {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+    {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+    {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+    {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+])
+
+students[&quot;Marks&quot;] = pd.to_numeric(students[&quot;Marks&quot;], errors=&quot;coerce&quot;)
+invalid = students[&quot;Marks&quot;].notna() &amp; ~students[&quot;Marks&quot;].between(0, 100)
+students.loc[invalid, &quot;Marks&quot;] = float(&quot;nan&quot;)
+students[&quot;City&quot;] = students[&quot;City&quot;].astype(&quot;string&quot;).str.strip().replace(&quot;&quot;, pd.NA).fillna(&quot;Unknown&quot;)
+median = students[&quot;Attendance&quot;].median()
+if pd.notna(median):
+    students[&quot;Attendance&quot;] = students[&quot;Attendance&quot;].fillna(median)
+students[&quot;MarksMissing&quot;] = students[&quot;Marks&quot;].isna()
+print(students[[&quot;Name&quot;, &quot;City&quot;, &quot;Marks&quot;, &quot;MarksMissing&quot;, &quot;Attendance&quot;]])</code></pre></div><p class="tip"><strong>Remember:</strong> Imputation is a modelling choice. Record it and check whether median filling is appropriate for your problem.</p></section><section class="lesson-panel" id="step-8"><div class="step-label">Step 8 / 11</div><h2>Remove records missing required fields</h2><p>If a name is essential for the exercise, find incomplete records and remove them only after reviewing. Optional columns should not trigger row deletion automatically.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+    {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+    {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+    {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+    {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+])
+
+students[&quot;Name&quot;] = students[&quot;Name&quot;].astype(&quot;string&quot;).str.strip().replace(&quot;&quot;, pd.NA)
+print(&quot;Missing names:&quot;, students[&quot;Name&quot;].isna().sum())
+rejected = students.loc[students[&quot;Name&quot;].isna()].copy()
+students = students.dropna(subset=[&quot;Name&quot;]).copy()
+print(&quot;Rejected for review:\n&quot;, rejected[[&quot;StudentID&quot;, &quot;Name&quot;]])
+print(&quot;Remaining rows:&quot;, len(students))</code></pre></div><p class="tip"><strong>Remember:</strong> Use <code>dropna(subset=[...])</code> instead of <code>dropna()</code> if other fields may legitimately remain missing.</p></section><section class="lesson-panel" id="step-9"><div class="step-label">Step 9 / 11</div><h2>Validate the cleaned DataFrame</h2><p>Make your expectations executable with assertions. Review records if an identifier appears more than once with conflicting details.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+    {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+    {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+    {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+    {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+])
+
+students[&quot;Name&quot;] = students[&quot;Name&quot;].astype(&quot;string&quot;).str.strip().replace(&quot;&quot;, pd.NA)
+students = students.dropna(subset=[&quot;Name&quot;]).drop_duplicates().copy()
+students[&quot;Marks&quot;] = pd.to_numeric(students[&quot;Marks&quot;], errors=&quot;coerce&quot;)
+invalid = students[&quot;Marks&quot;].notna() &amp; ~students[&quot;Marks&quot;].between(0, 100)
+students.loc[invalid, &quot;Marks&quot;] = float(&quot;nan&quot;)
+assert students[&quot;StudentID&quot;].is_unique, &quot;Conflicting student IDs need review&quot;
+assert students[&quot;Name&quot;].notna().all()
+assert students[&quot;Marks&quot;].dropna().between(0, 100).all()
+print(&quot;All defined checks passed&quot;)</code></pre></div><p class="tip"><strong>Remember:</strong> Assertions are useful teaching checks; for production pipelines use explicit validation and error handling rather than relying only on assertions.</p></section><section class="lesson-panel" id="step-10"><div class="step-label">Step 10 / 11</div><h2>Identify outliers without deleting them</h2><p>A rare value can still be real. Use the IQR method as an exploratory flag only after checking the valid score range.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+    {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+    {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+    {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+    {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+])
+
+students[&quot;Marks&quot;] = pd.to_numeric(students[&quot;Marks&quot;], errors=&quot;coerce&quot;)
+valid = students.loc[students[&quot;Marks&quot;].between(0, 100), &quot;Marks&quot;]
+if len(valid) &gt;= 4:
+    q1, q3 = valid.quantile([0.25, 0.75])
+    iqr = q3 - q1
+    low, high = q1 - 1.5 * iqr, q3 + 1.5 * iqr
+    unusual = valid[(valid &lt; low) | (valid &gt; high)]
+    print(&quot;Potential outliers:&quot;, unusual.to_dict())
+else:
+    print(&quot;Too few valid scores for a useful IQR illustration&quot;)</code></pre></div><p class="tip"><strong>Remember:</strong> A small class register is not suitable for strong outlier conclusions. Flag, investigate, and retain records until you have evidence.</p></section><section class="lesson-panel" id="step-11"><div class="step-label">Step 11 / 11</div><h2>Check how much data changed</h2><p>An audit describes the number of records entering and leaving your process. It helps identify accidental losses.</p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame([
+    {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+    {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+    {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+    {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+    {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+    {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+])
+
+original = students.copy(deep=True)
+working = original.copy(deep=True)
+working[&quot;Name&quot;] = working[&quot;Name&quot;].astype(&quot;string&quot;).str.strip()
+working = working.drop_duplicates().dropna(subset=[&quot;Name&quot;]).copy()
+report = {
+    &quot;initial_rows&quot;: len(original),
+    &quot;remaining_rows&quot;: len(working),
+    &quot;removed_rows&quot;: len(original) - len(working),
+    &quot;original_missing_cells&quot;: int(original.isna().sum().sum())
+}
+print(report)
+assert original.equals(students)</code></pre></div><p class="tip"><strong>Remember:</strong> This is a simple audit. The complete project below also records conversions, invalid marks and filled values.</p></section><section class="lesson-panel" id="full-project"><div class="step-label">Complete mini-project</div><h2>Clean the entire class register with one function</h2><p>This fully runnable Python program creates eight records directly, works on a copy, reports every cleaning decision, validates the result and outputs six rows. <strong>It does not invent missing exam marks.</strong></p>
+<p><a href="https://github.com/Programmer-s-Picnic/dsa/blob/main/python/pandas/03-clean-dataframes/student_cleaning.py">Open the Python source</a> · <a href="https://github.com/Programmer-s-Picnic/dsa/blob/main/python/pandas/03-clean-dataframes/test_student_cleaning.py">View automated tests</a></p><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>&quot;&quot;&quot;Pandas 0 to Infinity, Level 3: DataFrame cleaning without external files.&quot;&quot;&quot;
+
+import pandas as pd
+
+
+def make_messy_students():
+    &quot;&quot;&quot;Create an intentionally messy but entirely in-memory class register.&quot;&quot;&quot;
+    return pd.DataFrame([
+        {&quot;StudentID&quot;: 101, &quot;Name&quot;: &quot; Asha &quot;, &quot;City&quot;: &quot; Varanasi &quot;, &quot;Marks&quot;: &quot;88&quot;, &quot;Attendance&quot;: 92},
+        {&quot;StudentID&quot;: 102, &quot;Name&quot;: &quot;Ravi&quot;, &quot;City&quot;: &quot;ranchi&quot;, &quot;Marks&quot;: &quot;42&quot;, &quot;Attendance&quot;: 75},
+        {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+        {&quot;StudentID&quot;: 103, &quot;Name&quot;: &quot;Meera&quot;, &quot;City&quot;: &quot;VARANASI&quot;, &quot;Marks&quot;: None, &quot;Attendance&quot;: 80},
+        {&quot;StudentID&quot;: 104, &quot;Name&quot;: &quot; Kabir&quot;, &quot;City&quot;: &quot;Patna&quot;, &quot;Marks&quot;: &quot;108&quot;, &quot;Attendance&quot;: 50},
+        {&quot;StudentID&quot;: 105, &quot;Name&quot;: &quot;Nina&quot;, &quot;City&quot;: None, &quot;Marks&quot;: &quot;-4&quot;, &quot;Attendance&quot;: None},
+        {&quot;StudentID&quot;: 106, &quot;Name&quot;: None, &quot;City&quot;: &quot;Ranchi&quot;, &quot;Marks&quot;: &quot;absent&quot;, &quot;Attendance&quot;: 65},
+        {&quot;StudentID&quot;: 107, &quot;Name&quot;: &quot;Rahul&quot;, &quot;City&quot;: &quot;varanasi&quot;, &quot;Marks&quot;: &quot;91&quot;, &quot;Attendance&quot;: 95},
+    ])
+
+
+def clean_students(raw):
+    &quot;&quot;&quot;Return a new cleaned table and an explicit audit; leave raw untouched.&quot;&quot;&quot;
+    df = raw.copy(deep=True)
+    audit = {&quot;input_rows&quot;: len(df), &quot;missing_before&quot;: df.isna().sum().to_dict()}
+
+    for column in (&quot;Name&quot;, &quot;City&quot;):
+        df[column] = df[column].astype(&quot;string&quot;).str.strip().replace(&quot;&quot;, pd.NA).str.title()
+
+    audit[&quot;exact_duplicate_rows_removed&quot;] = int(df.duplicated().sum())
+    df = df.drop_duplicates().copy()
+
+    supplied_marks = df[&quot;Marks&quot;].notna()
+    df[&quot;Marks&quot;] = pd.to_numeric(df[&quot;Marks&quot;], errors=&quot;coerce&quot;)
+    audit[&quot;unparseable_marks&quot;] = int((supplied_marks &amp; df[&quot;Marks&quot;].isna()).sum())
+
+    bad_marks = df[&quot;Marks&quot;].notna() &amp; ~df[&quot;Marks&quot;].between(0, 100)
+    audit[&quot;marks_outside_0_100&quot;] = int(bad_marks.sum())
+    df.loc[bad_marks, &quot;Marks&quot;] = float(&quot;nan&quot;)
+
+    df[&quot;Attendance&quot;] = pd.to_numeric(df[&quot;Attendance&quot;], errors=&quot;coerce&quot;)
+    bad_attendance = df[&quot;Attendance&quot;].notna() &amp; ~df[&quot;Attendance&quot;].between(0, 100)
+    audit[&quot;invalid_attendance&quot;] = int(bad_attendance.sum())
+    df.loc[bad_attendance, &quot;Attendance&quot;] = float(&quot;nan&quot;)
+
+    audit[&quot;rows_without_name_removed&quot;] = int(df[&quot;Name&quot;].isna().sum())
+    df = df.dropna(subset=[&quot;Name&quot;]).copy()
+    audit[&quot;cities_marked_unknown&quot;] = int(df[&quot;City&quot;].isna().sum())
+    df[&quot;City&quot;] = df[&quot;City&quot;].fillna(&quot;Unknown&quot;)
+
+    attendance_median = df[&quot;Attendance&quot;].median()
+    audit[&quot;attendance_filled_with_median&quot;] = (
+        int(df[&quot;Attendance&quot;].isna().sum()) if pd.notna(attendance_median) else 0
+    )
+    if pd.notna(attendance_median):
+        df[&quot;Attendance&quot;] = df[&quot;Attendance&quot;].fillna(attendance_median)
+    df[&quot;MarksMissing&quot;] = df[&quot;Marks&quot;].isna()
+    df = df.reset_index(drop=True)
+
+    assert df[&quot;StudentID&quot;].is_unique, &quot;Review conflicting StudentID records manually&quot;
+    assert df[&quot;Name&quot;].notna().all(), &quot;Name is required&quot;
+    assert df[&quot;Marks&quot;].dropna().between(0, 100).all(), &quot;Invalid marks remain&quot;
+    assert df[&quot;Attendance&quot;].dropna().between(0, 100).all(), &quot;Invalid attendance remains&quot;
+
+    audit[&quot;output_rows&quot;] = len(df)
+    audit[&quot;unresolved_marks&quot;] = int(df[&quot;MarksMissing&quot;].sum())
+    return df, audit
+
+
+if __name__ == &quot;__main__&quot;:
+    original = make_messy_students()
+    cleaned, report = clean_students(original)
+    print(&quot;Original records:\n&quot;, original.to_string(index=False))
+    print(&quot;\nCleaned records:\n&quot;, cleaned.to_string(index=False))
+    print(&quot;\nCleaning audit:&quot;)
+    for key, value in report.items():
+        print(f&quot;- {key}: {value}&quot;)
+</code></pre></div>
+<h3>Expected audit highlights</h3><div class="responsive-table"><table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Input rows</td><td>8</td></tr><tr><td>Exact duplicate removed</td><td>1</td></tr><tr><td>Row with missing required name removed</td><td>1</td></tr><tr><td>Impossible marks flagged</td><td>2</td></tr><tr><td>Unparseable mark identified</td><td>1</td></tr><tr><td>Attendance filled using median</td><td>1</td></tr><tr><td>Output rows</td><td>6</td></tr><tr><td>Unknown marks retained as missing</td><td>3</td></tr></tbody></table></div>
+<p class="tip"><strong>Practice safely:</strong> run <code>python python/pandas/03-clean-dataframes/student_cleaning.py</code>. Run the repository tests with <code>python -m unittest discover -s python/pandas/03-clean-dataframes -p "test_*.py"</code>. For real school data, keep a separate reviewed-rejection log and the raw input in secure storage.</p></section><section class="challenge"><h2>Your turn — clean a mini shop table</h2><p>Construct a DataFrame with <code>Item</code>, <code>Price</code> and <code>Stock</code>. Introduce one repeated row, one blank item, the text <code>"free"</code> in Price, and a negative stock value. Remove exact duplicates, mark unparseable prices as missing, flag negative stock and print an audit.</p><details><summary>Show a worked solution</summary><div class="example"><div class="example-bar"><span>Python · pandas</span><button type="button" data-copy-code aria-label="Copy Python code">Copy code</button></div><pre><code>import pandas as pd
+
+shop = pd.DataFrame({
+    &quot;Item&quot;: [&quot; Pen &quot;, &quot;Notebook&quot;, &quot;Notebook&quot;, &quot;&quot;, &quot;Eraser&quot;],
+    &quot;Price&quot;: [&quot;10&quot;, &quot;50&quot;, &quot;50&quot;, &quot;5&quot;, &quot;free&quot;],
+    &quot;Stock&quot;: [30, 12, 12, 4, -3]
+})
+raw = shop.copy(deep=True)
+shop[&quot;Item&quot;] = shop[&quot;Item&quot;].astype(&quot;string&quot;).str.strip().replace(&quot;&quot;, pd.NA)
+duplicates = int(shop.duplicated().sum())
+shop = shop.drop_duplicates().dropna(subset=[&quot;Item&quot;]).copy()
+shop[&quot;Price&quot;] = pd.to_numeric(shop[&quot;Price&quot;], errors=&quot;coerce&quot;)
+bad_stock = shop[&quot;Stock&quot;] &lt; 0
+shop.loc[bad_stock, &quot;Stock&quot;] = pd.NA
+print(shop)
+print({&quot;raw_rows&quot;: len(raw), &quot;duplicates&quot;: duplicates,
+       &quot;remaining_rows&quot;: len(shop), &quot;missing_prices&quot;: int(shop[&quot;Price&quot;].isna().sum()),
+       &quot;missing_stock&quot;: int(shop[&quot;Stock&quot;].isna().sum())})
+assert raw.shape[0] == 5</code></pre></div></details></section><section class="resource"><h2>What you should now understand</h2><p>Inspect → find missing values → clean text → identify duplicates → convert data types → validate numerical ranges → decide which fields may be filled → preserve an audit → verify the final table.</p><p>Official documentation: <a href="https://pandas.pydata.org/docs/user_guide/missing_data.html">Working with missing data</a> · <a href="https://pandas.pydata.org/docs/reference/api/pandas.to_numeric.html">to_numeric</a> · <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html">drop_duplicates</a>.</p><p><strong>Level 4 is next:</strong> sorting, grouping, summaries, <code>groupby()</code> and <code>agg()</code>. These are on the roadmap, not yet published here.</p></section>
+<div class="actions"><a href="/python/pandas/02-change-dataframes/">← Previous lesson</a><a href="/python/pandas/">Course index</a><a class="primary" href="/python/pandas/sql/">Advanced reference: Pandas + SQL →</a></div><p class="footer-note">Part of Programmer's Picnic · Developed and maintained by Champak Roy · All lesson data is created directly in Python.</p></main><div id="site-footer" data-root="/"></div>
+<script defer src="/assets/js/include.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/pandas-course.js"></script></body></html>
