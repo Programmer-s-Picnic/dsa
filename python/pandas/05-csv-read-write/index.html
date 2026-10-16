@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en-IN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pandas Lesson 5: Read and Write CSV Files with read_csv() and to_csv() | Learn With Champak</title>
+<meta name="description" content="Learn Pandas CSV input and output from 0 to infinity: read_csv(), to_csv(), paths, headers, separators, columns, indexes, data types, dates, missing values, encodings, bad rows, chunks and safe export workflows.">
+<meta name="keywords" content="pandas read_csv, pandas to_csv, read csv python, write csv pandas, CSV pandas tutorial, index false, usecols, dtype, parse_dates, chunksize, encoding, Learn With Champak">
+<meta name="author" content="Champak Roy"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#eaf5ff">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/python/pandas/05-csv-read-write/"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><link rel="icon" href="/assets/icons/icon-192.png">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Programmer's Picnic by Champak Roy">
+<meta property="og:title" content="Pandas Lesson 5: Read and Write CSV Files">
+<meta property="og:description" content="Master read_csv() and to_csv(): paths, headers, separators, data types, dates, missing values, encodings, chunks and safe exports.">
+<meta property="og:url" content="https://dsa.learnwithchampak.live/python/pandas/05-csv-read-write/">
+<meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pandas Lesson 5: Read and Write CSV Files">
+<meta name="twitter:description" content="A complete beginner-to-advanced lesson on Pandas read_csv() and DataFrame.to_csv().">
+<meta name="twitter:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Pandas Lesson 5: Read and Write CSV Files","description":"A detailed 0-to-infinity lesson on reading CSV files into Pandas and exporting DataFrames back to CSV safely.","url":"https://dsa.learnwithchampak.live/python/pandas/05-csv-read-write/","inLanguage":"en-IN","isAccessibleForFree":true,"educationalLevel":"Beginner to Intermediate","provider":{"@type":"Organization","name":"Programmer's Picnic"},"author":{"@type":"Person","name":"Champak Roy"}}</script>
+<script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GSTQRQMLEE');</script>
+<link rel="stylesheet" href="/assets/css/theme.css"><link rel="stylesheet" href="/assets/css/pandas-course.css">
+<style>
+.parameter-table td:first-child{white-space:nowrap;font-family:Consolas,monospace;font-weight:700}.mini-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}.mini-flow div{padding:12px;border:1px solid #b9dcf5;border-radius:12px;background:#f5fbff;text-align:center;font-weight:700}.warning-box{padding:16px;border-left:6px solid #d97706;background:#fff7dd;border-radius:10px;margin:16px 0}.success-box{padding:16px;border-left:6px solid #059669;background:#eafff3;border-radius:10px;margin:16px 0}@media(max-width:800px){.mini-flow{grid-template-columns:1fr}}
+</style></head>
+<body><div id="site-header" data-root="/"></div><main id="main-content">
+<div class="course-hero"><div class="eyebrow">Programmer's Picnic · Pandas 0 to Infinity · Level 5</div>
+<h1>Read from and Write to CSV with Pandas</h1>
+<p class="lead">Move your DataFrames into the real world. Learn how CSV files work, how <code>pd.read_csv()</code> turns them into DataFrames, and how <code>DataFrame.to_csv()</code> saves your processed data safely.</p>
+<p class="meta">Beginner → Intermediate · Full CSV workflow · Practical files included</p>
+<nav class="course-nav" aria-label="Pandas course navigation"><a href="/python/pandas/">Course index</a><a href="/python/pandas/00-create-dataframes/">0 · Create</a><a href="/python/pandas/01-search-dataframes/">1 · Search</a><a href="/python/pandas/02-change-dataframes/">2 · Change</a><a href="/python/pandas/03-clean-dataframes/">3 · Clean</a><a href="/python/pandas/04-sort-group-summarize/">4 · Sort &amp; Group</a><a href="/python/pandas/05-csv-read-write/" aria-current="page">5 · CSV I/O</a><a href="/python/pandas/sql/">Advanced: Pandas + SQL</a></nav></div>
+
+<section class="lesson-panel"><h2>1. Why CSV matters</h2>
+<p>A CSV file is a plain-text table. Each line normally represents one row and commas normally separate the fields. CSV is common because spreadsheets, websites, databases, government portals and business systems can all exchange it.</p>
+<div class="example"><div class="example-bar"><span>students.csv</span></div><pre><code>Name,City,Marks,Course,Joined
+Asha,Varanasi,88,Python,2026-09-01
+Ravi,Ranchi,42,Python,2026-09-03
+Meera,Varanasi,76,AI-ML,2026-09-05
+Kabir,Patna,91,AI-ML,2026-09-08
+Nisha,Ranchi,,Python,2026-09-10</code></pre></div>
+<p><a href="./students.csv" download>Download the lesson's students.csv file</a></p>
+<div class="mini-flow"><div>CSV file</div><div>pd.read_csv()</div><div>DataFrame</div><div>clean / analyse</div><div>to_csv()</div></div>
+<p class="tip"><strong>Mental model:</strong> <code>read_csv()</code> is an input operation. <code>to_csv()</code> is an output operation. Pandas sits between the file and your analysis.</p>
+</section>
+
+<section class="lesson-panel"><h2>2. Your first read_csv()</h2>
+<div class="example"><div class="example-bar"><span>Python · simplest form</span><button type="button" data-copy-code>Copy code</button></div><pre><code>import pandas as pd
+
+df = pd.read_csv("students.csv")
+print(df)</code></pre></div>
+<p>If the file is in the current working directory, its filename is enough. Pandas reads the first row as column names by default and infers data types for the other columns.</p>
+<div class="example"><div class="example-bar"><span>Inspect immediately</span><button type="button" data-copy-code>Copy code</button></div><pre><code>print(df.head())
+print(df.shape)
+print(df.columns)
+print(df.dtypes)
+df.info()</code></pre></div>
+<div class="success-box"><strong>Good habit:</strong> never assume a CSV imported correctly merely because no exception occurred. Check its shape, columns, data types and a few rows.</div>
+</section>
+
+<section class="lesson-panel"><h2>3. File paths: the most common beginner problem</h2>
+<p>Python resolves a relative path from the program's <strong>current working directory</strong>, which is not always the folder containing your script.</p>
+<div class="example"><div class="example-bar"><span>Find where Python is looking</span><button type="button" data-copy-code>Copy code</button></div><pre><code>from pathlib import Path
+
+print(Path.cwd())</code></pre></div>
+<p>For reliable project code, build the path relative to the script:</p>
+<div class="example"><div class="example-bar"><span>Safer path handling</span><button type="button" data-copy-code>Copy code</button></div><pre><code>from pathlib import Path
+import pandas as pd
+
+HERE = Path(__file__).resolve().parent
+csv_path = HERE / "students.csv"
+
+df = pd.read_csv(csv_path)
+print(df.head())</code></pre></div>
+<p>You can also read a public HTTP(S) CSV URL directly when the server exposes an actual CSV resource:</p>
+<div class="example"><div class="example-bar"><span>Read from URL</span><button type="button" data-copy-code>Copy code</button></div><pre><code>url = "https://example.com/data.csv"
+df = pd.read_csv(url)</code></pre></div>
+</section>
+
+<section class="lesson-panel"><h2>4. Understand the main read_csv() parameters</h2>
+<div class="responsive-table"><table class="parameter-table"><thead><tr><th>Parameter</th><th>Why you use it</th><th>Example</th></tr></thead><tbody>
+<tr><td>sep</td><td>Change the delimiter</td><td><code>sep=";"</code></td></tr>
+<tr><td>header</td><td>Tell Pandas which row contains column names</td><td><code>header=None</code></td></tr>
+<tr><td>names</td><td>Supply your own column names</td><td><code>names=["Name","Marks"]</code></td></tr>
+<tr><td>usecols</td><td>Read only required columns</td><td><code>usecols=["Name","Marks"]</code></td></tr>
+<tr><td>index_col</td><td>Use a column as the DataFrame index</td><td><code>index_col="Name"</code></td></tr>
+<tr><td>dtype</td><td>Control data types during import</td><td><code>dtype={"Pincode":"string"}</code></td></tr>
+<tr><td>parse_dates</td><td>Parse selected columns as dates</td><td><code>parse_dates=["Joined"]</code></td></tr>
+<tr><td>na_values</td><td>Recognise extra missing-value markers</td><td><code>na_values=["NA","missing","-"]</code></td></tr>
+<tr><td>skiprows</td><td>Ignore unwanted starting or selected rows</td><td><code>skiprows=2</code></td></tr>
+<tr><td>nrows</td><td>Read only a limited number of rows</td><td><code>nrows=1000</code></td></tr>
+<tr><td>encoding</td><td>Choose text encoding</td><td><code>encoding="utf-8"</code></td></tr>
+<tr><td>on_bad_lines</td><td>Control malformed rows</td><td><code>on_bad_lines="skip"</code></td></tr>
+<tr><td>chunksize</td><td>Read large files in pieces</td><td><code>chunksize=100_000</code></td></tr>
+</tbody></table></div>
+</section>
+
+<section class="lesson-panel"><h2>5. Different separators</h2>
+<p>Despite its name, <code>read_csv()</code> can read many delimited text files.</p>
+<div class="example"><div class="example-bar"><span>Semicolon-separated</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv("students_semicolon.csv", sep=";")</code></pre></div>
+<div class="example"><div class="example-bar"><span>Tab-separated</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv("students.tsv", sep="\t")</code></pre></div>
+<p>If you genuinely do not know the separator, <code>sep=None</code> can ask the Python parsing engine to detect it:</p>
+<div class="example"><div class="example-bar"><span>Delimiter detection</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv("unknown.txt", sep=None, engine="python")</code></pre></div>
+</section>
+
+<section class="lesson-panel"><h2>6. CSV files without headers</h2>
+<p>Suppose a file contains:</p><pre><code>Asha,Varanasi,88
+Ravi,Ranchi,42</code></pre>
+<p>If you read it normally, Pandas may treat the first record as headings. Use <code>header=None</code>:</p>
+<div class="example"><div class="example-bar"><span>No header row</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv("students_no_header.csv", header=None)
+print(df)</code></pre></div>
+<p>Better still, name the columns while reading:</p>
+<div class="example"><div class="example-bar"><span>Supply names</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv(
+    "students_no_header.csv",
+    header=None,
+    names=["Name", "City", "Marks"]
+)</code></pre></div>
+</section>
+
+<section class="lesson-panel"><h2>7. Read only what you need with usecols</h2>
+<p>Large CSV files often contain columns that your program does not need. Restricting columns can reduce memory usage and simplify later work.</p>
+<div class="example"><div class="example-bar"><span>Select columns during import</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv(
+    "students.csv",
+    usecols=["Name", "City", "Marks"]
+)
+print(df)</code></pre></div>
+<p>You may also pass column positions, but names are usually clearer and safer for maintainable code.</p>
+</section>
+
+<section class="lesson-panel"><h2>8. Control data types with dtype</h2>
+<p>Automatic type inference is useful, but identifiers such as phone numbers, pin codes and account-like codes often need to remain strings. A value such as <code>012345</code> should not silently become the integer <code>12345</code>.</p>
+<div class="example"><div class="example-bar"><span>Specify types</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv(
+    "customers.csv",
+    dtype={
+        "CustomerId": "string",
+        "Pincode": "string",
+        "Phone": "string"
+    }
+)</code></pre></div>
+<div class="warning-box"><strong>Rule:</strong> use numeric types for quantities you calculate with; use strings for identifiers, even when they contain only digits.</div>
+</section>
+
+<section class="lesson-panel"><h2>9. Read dates correctly</h2>
+<div class="example"><div class="example-bar"><span>Parse a date column</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv(
+    "students.csv",
+    parse_dates=["Joined"]
+)
+
+print(df.dtypes)
+print(df["Joined"].dt.year)</code></pre></div>
+<p>Once a column is a datetime type, Pandas date operations become available through <code>.dt</code>.</p>
+<p>For a known consistent format you can also specify <code>date_format</code> in current Pandas versions:</p>
+<div class="example"><div class="example-bar"><span>Known date format</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv(
+    "students.csv",
+    parse_dates=["Joined"],
+    date_format="%Y-%m-%d"
+)</code></pre></div>
+</section>
+
+<section class="lesson-panel"><h2>10. Missing values during import</h2>
+<p>Pandas recognises many common missing-value representations automatically. Real files, however, may use custom values such as <code>missing</code>, <code>-</code>, or <code>not given</code>.</p>
+<div class="example"><div class="example-bar"><span>Custom NA markers</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv(
+    "students.csv",
+    na_values=["missing", "-", "not given"]
+)
+
+print(df.isna().sum())</code></pre></div>
+<p>You can also configure missing markers per column with a dictionary.</p>
+</section>
+
+<section class="lesson-panel"><h2>11. index_col: when a CSV column should become the index</h2>
+<div class="example"><div class="example-bar"><span>Use a unique ID as index</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv(
+    "students_with_id.csv",
+    index_col="StudentId"
+)</code></pre></div>
+<p>Do this only when the field genuinely behaves like a row label. Do not turn an ordinary analytical column into the index merely to hide it.</p>
+</section>
+
+<section class="lesson-panel"><h2>12. Skipping rows, comments and limited previews</h2>
+<div class="example"><div class="example-bar"><span>Useful import controls</span><button type="button" data-copy-code>Copy code</button></div><pre><code># Read only the first 100 data rows
+preview = pd.read_csv("large.csv", nrows=100)
+
+# Skip two metadata lines before the real table
+df = pd.read_csv("report.csv", skiprows=2)
+
+# Ignore lines beginning with #
+df = pd.read_csv("report.csv", comment="#")</code></pre></div>
+<p>These are useful for exported reports that contain titles or explanatory lines before the actual data.</p>
+</section>
+
+<section class="lesson-panel"><h2>13. Encoding problems</h2>
+<p>CSV is text, so the character encoding matters. UTF-8 is the safest modern default when you control the file. Hindi text, names with accents and symbols require an encoding capable of representing them.</p>
+<div class="example"><div class="example-bar"><span>Explicit UTF-8</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv("students.csv", encoding="utf-8")</code></pre></div>
+<p>If a legacy file fails with <code>UnicodeDecodeError</code>, first determine its actual encoding rather than randomly trying encodings. A common Windows-origin file may use a Windows code page, but the correct choice depends on the source.</p>
+<div class="warning-box"><strong>Do not “fix” encoding by deleting characters.</strong> Identify the source encoding, read it correctly, then export clean UTF-8 if possible.</div>
+</section>
+
+<section class="lesson-panel"><h2>14. Malformed rows and on_bad_lines</h2>
+<p>A damaged row can contain too many separators. By default Pandas raises an error, which is often exactly what you want because silent data loss is dangerous.</p>
+<div class="example"><div class="example-bar"><span>Skip only when policy allows it</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv(
+    "messy.csv",
+    on_bad_lines="skip"
+)</code></pre></div>
+<p>Use skipping only when you intentionally accept losing malformed records and can audit what happened. For important data, inspect and repair the source instead.</p>
+</section>
+
+<section class="lesson-panel"><h2>15. Large CSV files: chunksize</h2>
+<p><code>low_memory=True</code> does not mean the final DataFrame remains tiny. If the full file is too large, process chunks.</p>
+<div class="example"><div class="example-bar"><span>Chunk processing</span><button type="button" data-copy-code>Copy code</button></div><pre><code>total = 0
+
+for chunk in pd.read_csv("sales.csv", chunksize=100_000):
+    total += chunk["Amount"].sum()
+
+print("Total sales:", total)</code></pre></div>
+<p>Each <code>chunk</code> is a DataFrame. You can filter, aggregate and discard it before reading the next part.</p>
+</section>
+
+<section class="lesson-panel"><h2>16. Your first to_csv()</h2>
+<p>After cleaning or analysing data, save the DataFrame:</p>
+<div class="example"><div class="example-bar"><span>Save CSV</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df.to_csv("students_output.csv")</code></pre></div>
+<p>By default, Pandas writes the DataFrame index too. For most ordinary interchange files, you do not want that extra column:</p>
+<div class="example"><div class="example-bar"><span>Most common export</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df.to_csv("students_output.csv", index=False)</code></pre></div>
+<div class="success-box"><strong>Remember:</strong> <code>index=False</code> is one of the most important <code>to_csv()</code> options for beginner projects.</div>
+</section>
+
+<section class="lesson-panel"><h2>17. Main to_csv() parameters</h2>
+<div class="responsive-table"><table class="parameter-table"><thead><tr><th>Parameter</th><th>Purpose</th><th>Example</th></tr></thead><tbody>
+<tr><td>index</td><td>Write or omit the DataFrame index</td><td><code>index=False</code></td></tr>
+<tr><td>columns</td><td>Export only selected columns</td><td><code>columns=["Name","Marks"]</code></td></tr>
+<tr><td>sep</td><td>Choose delimiter</td><td><code>sep=";"</code></td></tr>
+<tr><td>header</td><td>Include or omit column names</td><td><code>header=False</code></td></tr>
+<tr><td>na_rep</td><td>Choose text used for missing values</td><td><code>na_rep="NA"</code></td></tr>
+<tr><td>float_format</td><td>Control float formatting</td><td><code>float_format="%.2f"</code></td></tr>
+<tr><td>date_format</td><td>Control date text format</td><td><code>date_format="%Y-%m-%d"</code></td></tr>
+<tr><td>encoding</td><td>Choose output encoding</td><td><code>encoding="utf-8"</code></td></tr>
+<tr><td>mode</td><td>Write or append</td><td><code>mode="a"</code></td></tr>
+<tr><td>compression</td><td>Compress output</td><td><code>compression="gzip"</code></td></tr>
+</tbody></table></div>
+</section>
+
+<section class="lesson-panel"><h2>18. Export selected columns</h2>
+<div class="example"><div class="example-bar"><span>Only public report columns</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df.to_csv(
+    "public_results.csv",
+    columns=["Name", "Course", "Marks"],
+    index=False
+)</code></pre></div>
+<p>This is useful when your working DataFrame contains internal fields that should not be published.</p>
+</section>
+
+<section class="lesson-panel"><h2>19. Missing values and number formatting on export</h2>
+<div class="example"><div class="example-bar"><span>Readable export</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df.to_csv(
+    "report.csv",
+    index=False,
+    na_rep="Not Available",
+    float_format="%.2f"
+)</code></pre></div>
+<p>This changes the text representation in the CSV; it does not modify the DataFrame itself.</p>
+</section>
+
+<section class="lesson-panel"><h2>20. Append mode: powerful but dangerous</h2>
+<p><code>mode="a"</code> appends instead of replacing a file. If you append a DataFrame with its header every time, column names will be repeated in the middle of the file.</p>
+<div class="example"><div class="example-bar"><span>Append rows correctly</span><button type="button" data-copy-code>Copy code</button></div><pre><code>new_rows.to_csv(
+    "history.csv",
+    mode="a",
+    header=False,
+    index=False
+)</code></pre></div>
+<div class="warning-box"><strong>Be careful:</strong> appending is not a substitute for a database. Concurrent writers, duplicate records and partial writes need deliberate handling.</div>
+</section>
+
+<section class="lesson-panel"><h2>21. CSV quoting: why commas inside text do not necessarily break a file</h2>
+<p>A field such as <code>Varanasi, Uttar Pradesh</code> contains a comma. Correct CSV writers quote fields when required, for example:</p>
+<pre><code>Name,Address
+Asha,"Varanasi, Uttar Pradesh"</code></pre>
+<p>Pandas uses standard CSV quoting rules. Avoid manually constructing CSV rows with string concatenation.</p>
+</section>
+
+<section class="lesson-panel"><h2>22. Round trip: write, read again, verify</h2>
+<p>A reliable export workflow does not stop at “file created”. Read the exported file back and validate it.</p>
+<div class="example"><div class="example-bar"><span>Round-trip validation</span><button type="button" data-copy-code>Copy code</button></div><pre><code>output = "students_clean.csv"
+
+df.to_csv(output, index=False)
+
+check = pd.read_csv(output)
+
+print(check.head())
+print(check.shape)
+print(check.columns.tolist())
+
+assert len(check) == len(df)
+assert check.columns.tolist() == df.columns.tolist()</code></pre></div>
+<p>Be aware that CSV does not preserve every Pandas data type perfectly. Dates and nullable types may need explicit parsing when read back.</p>
+</section>
+
+<section class="lesson-panel"><h2>23. A complete practical workflow</h2>
+<div class="example"><div class="example-bar"><span>Read → inspect → clean → analyse → save → verify</span><button type="button" data-copy-code>Copy code</button></div><pre><code>from pathlib import Path
+import pandas as pd
+
+HERE = Path(__file__).resolve().parent
+source = HERE / "students.csv"
+output = HERE / "students_clean.csv"
+
+# 1. Read
+df = pd.read_csv(
+    source,
+    dtype={"Name": "string", "City": "string", "Course": "string"},
+    parse_dates=["Joined"]
+)
+
+# 2. Inspect
+print(df.head())
+print(df.info())
+print(df.isna().sum())
+
+# 3. Clean
+df["Name"] = df["Name"].str.strip()
+df["City"] = df["City"].str.strip()
+df["Marks"] = pd.to_numeric(df["Marks"], errors="coerce")
+
+valid_marks = df["Marks"].between(0, 100) | df["Marks"].isna()
+if not valid_marks.all():
+    raise ValueError("Marks outside 0..100 found")
+
+# 4. Analyse
+print(df.groupby("City", dropna=False)["Marks"].mean())
+
+# 5. Save
+df.to_csv(
+    output,
+    index=False,
+    na_rep="",
+    date_format="%Y-%m-%d",
+    encoding="utf-8"
+)
+
+# 6. Verify
+check = pd.read_csv(output, parse_dates=["Joined"])
+assert check.shape == df.shape
+assert check.columns.tolist() == df.columns.tolist()
+
+print("Saved and verified:", output)</code></pre></div>
+<p><a href="./csv_io_demo.py">Open the complete runnable Python file</a></p>
+</section>
+
+<section class="lesson-panel"><h2>24. Common mistakes and how to diagnose them</h2>
+<div class="responsive-table"><table><thead><tr><th>Symptom</th><th>Likely reason</th><th>What to check</th></tr></thead><tbody>
+<tr><td><code>FileNotFoundError</code></td><td>Wrong working directory or path</td><td><code>Path.cwd()</code>, filename and folder</td></tr>
+<tr><td>One giant column</td><td>Wrong separator</td><td><code>sep</code></td></tr>
+<tr><td>First data row became headings</td><td>No header in source</td><td><code>header=None</code> and <code>names</code></td></tr>
+<tr><td><code>Unnamed: 0</code> after re-reading</td><td>Index was saved to CSV</td><td>Use <code>index=False</code> when exporting</td></tr>
+<tr><td>Leading zero disappears</td><td>Identifier inferred as integer</td><td>Specify <code>dtype="string"</code></td></tr>
+<tr><td>Date behaves like ordinary text</td><td>Not parsed as datetime</td><td><code>parse_dates</code></td></tr>
+<tr><td><code>UnicodeDecodeError</code></td><td>Encoding mismatch</td><td>Determine source encoding</td></tr>
+<tr><td>Columns shifted</td><td>Malformed quoting or delimiters</td><td>Inspect raw file; do not silently ignore errors</td></tr>
+<tr><td>Repeated header halfway down file</td><td>Append used with <code>header=True</code></td><td><code>mode="a", header=False</code></td></tr>
+</tbody></table></div>
+</section>
+
+<section class="lesson-panel"><h2>25. CSV versus Excel versus database</h2>
+<p><strong>CSV</strong> is excellent for simple portable tables and data exchange. It does not preserve formulas, styles, multiple sheets or rich data types.</p>
+<p><strong>Excel</strong> is useful when people need formatting, formulas and multiple worksheets. Pandas provides <code>read_excel()</code> and <code>to_excel()</code>.</p>
+<p><strong>Databases</strong> are better when many users need reliable updates, transactions, indexes, relationships and queries. Your existing <a href="/python/pandas/sql/">Pandas + SQL lesson</a> covers that direction.</p>
+</section>
+
+<section class="lesson-panel"><h2>26. Performance checklist for large files</h2>
+<ul>
+<li>Read only needed columns with <code>usecols</code>.</li>
+<li>Specify important types with <code>dtype</code>.</li>
+<li>Use <code>nrows</code> for fast inspection.</li>
+<li>Use <code>chunksize</code> when the entire DataFrame is unnecessary or too large.</li>
+<li>Filter and aggregate as early as practical.</li>
+<li>Do not assume <code>low_memory=True</code> means the final dataset is kept out of memory.</li>
+<li>For repeated large analytical workloads, consider formats designed for typed columnar storage rather than CSV.</li>
+</ul>
+</section>
+
+<section class="lesson-panel"><h2>27. Practice exercises</h2>
+<ol>
+<li>Read <code>students.csv</code> and display only <code>Name</code> and <code>Marks</code>.</li>
+<li>Read <code>Joined</code> as a date and print only students who joined in September 2026.</li>
+<li>Save students scoring 75 or more to <code>high_scorers.csv</code> without the index.</li>
+<li>Export only <code>Name</code>, <code>City</code> and <code>Marks</code>.</li>
+<li>Write missing marks as <code>NA</code> in the exported file.</li>
+<li>Create a semicolon-separated export.</li>
+<li>Read a headerless CSV and assign your own column names.</li>
+<li>Create a CSV with a <code>Pincode</code> such as <code>012345</code>; preserve it as text.</li>
+<li>Read a large file in chunks and calculate the total of a numeric column.</li>
+<li>Perform a round-trip test: export, re-read and assert row/column counts.</li>
+</ol>
+</section>
+
+<section class="lesson-panel"><h2>28. Mini project: Student CSV Report Pipeline</h2>
+<p>Build a command-line program that accepts an input CSV, validates required columns, parses dates and marks, reports missing/invalid values, prints city/course summaries, writes a cleaned CSV and then verifies the exported file.</p>
+<h3>Minimum requirements</h3>
+<ul>
+<li>Never overwrite the source file.</li>
+<li>Use <code>Path</code> for paths.</li>
+<li>Reject missing required columns.</li>
+<li>Preserve identifiers as strings.</li>
+<li>Validate numeric ranges.</li>
+<li>Write with <code>index=False</code>.</li>
+<li>Re-read the output and verify shape and headings.</li>
+</ul>
+<p>This combines Levels 0–5 into one realistic workflow.</p>
+</section>
+
+<section class="resource"><h2>29. What you should now understand</h2>
+<p>You should be able to explain and use <code>read_csv()</code> and <code>to_csv()</code>, diagnose path and separator problems, control headers and columns, preserve identifiers, parse dates, handle missing values and encodings, process large files in chunks, export clean CSV files and verify them after writing.</p>
+<p>The current official Pandas documentation lists <code>read_csv()</code> as the main CSV reader and <code>DataFrame.to_csv()</code> as its corresponding writer. Current Pandas also supports options such as <code>usecols</code>, <code>dtype</code>, <code>parse_dates</code>, <code>na_values</code>, <code>nrows</code>, <code>chunksize</code>, <code>encoding</code>, <code>on_bad_lines</code>, <code>index</code>, <code>na_rep</code>, <code>float_format</code>, <code>date_format</code> and compression.</p>
+<p>Official references: <a href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html">pandas.read_csv()</a> · <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html">DataFrame.to_csv()</a> · <a href="https://pandas.pydata.org/docs/user_guide/io.html">Pandas I/O guide</a>.</p>
+</section>
+
+<div class="actions"><a href="/python/pandas/04-sort-group-summarize/">← Previous lesson</a><a href="/python/pandas/">Course index</a><a class="primary" href="/python/pandas/sql/">Advanced: Pandas + SQL →</a></div>
+<p class="footer-note">Part of Programmer's Picnic · Developed and maintained by Champak Roy · Lesson updated for the current Pandas 3.x documentation.</p>
+</main><div id="site-footer" data-root="/"></div>
+<script defer src="/assets/js/include.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/pandas-course.js"></script>
+</body></html>
