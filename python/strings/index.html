@@ -66,7 +66,7 @@ print(f&#39;{name:&gt;10}&#39;)</code></pre><div class="output-title">Expected o
 encoded = greeting.encode(&#39;utf-8&#39;)
 print(type(encoded).__name__)
 print(encoded.decode(&#39;utf-8&#39;) == greeting)
-print(&#39;क&#39; in greeting)</code></pre><div class="output-title">Expected output</div><pre class="output"><code>bytes
+print(&#39;न&#39; in greeting)</code></pre><div class="output-title">Expected output</div><pre class="output"><code>bytes
 True
 True</code></pre></div><p class="concept"><strong>Remember:</strong> len() counts code points, not always what readers perceive as individual characters.</p></section>
 <section class="lesson-unit" id="step-8"><div class="unit-label">Level 8 / 10</div><h2>8 · Regular expressions</h2><p>Regular expressions are helpful for controlled patterns. Fullmatch checks the whole input. Use raw r&#39;...&#39; patterns so backslashes behave as intended.</p><div class="code-example"><div class="code-head"><span>Python 3 · runnable example</span><button type="button" class="copy-code" data-copy-code>Copy code</button></div><pre><code>import re
