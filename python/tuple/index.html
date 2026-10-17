@@ -38,9 +38,10 @@ print(record)
 <section class="lesson-unit" id="step-4"><div class="unit-label">Level 4 / 10</div><h2>4 · Packing and unpacking</h2><p>Put values together in a tuple (packing), then assign them to multiple names (unpacking). The number of destinations must match.</p><div class="code-example"><div class="code-head"><span>Python 3 · runnable example</span><button type="button" class="copy-code" data-copy-code>Copy code</button></div><pre><code>point = (4, 9)
 x, y = point
 print(x, y)
-a, b = b, a if False else (1, 2)
+a, b = (1, 2)
+a, b = b, a
 print(a, b)</code></pre><div class="output-title">Expected output</div><pre class="output"><code>4 9
-1 (1, 2)</code></pre></div><p class="concept"><strong>Remember:</strong> Use simple x, y = point; for swapping two values, write a, b = b, a.</p></section>
+2 1</code></pre></div><p class="concept"><strong>Remember:</strong> Use simple x, y = point; for swapping two values, write a, b = b, a.</p></section>
 <section class="lesson-unit" id="step-5"><div class="unit-label">Level 5 / 10</div><h2>5 · Starred unpacking</h2><p>Use one starred target to gather an arbitrary number of middle or trailing values into a list.</p><div class="code-example"><div class="code-head"><span>Python 3 · runnable example</span><button type="button" class="copy-code" data-copy-code>Copy code</button></div><pre><code>first, *middle, last = (10, 20, 30, 40)
 print(first)
 print(middle)
