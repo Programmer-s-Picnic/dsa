@@ -1,0 +1,261 @@
+<!doctype html><html lang="en-IN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pandas Lesson 7: Dates, Time Series, Charts and Reporting | Learn With Champak</title>
+<meta name="description" content="Learn Pandas dates, time series, charts and reporting: to_datetime, DatetimeIndex, dt accessor, filtering dates, resample, rolling, shift, pct_change, plotting and CSV/HTML report generation.">
+<meta name="keywords" content="pandas datetime, pandas time series, pandas resample, rolling mean, pandas plot, pandas reporting, to_datetime, DatetimeIndex, Learn With Champak">
+<meta name="author" content="Champak Roy"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#eaf5ff">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/python/pandas/07-dates-time-series-reporting/"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><link rel="icon" href="/assets/icons/icon-192.png">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Programmer's Picnic by Champak Roy"><meta property="og:title" content="Pandas Lesson 7: Dates, Time Series, Charts and Reporting"><meta property="og:description" content="Turn dated records into time-based analysis, charts and reusable reports."><meta property="og:url" content="https://dsa.learnwithchampak.live/python/pandas/07-dates-time-series-reporting/"><meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pandas Lesson 7: Dates, Time Series, Charts and Reporting"><meta name="twitter:description" content="Master date parsing, resampling, rolling calculations, charts and reports."><meta name="twitter:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Pandas Lesson 7: Dates, Time Series, Charts and Reporting","description":"A detailed Pandas lesson on dates, time-series analysis, plotting and report generation.","url":"https://dsa.learnwithchampak.live/python/pandas/07-dates-time-series-reporting/","inLanguage":"en-IN","isAccessibleForFree":true,"educationalLevel":"Intermediate","provider":{"@type":"Organization","name":"Programmer's Picnic"},"author":{"@type":"Person","name":"Champak Roy"}}</script>
+<script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GSTQRQMLEE');</script>
+<link rel="stylesheet" href="/assets/css/theme.css"><link rel="stylesheet" href="/assets/css/pandas-course.css"></head>
+<body><div id="site-header" data-root="/"></div><main id="main-content">
+<div class="course-hero"><div class="eyebrow">Programmer's Picnic · Pandas 0 to Infinity · Level 7</div><h1>Dates, Time Series, Charts and Reporting</h1><p class="lead">Dates turn ordinary tables into timelines. Learn to parse them correctly, filter periods, aggregate by week or month, calculate moving statistics, plot trends and export useful reports.</p><p class="meta">Intermediate · Datetime analysis · Time-series reporting</p>
+<nav class="course-nav" aria-label="Pandas course navigation"><a href="/python/pandas/">Course index</a><a href="/python/pandas/00-create-dataframes/">0 · Create</a><a href="/python/pandas/01-search-dataframes/">1 · Search</a><a href="/python/pandas/02-change-dataframes/">2 · Change</a><a href="/python/pandas/03-clean-dataframes/">3 · Clean</a><a href="/python/pandas/04-sort-group-summarize/">4 · Sort &amp; Group</a><a href="/python/pandas/05-csv-read-write/">5 · CSV I/O</a><a href="/python/pandas/06-merge-join-reshape/">6 · Merge &amp; Reshape</a><a href="/python/pandas/07-dates-time-series-reporting/" aria-current="page">7 · Time Series</a><a href="/python/pandas/sql/">Advanced: SQL + Pandas</a></nav></div>
+
+<section class="lesson-panel"><h2>1. Dates are data types, not decoration</h2><p>A value such as <code>2026-10-23</code> may look like a date, but if Pandas stores it as ordinary text you cannot reliably group by month, subtract dates or use time-aware indexing.</p>
+<div class="example"><div class="example-bar"><span>Create dated sales</span><button type="button" data-copy-code>Copy code</button></div><pre><code>import pandas as pd
+
+sales = pd.DataFrame({
+    "Date": ["2026-10-01", "2026-10-02", "2026-10-03"],
+    "Amount": [1200, 1500, 900]
+})
+
+sales["Date"] = pd.to_datetime(sales["Date"])
+print(sales.dtypes)</code></pre></div></section>
+
+<section class="lesson-panel"><h2>2. to_datetime(): convert safely</h2>
+<div class="example"><div class="example-bar"><span>Strict parsing</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df["Date"] = pd.to_datetime(
+    df["Date"],
+    format="%Y-%m-%d",
+    errors="raise"
+)</code></pre></div>
+<p><code>errors="raise"</code> is useful when invalid dates should stop the pipeline. <code>errors="coerce"</code> converts invalid values to missing datetimes (<code>NaT</code>) for later auditing.</p>
+<div class="example"><div class="example-bar"><span>Audit invalid dates</span><button type="button" data-copy-code>Copy code</button></div><pre><code>parsed = pd.to_datetime(df["Date"], errors="coerce")
+bad = df.loc[parsed.isna(), "Date"]
+print(bad)</code></pre></div></section>
+
+<section class="lesson-panel"><h2>3. Parse dates while reading CSV</h2>
+<div class="example"><div class="example-bar"><span>CSV + datetime in one step</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df = pd.read_csv(
+    "daily_sales.csv",
+    parse_dates=["Date"]
+)</code></pre></div>
+<p><a href="./daily_sales.csv" download>Download the Level 7 daily_sales.csv sample</a></p></section>
+
+<section class="lesson-panel"><h2>4. The .dt accessor</h2>
+<div class="example"><div class="example-bar"><span>Extract date parts</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df["Year"] = df["Date"].dt.year
+df["Month"] = df["Date"].dt.month
+df["Day"] = df["Date"].dt.day
+df["DayName"] = df["Date"].dt.day_name()
+df["Quarter"] = df["Date"].dt.quarter</code></pre></div>
+<p>The <code>.dt</code> accessor exposes datetime components without converting the original timestamp back to strings.</p></section>
+
+<section class="lesson-panel"><h2>5. Filter by date ranges</h2>
+<div class="example"><div class="example-bar"><span>Boolean date filter</span><button type="button" data-copy-code>Copy code</button></div><pre><code>start = pd.Timestamp("2026-10-05")
+end = pd.Timestamp("2026-10-12")
+
+period = df[df["Date"].between(start, end)]
+print(period)</code></pre></div>
+<p>Compare datetimes with datetimes—not formatted strings—when building robust analytical code.</p></section>
+
+<section class="lesson-panel"><h2>6. DatetimeIndex</h2>
+<div class="example"><div class="example-bar"><span>Use Date as an index</span><button type="button" data-copy-code>Copy code</button></div><pre><code>ts = df.set_index("Date").sort_index()
+print(ts.loc["2026-10-05":"2026-10-12"])</code></pre></div>
+<p>A sorted DatetimeIndex makes time slicing and resampling natural.</p></section>
+
+<section class="lesson-panel"><h2>7. date_range(): generate a timeline</h2>
+<div class="example"><div class="example-bar"><span>Create daily dates</span><button type="button" data-copy-code>Copy code</button></div><pre><code>days = pd.date_range(
+    start="2026-10-01",
+    end="2026-10-07",
+    freq="D"
+)
+print(days)</code></pre></div>
+<p>Frequency aliases describe periods such as days, hours and month-end dates. Use explicit frequencies that match the business meaning of your data.</p></section>
+
+<section class="lesson-panel"><h2>8. Reindex to expose missing dates</h2>
+<div class="example"><div class="example-bar"><span>Complete the calendar</span><button type="button" data-copy-code>Copy code</button></div><pre><code>ts = df.set_index("Date").sort_index()
+
+calendar = pd.date_range(
+    ts.index.min(),
+    ts.index.max(),
+    freq="D"
+)
+
+complete = ts.reindex(calendar)
+print(complete)</code></pre></div>
+<p>A missing date and a recorded zero are different facts. Decide deliberately whether a missing date should remain missing or be filled.</p></section>
+
+<section class="lesson-panel"><h2>9. resample(): daily data to weekly or monthly summaries</h2>
+<div class="example"><div class="example-bar"><span>Monthly totals</span><button type="button" data-copy-code>Copy code</button></div><pre><code>ts = df.set_index("Date").sort_index()
+
+monthly = ts["Amount"].resample("ME").sum()
+print(monthly)</code></pre></div>
+<div class="example"><div class="example-bar"><span>Weekly summary</span><button type="button" data-copy-code>Copy code</button></div><pre><code>weekly = ts["Amount"].resample("W").agg(["sum", "mean", "count"])
+print(weekly)</code></pre></div></section>
+
+<section class="lesson-panel"><h2>10. groupby with date periods</h2>
+<div class="example"><div class="example-bar"><span>Month-level grouping</span><button type="button" data-copy-code>Copy code</button></div><pre><code>df["Month"] = df["Date"].dt.to_period("M")
+
+summary = df.groupby("Month")["Amount"].sum()
+print(summary)</code></pre></div>
+<p>Period-based grouping is useful when you want labels such as <code>2026-10</code> rather than timestamp endpoints.</p></section>
+
+<section class="lesson-panel"><h2>11. rolling(): moving windows</h2>
+<div class="example"><div class="example-bar"><span>3-day moving average</span><button type="button" data-copy-code>Copy code</button></div><pre><code>ts = df.set_index("Date").sort_index()
+ts["MA_3"] = ts["Amount"].rolling(window=3).mean()
+print(ts)</code></pre></div>
+<p>Moving averages smooth short-term fluctuations. They do not predict the future by themselves.</p></section>
+
+<section class="lesson-panel"><h2>12. Time-based rolling windows</h2>
+<div class="example"><div class="example-bar"><span>Seven-calendar-day sum</span><button type="button" data-copy-code>Copy code</button></div><pre><code>ts["Last7Days"] = ts["Amount"].rolling("7D").sum()</code></pre></div>
+<p>A row-count window and a calendar-time window answer different questions when dates are irregular.</p></section>
+
+<section class="lesson-panel"><h2>13. shift(): compare with previous periods</h2>
+<div class="example"><div class="example-bar"><span>Previous day's amount</span><button type="button" data-copy-code>Copy code</button></div><pre><code>ts["Previous"] = ts["Amount"].shift(1)
+ts["Change"] = ts["Amount"] - ts["Previous"]
+print(ts)</code></pre></div></section>
+
+<section class="lesson-panel"><h2>14. pct_change(): percentage change</h2>
+<div class="example"><div class="example-bar"><span>Daily percentage movement</span><button type="button" data-copy-code>Copy code</button></div><pre><code>ts["PctChange"] = ts["Amount"].pct_change() * 100
+print(ts[["Amount", "PctChange"]])</code></pre></div>
+<p>Percentage change is undefined when the previous value is missing, and needs special care when the previous value is zero.</p></section>
+
+<section class="lesson-panel"><h2>15. Time zones: know when they matter</h2>
+<p>Local business dates may be enough for a simple daily report. Event timestamps from servers, APIs or multiple regions require explicit timezone handling.</p>
+<div class="example"><div class="example-bar"><span>Timezone-aware example</span><button type="button" data-copy-code>Copy code</button></div><pre><code>times = pd.to_datetime([
+    "2026-10-23 09:00",
+    "2026-10-23 10:00"
+])
+
+times = times.tz_localize("Asia/Kolkata")
+print(times)</code></pre></div>
+<p>Do not localize timestamps blindly: first determine whether source times are naive local times or already represent a timezone such as UTC.</p></section>
+
+<section class="lesson-panel"><h2>16. Plot directly from Pandas</h2>
+<p>Pandas plotting uses Matplotlib underneath for common charts.</p>
+<div class="example"><div class="example-bar"><span>Line chart</span><button type="button" data-copy-code>Copy code</button></div><pre><code>import matplotlib.pyplot as plt
+
+ts["Amount"].plot(
+    title="Daily Sales",
+    xlabel="Date",
+    ylabel="Amount"
+)
+
+plt.tight_layout()
+plt.show()</code></pre></div></section>
+
+<section class="lesson-panel"><h2>17. Bar charts for categories</h2>
+<div class="example"><div class="example-bar"><span>City totals</span><button type="button" data-copy-code>Copy code</button></div><pre><code>city = df.groupby("City")["Amount"].sum().sort_values()
+
+city.plot(
+    kind="bar",
+    title="Sales by City",
+    ylabel="Amount"
+)
+
+plt.tight_layout()
+plt.show()</code></pre></div></section>
+
+<section class="lesson-panel"><h2>18. Plot several series carefully</h2>
+<div class="example"><div class="example-bar"><span>Actual vs moving average</span><button type="button" data-copy-code>Copy code</button></div><pre><code>ts[["Amount", "MA_3"]].plot(
+    title="Daily Sales and 3-Day Moving Average"
+)
+
+plt.tight_layout()
+plt.show()</code></pre></div>
+<p>A chart should answer a question. Avoid adding lines simply because they can be plotted.</p></section>
+
+<section class="lesson-panel"><h2>19. Save charts for reports</h2>
+<div class="example"><div class="example-bar"><span>Save PNG</span><button type="button" data-copy-code>Copy code</button></div><pre><code>ax = ts["Amount"].plot(title="Daily Sales")
+fig = ax.get_figure()
+fig.tight_layout()
+fig.savefig("daily_sales.png", dpi=160)</code></pre></div></section>
+
+<section class="lesson-panel"><h2>20. Reporting with DataFrames</h2>
+<p>A useful report often contains a headline summary, a grouped table, an exception list and one or two charts.</p>
+<div class="example"><div class="example-bar"><span>Build report tables</span><button type="button" data-copy-code>Copy code</button></div><pre><code>headline = pd.DataFrame({
+    "Metric": ["Total", "Average", "Best Day"],
+    "Value": [
+        df["Amount"].sum(),
+        df["Amount"].mean(),
+        df.loc[df["Amount"].idxmax(), "Date"]
+    ]
+})
+
+city_report = (
+    df.groupby("City")["Amount"]
+      .agg(["sum", "mean", "count"])
+      .sort_values("sum", ascending=False)
+)</code></pre></div></section>
+
+<section class="lesson-panel"><h2>21. Export reports to CSV and HTML</h2>
+<div class="example"><div class="example-bar"><span>Reusable outputs</span><button type="button" data-copy-code>Copy code</button></div><pre><code>city_report.to_csv("city_report.csv")
+
+html = city_report.to_html(
+    border=0,
+    classes="report-table"
+)
+
+with open("city_report.html", "w", encoding="utf-8") as f:
+    f.write(html)</code></pre></div>
+<p>HTML export is useful for simple browser-readable reports. For richer documents, combine Pandas with a dedicated reporting or templating workflow.</p></section>
+
+<section class="lesson-panel"><h2>22. End-to-end time-series report</h2>
+<div class="example"><div class="example-bar"><span>Load → validate → analyse → chart → export</span><button type="button" data-copy-code>Copy code</button></div><pre><code>from pathlib import Path
+import pandas as pd
+import matplotlib.pyplot as plt
+
+HERE = Path(__file__).resolve().parent
+df = pd.read_csv(HERE / "daily_sales.csv", parse_dates=["Date"])
+
+required = {"Date", "City", "Amount"}
+missing = required.difference(df.columns)
+if missing:
+    raise ValueError(f"Missing columns: {sorted(missing)}")
+
+df["Amount"] = pd.to_numeric(df["Amount"], errors="raise")
+df = df.sort_values("Date")
+
+daily = df.groupby("Date", as_index=True)["Amount"].sum().to_frame()
+daily["MA_3"] = daily["Amount"].rolling(3).mean()
+daily["PctChange"] = daily["Amount"].pct_change() * 100
+
+monthly = daily["Amount"].resample("ME").sum()
+city = df.groupby("City")["Amount"].sum().sort_values(ascending=False)
+
+daily.to_csv(HERE / "daily_report.csv")
+city.to_csv(HERE / "city_report.csv", header=["Amount"])
+
+ax = daily[["Amount", "MA_3"]].plot(title="Daily Sales")
+ax.get_figure().tight_layout()
+ax.get_figure().savefig(HERE / "daily_sales.png", dpi=160)
+
+print(daily)
+print(monthly)
+print(city)</code></pre></div>
+<p><a href="./time_series_report.py">Open the runnable Level 7 report program</a></p></section>
+
+<section class="lesson-panel"><h2>23. Common mistakes</h2>
+<div class="responsive-table"><table><thead><tr><th>Mistake</th><th>Why it matters</th><th>Better approach</th></tr></thead><tbody>
+<tr><td>Date column left as object/string</td><td>Time operations become unreliable</td><td>Parse explicitly</td></tr>
+<tr><td>Invalid dates silently ignored</td><td>Bad source data disappears from attention</td><td>Audit <code>NaT</code> values</td></tr>
+<tr><td>Unsorted DatetimeIndex</td><td>Time slicing/rolling logic can confuse readers</td><td>Sort before analysis</td></tr>
+<tr><td>Missing day treated as zero</td><td>Absence of record becomes a false business fact</td><td>Decide fill policy explicitly</td></tr>
+<tr><td>Row rolling used as calendar rolling</td><td>Irregular dates distort the window</td><td>Use time-based windows where needed</td></tr>
+<tr><td>Charts without labels</td><td>Report becomes ambiguous</td><td>Add title, axes and units</td></tr>
+<tr><td>Timezone guessed</td><td>Events can shift to wrong date/hour</td><td>Document source timezone</td></tr>
+</tbody></table></div></section>
+
+<section class="lesson-panel"><h2>24. Practice exercises</h2><ol>
+<li>Parse a column containing ISO dates and list invalid rows.</li><li>Extract year, month and weekday.</li><li>Filter one exact week.</li><li>Set a DatetimeIndex and slice a date range.</li><li>Find missing calendar dates.</li><li>Calculate weekly and monthly totals.</li><li>Create a 7-day rolling mean.</li><li>Compare each day with the previous day using <code>shift()</code>.</li><li>Calculate percentage change.</li><li>Plot a daily line chart and save it as PNG.</li><li>Create a city summary and export it to CSV and HTML.</li><li>Explain when timezone-aware timestamps are necessary.</li>
+</ol></section>
+
+<section class="lesson-panel"><h2>25. Mini project: Monthly Operations Report</h2><p>Use a CSV of dated orders or sales. Validate dates and amounts, detect missing days, produce daily/weekly/monthly summaries, calculate a moving average, find best/worst days, compare cities, save at least one chart, and export both CSV and HTML summaries.</p></section>
+
+<section class="resource"><h2>26. What you should now understand</h2><p>You should be comfortable with <code>to_datetime()</code>, <code>DatetimeIndex</code>, <code>.dt</code>, date filtering, <code>date_range()</code>, <code>resample()</code>, periods, rolling windows, <code>shift()</code>, <code>pct_change()</code>, basic timezones, plotting and reusable report outputs.</p>
+<p>Official references: <a href="https://pandas.pydata.org/docs/user_guide/timeseries.html">Time series / date functionality</a> · <a href="https://pandas.pydata.org/docs/user_guide/visualization.html">Chart visualization</a>.</p></section>
+
+<div class="actions"><a href="/python/pandas/06-merge-join-reshape/">← Level 6: Merge &amp; Reshape</a><a href="/python/pandas/">Course index</a><a class="primary" href="/python/pandas/sql/">Advanced: Pandas + SQL →</a></div>
+<p class="footer-note">Part of Programmer's Picnic · Developed and maintained by Champak Roy.</p></main><div id="site-footer" data-root="/"></div><script defer src="/assets/js/include.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/pandas-course.js"></script></body></html>
