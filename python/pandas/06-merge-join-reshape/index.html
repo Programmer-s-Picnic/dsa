@@ -1,0 +1,250 @@
+<!doctype html><html lang="en-IN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pandas Lesson 6: Merge, Join, Concat and Reshape DataFrames | Learn With Champak</title>
+<meta name="description" content="Learn Pandas merging, joining, concatenation and reshaping from 0 to infinity: merge(), join(), concat(), keys, inner/left/right/outer joins, validation, pivot, pivot_table, melt and stack/unstack.">
+<meta name="keywords" content="pandas merge, pandas join, pandas concat, pivot table pandas, melt pandas, reshape dataframe, inner join, left join, outer join, Learn With Champak">
+<meta name="author" content="Champak Roy"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#eaf5ff">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/python/pandas/06-merge-join-reshape/"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><link rel="icon" href="/assets/icons/icon-192.png">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Programmer's Picnic by Champak Roy"><meta property="og:title" content="Pandas Lesson 6: Merge, Join, Concat and Reshape DataFrames"><meta property="og:description" content="Combine tables correctly, detect relationship problems and reshape data for analysis and reporting."><meta property="og:url" content="https://dsa.learnwithchampak.live/python/pandas/06-merge-join-reshape/"><meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pandas Lesson 6: Merge, Join, Concat and Reshape"><meta name="twitter:description" content="Master merge(), join(), concat(), pivot(), pivot_table(), melt(), stack() and unstack()."><meta name="twitter:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Pandas Lesson 6: Merge, Join, Concat and Reshape DataFrames","description":"A detailed lesson on combining and reshaping Pandas DataFrames safely.","url":"https://dsa.learnwithchampak.live/python/pandas/06-merge-join-reshape/","inLanguage":"en-IN","isAccessibleForFree":true,"educationalLevel":"Intermediate","provider":{"@type":"Organization","name":"Programmer's Picnic"},"author":{"@type":"Person","name":"Champak Roy"}}</script>
+<script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GSTQRQMLEE');</script>
+<link rel="stylesheet" href="/assets/css/theme.css"><link rel="stylesheet" href="/assets/css/pandas-course.css"></head>
+<body><div id="site-header" data-root="/"></div><main id="main-content">
+<div class="course-hero"><div class="eyebrow">Programmer's Picnic · Pandas 0 to Infinity · Level 6</div><h1>Merge, Join, Concat and Reshape DataFrames</h1><p class="lead">Real data rarely lives in one perfect table. Learn to combine student, course, payment and result tables correctly, then reshape wide and long data for analysis.</p><p class="meta">Intermediate · Table relationships · Reporting-ready reshaping</p>
+<nav class="course-nav" aria-label="Pandas course navigation"><a href="/python/pandas/">Course index</a><a href="/python/pandas/00-create-dataframes/">0 · Create</a><a href="/python/pandas/01-search-dataframes/">1 · Search</a><a href="/python/pandas/02-change-dataframes/">2 · Change</a><a href="/python/pandas/03-clean-dataframes/">3 · Clean</a><a href="/python/pandas/04-sort-group-summarize/">4 · Sort &amp; Group</a><a href="/python/pandas/05-csv-read-write/">5 · CSV I/O</a><a href="/python/pandas/06-merge-join-reshape/" aria-current="page">6 · Merge &amp; Reshape</a><a href="/python/pandas/07-dates-time-series-reporting/">7 · Time Series</a><a href="/python/pandas/sql/">Advanced: SQL + Pandas</a></nav></div>
+
+<section class="lesson-panel"><h2>1. The big idea: combine by meaning, not by position</h2><p>Suppose one table contains students and another contains fees. The safe question is not “which rows line up?” but “which key identifies the same student in both tables?”</p>
+<div class="example"><div class="example-bar"><span>Create two related tables</span><button type="button" data-copy-code>Copy code</button></div><pre><code>import pandas as pd
+
+students = pd.DataFrame({
+    "StudentId": [101, 102, 103, 104],
+    "Name": ["Asha", "Ravi", "Meera", "Kabir"],
+    "City": ["Varanasi", "Ranchi", "Varanasi", "Patna"]
+})
+
+fees = pd.DataFrame({
+    "StudentId": [101, 102, 104, 105],
+    "FeePaid": [True, False, True, True]
+})</code></pre></div>
+<p class="tip"><strong>Key concept:</strong> a join key should represent identity or a well-defined relationship. Never merge on a convenient column merely because the values happen to look similar.</p></section>
+
+<section class="lesson-panel"><h2>2. merge(): the main relational operation</h2>
+<div class="example"><div class="example-bar"><span>Inner join</span><button type="button" data-copy-code>Copy code</button></div><pre><code>result = students.merge(fees, on="StudentId", how="inner")
+print(result)</code></pre></div>
+<p>An <strong>inner join</strong> keeps keys found on both sides. Here StudentId 103 is missing from fees and 105 is missing from students, so neither appears.</p>
+<div class="responsive-table"><table><thead><tr><th>how</th><th>Keeps</th><th>Typical question</th></tr></thead><tbody><tr><td><code>inner</code></td><td>Matching keys only</td><td>Which students have a fee record?</td></tr><tr><td><code>left</code></td><td>All left rows</td><td>Keep every student, add fee data if available</td></tr><tr><td><code>right</code></td><td>All right rows</td><td>Keep every fee record, add student data if available</td></tr><tr><td><code>outer</code></td><td>All keys from both sides</td><td>Audit unmatched records</td></tr></tbody></table></div></section>
+
+<section class="lesson-panel"><h2>3. Left, right and outer joins</h2>
+<div class="example"><div class="example-bar"><span>Compare join types</span><button type="button" data-copy-code>Copy code</button></div><pre><code>left = students.merge(fees, on="StudentId", how="left")
+right = students.merge(fees, on="StudentId", how="right")
+outer = students.merge(fees, on="StudentId", how="outer")
+
+print(left)
+print(right)
+print(outer)</code></pre></div>
+<p>After a left join, a student without a fee record receives a missing value in <code>FeePaid</code>. That missing value means “no matching record was found”, not automatically “fee unpaid”.</p></section>
+
+<section class="lesson-panel"><h2>4. indicator=True: audit your merge</h2>
+<div class="example"><div class="example-bar"><span>Find unmatched records</span><button type="button" data-copy-code>Copy code</button></div><pre><code>audit = students.merge(
+    fees,
+    on="StudentId",
+    how="outer",
+    indicator=True
+)
+
+print(audit[["_merge", "StudentId"]])
+print(audit["_merge"].value_counts())</code></pre></div>
+<p><code>_merge</code> shows <code>left_only</code>, <code>right_only</code> or <code>both</code>. This is one of the best tools for checking whether two sources actually align.</p></section>
+
+<section class="lesson-panel"><h2>5. validate=: protect yourself from accidental many-to-many joins</h2>
+<div class="example"><div class="example-bar"><span>State the relationship you expect</span><button type="button" data-copy-code>Copy code</button></div><pre><code>result = students.merge(
+    fees,
+    on="StudentId",
+    how="left",
+    validate="one_to_one"
+)</code></pre></div>
+<p>Useful expectations include <code>one_to_one</code>, <code>one_to_many</code>, <code>many_to_one</code> and <code>many_to_many</code>. If the data violates the declared relationship, Pandas raises an error instead of silently multiplying rows.</p>
+<div class="warning"><strong>Important:</strong> row explosions after a merge usually mean duplicate keys exist on one or both sides. Check <code>duplicated()</code> before deciding that many-to-many behaviour is intended.</div></section>
+
+<section class="lesson-panel"><h2>6. Different key names: left_on and right_on</h2>
+<div class="example"><div class="example-bar"><span>Join differently named columns</span><button type="button" data-copy-code>Copy code</button></div><pre><code>students = pd.DataFrame({"StudentId": [101, 102], "Name": ["Asha", "Ravi"]})
+payments = pd.DataFrame({"StudentCode": [101, 102], "Amount": [1500, 1200]})
+
+result = students.merge(
+    payments,
+    left_on="StudentId",
+    right_on="StudentCode",
+    how="left"
+)</code></pre></div>
+<p>After merging, decide whether both key columns are useful; if not, remove the redundant one explicitly.</p></section>
+
+<section class="lesson-panel"><h2>7. Merge on multiple columns</h2>
+<div class="example"><div class="example-bar"><span>Composite key</span><button type="button" data-copy-code>Copy code</button></div><pre><code>marks = pd.DataFrame({
+    "StudentId": [101, 101, 102],
+    "Subject": ["Python", "SQL", "Python"],
+    "Marks": [88, 79, 72]
+})
+
+attendance = pd.DataFrame({
+    "StudentId": [101, 101, 102],
+    "Subject": ["Python", "SQL", "Python"],
+    "Attendance": [94, 91, 83]
+})
+
+report = marks.merge(
+    attendance,
+    on=["StudentId", "Subject"],
+    validate="one_to_one"
+)</code></pre></div></section>
+
+<section class="lesson-panel"><h2>8. Overlapping column names and suffixes</h2>
+<div class="example"><div class="example-bar"><span>Control suffixes</span><button type="button" data-copy-code>Copy code</button></div><pre><code>old = pd.DataFrame({"StudentId": [1, 2], "Marks": [70, 80]})
+new = pd.DataFrame({"StudentId": [1, 2], "Marks": [75, 84]})
+
+comparison = old.merge(
+    new,
+    on="StudentId",
+    suffixes=("_old", "_new")
+)
+print(comparison)</code></pre></div></section>
+
+<section class="lesson-panel"><h2>9. Data types of join keys must agree</h2>
+<p>If one file stores <code>StudentId</code> as integer and another stores it as text, normalise before merging.</p>
+<div class="example"><div class="example-bar"><span>Normalise keys</span><button type="button" data-copy-code>Copy code</button></div><pre><code>students["StudentId"] = students["StudentId"].astype("string")
+fees["StudentId"] = fees["StudentId"].astype("string")
+
+result = students.merge(fees, on="StudentId")</code></pre></div>
+<p>Also clean spaces and case where appropriate for textual keys—but do not casually “fix” identifiers whose formatting is meaningful.</p></section>
+
+<section class="lesson-panel"><h2>10. join(): convenient when indexes are the keys</h2>
+<div class="example"><div class="example-bar"><span>Index-based join</span><button type="button" data-copy-code>Copy code</button></div><pre><code>students_i = students.set_index("StudentId")
+fees_i = fees.set_index("StudentId")
+
+result = students_i.join(fees_i, how="left")</code></pre></div>
+<p><code>join()</code> is convenient for index-oriented workflows. <code>merge()</code> is usually clearer when relationships are based on ordinary columns.</p></section>
+
+<section class="lesson-panel"><h2>11. concat(): stack tables rather than match keys</h2>
+<div class="example"><div class="example-bar"><span>Append rows from the same schema</span><button type="button" data-copy-code>Copy code</button></div><pre><code>jan = pd.DataFrame({"Name": ["Asha", "Ravi"], "Marks": [80, 70]})
+feb = pd.DataFrame({"Name": ["Meera", "Kabir"], "Marks": [90, 75]})
+
+all_students = pd.concat([jan, feb], ignore_index=True)
+print(all_students)</code></pre></div>
+<p>Use <code>concat()</code> when tables represent the same kind of records and you want to stack them. It is not a replacement for a relational merge.</p></section>
+
+<section class="lesson-panel"><h2>12. concat across columns</h2>
+<div class="example"><div class="example-bar"><span>axis=1</span><button type="button" data-copy-code>Copy code</button></div><pre><code>names = pd.DataFrame({"Name": ["Asha", "Ravi"]})
+scores = pd.DataFrame({"Marks": [88, 72]})
+
+combined = pd.concat([names, scores], axis=1)</code></pre></div>
+<p>This aligns by index. If indexes do not represent the same records, the result can be wrong even though it looks plausible.</p></section>
+
+<section class="lesson-panel"><h2>13. Wide and long data</h2>
+<p><strong>Wide:</strong> one row may contain several measurement columns such as <code>Python</code>, <code>SQL</code>, <code>AI</code>. <strong>Long:</strong> one row represents one measurement, often with columns such as <code>Student</code>, <code>Subject</code>, <code>Marks</code>.</p>
+<div class="responsive-table"><table><thead><tr><th>Name</th><th>Python</th><th>SQL</th></tr></thead><tbody><tr><td>Asha</td><td>88</td><td>79</td></tr><tr><td>Ravi</td><td>72</td><td>81</td></tr></tbody></table></div>
+<p>Long form would contain four rows: Asha/Python, Asha/SQL, Ravi/Python, Ravi/SQL.</p></section>
+
+<section class="lesson-panel"><h2>14. melt(): wide to long</h2>
+<div class="example"><div class="example-bar"><span>Reshape scores into long form</span><button type="button" data-copy-code>Copy code</button></div><pre><code>wide = pd.DataFrame({
+    "Name": ["Asha", "Ravi"],
+    "Python": [88, 72],
+    "SQL": [79, 81]
+})
+
+long = wide.melt(
+    id_vars="Name",
+    var_name="Subject",
+    value_name="Marks"
+)
+print(long)</code></pre></div>
+<p>Long form is often easier for grouping, charting and tidy analytical workflows.</p></section>
+
+<section class="lesson-panel"><h2>15. pivot(): long to wide when combinations are unique</h2>
+<div class="example"><div class="example-bar"><span>Restore a matrix</span><button type="button" data-copy-code>Copy code</button></div><pre><code>wide_again = long.pivot(
+    index="Name",
+    columns="Subject",
+    values="Marks"
+)
+print(wide_again)</code></pre></div>
+<p><code>pivot()</code> expects each index/column combination to identify at most one value. Duplicate combinations cause an error because Pandas cannot guess how to combine them.</p></section>
+
+<section class="lesson-panel"><h2>16. pivot_table(): reshape and aggregate duplicates</h2>
+<div class="example"><div class="example-bar"><span>Average repeated assessments</span><button type="button" data-copy-code>Copy code</button></div><pre><code>tests = pd.DataFrame({
+    "Name": ["Asha", "Asha", "Ravi", "Ravi"],
+    "Subject": ["Python", "Python", "Python", "Python"],
+    "Marks": [80, 90, 70, 74]
+})
+
+summary = tests.pivot_table(
+    index="Name",
+    columns="Subject",
+    values="Marks",
+    aggfunc="mean"
+)</code></pre></div>
+<p>Use <code>pivot_table()</code> when aggregation is part of the question.</p></section>
+
+<section class="lesson-panel"><h2>17. stack() and unstack(): reshape index levels</h2>
+<div class="example"><div class="example-bar"><span>MultiIndex reshaping</span><button type="button" data-copy-code>Copy code</button></div><pre><code>summary = pd.DataFrame({
+    "Python": [88, 72],
+    "SQL": [79, 81]
+}, index=["Asha", "Ravi"])
+
+long_series = summary.stack()
+wide_again = long_series.unstack()</code></pre></div>
+<p>These are especially useful after grouped analyses that create MultiIndex results.</p></section>
+
+<section class="lesson-panel"><h2>18. crosstab(): quick frequency tables</h2>
+<div class="example"><div class="example-bar"><span>City × course counts</span><button type="button" data-copy-code>Copy code</button></div><pre><code>students = pd.DataFrame({
+    "City": ["Varanasi", "Varanasi", "Ranchi", "Ranchi", "Patna"],
+    "Course": ["Python", "AI-ML", "Python", "Python", "AI-ML"]
+})
+
+table = pd.crosstab(students["City"], students["Course"])
+print(table)</code></pre></div></section>
+
+<section class="lesson-panel"><h2>19. A complete relational workflow</h2>
+<div class="example"><div class="example-bar"><span>Students + enrolments + marks</span><button type="button" data-copy-code>Copy code</button></div><pre><code>students = pd.DataFrame({
+    "StudentId": [1, 2, 3],
+    "Name": ["Asha", "Ravi", "Meera"]
+})
+
+enrolments = pd.DataFrame({
+    "StudentId": [1, 1, 2, 3],
+    "CourseId": ["P", "S", "P", "S"]
+})
+
+courses = pd.DataFrame({
+    "CourseId": ["P", "S"],
+    "Course": ["Python", "SQL"]
+})
+
+report = (
+    enrolments
+    .merge(students, on="StudentId", validate="many_to_one")
+    .merge(courses, on="CourseId", validate="many_to_one")
+)
+
+print(report)</code></pre></div>
+<p>The enrolment table is the bridge: one student can have several enrolments, while each StudentId and CourseId should resolve to one master record.</p></section>
+
+<section class="lesson-panel"><h2>20. Diagnose a row explosion</h2>
+<div class="example"><div class="example-bar"><span>Check key uniqueness before merge</span><button type="button" data-copy-code>Copy code</button></div><pre><code>print(students["StudentId"].duplicated().sum())
+print(fees["StudentId"].duplicated().sum())
+
+print(students["StudentId"].value_counts().head())
+print(fees["StudentId"].value_counts().head())</code></pre></div>
+<p>Always distinguish an intended one-to-many relationship from an accidental duplicate-key problem.</p></section>
+
+<section class="lesson-panel"><h2>21. Practice exercises</h2><ol>
+<li>Left-join students to payments and identify students without payment records.</li><li>Use an outer join with <code>indicator=True</code> to list orphan records on both sides.</li><li>Prove that a master table has unique IDs before merging.</li><li>Merge marks and attendance on both <code>StudentId</code> and <code>Subject</code>.</li><li>Concatenate three monthly sales DataFrames.</li><li>Convert a wide marks table to long format using <code>melt()</code>.</li><li>Create a subject-by-student table using <code>pivot()</code>.</li><li>Use <code>pivot_table()</code> to calculate average marks where repeated tests exist.</li><li>Build a city-course frequency report with <code>crosstab()</code>.</li><li>Explain why <code>concat(axis=1)</code> can be dangerous when indexes do not match.</li>
+</ol></section>
+
+<section class="lesson-panel"><h2>22. Mini project: Learning Centre Master Report</h2><p>Create four tables: students, courses, enrolments and payments. Produce one report containing student name, course name, amount paid and payment status. Validate every relationship, audit unmatched records, then create a pivot table showing total payments by city and course.</p>
+<p><a href="./merge_reshape_demo.py">Open the complete runnable Level 6 demo</a></p></section>
+
+<section class="resource"><h2>23. What you should now understand</h2><p>You should know when to use <code>merge()</code>, <code>join()</code> and <code>concat()</code>; how inner/left/right/outer joins differ; why keys and relationship validation matter; and how to move between wide and long layouts with <code>melt()</code>, <code>pivot()</code>, <code>pivot_table()</code>, <code>stack()</code> and <code>unstack()</code>.</p>
+<p>Official references: <a href="https://pandas.pydata.org/docs/user_guide/merging.html">Merge, join, concatenate and compare</a> · <a href="https://pandas.pydata.org/docs/user_guide/reshaping.html">Reshaping and pivot tables</a>.</p></section>
+
+<div class="actions"><a href="/python/pandas/05-csv-read-write/">← Level 5: CSV I/O</a><a href="/python/pandas/">Course index</a><a class="primary" href="/python/pandas/07-dates-time-series-reporting/">Level 7: Dates, Time Series &amp; Reporting →</a></div>
+<p class="footer-note">Part of Programmer's Picnic · Developed and maintained by Champak Roy.</p></main><div id="site-footer" data-root="/"></div><script defer src="/assets/js/include.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/pandas-course.js"></script></body></html>
