@@ -1,0 +1,28 @@
+name: Validate Pandas Multilevel CSV Pipelines
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'python/pandas/projects/csv-pipelines/**'
+      - '.github/workflows/pandas-csv-pipelines.yml'
+  pull_request:
+    paths:
+      - 'python/pandas/projects/csv-pipelines/**'
+      - '.github/workflows/pandas-csv-pipelines.yml'
+  workflow_dispatch:
+
+jobs:
+  test-csv-pipelines:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out DSA repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Pandas
+        run: python -m pip install pandas
+      - name: Test all six stages, expected CSVs and regression suites
+        run: python python/pandas/projects/csv-pipelines/verify_all.py
