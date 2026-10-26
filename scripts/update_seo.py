@@ -50,6 +50,7 @@ SITEMAP_PREFIXES = (
 SITEMAP_EXACT = {
     "index.html",
     "sitemap.html",
+    "games/chess/index.html",
     "sql/index.html",
     "tools/learning-path-finder/index.html",
     "flutter/index.html",
@@ -266,14 +267,14 @@ def update_html_sitemap():
 
     preferred = ["Start", "python", "java", "javascript", "aspnet", "sql", "react",
                  "question-bank", "visualizers", "questions", "flutter", "html",
-                 "spring", "websocket", "tools", "projects"]
+                 "spring", "websocket", "tools", "games", "projects"]
     labels = {
         "Start": "Start Here", "python": "Python", "java": "Java",
         "javascript": "JavaScript", "aspnet": "ASP.NET Core", "sql": "SQL",
         "react": "React", "question-bank": "Question Banks",
         "visualizers": "Visualizers", "questions": "Guided Questions",
         "flutter": "Flutter", "html": "HTML / CSS", "spring": "Spring",
-        "websocket": "WebSocket", "tools": "Learning Tools", "projects": "Projects"
+        "websocket": "WebSocket", "tools": "Learning Tools", "games": "Interactive Games", "projects": "Projects"
     }
     cards = []
     for group in preferred:
