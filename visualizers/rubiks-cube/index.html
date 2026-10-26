@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rubik's Cube Solver Online | Interactive 3×3 Step-by-Step | Programmer's Picnic</title>
+<meta name="description" content="Solve any valid 3×3 Rubik's Cube online. Enter your cube's 54 sticker colours, explore the 3D preview, check for invalid states, and follow interactive moves step by step. Free educational tool.">
+<meta name="author" content="Champak Roy">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/visualizers/rubiks-cube/">
+<link rel="icon" href="/assets/icons/icon-192.png">
+<meta name="theme-color" content="#eaf5ff">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Programmer's Picnic">
+<meta property="og:title" content="Rubik's Cube Solver — Interactive 3×3">
+<meta property="og:description" content="Paint the stickers, validate your 3×3 cube, and follow each move to solve it. A free interactive learning tool.">
+<meta property="og:url" content="https://dsa.learnwithchampak.live/visualizers/rubiks-cube/">
+<meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="3×3 Rubik's Cube Solver"><meta name="twitter:description" content="Enter colours and solve a Rubik's Cube step by step.">
+<meta name="twitter:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Interactive 3×3 Rubik's Cube Solver","applicationCategory":"EducationalApplication","operatingSystem":"Any modern web browser","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"url":"https://dsa.learnwithchampak.live/visualizers/rubiks-cube/","author":{"@type":"Person","name":"Champak Roy"},"publisher":{"@type":"Organization","name":"Programmer's Picnic"},"inLanguage":"en-IN"}</script>
+<script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GSTQRQMLEE')</script>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#132a43;background:#f4f9ff;--line:#cfe3f5;--brand:#0b64b1;--ink:#123352;--muted:#536b81}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;line-height:1.6}button,input{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.52}button:focus-visible,a:focus-visible{outline:3px solid #f0a20b;outline-offset:3px}a{color:#075fa7}.skip{position:absolute;top:-100px;background:white;padding:12px;z-index:99}.skip:focus{top:0}.wrap{max-width:1210px;margin:auto;padding:0 18px}
+.header{background:white;border-bottom:1px solid var(--line)}.nav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:16px 0}.brand{text-decoration:none;font-weight:800;color:#12518d}.nav-links{display:flex;flex-wrap:wrap;gap:16px;font-weight:600}.nav-links a{text-decoration:none}.hero{background:linear-gradient(120deg,#e3f1ff,#fff 62%,#e5f7ff);border-bottom:1px solid var(--line);padding:38px 0 29px}.eyebrow{font-size:.78rem;font-weight:850;color:#1167ad;text-transform:uppercase;letter-spacing:.12em}h1{font-size:clamp(2rem,4.5vw,3.55rem);line-height:1.13;letter-spacing:-.04em;color:#103f73;margin:10px 0 12px}h2{color:#123e68;margin:0 0 12px;font-size:1.35rem}h3{font-size:1.05rem;margin:0 0 8px;color:#134d81}.lead{max-width:810px;font-size:1.1rem;color:#36536e;margin:0}.pill{display:inline-block;border:1px solid #9ecaf0;border-radius:30px;padding:3px 12px;color:#154e7e;background:#fff;font-size:.8rem;font-weight:700;margin:15px 8px 0 0}
+.main{padding-top:24px;padding-bottom:42px}.app-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);gap:18px;align-items:start}.card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:0 10px 26px #154b6b0c;min-width:0}.card+.card{margin-top:18px}.sub{color:var(--muted);margin:0 0 17px;font-size:.93rem}.toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:10px 0 16px}.btn{border:1px solid #1b69a8;border-radius:11px;padding:10px 15px;color:#fff;background:#1465a7;font-weight:750;min-height:42px}.btn:hover:not(:disabled){filter:brightness(.93)}.btn.alt{background:#f4faff;color:#15548c;border-color:#a6cbe8}.btn.danger{background:white;color:#98501b;border-color:#d9a27b}.btn.small{padding:7px 12px;min-height:34px;font-size:.85rem}.muted{color:var(--muted)}.status{background:#eaf5ff;border:1px solid #c2e0f8;border-radius:12px;padding:11px 14px;margin:16px 0;color:#194e78;min-height:48px}.status.error{background:#fff0eb;border-color:#f2b4a2;color:#872b1d}.status.success{background:#e9f8ef;border-color:#b0dfc2;color:#165a33}
+.palette{display:flex;gap:9px;flex-wrap:wrap;margin:8px 0 13px}.swatch{border:3px solid transparent;box-shadow:0 1px 5px #0002;border-radius:10px;padding:5px 10px;display:inline-flex;align-items:center;gap:8px;background:#fff;color:#143851;font-size:.83rem;font-weight:800}.swatch .color{display:inline-block;width:24px;height:24px;border:1px solid #0003;border-radius:6px}.swatch.active{outline:2px solid #2369a6;outline-offset:2px;background:#eaf4fe}
+.net-scroll{overflow-x:auto;max-width:100%;padding:8px 4px 14px}.net{--st:clamp(19px,3.05vw,39px);display:grid;grid-template-columns:repeat(4,calc(var(--st)*3 + 5px));grid-template-rows:repeat(3,auto);gap:9px;width:max-content;max-width:none;margin:auto}.face-group{border:1px solid #c5d9eb;background:#ecf6ff;border-radius:11px;padding:5px}.face-group h3{margin:0 0 5px;color:#244f74;text-align:center;font-size:.8rem}.face-group[data-face="U"]{grid-column:2;grid-row:1}.face-group[data-face="L"]{grid-column:1;grid-row:2}.face-group[data-face="F"]{grid-column:2;grid-row:2}.face-group[data-face="R"]{grid-column:3;grid-row:2}.face-group[data-face="B"]{grid-column:4;grid-row:2}.face-group[data-face="D"]{grid-column:2;grid-row:3}.stickers{display:grid;grid-template-columns:repeat(3,var(--st));gap:2px}.sticker{width:var(--st);aspect-ratio:1;border:1px solid #34445485;border-radius:4px;padding:0;touch-action:manipulation;box-shadow:inset 0 0 0 1px #fff4}.sticker.center{border:3px solid #253f55}.sticker:hover{outline:2px solid #144d83;z-index:1}.sticker.focus{outline:3px solid #102d58}
+.preview{min-height:280px;position:relative;display:grid;place-items:center;touch-action:none;user-select:none;background:radial-gradient(ellipse at 50% 41%,#e7f3ff,#f8fbff 72%);border:1px solid #d6e5f2;border-radius:16px;overflow:hidden;cursor:grab}.preview:active{cursor:grabbing}.scene{width:168px;height:168px;perspective:800px;transform:scale(.92)}.cube3d{width:168px;height:168px;position:relative;transform-style:preserve-3d;transition:transform .15s ease-out}.cube-face{position:absolute;width:168px;height:168px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:4px;padding:5px;border:3px solid #172a39;background:#172a39;backface-visibility:visible;border-radius:8px}.cube-face>span{border-radius:5px;border:1px solid #2d4556;background:#eee;min-width:0;min-height:0}.cube-face.highlight{box-shadow:0 0 0 3px #f1a800,0 0 24px #f6ab0044}.cube-face[data-face="F"]{transform:translateZ(84px)}.cube-face[data-face="B"]{transform:rotateY(180deg) translateZ(84px)}.cube-face[data-face="R"]{transform:rotateY(90deg) translateZ(84px)}.cube-face[data-face="L"]{transform:rotateY(-90deg) translateZ(84px)}.cube-face[data-face="U"]{transform:rotateX(90deg) translateZ(84px)}.cube-face[data-face="D"]{transform:rotateX(-90deg) translateZ(84px)}.preview-hint{text-align:center;color:#5a6e82;font-size:.8rem;margin:8px 0}
+.solution-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.move-list{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px;max-height:175px;overflow:auto}.move{border:1px solid #bdd8ed;border-radius:9px;background:#f3f9ff;color:#134e81;font-weight:700;min-width:40px;padding:6px 9px}.move.current{background:#1464a7;color:white}.move.done{background:#e0f4e9;border-color:#8ccab0;color:#206947}.progress{width:100%;height:12px;accent-color:#1264a7;margin:12px 0 0}.step-info{font-weight:750;color:#174a7a;min-height:25px}.metrics{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}.metrics span{font-size:.85rem;border-radius:9px;background:#eaf5ff;color:#255b81;padding:4px 10px}
+.guide{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.guide .card{margin:0}.guide p{margin:8px 0;color:#536b81}.notation{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;font-size:.87rem}.notation span{background:#eef6fe;padding:8px;border-radius:9px}.footer{background:#123e68;color:white;padding:25px 0}.footer a{color:white}.footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:870px){.app-grid{grid-template-columns:1fr}.guide{grid-template-columns:1fr 1fr}.net{--st:clamp(18px,5.2vw,37px)}}
+@media(max-width:560px){.guide{grid-template-columns:1fr}.card{padding:15px}.hero{padding:26px 0}.net{--st:clamp(15px,5.3vw,30px);gap:3px}.face-group{padding:2px}.face-group h3{font-size:.7rem;margin:1px 0}.stickers{gap:1px}.palette{gap:6px}.swatch{padding:5px 8px}.preview{min-height:265px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#solver">Skip to Rubik's Cube solver</a>
+<header class="header"><nav class="wrap nav"><a class="brand" href="/">Programmer's Picnic · Learn With Champak</a><div class="nav-links"><a href="/">DSA Home</a><a href="/sitemap.html">All Lessons</a><a href="#how-to">How to Use</a><a href="#notation">Move Notation</a></div></nav></header>
+<section class="hero"><div class="wrap"><div class="eyebrow">Interactive Puzzle Lab · Visual Algorithms</div><h1>Rubik's Cube Solver</h1><p class="lead">Paint the 54 stickers of your <strong>3×3 cube</strong>, tap <strong>Solve</strong>, and follow every move in an interactive 3D preview. Or scramble a virtual cube and watch it return to solved.</p><span class="pill">3×3 cube</span><span class="pill">Step-by-step solution</span><span class="pill">Runs in your browser</span></div></section>
+<main id="solver" class="wrap main">
+<div class="app-grid">
+  <section class="card" aria-labelledby="enter-title">
+    <h2 id="enter-title">1. Enter your cube's colours</h2>
+    <p class="sub">Select a colour, then tap stickers in the unfolded cube net. The middle sticker on each face identifies that face's colour. All six centres must be different.</p>
+    <div id="palette" class="palette" aria-label="Select sticker colour"></div>
+    <div id="cubeNet" class="net-scroll"><div class="net" id="net" aria-label="Editable six-face cube net"></div></div>
+    <div class="toolbar">
+      <button id="reset" class="btn alt" type="button">Reset to solved</button>
+      <button id="scramble" class="btn alt" type="button">Random scramble</button>
+      <button id="undo" class="btn alt" type="button">Undo edit</button>
+    </div>
+    <p class="sub"><strong>Reading the net:</strong> U = Up, R = Right, F = Front, D = Down, L = Left, B = Back. Keep the same physical cube orientation while entering faces. Face stickers are read left-to-right, top-to-bottom.</p>
+    <div id="counts" class="metrics" aria-live="polite"></div>
+    <button id="solve" class="btn" type="button">Solve my cube</button>
+    <div id="status" class="status" role="status" aria-live="polite">Ready. Enter your cube's stickers or use Random scramble to try a puzzle.</div>
+  </section>
+  <div>
+    <section class="card" aria-labelledby="preview-title">
+      <h2 id="preview-title">2. Explore in 3D</h2>
+      <p class="sub">Drag to rotate the cube. The preview and unfolded net update when you step through a solution.</p>
+      <div id="preview" class="preview" aria-label="Interactive 3D Rubik's cube — drag to rotate" tabindex="0"><div class="scene"><div id="cube3d" class="cube3d"></div></div></div>
+      <div class="preview-hint">Drag on desktop or swipe on mobile · <button class="btn small alt" id="reset-view" type="button">Reset view</button></div>
+    </section>
+    <section class="card" aria-labelledby="solution-title">
+      <h2 id="solution-title">3. Follow the solution</h2>
+      <p class="sub">After solving, press Next for the next face turn, or play the whole sequence automatically.</p>
+      <div id="stepInfo" class="step-info" aria-live="polite">No solution yet</div>
+      <progress id="progress" class="progress" max="1" value="0" aria-label="Solution progress"></progress>
+      <div class="solution-actions">
+        <button id="previous" class="btn alt" type="button" disabled>← Previous</button>
+        <button id="next" class="btn" type="button" disabled>Next →</button>
+        <button id="play" class="btn alt" type="button" disabled>▶ Play</button>
+        <button id="copy" class="btn alt" type="button" disabled>Copy moves</button>
+      </div>
+      <div id="moves" class="move-list" aria-label="Solution moves"></div>
+      <p class="sub" id="algorithmDetails">Each move rotates one face. <strong>'</strong> means counterclockwise and <strong>2</strong> means a half-turn, viewed directly toward that face.</p>
+    </section>
+  </div>
+</div>
+<section class="guide" id="how-to" aria-label="Using the Rubik's Cube solver">
+  <article class="card"><h3>01 · Match the centres</h3><p>Hold your cube with a chosen front face facing you and the up face at the top. Paint the six centre stickers first to match your real cube. The solver uses their colours to identify faces.</p></article>
+  <article class="card"><h3>02 · Enter every sticker</h3><p>Use the cube net to enter the remaining colours. For the Back, Right, Left and Down faces, look straight at that face with its shared adjacent Up/Front orientation maintained. Each of the six colours must occur exactly nine times.</p></article>
+  <article class="card"><h3>03 · Solve and follow</h3><p>Tap Solve my cube. Impossible combinations, including flipped edges or twisted corners, are rejected. Follow the lettered moves on your physical cube, one move at a time.</p></article>
+</section>
+<section class="card" id="notation" style="margin-top:18px">
+  <h2>Understand the moves and the algorithm</h2>
+  <p class="sub">The solver uses a <strong>two-phase search algorithm</strong> to find a relatively short path from the current cube state to the solved state. Its search tables are prepared in a background worker so the page remains responsive. It validates sticker counts, centres, cubie identities, twists, flips and permutation parity first.</p>
+  <div class="notation">
+    <span><strong>U</strong> · Up</span><span><strong>R</strong> · Right</span><span><strong>F</strong> · Front</span><span><strong>D</strong> · Down</span><span><strong>L</strong> · Left</span><span><strong>B</strong> · Back</span>
+    <span><strong>R</strong> · clockwise 90°</span><span><strong>R'</strong> · counterclockwise 90°</span><span><strong>R2</strong> · rotate 180°</span>
+  </div>
+  <p class="muted">A turn's direction is always defined while looking directly at that face. Unlike a beginner-method tutorial, the computed solution is an algorithmic move sequence, not separate beginner stages. The engine is the MIT-licensed open-source <a href="https://github.com/ldez/cubejs" rel="noopener noreferrer">cubejs</a> project, included locally.</p>
+</section>
+</main>
+<footer class="footer"><div class="wrap"><div><strong>Programmer's Picnic</strong><div>Developed and maintained by Champak Roy</div></div><div><a href="/">DSA home</a> · <a href="/sitemap.html">Lesson directory</a> · <a href="https://github.com/Programmer-s-Picnic/dsa">Source code</a></div></div></footer>
+<script defer src="./vendor/cube.js"></script><script defer src="./app.js"></script><script defer src="/assets/js/site.js"></script>
+</body></html>
