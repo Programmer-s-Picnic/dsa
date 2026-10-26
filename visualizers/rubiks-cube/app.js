@@ -209,7 +209,7 @@
   }
 
   function makeEdit(next) {
-    if (busy || next.join('') === displayStickers().join('')) return;
+    if (busy || (next.join('') === displayStickers().join('') && !snapshots.length)) return;
     editHistory.push(stickers.slice());
     if (editHistory.length > 50) editHistory.shift();
     stickers = next;
