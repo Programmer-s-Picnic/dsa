@@ -159,7 +159,7 @@ function cpuMove(){
       if(score>best){best=score;candidate=m;}
     }
   }
-  play({from:candidate.from,to:candidate.to,promotion:candidate.promotion||undefined});
+  play({from:candidate.from,to:candidate.to,promotion:candidate.promotion||undefined},true);
 }
 function makeCode(){
   const alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',bytes=new Uint8Array(6);
@@ -359,7 +359,7 @@ function squareTiles(){
 function clearGroup(group){
   while(group.children.length){
     const obj=group.children[0];group.remove(obj);
-    obj.traverse(child=>{if(child.geometry)child.geometry.dispose();});
+    obj.traverse(child=>{if(child.geometry)child.geometry.dispose();if(group===markerLayer&&child.material)child.material.dispose();});
   }
 }
 function drawPieces(){
@@ -378,13 +378,13 @@ function markSquares(){
   clearGroup(markerLayer);
   for(const [s,tile] of tiles){
     tile.material.emissive.setHex(selected===s?0xd29e2b:0);
-    tile.material.emissiveIntensity=selected===s?.7:0;
+    tile.material.emissiveIntensity=selected===s ? .7 : 0;
   }
   for(const move of legalTargets){
     const {x,z}=positionOf(move.to);
     if(markerLayer.children.some(o=>o.userData.square===move.to))continue;
     const isCapture=!!game.get(move.to)||!!move.flags?.includes('e');
-    const disk=mesh(new THREE.CylinderGeometry(isCapture?.42:.16,isCapture?.42:.16,.012,40),new THREE.MeshBasicMaterial({color:isCapture?0xed7b51:0x32aa75,transparent:true,opacity:.7,depthWrite:false}),markerLayer,x,.095,z);
+    const disk=mesh(new THREE.CylinderGeometry(isCapture ? .42 : .16,isCapture?.42:.16,.012,40),new THREE.MeshBasicMaterial({color:isCapture?0xed7b51:0x32aa75,transparent:true,opacity:.7,depthWrite:false}),markerLayer,x,.095,z);
     disk.userData.square=move.to;
   }
 }
