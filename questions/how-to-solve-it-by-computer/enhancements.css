@@ -1,0 +1,37 @@
+/* Chapter actions and sharing for How to Solve It by Computer */
+.chapter-heading{flex-wrap:wrap;align-items:center}
+.chapter-heading h2{flex:1 1 240px}
+.dromey-share-button,.dromey-action{border:1px solid #aac9ef;border-radius:11px;background:#e8f2ff;color:#15467c;font:700 .86rem/1.3 inherit;cursor:pointer;padding:9px 13px}
+.dromey-share-button:hover,.dromey-action:hover{background:#d5e9ff;border-color:#2563eb}
+.dromey-share-button:focus-visible,.dromey-action:focus-visible,.dromey-editor-link:focus-visible,.dromey-share-option:focus-visible{outline:3px solid #60a5fa;outline-offset:2px}
+.dromey-share-chapter{margin-left:auto;white-space:nowrap}
+.dromey-question-content{min-width:0}
+.dromey-question-content p{overflow-wrap:anywhere}
+.dromey-share-small{margin-top:8px;padding:5px 10px;font-size:.78rem}
+.worked-example .dromey-share-small{display:inline-flex}
+.dromey-chapter-tools{margin-top:17px;padding:20px;border:1px solid #b7d4f4;border-radius:18px;background:linear-gradient(135deg,#f6fbff,#eaf4ff)}
+.dromey-chapter-tools h3{margin:0 0 4px;font-size:1.15rem;color:#123c6e}
+.dromey-chapter-tools p{margin:0 0 14px;color:#4c6582;font-size:.9rem}
+.dromey-editor-links{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.dromey-editor-link{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 13px;border-radius:11px;background:#1d4ed8;color:white;text-decoration:none;font-size:.86rem;font-weight:750}
+.dromey-editor-link:hover{background:#173da8}
+.dromey-footer-share{min-height:40px}
+.dromey-share-dialog{position:fixed;inset:0;width:min(530px,calc(100% - 28px));max-height:min(90vh,750px);margin:auto;padding:23px;border:1px solid #c7ddf7;border-radius:20px;background:#fff;color:#173452;box-shadow:0 24px 90px rgba(6,30,65,.3);overflow:auto}
+.dromey-share-dialog::backdrop{background:rgba(6,22,48,.62)}
+.dromey-modal-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.dromey-kicker{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:#2563eb;font-weight:800}
+.dromey-share-dialog h2{margin:4px 0 12px;font-size:1.33rem;line-height:1.3}
+.dromey-close{flex:0 0 auto;width:36px;height:36px;border:1px solid #c4d8ef;border-radius:10px;background:#f3f8ff;color:#123c6e;cursor:pointer;font-size:1.5rem}
+.dromey-share-description{max-height:115px;overflow:auto;overflow-wrap:anywhere;color:#526a87;font-size:.9rem}
+.dromey-share-label{display:block;margin:14px 0 5px;font-size:.78rem;font-weight:800;color:#38567a}
+.dromey-copy-row{display:flex;gap:7px}
+.dromey-copy-row input{flex:1;min-width:0;border:1px solid #c6d8ed;border-radius:10px;background:#f7fbff;padding:10px;color:#1b497b;font-size:.82rem}
+.dromey-action{flex:0 0 auto}
+.dromey-share-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:17px}
+.dromey-share-option{display:flex;align-items:center;justify-content:center;min-height:42px;padding:9px;border:1px solid #c2dcf7;border-radius:11px;background:#f1f7ff;color:#124477;text-decoration:none;text-align:center;cursor:pointer;font-size:.85rem;font-weight:700}
+.dromey-share-option:hover{background:#e0efff}
+.dromey-copy-feedback{min-height:22px;margin:13px 0 0;color:#176a4e;font-size:.86rem}
+.dromey-linked-target{outline:3px solid #60a5fa;outline-offset:4px;border-radius:7px}
+.chapter,.question,.worked-example{scroll-margin-top:160px}
+@media(max-width:570px){.dromey-share-chapter{margin-left:0}.dromey-chapter-tools{padding:16px}.dromey-editor-links>*{flex:1 1 42%}.dromey-share-dialog{padding:17px}.dromey-copy-row{flex-wrap:wrap}.dromey-copy-row input{flex:1 1 100%}.dromey-action{width:100%}}
+@media print{.dromey-share-button,.dromey-chapter-tools,.dromey-share-dialog{display:none!important}}
