@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eaf6ff">
+<meta name="author" content="Champak Roy">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<title>Node.js on GoDaddy: Hello World (Lesson 1) | Learn With Champak</title>
+<meta name="description" content="Deploy your first Hello World Node.js server to GoDaddy Node.js Apps. Beginner tutorial with index.js, package.json, ZIP upload, preview, publishing and troubleshooting.">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/nodejs/godaddy/hello-world/">
+<link rel="icon" href="/assets/icons/icon-192.png">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Programmer's Picnic">
+<meta property="og:title" content="Node.js on GoDaddy — Lesson 1: Hello World">
+<meta property="og:description" content="From a two-file Node.js app to a live GoDaddy website: write, test, ZIP, preview and publish.">
+<meta property="og:url" content="https://dsa.learnwithchampak.live/nodejs/godaddy/hello-world/">
+<meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Node.js on GoDaddy — Lesson 1: Hello World","url":"https://dsa.learnwithchampak.live/nodejs/godaddy/hello-world/","educationalLevel":"Beginner","learningResourceType":"Tutorial","isAccessibleForFree":true,"inLanguage":"en-IN","author":{"@type":"Person","name":"Champak Roy"},"provider":{"@type":"Organization","name":"Programmer's Picnic"}}</script>
+<style>
+:root{--ink:#14324b;--muted:#50687e;--blue:#0b68b2;--pale:#e9f6ff;--line:#c7e1f2;--white:#fff;--night:#10283d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f5faff;color:var(--ink);font:16px/1.7 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+a{color:#0765aa}a:focus-visible,button:focus-visible{outline:3px solid #ffb526;outline-offset:3px}.wrap{width:min(1050px,calc(100% - 36px));margin-inline:auto}
+.topbar{background:#fff;border-bottom:1px solid var(--line)}.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:11px 0}
+.brand{font-size:1.03rem;font-weight:850;text-decoration:none;color:#0a4f82}.topbar nav{display:flex;gap:15px;flex-wrap:wrap;font-size:.92rem}
+.hero{background:linear-gradient(120deg,#dbf0ff 0,#f8fdff 65%,#e9f5ff 100%);border-bottom:1px solid var(--line);padding:47px 0 42px}
+.kicker{font-size:.78rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase;color:#1264a5}
+h1{font-size:clamp(2.15rem,5vw,3.4rem);letter-spacing:-.04em;line-height:1.16;margin:13px 0}h1 span{color:#0967ad}
+h2{font-size:clamp(1.43rem,3vw,1.8rem);line-height:1.25;margin:0 0 13px;color:#0d4c7d}
+h3{font-size:1.08rem;color:#164e7a;margin:19px 0 7px}.lead{font-size:1.14rem;max-width:790px;color:#315571}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.chip{background:#fff;border:1px solid #bdddf3;border-radius:99px;padding:4px 12px;font-size:.87rem;font-weight:650}
+.btn,.smallbtn{border:1px solid #9ccbeb;border-radius:10px;padding:9px 14px;background:white;color:#064e83;cursor:pointer;text-decoration:none;font-weight:750;display:inline-block}
+.btn.primary{background:#1169ae;color:#fff;border-color:#1169ae}.btn:hover,.smallbtn:hover{filter:brightness(.96)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 218px;gap:24px;align-items:start;padding-top:28px;padding-bottom:55px}
+main{min-width:0}.panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 28px #1b638009;padding:24px;margin-bottom:21px;scroll-margin-top:20px}
+.panel p:last-child{margin-bottom:0}.navbox{position:sticky;top:16px;background:white;border:1px solid var(--line);border-radius:14px;padding:16px;line-height:1.65}
+.navbox strong{color:#0f5085}.navbox a{display:block;font-size:.9rem;padding:4px 0;text-decoration:none}.navbox a:hover{text-decoration:underline}
+.lesson-flow{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:16px 0}.flow-step{background:#e7f4ff;border:1px solid #a8d4f0;border-radius:11px;padding:7px 12px;font-weight:700}
+.notice{border-left:4px solid #2386c5;border-radius:7px;background:#eef8ff;padding:13px 16px;margin:15px 0;color:#254b66}
+.warning{border-left-color:#cd8c16;background:#fff9e8}
+.tree{padding:15px 17px;background:#f0f7fd;border:1px solid var(--line);border-radius:10px;font-family:Consolas,monospace;line-height:1.65}
+.codebox{overflow:hidden;margin:16px 0;border-radius:13px;border:1px solid #1d3b51;background:var(--night)}.codehead{display:flex;align-items:center;justify-content:space-between;padding:8px 13px;color:#d3edff;border-bottom:1px solid #3b5266;font:700 .9rem system-ui}
+.codehead button{background:#e0f2ff;border:1px solid #89b9df;color:#063f6b;border-radius:8px;padding:4px 10px;cursor:pointer;font-weight:750}
+pre{white-space:pre;overflow-x:auto;margin:0;padding:18px;color:#ebf5ff;font:14px/1.65 Consolas,"Courier New",monospace;tab-size:2}pre code{font:inherit}.output{background:#ecfbf2;color:#19472e;border:1px solid #8bcda7;padding:13px 15px;border-radius:10px;font:14px/1.6 Consolas,monospace;overflow:auto}
+ol,ul{padding-left:23px}li{margin:7px 0}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border-bottom:1px solid #e0edf6;text-align:left;vertical-align:top;padding:10px 8px}th{background:#edf7ff}
+details{border:1px solid #c8e2f3;border-radius:10px;padding:11px 14px;margin:10px 0;background:#fafcff}summary{cursor:pointer;font-weight:740;color:#125c95}
+.exercise{padding:12px 17px;background:#f0f7fe;border:1px solid var(--line);border-radius:12px}
+.note-editor{margin-top:14px;border-top:1px dashed #bad9eb;padding-top:11px;font-size:.9rem;color:#4b6780}
+.next{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+footer{background:#e7f4ff;text-align:center;padding:26px 15px;color:#38536a;font-size:.92rem}
+.backtop{position:fixed;bottom:18px;right:17px;background:#1169ae;color:#fff;padding:9px 13px;border-radius:30px;text-decoration:none;box-shadow:0 4px 16px #164b7a44}
+@media(max-width:800px){.layout{display:block}.navbox{position:static;margin-bottom:18px}.panel{padding:18px}.topbar nav{gap:9px}}
+</style>
+</head>
+<body id="top">
+<div class="topbar"><div class="wrap"><a class="brand" href="/">Programmer's Picnic · Learn With Champak</a><nav aria-label="Main navigation"><a href="/">Home</a><a href="/javascript/">JavaScript</a><a href="/sitemap.html">All lessons</a><a href="https://editor.learnwithchampak.live/" target="_blank" rel="noopener">Code editor</a></nav></div></div>
+<header class="hero"><div class="wrap"><div class="kicker">Node.js on GoDaddy · Lesson 01 · 0 to Infinity</div><h1>Your first live Node.js app:<br><span>Hello World</span></h1><p class="lead">Write two tiny files, test on your computer, upload to GoDaddy's <strong>Node.js Apps</strong>, open a private preview and publish a live web server. No Express or database required.</p>
+<div class="chips"><span class="chip">Beginner</span><span class="chip">20–30 minute activity</span><span class="chip">Node.js 22</span><span class="chip">2 files</span><span class="chip">Hands-on deployment</span></div>
+<div class="next"><a class="btn primary" href="#first-code">Start coding ↓</a><a class="btn" href="#godaddy">GoDaddy setup ↓</a><a class="btn" href="https://github.com/Programmer-s-Picnic/dsa/tree/main/nodejs/godaddy/hello-world/starter" target="_blank" rel="noopener">Example source files</a></div></div></header>
+<div class="wrap layout">
+<main>
+<section class="panel" id="goal"><h2>0. What are we building?</h2><p>A website normally lives on a server. In this lesson, <strong>our JavaScript code becomes the server</strong>. Your browser sends a request; Node.js sends the text <strong>Hello World!</strong> back.</p>
+<div class="lesson-flow"><span class="flow-step">Browser</span> → <span class="flow-step">GoDaddy URL</span> → <span class="flow-step">Node.js app</span> → <span class="flow-step">Hello World!</span></div>
+<p>By the end you should be able to explain the roles of <code>index.js</code>, <code>package.json</code>, <code>process.env.PORT</code> and the GoDaddy <strong>Preview</strong> / <strong>Publish</strong> steps.</p>
+<div class="notice">Your GoDaddy screen shows <strong>Node.js Apps → Add App</strong> and <strong>0/10 slots used</strong>. This guide follows that newer hosting product, <em>not</em> the older cPanel "Setup Node.js App" / Passenger interface.</div>
+</section>
+<section class="panel" id="requirements"><h2>1. Before you begin</h2>
+<ul><li>Access to the GoDaddy hosting dashboard with the <strong>Add App</strong> button.</li><li>A plain-text editor such as VS Code or Notepad.</li><li>Optional: Node.js installed locally from <a href="https://nodejs.org/en/download" target="_blank" rel="noopener">nodejs.org</a> if you want to test before uploading.</li><li>Ability to create a ZIP archive. We will place our two files at the <strong>root of the ZIP</strong>.</li></ul>
+<div class="tree">hello-world/<br>&nbsp; ├── index.js<br>&nbsp; └── package.json</div>
+<div class="notice warning"><strong>Do not put passwords, API keys or database secrets inside your ZIP or GitHub repository.</strong> Use GoDaddy's application secrets / environment variable settings for those in later lessons.</div>
+</section>
+<section class="panel" id="first-code"><h2>2. Write Hello World in index.js</h2><p>Create a folder called <code>hello-world</code>, and inside it create a file named <code>index.js</code>. Type or copy the following:</p>
+<div class="codebox"><div class="codehead"><span>index.js</span><button type="button" data-copy="node-code">Copy code</button></div><pre id="node-code"><code>const http = require("http");
+
+const server = http.createServer((req, res) =&gt; {
+  res.writeHead(200, {
+    "Content-Type": "text/plain; charset=utf-8"
+  });
+  res.end("Hello World! Welcome to Programmer's Picnic.");
+});
+
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () =&gt; {
+  console.log("Server started on port " + PORT);
+});</code></pre></div>
+<h3>Understand the program line by line</h3>
+<table><thead><tr><th>Code</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>require("http")</code></td><td>Use Node.js's built-in HTTP module. Nothing needs to be installed with npm.</td></tr>
+<tr><td><code>createServer(...)</code></td><td>Create a server and a function to handle every incoming request.</td></tr>
+<tr><td><code>req</code></td><td>The browser's incoming request.</td></tr>
+<tr><td><code>res</code></td><td>The response your server sends back to the browser.</td></tr>
+<tr><td><code>writeHead(200,...)</code></td><td>Indicate success and send plain text with UTF-8 encoding.</td></tr>
+<tr><td><code>res.end(...)</code></td><td>Finish the HTTP response and send the greeting.</td></tr>
+<tr><td><code>process.env.PORT || 3000</code></td><td>Use the hosting provider's assigned port, or 3000 when testing locally.</td></tr>
+<tr><td><code>listen(PORT)</code></td><td>Start accepting HTTP requests.</td></tr>
+</tbody></table>
+<p><strong>Expected browser response:</strong></p><div class="output">Hello World! Welcome to Programmer's Picnic.</div>
+<div class="note-editor">✎ <a href="https://editor.learnwithchampak.live/" target="_blank" rel="noopener">Open our code editor</a> to study JavaScript syntax. Note: an ordinary browser editor cannot host a persistent Node.js server; run this example in Node.js or on GoDaddy.</div>
+</section>
+<section class="panel" id="package"><h2>3. Create package.json</h2><p>Inside the same folder, create <code>package.json</code>. It tells GoDaddy how to build and start your app.</p>
+<div class="codebox"><div class="codehead"><span>package.json</span><button type="button" data-copy="pkg-code">Copy code</button></div><pre id="pkg-code"><code>{
+  "name": "godaddy-hello-world",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Beginner Node.js HTTP server for GoDaddy hosting",
+  "main": "index.js",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "build": "echo build",
+    "start": "node index.js"
+  }
+}</code></pre></div>
+<ul><li><code>name</code> and <code>version</code> identify your project.</li><li><code>build</code> is required by GoDaddy's ZIP deployment. Our project needs no compilation, so it simply prints "build".</li><li><code>start</code> is the command GoDaddy uses to launch the app.</li><li><code>engines</code> indicates the Node.js version compatible with this example.</li></ul>
+<p>No <code>npm install</code> is necessary for this Hello World project because <code>http</code> is built into Node.js.</p>
+<div class="note-editor">✎ <a href="https://editor.learnwithchampak.live/" target="_blank" rel="noopener">Open our code editor</a> for practice reading JSON, then save the file locally as <code>package.json</code>.</div>
+</section>
+<section class="panel" id="local"><h2>4. Test on your own computer (optional)</h2><p>Open a terminal inside the <code>hello-world</code> folder and run:</p>
+<div class="codebox"><div class="codehead"><span>Terminal</span><button type="button" data-copy="terminal-code">Copy commands</button></div><pre id="terminal-code"><code>node --version
+npm run build
+npm start</code></pre></div>
+<p>You should see a message similar to:</p><div class="output">Server started on port 3000</div>
+<p>Open <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000/</a> <strong>on the same computer</strong>. You should see the Hello World greeting. Press <kbd>Ctrl</kbd> + <kbd>C</kbd> in the terminal to stop the server.</p>
+<div class="notice">If <code>node</code> is not recognised, install Node.js locally or skip directly to the GoDaddy upload. The local test is optional.</div>
+</section>
+<section class="panel" id="zip"><h2>5. Create the ZIP correctly</h2><p>Select the <strong>two files</strong> <code>index.js</code> and <code>package.json</code>, then compress them into <code>hello-world.zip</code>. On Windows, select both files, right-click and choose <strong>Compress to ZIP file</strong> (wording may vary).</p>
+<h3>Correct ZIP structure</h3><div class="tree">hello-world.zip<br>&nbsp; ├── index.js<br>&nbsp; └── package.json</div>
+<h3>Common incorrect structure</h3><div class="tree">hello-world.zip<br>&nbsp; └── hello-world/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ├── index.js<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; └── package.json</div>
+<p>When you open the ZIP, you should be able to see <code>package.json</code> immediately. This matters because GoDaddy expects it at the archive's root.</p>
+<p>You can compare your files with <a href="https://github.com/Programmer-s-Picnic/dsa/tree/main/nodejs/godaddy/hello-world/starter" target="_blank" rel="noopener">our complete starter source on GitHub</a>.</p>
+</section>
+<section class="panel" id="godaddy"><h2>6. Upload to GoDaddy Node.js Apps</h2>
+<ol><li>Sign in to GoDaddy and open the hosting dashboard for your site.</li><li>Find the <strong>Node.js Apps</strong> card — the one showing <strong>Add App</strong>.</li><li>Click <strong>Add App</strong>. Enter an app name such as <code>hello-world</code> if asked.</li><li>Choose the option to <strong>upload source / ZIP</strong> (rather than GitHub). Select <code>hello-world.zip</code>.</li><li>Let GoDaddy import the code, run the build command and deploy a <strong>private preview</strong>.</li><li>Open the preview URL. Confirm you see the Hello World greeting.</li><li>When satisfied, choose the <strong>Publish</strong> action. GoDaddy may ask you to attach an eligible hosting subscription and choose or attach a domain.</li><li>Open the production URL and test it again.</li></ol>
+<div class="notice"><strong>Important distinction:</strong> A private preview is not the same as a publicly available website. The exact control labels may differ as GoDaddy updates its dashboard. Use the upload → preview → publish flow shown by your app interface.</div>
+<p><strong>Which address will you use?</strong> Use the real preview/published URL shown by GoDaddy. The screenshot establishes the hosting account's domain, but it does <em>not</em> establish the URL that GoDaddy will assign to this specific app, so do not guess it.</p>
+<p>Official documentation: <a href="https://www.godaddy.com/en-in/hosting/nodejs" target="_blank" rel="noopener">GoDaddy Node.js Hosting</a> · <a href="https://developer.godaddy.com/en/docs/api-users/hosting/app-requirements" target="_blank" rel="noopener">Application file requirements</a>.</p>
+</section>
+<section class="panel" id="updates"><h2>7. Make a change and deploy again</h2><p>Change the text inside <code>res.end(...)</code>:</p>
+<div class="codebox"><div class="codehead"><span>Replace this one line in index.js</span><button type="button" data-copy="update-code">Copy</button></div><pre id="update-code"><code>res.end("Hello from my first GoDaddy Node.js server!");</code></pre></div>
+<p>Save the file, create a fresh ZIP containing both files, upload the new version, check the preview and publish the new deployment. Refresh the published page and make sure your new message appears.</p>
+<div class="notice">Editing a local file does not automatically change a deployed ZIP app. An updated upload and deployment is required. A GitHub-connected app can use a different deployment workflow.</div>
+<div class="note-editor">✎ <a href="https://editor.learnwithchampak.live/" target="_blank" rel="noopener">Practice changing the greeting in our editor</a>, then apply the change in your real <code>index.js</code>.</div>
+</section>
+<section class="panel" id="issues"><h2>8. Problems and quick fixes</h2>
+<details><summary>Build says package.json is missing</summary><p>Open your ZIP. <code>package.json</code> must be at the top level, not inside an extra folder. Confirm the filename does not end in <code>.txt</code>.</p></details>
+<details><summary>The app imports but does not start</summary><p>Confirm <code>scripts.start</code> is <code>node index.js</code>, the file is named <code>index.js</code>, and the code has no syntax errors. Review the build and runtime logs supplied by GoDaddy.</p></details>
+<details><summary>Port or health check error</summary><p>Use <code>const PORT = process.env.PORT || 3000;</code>. Do not hardcode a production port. Make sure <code>server.listen(PORT)</code> runs when the app starts.</p></details>
+<details><summary>The app works on my laptop but not in preview</summary><p>Confirm both files are included, the correct version was uploaded, and there are no local-only file paths or missing dependencies. Check deployment logs.</p></details>
+<details><summary>I see the old greeting after changing the code</summary><p>Verify that a new ZIP was uploaded and a new preview deployed, then publish the new version. Refresh the browser after production deployment completes.</p></details>
+<details><summary>I can preview but the public URL does not work</summary><p>Check whether the app is published, attached to an eligible hosting plan and mapped to the intended domain. A private preview alone does not make the site public.</p></details>
+<details><summary>Do I need Express or a database now?</summary><p>No. This first lesson uses the built-in HTTP module only. Express, route handling, forms, APIs and MySQL come later.</p></details>
+</section>
+<section class="panel" id="practice"><h2>9. Your turn — exercises</h2>
+<div class="exercise"><ol><li><strong>Beginner:</strong> Change the message to your own greeting. What changes in the browser?</li><li><strong>Observe:</strong> Why does the terminal print a different message from the browser?</li><li><strong>Think:</strong> What is the purpose of the <code>req</code> and <code>res</code> variables?</li><li><strong>Explore:</strong> Change the status code from <code>200</code> to <code>404</code>. Use browser Developer Tools → Network to see what changed, then restore <code>200</code>.</li><li><strong>Deploy:</strong> Publish a revised version after successfully testing it in private preview.</li></ol></div>
+<h3>Knowledge check</h3>
+<details><summary>Q1. Which file contains the server program?</summary><p><code>index.js</code>.</p></details>
+<details><summary>Q2. Which file tells GoDaddy how to start the app?</summary><p><code>package.json</code>, specifically its <code>scripts.start</code> entry.</p></details>
+<details><summary>Q3. Why use process.env.PORT?</summary><p>So the server listens on the port assigned by the hosting environment rather than assuming a fixed production port.</p></details>
+<details><summary>Q4. Does a working private preview mean everyone can visit the app?</summary><p>No. You must publish it and configure any required hosting subscription / domain association.</p></details>
+</section>
+<section class="panel" id="next"><h2>10. What comes next?</h2><p>You now have a Node.js server that replies to a browser request. The next logical lesson is <strong>Node.js on GoDaddy — Lesson 2: Routes and JSON</strong>: responding differently to <code>/</code>, <code>/about</code> and <code>/api/hello</code>. After that: Express, HTML forms, MySQL and a small practical project.</p>
+<div class="next"><a class="btn primary" href="/javascript/">Review JavaScript</a><a class="btn" href="/sitemap.html">Browse all lessons</a><a class="btn" href="https://editor.learnwithchampak.live/" target="_blank" rel="noopener">Our editor</a></div>
+</section>
+</main>
+<aside class="navbox" aria-label="Lesson contents"><strong>In this lesson</strong>
+<a href="#goal">0. What we build</a><a href="#requirements">1. Requirements</a><a href="#first-code">2. index.js</a><a href="#package">3. package.json</a><a href="#local">4. Test locally</a><a href="#zip">5. Create ZIP</a><a href="#godaddy">6. Deploy on GoDaddy</a><a href="#updates">7. Update app</a><a href="#issues">8. Troubleshooting</a><a href="#practice">9. Exercises & quiz</a><a href="#next">10. Next lesson</a></aside>
+</div>
+<footer>Programmer's Picnic · Developed and maintained by Champak Roy · <a href="/">Learn With Champak</a><br>Official references: <a href="https://developer.godaddy.com/en/docs/api-users/hosting/app-requirements">GoDaddy app requirements</a> and <a href="https://www.godaddy.com/en-in/hosting/nodejs">GoDaddy Node.js hosting</a>.</footer>
+<a class="backtop" href="#top" aria-label="Back to top">↑ Top</a>
+<script>
+document.querySelectorAll("[data-copy]").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var element = document.getElementById(btn.getAttribute("data-copy"));
+    if (!element) return;
+    var txt = element.textContent;
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(txt).then(function(){btn.textContent="Copied!";setTimeout(function(){btn.textContent="Copy code"},1200)}).catch(function(){btn.textContent="Select code to copy"});
+    } else { btn.textContent="Select code to copy"; }
+  });
+});
+</script>
+</body></html>
