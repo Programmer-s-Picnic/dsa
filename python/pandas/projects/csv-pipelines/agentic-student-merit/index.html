@@ -1,0 +1,299 @@
+<!doctype html><html lang="en-IN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agentic Programming with Pandas — Four Programs, Seven CSV Files | Learn With Champak</title><meta name="description" content="Hands-on agent-like CSV workflow: split student marks into passed and failed, create a merit list and top ten, then produce subject-wise failures with four Python programs, tests and a live file inspector."><meta name="keywords" content="agentic programming pandas, student results CSV python, pandas passed failed meritlist, Pandas automation pipeline, modular agentic workflows, top ten csv, subject-wise failed students, Python data engineering, Learn With Champak"><meta name="author" content="Champak Roy"><meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#eaf5ff">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/python/pandas/projects/csv-pipelines/agentic-student-merit/"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><link rel="icon" href="/assets/icons/icon-192.png">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Programmer's Picnic by Champak Roy"><meta property="og:title" content="Agentic Programming with Pandas — Four Programs, Seven CSV Files"><meta property="og:description" content="Hands-on agent-like CSV workflow: split student marks into passed and failed, create a merit list and top ten, then produce subject-wise failures with four Python programs, tests and a live file inspector."><meta property="og:url" content="https://dsa.learnwithchampak.live/python/pandas/projects/csv-pipelines/agentic-student-merit/"><meta property="og:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Agentic Programming with Pandas — Four Programs, Seven CSV Files"><meta name="twitter:description" content="Hands-on agent-like CSV workflow: split student marks into passed and failed, create a merit list and top ten, then produce subject-wise failures with four Python programs, tests and a live file inspector."><meta name="twitter:image" content="https://dsa.learnwithchampak.live/assets/images/og-aiml-champak-roy-varanasi.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Agentic Programming with Pandas — Four Programs, Seven CSV Files","description":"Hands-on agent-like CSV workflow: split student marks into passed and failed, create a merit list and top ten, then produce subject-wise failures with four Python programs, tests and a live file inspector.","url":"https://dsa.learnwithchampak.live/python/pandas/projects/csv-pipelines/agentic-student-merit/","learningResourceType":"Lesson","educationalLevel":"Intermediate","inLanguage":"en-IN","isAccessibleForFree":true,"author":{"@type":"Person","name":"Champak Roy"},"provider":{"@type":"Organization","name":"Programmer's Picnic"},"isPartOf":{"@type":"Course","name":"Pandas from 0 to Infinity","url":"https://dsa.learnwithchampak.live/python/pandas/"}}</script>
+<script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8321261883090494"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSTQRQMLEE"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-GSTQRQMLEE");</script>
+<link rel="stylesheet" href="/assets/css/theme.css"><link rel="stylesheet" href="/assets/css/pandas-course.css"><link rel="stylesheet" href="/python/pandas/projects/csv-pipelines/agentic-student-merit/agentic.css"></head>
+<body><div id="site-header" data-root="/"></div><main id="main-content"><div class="course-hero agent-hero"><div class="eyebrow">Programmer's Picnic · Pandas 0 to Infinity · Real-world workflow lesson</div>
+<h1>Agentic Programming with Pandas</h1><p class="lead"><strong>Four small programs. One common goal.</strong> A school wants an accurate examination report. Instead of building one giant script, give each program a clearly defined job, connect them with CSV files, and let a coordinator run the whole workflow.</p>
+<p class="meta">Intermediate · 4 programs · 7 output files · sample marks of 31 students · interactive CSV inspector</p>
+<nav class="course-nav" aria-label="Lesson navigation"><a href="/python/pandas/projects/csv-pipelines/">All CSV projects</a><a href="/python/pandas/">Pandas course</a><a href="/python/pandas/05-csv-read-write/">CSV I/O</a><a href="/python/pandas/06-merge-join-reshape/">DataFrame joins</a></nav></div><section class="lesson-panel"><div class="step-label">The challenge</div><h2>A Principal's Mission: Result Day</h2>
+<p>One teacher has entered student marks in <code>input/student_marks.csv</code>. Four independently runnable programs must work together. Each program has an input contract, an output contract and a specific responsibility. Their outputs become the inputs of downstream programs.</p>
+<div class="agent-board">
+<div class="agent-node mission-source"><span class="node-label">Original file</span><strong>student_marks.csv</strong><small>31 students · Maths, Science, English</small></div>
+<div class="agent-connector" aria-hidden="true"><span>↓</span></div>
+<div class="agent-node"><span class="node-label">Program 1 · Gatekeeper</span><strong>Split Passed / Failed</strong><small>Every mark ≥ 40 to pass</small><span class="node-files">passed.csv + failed.csv</span></div>
+<div class="agent-fork" aria-label="Two independent processing branches"><div class="agent-branch">
+<span class="branch-arrow" aria-hidden="true">↙</span>
+<div class="agent-node"><span class="node-label">Program 2 · Merit Maker</span><strong>meritlist.csv</strong><small>21 passed students, sorted by total</small></div>
+<span class="branch-arrow" aria-hidden="true">↓</span>
+<div class="agent-node"><span class="node-label">Program 3 · Topper Finder</span><strong>top_ten.csv</strong><small>Exactly 10 rows; consistent tie policy</small></div></div>
+<div class="agent-branch"><span class="branch-arrow" aria-hidden="true">↘</span>
+<div class="agent-node"><span class="node-label">Program 4 · Remedial Analyst</span><strong>failed-inmaths.csv</strong><strong>failed-inscience.csv</strong><strong>failed-inenglish.csv</strong><small>One student may occur in several files</small></div></div></div></div>
+<div class="callout"><strong>Terminology:</strong> this is an <em>agent-like, orchestrated workflow</em>, not an autonomous AI agent. The programs have separate roles and pass results to each other, but they follow fixed Python rules. An AI agent would also involve model-driven decisions, tools and controlled autonomy. Fixed examination rules do not need AI to be reliable.</div></section><section class="lesson-panel"><h2>First understand the input CSV</h2><p>Open the <a href="./input/student_marks.csv">complete student_marks.csv</a> file. These are fictional records, so students can freely edit a copy and rerun the programs.</p><div class="responsive-table"><table><thead><tr><th>StudentID</th><th>Name</th><th>Maths</th><th>Science</th><th>English</th><th>Outcome</th></tr></thead><tbody>
+<tr><td>S004</td><td>Kabir</td><td>98</td><td>96</td><td>99</td><td>PASS</td></tr>
+<tr><td>S006</td><td>Dev</td><td>40</td><td>41</td><td>40</td><td>PASS: 40 counts</td></tr>
+<tr><td>S008</td><td>Rahul</td><td>70</td><td>35</td><td>80</td><td>FAIL: Science</td></tr>
+<tr><td>S014</td><td>Neha</td><td>39</td><td>39</td><td>85</td><td>FAIL: Maths and Science</td></tr>
+<tr><td>S019</td><td>Vivek</td><td>30</td><td>32</td><td>20</td><td>FAIL: All three subjects</td></tr></tbody></table></div>
+<p><strong>Vital rule:</strong> A student is passed only if Maths ≥ 40 <strong>AND</strong> Science ≥ 40 <strong>AND</strong> English ≥ 40. A good total or average can never compensate for a failed subject.</p>
+<div class="example"><div class="example-bar"><span>Python 3 · runnable source</span><button type="button" data-copy-code aria-label="Copy Python source code">Copy code</button></div><pre><code>import pandas as pd
+students = pd.read_csv(&quot;input/student_marks.csv&quot;)
+subjects = [&quot;Maths&quot;, &quot;Science&quot;, &quot;English&quot;]
+passed_mask = students[subjects].ge(40).all(axis=1)
+passed = students.loc[passed_mask]
+failed = students.loc[~passed_mask]
+print(&quot;Passed:&quot;, len(passed), &quot;Failed:&quot;, len(failed))</code></pre></div>
+<p><code>ge(40)</code> means greater than or equal to 40. <code>all(axis=1)</code> means all subject conditions must be true for each row. The opposite mask identifies failures.</p></section><section class="lesson-panel" id="program-1"><div class="step-label">Independent agent-like component 1 of 4</div><h2>Program 1: Gatekeeper: Split the result files</h2><p>Read the original marks sheet, validate all scores and student IDs, then create exactly two CSV files. A failing student goes in the failed file only once, even if several subject marks are below 40.</p><div class="contract-box"><div><span>Input contract</span><strong>input/student_marks.csv</strong></div><div><span>Output contract</span><strong>output/passed.csv · output/failed.csv</strong></div></div><p>Validation matters: an absent score, an impossible score of 150 or duplicate StudentID is <strong>invalid input</strong>—not an automatic academic failure. The program stops with a clear error rather than silently misclassifying a student.</p><p><a href="https://github.com/Programmer-s-Picnic/dsa/blob/main/python/pandas/projects/csv-pipelines/agentic-student-merit/program1_split.py">Open or save the complete program1_split.py source</a></p><div class="example"><div class="example-bar"><span>Python 3 · runnable source</span><button type="button" data-copy-code aria-label="Copy Python source code">Copy code</button></div><pre><code>&quot;&quot;&quot;Program 1: read student marks and produce passed.csv + failed.csv.
+
+Rule: a student passes only if EVERY subject mark is &gt;= 40.
+Invalid data is rejected rather than being treated as a failure.
+&quot;&quot;&quot;
+from pathlib import Path
+import pandas as pd
+
+BASE = Path(__file__).resolve().parent
+SUBJECTS = (&quot;Maths&quot;, &quot;Science&quot;, &quot;English&quot;)
+COLUMNS = (&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;, *SUBJECTS)
+
+
+def split_students(source: pd.DataFrame):
+    &quot;&quot;&quot;Return independent passed/failed DataFrames, without mutating source.&quot;&quot;&quot;
+    missing = sorted(set(COLUMNS) - set(source.columns))
+    if missing:
+        raise ValueError(&quot;Missing columns: &quot; + &quot;, &quot;.join(missing))
+    df = source.loc[:, list(COLUMNS)].copy()
+    for col in (&quot;StudentID&quot;, &quot;Name&quot;, &quot;City&quot;):
+        df[col] = df[col].astype(&quot;string&quot;).str.strip()
+        if df[col].isna().any() or df[col].eq(&quot;&quot;).any():
+            raise ValueError(f&quot;{col} cannot be missing or blank&quot;)
+    if df[&quot;StudentID&quot;].duplicated().any():
+        raise ValueError(&quot;Duplicate StudentID: review the input file&quot;)
+    for subject in SUBJECTS:
+        df[subject] = pd.to_numeric(df[subject], errors=&quot;coerce&quot;)
+        if df[subject].isna().any():
+            raise ValueError(f&quot;{subject} has missing/non-numeric marks&quot;)
+        if not df[subject].between(0, 100).all():
+            raise ValueError(f&quot;{subject} must be between 0 and 100&quot;)
+        if not df[subject].mod(1).eq(0).all():
+            raise ValueError(f&quot;{subject} marks must be whole numbers&quot;)
+        df[subject] = df[subject].astype(int)
+
+    passed_mask = df[list(SUBJECTS)].ge(40).all(axis=1)
+    passed = df.loc[passed_mask].reset_index(drop=True)
+    failed = df.loc[~passed_mask].reset_index(drop=True)
+    assert len(passed) + len(failed) == len(df)
+    return passed, failed
+
+
+def main(base=None):
+    base = Path(base) if base is not None else BASE
+    input_file = base / &quot;input&quot; / &quot;student_marks.csv&quot;
+    students = pd.read_csv(
+        input_file, dtype={&quot;StudentID&quot;: &quot;string&quot;, &quot;Name&quot;: &quot;string&quot;, &quot;City&quot;: &quot;string&quot;}
+    )
+    passed, failed = split_students(students)
+    output = base / &quot;output&quot;
+    output.mkdir(parents=True, exist_ok=True)
+    passed.to_csv(output / &quot;passed.csv&quot;, index=False)
+    failed.to_csv(output / &quot;failed.csv&quot;, index=False)
+    print(f&quot;Program 1: {len(students)} students → {len(passed)} passed, {len(failed)} failed&quot;)
+    return passed, failed
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre></div><div class="checkpoint"><h3>Think before running</h3><p>Can someone with 100 in Maths and 100 in Science but 39 in English pass? Why?</p><p class="muted">Hint: all three comparisons must return True.</p></div></section><section class="lesson-panel" id="program-2"><div class="step-label">Independent agent-like component 2 of 4</div><h2>Program 2: Merit Maker: Calculate rank</h2><p>Read only passed.csv, calculate Total, Percentage and Rank, then create meritlist.csv. Failed students must never reach this file.</p><div class="contract-box"><div><span>Input contract</span><strong>output/passed.csv</strong></div><div><span>Output contract</span><strong>output/meritlist.csv</strong></div></div><p><strong>Rank policy:</strong> higher totals rank first. Tied totals receive the same <em>competition rank</em> (1, 2, 2, 4). For consistent display order between tied students, sort alphabetically by name and then StudentID.</p><p>The sample deliberately includes <strong>Lata and Meera</strong>, both scoring 262 with Rank 6. This makes tie handling visible, not merely theoretical.</p><p><a href="https://github.com/Programmer-s-Picnic/dsa/blob/main/python/pandas/projects/csv-pipelines/agentic-student-merit/program2_merit.py">Open or save the complete program2_merit.py source</a></p><div class="example"><div class="example-bar"><span>Python 3 · runnable source</span><button type="button" data-copy-code aria-label="Copy Python source code">Copy code</button></div><pre><code>&quot;&quot;&quot;Program 2: read passed.csv, calculate scores and publish meritlist.csv.
+
+Tied totals receive the same competition rank (1, 2, 2, 4).
+Names and student IDs resolve display order within a tied rank.
+&quot;&quot;&quot;
+from pathlib import Path
+import pandas as pd
+
+BASE = Path(__file__).resolve().parent
+SUBJECTS = (&quot;Maths&quot;, &quot;Science&quot;, &quot;English&quot;)
+
+
+def build_meritlist(source: pd.DataFrame) -&gt; pd.DataFrame:
+    required = {&quot;StudentID&quot;, &quot;Name&quot;, *SUBJECTS}
+    if missing := sorted(required - set(source.columns)):
+        raise ValueError(&quot;passed.csv is missing: &quot; + &quot;, &quot;.join(missing))
+    df = source.copy()
+    if df[&quot;StudentID&quot;].isna().any() or df[&quot;StudentID&quot;].duplicated().any():
+        raise ValueError(&quot;passed.csv has invalid StudentID values&quot;)
+    for subject in SUBJECTS:
+        df[subject] = pd.to_numeric(df[subject], errors=&quot;coerce&quot;)
+        if df[subject].isna().any() or not df[subject].between(40, 100).all():
+            raise ValueError(&quot;passed.csv contains incomplete or failing marks&quot;)
+    df[&quot;Total&quot;] = df[list(SUBJECTS)].sum(axis=1)
+    df[&quot;Percentage&quot;] = (df[&quot;Total&quot;] / len(SUBJECTS)).round(2)
+    df[&quot;Rank&quot;] = df[&quot;Total&quot;].rank(ascending=False, method=&quot;min&quot;).astype(int)
+    return df.sort_values(
+        [&quot;Total&quot;, &quot;Name&quot;, &quot;StudentID&quot;],
+        ascending=[False, True, True], kind=&quot;mergesort&quot;,
+    ).reset_index(drop=True)
+
+
+def main(base=None):
+    base = Path(base) if base is not None else BASE
+    passed = pd.read_csv(
+        base / &quot;output&quot; / &quot;passed.csv&quot;,
+        dtype={&quot;StudentID&quot;: &quot;string&quot;},
+    )
+    merit = build_meritlist(passed)
+    merit.to_csv(base / &quot;output&quot; / &quot;meritlist.csv&quot;, index=False)
+    print(f&quot;Program 2: {len(merit)} passed students → meritlist.csv&quot;)
+    return merit
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre></div><div class="checkpoint"><h3>Think before running</h3><p>What is the merit rank of the student immediately after two people tie at rank 6?</p><p class="muted">Competition ranking skips the following rank; the next rank is 8.</p></div></section><section class="lesson-panel" id="program-3"><div class="step-label">Independent agent-like component 3 of 4</div><h2>Program 3: Topper Finder: Select exactly ten</h2><p>Read meritlist.csv and create top_ten.csv. Never calculate rankings again from the original marks file.</p><div class="contract-box"><div><span>Input contract</span><strong>output/meritlist.csv</strong></div><div><span>Output contract</span><strong>output/top_ten.csv</strong></div></div><p>Using <code>head(10)</code> after a validated, deterministic sort gives ten rows when there are at least ten successful students. If several people tie at the tenth position, the tie-breaking order is <strong>Name, then StudentID</strong>; this exercise deliberately chooses exactly ten, rather than including all candidates tied for tenth.</p><p>Here <strong>Sahil and Uma</strong> share Rank 10 and both have 251 marks. Sahil appears in top_ten.csv, Uma remains on the full merit list.</p><p><a href="https://github.com/Programmer-s-Picnic/dsa/blob/main/python/pandas/projects/csv-pipelines/agentic-student-merit/program3_top_ten.py">Open or save the complete program3_top_ten.py source</a></p><div class="example"><div class="example-bar"><span>Python 3 · runnable source</span><button type="button" data-copy-code aria-label="Copy Python source code">Copy code</button></div><pre><code>&quot;&quot;&quot;Program 3: read meritlist.csv and produce exactly ten rows at most.
+
+If the 10th position is tied, we keep exactly 10 records and break
+ties alphabetically by Name then StudentID (not all tied candidates).
+&quot;&quot;&quot;
+from pathlib import Path
+import pandas as pd
+
+BASE = Path(__file__).resolve().parent
+
+
+def choose_top_ten(source: pd.DataFrame) -&gt; pd.DataFrame:
+    required = {&quot;StudentID&quot;, &quot;Name&quot;, &quot;Total&quot;, &quot;Rank&quot;}
+    if missing := sorted(required - set(source.columns)):
+        raise ValueError(&quot;meritlist.csv is missing: &quot; + &quot;, &quot;.join(missing))
+    df = source.copy()
+    if df[&quot;StudentID&quot;].isna().any() or df[&quot;StudentID&quot;].duplicated().any():
+        raise ValueError(&quot;Invalid meritlist StudentID&quot;)
+    df[&quot;Total&quot;] = pd.to_numeric(df[&quot;Total&quot;], errors=&quot;coerce&quot;)
+    df[&quot;Rank&quot;] = pd.to_numeric(df[&quot;Rank&quot;], errors=&quot;coerce&quot;)
+    if df[&quot;Total&quot;].isna().any() or df[&quot;Rank&quot;].isna().any():
+        raise ValueError(&quot;Merit rank or total is missing or invalid&quot;)
+    expected_ranks = df[&quot;Total&quot;].rank(ascending=False, method=&quot;min&quot;)
+    if not df[&quot;Rank&quot;].eq(expected_ranks).all():
+        raise ValueError(&quot;Merit ranks are inconsistent with total marks&quot;)
+    return df.sort_values(
+        [&quot;Total&quot;, &quot;Name&quot;, &quot;StudentID&quot;], ascending=[False, True, True],
+        kind=&quot;mergesort&quot;
+    ).head(10).reset_index(drop=True)
+
+
+def main(base=None):
+    base = Path(base) if base is not None else BASE
+    merit = pd.read_csv(
+        base / &quot;output&quot; / &quot;meritlist.csv&quot;, dtype={&quot;StudentID&quot;: &quot;string&quot;}
+    )
+    top = choose_top_ten(merit)
+    top.to_csv(base / &quot;output&quot; / &quot;top_ten.csv&quot;, index=False)
+    print(f&quot;Program 3: top {len(top)} students → top_ten.csv&quot;)
+    return top
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre></div><div class="checkpoint"><h3>Think before running</h3><p>Would a student with rank 10 always appear in a strictly ten-row list?</p><p class="muted">Not necessarily: ties at the cutoff must be resolved by the stated display policy.</p></div></section><section class="lesson-panel" id="program-4"><div class="step-label">Independent agent-like component 4 of 4</div><h2>Program 4: Remedial Analyst: Find weak subjects</h2><p>Read failed.csv, detect the subject or subjects where each student scored below 40, and create separate CSV files for Maths, Science and English.</p><div class="contract-box"><div><span>Input contract</span><strong>output/failed.csv</strong></div><div><span>Output contract</span><strong>output/failed-inmaths.csv · output/failed-inscience.csv · output/failed-inenglish.csv</strong></div></div><p>Every output includes a <code>Shortfall</code> column, calculated as <code>40 - subject mark</code>. The student with the largest shortfall appears first. A student failing two subjects is included in both subject files. This helps teachers plan focused revision classes instead of merely publishing a single failure list.</p><p>For example, <strong>Vivek</strong> appears in all three subject files. The sum of subject-failure counts can therefore exceed the number of failed students.</p><p><a href="https://github.com/Programmer-s-Picnic/dsa/blob/main/python/pandas/projects/csv-pipelines/agentic-student-merit/program4_subject_failures.py">Open or save the complete program4_subject_failures.py source</a></p><div class="example"><div class="example-bar"><span>Python 3 · runnable source</span><button type="button" data-copy-code aria-label="Copy Python source code">Copy code</button></div><pre><code>&quot;&quot;&quot;Program 4: read failed.csv and create one CSV per failed subject.
+
+A student failing two or three subjects intentionally appears in two
+or three subject CSVs. Each CSV includes shortfall = 40 - subject mark.
+&quot;&quot;&quot;
+from pathlib import Path
+import pandas as pd
+
+BASE = Path(__file__).resolve().parent
+SUBJECTS = (&quot;Maths&quot;, &quot;Science&quot;, &quot;English&quot;)
+
+
+def failures_by_subject(source: pd.DataFrame):
+    missing = sorted(set(SUBJECTS) - set(source.columns))
+    if missing:
+        raise ValueError(&quot;failed.csv is missing: &quot; + &quot;, &quot;.join(missing))
+    df = source.copy()
+    for subject in SUBJECTS:
+        df[subject] = pd.to_numeric(df[subject], errors=&quot;coerce&quot;)
+        if df[subject].isna().any() or not df[subject].between(0, 100).all():
+            raise ValueError(&quot;failed.csv contains invalid marks&quot;)
+    if not df[list(SUBJECTS)].lt(40).any(axis=1).all():
+        raise ValueError(&quot;failed.csv contains a student who passed all subjects&quot;)
+    result = {}
+    for subject in SUBJECTS:
+        part = df.loc[df[subject].lt(40)].copy()
+        part[&quot;Shortfall&quot;] = 40 - part[subject]
+        part = part.sort_values(
+            [&quot;Shortfall&quot;, &quot;Name&quot;, &quot;StudentID&quot;],
+            ascending=[False, True, True], kind=&quot;mergesort&quot;,
+        ).reset_index(drop=True)
+        result[subject] = part
+    return result
+
+
+def main(base=None):
+    base = Path(base) if base is not None else BASE
+    failed = pd.read_csv(
+        base / &quot;output&quot; / &quot;failed.csv&quot;, dtype={&quot;StudentID&quot;: &quot;string&quot;}
+    )
+    reports = failures_by_subject(failed)
+    for subject, report in reports.items():
+        name = f&quot;failed-in{subject.lower()}.csv&quot;
+        report.to_csv(base / &quot;output&quot; / name, index=False)
+        print(f&quot;Program 4: {subject} → {name} ({len(report)} students)&quot;)
+    return reports
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre></div><div class="checkpoint"><h3>Think before running</h3><p>If 10 students failed overall, can there be more than 10 entries across the three subject-failure files?</p><p class="muted">Yes. Count the unique StudentIDs for overall failures; count rows for subject-wise remedial demand.</p></div></section><section class="lesson-panel" id="coordinator"><div class="step-label">A supervisor coordinates the four programs</div><h2>One command runs the complete workflow</h2><p>The coordinator knows the dependency graph. It runs Program 1 first; Program 2 can then read passed.csv, and Program 4 can independently read failed.csv; Program 3 waits for Program 2's meritlist.csv. The implementation uses a simple sequential schedule and checks that no records disappeared.</p>
+<p><a href="https://github.com/Programmer-s-Picnic/dsa/blob/main/python/pandas/projects/csv-pipelines/agentic-student-merit/run_all.py">View run_all.py — the coordinator</a></p>
+<div class="example"><div class="example-bar"><span>Python 3 · runnable source</span><button type="button" data-copy-code aria-label="Copy Python source code">Copy code</button></div><pre><code>from program1_split import main as split
+from program2_merit import main as merit
+from program3_top_ten import main as top_ten
+from program4_subject_failures import main as failures
+
+passed, failed = split()       # one input → two branches
+meritlist = merit()             # passed.csv → meritlist.csv
+top = top_ten()                 # meritlist.csv → top_ten.csv
+subject_lists = failures()      # failed.csv → three CSVs
+print(&quot;Pipeline complete&quot;)</code></pre></div>
+<div class="example"><div class="example-bar"><span>Run in a terminal</span><button type="button" data-copy-code>Copy code</button></div><pre><code>python -m pip install pandas
+cd python/pandas/projects/csv-pipelines/agentic-student-merit
+
+# Run each program separately:
+python program1_split.py
+python program2_merit.py
+python program3_top_ten.py
+python program4_subject_failures.py
+
+# Or let the coordinator run all four:
+python run_all.py
+
+# Verify the results:
+python -m unittest discover -s . -p "test_*.py"</code></pre></div>
+<p>A failed upstream stage should stop the workflow before downstream programs consume stale data. In production, add a run ID, checksums and atomic file replacement for stronger protection.</p></section><section class="lesson-panel" id="preview"><div class="step-label">Live file inspector</div><h2>Watch data change from one program to another</h2><p>Choose an agent-like program and its output. You will see the <strong>real committed CSV files</strong> side by side. Run the Python scripts locally to regenerate them and compare.</p>
+<div class="agent-controls"><label for="agent-selector">Program<select id="agent-selector"><option value="1">1 · Passed / Failed</option><option value="2">2 · Merit List</option><option value="3">3 · Top Ten</option><option value="4">4 · Subject Failures</option></select></label><label for="agent-output">Output CSV<select id="agent-output"></select></label></div>
+<p id="agent-file-summary" class="agent-summary" aria-live="polite"></p>
+<div class="agent-preview-grid"><section class="agent-preview"><h3>Input CSV</h3><a id="agent-input-link" href="./input/student_marks.csv">Open input file</a><div class="agent-preview-table" id="agent-input-table">Loading input…</div></section>
+<section class="agent-preview"><h3>Output CSV</h3><a id="agent-output-link" href="./output/passed.csv">Open output file</a><div class="agent-preview-table" id="agent-output-table">Loading output…</div></section></div>
+<p class="muted">The browser inspector is a read-only demonstration; it does not execute Python or change any student marks.</p></section><section class="lesson-panel" id="deliverables"><h2>Downloadable inputs and seven outputs</h2><p>The exact filenames from this problem are included. These snapshots let students see the expected results before they write code.</p><div class="agent-file-links"><a href="./input/student_marks.csv"><span>Original input</span><strong>student_marks.csv</strong></a><a href="./output/passed.csv"><span>Passed students</span><strong>passed.csv</strong></a><a href="./output/failed.csv"><span>Failed students</span><strong>failed.csv</strong></a><a href="./output/meritlist.csv"><span>Complete merit list</span><strong>meritlist.csv</strong></a><a href="./output/top_ten.csv"><span>Top ten</span><strong>top_ten.csv</strong></a><a href="./output/failed-inmaths.csv"><span>Failed in Maths</span><strong>failed-inmaths.csv</strong></a><a href="./output/failed-inscience.csv"><span>Failed in Science</span><strong>failed-inscience.csv</strong></a><a href="./output/failed-inenglish.csv"><span>Failed in English</span><strong>failed-inenglish.csv</strong></a></div>
+<h3>Expected output checks</h3><div class="responsive-table"><table><thead><tr><th>CSV file</th><th>Number of students</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>passed.csv</td><td>21</td><td>All marks ≥ 40</td></tr>
+<tr><td>failed.csv</td><td>10</td><td>At least one mark below 40</td></tr>
+<tr><td>meritlist.csv</td><td>21</td><td>Passed students ranked by total marks</td></tr>
+<tr><td>top_ten.csv</td><td>10</td><td>Strict top ten with stated tie-break</td></tr>
+<tr><td>failed-inmaths.csv</td><td>5</td><td>Maths below 40</td></tr>
+<tr><td>failed-inscience.csv</td><td>5</td><td>Science below 40</td></tr>
+<tr><td>failed-inenglish.csv</td><td>7</td><td>English below 40</td></tr></tbody></table></div>
+<p>Subject-wise counts total 17 but involve only 10 distinct failed students, because some learners need help in multiple subjects.</p></section><section class="challenge" id="exercises"><h2>Challenges: Turn this into a smarter system</h2>
+<ol><li><strong>Beginner:</strong> Change the sample so a student scores exactly 40 in every subject. Which file receives them?</li>
+<li><strong>Boundary test:</strong> Change one subject mark to 39 while keeping the other two at 100. Does this student remain on the merit list?</li>
+<li><strong>Fairness:</strong> Explain why a tied rank does not guarantee appearing in a list limited to exactly ten rows.</li>
+<li><strong>Remedial planning:</strong> Add a new output <code>failed-in-two-or-more-subjects.csv</code> to identify students needing additional attention.</li>
+<li><strong>New branch:</strong> Create an extra program that produces <code>city-wise-summary.csv</code> from passed.csv. Connect it to the coordinator without modifying Programs 2, 3 or 4.</li>
+<li><strong>Reliability:</strong> Add a manifest recording every file's input row count, output row count, modification time and checksum.</li></ol>
+<details><summary>Show the key idea for the two-subject challenge</summary><div class="example"><div class="example-bar"><span>Python 3 · runnable source</span><button type="button" data-copy-code aria-label="Copy Python source code">Copy code</button></div><pre><code>import pandas as pd
+failed = pd.read_csv(&quot;output/failed.csv&quot;)
+subjects = [&quot;Maths&quot;, &quot;Science&quot;, &quot;English&quot;]
+failure_count = failed[subjects].lt(40).sum(axis=1)
+needs_extra_help = failed.loc[failure_count &gt;= 2].copy()
+needs_extra_help[&quot;SubjectsFailed&quot;] = failure_count[failure_count &gt;= 2]
+needs_extra_help.to_csv(
+    &quot;output/failed-in-two-or-more-subjects.csv&quot;, index=False
+)
+print(needs_extra_help[[&quot;Name&quot;, &quot;SubjectsFailed&quot;]])</code></pre></div></details></section><section class="resource"><h2>From workflow programming to truly agentic systems</h2>
+<div class="agent-compare"><div><h3>What these four programs do</h3><p>Use a fixed goal, a known sequence of tasks, explicit file contracts, predictable code and auditable outputs. This is a <strong>deterministic multi-component workflow</strong>.</p></div><div><h3>What an AI agent might add</h3><p>Observe outputs, choose the next tool or action based on the situation, explain unusual errors, and propose remediation. Any AI decisions must be authorised and checked; <strong>an AI must not invent marks, change grades or make unreviewed pass/fail decisions</strong>.</p></div></div>
+<p><strong>Key lesson:</strong> divide a difficult goal into small jobs, define inputs and outputs, coordinate dependencies and verify results. This architecture is a useful foundation for agentic software even when no AI model is involved.</p>
+<p>Continue with <a href="/python/pandas/projects/csv-pipelines/">the other multilevel CSV projects</a> or <a href="/python/pandas/06-merge-join-reshape/">Pandas merging and reshaping</a>.</p></section>
+<div class="actions"><a href="/python/pandas/projects/csv-pipelines/">← All CSV projects</a><a href="/python/pandas/">Pandas course</a><a class="primary" href="https://github.com/Programmer-s-Picnic/dsa/blob/main/python/pandas/projects/csv-pipelines/agentic-student-merit/README.md">Project instructions →</a></div><p class="footer-note">Programmer's Picnic · Developed and maintained by Champak Roy · All sample student records are fictional.</p></main><div id="site-footer" data-root="/"></div>
+<script defer src="/assets/js/include.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/pandas-course.js"></script><script defer src="/python/pandas/projects/csv-pipelines/agentic-student-merit/inspector.js"></script></body></html>

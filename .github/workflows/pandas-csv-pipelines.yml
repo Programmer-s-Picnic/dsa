@@ -25,4 +25,6 @@ jobs:
       - name: Install Pandas
         run: python -m pip install pandas
       - name: Test all six stages, expected CSVs and regression suites
-        run: python python/pandas/projects/csv-pipelines/verify_all.py
+        run: |
+          python python/pandas/projects/csv-pipelines/verify_all.py
+          python -m unittest discover -s python/pandas/projects/csv-pipelines/agentic-student-merit -p 'test_*.py'
