@@ -74,14 +74,16 @@ async function sendToEditor(pre,action){
    teacher.announce(message,pre,{status:"Python example sent to the Editor"});
    return;
  }
- // Large examples exceed safe link size. Copy first, then open the editor.
+ // Large examples exceed safe link size. Open editor immediately while this
+ // user click is active, then copy the program without risking popup blocking.
+ const a=document.createElement("a");a.href=EDITOR;a.target="_blank";a.rel="noopener noreferrer";
+ a.style.display="none";document.body.appendChild(a);a.click();a.remove();
  try{
+   if(!navigator.clipboard?.writeText)throw Error("Clipboard not supported");
    await navigator.clipboard.writeText(source);
-   const a=document.createElement("a");a.href=EDITOR;a.target="_blank";a.rel="noopener noreferrer";
-   a.style.display="none";document.body.appendChild(a);a.click();a.remove();
    teacher.announce("This example was too large for a share link. I copied it to your clipboard. Paste it in the Python Editor, then press Run or Visualize.",pre);
  }catch(_e){
-   teacher.announce("This example is too large for an editor link. Select the code, copy it, and paste it into the Python Super Editor.",pre);
+   teacher.announce("This example is too large for an editor link and automatic copy was unavailable. Select the code, copy it, then paste into the Python Super Editor.",pre);
  }
 }
 function augmentCode(pre){
