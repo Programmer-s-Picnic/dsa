@@ -1,0 +1,82 @@
+/* Champuter for Learn With Champak Blogger — scoped, accessible, responsive. */
+/* Avoid changing the blog layout; inject one fixed, collapsible teaching dock. */
+#lwc-champuter-blog{all:initial;position:fixed;inset:auto 14px 132px auto;z-index:1160;
+  font:500 13px/1.45 system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#193f62;
+  isolation:isolate;display:block;max-width:calc(100vw - 20px);pointer-events:none}
+#lwc-champuter-blog *,#lwc-champuter-blog *:before,#lwc-champuter-blog *:after{box-sizing:border-box}
+#lwc-champuter-blog [hidden]{display:none!important}
+#lwc-champuter-blog .lwc-champuter-controls{width:284px;max-width:calc(100vw - 26px);
+  pointer-events:auto;border:1px solid #9bcbea;border-radius:14px;
+  background:#fff;box-shadow:0 12px 32px rgba(11,52,88,.18)}
+#lwc-champuter-blog .lwc-champuter-toggle{display:flex;align-items:center;justify-content:center;gap:9px;
+  width:100%;min-height:45px;border:0!important;background:#126cae!important;color:#fff!important;
+  border-radius:12px!important;font:bold 14px/1.2 system-ui,sans-serif!important;
+  padding:11px 13px!important;cursor:pointer;box-shadow:none!important}
+#lwc-champuter-blog .lwc-champuter-toggle .lwc-champuter-chevron{margin-left:auto;font-size:17px}
+#lwc-champuter-blog .lwc-champuter-menu{max-height:min(530px,calc(100vh - 180px));overflow:auto;
+  padding:13px;background:#f8fbff;border-radius:0 0 13px 13px}
+#lwc-champuter-blog .lwc-champuter-menu-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+#lwc-champuter-blog .lwc-champuter-menu-head strong{color:#174b75;font-size:13px}
+#lwc-champuter-blog #lwcChamputerClose{border:1px solid #b9d7e8;background:#fff;color:#235c87;
+  width:32px;height:32px;border-radius:9px;cursor:pointer;flex:none;font-weight:800}
+#lwc-champuter-blog .lwc-champuter-status{font-size:12px;line-height:1.45;margin:8px 0 11px!important;
+  color:#436b8a;padding:9px 10px;background:#e8f4fc;border-radius:9px}
+#lwc-champuter-blog .lwc-champuter-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+#lwc-champuter-blog button[data-lwc-teach]{min-height:42px;padding:8px 8px;border-radius:9px;
+  border:1px solid #b7d4e8;background:#fff;color:#205780;cursor:pointer;
+  font:750 11px/1.3 system-ui,sans-serif;white-space:normal;text-align:center}
+#lwc-champuter-blog button[data-lwc-teach="teach"]{background:#157cbb;color:#fff;border-color:#157cbb}
+#lwc-champuter-blog button[data-lwc-teach="read"]{background:#e9f6ff;color:#125781}
+#lwc-champuter-blog button[data-lwc-teach="stop"]{color:#a02834;background:#fff4f4;border-color:#f4c4c4}
+#lwc-champuter-blog button:hover{filter:brightness(.95)}
+#lwc-champuter-blog button:focus-visible,#lwc-champuter-blog select:focus-visible{outline:3px solid #efb245;outline-offset:2px}
+#lwc-champuter-blog .lwc-champuter-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}
+#lwc-champuter-blog .lwc-champuter-options label{display:grid;gap:5px;font-size:11px;font-weight:800;color:#4a718e}
+#lwc-champuter-blog .lwc-champuter-options select{min-width:0;width:100%;border:1px solid #bcd6e7!important;
+  border-radius:8px!important;background:#fff!important;color:#254e71!important;padding:8px!important;
+  font:600 12px system-ui,sans-serif}
+#lwc-champuter-blog .lwc-champuter-usage{font-size:10px;line-height:1.45;color:#63849d;margin:9px 0 1px!important}
+#lwc-champuter-blog .lwc-champuter-character{position:fixed;right:12px;bottom:180px;left:auto;top:auto;
+  width:142px;height:174px;max-width:35vw;pointer-events:none;
+  filter:drop-shadow(0 7px 7px rgba(18,63,102,.22));
+  transition:left .85s ease-out,top .85s ease-out,filter .4s ease;z-index:-1}
+#lwc-champuter-blog .lwc-champuter-character>svg{width:100%;height:100%;overflow:visible;display:block;
+  transform-origin:50% 95%}
+#lwc-champuter-blog .lwc-champuter-character.lwc-champuter-walking>svg{animation:lwc-blog-bob .22s ease-in-out infinite alternate}
+#lwc-champuter-blog .lwc-champuter-character.lwc-champuter-walking #lwc-blog-left-leg{animation:lwc-blog-left-leg .36s ease-in-out infinite alternate}
+#lwc-champuter-blog .lwc-champuter-character.lwc-champuter-walking #lwc-blog-right-leg{animation:lwc-blog-right-leg .36s ease-in-out infinite alternate}
+#lwc-champuter-blog .lwc-champuter-character.lwc-champuter-pointing #lwc-blog-right-arm{animation:lwc-blog-point 1.1s ease-in-out infinite alternate}
+#lwc-champuter-blog .lwc-champuter-character.lwc-champuter-speaking #lwc-blog-head-rig{animation:lwc-blog-nod 1.5s ease-in-out infinite alternate}
+@keyframes lwc-blog-bob{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+@keyframes lwc-blog-left-leg{from{transform:rotate(-10deg)}to{transform:rotate(10deg)}}
+@keyframes lwc-blog-right-leg{from{transform:rotate(10deg)}to{transform:rotate(-10deg)}}
+@keyframes lwc-blog-point{from{transform:rotate(-14deg)}to{transform:rotate(-37deg)}}
+@keyframes lwc-blog-nod{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
+.lwc-champuter-highlight{outline:3px solid #e5aa37!important;outline-offset:5px!important;
+  border-radius:5px;box-shadow:0 0 0 8px rgba(255,197,81,.13)!important;
+  background-clip:padding-box;scroll-margin-top:100px}
+.post-body .lwc-champuter-highlight pre,.post-body pre.lwc-champuter-highlight{outline-color:#f0bf69!important}
+#lwc-champuter-blog.lwc-champuter-open .lwc-champuter-character{filter:drop-shadow(0 7px 8px rgba(18,63,102,.28))}
+@media(max-width:900px){
+ #lwc-champuter-blog{right:9px;bottom:122px}
+ #lwc-champuter-blog .lwc-champuter-character{right:10px;bottom:173px;width:117px;height:140px}
+ #lwc-champuter-blog .lwc-champuter-controls{width:274px}
+ #lwc-champuter-blog .lwc-champuter-menu{max-height:min(470px,calc(100dvh - 160px))}
+}
+@media(max-width:440px){
+ #lwc-champuter-blog{right:7px;bottom:120px}
+ #lwc-champuter-blog .lwc-champuter-controls{width:248px}
+ #lwc-champuter-blog .lwc-champuter-character{right:5px;bottom:169px;width:106px;height:128px}
+ #lwc-champuter-blog button[data-lwc-teach]{min-height:39px;font-size:10px;padding:7px 4px}
+ #lwc-champuter-blog .lwc-champuter-menu{max-height:calc(100dvh - 178px);padding:11px}
+}
+@media(max-height:550px){#lwc-champuter-blog{bottom:62px}
+ #lwc-champuter-blog .lwc-champuter-character{bottom:111px;width:92px;height:109px}
+ #lwc-champuter-blog .lwc-champuter-menu{max-height:calc(100dvh - 100px)}}
+@media(prefers-reduced-motion:reduce){
+ #lwc-champuter-blog .lwc-champuter-character{transition:none}
+ #lwc-champuter-blog .lwc-champuter-character *,
+ #lwc-champuter-blog .lwc-champuter-character{animation:none!important}
+ .lwc-champuter-highlight{scroll-behavior:auto!important}
+}
+@media print{#lwc-champuter-blog{display:none!important}}
