@@ -123,7 +123,7 @@ body.embed-mode.roaming-teacher .app-shell{max-width:none}
     <main class="workspace">
       <section class="left-pane" aria-label="Cartoon preview">
         <div class="stage-header">
-          <div class="stage-title"><span class="live-dot"></span> CHARACTER STAGE <span class="stage-subtitle">Original full-body cartoon teacher</span></div>
+          <div class="stage-title"><span class="live-dot"></span> CHARACTER STAGE <span class="stage-subtitle">Champuter full-body cartoon teacher</span></div>
           <div id="speakerState" class="state-pill" role="status" aria-live="polite">● Ready</div>
         </div>
         <div class="stage" id="stage">
@@ -131,7 +131,7 @@ body.embed-mode.roaming-teacher .app-shell{max-width:none}
           <div class="stage-decoration decor-star star-two">✦</div>
           <div class="stage-decoration decor-orbit"></div>
           <div class="stage-side-note">Hi, I'm your<br><strong>cartoon teacher!</strong></div>
-          <svg id="teacher" class="teacher-svg" viewBox="0 0 600 590" role="img" aria-label="A smiling original cartoon teacher in a blue blazer, glasses and yellow tie, standing and gesturing">
+          <svg id="teacher" class="teacher-svg" viewBox="0 0 600 590" role="img" aria-label="A smiling Champuter cartoon teacher in a short-sleeve T-shirt and knee-length shorts, standing and gesturing">
             <defs>
               <linearGradient id="jacket" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#377fc4"/><stop offset="1" stop-color="#125b9e"/></linearGradient>
               <linearGradient id="trousers" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#294a70"/><stop offset="1" stop-color="#203957"/></linearGradient>
@@ -140,47 +140,49 @@ body.embed-mode.roaming-teacher .app-shell{max-width:none}
             <ellipse cx="300" cy="562" rx="136" ry="13" fill="#3970a4" opacity=".15" filter="url(#shadow)"/>
             <!-- Separate legs and feet make a complete, extensible body rig. -->
             <g id="body-rig">
+              <!-- Knee-length shorts, exposed lower legs, and sneakers. -->
               <g id="left-leg" class="limb" style="transform-origin:274px 386px">
-                <path d="M265 373 Q255 436 261 526" stroke="url(#trousers)" stroke-width="39" stroke-linecap="round" fill="none"/>
-                <path d="M247 528 Q240 547 231 554 Q231 561 244 563 L287 563 Q296 558 289 548 L277 526Z" fill="#25324a"/>
-                <path d="M236 555 L289 555" stroke="#405979" stroke-width="3"/>
+                <path d="M265 383 Q258 415 262 447" stroke="#275e82" stroke-width="44" stroke-linecap="round" fill="none"/>
+                <path d="M259 442 Q254 482 261 526" stroke="#df9f77" stroke-width="28" stroke-linecap="round" fill="none"/>
+                <path d="M241 448 Q262 452 283 446" stroke="#164b70" stroke-width="5" fill="none" opacity=".8"/>
+                <path d="M247 528 Q240 547 231 554 Q231 561 244 563 L287 563 Q296 558 289 548 L277 526Z" fill="#28465f"/>
+                <path d="M236 555 L289 555" stroke="#87bbdd" stroke-width="3"/>
               </g>
               <g id="right-leg" class="limb" style="transform-origin:326px 386px">
-                <path d="M333 373 Q342 432 338 526" stroke="url(#trousers)" stroke-width="39" stroke-linecap="round" fill="none"/>
-                <path d="M325 527 Q316 548 314 554 Q314 563 329 563 L372 563 Q381 556 371 546 L353 527Z" fill="#25324a"/>
-                <path d="M316 556 L374 556" stroke="#405979" stroke-width="3"/>
+                <path d="M333 383 Q340 416 338 447" stroke="#275e82" stroke-width="44" stroke-linecap="round" fill="none"/>
+                <path d="M339 442 Q343 487 338 526" stroke="#e4a47d" stroke-width="28" stroke-linecap="round" fill="none"/>
+                <path d="M316 448 Q339 453 359 445" stroke="#164b70" stroke-width="5" fill="none" opacity=".8"/>
+                <path d="M325 527 Q316 548 314 554 Q314 563 329 563 L372 563 Q381 556 371 546 L353 527Z" fill="#28465f"/>
+                <path d="M316 556 L374 556" stroke="#87bbdd" stroke-width="3"/>
               </g>
-              <!-- Arms rotate around shoulders; forearms around elbows. -->
+              <!-- Short T-shirt sleeves and exposed arms keep existing gesture joints. -->
               <g id="left-arm" class="limb" style="transform-origin:230px 257px">
-                <path d="M230 255 Q207 263 198 324" stroke="#1d67aa" stroke-width="38" fill="none" stroke-linecap="round"/>
+                <path d="M230 257 Q216 268 209 295" stroke="#4babe1" stroke-width="39" fill="none" stroke-linecap="round"/>
+                <path d="M209 294 Q202 314 198 324" stroke="#dd9a72" stroke-width="27" fill="none" stroke-linecap="round"/>
+                <path d="M193 301 L221 305" stroke="#2781b9" stroke-width="4" fill="none"/>
                 <g id="left-forearm" class="limb" style="transform-origin:198px 324px">
-                  <path d="M198 323 Q183 347 167 405" stroke="#226eae" stroke-width="32" fill="none" stroke-linecap="round"/>
-                  <path d="M173 390 L160 414" stroke="#e8f3ff" stroke-width="13" stroke-linecap="round"/>
+                  <path d="M198 323 Q183 347 167 405" stroke="#df9e76" stroke-width="27" fill="none" stroke-linecap="round"/>
                   <ellipse cx="158" cy="425" rx="18" ry="22" transform="rotate(20 158 425)" fill="#d99570"/>
                   <path d="M149 414 Q139 400 132 404 Q128 411 146 429" stroke="#d99570" stroke-width="11" stroke-linecap="round" fill="none"/>
                 </g>
               </g>
               <g id="right-arm" class="limb" style="transform-origin:370px 257px">
-                <path d="M370 255 Q394 263 404 324" stroke="#155e9e" stroke-width="38" fill="none" stroke-linecap="round"/>
+                <path d="M370 257 Q385 269 392 295" stroke="#4babe1" stroke-width="39" fill="none" stroke-linecap="round"/>
+                <path d="M392 294 Q399 315 404 324" stroke="#e4a67e" stroke-width="27" fill="none" stroke-linecap="round"/>
+                <path d="M378 304 L409 299" stroke="#2781b9" stroke-width="4" fill="none"/>
                 <g id="right-forearm" class="limb" style="transform-origin:404px 324px">
-                  <path d="M404 323 Q420 348 434 404" stroke="#2369a8" stroke-width="32" fill="none" stroke-linecap="round"/>
-                  <path d="M430 390 L438 414" stroke="#eaf4ff" stroke-width="13" stroke-linecap="round"/>
+                  <path d="M404 323 Q420 348 434 404" stroke="#e6a57e" stroke-width="27" fill="none" stroke-linecap="round"/>
                   <ellipse cx="442" cy="426" rx="18" ry="22" transform="rotate(-20 442 426)" fill="#e5a37c"/>
                   <path d="M448 415 Q461 398 468 406 Q471 414 453 431" stroke="#e5a37c" stroke-width="11" stroke-linecap="round" fill="none"/>
                 </g>
               </g>
               <g id="torso-rig">
-                <path d="M255 232 Q242 226 229 251 L229 370 Q240 404 300 408 Q360 404 371 370 L371 251 Q359 229 345 232Z" fill="url(#jacket)" stroke="#155b99" stroke-width="3"/>
-                <path d="M267 237 L300 292 L334 237 L321 379 L280 379Z" fill="#f5f9fe"/>
-                <path d="M283 253 L301 269 L319 252 L306 294 L294 294Z" fill="#fefefe"/>
-                <path d="M294 277 L306 277 L310 298 L302 356 L291 298Z" fill="#eeb54f"/>
-                <path d="M287 239 L300 289 L267 326 L246 241Z" fill="#2d78b9"/>
-                <path d="M313 239 L300 289 L333 326 L354 241Z" fill="#246fb1"/>
-                <path d="M256 343 Q274 349 291 344" stroke="#72b1e4" stroke-width="3" fill="none" opacity=".6"/>
-                <path d="M341 343 Q325 349 309 344" stroke="#72b1e4" stroke-width="3" fill="none" opacity=".6"/>
-                <circle cx="315" cy="342" r="3" fill="#bad3e7"/><circle cx="315" cy="364" r="3" fill="#bad3e7"/>
-                <path d="M340 341 L360 341 L357 349 L340 349Z" fill="#f6d484"/>
-                <path d="M282 218 L282 241 Q300 257 318 241 L318 218" fill="#dc9a75"/>
+                <path d="M251 232 Q236 228 229 251 L230 373 Q246 399 300 400 Q354 399 370 373 L371 251 Q359 229 347 232 L321 231 Q300 248 280 231Z" fill="#4babe1" stroke="#237eb7" stroke-width="3"/>
+                <path d="M276 229 Q300 260 323 229" fill="none" stroke="#267ab0" stroke-width="7"/>
+                <path d="M279 233 Q300 249 321 233" fill="none" stroke="#d3f1ff" stroke-width="5"/>
+                <path d="M238 378 Q300 389 362 378" fill="none" stroke="#267ab0" stroke-width="4"/>
+                <text x="300" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="900" letter-spacing=".2" fill="#ffffff" stroke="#1c648e" stroke-width=".65" paint-order="stroke">Champuter</text>
+                <path d="M282 218 L282 240 Q300 257 318 240 L318 218" fill="#dc9a75"/>
               </g>
               <g id="head-rig" class="limb" style="transform-origin:300px 231px">
                 <ellipse cx="300" cy="143" rx="82" ry="96" fill="#e6a982"/>
