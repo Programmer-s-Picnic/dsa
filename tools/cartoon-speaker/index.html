@@ -678,6 +678,7 @@ const speech=new SpeechPlayer({
     // Tell the Python editor which panel and source line the avatar is teaching.
     emitEditorScene('line',{
       index,total,sourceLine:line.sourceLine||null,
+      resultLine:line.resultLine||null,
       zone:line.zone||'center',mode:line.mode||'code',
       gesture:line.gesture,emotion:line.emotion,lookAt:line.lookAt||'audience',
       caption:String(line.text||'').slice(0,180)
@@ -1040,6 +1041,7 @@ if(speakerEmbedMode){
         zone:['left','center','right'].includes(item.zone)?item.zone:'center',
         mode:['code','output','error'].includes(item.mode)?item.mode:'code',
         sourceLine:Number.isInteger(item.sourceLine)&&item.sourceLine>0?item.sourceLine:null,
+        resultLine:Number.isInteger(item.resultLine)&&item.resultLine>0?item.resultLine:null,
         lookAt:['code','output','error','audience'].includes(item.lookAt)?item.lookAt:'audience'
       };
       const chunks=parseScript(row).length;
