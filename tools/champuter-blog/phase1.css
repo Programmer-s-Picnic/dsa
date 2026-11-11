@@ -6,7 +6,7 @@
 #lwc-champuter-blog *,#lwc-champuter-blog *:before,#lwc-champuter-blog *:after{box-sizing:border-box}
 #lwc-champuter-blog [hidden]{display:none!important}
 #lwc-champuter-blog .lwc-champuter-controls{width:284px;max-width:calc(100vw - 26px);
-  pointer-events:auto;border:1px solid #9bcbea;border-radius:14px;
+  pointer-events:auto;position:relative;z-index:2;border:1px solid #9bcbea;border-radius:14px;
   background:#fff;box-shadow:0 12px 32px rgba(11,52,88,.18)}
 #lwc-champuter-blog .lwc-champuter-toggle{display:flex;align-items:center;justify-content:center;gap:9px;
   width:100%;min-height:45px;border:0!important;background:#126cae!important;color:#fff!important;
@@ -39,7 +39,7 @@
 #lwc-champuter-blog .lwc-champuter-character{position:fixed;right:12px;bottom:180px;left:auto;top:auto;
   width:142px;height:174px;max-width:35vw;pointer-events:none;
   filter:drop-shadow(0 7px 7px rgba(18,63,102,.22));
-  transition:left .85s ease-out,top .85s ease-out,filter .4s ease;z-index:-1}
+  transition:left .85s ease-out,top .85s ease-out,filter .4s ease;z-index:1}
 #lwc-champuter-blog .lwc-champuter-character>svg{width:100%;height:100%;overflow:visible;display:block;
   transform-origin:50% 95%}
 #lwc-champuter-blog .lwc-champuter-character.lwc-champuter-walking>svg{animation:lwc-blog-bob .22s ease-in-out infinite alternate}
