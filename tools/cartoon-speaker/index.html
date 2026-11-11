@@ -1011,6 +1011,13 @@ if(speakerEmbedMode){
   window.addEventListener('message', event => {
     if(event.source !== window.parent || !editorAllowedOrigins.has(event.origin)) return;
     const incoming = event.data;
+    if(incoming?.type==='lwc-speaker:stop' && incoming.version===2){
+      speechStarted=false;
+      speech.stop(true);
+      setSpeechState('stopped');
+      $('statusNote').textContent='Ready for a new Python run.';
+      return;
+    }
     if(incoming?.type==='lwc-speaker:display' && incoming.version===2){
       document.body.classList.toggle('roaming-teacher',incoming.roaming===true);
       return;
