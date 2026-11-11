@@ -135,7 +135,7 @@ function sections(){
  if(!body)return [];
  const items=[],selector="h1,h2,h3,h4,h5,h6,p,pre,blockquote,figure,table,ul,ol,img";
  const candidates=[...body.querySelectorAll(selector)];
- const excluded=".lwc-speak-content-bar,.lwc-code-wrap button,.adsbygoogle,form,nav,footer,script,style,noscript,.cs-app,.quiz,.quiz-container,.quiz-answer,.quiz-feedback,[data-quiz],[data-answer],[aria-hidden=true],details:not([open]),[hidden]";
+ const excluded=".lwc-speak-content-bar,.lwc-code-wrap button,.adsbygoogle,form,nav,footer,script,style,noscript,.cs-app,.lwc-quiz,.quiz,.quiz-container,.quiz-answer,.quiz-feedback,[data-quiz],[data-answer],[aria-hidden=true],details:not([open]),[hidden]";
  const nested="pre,figure,table,ul,ol,blockquote";
  for(const node of candidates){
    if(items.length>=MAX_SEGMENTS)break;
@@ -369,5 +369,40 @@ window.addEventListener("hashchange",()=>{if(location.hash==="#lwc-card-studio"&
 document.addEventListener("visibilitychange",()=>{if(document.hidden&&active)stop("Paused because the tab is hidden.");});
 document.addEventListener("keydown",event=>{if(event.key==="Escape"&&active){stop("Stopped.");}});
 setOpen(false);
-window.LWCChamputerBlog={start,stop,sections,explainSelection,getStatus:()=>({active,index:at,count:current.length,lang:prefs.lang})};
+function announce(message,element,options={}){
+ const text=clean(message).slice(0,2400);
+ if(!text)return false;
+ stop();
+ const runToken=token;
+ active=true;
+ if(options.open!==false)setOpen(true);
+ if(element?.isConnected)highlight({element,kind:"text",name:"Guided explanation",text});
+ setStatus(String(options.status||"Champuter is explaining this example.").slice(0,160));
+ talk(text,runToken,()=>{if(token===runToken)stop("Explanation finished.");});
+ return true;
+}
+function pointTo(element,caption){
+ if(!element?.isConnected)return false;
+ stop();
+ setOpen(true);
+ highlight({element,kind:"text",name:"Highlighted section",text:""});
+ setStatus(String(caption||"Look at the highlighted section.").slice(0,160));
+ return true;
+}
+window.LWCChamputerBlog={start,stop,sections,explainSelection,announce,pointTo,openMenu:setOpen,getLanguage:()=>prefs.lang,getStatus:()=>({active,index:at,count:current.length,lang:prefs.lang})};
+// Load enhancements dynamically: existing Phase 1 installs work without theme edits once refreshed.
+(function loadPhase23(){
+ if(document.getElementById("lwc-champuter-phase23-js"))return;
+ const base="https://dsa.learnwithchampak.live/tools/champuter-blog/";
+ const css=document.createElement("link");
+ css.id="lwc-champuter-phase23-css";
+ css.rel="stylesheet";
+ css.href=base+"phase23.css?v=20261111-5";
+ document.head.appendChild(css);
+ const script=document.createElement("script");
+ script.id="lwc-champuter-phase23-js";
+ script.src=base+"phase23.js?v=20261111-5";
+ script.async=true;
+ document.head.appendChild(script);
+})();
 })();
