@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Champuter · Learn With Champak Blog Demo</title>
+<link rel="stylesheet" href="./phase1.css?v=20261111-2"/>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#1d3d59;background:#f3f9ff}
+*{box-sizing:border-box}body{margin:0}header{background:#0a315b;color:white;padding:23px min(5vw,50px)}
+header strong{font-size:21px}header p{margin:5px 0 0;color:#c6dcef;font-size:13px}
+main{max-width:990px;margin:35px auto;padding:0 20px 170px}.post-body{background:white;padding:clamp(20px,4vw,44px);border:1px solid #c9dfef;border-radius:19px;box-shadow:0 8px 35px #154b7512;line-height:1.72}
+h1,h2,h3{color:#103f70;line-height:1.22}h1{font-size:clamp(29px,4vw,45px)}h2{margin-top:30px}p{color:#45637d}pre{background:#102943;color:#e7f3ff;padding:20px;border-radius:11px;overflow:auto;font:14px/1.6 Consolas,monospace}
+table{width:100%;border-collapse:collapse;margin:14px 0}td,th{border:1px solid #bfd6e7;text-align:left;padding:10px}th{background:#e9f4ff}
+.lwc-speak-content-bar{display:flex;align-items:center;gap:12px;margin-bottom:25px;padding:11px;border:1px solid #bcd9f0;border-radius:11px;background:#f0f8ff}
+.lwc-speak-content-button{border:0;border-radius:8px;padding:12px 15px;background:#156cad;color:white;font-weight:800;cursor:pointer}
+.lwc-speak-content-status{color:#3c6585;font-size:12px}
+.demo-note{border-left:4px solid #5d8edd;background:#eef6ff;border-radius:9px;padding:15px;margin-bottom:23px;font-size:13px}
+</style>
+</head>
+<body class="item">
+<header><strong>Learn With Champak · Champuter Phase 1</strong><p>Standalone demonstration of the Blogger teaching assistant. No live blog template is modified by opening this page.</p></header>
+<main>
+<div class="demo-note"><strong>Try it:</strong> Open the Champuter menu at the bottom-right and choose <b>Teach This Lesson</b>. You can also select text within this article and choose <b>Explain Selection</b>, or use the existing Speak Content button.</div>
+<article class="post-body">
+<div class="lwc-speak-content-bar">
+<button class="lwc-speak-content-button" type="button" aria-pressed="false"><span class="lwc-speak-content-label">Speak Content</span></button>
+<span class="lwc-speak-content-status" aria-live="polite"></span>
+</div>
+<h1>Python Pandas · Creating DataFrames</h1>
+<p>A DataFrame is a two-dimensional table. It contains rows and columns and helps programmers examine structured data.</p>
+<h2>1. Create your first DataFrame</h2>
+<p>We can make a DataFrame directly from a dictionary whose keys become column names.</p>
+<pre>import pandas as pd
+
+students = {
+    "Name": ["Asha", "Ravi", "Meena"],
+    "Marks": [85, 92, 78]
+}
+df = pd.DataFrame(students)
+print(df)</pre>
+<h2>2. Inspect the results</h2>
+<p>The variable df now contains a table. Each student occupies one row, and Name and Marks are column labels.</p>
+<table><thead><tr><th>Name</th><th>Marks</th></tr></thead><tbody><tr><td>Asha</td><td>85</td></tr><tr><td>Ravi</td><td>92</td></tr><tr><td>Meena</td><td>78</td></tr></tbody></table>
+<h2>3. Filter the DataFrame</h2>
+<p>Use a condition to select only those students whose marks are at least 80.</p>
+<pre>passed = df[df["Marks"] >= 80]
+print(passed)</pre>
+<h3>Key points</h3>
+<ul><li>A DataFrame is a table.</li><li>Columns have names.</li><li>Filtering selects rows that satisfy a condition.</li></ul>
+<blockquote>Practice by changing the marks and predicting which students will pass.</blockquote>
+</article>
+</main>
+<script defer src="./phase1.js?v=20261111-2"></script>
+</body>
+</html>
