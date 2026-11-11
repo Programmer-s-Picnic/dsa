@@ -173,6 +173,13 @@ function pointerPosition(el){
  left=Math.max(8,Math.min(window.innerWidth-w-8,left));
  let top=rect.top+Math.min(rect.height/2,115)-h/2;
  top=Math.max(80,Math.min(window.innerHeight-h-32,top));
+ // Do not let the moving teacher disappear beneath the open control panel.
+ if(!menu.hidden){
+   const panel=host.querySelector(".lwc-champuter-controls").getBoundingClientRect();
+   const collides=left<panel.right+6&&left+w>panel.left-6&&
+     top<panel.bottom+6&&top+h>panel.top-6;
+   if(collides)left=Math.max(8,panel.left-w-15);
+ }
  actor.style.left=Math.round(left)+"px";
  actor.style.top=Math.round(top)+"px";
  actor.classList.add("lwc-champuter-walking","lwc-champuter-pointing");
