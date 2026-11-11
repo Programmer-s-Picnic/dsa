@@ -67,6 +67,17 @@ body.embed-mode .helper-panel{display:none}
 
   
 /* Character reference: layered photo-illustration with responsive stage motion. */
+.photo-legs{position:absolute;top:73%;left:33%;width:34%;height:62%;overflow:visible;z-index:0}
+.photo-stride-left,.photo-stride-right{transform-box:view-box}
+.photo-actor img{position:relative;z-index:1}
+.photo-mouth{z-index:2}
+.photo-actor.walking .photo-stride-left{animation:photoStepLeft .62s ease-in-out infinite alternate}
+.photo-actor.walking .photo-stride-right{animation:photoStepRight .62s ease-in-out infinite alternate}
+@keyframes photoStepLeft{from{transform:rotate(-15deg)}to{transform:rotate(15deg)}}
+@keyframes photoStepRight{from{transform:rotate(15deg)}to{transform:rotate(-15deg)}}
+.stage.photo-active #bubbleText{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
+@media(prefers-reduced-motion:reduce){.photo-actor.walking .photo-stride-left,.photo-actor.walking .photo-stride-right{animation:none}}
+
 .photo-actor{display:none;position:absolute;z-index:3;top:8%;left:50%;width:min(78%,570px);aspect-ratio:600/394;pointer-events:none;transform-origin:50% 80%;will-change:transform}
 .photo-actor img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 13px 16px rgba(31,65,97,.18))}
 .stage.photo-active .photo-actor{display:block}
@@ -107,7 +118,10 @@ body.embed-mode .helper-panel{display:none}
           <div class="stage-decoration decor-star star-two">✦</div>
           <div class="stage-decoration decor-orbit"></div>
           <div class="stage-side-note">Hi, I'm your<br><strong>cartoon teacher!</strong></div>
-          <div id="photoActor" class="photo-actor" aria-label="Illustrated teacher matching the supplied character reference"><img id="photoCharacter" src="assets/presenter.png" alt="Instructor wearing glasses and a purple striped shirt" decoding="async"><span id="photoMouth" class="photo-mouth" aria-hidden="true"></span></div>
+          <div id="photoActor" class="photo-actor" aria-label="Illustrated teacher matching the supplied character reference"><svg class="photo-legs" viewBox="0 0 190 220" aria-hidden="true">
+  <g class="photo-stride-left" style="transform-origin:74px 22px"><path d="M74 8 Q66 73 60 174" stroke="#253d60" stroke-width="43" stroke-linecap="round" fill="none"/><path d="M42 171 Q31 191 44 205 L99 205 Q107 200 91 183 L79 172Z" fill="#243047"/></g>
+  <g class="photo-stride-right" style="transform-origin:116px 22px"><path d="M116 8 Q123 84 128 174" stroke="#2b4365" stroke-width="43" stroke-linecap="round" fill="none"/><path d="M111 171 Q100 194 117 205 L171 205 Q177 198 162 185 L144 174Z" fill="#202b41"/></g>
+</svg><img id="photoCharacter" src="assets/presenter.png" alt="Instructor wearing glasses and a purple striped shirt" decoding="async"><span id="photoMouth" class="photo-mouth" aria-hidden="true"></span></div>
           <svg id="teacher" class="teacher-svg" viewBox="0 0 600 590" role="img" aria-label="A smiling original cartoon teacher in a blue blazer, glasses and yellow tie, standing and gesturing">
             <defs>
               <linearGradient id="jacket" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#377fc4"/><stop offset="1" stop-color="#125b9e"/></linearGradient>
@@ -386,6 +400,7 @@ class CartoonCharacter {
       const speed=walking?105:140;
       this.walkX+=clamp(delta,-speed*elapsed,speed*elapsed);
       const inMotion=Math.abs(delta)>2&&walking;
+      this.photoActor.classList.toggle('walking',inMotion);
       const step=inMotion?Math.abs(Math.sin(t*9))*4.5:Math.sin(t*1.5)*1.7;
       const tilt=(inMotion?Math.sin(t*9)*1.1+Math.sign(delta)*1.4:Math.sin(t*1.7)*.65)*(this.reducedMotion?.15:1);
       this.photoActor.style.transform=`translate(calc(-50% + ${this.walkX.toFixed(2)}px), ${step.toFixed(2)}px) rotate(${tilt.toFixed(2)}deg)`;
