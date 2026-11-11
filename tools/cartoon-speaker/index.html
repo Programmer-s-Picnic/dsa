@@ -64,7 +64,18 @@ body.embed-mode .helper-panel{display:none}
  body.embed-mode .transport-panel{padding:10px}
 }
 
-  </style>
+  
+/* Character reference: layered photo-illustration with responsive stage motion. */
+.photo-actor{display:none;position:absolute;z-index:3;top:8%;left:50%;width:min(78%,570px);aspect-ratio:600/394;pointer-events:none;transform-origin:50% 80%;will-change:transform}
+.photo-actor img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 13px 16px rgba(31,65,97,.18))}
+.stage.photo-active .photo-actor{display:block}
+.stage.photo-active .teacher-svg{display:none}
+.photo-mouth{position:absolute;left:42.6%;top:39.9%;width:5.2%;height:2.8%;background:#51262c;border:1px solid #c9795f;border-radius:48% 48% 55% 55%;transform:scaleY(.06);transform-origin:center;opacity:0;pointer-events:none}
+@media(max-width:790px){.photo-actor{top:8%;width:84%}}
+@media(max-width:470px){.photo-actor{top:14%;width:86%}.photo-mouth{border-width:.6px}}
+@media(prefers-reduced-motion:reduce){.photo-actor{will-change:auto}}
+
+</style>
 
 </head>
 <body>
@@ -95,6 +106,7 @@ body.embed-mode .helper-panel{display:none}
           <div class="stage-decoration decor-star star-two">✦</div>
           <div class="stage-decoration decor-orbit"></div>
           <div class="stage-side-note">Hi, I'm your<br><strong>cartoon teacher!</strong></div>
+          <div id="photoActor" class="photo-actor" aria-label="Illustrated teacher matching the supplied character reference"><img id="photoCharacter" src="assets/presenter.png" alt="Instructor wearing glasses and a purple striped shirt" decoding="async"><span id="photoMouth" class="photo-mouth" aria-hidden="true"></span></div>
           <svg id="teacher" class="teacher-svg" viewBox="0 0 600 590" role="img" aria-label="A smiling original cartoon teacher in a blue blazer, glasses and yellow tie, standing and gesturing">
             <defs>
               <linearGradient id="jacket" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#377fc4"/><stop offset="1" stop-color="#125b9e"/></linearGradient>
@@ -196,7 +208,7 @@ body.embed-mode .helper-panel{display:none}
           <div class="field"><label for="emotionSelect">Emotion <span class="little">8 moods</span></label><select id="emotionSelect"><option value="auto">✨ Auto from script</option></select></div>
           <div class="field"><label for="gestureSelect">Gesture <span class="little">12 actions</span></label><select id="gestureSelect"><option value="auto">✨ Auto from script</option></select></div>
         </div>
-        <div class="control-actions"><button id="previewBtn" type="button" class="btn btn-outline">✧ Preview gesture</button><button id="idleBtn" type="button" class="btn btn-ghost">↺ Neutral pose</button></div>
+        <div class="control-actions"><button id="previewBtn" type="button" class="btn btn-outline">✧ Preview gesture</button><button id="walkPreviewBtn" type="button" class="btn btn-outline">🚶 Move around</button><button id="idleBtn" type="button" class="btn btn-ghost">↺ Neutral pose</button></div>
         <div class="subsection-title"><span>VOICE & DELIVERY</span><span class="section-line"></span></div>
         <div class="field"><label for="voiceSelect">Voice on your device</label><select id="voiceSelect"><option value="auto">Automatic language matching</option></select><p class="field-help" id="voiceHelp">The list updates when the browser loads its voices.</p></div>
         <div class="voice-presets-row">
@@ -211,7 +223,7 @@ body.embed-mode .helper-panel{display:none}
         </div>
         <div class="audio-live" aria-live="polite"><span class="audio-live-dot" aria-hidden="true"></span><span id="deliveryNow">Voice settings ready · Test voice to hear a sample</span></div>
         <p id="audioHelp" class="field-help audio-explanation">Pitch changes the perceived high/low tone (not precise Hz). Expressiveness adds small changes in loudness, pitch and pace between phrases. Adjustments during playback apply at the next phrase; device voice capabilities vary.</p>
-        <div class="field-extra"><label class="toggle-wrap"><input id="autoGesture" type="checkbox" checked><span>Animate gestures while speaking</span></label><label class="toggle-wrap"><input id="reduceMotion" type="checkbox"><span>Reduce background movement</span></label></div>
+        <div class="field-extra"><label class="toggle-wrap"><input id="autoGesture" type="checkbox" checked><span>Animate gestures while speaking</span></label><label class="toggle-wrap"><input id="walkToggle" type="checkbox" checked><span>Move across the stage while speaking</span></label><label class="toggle-wrap"><input id="reduceMotion" type="checkbox"><span>Reduce background movement</span></label></div>
         <div class="subsection-title"><span>PROJECT</span><span class="section-line"></span></div>
         <div class="file-actions"><button id="exportBtn" type="button" class="btn btn-light">↓ Export JSON</button><button id="importBtn" type="button" class="btn btn-light">↑ Import JSON</button><input id="filePicker" type="file" accept=".json,application/json" hidden></div>
         <div class="helper-panel"><span class="helper-emoji">💡</span><p><strong>Try this:</strong> Switch to “Thinking” and “Think” then tap Preview. Or press Speak script to see multiple expressions perform automatically.</p></div>
@@ -259,6 +271,20 @@ class CartoonCharacter {
   constructor() {
     this.svg = $('teacher');
     this.stage = $('stage');
+    this.photoActor = $('photoActor');
+    this.photoMouth = $('photoMouth');
+    this.walkEnabled = true;
+    this.walkTarget = 0;
+    this.walkX = 0;
+    this.walkPreviewUntil = 0;
+    this.walkPreviewIndex = 0;
+    const photo=$('photoCharacter');
+    if(photo){
+      const loaded=()=>{if(photo.naturalWidth)this.stage.classList.add('photo-active');};
+      photo.addEventListener('load',loaded);
+      photo.addEventListener('error',()=>this.stage.classList.remove('photo-active'));
+      if(photo.complete)loaded();
+    }
     this.nodes = Object.fromEntries(['left-arm','right-arm','left-forearm','right-forearm','head-rig','body-rig','left-brow','right-brow','left-eye','right-eye','mouth-line','mouth-open','mouth-tongue','cheek-left','cheek-right'].map(id => [id,$(id)]));
     this.emotion = 'happy';
     this.gesture = 'welcome';
@@ -273,6 +299,7 @@ class CartoonCharacter {
     this.neutralOnIdle = false;
     this.energy=.5;
     this.raf = null;
+    this.lastFrame = performance.now();
     this.setEmotion('happy');
     this.setGesture('welcome');
     this.frame = this.frame.bind(this);
@@ -300,6 +327,20 @@ class CartoonCharacter {
     if (!speaking || paused) this.setMouth(0);
   }
   setEnergy(value) { this.energy=clamp(Number(value)||.3,.1,1); }
+  setWalkEnabled(value){this.walkEnabled=Boolean(value);if(!this.walkEnabled)this.walkTarget=0;}
+  walkForLine(index,gesture){
+    if(!this.walkEnabled||this.reducedMotion)return;
+    const destinations=[-.78,.45,-.36,.82,-.58,.28,0];
+    this.walkTarget=destinations[index%destinations.length];
+    if(gesture==='point-right')this.walkTarget=.82;
+    if(gesture==='point-left')this.walkTarget=-.82;
+    if(gesture==='think')this.walkTarget=0;
+  }
+  previewWalk(){
+    if(this.reducedMotion)return;
+    this.walkPreviewUntil=performance.now()+3200;
+    this.walkTarget=this.walkPreviewIndex++%2===0?.85:-.85;
+  }
   setReduceMotion(value) {
     this.reducedMotion = Boolean(value);
     this.stage.classList.toggle('reduced-motion',this.reducedMotion);
@@ -332,7 +373,26 @@ class CartoonCharacter {
   }
   frame(now) {
     const t = now/1000, g=GESTURES[this.gesture]||{la:0,ra:0,lf:0,rf:0};
+    const elapsed=Math.min(.05,Math.max(.001,(now-this.lastFrame)/1000));
+    this.lastFrame=now;
     const active = this.speaking && !this.paused;
+    if(this.photoActor){
+      const previewWalking=now<this.walkPreviewUntil;
+      const walking=(active||previewWalking)&&this.walkEnabled&&!this.reducedMotion;
+      const limit=this.stage.clientWidth*(this.stage.clientWidth<480?.115:.15);
+      const target=walking?this.walkTarget*limit:0;
+      const delta=target-this.walkX;
+      const speed=walking?105:140;
+      this.walkX+=clamp(delta,-speed*elapsed,speed*elapsed);
+      const inMotion=Math.abs(delta)>2&&walking;
+      const step=inMotion?Math.abs(Math.sin(t*9))*4.5:Math.sin(t*1.5)*1.7;
+      const tilt=(inMotion?Math.sin(t*9)*1.1+Math.sign(delta)*1.4:Math.sin(t*1.7)*.65)*(this.reducedMotion?.15:1);
+      this.photoActor.style.transform=`translate(calc(-50% + ${this.walkX.toFixed(2)}px), ${step.toFixed(2)}px) rotate(${tilt.toFixed(2)}deg)`;
+      if(this.photoMouth){
+        this.photoMouth.style.opacity=active?'0.85':'0';
+        this.photoMouth.style.transform=active?`scaleY(${(.52+Math.abs(Math.sin(t*(11+this.energy*4)))*1.55).toFixed(2)})`:'scaleY(.05)';
+      }
+    }
     const pace = active ? (.45+this.energy*1.05) : .42;
     const subtle = this.reducedMotion ? .22 : 1;
     let sway = Math.sin(t*1.1)*1.1*subtle;
@@ -594,6 +654,7 @@ const speech=new SpeechPlayer({
     $('statusNote').textContent=`Line ${index+1} of ${total} · ${line.lang} · ${voice}`;
     if($('emotionSelect').value==='auto')character.setEmotion(line.emotion);
     else character.setEmotion($('emotionSelect').value);
+    character.walkForLine(index,line.gesture);
     if(!$('autoGesture').checked)character.setGesture('idle');
     else character.setGesture($('gestureSelect').value==='auto'?line.gesture:$('gestureSelect').value);
     $('progressTrack').setAttribute('aria-valuenow',String(Math.round(index/total*100)));
@@ -711,7 +772,7 @@ function refreshCounters(){
   if(!speechStarted)$('lineCounter').textContent=`0 / ${parseScript(text).length}`;
 }
 function optionsFromObject(input){
-  const keys=['script','emotion','gesture','voice','rate','pitch','volume','expressiveness','preset','autoGesture','reduceMotion'];
+  const keys=['script','emotion','gesture','voice','rate','pitch','volume','expressiveness','preset','autoGesture','reduceMotion','walk'];
   const out={};
   for(const key of keys){if(Object.prototype.hasOwnProperty.call(input,key))out[key]=input[key];}
   return out;
@@ -727,7 +788,8 @@ function getProject(){return {format:'cartoon-speaker-studio',version:2,exported
   expressiveness:Number($('expressivenessSlider').value),
   preset:$('presetSelect').value,
   autoGesture:$('autoGesture').checked,
-  reduceMotion:$('reduceMotion').checked
+  reduceMotion:$('reduceMotion').checked,
+  walk:$('walkToggle').checked
 }};}
 function applySettings(settings){
   const s=optionsFromObject(settings||{});
@@ -742,6 +804,7 @@ function applySettings(settings){
   if(typeof s.preset==='string' && (s.preset==='custom'||s.preset in VOICE_PRESETS))$('presetSelect').value=s.preset;
   if(typeof s.autoGesture==='boolean')$('autoGesture').checked=s.autoGesture;
   if(typeof s.reduceMotion==='boolean')$('reduceMotion').checked=s.reduceMotion;
+  if(typeof s.walk==='boolean')$('walkToggle').checked=s.walk;
   refreshControls();refreshCounters();
 }
 function refreshControls(){
@@ -751,6 +814,7 @@ function refreshControls(){
   $('expressivenessValue').textContent=`${Number($('expressivenessSlider').value)}%`;
   speech.updateConfig(audioConfig());
   character.setReduceMotion($('reduceMotion').checked);
+  character.setWalkEnabled($('walkToggle').checked);
   if(lastStatus!=='speaking' && lastStatus!=='paused'){
     if($('emotionSelect').value!=='auto')character.setEmotion($('emotionSelect').value);
     if($('gestureSelect').value!=='auto')character.setGesture($('gestureSelect').value);
@@ -804,7 +868,7 @@ function setup(){
   }catch(e){console.warn('Saved project not available:',e);}
   refreshControls();refreshCounters();
   $('scriptInput').addEventListener('input',refreshCounters);
-  for(const id of ['emotionSelect','gestureSelect','reduceMotion'])$(id).addEventListener('input',refreshControls);
+  for(const id of ['emotionSelect','gestureSelect','reduceMotion','walkToggle'])$(id).addEventListener('input',refreshControls);
   for(const id of AUDIO_IDS)$(id).addEventListener('input',()=>{
     $('presetSelect').value='custom';refreshControls();
     if(speech.state==='speaking'||speech.state==='paused')$('deliveryNow').textContent='Updated · New sound settings apply from the next phrase.';
@@ -837,6 +901,7 @@ function setup(){
   $('pauseBtn').addEventListener('click',()=>{if(speech.state==='paused')speech.resume();else speech.pause();});
   $('stopBtn').addEventListener('click',()=>{speechStarted=false;speech.stop();});
   $('previewBtn').addEventListener('click',previewGesture);
+  $('walkPreviewBtn').addEventListener('click',()=>character.previewWalk());
   $('idleBtn').addEventListener('click',()=>{
     clearTimeout(previewTimer);
     if(speech.state==='speaking'||speech.state==='paused'){speechStarted=false;speech.stop();}
@@ -900,7 +965,14 @@ if(speakerEmbedMode){
     setSpeechState('stopped');
     $('statusNote').textContent = 'Python narration ready. Press Speak script to listen.';
     $('bubbleText').textContent = 'Let us explore this Python program!';
-    toast('Narration loaded. Press Speak script.');
+    if(incoming.autoplay===true && speech.supported){
+      const prepared=parseScript(incoming.script);
+      const started=speech.play(prepared,audioConfig());
+      $('statusNote').textContent=started?'Cartoon Teacher narrating your Python explanation.':'Narration ready — press Speak script to hear it.';
+      if(!started)toast('Press Speak script to hear the narration.');
+    }else{
+      toast('Narration loaded. Press Speak script.');
+    }
   });
 }
 
