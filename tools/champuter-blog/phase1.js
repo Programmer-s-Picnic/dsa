@@ -135,11 +135,13 @@ function sections(){
  if(!body)return [];
  const items=[],selector="h1,h2,h3,h4,h5,h6,p,pre,blockquote,figure,table,ul,ol,img";
  const candidates=[...body.querySelectorAll(selector)];
- const excluded=".lwc-speak-content-bar,.lwc-code-wrap button,.adsbygoogle,form,nav,footer,script,style,noscript,.cs-app,[hidden]";
+ const excluded=".lwc-speak-content-bar,.lwc-code-wrap button,.adsbygoogle,form,nav,footer,script,style,noscript,.cs-app,.quiz,.quiz-container,.quiz-answer,.quiz-feedback,[data-quiz],[data-answer],[aria-hidden=true],details:not([open]),[hidden]";
  const nested="pre,figure,table,ul,ol,blockquote";
  for(const node of candidates){
    if(items.length>=MAX_SEGMENTS)break;
    if(node.closest(excluded)||node.closest(".lwc-champuter-menu"))continue;
+   const computed=window.getComputedStyle?.(node);
+   if(computed&&(computed.display==="none"||computed.visibility==="hidden"))continue;
    if((node.tagName==="IMG"&&node.closest("figure"))||
      (node.closest(nested)!==null&&node.closest(nested)!==node))continue;
    const entry=describe(node);
@@ -153,7 +155,7 @@ function homeSections(){
  return nodes.map(node=>({element:node,kind:"navigation",name:"Learning choice",
    text:clean(node.innerText||node.textContent).slice(0,250)})).filter(x=>x.text.length>10);
 }
-function getSections(){return sections().length?sections():homeSections();}
+function getSections(){const found=sections();return found.length?found:homeSections();}
 function pointerPosition(el){
  if(!el||!el.isConnected)return;
  const r=el.getBoundingClientRect();
