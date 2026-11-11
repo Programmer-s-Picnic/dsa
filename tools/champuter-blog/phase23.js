@@ -35,18 +35,18 @@ function pythonSource(pre){
  return s;
 }
 function codeTopics(s){
- const items=[];
- if(/^\s*(?:import|from\s+\S+\s+import)\s+/m.test(s))items.push("Imports bring reusable Python libraries into the program.");
- if(/(?:^|\n)\s*[a-zA-Z_]\w*(?:\s*,\s*\w+)*\s*=(?!=)/.test(s))items.push("Assignments create or update variable values.");
- if(/\b(?:for|while)\b[^\n]*:/.test(s))items.push("The loop repeats statements; follow one iteration at a time.");
- if(/\b(?:if|elif)\b[^\n]*:/.test(s))items.push("A condition selects which block executes.");
- if(/^\s*def\s+\w+\s*\(/m.test(s))items.push("The function definition names reusable instructions.");
- if(/^\s*class\s+\w+/m.test(s))items.push("The class defines a reusable object type.");
- if(/(?:print|display)\s*\(/.test(s))items.push("Output functions display the program's result.");
- if(/(?:DataFrame\s*\(|read_csv\s*\(|groupby\s*\(|sort_values\s*\()/i.test(s))items.push("Pandas operations work with table-like DataFrames.");
- if(/\b(?:append|extend|insert|remove|pop)\s*\(/.test(s))items.push("Collection methods modify lists or other containers.");
- if(/\b(?:try|except)\b[^\n]*:/.test(s))items.push("Exception handling manages errors.");
- return items.length?items.slice(0,7):["Read each statement in execution order and track its effect on variables."];
+ const items=[];const hi=teacher.getLanguage?.()==="hi-IN";
+ if(/^\s*(?:import|from\s+\S+\s+import)\s+/m.test(s))items.push((hi?"इम्पोर्ट से पायथन लाइब्रेरी उपलब्ध होती हैं।":"Imports bring reusable Python libraries into the program."));
+ if(/(?:^|\n)\s*[a-zA-Z_]\w*(?:\s*,\s*\w+)*\s*=(?!=)/.test(s))items.push((hi?"असाइनमेंट वेरिएबल के मान बनाते या बदलते हैं।":"Assignments create or update variable values."));
+ if(/\b(?:for|while)\b[^\n]*:/.test(s))items.push((hi?"लूप निर्देश दोहराता है। हर चक्र को अलग समझें।":"The loop repeats statements; follow one iteration at a time."));
+ if(/\b(?:if|elif)\b[^\n]*:/.test(s))items.push((hi?"शर्त तय करती है कि कौन सा ब्लॉक चलेगा।":"A condition selects which block executes."));
+ if(/^\s*def\s+\w+\s*\(/m.test(s))items.push((hi?"फ़ंक्शन दोबारा उपयोग होने वाले निर्देशों को नाम देता है।":"The function definition names reusable instructions."));
+ if(/^\s*class\s+\w+/m.test(s))items.push((hi?"क्लास एक नया ऑब्जेक्ट प्रकार परिभाषित करती है।":"The class defines a reusable object type."));
+ if(/(?:print|display)\s*\(/.test(s))items.push((hi?"प्रिंट प्रोग्राम का परिणाम दिखाता है।":"Output functions display the program's result."));
+ if(/(?:DataFrame\s*\(|read_csv\s*\(|groupby\s*\(|sort_values\s*\()/i.test(s))items.push((hi?"पांडास डेटा फ्रेम की पंक्तियों और कॉलम पर काम करता है।":"Pandas operations work with table-like DataFrames."));
+ if(/\b(?:append|extend|insert|remove|pop)\s*\(/.test(s))items.push((hi?"कलेक्शन मेथड सूची जैसे डेटा को बदलते हैं।":"Collection methods modify lists or other containers."));
+ if(/\b(?:try|except)\b[^\n]*:/.test(s))items.push((hi?"एक्सेप्शन हैंडलिंग से त्रुटियों को संभाला जाता है।":"Exception handling manages errors."));
+ return items.length?items.slice(0,7):[(hi?"हर लाइन को क्रम से पढ़ें और वेरिएबल के मान में बदलाव देखें।":"Read each statement in execution order and track its effect on variables.")];
 }
 function codeHeader(pre){
  const label=pre.closest(".post-body")?.querySelector("h1,h2,h3")?.textContent;
@@ -134,20 +134,21 @@ function quizType(card,root){
  return "";
 }
 function questionHint(card,kind){
+ const hi=teacher.getLanguage?.()==="hi-IN";
  const code=card.querySelector(":scope > pre code")?.textContent||"";
  if(kind==="output-to-code"){
    const output=card.querySelector(":scope > pre code")?.textContent||"";
-   const cues=["Study the required output first. Compare what each candidate program prints or returns, then eliminate programs whose operations produce a different shape or order."];
-   if(/\[|\]|\(|\)|\{|\}/.test(output))cues.push("Look closely at whether the output is a list, tuple, dictionary, table or scalar.");
-   if(/\n/.test(output))cues.push("Count the output rows or lines before comparing code options.");
+   const cues=[hi?"पहले आवश्यक आउटपुट देखें। फिर हर विकल्प के प्रोग्राम का क्रम, आकार और परिणाम मिलाएँ। उत्तर का अनुमान न लगाएँ।":"Study the required output first. Compare what each candidate program prints or returns, then eliminate programs whose operations produce a different shape or order."];
+   if(/\[|\]|\(|\)|\{|\}/.test(output))cues.push(hi?"देखें कि आउटपुट सूची, टपल, डिक्शनरी, तालिका या एकल मान है।":"Look closely at whether the output is a list, tuple, dictionary, table or scalar.");
+   if(/\n/.test(output))cues.push(hi?"विकल्पों की तुलना से पहले आउटपुट की पंक्तियाँ गिनें।":"Count the output rows or lines before comparing code options.");
    return cues.join(" ");
  }
- const hints=["Trace assignments and variable changes in order. Work through each loop and condition before predicting what print displays."];
- if(/\brange\s*\(/.test(code))hints.push("For range, reason about its starting point and excluded endpoint.");
- if(/\bif\b/.test(code))hints.push("Check which branch runs, without assuming every print executes.");
- if(/\b(?:for|while)\b/.test(code))hints.push("Track one iteration at a time.");
- if(/(?:DataFrame|groupby|sort_values|read_csv)/i.test(code))hints.push("Inspect DataFrame column names, ordering and filtering steps.");
- if(/\[[^\]]*:[^\]]*\]/.test(code))hints.push("Remember that slicing usually excludes the stop index.");
+ const hints=[hi?"वेरिएबल के मान क्रम से देखें। प्रिंट का परिणाम सोचने से पहले हर लूप और शर्त का विश्लेषण करें।":"Trace assignments and variable changes in order. Work through each loop and condition before predicting what print displays."];
+ if(/\brange\s*\(/.test(code))hints.push(hi?"रेंज का शुरुआती मान और अंतिम सीमा ध्यान से देखें।":"For range, reason about its starting point and excluded endpoint.");
+ if(/\bif\b/.test(code))hints.push(hi?"कौन सा शर्त वाला ब्लॉक चलेगा, यह जाँचें।":"Check which branch runs, without assuming every print executes.");
+ if(/\b(?:for|while)\b/.test(code))hints.push(hi?"हर चक्र को एक-एक करके समझें।":"Track one iteration at a time.");
+ if(/(?:DataFrame|groupby|sort_values|read_csv)/i.test(code))hints.push(hi?"डेटा फ्रेम के कॉलम, क्रम और फ़िल्टर पर ध्यान दें।":"Inspect DataFrame column names, ordering and filtering steps.");
+ if(/\[[^\]]*:[^\]]*\]/.test(code))hints.push(hi?"स्लाइसिंग में अंतिम इंडेक्स सामान्यतः शामिल नहीं होता।":"Remember that slicing usually excludes the stop index.");
  return hints.join(" ");
 }
 function userFacingType(kind){return kind==="output-to-code"?"Output → Code":"Code → Output";}
