@@ -211,7 +211,7 @@ function talk(text,runToken,done){
      timeoutId=setTimeout(next,Math.max(1100,Math.min(3600,message.length*32)));
      return;
    }
-   const u=new SpeechSynthesisUtterance(message),v=chooseVoice();
+   const u=new window.SpeechSynthesisUtterance(message),v=chooseVoice();
    u.lang=v?.lang||prefs.lang; if(v)u.voice=v;
    u.rate=Number(prefs.rate)||.93;u.pitch=1;u.volume=1;
    utterance=u;let settled=false;
