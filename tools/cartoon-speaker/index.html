@@ -1009,6 +1009,10 @@ if(speakerEmbedMode){
   window.addEventListener('message', event => {
     if(event.source !== window.parent || !editorAllowedOrigins.has(event.origin)) return;
     const incoming = event.data;
+    if(incoming?.type==='lwc-speaker:display' && incoming.version===2){
+      document.body.classList.toggle('roaming-teacher',incoming.roaming===true);
+      return;
+    }
     if(!incoming || incoming.type !== 'lwc-speaker:load' || incoming.version !== 1 ||
        typeof incoming.script !== 'string' || incoming.script.length > 16000) return;
     speechStarted = false;
