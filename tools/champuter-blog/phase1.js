@@ -42,6 +42,7 @@ const tongue=actor.querySelector("#lwc-blog-mouth-tongue");
 const lang=$("#lwcChamputerLang"),rate=$("#lwcChamputerRate");
 lang.value=prefs.lang;rate.value=String(prefs.rate);
 let current=[],at=0,active=false,token=0,utterance=null,mouthTimer=null,timeoutId=null,target=null,voiceStarted=false;
+let selectedCache={text:"",node:null};
 function setStatus(value){status.textContent=value;}
 function setOpen(value){
  prefs.open=!!value;menu.hidden=!prefs.open;
@@ -105,7 +106,11 @@ function describe(node){
  if(tag==="table"){
    const rows=node.querySelectorAll("tr");
    const headers=[...node.querySelectorAll("th")].slice(0,6).map(x=>clean(x.textContent));
-   return {kind:"table",text:"A table with "+rows.length+" rows"+(headers.length?", columns: "+headers.join(", "):"")+".",name:"Table"};
+   const samples=[...rows].slice(1,4).map(row=>
+     [...row.querySelectorAll("td,th")].slice(0,6).map(c=>clean(c.textContent)).join(", "));
+   return {kind:"table",text:"A table with "+rows.length+" rows"+
+     (headers.length?", columns: "+headers.join(", "):"")+
+     ". Sample rows: "+samples.join("; ")+".",name:"Table"};
  }
  if(tag==="img"){
    const alt=clean(node.getAttribute("alt")||node.getAttribute("title"));
@@ -153,7 +158,8 @@ function pointerPosition(el){
  if(!el||!el.isConnected)return;
  const r=el.getBoundingClientRect();
  if(r.bottom<65||r.top>window.innerHeight-65){
-   el.scrollIntoView({block:"center",behavior:reduced?"auto":"smooth"});
+   // Keep highlighted section and walking actor synchronized across browsers.
+   el.scrollIntoView({block:"center",behavior:"auto"});
  }
  if(window.innerWidth<=760){
    actor.classList.add("lwc-champuter-pointing");return;
@@ -294,14 +300,16 @@ function start(mode,opts={}){
  return true;
 }
 function explainSelection(){
- const sel=window.getSelection?.(),text=clean(sel?.toString());
+ const sel=window.getSelection?.(),live=clean(sel?.toString());
+ const text=live||selectedCache.text;
  const root=article()||document.querySelector(".lwc-home");
  if(!text||text.length<3){setOpen(true);setStatus("Select a sentence or code fragment in the lesson first.");return;}
- if(!root||!sel.anchorNode||!root.contains(sel.anchorNode)){
+ const anchor=live?sel?.anchorNode:selectedCache.node;
+ if(!root||!anchor||!root.contains(anchor)){
    setOpen(true);setStatus("Please select text inside the lesson.");return;
  }
  stop();setOpen(true);active=true;const myToken=token;
- const node=sel.anchorNode.nodeType===1?sel.anchorNode:sel.anchorNode.parentElement;
+ const node=anchor.nodeType===1?anchor:anchor.parentElement;
  let el=node?.closest("pre,p,blockquote,li,h1,h2,h3,h4,h5,h6,table")||node;
  if(!root.contains(el))el=root;
  const kind=el?.closest("pre,code")?"code":"text";
@@ -330,6 +338,12 @@ toggle.addEventListener("click",()=>setOpen(!prefs.open));
 $("#lwcChamputerClose").addEventListener("click",()=>setOpen(false));
 lang.addEventListener("change",()=>{prefs.lang=lang.value;save();if(active)stop("Language changed. Press Teach to restart.");});
 rate.addEventListener("change",()=>{prefs.rate=Number(rate.value);save();});
+document.addEventListener("selectionchange",()=>{
+ const sel=window.getSelection?.(),txt=clean(sel?.toString());
+ if(!txt||txt.length>3000||!sel.anchorNode)return;
+ const root=article()||document.querySelector(".lwc-home");
+ if(root?.contains(sel.anchorNode))selectedCache={text:txt,node:sel.anchorNode};
+});
 document.addEventListener("click",event=>{
  const speak=event.target.closest?.(".lwc-speak-content-button");
  if(speak){
@@ -342,6 +356,7 @@ document.addEventListener("click",event=>{
    {if(active)stop("Paused while another activity is open.");}
 },true);
 window.addEventListener("pagehide",()=>stop());
+window.addEventListener("hashchange",()=>{if(location.hash==="#lwc-card-studio"&&active)stop("Paused while Card Studio is open.");});
 document.addEventListener("visibilitychange",()=>{if(document.hidden&&active)stop("Paused because the tab is hidden.");});
 document.addEventListener("keydown",event=>{if(event.key==="Escape"&&active){stop("Stopped.");}});
 setOpen(false);
