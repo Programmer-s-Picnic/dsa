@@ -86,6 +86,15 @@ body.embed-mode .stage{min-height:390px;height:390px;max-height:390px}
 body.embed-mode .teacher-svg{height:95%}
 @media(max-width:790px){body.embed-mode .stage{min-height:315px;height:315px;max-height:315px}}
 @media(max-width:470px){.stage .scene-location{font-size:10px;left:8px;padding:5px 8px}.transport-panel .speech-bubble{min-height:48px;padding:9px}body.embed-mode .stage{min-height:285px;height:285px;max-height:285px}}
+
+/* When the avatar walks over the editor page, use this embedded studio only for voice and script controls. */
+body.embed-mode.roaming-teacher .stage-header,
+body.embed-mode.roaming-teacher .stage{display:none!important}
+body.embed-mode.roaming-teacher .workspace{display:block!important}
+body.embed-mode.roaming-teacher .left-pane{width:100%}
+body.embed-mode.roaming-teacher .editor-pane{width:100%;margin-top:12px}
+body.embed-mode.roaming-teacher .transport-panel{border-top:1px solid #dbe9f4;border-radius:12px}
+body.embed-mode.roaming-teacher .app-shell{max-width:none}
 </style>
 
 </head>
@@ -662,6 +671,13 @@ const speech=new SpeechPlayer({
   onVoices:refreshVoiceList,
   onLine:({line,index,total,voice})=>{
     speechStarted=true;
+    // Tell the Python editor which panel and source line the avatar is teaching.
+    emitEditorScene('line',{
+      index,total,sourceLine:line.sourceLine||null,
+      zone:line.zone||'center',mode:line.mode||'code',
+      gesture:line.gesture,emotion:line.emotion,lookAt:line.lookAt||'audience',
+      caption:String(line.text||'').slice(0,180)
+    });
     $('lineCounter').textContent=`${index+1} / ${total}`;
     $('bubbleText').textContent=line.text;
     $('statusNote').textContent=`Line ${index+1} of ${total} · ${line.lang} · ${voice}`;
@@ -679,12 +695,16 @@ const speech=new SpeechPlayer({
     const volume=Math.round(delivery.volume*100);
     $('deliveryNow').textContent=`Speaking · ${volume}% volume · ${delivery.pitch.toFixed(2)}× pitch · ${delivery.rate.toFixed(2)}× speed · phrase ${delivery.segment}/${delivery.segments}`;
   },
-  onState:setSpeechState,
+  onState:state=>{
+    setSpeechState(state);
+    emitEditorScene('state',{state});
+  },
   onProgress:ratio=>{
     $('progressFill').style.width=`${ratio*100}%`;
     $('progressTrack').setAttribute('aria-valuenow',String(Math.round(ratio*100)));
   },
   onComplete:count=>{
+    emitEditorScene('finish',{count});
     speechStarted=false;
     setSpeechState('finished');
     $('statusNote').textContent=`Finished speaking ${count} ${count===1?'line':'lines'}. Play again any time.`;
@@ -694,6 +714,7 @@ const speech=new SpeechPlayer({
     $('deliveryNow').textContent='Finished · Adjust controls and speak again.';
   },
   onError:message=>{
+    emitEditorScene('error',{message:String(message).slice(0,220)});
     speechStarted=false;
     setSpeechState('error');
     $('statusNote').textContent=message;
@@ -911,6 +932,9 @@ function setup(){
     if(!lines.length){toast('Write some text in the script editor.');$('scriptInput').focus();return;}
     $('progressFill').style.width='0%';
     $('progressTrack').setAttribute('aria-valuenow','0');
+    if(speakerEmbedMode && editorScriptMeta.length && editorScriptSource===$('scriptInput').value){
+      lines.forEach((line,index)=>Object.assign(line,editorScriptMeta[index]||{}));
+    }
     speech.play(lines,audioConfig());
   });
   $('pauseBtn').addEventListener('click',()=>{if(speech.state==='paused')speech.resume();else speech.pause();});
@@ -960,28 +984,49 @@ function setup(){
 }
 setup();
 
-/* Receive prepared narration from the trusted Python Editor. Never execute source code. */
+/* Trusted, versioned event bridge for editor-page avatar motion. */
 const speakerEmbedMode = new URLSearchParams(location.search).get('embed') === '1';
+const editorAllowedOrigins = new Set([
+  'https://editor.learnwithchampak.live',
+  'https://programmer-s-picnic.github.io'
+]);
+let editorScriptMeta=[];
+let editorScriptSource='';
+function emitEditorScene(kind,detail={}){
+  if(!speakerEmbedMode || window.parent===window)return;
+  try{
+    const origin=new URL(document.referrer).origin;
+    if(!editorAllowedOrigins.has(origin))return;
+    window.parent.postMessage({type:'lwc-speaker:scene',version:2,kind,...detail},origin);
+  }catch(_error){ /* no trusted parent */ }
+}
+
+/* Receive prepared narration from the trusted Python Editor. Never execute source code. */
 if(speakerEmbedMode){
   document.body.classList.add('embed-mode');
-  const acceptedEditorOrigins = new Set([
-    'https://editor.learnwithchampak.live',
-    'https://programmer-s-picnic.github.io'
-  ]);
+  document.body.classList.toggle('roaming-teacher',new URLSearchParams(location.search).get('roaming')==='1');
   window.addEventListener('message', event => {
-    if(event.source !== window.parent || !acceptedEditorOrigins.has(event.origin)) return;
+    if(event.source !== window.parent || !editorAllowedOrigins.has(event.origin)) return;
     const incoming = event.data;
     if(!incoming || incoming.type !== 'lwc-speaker:load' || incoming.version !== 1 ||
        typeof incoming.script !== 'string' || incoming.script.length > 16000) return;
     speechStarted = false;
     speech.stop(true);
     $('scriptInput').value = incoming.script;
+    editorScriptSource=incoming.script;
+    editorScriptMeta=Array.isArray(incoming.scenes)?incoming.scenes.slice(0,100).map(item=>({
+      zone:['left','center','right'].includes(item?.zone)?item.zone:'center',
+      mode:['code','output','error'].includes(item?.mode)?item.mode:'code',
+      sourceLine:Number.isInteger(item?.sourceLine)&&item.sourceLine>0?item.sourceLine:null,
+      lookAt:['code','output','error','audience'].includes(item?.lookAt)?item.lookAt:'audience'
+    })):[];
     refreshCounters();
     setSpeechState('stopped');
     $('statusNote').textContent = 'Python narration ready. Press Speak script to listen.';
     $('bubbleText').textContent = 'Let us explore this Python program!';
     if(incoming.autoplay===true && speech.supported){
       const prepared=parseScript(incoming.script);
+      prepared.forEach((line,index)=>Object.assign(line,editorScriptMeta[index]||{}));
       const started=speech.play(prepared,audioConfig());
       $('statusNote').textContent=started?'Cartoon Teacher narrating your Python explanation.':'Narration ready — press Speak script to hear it.';
       if(!started)toast('Press Speak script to hear the narration.');
