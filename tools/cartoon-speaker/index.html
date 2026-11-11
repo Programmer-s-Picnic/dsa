@@ -295,21 +295,15 @@ class CartoonCharacter {
   constructor() {
     this.svg = $('teacher');
     this.stage = $('stage');
-    this.photoActor = $('photoActor');
-    this.photoMouth = $('photoMouth');
+    this.lookAt = 'audience';
+    this.sceneZone = 'center';
+    this.isTraveling = false;
     this.walkEnabled = true;
     this.walkTarget = 0;
     this.walkX = 0;
     this.walkPreviewUntil = 0;
     this.walkPreviewIndex = 0;
-    const photo=$('photoCharacter');
-    if(photo){
-      const loaded=()=>{if(photo.naturalWidth)this.stage.classList.add('photo-active');};
-      photo.addEventListener('load',loaded);
-      photo.addEventListener('error',()=>this.stage.classList.remove('photo-active'));
-      if(photo.complete)loaded();
-    }
-    this.nodes = Object.fromEntries(['left-arm','right-arm','left-forearm','right-forearm','head-rig','body-rig','left-brow','right-brow','left-eye','right-eye','mouth-line','mouth-open','mouth-tongue','cheek-left','cheek-right'].map(id => [id,$(id)]));
+    this.nodes = Object.fromEntries(['left-arm','right-arm','left-forearm','right-forearm','left-leg','right-leg','left-pupil','right-pupil','head-rig','body-rig','left-brow','right-brow','left-eye','right-eye','mouth-line','mouth-open','mouth-tongue','cheek-left','cheek-right'].map(id => [id,$(id)]));
     this.emotion = 'happy';
     this.gesture = 'welcome';
     this.speaking = false;
@@ -352,15 +346,23 @@ class CartoonCharacter {
   }
   setEnergy(value) { this.energy=clamp(Number(value)||.3,.1,1); }
   setWalkEnabled(value){this.walkEnabled=Boolean(value);if(!this.walkEnabled)this.walkTarget=0;}
-  walkForLine(index,gesture){
-    if(!this.walkEnabled||this.reducedMotion)return;
-    const destinations=[-.78,.45,-.36,.82,-.58,.28,0];
-    this.walkTarget=destinations[index%destinations.length];
-    if(gesture==='point-right')this.walkTarget=.82;
-    if(gesture==='point-left')this.walkTarget=-.82;
-    if(gesture==='think')this.walkTarget=0;
+  setScene(line={},index=0){
+    const zone=String(line.zone||'');
+    const zones={left:-.90,center:0,right:.90};
+    const defaultZone=/error|output|result/i.test(line.text||'')?'right':/code|loop|line|variable/i.test(line.text||'')?'left':'center';
+    this.sceneZone=Object.prototype.hasOwnProperty.call(zones,zone)?zone:defaultZone;
+    this.lookAt=['code','output','error','audience','left','right'].includes(line.lookAt)?line.lookAt:(this.sceneZone==='left'?'code':this.sceneZone==='right'?'output':'audience');
+    this.walkTarget=this.walkEnabled&&!this.reducedMotion?zones[this.sceneZone]:0;
+    const lineNumber=Number(line.sourceLine);
+    const targetLabel=this.lookAt==='code'?'Code':this.lookAt==='output'?'Output':this.lookAt==='error'?'Error':'Audience';
+    $('sceneLocation').textContent=this.sceneZone+' zone · Facing '+targetLabel+(Number.isInteger(lineNumber)&&lineNumber>0?' · Line '+lineNumber:'');
+    this.stage.querySelectorAll('.scene-target-dot').forEach(el=>el.classList.toggle('active',el.dataset.zone===this.sceneZone));
   }
-  previewWalk(){
+  walkForLine(index,gesture,line){
+    this.setScene(line||{zone:index===0?'center':gesture==='point-left'?'left':gesture==='point-right'?'right':index%2?'left':'right'},index);
+  }
+  returnCenter(){this.setScene({zone:'center',lookAt:'audience'});}
+    previewWalk(){
     if(this.reducedMotion)return;
     this.walkPreviewUntil=performance.now()+3200;
     this.walkTarget=this.walkPreviewIndex++%2===0?.85:-.85;
@@ -400,25 +402,23 @@ class CartoonCharacter {
     const elapsed=Math.min(.05,Math.max(.001,(now-this.lastFrame)/1000));
     this.lastFrame=now;
     const active = this.speaking && !this.paused;
-    if(this.photoActor){
-      const previewWalking=now<this.walkPreviewUntil;
-      const walking=(active||previewWalking)&&this.walkEnabled&&!this.reducedMotion;
-      const limit=this.stage.clientWidth*(this.stage.clientWidth<480?.115:.15);
-      const target=walking?this.walkTarget*limit:0;
-      const delta=target-this.walkX;
-      const speed=walking?105:140;
-      this.walkX+=clamp(delta,-speed*elapsed,speed*elapsed);
-      const inMotion=Math.abs(delta)>2&&walking;
-      this.photoActor.classList.toggle('walking',inMotion);
-      const step=inMotion?Math.abs(Math.sin(t*9))*4.5:Math.sin(t*1.5)*1.7;
-      const tilt=(inMotion?Math.sin(t*9)*1.1+Math.sign(delta)*1.4:Math.sin(t*1.7)*.65)*(this.reducedMotion?.15:1);
-      this.photoActor.style.transform=`translate(calc(-50% + ${this.walkX.toFixed(2)}px), ${step.toFixed(2)}px) rotate(${tilt.toFixed(2)}deg)`;
-      if(this.photoMouth){
-        this.photoMouth.style.opacity=active?'0.85':'0';
-        this.photoMouth.style.transform=active?`scaleY(${(.52+Math.abs(Math.sin(t*(11+this.energy*4)))*1.55).toFixed(2)})`:'scaleY(.05)';
-      }
-    }
-    const pace = active ? (.45+this.energy*1.05) : .42;
+    const limit=this.stage.clientWidth*(this.stage.clientWidth<480?.20:.25);
+    const target=(this.walkEnabled&&!this.reducedMotion?this.walkTarget:0)*limit;
+    const delta=target-this.walkX;
+    const speed=this.reducedMotion?900:145;
+    this.walkX+=clamp(delta,-speed*elapsed,speed*elapsed);
+    const moving=this.walkEnabled&&!this.reducedMotion&&Math.abs(delta)>2;
+    const stride=moving?Math.sin(t*10)*(11+this.energy*4):0;
+    this.nodes['left-leg'].style.transform=`rotate(${stride.toFixed(2)}deg)`;
+    this.nodes['right-leg'].style.transform=`rotate(${(-stride).toFixed(2)}deg)`;
+    const lift=moving?Math.abs(Math.sin(t*10))*2.8:0;
+    const tilt=(moving?Math.sign(delta)*1.3:0)+(this.reducedMotion?0:Math.sin(t*1.35)*.7);
+    this.svg.style.transform=`translate(calc(-50% + ${this.walkX.toFixed(2)}px),calc(-50% + ${lift.toFixed(2)}px)) rotate(${tilt.toFixed(2)}deg)`;
+    const gaze=this.lookAt==='code'||this.lookAt==='right'?1:this.lookAt==='output'||this.lookAt==='error'||this.lookAt==='left'?-1:0;
+    this.nodes['left-pupil'].style.transform=`translateX(${gaze*4}px)`;
+    this.nodes['right-pupil'].style.transform=`translateX(${gaze*4}px)`;
+    this.isTraveling=moving;
+        const pace = active ? (.45+this.energy*1.05) : .42;
     const subtle = this.reducedMotion ? .22 : 1;
     let sway = Math.sin(t*1.1)*1.1*subtle;
     let la = (g.la||0) + Math.sin(t*2.2)*2.2*pace*subtle;
@@ -427,9 +427,10 @@ class CartoonCharacter {
     if(g.motion==='wave') lf += Math.sin(t*7.5)*20*subtle;
     if(g.motion==='bounce') sway += Math.sin(t*5)*2*subtle;
     const emotion = EMOTIONS[this.emotion];
-    let head = emotion.head + Math.sin(t*1.6)*(active?.6+this.energy*1.7:1.2)*subtle;
+    let head = emotion.head + (this.lookAt==='code'||this.lookAt==='right'?-5:this.lookAt==='output'||this.lookAt==='error'||this.lookAt==='left'?5:0) + Math.sin(t*1.6)*(active?.6+this.energy*1.7:1.2)*subtle;
     if(g.motion==='nod') head += Math.sin(t*5.5)*9*subtle;
     if(g.motion==='shake') head += Math.sin(t*5.1)*12*subtle;
+    if(this.isTraveling){la+=Math.sin(t*10)*9;ra-=Math.sin(t*10)*9;}
     this.nodes['left-arm'].style.transform = `rotate(${la}deg)`;
     this.nodes['right-arm'].style.transform = `rotate(${ra}deg)`;
     this.nodes['left-forearm'].style.transform = `rotate(${lf}deg)`;
@@ -679,7 +680,7 @@ const speech=new SpeechPlayer({
     $('statusNote').textContent=`Line ${index+1} of ${total} · ${line.lang} · ${voice}`;
     if($('emotionSelect').value==='auto')character.setEmotion(line.emotion);
     else character.setEmotion($('emotionSelect').value);
-    character.walkForLine(index,line.gesture);
+    character.walkForLine(index,line.gesture,line);
     if(!$('autoGesture').checked)character.setGesture('idle');
     else character.setGesture($('gestureSelect').value==='auto'?line.gesture:$('gestureSelect').value);
     $('progressTrack').setAttribute('aria-valuenow',String(Math.round(index/total*100)));
@@ -702,6 +703,7 @@ const speech=new SpeechPlayer({
     $('statusNote').textContent=`Finished speaking ${count} ${count===1?'line':'lines'}. Play again any time.`;
     $('bubbleText').textContent='Well done! See you again. ✨';
     character.setGesture('welcome');
+    character.returnCenter();
     $('deliveryNow').textContent='Finished · Adjust controls and speak again.';
   },
   onError:message=>{
@@ -720,6 +722,7 @@ function toast(message){
 }
 function setSpeechState(state){
   lastStatus=state;
+  if(state==='stopped'||state==='error')character.returnCenter();
   const speak=state==='speaking'||state==='paused';
   character.setSpeaking(speak,state==='paused');
   if(state==='stopped')$('deliveryNow').textContent='Stopped · Voice settings are ready.';
