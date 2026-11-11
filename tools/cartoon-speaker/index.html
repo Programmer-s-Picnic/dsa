@@ -40,6 +40,29 @@
 .audio-explanation{line-height:1.6;margin-top:8px}
 @media(max-width:470px){.voice-presets-row .btn{font-size:11px;padding:0 9px}.sound-controls{gap:9px}.sound-controls .field{padding:9px 8px}.sound-controls .field>label{font-size:10.5px;gap:3px}.sound-controls .field label strong{font-size:10px}}
 
+  
+/* Python editor companion: compact view when embedded, full controls retained. */
+body.embed-mode{min-height:0;background:#f3f8ff}
+body.embed-mode .app-shell{padding:10px;max-width:none}
+body.embed-mode .app-header,body.embed-mode .app-footer{display:none}
+body.embed-mode .workspace{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:12px}
+body.embed-mode .stage{height:360px;min-height:360px;max-height:360px}
+body.embed-mode .stage-side-note,body.embed-mode .stage-subtitle,body.embed-mode .stage-footer-right{display:none!important}
+body.embed-mode .teacher-svg{height:91%}
+body.embed-mode .editor-pane{padding:14px}
+body.embed-mode .panel-heading{margin-bottom:10px}
+body.embed-mode .panel-heading h2{font-size:17px}
+body.embed-mode .editor-card textarea{min-height:112px;max-height:180px}
+body.embed-mode .subsection-title{margin:15px 0 10px}
+body.embed-mode .helper-panel{display:none}
+@media(max-width:760px){
+ body.embed-mode .workspace{display:flex;flex-direction:column}
+ body.embed-mode .stage{height:295px;min-height:295px;max-height:295px}
+ body.embed-mode .left-pane,body.embed-mode .editor-pane{width:100%}
+ body.embed-mode .stage-header{padding:0 3px 6px}
+ body.embed-mode .transport-panel{padding:10px}
+}
+
   </style>
 
 </head>
@@ -855,6 +878,31 @@ function setup(){
   if(!speech.supported){$('playBtn').disabled=true;$('statusNote').textContent='This browser has no Speech Synthesis API; the animation preview still works.';}
 }
 setup();
+
+/* Receive prepared narration from the trusted Python Editor. Never execute source code. */
+const speakerEmbedMode = new URLSearchParams(location.search).get('embed') === '1';
+if(speakerEmbedMode){
+  document.body.classList.add('embed-mode');
+  const acceptedEditorOrigins = new Set([
+    'https://editor.learnwithchampak.live',
+    'https://programmer-s-picnic.github.io'
+  ]);
+  window.addEventListener('message', event => {
+    if(event.source !== window.parent || !acceptedEditorOrigins.has(event.origin)) return;
+    const incoming = event.data;
+    if(!incoming || incoming.type !== 'lwc-speaker:load' || incoming.version !== 1 ||
+       typeof incoming.script !== 'string' || incoming.script.length > 16000) return;
+    speechStarted = false;
+    speech.stop(true);
+    $('scriptInput').value = incoming.script;
+    refreshCounters();
+    setSpeechState('stopped');
+    $('statusNote').textContent = 'Python narration ready. Press Speak script to listen.';
+    $('bubbleText').textContent = 'Let us explore this Python program!';
+    toast('Narration loaded. Press Speak script.');
+  });
+}
+
 
 </script>
 </body>
