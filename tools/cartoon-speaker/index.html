@@ -1020,12 +1020,22 @@ if(speakerEmbedMode){
     speech.stop(true);
     $('scriptInput').value = incoming.script;
     editorScriptSource=incoming.script;
-    editorScriptMeta=Array.isArray(incoming.scenes)?incoming.scenes.slice(0,100).map(item=>({
-      zone:['left','center','right'].includes(item?.zone)?item.zone:'center',
-      mode:['code','output','error'].includes(item?.mode)?item.mode:'code',
-      sourceLine:Number.isInteger(item?.sourceLine)&&item.sourceLine>0?item.sourceLine:null,
-      lookAt:['code','output','error','audience'].includes(item?.lookAt)?item.lookAt:'audience'
-    })):[];
+    // One Python comment can split into several TTS chunks. Replicate its stage
+    // metadata across those chunks so code highlighting never loses its source line.
+    const incomingScenes=Array.isArray(incoming.scenes)?incoming.scenes.slice(0,100):[];
+    const sourceRows=incoming.script.split(/\r?\n/).filter(row=>row.trim());
+    editorScriptMeta=[];
+    sourceRows.forEach((row,index)=>{
+      const item=incomingScenes[index]||{};
+      const validated={
+        zone:['left','center','right'].includes(item.zone)?item.zone:'center',
+        mode:['code','output','error'].includes(item.mode)?item.mode:'code',
+        sourceLine:Number.isInteger(item.sourceLine)&&item.sourceLine>0?item.sourceLine:null,
+        lookAt:['code','output','error','audience'].includes(item.lookAt)?item.lookAt:'audience'
+      };
+      const chunks=parseScript(row).length;
+      for(let part=0;part<chunks;part++)editorScriptMeta.push({...validated});
+    });
     refreshCounters();
     setSpeechState('stopped');
     $('statusNote').textContent = 'Python narration ready. Press Speak script to listen.';
