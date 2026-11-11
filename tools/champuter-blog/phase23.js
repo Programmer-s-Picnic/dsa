@@ -65,21 +65,20 @@ async function sendToEditor(pre,action){
  const title=codeHeader(pre);
  const url=encodedURL(source,action,title);
  if(url){
-   const opened=window.open(url,"_blank","noopener,noreferrer");
-   if(!opened){
-     teacher.announce("Your browser blocked the editor tab. Allow pop-ups for this site and press the button again.",pre);
-   }else{
-     const message=action==="visualize"?
-       "The example is loaded in the Python Super Editor. Press Visualize there to run it and let Champuter explain the real results.":
-       "The example is loaded in the Python Super Editor. Press Run to execute it.";
-     teacher.announce(message,pre,{status:"Code opened in the Python Editor"});
-   }
+   const a=document.createElement("a");
+   a.href=url;a.target="_blank";a.rel="noopener noreferrer";
+   a.style.display="none";document.body.appendChild(a);a.click();a.remove();
+   const message=action==="visualize"?
+     "The example is ready to open in the Python Super Editor. Press Visualize there to execute it and let Champuter explain the real results.":
+     "The example is ready in the Python Super Editor. Press Run there to execute it.";
+   teacher.announce(message,pre,{status:"Python example sent to the Editor"});
    return;
  }
  // Large examples exceed safe link size. Copy first, then open the editor.
  try{
    await navigator.clipboard.writeText(source);
-   window.open(EDITOR,"_blank","noopener,noreferrer");
+   const a=document.createElement("a");a.href=EDITOR;a.target="_blank";a.rel="noopener noreferrer";
+   a.style.display="none";document.body.appendChild(a);a.click();a.remove();
    teacher.announce("This example was too large for a share link. I copied it to your clipboard. Paste it in the Python Editor, then press Run or Visualize.",pre);
  }catch(_e){
    teacher.announce("This example is too large for an editor link. Select the code, copy it, and paste it into the Python Super Editor.",pre);
