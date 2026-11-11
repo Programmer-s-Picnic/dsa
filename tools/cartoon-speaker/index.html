@@ -69,27 +69,20 @@ body.embed-mode .helper-panel{display:none}
 }
 
   
-/* Character reference: layered photo-illustration with responsive stage motion. */
-.photo-legs{position:absolute;top:73%;left:33%;width:34%;height:62%;overflow:visible;z-index:0}
-.photo-stride-left,.photo-stride-right{transform-box:view-box}
-.photo-actor img{position:relative;z-index:1}
-.photo-mouth{z-index:2}
-.photo-actor.walking .photo-stride-left{animation:photoStepLeft .62s ease-in-out infinite alternate}
-.photo-actor.walking .photo-stride-right{animation:photoStepRight .62s ease-in-out infinite alternate}
-@keyframes photoStepLeft{from{transform:rotate(-15deg)}to{transform:rotate(15deg)}}
-@keyframes photoStepRight{from{transform:rotate(15deg)}to{transform:rotate(-15deg)}}
-.stage.photo-active #bubbleText{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
-@media(prefers-reduced-motion:reduce){.photo-actor.walking .photo-stride-left,.photo-actor.walking .photo-stride-right{animation:none}}
 
-.photo-actor{display:none;position:absolute;z-index:3;top:8%;left:50%;width:min(78%,570px);aspect-ratio:600/394;pointer-events:none;transform-origin:50% 80%;will-change:transform}
-.photo-actor img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 13px 16px rgba(31,65,97,.18))}
-.stage.photo-active .photo-actor{display:block}
-.stage.photo-active .teacher-svg{display:none}
-.photo-mouth{position:absolute;left:42.6%;top:39.9%;width:5.2%;height:2.8%;background:#51262c;border:1px solid #c9795f;border-radius:48% 48% 55% 55%;transform:scaleY(.06);transform-origin:center;opacity:0;pointer-events:none}
-@media(max-width:790px){.photo-actor{top:8%;width:84%}}
-@media(max-width:470px){.photo-actor{top:14%;width:86%}.photo-mouth{border-width:.6px}}
-@media(prefers-reduced-motion:reduce){.photo-actor{will-change:auto}}
-
+/* v2 articulated avatar; no photo composite or fake lower body */
+.teacher-svg{height:95%;width:100%;max-height:640px;overflow:visible;filter:drop-shadow(0 11px 14px rgba(19,57,93,.2))}
+#left-leg,#right-leg{transition:none!important}
+.stage .stage-footer{top:10px;bottom:auto}.stage .stage-footer-right{display:none}
+.transport-panel .speech-bubble{position:relative;bottom:auto;left:auto;transform:none;width:100%;min-height:58px;max-width:none;background:#edf6ff;box-shadow:inset 0 0 0 1px #d2e5f7;margin:0 0 12px;padding:12px;border-radius:12px}
+.stage .scene-location{position:absolute;left:14px;bottom:10px;z-index:5;background:#ffffffed;color:#285b80;border-radius:11px;font-size:11px;font-weight:750;padding:7px 11px;box-shadow:0 3px 14px #317db41a}
+.scene-target-dot{position:absolute;bottom:17px;width:9px;height:9px;border:2px solid #b6dafa;background:#fff;border-radius:50%;opacity:.6;z-index:1}
+.scene-target-dot[data-zone="left"]{left:18%}.scene-target-dot[data-zone="center"]{left:50%}.scene-target-dot[data-zone="right"]{right:18%}
+.scene-target-dot.active{background:#2785c9;border-color:#e9f7ff;opacity:1;box-shadow:0 0 0 5px #339de42b}
+body.embed-mode .stage{min-height:390px;height:390px;max-height:390px}
+body.embed-mode .teacher-svg{height:95%}
+@media(max-width:790px){body.embed-mode .stage{min-height:315px;height:315px;max-height:315px}}
+@media(max-width:470px){.stage .scene-location{font-size:10px;left:8px;padding:5px 8px}.transport-panel .speech-bubble{min-height:48px;padding:9px}body.embed-mode .stage{min-height:285px;height:285px;max-height:285px}}
 </style>
 
 </head>
@@ -104,7 +97,7 @@ body.embed-mode .helper-panel{display:none}
         </div>
       </div>
       <div class="header-actions">
-        <span class="version-tag">v1.2 · Animated presenter</span>
+        <span class="version-tag">v2.0 · Illustrated Teaching Avatar</span>
         <button id="resetBtn" type="button" class="btn btn-light btn-sm" title="Restore the included demonstration script">↺ <span>Example</span></button>
         <button id="saveBtn" type="button" class="btn btn-dark btn-sm">▣ <span>Save locally</span></button>
       </div>
@@ -113,7 +106,7 @@ body.embed-mode .helper-panel{display:none}
     <main class="workspace">
       <section class="left-pane" aria-label="Cartoon preview">
         <div class="stage-header">
-          <div class="stage-title"><span class="live-dot"></span> CHARACTER STAGE <span class="stage-subtitle">Original cartoon teacher</span></div>
+          <div class="stage-title"><span class="live-dot"></span> CHARACTER STAGE <span class="stage-subtitle">Articulated full-body presenter</span></div>
           <div id="speakerState" class="state-pill" role="status" aria-live="polite">● Ready</div>
         </div>
         <div class="stage" id="stage">
@@ -121,13 +114,9 @@ body.embed-mode .helper-panel{display:none}
           <div class="stage-decoration decor-star star-two">✦</div>
           <div class="stage-decoration decor-orbit"></div>
           <div class="stage-side-note">Hi, I'm your<br><strong>cartoon teacher!</strong></div>
-          <div id="photoActor" class="photo-actor" aria-label="Illustrated teacher matching the supplied character reference"><svg class="photo-legs" viewBox="0 0 190 220" aria-hidden="true">
-  <g class="photo-stride-left" style="transform-origin:74px 22px"><path d="M74 8 Q66 73 60 174" stroke="#253d60" stroke-width="43" stroke-linecap="round" fill="none"/><path d="M42 171 Q31 191 44 205 L99 205 Q107 200 91 183 L79 172Z" fill="#243047"/></g>
-  <g class="photo-stride-right" style="transform-origin:116px 22px"><path d="M116 8 Q123 84 128 174" stroke="#2b4365" stroke-width="43" stroke-linecap="round" fill="none"/><path d="M111 171 Q100 194 117 205 L171 205 Q177 198 162 185 L144 174Z" fill="#202b41"/></g>
-</svg><img id="photoCharacter" src="assets/presenter.png" alt="Instructor wearing glasses and a purple striped shirt" decoding="async"><span id="photoMouth" class="photo-mouth" aria-hidden="true"></span></div>
-          <svg id="teacher" class="teacher-svg" viewBox="0 0 600 590" role="img" aria-label="A smiling original cartoon teacher in a blue blazer, glasses and yellow tie, standing and gesturing">
+          <svg id="teacher" class="teacher-svg" viewBox="115 0 370 590" role="img" aria-label="Full-body animated illustrated teacher with short black hair, rectangular glasses and purple striped polo shirt inspired by the supplied reference image">
             <defs>
-              <linearGradient id="jacket" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#377fc4"/><stop offset="1" stop-color="#125b9e"/></linearGradient>
+              <linearGradient id="jacket" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#613866"/><stop offset="0.55" stop-color="#4c2b50"/><stop offset="1" stop-color="#39213e"/></linearGradient>
               <linearGradient id="trousers" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#294a70"/><stop offset="1" stop-color="#203957"/></linearGradient>
               <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
             </defs>
@@ -136,46 +125,61 @@ body.embed-mode .helper-panel{display:none}
             <g id="body-rig">
               <g id="left-leg" class="limb" style="transform-origin:274px 386px">
                 <path d="M265 373 Q255 436 261 526" stroke="url(#trousers)" stroke-width="39" stroke-linecap="round" fill="none"/>
-                <path d="M247 528 Q240 547 231 554 Q231 561 244 563 L287 563 Q296 558 289 548 L277 526Z" fill="#25324a"/>
+                <path d="M247 528 Q240 547 231 554 Q231 561 244 563 L287 563 Q296 558 289 548 L277 526Z" fill="#202939"/>
                 <path d="M236 555 L289 555" stroke="#405979" stroke-width="3"/>
               </g>
               <g id="right-leg" class="limb" style="transform-origin:326px 386px">
                 <path d="M333 373 Q342 432 338 526" stroke="url(#trousers)" stroke-width="39" stroke-linecap="round" fill="none"/>
-                <path d="M325 527 Q316 548 314 554 Q314 563 329 563 L372 563 Q381 556 371 546 L353 527Z" fill="#25324a"/>
+                <path d="M325 527 Q316 548 314 554 Q314 563 329 563 L372 563 Q381 556 371 546 L353 527Z" fill="#202939"/>
                 <path d="M316 556 L374 556" stroke="#405979" stroke-width="3"/>
               </g>
               <!-- Arms rotate around shoulders; forearms around elbows. -->
               <g id="left-arm" class="limb" style="transform-origin:230px 257px">
-                <path d="M230 255 Q207 263 198 324" stroke="#1d67aa" stroke-width="38" fill="none" stroke-linecap="round"/>
+                <path d="M230 255 Q207 263 198 324" stroke="#533252" stroke-width="38" fill="none" stroke-linecap="round"/>
                 <g id="left-forearm" class="limb" style="transform-origin:198px 324px">
-                  <path d="M198 323 Q183 347 167 405" stroke="#226eae" stroke-width="32" fill="none" stroke-linecap="round"/>
+                  <path d="M198 323 Q183 347 167 405" stroke="#4d2d50" stroke-width="32" fill="none" stroke-linecap="round"/>
                   <path d="M173 390 L160 414" stroke="#e8f3ff" stroke-width="13" stroke-linecap="round"/>
                   <ellipse cx="158" cy="425" rx="18" ry="22" transform="rotate(20 158 425)" fill="#d99570"/>
                   <path d="M149 414 Q139 400 132 404 Q128 411 146 429" stroke="#d99570" stroke-width="11" stroke-linecap="round" fill="none"/>
                 </g>
               </g>
               <g id="right-arm" class="limb" style="transform-origin:370px 257px">
-                <path d="M370 255 Q394 263 404 324" stroke="#155e9e" stroke-width="38" fill="none" stroke-linecap="round"/>
+                <path d="M370 255 Q394 263 404 324" stroke="#48274c" stroke-width="38" fill="none" stroke-linecap="round"/>
                 <g id="right-forearm" class="limb" style="transform-origin:404px 324px">
-                  <path d="M404 323 Q420 348 434 404" stroke="#2369a8" stroke-width="32" fill="none" stroke-linecap="round"/>
+                  <path d="M404 323 Q420 348 434 404" stroke="#4b2b50" stroke-width="32" fill="none" stroke-linecap="round"/>
                   <path d="M430 390 L438 414" stroke="#eaf4ff" stroke-width="13" stroke-linecap="round"/>
                   <ellipse cx="442" cy="426" rx="18" ry="22" transform="rotate(-20 442 426)" fill="#e5a37c"/>
                   <path d="M448 415 Q461 398 468 406 Q471 414 453 431" stroke="#e5a37c" stroke-width="11" stroke-linecap="round" fill="none"/>
                 </g>
               </g>
               <g id="torso-rig">
-                <path d="M255 232 Q242 226 229 251 L229 370 Q240 404 300 408 Q360 404 371 370 L371 251 Q359 229 345 232Z" fill="url(#jacket)" stroke="#155b99" stroke-width="3"/>
-                <path d="M267 237 L300 292 L334 237 L321 379 L280 379Z" fill="#f5f9fe"/>
-                <path d="M283 253 L301 269 L319 252 L306 294 L294 294Z" fill="#fefefe"/>
-                <path d="M294 277 L306 277 L310 298 L302 356 L291 298Z" fill="#eeb54f"/>
-                <path d="M287 239 L300 289 L267 326 L246 241Z" fill="#2d78b9"/>
-                <path d="M313 239 L300 289 L333 326 L354 241Z" fill="#246fb1"/>
-                <path d="M256 343 Q274 349 291 344" stroke="#72b1e4" stroke-width="3" fill="none" opacity=".6"/>
-                <path d="M341 343 Q325 349 309 344" stroke="#72b1e4" stroke-width="3" fill="none" opacity=".6"/>
-                <circle cx="315" cy="342" r="3" fill="#bad3e7"/><circle cx="315" cy="364" r="3" fill="#bad3e7"/>
-                <path d="M340 341 L360 341 L357 349 L340 349Z" fill="#f6d484"/>
-                <path d="M282 218 L282 241 Q300 257 318 241 L318 218" fill="#dc9a75"/>
-              </g>
+<defs><clipPath id="polo-clip"><path d="M255 232 Q242 226 229 251 L229 370 Q240 404 300 408 Q360 404 371 370 L371 251 Q359 229 345 232Z"/></clipPath></defs>
+<path d="M255 232 Q242 226 229 251 L229 370 Q240 404 300 408 Q360 404 371 370 L371 251 Q359 229 345 232Z" fill="url(#jacket)" stroke="#34243f" stroke-width="3"/>
+<g clip-path="url(#polo-clip)"><path d="M229 253 Q300 249 372 253" stroke="#855986" stroke-width="1.25" fill="none" opacity="0.65"/>
+<path d="M229 260.5 Q300 256.5 372 260.5" stroke="#241b36" stroke-width="1.7" fill="none" opacity="0.42"/>
+<path d="M229 268 Q300 264 372 268" stroke="#855986" stroke-width="1.25" fill="none" opacity="0.65"/>
+<path d="M229 275.5 Q300 271.5 372 275.5" stroke="#241b36" stroke-width="1.7" fill="none" opacity="0.42"/>
+<path d="M229 283 Q300 279 372 283" stroke="#855986" stroke-width="1.25" fill="none" opacity="0.65"/>
+<path d="M229 290.5 Q300 286.5 372 290.5" stroke="#241b36" stroke-width="1.7" fill="none" opacity="0.42"/>
+<path d="M229 298 Q300 294 372 298" stroke="#855986" stroke-width="1.25" fill="none" opacity="0.65"/>
+<path d="M229 305.5 Q300 301.5 372 305.5" stroke="#241b36" stroke-width="1.7" fill="none" opacity="0.42"/>
+<path d="M229 313 Q300 309 372 313" stroke="#855986" stroke-width="1.25" fill="none" opacity="0.65"/>
+<path d="M229 320.5 Q300 316.5 372 320.5" stroke="#241b36" stroke-width="1.7" fill="none" opacity="0.42"/>
+<path d="M229 328 Q300 324 372 328" stroke="#855986" stroke-width="1.25" fill="none" opacity="0.65"/>
+<path d="M229 335.5 Q300 331.5 372 335.5" stroke="#241b36" stroke-width="1.7" fill="none" opacity="0.42"/>
+<path d="M229 343 Q300 339 372 343" stroke="#855986" stroke-width="1.25" fill="none" opacity="0.65"/>
+<path d="M229 350.5 Q300 346.5 372 350.5" stroke="#241b36" stroke-width="1.7" fill="none" opacity="0.42"/>
+<path d="M229 358 Q300 354 372 358" stroke="#855986" stroke-width="1.25" fill="none" opacity="0.65"/>
+<path d="M229 365.5 Q300 361.5 372 365.5" stroke="#241b36" stroke-width="1.7" fill="none" opacity="0.42"/>
+<path d="M229 373 Q300 369 372 373" stroke="#855986" stroke-width="1.25" fill="none" opacity="0.65"/>
+<path d="M229 380.5 Q300 376.5 372 380.5" stroke="#241b36" stroke-width="1.7" fill="none" opacity="0.42"/></g>
+<path d="M275 231 L300 266 L325 232 Q315 246 300 250 Q286 247 275 231Z" fill="#142a42"/>
+<path d="M276 230 L297 260 L289 273 L264 239Z" fill="#203b54"/>
+<path d="M325 230 L303 260 L311 273 L335 239Z" fill="#203b54"/>
+<path d="M300 260 L302 299" stroke="#30203b" stroke-width="3"/>
+<circle cx="302" cy="277" r="2.6" fill="#a2a4aa"/><circle cx="302" cy="292" r="2.6" fill="#a2a4aa"/>
+<path d="M282 218 L282 241 Q300 253 318 241 L318 218" fill="#dc9a75"/>
+</g>
               <g id="head-rig" class="limb" style="transform-origin:300px 231px">
                 <ellipse cx="300" cy="143" rx="82" ry="96" fill="#e6a982"/>
                 <ellipse cx="220" cy="158" rx="12" ry="19" fill="#d99a75"/><ellipse cx="380" cy="158" rx="12" ry="19" fill="#d99a75"/>
@@ -183,8 +187,8 @@ body.embed-mode .helper-panel{display:none}
                 <path d="M236 91 Q268 63 299 87 Q330 56 354 81" stroke="#45506b" stroke-width="8" opacity=".45" fill="none" stroke-linecap="round"/>
                 <g id="left-brow" class="limb" style="transform-origin:269px 122px"><path d="M248 121 Q270 109 284 119" stroke="#353643" stroke-width="6" fill="none" stroke-linecap="round"/></g>
                 <g id="right-brow" class="limb" style="transform-origin:330px 122px"><path d="M315 119 Q334 108 353 121" stroke="#353643" stroke-width="6" fill="none" stroke-linecap="round"/></g>
-                <g id="left-eye" class="eye" style="transform-origin:269px 145px"><ellipse cx="269" cy="146" rx="16" ry="17" fill="#fff"/><ellipse cx="271" cy="147" rx="8" ry="11" fill="#34465c"/><circle cx="274" cy="143" r="3" fill="#fff"/></g>
-                <g id="right-eye" class="eye" style="transform-origin:333px 145px"><ellipse cx="333" cy="146" rx="16" ry="17" fill="#fff"/><ellipse cx="331" cy="147" rx="8" ry="11" fill="#34465c"/><circle cx="334" cy="143" r="3" fill="#fff"/></g>
+                <g id="left-eye" class="eye" style="transform-origin:269px 145px"><ellipse cx="269" cy="146" rx="16" ry="17" fill="#fff"/><ellipse id="left-pupil" cx="271" cy="147" rx="7" ry="9" fill="#34465c"/><circle cx="274" cy="143" r="3" fill="#fff"/></g>
+                <g id="right-eye" class="eye" style="transform-origin:333px 145px"><ellipse cx="333" cy="146" rx="16" ry="17" fill="#fff"/><ellipse id="right-pupil" cx="331" cy="147" rx="7" ry="9" fill="#34465c"/><circle cx="334" cy="143" r="3" fill="#fff"/></g>
                 <path d="M300 144 Q294 167 300 170 Q304 174 311 168" stroke="#be795d" stroke-width="3" fill="none" stroke-linecap="round"/>
                 <ellipse id="cheek-left" cx="247" cy="176" rx="15" ry="7" fill="#d66f70" opacity=".1"/><ellipse id="cheek-right" cx="354" cy="176" rx="15" ry="7" fill="#d66f70" opacity=".1"/>
                 <g id="mouth-group">
@@ -193,16 +197,17 @@ body.embed-mode .helper-panel{display:none}
                   <ellipse id="mouth-tongue" cx="301" cy="204" rx="8" ry="4" fill="#de8290" opacity="0"/>
                 </g>
                 <!-- Glasses sit above the eyes and move with the head. -->
-                <rect x="242" y="130" width="52" height="39" rx="14" fill="none" stroke="#354960" stroke-width="4"/>
-                <rect x="309" y="130" width="52" height="39" rx="14" fill="none" stroke="#354960" stroke-width="4"/>
+                <rect x="242" y="130" width="52" height="36" rx="7" fill="none" stroke="#354960" stroke-width="4"/>
+                <rect x="309" y="130" width="52" height="36" rx="7" fill="none" stroke="#354960" stroke-width="4"/>
                 <path d="M294 141 Q301 137 309 141 M241 140 L224 137 M361 140 L379 136" fill="none" stroke="#354960" stroke-width="4" stroke-linecap="round"/>
               </g>
             </g>
           </svg>
-          <div class="speech-bubble" id="speechBubble" aria-live="off"><span class="speech-mini-label">CHARACTER SAYS</span><span id="bubbleText">Let's make learning come alive!</span></div>
-          <div class="stage-footer"><span id="emotionBadge">😊 Happy</span><span class="mid-dot">•</span><span id="gestureBadge">👋 Welcome</span><span class="stage-footer-right">2D Vector Rig</span></div>
+          
+          <div id="sceneLocation" class="scene-location">Center · Facing audience</div><div class="scene-target-dot" data-zone="left"></div><div class="scene-target-dot active" data-zone="center"></div><div class="scene-target-dot" data-zone="right"></div><div class="stage-footer"><span id="emotionBadge">😊 Happy</span><span class="mid-dot">•</span><span id="gestureBadge">👋 Welcome</span><span class="stage-footer-right">2D Vector Rig</span></div>
         </div>
         <div class="transport-panel">
+          <div class="speech-bubble" id="speechBubble" aria-live="off"><span class="speech-mini-label">CHARACTER SAYS</span><span id="bubbleText">Let's make learning come alive!</span></div>
           <div class="transport-main">
             <button id="playBtn" type="button" class="btn btn-primary btn-play" title="Speak the script"><span id="playIcon">▶</span> <span id="playLabel">Speak script</span></button>
             <button id="pauseBtn" type="button" class="btn btn-light btn-square" title="Pause speech" disabled>Ⅱ</button>
