@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eaf4ff">
+  <meta name="description" content="An original expressive cartoon teacher with browser text-to-speech, emotions, gestures and an editable presentation script.">
+  <title>Cartoon Speaker Studio · Learn With Champak</title>
+  <meta name="color-scheme" content="light">
+  <style>
+:root {color-scheme:light;--bg:#f3f8fd;--surface:#fff;--ink:#183553;--muted:#748ba5;--line:#dae7f3;--blue:#236db9;--blue2:#388ed8;--navy:#1b416b;--shadow:0 15px 42px rgba(35,78,114,.08);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{background:linear-gradient(125deg,#f7fbff 0%,#edf5fd 56%,#f8fbff 100%);color:var(--ink);margin:0;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.48}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #9acafa;outline-offset:2px}.app-shell{max-width:1580px;padding:22px 34px 10px;margin:auto}.app-header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}.brand-block{display:flex;gap:13px;align-items:center}.brand-mark{display:grid;place-items:center;width:47px;height:47px;border-radius:15px;background:linear-gradient(140deg,#2e85c7,#245d9d);box-shadow:0 8px 17px #236db921;color:#fff;font-size:27px}.eyebrow{font-size:10px;letter-spacing:1.7px;font-weight:800;color:#74a1bd}.brand-block h1{margin:3px 0 0;font-size:21px;letter-spacing:-.6px}.brand-block h1 span{font-weight:500;color:#6c92ad}.header-actions{display:flex;gap:10px;align-items:center}.version-tag{font-size:11px;border:1px solid #dce9f3;border-radius:20px;padding:7px 12px;color:#7193b1;white-space:nowrap}.btn{border:1px solid transparent;border-radius:12px;min-height:41px;display:inline-flex;gap:9px;align-items:center;justify-content:center;font-size:13px;font-weight:750;padding:0 16px;transition:background .2s,box-shadow .2s,transform .2s;white-space:nowrap}.btn:active:not(:disabled){transform:scale(.98)}.btn-sm{min-height:38px}.btn-light{background:#fff;border-color:#deebf5;color:#416080}.btn-light:hover{background:#f0f7fc}.btn-dark{background:#204a73;color:white}.btn-dark:hover{background:#1b3f65}.btn-primary{background:linear-gradient(120deg,#3286d0,#2068b1);color:#fff;box-shadow:0 6px 20px #2071b342}.btn-primary:hover{box-shadow:0 9px 24px #2071b360}.btn-outline{border-color:#bcd6ec;color:#246fae;background:#eff7ff}.btn-outline:hover{background:#e1f0ff}.btn-ghost{background:transparent;color:#6684a3}.btn-ghost:hover{background:#f2f7fb}.workspace{display:grid;grid-template-columns:minmax(0,1.16fr) minmax(390px,.84fr);gap:24px;align-items:start}.left-pane,.editor-pane{min-width:0}.stage-header{display:flex;justify-content:space-between;align-items:center;padding:0 5px 11px}.stage-title{font-weight:850;font-size:10px;letter-spacing:1.6px;color:#628caf;display:flex;gap:8px;align-items:center}.live-dot{width:8px;height:8px;border:2px solid #bee7dc;border-radius:100%;background:#2bba9d;box-shadow:0 0 0 3px #ccefe9}.stage-subtitle{font-weight:500;color:#9baec2;letter-spacing:0;font-size:11px;text-transform:none}.state-pill{border:1px solid #c9e5dc;border-radius:25px;padding:6px 12px;background:#ecf9f4;color:#20886f;font-weight:750;font-size:11px}.state-pill.speaking{background:#e7f0ff;border-color:#b9d7fa;color:#1d70ba}.state-pill.paused{background:#fff6e7;border-color:#f5dca8;color:#9b6f27}.stage{border-radius:21px 21px 0 0;min-height:580px;height:min(70vh,690px);max-height:690px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 55% 28%,rgba(255,255,255,.88),transparent 52%),linear-gradient(180deg,#e7f6ff 3%,#cbe7fc 73%,#b8dcf7 100%);border:1px solid #cfe3f5;box-shadow:var(--shadow)}.stage:before{content:"";position:absolute;inset:0;opacity:.17;background-image:radial-gradient(#75afdf 1px,transparent 1px);background-size:24px 24px;mask-image:linear-gradient(180deg,#000,transparent 78%)}.stage:after{content:"";position:absolute;bottom:48px;left:-7%;width:114%;height:33px;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,.7));border-radius:60% 60% 0 0}.teacher-svg{position:absolute;left:50%;top:49%;transform:translate(-50%,-50%);height:91%;width:95%;max-height:600px;overflow:visible;z-index:2;filter:drop-shadow(0 12px 11px #2874ab17)}.limb{transition:transform .48s cubic-bezier(.23,1,.36,1);transform-box:view-box}.eye{transform-box:view-box}.decor-star{position:absolute;color:#7ab9ea;z-index:1;opacity:.7}.star-one{top:13%;left:14%;font-size:49px}.star-two{top:24%;right:14%;font-size:25px}.decor-orbit{border:1.5px dashed #a6cfea;border-radius:50%;width:230px;height:230px;position:absolute;top:12%;right:-12%;opacity:.45}.stage-side-note{position:absolute;left:7%;top:10%;font-size:13px;color:#5589af;line-height:1.7;z-index:1}.stage-side-note strong{color:#2e6e9f}.speech-bubble{position:absolute;bottom:69px;left:50%;transform:translateX(-50%);width:min(87%,490px);min-height:67px;border-radius:16px;background:rgba(255,255,255,.94);box-shadow:0 7px 21px #366f9740;display:flex;flex-direction:column;gap:3px;padding:12px 16px;align-items:center;justify-content:center;z-index:5;text-align:center;font-weight:700;color:#23567c;font-size:13px;line-height:1.5}.speech-mini-label{font-size:9px;color:#7b9ab4;letter-spacing:1.4px;font-weight:850}.stage-footer{position:absolute;bottom:12px;left:18px;right:18px;display:flex;gap:10px;align-items:center;z-index:6;font-size:11px;font-weight:700;color:#285f90}.stage-footer span:not(.mid-dot){background:#ffffffa9;padding:5px 9px;border-radius:20px}.stage-footer .stage-footer-right{margin-left:auto;background:transparent!important;color:#6a91ae;font-size:10px}.mid-dot{opacity:.35}.transport-panel{padding:17px 20px 13px;background:#fff;border:1px solid #dbe9f4;border-top:0;border-radius:0 0 20px 20px;box-shadow:0 12px 30px #1b57800b}.transport-main{display:flex;gap:9px;align-items:center}.btn-play{min-width:144px}.btn-square{width:44px;padding:0;min-width:44px;font-size:16px}.transport-status{margin-left:auto;text-align:right;display:flex;flex-direction:column;gap:2px}.transport-status strong{font-size:14px}.transport-status small{font-size:10px;color:#8ba3b8}.progress-track{height:6px;background:#e7eff6;border-radius:20px;margin-top:17px;overflow:hidden}.progress-track>div{width:0;height:100%;background:linear-gradient(90deg,#65b9e6,#287dc3);border-radius:20px;transition:width .22s linear}.status-note{margin:9px 1px 0;color:#8499ad;font-size:11px;min-height:16px}.editor-pane{background:#fff;border:1px solid #e0ebf5;border-radius:20px;box-shadow:var(--shadow);padding:22px}.panel-heading{display:flex;justify-content:space-between;align-items:start;margin-bottom:18px}.panel-heading h2{font-size:19px;letter-spacing:-.6px;margin:6px 0 0}.panel-icon{background:#f0f6fc;border-radius:12px;padding:12px}.editor-card{border:1px solid #dce9f3;border-radius:13px;background:#fbfdff;padding:12px}.field-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.field-head label,.field>label{font-size:12px;font-weight:800;color:#375978}.field-head span{font-size:10px;color:#8aa3b9}textarea{resize:vertical;display:block;width:100%;min-height:165px;max-height:500px;background:#fff;border:1px solid #dbe7f1;border-radius:10px;color:#2b4c69;font-size:12.5px;line-height:1.7;padding:13px;outline-offset:1px}textarea::placeholder{color:#aabecb}.script-foot{margin-top:8px;font-size:10.5px;line-height:1.5;color:#8da4b6;display:flex;gap:10px;align-items:center;justify-content:space-between}.text-button{border:0;background:transparent;color:#246fb2;font-weight:750;font-size:11px;white-space:nowrap}.cue-help{border-radius:10px;margin-top:10px;background:#eaf5ff;padding:13px;color:#456f91;font-size:11px;line-height:1.6}.cue-help strong,.cue-help code{display:block}.cue-help code{background:#fff;border-radius:6px;padding:6px 7px;margin:7px 0;font-size:10px;overflow-wrap:anywhere}.two-field{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:16px}.field{min-width:0}.field>label{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.field .little{color:#9eb4c5;font-size:10px;font-weight:600}.field>select{width:100%;height:41px;background:#fbfdff;border:1px solid #dbe7f1;padding:0 9px;border-radius:9px;color:#41617f;font-size:11.5px;min-width:0;cursor:pointer}.control-actions{display:flex;gap:9px;margin:12px 0 0}.control-actions .btn{flex:1}.subsection-title{font-size:10px;letter-spacing:1.4px;color:#7c9cb5;font-weight:900;display:flex;align-items:center;gap:15px;margin:23px 0 14px}.section-line{height:1px;flex:1;background:#e4edf5}.field-help{margin:6px 0;color:#97aaba;font-size:10.5px}.field input[type=range]{display:block;width:100%;accent-color:#2775b9;cursor:pointer}.field label strong{font-size:11px;color:#327abc}.field-extra{display:flex;gap:10px 25px;flex-wrap:wrap;margin-top:20px}.toggle-wrap{font-size:11px;color:#5d7890;font-weight:650;display:flex;align-items:center;gap:7px;cursor:pointer}.toggle-wrap input{accent-color:#277bbf}.file-actions{display:flex;gap:9px}.file-actions .btn{flex:1}.helper-panel{display:flex;gap:11px;background:#f2f8fd;border:1px solid #e4f0fa;border-radius:12px;padding:12px 13px;margin-top:19px}.helper-emoji{font-size:19px}.helper-panel p{margin:0;color:#64809a;font-size:11px;line-height:1.55}.helper-panel strong{color:#345c81}.app-footer{display:flex;justify-content:space-between;gap:20px;color:#97adbf;font-size:11px;padding:18px 4px}.toast{position:fixed;bottom:24px;right:25px;background:#1b496f;color:#fff;padding:12px 18px;border-radius:12px;box-shadow:0 11px 30px #152d4852;font-size:12px;z-index:50;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s}.toast.show{opacity:1;transform:translateY(0)}.stage.reduced-motion .decor-star{display:none}.stage.reduced-motion:before{opacity:.06}@media(max-width:1050px){.app-shell{padding:20px}.workspace{grid-template-columns:minmax(0,1fr) minmax(340px,.94fr);gap:14px}.stage{height:595px;min-height:540px}.editor-pane{padding:17px}.stage-side-note{left:4%;font-size:11px}}@media(max-width:790px){.app-shell{padding:14px 14px 4px}.app-header{margin-bottom:15px}.workspace{display:flex;flex-direction:column}.left-pane,.editor-pane{width:100%}.stage{height:min(65vh,620px);min-height:420px}.teacher-svg{height:92%;max-width:590px}.editor-pane{padding:17px}.app-footer{flex-direction:column;gap:6px;text-align:center}.version-tag{display:none}}@media(max-width:470px){.brand-block h1{font-size:16px}.brand-block .eyebrow{font-size:8px}.brand-mark{width:40px;height:40px;border-radius:12px}.header-actions{gap:5px}.btn-sm{padding:0 9px;font-size:11px}.stage{height:460px;min-height:460px}.stage-header{flex-wrap:wrap;gap:7px}.stage-subtitle,.stage-side-note{display:none}.teacher-svg{top:47%;height:94%;width:100%}.speech-bubble{bottom:62px;font-size:11px;padding:9px 11px;min-height:55px}.stage-footer{left:8px;right:8px;font-size:10px;gap:4px}.stage-footer .stage-footer-right{display:none}.transport-panel{padding:13px}.btn-play{min-width:120px;padding:0 10px}.btn-square{min-width:38px;width:38px}.transport-status strong{font-size:12px}.two-field{gap:9px}.control-actions .btn{font-size:11px;padding:0 9px}.panel-heading h2{font-size:17px}.file-actions .btn{font-size:11px;padding:0 9px}}@media(prefers-reduced-motion:reduce){.decor-star{display:none}*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+/* v1.1 expressive voice laboratory */
+.voice-presets-row{display:flex;gap:10px;align-items:end;margin-top:14px}
+.voice-presets-row .field{flex:1}
+.voice-presets-row .btn{height:41px;min-height:41px;margin:0;flex-shrink:0}
+.sound-controls{row-gap:20px;margin-top:18px}
+.sound-controls .field{background:#f7fbff;border:1px solid #e5eef8;border-radius:10px;padding:12px 13px 11px}
+.sound-controls .field input[type=range]{margin:13px 0 4px}
+.audio-live{display:flex;align-items:center;gap:8px;background:#edf8ff;border:1px solid #d7eaf8;color:#346990;border-radius:9px;margin-top:17px;padding:11px 12px;font-weight:700;font-size:11px;line-height:1.5}
+.audio-live-dot{width:8px;height:8px;min-width:8px;border-radius:50%;background:#3e9dd7}
+.audio-explanation{line-height:1.6;margin-top:8px}
+@media(max-width:470px){.voice-presets-row .btn{font-size:11px;padding:0 9px}.sound-controls{gap:9px}.sound-controls .field{padding:9px 8px}.sound-controls .field>label{font-size:10.5px;gap:3px}.sound-controls .field label strong{font-size:10px}}
+
+  </style>
+
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">✦</div>
+        <div>
+          <div class="eyebrow">LEARN WITH CHAMPAK • LABS</div>
+          <h1>Cartoon Speaker <span>Studio</span></h1>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="version-tag">v1.1 · Expressive audio</span>
+        <button id="resetBtn" type="button" class="btn btn-light btn-sm" title="Restore the included demonstration script">↺ <span>Example</span></button>
+        <button id="saveBtn" type="button" class="btn btn-dark btn-sm">▣ <span>Save locally</span></button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="left-pane" aria-label="Cartoon preview">
+        <div class="stage-header">
+          <div class="stage-title"><span class="live-dot"></span> CHARACTER STAGE <span class="stage-subtitle">Original cartoon teacher</span></div>
+          <div id="speakerState" class="state-pill" role="status" aria-live="polite">● Ready</div>
+        </div>
+        <div class="stage" id="stage">
+          <div class="stage-decoration decor-star star-one">✧</div>
+          <div class="stage-decoration decor-star star-two">✦</div>
+          <div class="stage-decoration decor-orbit"></div>
+          <div class="stage-side-note">Hi, I'm your<br><strong>cartoon teacher!</strong></div>
+          <svg id="teacher" class="teacher-svg" viewBox="0 0 600 590" role="img" aria-label="A smiling original cartoon teacher in a blue blazer, glasses and yellow tie, standing and gesturing">
+            <defs>
+              <linearGradient id="jacket" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#377fc4"/><stop offset="1" stop-color="#125b9e"/></linearGradient>
+              <linearGradient id="trousers" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#294a70"/><stop offset="1" stop-color="#203957"/></linearGradient>
+              <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+            </defs>
+            <ellipse cx="300" cy="562" rx="136" ry="13" fill="#3970a4" opacity=".15" filter="url(#shadow)"/>
+            <!-- Separate legs and feet make a complete, extensible body rig. -->
+            <g id="body-rig">
+              <g id="left-leg" class="limb" style="transform-origin:274px 386px">
+                <path d="M265 373 Q255 436 261 526" stroke="url(#trousers)" stroke-width="39" stroke-linecap="round" fill="none"/>
+                <path d="M247 528 Q240 547 231 554 Q231 561 244 563 L287 563 Q296 558 289 548 L277 526Z" fill="#25324a"/>
+                <path d="M236 555 L289 555" stroke="#405979" stroke-width="3"/>
+              </g>
+              <g id="right-leg" class="limb" style="transform-origin:326px 386px">
+                <path d="M333 373 Q342 432 338 526" stroke="url(#trousers)" stroke-width="39" stroke-linecap="round" fill="none"/>
+                <path d="M325 527 Q316 548 314 554 Q314 563 329 563 L372 563 Q381 556 371 546 L353 527Z" fill="#25324a"/>
+                <path d="M316 556 L374 556" stroke="#405979" stroke-width="3"/>
+              </g>
+              <!-- Arms rotate around shoulders; forearms around elbows. -->
+              <g id="left-arm" class="limb" style="transform-origin:230px 257px">
+                <path d="M230 255 Q207 263 198 324" stroke="#1d67aa" stroke-width="38" fill="none" stroke-linecap="round"/>
+                <g id="left-forearm" class="limb" style="transform-origin:198px 324px">
+                  <path d="M198 323 Q183 347 167 405" stroke="#226eae" stroke-width="32" fill="none" stroke-linecap="round"/>
+                  <path d="M173 390 L160 414" stroke="#e8f3ff" stroke-width="13" stroke-linecap="round"/>
+                  <ellipse cx="158" cy="425" rx="18" ry="22" transform="rotate(20 158 425)" fill="#d99570"/>
+                  <path d="M149 414 Q139 400 132 404 Q128 411 146 429" stroke="#d99570" stroke-width="11" stroke-linecap="round" fill="none"/>
+                </g>
+              </g>
+              <g id="right-arm" class="limb" style="transform-origin:370px 257px">
+                <path d="M370 255 Q394 263 404 324" stroke="#155e9e" stroke-width="38" fill="none" stroke-linecap="round"/>
+                <g id="right-forearm" class="limb" style="transform-origin:404px 324px">
+                  <path d="M404 323 Q420 348 434 404" stroke="#2369a8" stroke-width="32" fill="none" stroke-linecap="round"/>
+                  <path d="M430 390 L438 414" stroke="#eaf4ff" stroke-width="13" stroke-linecap="round"/>
+                  <ellipse cx="442" cy="426" rx="18" ry="22" transform="rotate(-20 442 426)" fill="#e5a37c"/>
+                  <path d="M448 415 Q461 398 468 406 Q471 414 453 431" stroke="#e5a37c" stroke-width="11" stroke-linecap="round" fill="none"/>
+                </g>
+              </g>
+              <g id="torso-rig">
+                <path d="M255 232 Q242 226 229 251 L229 370 Q240 404 300 408 Q360 404 371 370 L371 251 Q359 229 345 232Z" fill="url(#jacket)" stroke="#155b99" stroke-width="3"/>
+                <path d="M267 237 L300 292 L334 237 L321 379 L280 379Z" fill="#f5f9fe"/>
+                <path d="M283 253 L301 269 L319 252 L306 294 L294 294Z" fill="#fefefe"/>
+                <path d="M294 277 L306 277 L310 298 L302 356 L291 298Z" fill="#eeb54f"/>
+                <path d="M287 239 L300 289 L267 326 L246 241Z" fill="#2d78b9"/>
+                <path d="M313 239 L300 289 L333 326 L354 241Z" fill="#246fb1"/>
+                <path d="M256 343 Q274 349 291 344" stroke="#72b1e4" stroke-width="3" fill="none" opacity=".6"/>
+                <path d="M341 343 Q325 349 309 344" stroke="#72b1e4" stroke-width="3" fill="none" opacity=".6"/>
+                <circle cx="315" cy="342" r="3" fill="#bad3e7"/><circle cx="315" cy="364" r="3" fill="#bad3e7"/>
+                <path d="M340 341 L360 341 L357 349 L340 349Z" fill="#f6d484"/>
+                <path d="M282 218 L282 241 Q300 257 318 241 L318 218" fill="#dc9a75"/>
+              </g>
+              <g id="head-rig" class="limb" style="transform-origin:300px 231px">
+                <ellipse cx="300" cy="143" rx="82" ry="96" fill="#e6a982"/>
+                <ellipse cx="220" cy="158" rx="12" ry="19" fill="#d99a75"/><ellipse cx="380" cy="158" rx="12" ry="19" fill="#d99a75"/>
+                <path d="M218 131 Q207 67 251 51 Q269 16 315 34 Q354 28 375 68 Q392 90 380 130 L365 100 Q331 113 305 93 Q264 112 235 102Z" fill="#2f354a"/>
+                <path d="M236 91 Q268 63 299 87 Q330 56 354 81" stroke="#45506b" stroke-width="8" opacity=".45" fill="none" stroke-linecap="round"/>
+                <g id="left-brow" class="limb" style="transform-origin:269px 122px"><path d="M248 121 Q270 109 284 119" stroke="#353643" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+                <g id="right-brow" class="limb" style="transform-origin:330px 122px"><path d="M315 119 Q334 108 353 121" stroke="#353643" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+                <g id="left-eye" class="eye" style="transform-origin:269px 145px"><ellipse cx="269" cy="146" rx="16" ry="17" fill="#fff"/><ellipse cx="271" cy="147" rx="8" ry="11" fill="#34465c"/><circle cx="274" cy="143" r="3" fill="#fff"/></g>
+                <g id="right-eye" class="eye" style="transform-origin:333px 145px"><ellipse cx="333" cy="146" rx="16" ry="17" fill="#fff"/><ellipse cx="331" cy="147" rx="8" ry="11" fill="#34465c"/><circle cx="334" cy="143" r="3" fill="#fff"/></g>
+                <path d="M300 144 Q294 167 300 170 Q304 174 311 168" stroke="#be795d" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <ellipse id="cheek-left" cx="247" cy="176" rx="15" ry="7" fill="#d66f70" opacity=".1"/><ellipse id="cheek-right" cx="354" cy="176" rx="15" ry="7" fill="#d66f70" opacity=".1"/>
+                <g id="mouth-group">
+                  <path id="mouth-line" d="M278 189 Q302 211 325 189" stroke="#874e4a" stroke-width="5" stroke-linecap="round" fill="none"/>
+                  <ellipse id="mouth-open" cx="301" cy="197" rx="13" ry="11" fill="#713d47" opacity="0"/>
+                  <ellipse id="mouth-tongue" cx="301" cy="204" rx="8" ry="4" fill="#de8290" opacity="0"/>
+                </g>
+                <!-- Glasses sit above the eyes and move with the head. -->
+                <rect x="242" y="130" width="52" height="39" rx="14" fill="none" stroke="#354960" stroke-width="4"/>
+                <rect x="309" y="130" width="52" height="39" rx="14" fill="none" stroke="#354960" stroke-width="4"/>
+                <path d="M294 141 Q301 137 309 141 M241 140 L224 137 M361 140 L379 136" fill="none" stroke="#354960" stroke-width="4" stroke-linecap="round"/>
+              </g>
+            </g>
+          </svg>
+          <div class="speech-bubble" id="speechBubble" aria-live="off"><span class="speech-mini-label">CHARACTER SAYS</span><span id="bubbleText">Let's make learning come alive!</span></div>
+          <div class="stage-footer"><span id="emotionBadge">😊 Happy</span><span class="mid-dot">•</span><span id="gestureBadge">👋 Welcome</span><span class="stage-footer-right">2D Vector Rig</span></div>
+        </div>
+        <div class="transport-panel">
+          <div class="transport-main">
+            <button id="playBtn" type="button" class="btn btn-primary btn-play" title="Speak the script"><span id="playIcon">▶</span> <span id="playLabel">Speak script</span></button>
+            <button id="pauseBtn" type="button" class="btn btn-light btn-square" title="Pause speech" disabled>Ⅱ</button>
+            <button id="stopBtn" type="button" class="btn btn-light btn-square" title="Stop speech" disabled>■</button>
+            <div class="transport-status"><strong id="lineCounter">0 / 0</strong><small>Script lines</small></div>
+          </div>
+          <div class="progress-track" role="progressbar" aria-label="Script progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressTrack"><div id="progressFill"></div></div>
+          <p id="statusNote" class="status-note">Ready to speak. Speech voices come from this device/browser.</p>
+        </div>
+      </section>
+
+      <section class="editor-pane" aria-label="Speaker controls">
+        <div class="panel-heading"><div><div class="eyebrow">CONTROL ROOM</div><h2>Make your character talk</h2></div><span class="panel-icon">✍️</span></div>
+        <div class="editor-card">
+          <div class="field-head"><label for="scriptInput">Presentation script</label><span id="charCount">0 characters</span></div>
+          <textarea id="scriptInput" spellcheck="true" rows="9" placeholder="Type your speech here…"></textarea>
+          <div class="script-foot"><span>Each line is spoken in phrases · Add emotion, gesture and optional soft/strong voice cues.</span><button type="button" id="helpCueBtn" class="text-button" aria-expanded="false">Cue guide ⓘ</button></div>
+          <div id="cueHelp" class="cue-help" hidden><strong>Cue syntax (optional)</strong><code>[happy|welcome] Hello friends!</code><code>[thinking|think|en-IN] What is a loop?</code><code>[excited|celebrate|hi-IN|strong] बहुत बढ़िया!</code><code>[concerned|think|en-IN|soft] Let us think carefully.</code><span>Emotions and gestures are chosen automatically if a line has no cue. Hindi and English voices depend on installed voices.</span></div>
+        </div>
+        <div class="two-field">
+          <div class="field"><label for="emotionSelect">Emotion <span class="little">8 moods</span></label><select id="emotionSelect"><option value="auto">✨ Auto from script</option></select></div>
+          <div class="field"><label for="gestureSelect">Gesture <span class="little">12 actions</span></label><select id="gestureSelect"><option value="auto">✨ Auto from script</option></select></div>
+        </div>
+        <div class="control-actions"><button id="previewBtn" type="button" class="btn btn-outline">✧ Preview gesture</button><button id="idleBtn" type="button" class="btn btn-ghost">↺ Neutral pose</button></div>
+        <div class="subsection-title"><span>VOICE & DELIVERY</span><span class="section-line"></span></div>
+        <div class="field"><label for="voiceSelect">Voice on your device</label><select id="voiceSelect"><option value="auto">Automatic language matching</option></select><p class="field-help" id="voiceHelp">The list updates when the browser loads its voices.</p></div>
+        <div class="voice-presets-row">
+          <div class="field"><label for="presetSelect">Voice character</label><select id="presetSelect"><option value="custom">🎚 Custom settings</option><option value="balanced" selected>🎙 Balanced teacher</option><option value="energetic">✨ Energetic teacher</option><option value="calm">🌿 Calm narrator</option><option value="storyteller">📖 Dramatic storyteller</option><option value="announcer">📢 Announcer</option></select></div>
+          <button id="testVoiceBtn" type="button" class="btn btn-outline" title="Hear a short sample using these audio settings">▶ Test voice</button>
+        </div>
+        <div class="two-field sound-controls">
+          <div class="field"><label for="volumeSlider">Volume <strong id="volumeValue">100%</strong></label><input id="volumeSlider" type="range" min="0" max="100" value="100" step="5" aria-describedby="audioHelp"></div>
+          <div class="field"><label for="pitchSlider">Pitch / frequency <strong id="pitchValue">1.00×</strong></label><input id="pitchSlider" type="range" min="0.6" max="1.7" value="1" step="0.05" aria-describedby="audioHelp"></div>
+          <div class="field"><label for="rateSlider">Speaking speed <strong id="rateValue">1.00×</strong></label><input id="rateSlider" type="range" min="0.65" max="1.5" value="1" step="0.05"></div>
+          <div class="field"><label for="expressivenessSlider">Expressiveness <strong id="expressivenessValue">55%</strong></label><input id="expressivenessSlider" type="range" min="0" max="100" value="55" step="5" aria-describedby="audioHelp"></div>
+        </div>
+        <div class="audio-live" aria-live="polite"><span class="audio-live-dot" aria-hidden="true"></span><span id="deliveryNow">Voice settings ready · Test voice to hear a sample</span></div>
+        <p id="audioHelp" class="field-help audio-explanation">Pitch changes the perceived high/low tone (not precise Hz). Expressiveness adds small changes in loudness, pitch and pace between phrases. Adjustments during playback apply at the next phrase; device voice capabilities vary.</p>
+        <div class="field-extra"><label class="toggle-wrap"><input id="autoGesture" type="checkbox" checked><span>Animate gestures while speaking</span></label><label class="toggle-wrap"><input id="reduceMotion" type="checkbox"><span>Reduce background movement</span></label></div>
+        <div class="subsection-title"><span>PROJECT</span><span class="section-line"></span></div>
+        <div class="file-actions"><button id="exportBtn" type="button" class="btn btn-light">↓ Export JSON</button><button id="importBtn" type="button" class="btn btn-light">↑ Import JSON</button><input id="filePicker" type="file" accept=".json,application/json" hidden></div>
+        <div class="helper-panel"><span class="helper-emoji">💡</span><p><strong>Try this:</strong> Switch to “Thinking” and “Think” then tap Preview. Or press Speak script to see multiple expressions perform automatically.</p></div>
+      </section>
+    </main>
+    <footer class="app-footer"><span>Designed for teaching, storytelling and presentations</span><span>Made with HTML, SVG, CSS & JavaScript · Static-hosting ready</span></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+/**
+ * Original vector character rig — no third-party animation framework required.
+ * Future: replace this module with a Rive adapter without changing the player.
+ */
+const EMOTIONS = Object.freeze({
+  happy:       { label: 'Happy',       emoji: '😊', brow: [-5, 5],  head: -2, cheeks: .13 },
+  excited:     { label: 'Excited',     emoji: '🤩', brow: [-13, 13],head: -4, cheeks: .24 },
+  thinking:    { label: 'Thinking',    emoji: '🤔', brow: [12, -9], head: 12, cheeks: .06 },
+  surprised:   { label: 'Surprised',   emoji: '😮', brow: [-15, 15],head: 0, cheeks: .08 },
+  encouraging: { label: 'Encouraging', emoji: '💛', brow: [-6, 6],  head: -6, cheeks: .17 },
+  explaining:  { label: 'Explaining',  emoji: '📘', brow: [-4, 4],  head: 1, cheeks: .1 },
+  concerned:   { label: 'Concerned',   emoji: '😟', brow: [12, -12],head: 5, cheeks: .02 },
+  amused:      { label: 'Amused',      emoji: '😄', brow: [-8, 8],  head: -9, cheeks: .26 }
+});
+
+// Arm and forearm rotations in degrees relative to the SVG joint origins.
+const GESTURES = Object.freeze({
+  welcome:      {label:'Welcome',     emoji:'👋', la:76, ra:-65, lf:-16, rf:18},
+  wave:         {label:'Wave',        emoji:'👋', la:125,ra:-6,  lf:-28, rf:0, motion:'wave'},
+  explain:      {label:'Open palms',  emoji:'🙌', la:44, ra:-42, lf:-17, rf:16},
+  'point-left': {label:'Point left',  emoji:'👈', la:103,ra:0,   lf:0,   rf:0},
+  'point-right':{label:'Point right', emoji:'👉', la:0,  ra:-104,lf:0,   rf:0},
+  count:        {label:'Count',       emoji:'☝️', la:6,  ra:-86, lf:0,   rf:23},
+  emphasize:    {label:'Emphasize',   emoji:'❗', la:7,  ra:-60, lf:0,   rf:-30},
+  think:        {label:'Think',       emoji:'🤔', la:0,  ra:-18, lf:0,   rf:81},
+  agree:        {label:'Agree',       emoji:'👍', la:10, ra:-37, lf:0,   rf:-8,motion:'nod'},
+  disagree:     {label:'Disagree',    emoji:'🙅', la:52, ra:-50, lf:0,   rf:0,motion:'shake'},
+  shrug:        {label:'Shrug',       emoji:'🤷', la:56, ra:-58, lf:-28, rf:25},
+  celebrate:    {label:'Celebrate',   emoji:'🎉', la:132,ra:-128,lf:-10, rf:10,motion:'bounce'}
+});
+
+const $ = (id) => document.getElementById(id);
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+class CartoonCharacter {
+  constructor() {
+    this.svg = $('teacher');
+    this.stage = $('stage');
+    this.nodes = Object.fromEntries(['left-arm','right-arm','left-forearm','right-forearm','head-rig','body-rig','left-brow','right-brow','left-eye','right-eye','mouth-line','mouth-open','mouth-tongue','cheek-left','cheek-right'].map(id => [id,$(id)]));
+    this.emotion = 'happy';
+    this.gesture = 'welcome';
+    this.speaking = false;
+    this.paused = false;
+    this.reducedMotion = false;
+    this.blinkUntil = 0;
+    this.nextBlink = performance.now() + 950;
+    this.lastMouthType = '';
+    this.lastAnimationTime = performance.now();
+    this.wordFlavor = 'a';
+    this.neutralOnIdle = false;
+    this.energy=.5;
+    this.raf = null;
+    this.setEmotion('happy');
+    this.setGesture('welcome');
+    this.frame = this.frame.bind(this);
+    this.raf = requestAnimationFrame(this.frame);
+  }
+  setEmotion(emotion) {
+    if (!(emotion in EMOTIONS)) emotion = 'happy';
+    this.emotion = emotion;
+    const data = EMOTIONS[emotion];
+    this.nodes['left-brow'].style.transform = `rotate(${data.brow[0]}deg)`;
+    this.nodes['right-brow'].style.transform = `rotate(${data.brow[1]}deg)`;
+    this.nodes['cheek-left'].setAttribute('opacity',String(data.cheeks));
+    this.nodes['cheek-right'].setAttribute('opacity',String(data.cheeks));
+    $('emotionBadge').textContent = `${data.emoji} ${data.label}`;
+    if (!this.speaking) this.setMouth(0);
+  }
+  setGesture(gesture) {
+    if (gesture !== 'idle' && !(gesture in GESTURES)) gesture = 'explain';
+    this.gesture = gesture;
+    $('gestureBadge').textContent = gesture === 'idle' ? '🧍 Neutral pose' : `${GESTURES[gesture].emoji} ${GESTURES[gesture].label}`;
+  }
+  setSpeaking(speaking,paused=false) {
+    this.speaking = speaking;
+    this.paused = paused;
+    if (!speaking || paused) this.setMouth(0);
+  }
+  setEnergy(value) { this.energy=clamp(Number(value)||.3,.1,1); }
+  setReduceMotion(value) {
+    this.reducedMotion = Boolean(value);
+    this.stage.classList.toggle('reduced-motion',this.reducedMotion);
+  }
+  /** Speech boundary events provide word timing (not true phonemes/visemes). */
+  setWord(word) {
+    const found = String(word).match(/[aeiouअआइईउऊएऐओऔ]/i);
+    this.wordFlavor = found ? found[0].toLowerCase() : 'a';
+  }
+  setMouth(shape) {
+    if (this.lastMouthType === String(shape) + ':' + (this.speaking && !this.paused)) return;
+    this.lastMouthType = String(shape) + ':' + (this.speaking && !this.paused);
+    const line = this.nodes['mouth-line'], open=this.nodes['mouth-open'], tongue=this.nodes['mouth-tongue'];
+    if (shape===0) {
+      const d = this.emotion;
+      const expression = d==='concerned' ? 'M283 202 Q301 188 319 202' : d==='surprised' ? 'M290 195 Q301 198 312 195' : d==='thinking' ? 'M288 195 Q303 191 317 197' : 'M278 189 Q302 211 325 189';
+      line.setAttribute('d',expression);
+      line.setAttribute('opacity','1');
+      open.setAttribute('opacity',d==='surprised'?'1':'0');
+      open.setAttribute('rx','8');open.setAttribute('ry','12');
+      tongue.setAttribute('opacity','0');
+      return;
+    }
+    line.setAttribute('opacity','0');
+    open.setAttribute('opacity','1');
+    const shapes = {1:[8,7],2:[10,15],3:[17,10],4:[19,6],5:[7,17],6:[14,13]};
+    const s = shapes[shape]||shapes[2];
+    open.setAttribute('rx',String(s[0]));open.setAttribute('ry',String(s[1]));
+    tongue.setAttribute('opacity',s[1]>10?'.75':'0');
+  }
+  frame(now) {
+    const t = now/1000, g=GESTURES[this.gesture]||{la:0,ra:0,lf:0,rf:0};
+    const active = this.speaking && !this.paused;
+    const pace = active ? (.45+this.energy*1.05) : .42;
+    const subtle = this.reducedMotion ? .22 : 1;
+    let sway = Math.sin(t*1.1)*1.1*subtle;
+    let la = (g.la||0) + Math.sin(t*2.2)*2.2*pace*subtle;
+    let ra = (g.ra||0) - Math.sin(t*2.0+.7)*2.4*pace*subtle;
+    let lf=(g.lf||0),rf=(g.rf||0);
+    if(g.motion==='wave') lf += Math.sin(t*7.5)*20*subtle;
+    if(g.motion==='bounce') sway += Math.sin(t*5)*2*subtle;
+    const emotion = EMOTIONS[this.emotion];
+    let head = emotion.head + Math.sin(t*1.6)*(active?.6+this.energy*1.7:1.2)*subtle;
+    if(g.motion==='nod') head += Math.sin(t*5.5)*9*subtle;
+    if(g.motion==='shake') head += Math.sin(t*5.1)*12*subtle;
+    this.nodes['left-arm'].style.transform = `rotate(${la}deg)`;
+    this.nodes['right-arm'].style.transform = `rotate(${ra}deg)`;
+    this.nodes['left-forearm'].style.transform = `rotate(${lf}deg)`;
+    this.nodes['right-forearm'].style.transform = `rotate(${rf}deg)`;
+    this.nodes['head-rig'].style.transform = `rotate(${head}deg)`;
+    this.nodes['body-rig'].style.transform=`translateY(${Math.sin(t*1.8)*2.2*subtle+sway*.3}px)`;
+    // Irregular blink every ~2–4 s. At reduced-motion preference blink remains usable.
+    if(now>this.nextBlink){this.blinkUntil=now+125;this.nextBlink=now+2150+(Math.sin(now/1137)+1)*900;}
+    const blink = now < this.blinkUntil ? .12 : 1;
+    const surprised=this.emotion==='surprised'?1.08:1;
+    this.nodes['left-eye'].style.transform=`scaleY(${blink*surprised})`;
+    this.nodes['right-eye'].style.transform=`scaleY(${blink*surprised})`;
+    if(active){
+      // Approximate mouth shapes follow a speech-like cadence when no phoneme feed exists.
+      const tick=Math.floor(now/(this.reducedMotion?185:(162-this.energy*62)));
+      const sequence=this.wordFlavor==='o'||this.wordFlavor==='u'?[1,5,2,1,0,5]:[2,3,1,4,0,6,3,1];
+      this.setMouth(sequence[tick%sequence.length]);
+    } else this.setMouth(0);
+    this.raf=requestAnimationFrame(this.frame);
+  }
+  destroy(){if(this.raf!==null)cancelAnimationFrame(this.raf);}
+}
+
+/**
+ * Device/browser speech adapter with phrase-level prosody.
+ * No keys or backend. The Web Speech API does not expose an output audio stream,
+ * a Hz oscillator, an equalizer, or parameters that change an active utterance.
+ * Adjustments take effect at the NEXT phrase/utterance.
+ */
+const hasSpeech = typeof window !== 'undefined' && 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+const clampAudio = (n, min, max) => Math.min(max, Math.max(min, n));
+const valueOr = (value, fallback) => value === '' || value === undefined || value === null || !Number.isFinite(Number(value)) ? fallback : Number(value);
+
+const MOOD_PROSODY = Object.freeze({
+  happy:       {pitch: .07, rate: .035, gain: .02, energy:.65},
+  excited:     {pitch: .18, rate: .085, gain: .11, energy:1},
+  thinking:    {pitch:-.06, rate:-.10,  gain:-.06, energy:.3},
+  surprised:   {pitch: .16, rate: .005, gain: .08, energy:.9},
+  encouraging: {pitch: .07, rate:-.025, gain: .04, energy:.75},
+  explaining:  {pitch: .01, rate:-.03,  gain: .02, energy:.55},
+  concerned:   {pitch:-.08, rate:-.095, gain:-.07, energy:.25},
+  amused:      {pitch: .11, rate: .04,  gain: .07, energy:.85}
+});
+
+/** Divide at natural clause boundaries to allow variations during a script line. */
+function splitPhrases(text) {
+  const input=String(text||'').trim();
+  if(!input)return [];
+  const parts=input.match(/[^,，;；:：.!?।！？\n]+(?:[,，;；:：.!?।！？]+|$)/gu);
+  return (parts||[input]).map(x=>x.trim()).filter(Boolean);
+}
+
+/** Pure mapping, independently testable without an audio device. */
+function planDelivery(config={}, line={}, phrase='', position=0) {
+  const baseVolume=clampAudio(valueOr(config.volume, 100),0,100)/100;
+  const basePitch=clampAudio(valueOr(config.pitch, 1),.5,2);
+  const baseRate=clampAudio(valueOr(config.rate, 1),.5,2);
+  const expressive=clampAudio(valueOr(config.expressiveness, 55),0,100)/100;
+  const mood=MOOD_PROSODY[line.emotion]||MOOD_PROSODY.explaining;
+  const punctuation=/[!！]$/.test(phrase)?1:/[?？]$/.test(phrase)?.7:0;
+  const important=/\b(very|important|remember|never|amazing|attention|excellent|must)\b|बहुत|ज़रूरी|जरूरी|ध्यान|कमाल/i.test(phrase)?1:0;
+  const phraseRipple=Math.sin(position*2.1)*.022*expressive;
+  const emphasis=Math.max(punctuation,important*.7)*expressive;
+  const explicit=line.delivery||'auto';
+  const force=explicit==='strong'?1:explicit==='soft'?-1:0;
+  const pitch=clampAudio(basePitch*(1+(mood.pitch+phraseRipple)*expressive+emphasis*.09+force*.11),0,2);
+  const rate=clampAudio(baseRate*(1+mood.rate*expressive+(punctuation?.02:0)*expressive+force*.055),.1,10);
+  const volume=clampAudio(baseVolume*clampAudio(.82+mood.gain*expressive+emphasis*.13+force*.19,.12,1),0,1);
+  const energy=clampAudio(.28+mood.energy*.43*expressive+emphasis*.22+Math.max(0,force)*.12,.15,1);
+  return {volume,pitch,rate,energy,emotion:line.emotion||'explaining',delivery:explicit};
+}
+
+class SpeechPlayer {
+  constructor(callbacks={}) {
+    this.cb=callbacks;
+    this.supported=hasSpeech;
+    this.synth=hasSpeech?window.speechSynthesis:null;
+    this.lines=[];
+    this.index=-1;
+    this.segmentIndex=0;
+    this.segmentList=[];
+    this.token=0;
+    this.state='ready';
+    this.voices=[];
+    this.currentUtterance=null;
+    this.config={};
+    if(hasSpeech) {
+      this.updateVoices();
+      this.synth.addEventListener?.('voiceschanged',()=>this.updateVoices());
+    }
+  }
+  updateVoices() {
+    this.voices=this.synth?.getVoices()?.slice()||[];
+    this.cb.onVoices?.(this.voices);
+  }
+  pickVoice(lang,requestedVoice) {
+    const voices=this.synth?.getVoices()||[];
+    if(requestedVoice && requestedVoice!=='auto'){
+      const chosen=voices.find(v=>`${v.lang}::${v.name}`===requestedVoice);
+      if(chosen)return chosen;
+    }
+    const exact=voices.filter(v=>v.lang.toLowerCase()===lang.toLowerCase());
+    if(exact.length)return exact.find(v=>v.localService)||exact[0];
+    const family=lang.split('-')[0].toLowerCase();
+    const matched=voices.filter(v=>v.lang.toLowerCase().startsWith(family));
+    if(matched.length)return matched.find(v=>v.localService)||matched[0];
+    return null;
+  }
+  updateConfig(changes={}) { Object.assign(this.config,changes); }
+  play(lines,config={}) {
+    if(!this.supported){this.cb.onError?.('Speech synthesis is unavailable in this browser. Try Chrome or Edge.');return false;}
+    if(!lines.length){this.cb.onError?.('Add at least one spoken line to the script.');return false;}
+    this.stop(true);
+    this.lines=lines;
+    this.config={...config};
+    this.index=0;
+    this.segmentIndex=0;
+    this.segmentList=[];
+    this.state='loading';
+    this.speakCurrent(this.token);
+    return true;
+  }
+  speakCurrent(token){
+    if(token!==this.token)return;
+    if(this.index>=this.lines.length){
+      this.currentUtterance=null;
+      this.state='finished';
+      this.cb.onComplete?.(this.lines.length);
+      return;
+    }
+    const line=this.lines[this.index];
+    if(this.segmentIndex===0) {
+      this.segmentList=splitPhrases(line.text);
+      const voice=this.pickVoice(line.lang||'en-IN',this.config.voice);
+      this.cb.onLine?.({line,index:this.index,total:this.lines.length,voice:voice?.name||'system default'});
+    }
+    if(this.segmentIndex>=this.segmentList.length){
+      this.index++;
+      this.segmentIndex=0;
+      this.cb.onProgress?.(this.index/this.lines.length);
+      this.speakCurrent(token);
+      return;
+    }
+    const phrase=this.segmentList[this.segmentIndex];
+    const delivery=planDelivery(this.config,line,phrase,this.segmentIndex);
+    const utt=new SpeechSynthesisUtterance(phrase);
+    const voice=this.pickVoice(line.lang||'en-IN',this.config.voice);
+    utt.lang=voice?.lang || line.lang || 'en-IN';
+    if(voice)utt.voice=voice;
+    utt.rate=delivery.rate;
+    utt.pitch=delivery.pitch;
+    utt.volume=delivery.volume;
+    this.currentUtterance=utt;
+    this.cb.onDelivery?.({...delivery,phrase,segment:this.segmentIndex+1,segments:this.segmentList.length});
+    utt.onstart=()=>{
+      if(token!==this.token)return;
+      // A native voice may start noticeably after `speak` is called.
+      if(this.state!=='paused') {this.state='speaking';this.cb.onState?.('speaking');}
+    };
+    utt.onboundary=e=>{
+      if(token!==this.token)return;
+      if(typeof e.charIndex==='number'){
+        const word=phrase.slice(e.charIndex).match(/^\S+/)?.[0]||'';
+        this.cb.onWord?.(word);
+      }
+    };
+    utt.onend=()=>{
+      if(token!==this.token)return;
+      this.segmentIndex++;
+      this.cb.onProgress?.((this.index+this.segmentIndex/this.segmentList.length)/this.lines.length);
+      this.speakCurrent(token);
+    };
+    utt.onerror=e=>{
+      if(token!==this.token)return;
+      if(e.error==='interrupted'||e.error==='canceled')return;
+      this.state='error';
+      this.currentUtterance=null;
+      this.cb.onError?.(`Speech failed: ${e.error||'unknown error'}. Try a different installed voice.`);
+    };
+    try {
+      this.synth.speak(utt);
+      // Visible controls should be available while an installed voice initializes.
+      if(this.state!=='paused') {this.state='speaking';this.cb.onState?.('speaking');}
+    } catch(err) {
+      this.state='error';
+      this.cb.onError?.(`Cannot start speech: ${err?.message||err}`);
+    }
+  }
+  pause(){
+    if(this.state!=='speaking')return;
+    try{this.synth.pause();this.state='paused';this.cb.onState?.('paused');}
+    catch(e){this.cb.onError?.('Pause is not supported by this speech engine.');}
+  }
+  resume(){
+    if(this.state!=='paused')return;
+    try{this.synth.resume();this.state='speaking';this.cb.onState?.('speaking');}
+    catch(e){this.cb.onError?.('Resume is not supported by this speech engine.');}
+  }
+  stop(silent=false){
+    this.token++;
+    if(this.supported){try{this.synth.cancel();this.synth.resume();}catch(_e){/* no-op */}}
+    this.index=-1;
+    this.segmentIndex=0;
+    this.segmentList=[];
+    this.currentUtterance=null;
+    this.state='ready';
+    if(!silent)this.cb.onState?.('stopped');
+  }
+}
+
+
+
+
+// Shared DOM helper is declared in character.js.
+const STORAGE_KEY='learnwithchampak-cartoon-speaker-v1';
+const VOICE_PRESETS=Object.freeze({
+  balanced:    {volume:100,pitch:1.00,rate:1.00,expressiveness:55},
+  energetic:   {volume:95,pitch:1.15,rate:1.10,expressiveness:90},
+  calm:        {volume:80,pitch:.90,rate:.85,expressiveness:25},
+  storyteller: {volume:90,pitch:1.05,rate:.90,expressiveness:95},
+  announcer:   {volume:100,pitch:.85,rate:1.00,expressiveness:40}
+});
+const AUDIO_IDS=['volumeSlider','pitchSlider','rateSlider','expressivenessSlider'];
+function audioConfig(){return {
+  voice:$('voiceSelect').value,
+  volume:Number($('volumeSlider').value),pitch:Number($('pitchSlider').value),
+  rate:Number($('rateSlider').value),expressiveness:Number($('expressivenessSlider').value)
+};}
+
+const DEFAULT_SCRIPT=`[happy|welcome|hi-IN] नमस्ते दोस्तों! स्वागत है आपका।
+[excited|explain|hi-IN|strong] आज हम Python में loops को मज़ेदार तरीके से सीखेंगे।
+[explaining|count|en-IN] First, a loop repeats some steps until a condition is met.
+[thinking|think|en-IN|soft] What happens if the condition never becomes false?
+[encouraging|celebrate|hi-IN] बहुत बढ़िया! अब आप तैयार हैं।`;
+const character=new CartoonCharacter();
+let previewTimer=null;
+let toastTimer=null;
+let lastStatus='ready';
+let gestureIndex=1;
+let speechStarted=false;
+const speech=new SpeechPlayer({
+  onVoices:refreshVoiceList,
+  onLine:({line,index,total,voice})=>{
+    speechStarted=true;
+    $('lineCounter').textContent=`${index+1} / ${total}`;
+    $('bubbleText').textContent=line.text;
+    $('statusNote').textContent=`Line ${index+1} of ${total} · ${line.lang} · ${voice}`;
+    if($('emotionSelect').value==='auto')character.setEmotion(line.emotion);
+    else character.setEmotion($('emotionSelect').value);
+    if(!$('autoGesture').checked)character.setGesture('idle');
+    else character.setGesture($('gestureSelect').value==='auto'?line.gesture:$('gestureSelect').value);
+    $('progressTrack').setAttribute('aria-valuenow',String(Math.round(index/total*100)));
+    $('progressFill').style.width=`${index/total*100}%`;
+  },
+  onWord:word=>character.setWord(word),
+  onDelivery:delivery=>{
+    character.setEnergy(delivery.energy);
+    const volume=Math.round(delivery.volume*100);
+    $('deliveryNow').textContent=`Speaking · ${volume}% volume · ${delivery.pitch.toFixed(2)}× pitch · ${delivery.rate.toFixed(2)}× speed · phrase ${delivery.segment}/${delivery.segments}`;
+  },
+  onState:setSpeechState,
+  onProgress:ratio=>{
+    $('progressFill').style.width=`${ratio*100}%`;
+    $('progressTrack').setAttribute('aria-valuenow',String(Math.round(ratio*100)));
+  },
+  onComplete:count=>{
+    speechStarted=false;
+    setSpeechState('finished');
+    $('statusNote').textContent=`Finished speaking ${count} ${count===1?'line':'lines'}. Play again any time.`;
+    $('bubbleText').textContent='Well done! See you again. ✨';
+    character.setGesture('welcome');
+    $('deliveryNow').textContent='Finished · Adjust controls and speak again.';
+  },
+  onError:message=>{
+    speechStarted=false;
+    setSpeechState('error');
+    $('statusNote').textContent=message;
+    toast(message);
+  }
+});
+
+function toast(message){
+  $('toast').textContent=message;
+  $('toast').classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>$('toast').classList.remove('show'),3500);
+}
+function setSpeechState(state){
+  lastStatus=state;
+  const speak=state==='speaking'||state==='paused';
+  character.setSpeaking(speak,state==='paused');
+  if(state==='stopped')$('deliveryNow').textContent='Stopped · Voice settings are ready.';
+  const names={ready:'● Ready',speaking:'♫ Speaking',paused:'Ⅱ Paused',finished:'✓ Finished',stopped:'● Ready',loading:'⋯ Loading',error:'! Speech issue'};
+  $('speakerState').textContent=names[state]||names.ready;
+  $('speakerState').className='state-pill '+(state==='speaking'?'speaking':state==='paused'?'paused':'');
+  $('playLabel').textContent=speak?'Restart script':'Speak script';
+  $('playIcon').textContent=speak?'↺':'▶';
+  $('pauseBtn').disabled=!speak;
+  $('pauseBtn').textContent=state==='paused'?'▶':'Ⅱ';
+  $('pauseBtn').title=state==='paused'?'Resume speech':'Pause speech';
+  $('stopBtn').disabled=!speak;
+  if(!speak){character.setSpeaking(false);}
+  if(state==='stopped'){
+    $('statusNote').textContent='Stopped. Edit the script or start again.';
+    $('bubbleText').textContent='Ready when you are!';
+    character.setGesture('idle');
+    $('lineCounter').textContent='0 / '+parseScript($('scriptInput').value).length;
+    $('progressFill').style.width='0%';
+    $('progressTrack').setAttribute('aria-valuenow','0');
+  }
+}
+function languageOf(text){return /[\u0900-\u097F]/.test(text)?'hi-IN':'en-IN';}
+function autoCues(text,index){
+  const lower=text.toLowerCase();
+  if(/नमस्ते|स्वागत|hello|welcome|good morning/.test(lower))return ['happy','welcome'];
+  if(/[?？]|क्या|क्यों|कैसे|what happens|why |how /.test(lower))return ['thinking','think'];
+  if(/बहुत बढ़िया|शाबाश|excellent|brilliant|wonderful|congratulat/.test(lower))return ['encouraging','celebrate'];
+  if(/important|remember|ध्यान|ज़रूरी|जरूरी|must /.test(lower))return ['explaining','emphasize'];
+  if(/first|second|third|step|one|two|three|पहला|दूसरा|तीन/.test(lower))return ['explaining','count'];
+  if(/oops|careful|never|warning|सावधान/.test(lower))return ['concerned','disagree'];
+  if(/[!！]$/.test(text))return ['excited',index%2?'celebrate':'emphasize'];
+  return [index%3===0?'happy':'explaining', ['explain','emphasize','point-right','agree'][index%4]];
+}
+function chunkText(text,max=175){
+  // Chunk unusually long lines to avoid long-utterance failures on some TTS engines.
+  const words=text.trim().split(/\s+/);
+  const chunks=[];
+  let current='';
+  for(const word of words){
+    if(current && (current+' '+word).length>max){chunks.push(current);current='';}
+    if(word.length>max){
+      if(current){chunks.push(current);current='';}
+      for(let offset=0;offset<word.length;offset+=max)chunks.push(word.slice(offset,offset+max));
+    }else current+=(current?' ':'')+word;
+  }
+  if(current)chunks.push(current);
+  return chunks;
+}
+function parseScript(raw){
+  const lines=[];
+  for(const original of String(raw).split(/\r?\n/)){
+    let line=original.trim();
+    if(!line)continue;
+    let emotion=null,gesture=null,lang=null,delivery='auto';
+    const cue=line.match(/^\[([\w-]+)(?:\|([\w-]+))?(?:\|([\w-]+))?(?:\|(soft|strong))?\]\s*/i);
+    if(cue){
+      line=line.slice(cue[0].length).trim();
+      if(cue[1] in EMOTIONS)emotion=cue[1];
+      if(cue[2] in GESTURES)gesture=cue[2];
+      if(/^(hi|en)(-[a-z]{2})?$/i.test(cue[3]||''))lang=cue[3];
+      if(cue[4])delivery=cue[4].toLowerCase();
+    }
+    if(!line)continue;
+    for(const part of chunkText(line)){
+      const suggested=autoCues(part,lines.length);
+      lines.push({text:part,emotion:emotion||suggested[0],gesture:gesture||suggested[1],lang:lang||languageOf(part),delivery});
+    }
+  }
+  return lines;
+}
+function refreshCounters(){
+  const text=$('scriptInput').value;
+  $('charCount').textContent=`${text.length.toLocaleString()} characters`;
+  if(!speechStarted)$('lineCounter').textContent=`0 / ${parseScript(text).length}`;
+}
+function optionsFromObject(input){
+  const keys=['script','emotion','gesture','voice','rate','pitch','volume','expressiveness','preset','autoGesture','reduceMotion'];
+  const out={};
+  for(const key of keys){if(Object.prototype.hasOwnProperty.call(input,key))out[key]=input[key];}
+  return out;
+}
+function getProject(){return {format:'cartoon-speaker-studio',version:2,exportedAt:new Date().toISOString(),settings:{
+  script:$('scriptInput').value,
+  emotion:$('emotionSelect').value,
+  gesture:$('gestureSelect').value,
+  voice:$('voiceSelect').value,
+  rate:Number($('rateSlider').value),
+  pitch:Number($('pitchSlider').value),
+  volume:Number($('volumeSlider').value),
+  expressiveness:Number($('expressivenessSlider').value),
+  preset:$('presetSelect').value,
+  autoGesture:$('autoGesture').checked,
+  reduceMotion:$('reduceMotion').checked
+}};}
+function applySettings(settings){
+  const s=optionsFromObject(settings||{});
+  if(typeof s.script==='string')$('scriptInput').value=s.script;
+  if(typeof s.emotion==='string' && (s.emotion==='auto'||s.emotion in EMOTIONS))$('emotionSelect').value=s.emotion;
+  if(typeof s.gesture==='string' && (s.gesture==='auto'||s.gesture in GESTURES))$('gestureSelect').value=s.gesture;
+  if(typeof s.voice==='string'){$('voiceSelect').dataset.preferredVoice=s.voice;syncPreferredVoice();}
+  if(Number.isFinite(Number(s.rate)))$('rateSlider').value=Math.max(.65,Math.min(1.4,Number(s.rate)));
+  if(Number.isFinite(Number(s.pitch)))$('pitchSlider').value=Math.max(.6,Math.min(1.7,Number(s.pitch)));
+  if(Number.isFinite(Number(s.volume)))$('volumeSlider').value=Math.max(0,Math.min(100,Number(s.volume)));
+  if(Number.isFinite(Number(s.expressiveness)))$('expressivenessSlider').value=Math.max(0,Math.min(100,Number(s.expressiveness)));
+  if(typeof s.preset==='string' && (s.preset==='custom'||s.preset in VOICE_PRESETS))$('presetSelect').value=s.preset;
+  if(typeof s.autoGesture==='boolean')$('autoGesture').checked=s.autoGesture;
+  if(typeof s.reduceMotion==='boolean')$('reduceMotion').checked=s.reduceMotion;
+  refreshControls();refreshCounters();
+}
+function refreshControls(){
+  $('rateValue').textContent=`${Number($('rateSlider').value).toFixed(2)}×`;
+  $('pitchValue').textContent=`${Number($('pitchSlider').value).toFixed(2)}×`;
+  $('volumeValue').textContent=`${Number($('volumeSlider').value)}%`;
+  $('expressivenessValue').textContent=`${Number($('expressivenessSlider').value)}%`;
+  speech.updateConfig(audioConfig());
+  character.setReduceMotion($('reduceMotion').checked);
+  if(lastStatus!=='speaking' && lastStatus!=='paused'){
+    if($('emotionSelect').value!=='auto')character.setEmotion($('emotionSelect').value);
+    if($('gestureSelect').value!=='auto')character.setGesture($('gestureSelect').value);
+  }
+}
+function syncPreferredVoice(){
+  const pref=$('voiceSelect').dataset.preferredVoice||'auto';
+  $('voiceSelect').value=[...$('voiceSelect').options].some(x=>x.value===pref)?pref:'auto';
+}
+function refreshVoiceList(voices){
+  const select=$('voiceSelect');
+  const selected=select.value!=='auto'?select.value:select.dataset.preferredVoice||'auto';
+  select.replaceChildren(new Option('✨ Automatic language matching','auto'));
+  const prioritized=voices.slice().sort((a,b)=>{
+    const score=x=>(/^hi/i.test(x.lang)?0:/^en-IN/i.test(x.lang)?1:/^en/i.test(x.lang)?2:3);
+    return score(a)-score(b)||a.name.localeCompare(b.name);
+  });
+  for(const voice of prioritized)select.add(new Option(`${voice.name} · ${voice.lang}`,`${voice.lang}::${voice.name}`));
+  select.dataset.preferredVoice=selected;
+  syncPreferredVoice();
+  $('voiceHelp').textContent=voices.length?`${voices.length} voices detected. Hindi works when a Hindi voice is available on your device.`:'No voices listed yet. The system default may still work. Try installing Hindi/English TTS voices on your device.';
+}
+function previewGesture(){
+  if(previewTimer)clearTimeout(previewTimer);
+  const emotions=Object.keys(EMOTIONS),gestures=Object.keys(GESTURES);
+  const gesture=$('gestureSelect').value==='auto'?gestures[gestureIndex%gestures.length]:$('gestureSelect').value;
+  const emotion=$('emotionSelect').value==='auto'?emotions[gestureIndex%emotions.length]:$('emotionSelect').value;
+  gestureIndex++;
+  character.setEmotion(emotion);
+  character.setGesture(gesture);
+  $('bubbleText').textContent=`${EMOTIONS[emotion].label} · ${GESTURES[gesture].label}`;
+  if(lastStatus!=='speaking' && lastStatus!=='paused'){
+    previewTimer=setTimeout(()=>{character.setGesture('idle');$('bubbleText').textContent='Try another expression!';},2900);
+  }
+}
+function downloadJson(){
+  const json=JSON.stringify(getProject(),null,2);
+  const url=URL.createObjectURL(new Blob([json],{type:'application/json'}));
+  const a=document.createElement('a');a.href=url;a.download='cartoon-speaker-project.json';a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1200);
+  toast('Project JSON downloaded.');
+}
+function setup(){
+  const emotionSelect=$('emotionSelect'),gestureSelect=$('gestureSelect');
+  for(const [key,value] of Object.entries(EMOTIONS))emotionSelect.add(new Option(`${value.emoji} ${value.label}`,key));
+  for(const [key,value] of Object.entries(GESTURES))gestureSelect.add(new Option(`${value.emoji} ${value.label}`,key));
+  $('scriptInput').value=DEFAULT_SCRIPT;
+  try{
+    const old=localStorage.getItem(STORAGE_KEY);
+    if(old){const decoded=JSON.parse(old);if(decoded?.format==='cartoon-speaker-studio' && decoded?.settings)applySettings(decoded.settings);}
+  }catch(e){console.warn('Saved project not available:',e);}
+  refreshControls();refreshCounters();
+  $('scriptInput').addEventListener('input',refreshCounters);
+  for(const id of ['emotionSelect','gestureSelect','reduceMotion'])$(id).addEventListener('input',refreshControls);
+  for(const id of AUDIO_IDS)$(id).addEventListener('input',()=>{
+    $('presetSelect').value='custom';refreshControls();
+    if(speech.state==='speaking'||speech.state==='paused')$('deliveryNow').textContent='Updated · New sound settings apply from the next phrase.';
+  });
+  $('presetSelect').addEventListener('change',()=>{
+    const preset=VOICE_PRESETS[$('presetSelect').value];
+    if(preset){
+      $('volumeSlider').value=preset.volume;
+      $('pitchSlider').value=preset.pitch;
+      $('rateSlider').value=preset.rate;
+      $('expressivenessSlider').value=preset.expressiveness;
+      refreshControls();
+      if(speech.state==='speaking'||speech.state==='paused')$('deliveryNow').textContent='Preset changed · Applies from the next phrase.';
+      else $('deliveryNow').textContent='Preset selected · Press Test voice or Speak script.';
+    }
+  });
+  $('testVoiceBtn').addEventListener('click',()=>{
+    const line={text:'Hello friends! Listen to how my voice changes. This is really exciting!',emotion:'excited',gesture:'explain',lang:'en-IN'};
+    speech.play([line],audioConfig());
+  });
+  $('voiceSelect').addEventListener('change',()=>{$('voiceSelect').dataset.preferredVoice=$('voiceSelect').value;});
+  $('playBtn').addEventListener('click',()=>{
+    if(previewTimer)clearTimeout(previewTimer);
+    const lines=parseScript($('scriptInput').value);
+    if(!lines.length){toast('Write some text in the script editor.');$('scriptInput').focus();return;}
+    $('progressFill').style.width='0%';
+    $('progressTrack').setAttribute('aria-valuenow','0');
+    speech.play(lines,audioConfig());
+  });
+  $('pauseBtn').addEventListener('click',()=>{if(speech.state==='paused')speech.resume();else speech.pause();});
+  $('stopBtn').addEventListener('click',()=>{speechStarted=false;speech.stop();});
+  $('previewBtn').addEventListener('click',previewGesture);
+  $('idleBtn').addEventListener('click',()=>{
+    clearTimeout(previewTimer);
+    if(speech.state==='speaking'||speech.state==='paused'){speechStarted=false;speech.stop();}
+    character.setGesture('idle');character.setEmotion('happy');
+    $('bubbleText').textContent='Taking a little break!';
+    toast('Character returned to the neutral pose.');
+  });
+  $('helpCueBtn').addEventListener('click',()=>{
+    const next=$('cueHelp').hidden;$('cueHelp').hidden=!next;
+    $('helpCueBtn').setAttribute('aria-expanded',String(next));
+  });
+  $('saveBtn').addEventListener('click',()=>{
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify(getProject()));toast('Saved in this browser.');}
+    catch(e){toast('Local saving unavailable. Use Export JSON instead.');}
+  });
+  $('exportBtn').addEventListener('click',downloadJson);
+  $('importBtn').addEventListener('click',()=>$('filePicker').click());
+  $('filePicker').addEventListener('change',async event=>{
+    const file=event.target.files?.[0];event.target.value='';if(!file)return;
+    if(file.size>1024*1024){toast('File is too large; choose a JSON file under 1 MB.');return;}
+    try{
+      const incoming=JSON.parse(await file.text());
+      if(incoming?.format!=='cartoon-speaker-studio'||![1,2].includes(incoming?.version)||!incoming?.settings||typeof incoming.settings.script!=='string')throw Error('Not a version 1 speaker project');
+      if(incoming.settings.script.length>50000)throw Error('Script is too long');
+      speechStarted=false;speech.stop(true);setSpeechState('stopped');
+      applySettings(incoming.settings);toast('Project loaded successfully.');
+    }catch(err){toast(`Invalid project: ${err.message}`);}
+  });
+  $('resetBtn').addEventListener('click',()=>{
+    speechStarted=false;speech.stop(true);$('scriptInput').value=DEFAULT_SCRIPT;
+    $('emotionSelect').value='auto';$('gestureSelect').value='auto';
+    refreshCounters();refreshControls();setSpeechState('stopped');
+    toast('Sample lesson restored. Save to keep it.');
+  });
+  document.addEventListener('keydown',e=>{
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();$('saveBtn').click();}
+    if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();$('playBtn').click();}
+  });
+  window.addEventListener('pagehide',()=>speech.stop(true));
+  if(!speech.supported){$('playBtn').disabled=true;$('statusNote').textContent='This browser has no Speech Synthesis API; the animation preview still works.';}
+}
+setup();
+
+</script>
+</body>
+</html>
