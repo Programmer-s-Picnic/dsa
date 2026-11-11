@@ -16,11 +16,11 @@ Alternatively add exactly these two assets to an already-current theme (do not i
 
 In `<head>`:
 ```html
-<link rel="stylesheet" href="https://dsa.learnwithchampak.live/tools/champuter-blog/phase1.css?v=20261111-2"/>
+<link rel="stylesheet" href="https://dsa.learnwithchampak.live/tools/champuter-blog/phase1.css?v=20261111-3"/>
 ```
 Before `</body>`:
 ```html
-<script defer src="https://dsa.learnwithchampak.live/tools/champuter-blog/phase1.js?v=20261111-2"></script>
+<script defer src="https://dsa.learnwithchampak.live/tools/champuter-blog/phase1.js?v=20261111-3"></script>
 ```
 
 ## Features
