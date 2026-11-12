@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en-IN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Matplotlib 0 to Infinity · Learn With Champak</title><meta name="description" content="Matplotlib from real zero to advanced charts. Learn points, axes, lines, bars, scatter, histograms, subplots, Pandas and NumPy with our Python Super Editor and Champuter."><meta name="author" content="Champak Roy">
+<link rel="canonical" href="https://dsa.learnwithchampak.live/python/matplotlib/"><meta name="theme-color" content="#eaf5ff">
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#173451;background:#f4f9ff}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0}a{color:#125d9d}a:hover{text-decoration:underline}.hero{padding:52px max(20px,calc((100vw - 1100px)/2));background:linear-gradient(125deg,#d9edff,#fff);border-bottom:1px solid #bddcf4}.eyebrow{font-size:.85rem;letter-spacing:.08em;font-weight:800;color:#176ea8}.hero h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.12;margin:14px 0}.hero p{max-width:780px;font-size:1.12rem;line-height:1.7}.pill{display:inline-block;background:#fff;border:1px solid #9bc8e8;padding:9px 15px;border-radius:30px;text-decoration:none;font-weight:700;margin:5px 8px 5px 0}.container{max-width:1140px;margin:auto;padding:26px 18px 95px}.intro,.lesson,.map,.teacher-panel{background:white;border:1px solid #d6e7f5;border-radius:18px;padding:26px;margin:22px 0;box-shadow:0 7px 26px #1e5d9110}.intro p,.lesson p{line-height:1.76}.map h2{margin-top:0}.map-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:9px}.map-grid a{border:1px solid #c6e0f1;border-radius:10px;padding:12px;text-decoration:none;background:#f6fbff}.map-grid b{background:#207bb7;color:#fff;border-radius:50%;padding:4px 9px;margin-right:8px}.step{font-size:.8rem;font-weight:900;letter-spacing:.09em;color:#227cae}.lesson h2{font-size:1.65rem;margin:5px 0 14px}.example{overflow:hidden;border:1px solid #bdd7ec;border-radius:12px}.toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:7px;padding:9px;background:#eaf5ff}.toolbar span{flex:1 1 160px;font-weight:750;font-size:.85rem}.toolbar button{border:1px solid #8bbfe4;background:#fff;color:#174d76;cursor:pointer;padding:9px 11px;border-radius:8px;font-weight:700}.toolbar .run{background:#176fa8;color:white}.toolbar .viz{background:#155a72;color:white}.toolbar button:focus-visible{outline:3px solid #efa830}pre{margin:0;padding:18px;overflow:auto;background:#102338;color:#e5f4ff;font-size:.92rem;line-height:1.6;tab-size:4}.challenge{background:#f0f8e9;border-left:4px solid #75ac4e;margin:20px 0;padding:15px;line-height:1.6}.end-link{font-size:.93rem}.teacher{position:fixed;right:15px;bottom:15px;z-index:30;display:flex;align-items:flex-end;gap:7px;max-width:min(440px,95vw)}.teacher-face{width:95px;min-width:95px;max-height:145px;object-fit:contain;filter:drop-shadow(0 3px 6px #0002)}.teacher-face svg{width:100%;height:auto}.teacher-panel{margin:0;padding:12px;box-shadow:0 3px 22px #12467030}.teacher-panel strong{color:#0f6d9e}.teacher-panel p{font-size:.82rem;line-height:1.35;margin:6px 0}.teacher-panel button{border:1px solid #a8cade;border-radius:7px;padding:6px 9px;background:#fff;margin-right:4px;cursor:pointer}.teacher-panel button.primary{background:#116f9e;color:white}.speaking{outline:3px solid #f7bd58;outline-offset:5px}footer{text-align:center;padding:24px;color:#476175}@media(max-width:600px){.hero{padding:35px 19px}.intro,.lesson,.map{padding:18px}.teacher-face{width:62px;min-width:62px}.teacher-panel{max-width:245px;padding:8px}.teacher-panel p{font-size:.75rem}.toolbar button{font-size:.75rem}}
+</style></head><body>
+<header class="hero" id="top"><div class="eyebrow">PROGRAMMER'S PICNIC · PYTHON 0 TO INFINITY</div><h1>Matplotlib: From Real Zero to Infinity</h1><p>Never drawn a graph? Perfect. We begin with one dot, learn what a coordinate means, and gradually build scientific plots, dashboards, and data stories. Champuter teaches; you experiment in our Python Super Editor.</p><a class="pill" href="#level-0">Start at real zero</a><a class="pill" href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open Python Editor</a><a class="pill" href="#map">Explore all levels</a></header>
+<main class="container post-body">
+<section class="intro"><h2>Before you write a single line</h2><p><b>Matplotlib</b> is a Python plotting library. Think of graph paper: the horizontal direction is called x, the vertical direction y. The point (2, 3) means move 2 units across and 3 units up. A <b>line chart</b> connects points, a <b>bar chart</b> compares categories, and a <b>scatter plot</b> displays individual observations.</p><p><b>Learning routine:</b> Predict → Run → Observe → Change one thing → Run again → Explain. Every example is complete and starts with its own imports. Click <b>Run in Editor</b> to preload code, then press Run inside our editor. Click <b>Visualize with Champuter</b> and use the editor's Visualize mode for the real runtime demonstration. Your browser editor must support Matplotlib for charts to appear; the course page itself does not execute Python.</p><p><b>What you need:</b> Basic typing and curiosity. Levels 0–4 introduce the minimum Python syntax as it arises. Some advanced examples need NumPy and Pandas, which may require a Python environment with those packages installed.</p></section>
+<nav class="map" id="map" aria-label="Course levels"><h2>Complete learning roadmap</h2><div class="map-grid"><a href="#level-0"><b>0</b> What is a graph?</a><a href="#level-1"><b>1</b> Python, library, import, and pyplot</a><a href="#level-2"><b>2</b> Your first line: x and y</a><a href="#level-3"><b>3</b> Figure, axes, labels, title</a><a href="#level-4"><b>4</b> Colour, markers, line style, legend</a><a href="#level-5"><b>5</b> Bar charts for categories</a><a href="#level-6"><b>6</b> Horizontal bars and sorting</a><a href="#level-7"><b>7</b> Scatter plots and relationships</a><a href="#level-8"><b>8</b> Histograms and distributions</a><a href="#level-9"><b>9</b> Pie charts: parts of a whole</a><a href="#level-10"><b>10</b> Subplots and object-oriented plotting</a><a href="#level-11"><b>11</b> Ticks, limits, annotations and grid</a><a href="#level-12"><b>12</b> Error bars and uncertainty</a><a href="#level-13"><b>13</b> Box plots and outliers</a><a href="#level-14"><b>14</b> Functions, reusable styles and saving</a><a href="#level-15"><b>15</b> NumPy, curves and mathematics</a><a href="#level-16"><b>16</b> Pandas, dates and real-world CSV data</a><a href="#level-17"><b>17</b> Heatmaps and two-dimensional data</a><a href="#level-18"><b>18</b> Animations, 3D and the infinity track</a></div></nav>
+<section class="lesson" id="level-0"><div class="lesson-head"><span class="step">LEVEL 0</span><h2>What is a graph?</h2></div><p>A graph is a visual way to show information. A point has an x-coordinate (across) and a y-coordinate (up). Start with one dot: (2, 3).</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+plt.plot(2, 3, marker='o')
+plt.xlim(0, 5)
+plt.ylim(0, 5)
+plt.grid(True)
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Change the point to (4, 1). Predict where it will move.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-1"><div class="lesson-head"><span class="step">LEVEL 1</span><h2>Python, library, import, and pyplot</h2></div><p>Python runs instructions. A library is reusable code. Matplotlib draws figures; pyplot is its convenient drawing interface. We give pyplot the short name plt.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+print('Matplotlib is ready')
+plt.plot([1, 2, 3])
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Explain what import, as, plt and show mean in your own words.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-2"><div class="lesson-head"><span class="step">LEVEL 2</span><h2>Your first line: x and y</h2></div><p>The first list contains horizontal coordinates; the second contains vertical coordinates. Pair equal positions: (1,2), (2,4), (3,6). Connecting those points makes a line.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+x = [1, 2, 3]
+y = [2, 4, 6]
+plt.plot(x, y)
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Add a fourth point (4, 8). What happens if the lists have different lengths?</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-3"><div class="lesson-head"><span class="step">LEVEL 3</span><h2>Figure, axes, labels, title</h2></div><p>A figure is the whole drawing. Axes are the plot area and scales. Labels explain units; titles tell the story.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+days = [1, 2, 3, 4]
+visitors = [12, 18, 16, 25]
+plt.plot(days, visitors, marker='o')
+plt.title('Visitors by Day')
+plt.xlabel('Day')
+plt.ylabel('Visitors')
+plt.grid(True)
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Change the title, the axis labels and the numbers.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-4"><div class="lesson-head"><span class="step">LEVEL 4</span><h2>Colour, markers, line style, legend</h2></div><p>Visual encoding tells readers what a line represents. Colour distinguishes series; markers show measured points; a legend identifies each series.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4]
+plt.plot(x, [2, 4, 3, 6], color='royalblue', marker='o', linestyle='-', label='Shop A')
+plt.plot(x, [1, 3, 5, 4], color='tomato', marker='s', linestyle='--', label='Shop B')
+plt.legend()
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Change the markers and make a dotted second line.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-5"><div class="lesson-head"><span class="step">LEVEL 5</span><h2>Bar charts for categories</h2></div><p>Use bars to compare amounts for different named categories, not to imply continuous movement.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+fruits = ['Apple', 'Mango', 'Orange']
+sales = [20, 35, 14]
+plt.bar(fruits, sales)
+plt.title('Fruit Sales')
+plt.ylabel('Units')
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Add a banana category and compare the highest and lowest values.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-6"><div class="lesson-head"><span class="step">LEVEL 6</span><h2>Horizontal bars and sorting</h2></div><p>Horizontal bars are useful when category labels are long. Sort data before graphing to make rankings easy to read.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+items = ['Rice', 'Oil', 'Flour']
+amounts = [40, 25, 35]
+pairs = sorted(zip(amounts, items))
+plt.barh([name for value, name in pairs], [value for value, name in pairs])
+plt.xlabel('Quantity')
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Sort the same data in descending order instead.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-7"><div class="lesson-head"><span class="step">LEVEL 7</span><h2>Scatter plots and relationships</h2></div><p>A scatter plot shows two measurements for each observation. A rising pattern suggests an association, not necessarily causation.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+hours = [1, 2, 2.5, 3, 4, 5]
+marks = [30, 40, 43, 54, 67, 75]
+plt.scatter(hours, marks)
+plt.xlabel('Study hours')
+plt.ylabel('Marks')
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Add two students. Can you spot an unusual point?</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-8"><div class="lesson-head"><span class="step">LEVEL 8</span><h2>Histograms and distributions</h2></div><p>Histograms group numerical measurements into intervals called bins. Unlike bar charts, adjacent bins represent a numerical range.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+marks = [25, 35, 38, 41, 48, 51, 55, 58, 63, 67, 72, 76, 81, 88]
+plt.hist(marks, bins=[20, 40, 60, 80, 100], edgecolor='black')
+plt.xlabel('Marks')
+plt.ylabel('Student count')
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Use 2 bins and then 8 bins. Describe how the story changes.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-9"><div class="lesson-head"><span class="step">LEVEL 9</span><h2>Pie charts: parts of a whole</h2></div><p>A pie chart is useful only when positive parts add up to one meaningful whole. Avoid it for too many categories.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+labels = ['Food', 'Travel', 'Books']
+spending = [50, 30, 20]
+plt.pie(spending, labels=labels, autopct='%1.0f%%')
+plt.axis('equal')
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Explain why a bar chart may be easier for precise comparison.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-10"><div class="lesson-head"><span class="step">LEVEL 10</span><h2>Subplots and object-oriented plotting</h2></div><p>Figure and Axes objects offer precise control. fig, ax = plt.subplots() is the foundation for reusable charts and dashboards.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+fig, axes = plt.subplots(1, 2, figsize=(9, 4))
+axes[0].plot([1, 2, 3], [2, 4, 3])
+axes[0].set_title('Trend')
+axes[1].bar(['A', 'B', 'C'], [3, 5, 2])
+axes[1].set_title('Comparison')
+fig.tight_layout()
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Make a 2-by-2 layout and draw four charts.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-11"><div class="lesson-head"><span class="step">LEVEL 11</span><h2>Ticks, limits, annotations and grid</h2></div><p>Good scales prevent misleading comparisons. Annotations call attention to meaningful events.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+ax.plot([1, 2, 3, 4], [10, 18, 14, 26], marker='o')
+ax.set(xticks=[1, 2, 3, 4], ylim=(0, 30), title='Weekly progress')
+ax.annotate('Best', xy=(4, 26), xytext=(2.7, 28), arrowprops={'arrowstyle':'-&gt;'})
+ax.grid(alpha=0.3)
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Try truncating the y-axis. Discuss how it changes perception.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-12"><div class="lesson-head"><span class="step">LEVEL 12</span><h2>Error bars and uncertainty</h2></div><p>Data often come from measurements or samples. Error bars communicate a range, but the meaning of that range must be stated.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4]
+mean = [5, 7, 6, 9]
+uncertainty = [0.5, 0.8, 0.6, 1.1]
+plt.errorbar(x, mean, yerr=uncertainty, fmt='o-', capsize=4)
+plt.title('Mean with measurement uncertainty')
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Find the lower and upper bound for the fourth measurement.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-13"><div class="lesson-head"><span class="step">LEVEL 13</span><h2>Box plots and outliers</h2></div><p>Box plots summarize the median, quartiles, spread and potential outliers of one or more numerical samples.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+class_a = [42, 50, 55, 60, 62, 66, 80]
+class_b = [36, 48, 53, 57, 64, 73, 91]
+plt.boxplot([class_a, class_b], tick_labels=['A', 'B'])
+plt.ylabel('Marks')
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Which group has a higher median? Confirm from sorted data.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-14"><div class="lesson-head"><span class="step">LEVEL 14</span><h2>Functions, reusable styles and saving</h2></div><p>Wrap plotting in functions, use consistent styling and save images with tight bounding boxes. In a browser editor, local file saving may differ from desktop Python.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+def draw_sales(names, values):
+    fig, ax = plt.subplots(figsize=(7, 4))
+    ax.bar(names, values, color='steelblue')
+    ax.set(title='Shop Sales', ylabel='Units sold')
+    fig.tight_layout()
+    return fig
+
+fig = draw_sales(['Mon', 'Tue', 'Wed'], [12, 19, 15])
+fig.savefig('shop-sales.png', dpi=150, bbox_inches='tight')
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Change the function to accept a custom chart title.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-15"><div class="lesson-head"><span class="step">LEVEL 15</span><h2>NumPy, curves and mathematics</h2></div><p>NumPy creates arrays of numbers. Matplotlib turns mathematical functions into visible curves; sampling density affects smoothness.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 2 * np.pi, 200)
+y = np.sin(x)
+plt.plot(x, y)
+plt.axhline(0, color='gray', linewidth=0.8)
+plt.title('Sine wave')
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Plot cosine on the same axes and add a legend.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-16"><div class="lesson-head"><span class="step">LEVEL 16</span><h2>Pandas, dates and real-world CSV data</h2></div><p>Pandas groups and cleans tables. Matplotlib presents the result. Start with an in-memory table so the first run does not depend on file upload.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.DataFrame({'Date':['2026-11-01','2026-11-02','2026-11-03'], 'Sales':[120, 180, 160]})
+df['Date'] = pd.to_datetime(df['Date'])
+fig, ax = plt.subplots()
+ax.plot(df['Date'], df['Sales'], marker='o')
+ax.set(title='Daily sales', ylabel='Sales')
+fig.autofmt_xdate()
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Read a CSV with Date and Sales columns on a desktop Python installation.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-17"><div class="lesson-head"><span class="step">LEVEL 17</span><h2>Heatmaps and two-dimensional data</h2></div><p>Heatmaps map numerical values to colours. Always include a colour bar and label the values or units.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+values = np.array([[1, 3, 2], [4, 5, 1], [2, 4, 6]])
+fig, ax = plt.subplots()
+image = ax.imshow(values, cmap='Blues')
+fig.colorbar(image, ax=ax, label='Score')
+ax.set(title='Scores by group')
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Change the values and compare palettes.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson" id="level-18"><div class="lesson-head"><span class="step">LEVEL 18</span><h2>Animations, 3D and the infinity track</h2></div><p>Go further with animation, 3D axes, interactivity, accessibility, reproducibility, colour perception, scientific plots and publication-ready dashboards. Animation support differs between browser runtimes.</p><div class="example"><div class="toolbar"><span>Python · runnable example</span><button type="button" class="run" data-action="run">Run in Editor</button><button type="button" class="viz" data-action="visualize">Visualize with Champuter</button><button type="button" data-action="explain">Champuter explains</button><button type="button" data-action="copy">Copy</button></div><pre class="language-python"><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-3, 3, 100)
+y = x ** 2
+fig, ax = plt.subplots()
+ax.plot(x, y)
+ax.set(title='The infinity track begins', xlabel='x', ylabel='x squared')
+plt.show()</code></pre></div><div class="challenge"><strong>Try it yourself:</strong> Capstone: build a four-chart dashboard from a real dataset and explain your design decisions.</div><p class="end-link"><a href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open our Python Super Editor</a> · <a href="#top">Back to course index</a></p></section>
+<section class="lesson"><h2>Capstone projects: from useful to extraordinary</h2><ol><li>Daily temperature tracker: line plot with labels and annotations</li><li>Student marks analyzer: sorted bars, histogram, box plot</li><li>Grocery shop sales dashboard: categories, dates, and comparison</li><li>Sports training progress tracker: trend and uncertainty</li><li>Air quality investigation: scatter, rolling average, distribution</li><li>Multi-page scientific report: reproducible figures and proper units</li></ol><p><b>Remember:</b> An attractive chart is not necessarily an honest chart. Always check the axes, sample size, units, missing observations, and whether your choice of scale changes the interpretation.</p></section>
+</main><div class="teacher" id="champuter-widget"><div class="teacher-face" id="champuter-face" aria-hidden="true">👨‍🏫</div><div class="teacher-panel"><strong>Champuter</strong><p id="teacher-message">Hello! Start at Level 0. I'll explain any example you choose.</p><button type="button" class="primary" id="teach">Teach this lesson</button><button type="button" id="stop">Stop</button><button type="button" id="hide">Hide</button></div></div><footer>Learn With Champak · Programmer's Picnic · <a href="https://dsa.learnwithchampak.live/python/">Python lessons</a></footer>
+<script src="/tools/champuter-blog/phase1.js" defer></script>
+<script>
+(function(){
+'use strict';
+const editor="https://editor.learnwithchampak.live/python-starter/editor/super/";let active=null;
+const speech=window.speechSynthesis;
+function announce(message,element){const box=document.getElementById('teacher-message');box.textContent=message;document.querySelectorAll('.speaking').forEach(n=>n.classList.remove('speaking'));if(element){element.classList.add('speaking');active=element;}if(speech){speech.cancel();const u=new SpeechSynthesisUtterance(message);u.lang='en-IN';u.rate=.92;speech.speak(u);}}
+function share(code,title){const payload=JSON.stringify({code:code,stdin:'',title:title});const bytes=new TextEncoder().encode(payload);let s='';for(const b of bytes)s+=String.fromCharCode(b);const base=btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');return editor+'#'+base;}
+document.querySelectorAll('[data-action]').forEach(button=>button.addEventListener('click',async()=>{const box=button.closest('.lesson');const code=box.querySelector('pre code').textContent;const title=box.querySelector('h2').textContent;const action=button.dataset.action;
+if(action==='run'||action==='visualize'){const url=share(code,'Matplotlib · '+title);const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';document.body.appendChild(a);a.click();a.remove();document.getElementById('teacher-message').textContent=action==='run'?'Example preloaded. Press Run in the Python Editor.':'Example preloaded. Press Visualize in the Python Editor to see the runtime.';return;}
+if(action==='copy'){try{await navigator.clipboard.writeText(code);button.textContent='Copied!';setTimeout(()=>button.textContent='Copy',1500);}catch(_){document.getElementById('teacher-message').textContent='Select the code and copy it manually.';}return;}
+announce('In '+title+'. '+box.querySelector('p').textContent+' Now inspect the code line by line. '+box.querySelector('.challenge').textContent,box);}));
+document.getElementById('teach').onclick=()=>{const visible=[...document.querySelectorAll('.lesson')].filter(el=>{const r=el.getBoundingClientRect();return r.top<innerHeight*.65&&r.bottom>0;});const e=visible[0]||document.querySelector('.lesson');announce(e.querySelector('h2').textContent+'. '+e.querySelector('p').textContent,e);};
+document.getElementById('stop').onclick=()=>{speech&&speech.cancel();document.querySelectorAll('.speaking').forEach(n=>n.classList.remove('speaking'));};
+document.getElementById('hide').onclick=()=>{speech&&speech.cancel();document.getElementById('champuter-widget').style.display='none';};
+window.addEventListener('load',()=>{if(typeof window.LWCChamputerBlogSvg==='string'){document.getElementById('champuter-face').innerHTML=window.LWCChamputerBlogSvg;}});
+})();
+</script></body></html>
