@@ -1,0 +1,33 @@
+<div class="lwc-mpl-blog" style="font-family:Arial,sans-serif;max-width:950px;margin:auto;color:#173b58;line-height:1.75">
+<style>.lwc-mpl-blog .mpl-card{border:1px solid #c4e0f4;background:#f3f9ff;padding:18px 20px;border-radius:14px;margin:20px 0}.lwc-mpl-blog .mpl-link{display:inline-block;padding:11px 17px;border-radius:9px;background:#146ea8;color:white!important;text-decoration:none;margin:5px 8px 5px 0;font-weight:bold}.lwc-mpl-blog .mpl-code{background:#11273d;color:#eaf6ff;border-radius:10px;padding:17px;overflow-x:auto;line-height:1.55}.lwc-mpl-blog h2{color:#175b8e}.lwc-mpl-blog img{max-width:100%;height:auto;border-radius:16px}.lwc-mpl-blog .mpl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:12px}.lwc-mpl-blog .mpl-grid article{background:white;border:1px solid #c5dff1;border-radius:12px;padding:12px}</style>
+<p><img alt="Matplotlib from zero to infinity with Champuter showing Python graphs" src="https://dsa.learnwithchampak.live/python/matplotlib/matplotlib-champuter.svg" width="1200" height="630" loading="eager"/></p>
+<p>Have you ever looked at a graph and wondered how a computer draws it? What exactly are the <strong>x-axis</strong> and <strong>y-axis</strong>? How do numbers turn into a point, a line, a bar chart or a scientific visualization?</p>
+<p>Welcome to <strong>Matplotlib: 0 to Infinity</strong> from Programmer's Picnic. This new <strong>free, 19-level course</strong> starts at <em>real zero</em> — one point on graph paper — and gradually teaches practical visualization using Python.</p>
+<div class="mpl-card"><h2 style="margin-top:0">🎓 Meet Champuter, your Python teacher</h2><p>Champuter helps explain Python code and teaches the lesson aloud. On supported Learn With Champak blog pages, use Champuter's <strong>Explain</strong>, <strong>Run in Editor</strong> and <strong>Visualize in Editor</strong> tools beside Python code. The real Python runs in our Super Editor; Champuter helps you follow the steps and understand what the chart means.</p><a class="mpl-link" href="https://dsa.learnwithchampak.live/python/matplotlib/" target="_blank" rel="noopener">Start learning with Champuter</a><a class="mpl-link" href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">Open Python Super Editor</a></div>
+<h2>📍 Lesson 0: Draw your very first point</h2><p>We begin by learning that the point <strong>(2, 3)</strong> means travel two units right and three units up. That's all you need to understand your first chart.</p>
+<p><img alt="Coordinate axes and a dot on (2,3) in the Matplotlib beginner lesson" src="https://dsa.learnwithchampak.live/python/matplotlib/matplotlib-champuter.svg" loading="lazy" width="900"/></p>
+<pre class="language-python mpl-code"><code class="language-python">import matplotlib.pyplot as plt
+
+plt.plot(2, 3, marker='o')
+plt.xlim(0, 5)
+plt.ylim(0, 5)
+plt.grid(True)
+plt.show()</code></pre>
+<p><strong>Try it:</strong> Change <code>plt.plot(2, 3, marker='o')</code> to <code>plt.plot(4, 1, marker='o')</code>. Predict where the dot moves before you run the program.</p>
+<h2>📈 From one dot to a complete line chart</h2>
+<pre class="language-python mpl-code"><code class="language-python">import matplotlib.pyplot as plt
+
+days = [1, 2, 3, 4]
+visitors = [12, 18, 16, 25]
+
+plt.plot(days, visitors, marker='o')
+plt.title('Visitors by Day')
+plt.xlabel('Day')
+plt.ylabel('Visitors')
+plt.grid(True)
+plt.show()</code></pre>
+<p>You can change the numbers and watch the chart respond. Champuter can explain the imports, variables and plotting statements.</p>
+<h2>What will you learn?</h2><div class="mpl-grid"><article><strong>Levels 0–4</strong><p>Graph paper, coordinates, points, lines, labels and legends.</p></article><article><strong>Levels 5–9</strong><p>Bar charts, scatter plots, histograms and pie charts.</p></article><article><strong>Levels 10–13</strong><p>Subplots, annotations, uncertainty and box plots.</p></article><article><strong>Levels 14–18</strong><p>Saving images, NumPy, Pandas, heatmaps and advanced projects.</p></article></div>
+<h2>🌟 Real projects, not just examples</h2><p>Create a student marks analyzer, shop sales dashboard, daily temperature plot, exercise progress tracker and scientific report. Practice predicting each chart, changing its data and explaining what your changes reveal.</p>
+<div class="mpl-card"><h2 style="margin-top:0">Start your Matplotlib journey now</h2><p>Follow the full interactive course and use our Python Super Editor for every example. Champuter helps you learn at your own pace.</p><a class="mpl-link" href="https://dsa.learnwithchampak.live/python/matplotlib/" target="_blank" rel="noopener">📚 Complete course · 19 levels</a><a class="mpl-link" href="https://editor.learnwithchampak.live/python-starter/editor/super/" target="_blank" rel="noopener">🐍 Run Python code</a><a class="mpl-link" href="https://dsa.learnwithchampak.live/tools/champuter-blog/demo-phase23.html" target="_blank" rel="noopener">🎓 See Champuter demo</a><a class="mpl-link" href="https://github.com/Programmer-s-Picnic/dsa/tree/main/python/matplotlib" target="_blank" rel="noopener">💻 View course on GitHub</a></div>
+<p><strong>A Programmer's Picnic lesson by Learn With Champak.</strong> Start with one dot. Finish by telling stories with data.</p></div>
