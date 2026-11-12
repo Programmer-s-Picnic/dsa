@@ -129,5 +129,155 @@ Allow: GET, HEAD, OPTIONS</code></pre>
 <p>A client may exceed a rate limit and receive 429, potentially with <code>Retry-After: 10</code>. It should wait and apply reasonable backoff. Do not immediately retry continuously, especially not a POST that could create duplicate records without idempotency controls.</p>
 <div class="lab"><strong>Lab 5 — Authentication and permission failures</strong><ol><li>Trigger 401 in the local playground; inspect <code>WWW-Authenticate</code>.</li><li>Trigger 403; compare its meaning with 401.</li><li>Explain why a hidden admin button does not replace server authorization.</li><li>Try 404 and 410; describe the difference between not found and gone.</li></ol><p class="expected"><strong>Expected:</strong> 401 and 403 have distinct meanings; 404/410 address resource availability.</p></div>
 <div class="lab"><strong>Lab 6 — Method and rate-limit errors</strong><ol><li>Trigger the 405 button, which sends POST to a GET-only route.</li><li>Find its <code>Allow</code> header in DevTools.</li><li>Trigger 429; inspect its <code>Retry-After</code> header.</li><li>Write a retry policy that waits rather than overwhelming the service.</li></ol><p class="expected"><strong>Expected:</strong> 405 is a real wrong-method scenario. The 429 HTTP response is real, while its rate-limit cause is simulated.</p></div>
-<!--HTTP-STATUS-APPEND-HERE-->
+
+<h2 id="hsc-5xx">9. The 5xx family — servers and gateways fail</h2>
+<p>A <strong>5xx</strong> response means a server or intermediary could not fulfil an apparently valid request. The error may arise in your application, web server, reverse proxy, load balancer or another backend service. The HTTP code helps direct your investigation, but cannot by itself reveal the precise broken component.</p>
+<div class="scroll"><table><thead><tr><th>Code</th><th>Meaning and initial diagnosis</th></tr></thead><tbody><tr><td>500 Internal Server Error</td><td>Generic internal failure; inspect app logs, error handlers and request IDs.</td></tr><tr><td>501 Not Implemented</td><td>Server does not support the requested HTTP method/functionality.</td></tr><tr><td>502 Bad Gateway</td><td>Gateway/proxy received an invalid response from an upstream server.</td></tr><tr><td>503 Service Unavailable</td><td>Temporary maintenance or overload; may include Retry-After.</td></tr><tr><td>504 Gateway Timeout</td><td>Gateway/proxy waited too long for an upstream response.</td></tr><tr><td>505 HTTP Version Not Supported</td><td>Server does not support the request's HTTP version.</td></tr><tr><td>506 Variant Also Negotiates</td><td>Server content-negotiation configuration error.</td></tr><tr><td>507 Insufficient Storage</td><td>WebDAV operation could not be performed due to insufficient storage.</td></tr><tr><td>508 Loop Detected</td><td>WebDAV operation detected an infinite loop.</td></tr><tr><td>511 Network Authentication Required</td><td>Client needs network-access authentication (such as captive portal).</td></tr></tbody></table></div>
+<h3>500 vs 502 vs 503 vs 504</h3>
+<p><strong>500 Internal Server Error</strong> is the general failure response. It may originate in backend code, unexpected data or integration errors. <strong>502 Bad Gateway</strong> means an intermediary received an invalid upstream response. <strong>503 Service Unavailable</strong> signals temporary unavailability, often overload or maintenance, and may include a <code>Retry-After</code> header. <strong>504 Gateway Timeout</strong> means an intermediary did not receive a timely upstream response.</p>
+<div class="flow"><span>Chrome</span><b>→</b><span>Reverse proxy</span><b>→</b><span>Node.js API</span><b>↔</b><span>MySQL</span></div>
+<p>When investigating 502/504, inspect reverse-proxy logs, service health, network routing and upstream timings. For 500, inspect backend errors and relevant request IDs. For 503, inspect capacity, maintenance, deployment state and retry guidance.</p>
+<div class="warning"><strong>Local-lab accuracy:</strong> The provided Node.js server deliberately returns the numeric 500, 502, 503 and 504 codes. Those HTTP responses are real; the simulated explanations do not mean that a database actually failed or that an upstream server really timed out. This protects the lesson from causing unnecessary infrastructure failures.</div>
+<div class="lab"><strong>Lab 7 — Compare server failures</strong><ol><li>With the local status server running, press the 500, 502, 503 and 504 buttons.</li><li>Inspect Status, Response, Initiator and Timing for each request.</li><li>Find <code>Retry-After</code> in the 503 response.</li><li>Write down which logs you would inspect for each: application, gateway or upstream.</li><li>Switch Chrome to Offline to compare network failure with a real HTTP 5xx response.</li></ol><p class="expected"><strong>Expected:</strong> The 5xx requests give real HTTP responses; Offline mode can prevent the request from receiving any HTTP response.</p></div>
+
+<h2 id="hsc-compare">10. Codes that students commonly confuse</h2>
+<div class="scroll"><table><thead><tr><th>Comparison</th><th>What actually differs</th><th>Practical example</th></tr></thead><tbody><tr><td>200 vs 201</td><td>Ordinary success versus newly created resource.</td><td>GET report vs POST to create report.</td></tr><tr><td>201 vs 202</td><td>Created now versus accepted for possible later processing.</td><td>Create task vs queue PDF generation.</td></tr><tr><td>200 vs 204</td><td>200 may carry content; 204 has no message body.</td><td>Read JSON vs delete without returned content.</td></tr><tr><td>301 vs 302</td><td>Permanent versus temporary redirect.</td><td>Canonical hostname vs short-term move.</td></tr><tr><td>302 vs 307</td><td>307 preserves method and body; 302 can change POST to GET.</td><td>POST forwarded across a redirect.</td></tr><tr><td>303 vs 307</td><td>303 usually changes to GET; 307 keeps original method.</td><td>Form confirmation page vs temporary API route.</td></tr><tr><td>307 vs 308</td><td>Temporary versus permanent; both preserve method/body.</td><td>API endpoint migration.</td></tr><tr><td>302 vs 304</td><td>New URL versus reused cached representation.</td><td>Redirect to login vs ETag revalidation.</td></tr><tr><td>400 vs 422</td><td>Broad invalid request vs semantically unacceptable content.</td><td>Malformed JSON vs valid JSON with impossible field values.</td></tr><tr><td>401 vs 403</td><td>Authentication problem vs refused permission.</td><td>Not logged in vs logged in as non-admin.</td></tr><tr><td>403 vs 404</td><td>Explicit refusal vs not found or intentionally concealed.</td><td>Private account ownership check.</td></tr><tr><td>404 vs 410</td><td>Not found, no permanence assertion vs known removal.</td><td>Wrong route vs intentionally retired article.</td></tr><tr><td>405 vs 501</td><td>Method disallowed on this resource vs server does not implement it.</td><td>POST to GET-only route vs unsupported method.</td></tr><tr><td>408 vs 504</td><td>Server timed out receiving client request vs gateway timed out waiting upstream.</td><td>Client incomplete upload vs slow backend.</td></tr><tr><td>409 vs 412</td><td>Current-state conflict vs failed conditional precondition.</td><td>Duplicate username vs stale If-Match ETag.</td></tr><tr><td>415 vs 422</td><td>Unsupported body media type vs semantically unacceptable body.</td><td>XML sent to JSON-only API vs invalid task name.</td></tr><tr><td>429 vs 503</td><td>Client/group exceeded rate limit vs service itself unavailable.</td><td>API throttling vs maintenance.</td></tr><tr><td>500 vs 502</td><td>Internal failure vs intermediary invalid upstream reply.</td><td>Application exception vs proxy upstream error.</td></tr><tr><td>502 vs 504</td><td>Invalid upstream response vs no timely upstream response.</td><td>Bad gateway data vs gateway timeout.</td></tr></tbody></table></div>
+<div class="champuter"><strong>🎓 Champuter's diagnostic habit:</strong><p>For 405, inspect the actual request method and Allow header. For 404, inspect the exact path before touching database code. For 401, inspect authentication. For 504, investigate upstream latency. Every status points to a different first question.</p></div>
+
+<h2 id="hsc-headers">11. Important status-dependent HTTP headers</h2>
+<p>In Chrome Network → Headers, the status number is only the beginning. Several statuses require or benefit from specific headers. Learn to inspect these rather than reading only the coloured number in the Status column.</p>
+<div class="scroll"><table><thead><tr><th>Header</th><th>Example</th><th>Why it matters</th></tr></thead><tbody><tr><td>Location</td><td><code>Location: /api/tasks/42</code></td><td>Redirect destination or created resource.</td></tr><tr><td>WWW-Authenticate</td><td><code>Bearer realm=&quot;Students&quot;</code></td><td>Required for an RFC 9110 401 authentication challenge.</td></tr><tr><td>Allow</td><td><code>GET, HEAD, OPTIONS</code></td><td>Required for 405 Method Not Allowed.</td></tr><tr><td>Retry-After</td><td><code>Retry-After: 10</code></td><td>Optional retry timing guidance, including for 429/503.</td></tr><tr><td>ETag</td><td><code>&quot;course-v2&quot;</code></td><td>Identifier for representation validation or conditional write logic.</td></tr><tr><td>If-None-Match</td><td><code>&quot;course-v2&quot;</code></td><td>Request header that can lead to 304 revalidation.</td></tr><tr><td>If-Match</td><td><code>&quot;record-v7&quot;</code></td><td>Request precondition that can fail with 412.</td></tr><tr><td>Content-Range</td><td><code>bytes 0-9/28</code></td><td>Describes the selected part of a representation (206).</td></tr><tr><td>Cache-Control</td><td><code>no-cache</code></td><td>Caching policy: no-cache requires validation before reuse, not always 'do not store'.</td></tr><tr><td>Content-Type</td><td><code>application/json</code></td><td>Tells the client how to interpret the response body.</td></tr></tbody></table></div>
+<pre><code>HTTP/1.1 429 Too Many Requests
+Retry-After: 10
+Content-Type: application/json
+
+{"error":"Please try again later"}</code></pre>
+<p><strong>Security note:</strong> DevTools request headers or exported HAR files can contain cookies, authorization tokens and private data. Redact them before copying to public bug reports.</p>
+
+<h2 id="hsc-fetch">12. JavaScript fetch(): HTTP errors are not always thrown exceptions</h2>
+<p>One of the most important practical facts: <strong><code>fetch()</code> does not normally reject just because a server returns HTTP 404 or 500.</strong> It resolves with a <code>Response</code> object; the script must examine <code>response.status</code> or <code>response.ok</code>. A network failure, invalid URL or blocked request can reject the Promise instead.</p>
+<pre><code>async function loadStudents() {
+  try {
+    const response = await fetch("/api/students");
+
+    console.log(response.status);
+    console.log(response.ok); // true for 200–299
+
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
+    }
+
+    const students = await response.json();
+    console.table(students);
+  } catch (error) {
+    console.error("Request failed:", error.message);
+  }
+}</code></pre>
+<h3>204: do not attempt to parse a body that is absent</h3>
+<pre><code>const response = await fetch("/api/task/42", {
+  method: "DELETE"
+});
+
+if (response.status === 204) {
+  console.log("Deleted successfully.");
+} else if (response.ok) {
+  const result = await response.json();
+  console.log(result);
+} else {
+  console.error("HTTP error:", response.status);
+}</code></pre>
+<h3>Why a redirect can appear as 200 in your JavaScript</h3>
+<p>Fetch usually follows redirects automatically. If the original response is 303 and the final destination returns 200, the resolved <code>Response</code> may show <strong>200</strong>, while DevTools Network reveals the preceding 303. You can check <code>response.redirected</code> and <code>response.url</code>, but do not rely on a post-hoc check to protect against unsafe redirect targets.</p>
+<div class="lab"><strong>Lab 8 — Observe HTTP error versus network failure</strong><ol><li>Open the playground's 200/404 buttons and inspect <code>response.ok</code> in its result display.</li><li>Trigger 500 when using the local server; notice that a received HTTP error still has a status.</li><li>In Chrome Network, select Offline and retry; observe the browser-level failure.</li><li>Restore Online (or No throttling), then repeat the test.</li><li>Explain why a failed network connection does not have the same meaning as HTTP 404.</li></ol><p class="expected"><strong>Expected:</strong> The JS Promise and HTTP status communicate two distinct layers of outcome.</p></div>
+
+<h2 id="hsc-express">13. Create real status responses with Node.js and Express</h2>
+<p>When designing an API, choose a status that matches the operation's semantics. This makes life easier for frontend developers, monitoring systems, retries and API clients.</p>
+<pre><code>GET    /api/tasks       → 200 OK
+POST   /api/tasks       → 201 Created
+POST   /api/reports/run → 202 Accepted
+DELETE /api/tasks/42    → 204 No Content
+GET    /api/tasks/999   → 404 Not Found
+POST   /api/tasks       → 422 Unprocessable Content
+GET    /api/private     → 401 Unauthorized
+GET    /api/admin       → 403 Forbidden
+GET    /api/limited     → 429 Too Many Requests</code></pre>
+<h3>A small working Express illustration</h3>
+<pre><code>const express = require("express");
+const app = express();
+app.use(express.json());
+
+const tasks = [{ id: 1, title: "Study HTTP" }];
+
+app.get("/api/tasks", (req, res) =&gt; {
+  res.status(200).json(tasks);
+});
+
+app.post("/api/tasks", (req, res) =&gt; {
+  const title = req.body &amp;&amp; req.body.title;
+  if (typeof title !== "string" || !title.trim()) {
+    return res.status(422).json({
+      error: "A nonempty title is required"
+    });
+  }
+
+  const task = { id: tasks.length + 1, title: title.trim() };
+  tasks.push(task);
+  res.location("/api/tasks/" + task.id)
+     .status(201).json(task);
+});
+
+app.get("/api/tasks/:id", (req, res) =&gt; {
+  const task = tasks.find(t =&gt; t.id === Number(req.params.id));
+  if (!task) return res.status(404).json({error:"Not found"});
+  return res.json(task);
+});
+
+app.listen(3000, "127.0.0.1");</code></pre>
+<p>This minimal example uses in-memory data solely for teaching. Production APIs need authenticated requests, per-record authorisation, persistent storage, input validation, proper error handling and safe deployment.</p>
+<h3>Run the complete HTTP Status Codes laboratory</h3>
+<p>Download or clone <a href="https://github.com/Programmer-s-Picnic/dsa/blob/main/web/http-status-codes-zero-to-infinity/status-server.js" target="_blank" rel="noopener">status-server.js</a> and save it alongside <code>playground.html</code> and <code>sample-ok.json</code> from the same repository directory. Then:</p>
+<pre><code>npm init -y
+npm install express
+node status-server.js
+
+# Open in Chrome:
+http://127.0.0.1:3000/</code></pre>
+<p>The Node.js program binds to localhost only. The extra endpoints return real numeric statuses for educational testing, while many backend conditions are deliberately simulated. You do not need a cloud account or public hosting.</p>
+
+<h2 id="hsc-labs">14. Twelve practical Chrome DevTools investigations</h2>
+<p>Keep Network open while clicking. Use <strong>Fetch/XHR</strong>, <strong>Preserve log</strong> for redirects, and the <strong>Headers / Response / Initiator / Timing</strong> panels.</p>
+<div class="scroll"><table><thead><tr><th>Lab</th><th>Action</th><th>Find in DevTools</th></tr></thead><tbody><tr><td>1</td><td>Hosted 200 and 404 JSON responses</td><td>Status, URL, response body</td></tr><tr><td>2</td><td>Filter <code>status-code:404</code></td><td>Only matching requests</td></tr><tr><td>3</td><td>Local 201, 202 and 204</td><td>Location, acceptance vs creation, missing body</td></tr><tr><td>4</td><td>Local 206 Partial Content</td><td>Content-Range header</td></tr><tr><td>5</td><td>Local 302 and 308</td><td>Redirect chain and Location header</td></tr><tr><td>6</td><td>Local POST to 303 and 307</td><td>GET conversion vs preserved POST</td></tr><tr><td>7</td><td>Local ETag and 304</td><td>If-None-Match, ETag, Cache-Control</td></tr><tr><td>8</td><td>Local 401 and 403</td><td>WWW-Authenticate vs refusal</td></tr><tr><td>9</td><td>Local 405 wrong method</td><td>POST to GET-only endpoint and Allow header</td></tr><tr><td>10</td><td>Local 409 and 422</td><td>Conflict vs semantically unacceptable content</td></tr><tr><td>11</td><td>Local 429 and 503</td><td>Retry-After and why to wait</td></tr><tr><td>12</td><td>Local 500, 502, 504 and Offline</td><td>HTTP response vs no usable response</td></tr></tbody></table></div>
+<div class="lab"><strong>Lab 9 — Understand the 405 Allow header</strong><ol><li>Trigger the local 405 button: it sends POST to the GET-only endpoint.</li><li>Inspect Network → Headers for Request Method and response status.</li><li>Find <code>Allow: GET, HEAD, OPTIONS</code>.</li><li>Compare this behaviour with an unknown URL returning 404.</li></ol><p class="expected"><strong>Expected:</strong> 405 describes an unsupported method for a known resource; 404 describes a resource not found or concealed.</p></div>
+<div class="lab"><strong>Lab 10 — Compare request validation and state conflict</strong><ol><li>Trigger 400, 409, 415 and 422 in the local playground.</li><li>Compare the response details and imagine equivalent real application problems.</li><li>Write which code fits malformed JSON, unsupported media type, duplicate record and semantically invalid fields.</li><li>Explain why the correct choice should be documented in the API contract.</li></ol><p class="expected"><strong>Expected:</strong> Proper error statuses help clients decide whether to fix a request, retry or ask the user to change input.</p></div>
+<div class="lab"><strong>Lab 11 — Rate limit versus unavailable service</strong><ol><li>Trigger 429 and inspect Retry-After.</li><li>Trigger 503 and inspect Retry-After.</li><li>Compare who or what needs to change for the request to succeed.</li><li>Propose retry-with-backoff logic without blindly resubmitting unsafe operations.</li></ol><p class="expected"><strong>Expected:</strong> 429 commonly targets excessive requests; 503 often means service-level temporary unavailability.</p></div>
+<div class="lab"><strong>Lab 12 — Write a professional bug report</strong><ol><li>Choose one error in the playground.</li><li>Record the exact URL, request method, status, key headers and returned body.</li><li>Record which script initiated it and one relevant timing detail.</li><li>State a likely cause, one corrective action and a verification step.</li><li>Redact cookies, credentials, tokens, personal data and private response fields.</li></ol><p class="expected"><strong>Expected:</strong> A reproducible, evidence-based report is far more useful than a screenshot with only 'not working'.</p></div>
+
+<h2 id="hsc-debug">15. Practical website troubleshooting decision tree</h2>
+<div class="flow"><span>Request failed?</span><b>→</b><span>Did a server respond?</span><b>→</b><span>Which status and headers?</span><b>→</b><span>Which component can fix it?</span></div>
+<div class="scroll"><table><thead><tr><th>Observed result</th><th>First check</th><th>Where to investigate</th></tr></thead><tbody><tr><td>No HTTP status</td><td>DNS, TLS, connection, browser blocking</td><td>Internet connection and network/browser error details</td></tr><tr><td>200 but wrong information</td><td>Response body and expected API shape</td><td>Frontend rendering, app logic and data source</td></tr><tr><td>301/302/307/308</td><td>Location, method changes, redirect chain</td><td>Routing and redirect configuration</td></tr><tr><td>304</td><td>ETag / If-None-Match and cache headers</td><td>Cache/revalidation policy</td></tr><tr><td>400 / 415 / 422</td><td>Payload and Content-Type</td><td>Request validation or parser</td></tr><tr><td>401</td><td>Cookie/session/token and WWW-Authenticate</td><td>Login and authentication</td></tr><tr><td>403</td><td>Who is signed in and what are permissions?</td><td>Backend authorization/ownership checks</td></tr><tr><td>404</td><td>Exact URL, route and deployment path</td><td>Hosting path, API route or missing record</td></tr><tr><td>405</td><td>Request method versus Allow header</td><td>Client method or backend route mapping</td></tr><tr><td>409 / 412</td><td>Resource version and preconditions</td><td>Concurrency control and conflict resolution</td></tr><tr><td>429</td><td>Retry-After and request volume</td><td>Rate limiting and client backoff</td></tr><tr><td>500</td><td>Backend logs / request ID</td><td>Application exception, database integration</td></tr><tr><td>502</td><td>Upstream validity / gateway logs</td><td>Proxy or upstream protocol/availability</td></tr><tr><td>503</td><td>Service health and maintenance</td><td>Deployment or capacity</td></tr><tr><td>504</td><td>Gateway timeout and upstream latency</td><td>Slow backend, gateway, network path</td></tr></tbody></table></div>
+<p><strong>Rule:</strong> A status code narrows the diagnosis, but it is not a complete root-cause explanation. For real 5xx errors, backend and proxy logs are essential.</p>
+
+<h2 id="hsc-advanced">16. Advanced issues: cache, standards, security and vendor codes</h2>
+<h3>404 is not necessarily uncached</h3><p>HTTP caching rules allow some responses, including 404, to be cached heuristically unless headers or other rules prevent it. If a page has recently been created but the browser still reports 404, check cache/CDN behaviour as well as the route.</p>
+<h3>304 and 204 must not carry ordinary message bodies</h3><p>Do not automatically call <code>response.json()</code> after these statuses. The browser may reuse previously cached content after a 304, even though that new 304 message has no body.</p>
+<h3>Conditional writes and 412</h3><p>Suppose two teachers edit the same lesson. The first fetches ETag <code>"v1"</code>. The second changes the record. The first teacher sends an update with <code>If-Match: "v1"</code>. The server can return 412 when that condition is no longer true, preventing an accidental overwrite. A 428 can require a conditional request.</p>
+<h3>Do not use 200 for every application error</h3><p>An API that always returns 200 and hides <code>{"success":false}</code> inside a body makes monitoring, error handling and caching misleading. Match status and body to the actual API contract.</p>
+<h3>418, 499 and 52x</h3><p>418 is famous for the “I'm a teapot” joke, but the current IANA and RFC 9110 registry marks it <strong>(Unused)</strong>. Nginx's <strong>499</strong> and certain CDN <strong>52x</strong> responses are vendor-specific; investigate their vendor documentation rather than presenting them as universally standard codes.</p>
+<h3>Privacy when exporting DevTools requests</h3><p>Chrome's <em>Copy as cURL</em> and HAR exports can reveal session cookies, authorization headers, query values or submitted data. Sanitise them before sharing, and do not paste unknown scripts into the DevTools Console.</p>
+<h2 id="hsc-quiz">17. Self-assessment: 20 questions with answers</h2>
+<p>Try answering before opening each explanation. Ask Champuter to highlight and read questions as needed.</p>
+<details><summary>1. Does HTTP 404 mean the browser failed to contact the server?</summary><p>No. A normal 404 is a response from a server or intermediary.</p></details><details><summary>2. What does 201 convey?</summary><p>Successful creation of a resource, often with Location.</p></details><details><summary>3. Does 202 guarantee the job has finished?</summary><p>No. It only says the job/request was accepted.</p></details><details><summary>4. May 204 contain JSON?</summary><p>No. It has no response body.</p></details><details><summary>5. What is 206 for?</summary><p>Returning partial byte ranges of content.</p></details><details><summary>6. Which redirect is permanent: 301 or 302?</summary><p>301 is permanent; 302 is temporary.</p></details><details><summary>7. Which redirects preserve the original method and body?</summary><p>307 and 308.</p></details><details><summary>8. Why might fetch show 200 after a 303?</summary><p>Fetch followed the redirect to a final 200 response.</p></details><details><summary>9. Is 304 a redirect to another URL?</summary><p>No. It is cache revalidation.</p></details><details><summary>10. What does 401 mean?</summary><p>Valid authentication is absent; a WWW-Authenticate challenge is required.</p></details><details><summary>11. How does 403 differ from 401?</summary><p>403 is refusal; 401 concerns missing/invalid authentication.</p></details><details><summary>12. What does 404 mean?</summary><p>Requested resource was not found or was intentionally concealed.</p></details><details><summary>13. What is 405?</summary><p>Method Not Allowed. The response must include Allow.</p></details><details><summary>14. What differs between 409 and 412?</summary><p>Conflict with resource state vs a failed conditional precondition.</p></details><details><summary>15. Which code describes unsupported Content-Type?</summary><p>415 Unsupported Media Type.</p></details><details><summary>16. What is 422?</summary><p>Unprocessable Content — understood syntax but unacceptable semantics.</p></details><details><summary>17. What does 429 signify?</summary><p>Too many requests; client should back off and follow Retry-After if supplied.</p></details><details><summary>18. How are 502 and 504 different?</summary><p>502 is invalid upstream response; 504 is upstream timeout.</p></details><details><summary>19. Does fetch() reject solely because the HTTP status is 500?</summary><p>Normally no. It resolves with a Response; response.ok is false.</p></details><details><summary>20. Is 418 an ordinary standard production status?</summary><p>It is marked (Unused) in the current registry.</p></details>
+<h2 id="hsc-summary">18. Quick reference and further reading</h2>
+<div class="scroll"><table><thead><tr><th>Most common code</th><th>Meaning / quick diagnosis</th></tr></thead><tbody><tr><td>200 OK</td><td>Successful request.</td></tr><tr><td>201 Created</td><td>New resource created.</td></tr><tr><td>202 Accepted</td><td>Accepted but processing may be pending.</td></tr><tr><td>204 No Content</td><td>Success with no body.</td></tr><tr><td>301 / 302</td><td>Permanent / temporary redirect.</td></tr><tr><td>303</td><td>Redirect, commonly fetch with GET after POST.</td></tr><tr><td>304</td><td>Reuse validated cached representation.</td></tr><tr><td>307 / 308</td><td>Temporary / permanent redirect preserving method.</td></tr><tr><td>400 Bad Request</td><td>Invalid or malformed request.</td></tr><tr><td>401 Unauthorized</td><td>Authentication required/invalid.</td></tr><tr><td>403 Forbidden</td><td>Refused access.</td></tr><tr><td>404 Not Found</td><td>Resource unavailable or concealed.</td></tr><tr><td>405 Method Not Allowed</td><td>Check Allow.</td></tr><tr><td>409 Conflict</td><td>Resource state conflict.</td></tr><tr><td>410 Gone</td><td>Resource deliberately removed.</td></tr><tr><td>412 Precondition Failed</td><td>Stale conditional request.</td></tr><tr><td>415 Unsupported Media Type</td><td>Wrong Content-Type.</td></tr><tr><td>422 Unprocessable Content</td><td>Semantically invalid request.</td></tr><tr><td>429 Too Many Requests</td><td>Back off, check Retry-After.</td></tr><tr><td>500 Internal Server Error</td><td>Check backend logs.</td></tr><tr><td>502 Bad Gateway</td><td>Invalid upstream response.</td></tr><tr><td>503 Service Unavailable</td><td>Temporary outage/overload.</td></tr><tr><td>504 Gateway Timeout</td><td>Upstream response too slow.</td></tr></tbody></table></div>
+<h3>Authoritative standards and debugging references</h3>
+<ul>
+<li><a href="https://www.rfc-editor.org/rfc/rfc9110.html" target="_blank" rel="noopener">RFC 9110 — HTTP Semantics</a></li>
+<li><a href="https://www.iana.org/assignments/http-status-codes/" target="_blank" rel="noopener">IANA — HTTP Status Code Registry</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status" target="_blank" rel="noopener">MDN — HTTP response status codes</a></li>
+<li><a href="https://developer.chrome.com/docs/devtools/network/overview/" target="_blank" rel="noopener">Chrome for Developers — Network panel</a></li>
+<li><a href="https://developer.chrome.com/docs/devtools/network/reference/" target="_blank" rel="noopener">Chrome Network reference — filters, headers and statuses</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch" target="_blank" rel="noopener">MDN — Fetch API error handling</a></li></ul>
+<div class="champuter"><strong>🎓 Champuter's final task:</strong><p>Investigate four requests: one 2xx, one 3xx, one 4xx and one 5xx. For each, record <strong>URL, method, status, relevant headers, response body, likely cause, proposed fix and verification</strong>. That is the difference between knowing a list of codes and actually debugging a website.</p></div>
+<p><a class="btn" href="https://dsa.learnwithchampak.live/web/http-status-codes-zero-to-infinity/playground.html" target="_blank" rel="noopener">Launch HTTP Status Playground</a> <a class="btn alt" href="https://learnwithchampak.live/" target="_blank" rel="noopener">Learn With Champak Blog</a></p>
+<p class="small"><strong>Programmers' Picnic · Learn With Champak.</strong> This is a provider-neutral educational resource. Chrome panel placement may vary with browser version. The local tests return real HTTP status codes, while incident causes are deliberately simulated.</p>
 </div>
