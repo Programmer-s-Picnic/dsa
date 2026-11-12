@@ -673,7 +673,7 @@ app.get("/protected", (req, res) =&gt; {
   if (!req.session.displayName) {
     return res.status(401).send("Please enter the demo first");
   }
-  res.send("Protected demonstration: hello " +
+  res.type("text/plain").send("Protected demonstration: hello " +
            req.session.displayName);
 });
 
