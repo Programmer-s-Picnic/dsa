@@ -34,7 +34,7 @@ const definitions = {
   503:["Service Unavailable","Simulated temporary maintenance."],
   504:["Gateway Timeout","Simulated timeout from an upstream service."]
 };
-app.get("/api/status/:code", (req,res)=>{
+app.all("/api/status/:code", (req,res)=>{
   const code = Number(req.params.code);
   if(!Object.hasOwn(definitions,code)){
     return res.status(400).json({message:"Status not in this lesson's supported list"});
@@ -47,6 +47,7 @@ app.get("/api/status/:code", (req,res)=>{
   if(code===503)res.set("Retry-After","30");
   if(code===204)return res.status(204).end();
   if(code===206){
+    if(req.get("Range")!=="bytes=0-9") return res.status(400).json({error:"Send Range: bytes=0-9 for this example"});
     res.set("Accept-Ranges","bytes");
     res.set("Content-Range","bytes 0-9/28");
     return res.status(206).type("text/plain").send("0123456789");
