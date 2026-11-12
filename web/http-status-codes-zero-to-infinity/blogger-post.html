@@ -1,0 +1,133 @@
+<div class="lwc-http" id="lwc-http"><style>
+.lwc-http{max-width:1040px;margin:auto;font:16px/1.8 Arial,Helvetica,sans-serif;color:#1c405d}
+.lwc-http *{box-sizing:border-box}
+.lwc-http h1,.lwc-http h2,.lwc-http h3{line-height:1.32;scroll-margin-top:90px}
+.lwc-http h1{font-size:clamp(29px,4vw,43px);color:#123d65}
+.lwc-http h2{font-size:clamp(22px,3vw,30px);color:#105d91;border-bottom:2px solid #d1e8f7;padding-bottom:9px;margin:43px 0 15px}
+.lwc-http h3{font-size:20px;color:#1d5b84;margin:24px 0 10px}
+.lwc-http p{margin:12px 0}.lwc-http img{max-width:100%;height:auto;border-radius:16px}.lwc-http a{color:#1175ac}
+.lwc-http .lead{font-size:18px;color:#3b637f}.lwc-http .small{font-size:13px;color:#617e96}
+.lwc-http .hero{background:#eaf7ff;border:1px solid #b6d9ed;padding:15px;border-radius:17px;margin:18px 0}
+.lwc-http .card,.lwc-http .champuter{border:1px solid #bbd9eb;border-radius:13px;background:#f1f9ff;padding:17px 20px;margin:18px 0}
+.lwc-http .champuter{background:#e8f6ff}.lwc-http .champuter strong{color:#0e5e8f}
+.lwc-http .warning{border-left:5px solid #cf9432;background:#fff7e8;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0}
+.lwc-http .flow{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;background:#f2f9ff;border:1px solid #c3dff0;padding:15px;border-radius:12px;margin:18px 0}
+.lwc-http .flow span{background:#fff;border:1px solid #a8cfec;border-radius:9px;padding:10px 12px;text-align:center;font-weight:bold}.lwc-http .flow b{color:#287eaa}
+.lwc-http .families{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px;margin:15px 0}
+.lwc-http .families div{border:1px solid #c8deef;border-radius:10px;padding:13px;background:#f6fbff}.lwc-http .families strong{font-size:25px;color:#175c87;display:block}
+.lwc-http .toc{columns:2;column-gap:22px}.lwc-http .toc li{break-inside:avoid}
+.lwc-http .scroll{overflow-x:auto}.lwc-http table{border-collapse:collapse;width:100%;font-size:14px;margin:18px 0}
+.lwc-http th,.lwc-http td{border:1px solid #c2dcec;padding:10px 12px;text-align:left;vertical-align:top}.lwc-http th{background:#e5f3ff;color:#175077}
+.lwc-http pre{background:#122d46;color:#f1f8ff;border-radius:11px;padding:17px 18px;overflow-x:auto;white-space:pre;font:14px/1.6 Consolas,Monaco,monospace}
+.lwc-http code{font-family:Consolas,monospace}.lwc-http :not(pre)>code{background:#e8f2fa;color:#13527b;padding:2px 5px;border-radius:4px}
+.lwc-http .lab{border:1px solid #afd3e9;background:#f0faff;border-radius:13px;padding:17px 20px;margin:23px 0}.lwc-http .lab>strong:first-child{font-size:18px;color:#125f8e}
+.lwc-http .expected{border-left:4px solid #4aa07a;background:#eaf7f0;padding:11px 14px;border-radius:0 10px 10px 0}
+.lwc-http details{border:1px solid #c0dfee;border-radius:10px;background:#f6fbff;padding:12px 15px;margin:9px 0}.lwc-http details[open]{background:#edf8ff}
+.lwc-http summary{cursor:pointer;color:#135f90;font-weight:bold}.lwc-http li{margin:5px 0}
+.lwc-http .btn{display:inline-block;background:#1572a9;color:#fff!important;text-decoration:none;padding:10px 15px;border-radius:9px;font-weight:bold;margin:5px}
+.lwc-http .btn.alt{background:#eaf5ff;color:#175d88!important;border:1px solid #b8d8ee}
+@media(max-width:640px){.lwc-http .toc{columns:1}.lwc-http table{font-size:12px}.lwc-http pre{font-size:12px}.lwc-http .families{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+<p class="small"><strong>Learn With Champak · Programmers' Picnic · Web Development / Networking</strong></p>
+<h1>HTTP Status Codes — Zero to Infinity ∞ | Practical Chrome DevTools Course with Champuter</h1>
+<p class="lead">Learn why a server sends 200, 201, 301, 304, 401, 403, 404, 429, 500 and other HTTP statuses. Then inspect real requests in Chrome's Network panel, trace redirects, understand API response headers and practise with a runnable Node.js laboratory.</p>
+<div class="hero"><img src="https://dsa.learnwithchampak.live/web/http-status-codes-zero-to-infinity/champuter-status-codes.svg" alt="Champuter explains Chrome DevTools and HTTP statuses 200 201 404 500" width="1200" height="630" loading="eager"/></div>
+<div class="champuter"><strong>🎓 Champuter's opening question</strong><p>When a webpage says “Not Found,” did the browser really reach a server? Was the URL wrong, or was a database record missing? When an API says “Internal Server Error,” was the application broken or did a gateway fail? Let's learn to investigate rather than guess. Use Champuter's Learn With Champak teacher controls to read the lesson aloud, highlight sections and explain selected passages.</p></div>
+<div class="card"><p><strong>Start hands-on learning:</strong> <a class="btn" href="https://dsa.learnwithchampak.live/web/http-status-codes-zero-to-infinity/playground.html" target="_blank" rel="noopener">HTTP Status Playground</a> <a class="btn alt" href="https://dsa.learnwithchampak.live/tools/chrome-devtools-zero-to-infinity/" target="_blank" rel="noopener">Chrome DevTools Course</a></p>
+<p>The published playground supports real HTTP 200 and 404 without installing anything. For redirects, conditional 304, 401/403, rate limiting and simulated server failures, run the included Node.js test server locally. In that mode the <em>status responses are real</em>, while their application causes are deliberately simulated.</p></div>
+<h2 id="hsc-contents">Course contents</h2>
+<ol class="toc">
+<li><a href="#hsc-introduction">HTTP status: real zero</a></li><li><a href="#hsc-conversation">A complete client–server exchange</a></li><li><a href="#hsc-classes">The five families</a></li><li><a href="#hsc-chrome">Inspect responses in Chrome</a></li><li><a href="#hsc-1xx">1xx informational</a></li><li><a href="#hsc-2xx">2xx successful</a></li><li><a href="#hsc-3xx">3xx redirects and cache</a></li><li><a href="#hsc-4xx">4xx client errors</a></li><li><a href="#hsc-5xx">5xx server errors</a></li><li><a href="#hsc-compare">Compare similar status codes</a></li><li><a href="#hsc-headers">Status-dependent headers</a></li><li><a href="#hsc-fetch">JavaScript fetch behaviour</a></li><li><a href="#hsc-express">Node.js status API</a></li><li><a href="#hsc-labs">Practical DevTools laboratories</a></li><li><a href="#hsc-debug">Troubleshooting a real website</a></li><li><a href="#hsc-advanced">Caching, nonstandard codes and security</a></li><li><a href="#hsc-quiz">20 review questions</a></li><li><a href="#hsc-summary">Status-code cheat sheet and references</a></li>
+</ol>
+<h2 id="hsc-introduction">1. What is an HTTP status code? Start at real zero.</h2>
+<p>When a <strong>client</strong> such as Chrome requests a webpage, file or API resource, an HTTP <strong>server</strong> ordinarily replies with a status code, headers and possibly a body. The status code is a three-digit number describing the result of <em>that particular request</em>. It is part of the protocol, not the filename, and the same URL can produce different codes at different times.</p>
+<p>For example, an authorised student requesting <code>/api/results/42</code> may receive 200. An unauthenticated visitor may receive 401. A different student may receive 403. A missing resource may receive 404. If backend processing fails, the server may return 500.</p>
+<h3>See a raw HTTP/1.1 response</h3>
+<pre><code>HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Cache-Control: max-age=120
+
+&lt;h1&gt;Hello Students!&lt;/h1&gt;</code></pre>
+<p><strong>200</strong> is the status number; <strong>OK</strong> is its customary reason phrase; <strong>Content-Type</strong> and <strong>Cache-Control</strong> are response headers; the HTML appears after the empty line. Modern HTTP/2 and HTTP/3 encode messages differently and do not use HTTP/1.1's textual status line, but the same status-code semantics apply.</p>
+<div class="warning"><strong>Most important distinction:</strong> “The webpage didn't load” is <em>not necessarily</em> a 404 or 500. A DNS failure, TCP connection refusal, TLS failure, blocked request or offline network can prevent any usable HTTP response. Chrome may show <code>(failed)</code> or a browser-level error rather than a three-digit code.</div>
+<h2 id="hsc-conversation">2. How the browser and server exchange information</h2>
+<div class="flow"><span>Browser / client</span><b>→</b><span>HTTP request</span><b>→</b><span>Web server / API</span><b>→</b><span>Status + headers + optional body</span><b>→</b><span>Browser</span></div>
+<p>When a student presses <em>Save Task</em>, a JavaScript program may send a POST request. The backend validates data and checks permissions, then returns 201 if it creates a new task, 422 if a field is semantically unacceptable, 401 if authentication is missing or 500 if an unexpected failure occurs.</p>
+<pre><code>POST /api/tasks HTTP/1.1
+Host: example.com
+Content-Type: application/json
+
+{"title":"Study HTTP"}
+
+HTTP/1.1 201 Created
+Location: /api/tasks/42
+Content-Type: application/json
+
+{"id":42,"title":"Study HTTP"}</code></pre>
+<p>Notice the difference between the <strong>HTTP status</strong> and a field in the <strong>JSON body</strong>. Good APIs choose meaningful statuses and use the body for additional details. A server sometimes sends a status with no body at all, particularly 204 or 304.</p>
+<h2 id="hsc-classes">3. Five classes of HTTP status codes</h2>
+<div class="families"><div><strong>1xx</strong>Informational — interim progress or protocol information</div><div><strong>2xx</strong>Success — request successfully handled</div><div><strong>3xx</strong>Redirection / cache revalidation</div><div><strong>4xx</strong>Client/request error — cannot fulfil</div><div><strong>5xx</strong>Server / intermediary error — cannot fulfil</div></div>
+<p>The standards recognise valid HTTP status numbers from 100 to 599, but many numbers are unassigned. A client can recognise an unknown status by its first digit. A 4xx code doesn't prove that the user's computer is broken; a 5xx code doesn't prove the Node.js code itself is at fault, because proxies and gateways can also respond.</p>
+<div class="champuter"><strong>🎓 Champuter's memory trick</strong><p>1 = Information, 2 = Success, 3 = Redirect/Reuse, 4 = Problem with fulfilling the request, 5 = Server or gateway problem. For accurate debugging, always inspect the URL, method, status, headers and body together.</p></div>
+<h2 id="hsc-chrome">4. See the status codes using Chrome Developer Tools</h2>
+<p>In desktop Chrome, press <strong>F12</strong> or <strong>Ctrl+Shift+I</strong> (Mac: <strong>Cmd+Option+I</strong>). Open <strong>Network</strong>, then reload the webpage. Chrome lists requests for HTML, CSS, JavaScript, fonts, images and APIs.</p>
+<div class="scroll"><table><thead><tr><th>Chrome DevTools area</th><th>What it teaches you</th></tr></thead><tbody><tr><td>Name / Status</td><td>Which request produced which HTTP status</td></tr><tr><td>Headers → General</td><td>Exact URL, request method, response status</td></tr><tr><td>Request Headers / Payload</td><td>What the browser actually sent</td></tr><tr><td>Response Headers</td><td>Location, Allow, Retry-After, WWW-Authenticate, ETag, Cache-Control</td></tr><tr><td>Response / Preview</td><td>Returned JSON, HTML, error details or empty body</td></tr><tr><td>Initiator</td><td>Which script, redirect or navigation initiated the request</td></tr><tr><td>Timing / Waterfall</td><td>Connection, waiting and download timeline</td></tr><tr><td>Filter bar</td><td>Type <code>status-code:404</code> or <code>status-code:500</code></td></tr></tbody></table></div>
+<p>Use the <strong>Fetch/XHR</strong> filter for API calls. Turn on <strong>Preserve log</strong> for redirect investigations. The <strong>Disable cache</strong> option is helpful when testing cache bypass, but leave it disabled when learning normal caching behaviour.</p>
+<div class="lab"><strong>Lab 1 — Compare real 200 and 404</strong><ol><li>Open the <a href='https://dsa.learnwithchampak.live/web/http-status-codes-zero-to-infinity/playground.html' target='_blank' rel='noopener'>status playground</a>.</li><li>Press F12 → Network → Fetch/XHR.</li><li>Click <em>200 OK · Existing JSON</em> and inspect the Response.</li><li>Click <em>404 Not Found · Missing JSON</em> and inspect its status.</li><li>Enter <code>status-code:404</code> in Network's filter and see what remains.</li></ol><p class="expected"><strong>Expected:</strong> Both calls produce real HTTP responses. The 200 includes expected JSON; the 404 reports a missing resource.</p></div>
+<h2 id="hsc-1xx">5. The 1xx family — informational responses</h2>
+<p>An informational response usually arrives <em>before</em> the final response. A request can have zero or more 1xx responses, then one final 2xx/3xx/4xx/5xx response. You will not see these on every ordinary webpage.</p>
+<div class="scroll"><table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody><tr><td>100 Continue</td><td>An interim response signalling that request body transmission may proceed.</td></tr><tr><td>101 Switching Protocols</td><td>Server agrees to upgrade the protocol when the client requested a supported switch.</td></tr><tr><td>103 Early Hints</td><td>An interim response that can help the browser begin loading likely resources early.</td></tr></tbody></table></div>
+<h3>100 Continue</h3><p>The client may send <code>Expect: 100-continue</code> before a large request body. The server can reply 100 to indicate continuation. This is useful when avoiding the cost of uploading a large body that the server would immediately reject.</p>
+<h3>101 Switching Protocols</h3><p>Can be used in an HTTP/1.1 protocol upgrade, historically associated with WebSocket handshakes. HTTP/2 and HTTP/3 introduce different mechanisms.</p>
+<h3>103 Early Hints</h3><p>Can supply preliminary link hints before the final response, potentially enabling earlier preload/preconnect work. Intermediaries and browser versions affect whether these details are visible in DevTools.</p>
+<h2 id="hsc-2xx">6. The 2xx family — different types of success</h2>
+<div class="scroll"><table><thead><tr><th>Code</th><th>Official meaning</th><th>Practical example</th></tr></thead><tbody><tr><td>200 OK</td><td>Request succeeded, often with a body.</td><td>GET existing article or API record.</td></tr><tr><td>201 Created</td><td>Request succeeded and a new resource was created.</td><td>POST creates a task; include Location when appropriate.</td></tr><tr><td>202 Accepted</td><td>Request accepted but processing not yet complete.</td><td>Report generation or background job.</td></tr><tr><td>203 Non-Authoritative Information</td><td>Response metadata was transformed by an intermediary.</td><td>Uncommon transforming intermediary.</td></tr><tr><td>204 No Content</td><td>Successful response with no message body.</td><td>Successful DELETE or update without a returned representation.</td></tr><tr><td>205 Reset Content</td><td>Client is asked to reset the view after success.</td><td>Reset an editing form.</td></tr><tr><td>206 Partial Content</td><td>One or more byte ranges are returned.</td><td>Resume a download or seek in media.</td></tr><tr><td>207 Multi-Status</td><td>WebDAV response describing multiple results.</td><td>Multiple WebDAV resource operations.</td></tr><tr><td>208 Already Reported</td><td>WebDAV avoids repeating previously reported members.</td><td>Advanced WebDAV.</td></tr><tr><td>226 IM Used</td><td>Instance manipulation response.</td><td>Specialised HTTP extension.</td></tr></tbody></table></div>
+<h3>200, 201, 202 and 204 are not interchangeable</h3>
+<p><strong>200 OK:</strong> the server successfully completed a request. <strong>201 Created:</strong> a new resource exists; a <code>Location</code> response header may identify it. <strong>202 Accepted:</strong> work was accepted, but might still fail later, so an asynchronous job-status endpoint may be useful. <strong>204 No Content:</strong> no response body should be parsed as JSON.</p>
+<pre><code>GET    /api/tasks/42 → 200 OK
+POST   /api/tasks    → 201 Created
+POST   /api/jobs     → 202 Accepted
+DELETE /api/tasks/42 → 204 No Content</code></pre>
+<p><strong>206 Partial Content</strong> usually involves a request like <code>Range: bytes=0-9</code> and a response <code>Content-Range: bytes 0-9/28</code>. This is used for media playback and partial downloads.</p>
+<div class="lab"><strong>Lab 2 — Inspect successful status differences</strong><ol><li>With the local Node.js status server running, open the playground in Chrome.</li><li>Trigger 201 and inspect its <code>Location</code> header.</li><li>Trigger 202 and explain why accepted does not mean completed.</li><li>Trigger 204; notice the empty response body.</li><li>Trigger 206 and inspect <code>Content-Range</code>.</li></ol><p class="expected"><strong>Expected:</strong> All responses carry real HTTP numeric status codes, with teaching scenarios that are intentionally simulated.</p></div>
+<h2 id="hsc-3xx">7. The 3xx family — redirecting and reusing cached resources</h2>
+<div class="scroll"><table><thead><tr><th>Status</th><th>Meaning</th><th>Key detail</th></tr></thead><tbody><tr><td>300 Multiple Choices</td><td>Alternative representations exist.</td><td>May require selecting an alternative.</td></tr><tr><td>301 Moved Permanently</td><td>A permanent redirect.</td><td>Browsers may change POST to GET historically.</td></tr><tr><td>302 Found</td><td>A temporary redirect.</td><td>Browsers may change POST to GET historically.</td></tr><tr><td>303 See Other</td><td>Go to another resource, normally with GET.</td><td>Useful after form submission (Post/Redirect/Get).</td></tr><tr><td>304 Not Modified</td><td>Cached representation is still valid.</td><td>Conditional GET using ETag/If-None-Match.</td></tr><tr><td>307 Temporary Redirect</td><td>Temporary redirect that preserves method and body.</td><td>POST must remain POST.</td></tr><tr><td>308 Permanent Redirect</td><td>Permanent redirect that preserves method and body.</td><td>POST must remain POST.</td></tr></tbody></table></div>
+<h3>Understand 301, 302, 303, 307 and 308</h3>
+<p>When a resource moves, a server can return a redirect with a <code>Location</code> header. Browsers usually follow it automatically. <strong>301 and 308</strong> are permanent; <strong>302 and 307</strong> are temporary. <strong>307 and 308 preserve the original HTTP method and body</strong>; 301/302 may change POST to GET for compatibility. A <strong>303</strong> commonly directs the client to fetch a result using GET after a successful POST.</p>
+<pre><code>POST /submit-form
+HTTP/1.1 303 See Other
+Location: /thank-you
+
+GET /thank-you
+HTTP/1.1 200 OK</code></pre>
+<h3>304 is a special case: Not Modified</h3>
+<p>A <strong>304</strong> is a revalidation response, not an ordinary redirection to another URL. The browser might send <code>If-None-Match</code> containing an ETag from a previous response. If the resource remains unchanged, the server returns 304 and the browser can reuse the cached representation. A 304 has no response body.</p>
+<pre><code>GET /lesson.css HTTP/1.1
+If-None-Match: "version-7"
+
+HTTP/1.1 304 Not Modified
+ETag: "version-7"</code></pre>
+<div class="lab"><strong>Lab 3 — Reveal redirect chains</strong><ol><li>Start the local Node.js test server; open the playground.</li><li>Enable <strong>Preserve log</strong> in Network.</li><li>Trigger GET → 302, then inspect the intermediate redirect and its Location header.</li><li>Trigger POST → 303 and POST → 307; compare methods sent to the destination.</li><li>Observe that JavaScript may report final status 200 even though Network also shows 303 or 307.</li></ol><p class="expected"><strong>Expected:</strong> 303 leads to GET, whereas 307 preserves POST. The final 200 doesn't erase the intermediate redirect.</p></div>
+<div class="lab"><strong>Lab 4 — Validate cache with ETag and 304</strong><ol><li>Trigger the playground's first ETag request and inspect ETag / Cache-Control.</li><li>Try the conditional request with <code>If-None-Match</code>.</li><li>Look for 304 in Network; caching can affect the status shown to script.</li><li>Use the supplied curl commands in the playground for a deterministic conditional request.</li><li>Explain why a cached resource can be displayed even though 304 has no new response body.</li></ol><p class="expected"><strong>Expected:</strong> A 304 is a successful cache-revalidation condition, not a missing or moved file.</p></div>
+<h2 id="hsc-4xx">8. The 4xx family — client and request errors</h2>
+<p>4xx means the server cannot or will not fulfil the request. This is broader than a typo in the browser. The resource may be private, the authentication may be missing, the JSON may violate application rules, or the route may be unavailable.</p>
+<div class="scroll"><table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody><tr><td>400 Bad Request</td><td>Request cannot be processed, e.g. malformed syntax.</td></tr><tr><td>401 Unauthorized</td><td>Valid authentication is missing; WWW-Authenticate challenge required.</td></tr><tr><td>402 Payment Required</td><td>Reserved for future use; custom platform usages may vary.</td></tr><tr><td>403 Forbidden</td><td>Request understood, but fulfilment is refused.</td></tr><tr><td>404 Not Found</td><td>Resource not found or intentionally concealed.</td></tr><tr><td>405 Method Not Allowed</td><td>Method known but disallowed for the target resource; Allow header required.</td></tr><tr><td>406 Not Acceptable</td><td>No acceptable representation matches negotiation parameters.</td></tr><tr><td>407 Proxy Authentication Required</td><td>Client must authenticate to the proxy.</td></tr><tr><td>408 Request Timeout</td><td>Server did not receive complete request in time.</td></tr><tr><td>409 Conflict</td><td>Current state of resource conflicts with request.</td></tr><tr><td>410 Gone</td><td>Resource is no longer available and likely permanently removed.</td></tr><tr><td>411 Length Required</td><td>Server requires a Content-Length.</td></tr><tr><td>412 Precondition Failed</td><td>A conditional request precondition failed.</td></tr><tr><td>413 Content Too Large</td><td>Request body is larger than allowed.</td></tr><tr><td>414 URI Too Long</td><td>Requested URI is too long.</td></tr><tr><td>415 Unsupported Media Type</td><td>Request content type not supported.</td></tr><tr><td>416 Range Not Satisfiable</td><td>Requested byte range could not be fulfilled.</td></tr><tr><td>417 Expectation Failed</td><td>Expectation declared by client cannot be met.</td></tr><tr><td>418 (Unused)</td><td>Reserved unused in modern HTTP registry (historic teapot joke).</td></tr><tr><td>421 Misdirected Request</td><td>Server is not configured for this target authority.</td></tr><tr><td>422 Unprocessable Content</td><td>Syntax is understood but content is semantically unacceptable.</td></tr><tr><td>423 Locked</td><td>WebDAV resource is locked.</td></tr><tr><td>424 Failed Dependency</td><td>WebDAV operation failed because another action failed.</td></tr><tr><td>425 Too Early</td><td>Server is unwilling to process replay-prone early data.</td></tr><tr><td>426 Upgrade Required</td><td>Protocol must be upgraded.</td></tr><tr><td>428 Precondition Required</td><td>Conditional request required to avoid lost update.</td></tr><tr><td>429 Too Many Requests</td><td>Request rate limit exceeded.</td></tr><tr><td>431 Request Header Fields Too Large</td><td>Header fields are too large.</td></tr><tr><td>451 Unavailable For Legal Reasons</td><td>Resource cannot be made available for legal reasons.</td></tr></tbody></table></div>
+<h3>401 vs 403</h3>
+<p><strong>401:</strong> the request lacks valid authentication. Despite its name “Unauthorized”, it usually means <em>authenticate first</em>. RFC 9110 requires an applicable <code>WWW-Authenticate</code> challenge in a 401 response. <strong>403:</strong> the server understands but refuses the request, often due to a permissions rule. A resource can sometimes be reported as 404 to avoid revealing its existence.</p>
+<pre><code>HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer realm="Students"
+Content-Type: application/json
+
+{"error":"Please sign in"}</code></pre>
+<h3>405 Method Not Allowed</h3>
+<p>A route supporting GET may reject POST with 405. The server <strong>must</strong> include an <code>Allow</code> response header identifying its supported methods. This is different from a 501 response, where the server does not implement the method at all.</p>
+<pre><code>POST /api/only-get
+
+HTTP/1.1 405 Method Not Allowed
+Allow: GET, HEAD, OPTIONS</code></pre>
+<h3>429 Too Many Requests and Retry-After</h3>
+<p>A client may exceed a rate limit and receive 429, potentially with <code>Retry-After: 10</code>. It should wait and apply reasonable backoff. Do not immediately retry continuously, especially not a POST that could create duplicate records without idempotency controls.</p>
+<div class="lab"><strong>Lab 5 — Authentication and permission failures</strong><ol><li>Trigger 401 in the local playground; inspect <code>WWW-Authenticate</code>.</li><li>Trigger 403; compare its meaning with 401.</li><li>Explain why a hidden admin button does not replace server authorization.</li><li>Try 404 and 410; describe the difference between not found and gone.</li></ol><p class="expected"><strong>Expected:</strong> 401 and 403 have distinct meanings; 404/410 address resource availability.</p></div>
+<div class="lab"><strong>Lab 6 — Method and rate-limit errors</strong><ol><li>Trigger the 405 button, which sends POST to a GET-only route.</li><li>Find its <code>Allow</code> header in DevTools.</li><li>Trigger 429; inspect its <code>Retry-After</code> header.</li><li>Write a retry policy that waits rather than overwhelming the service.</li></ol><p class="expected"><strong>Expected:</strong> 405 is a real wrong-method scenario. The 429 HTTP response is real, while its rate-limit cause is simulated.</p></div>
+<!--HTTP-STATUS-APPEND-HERE-->
+</div>
