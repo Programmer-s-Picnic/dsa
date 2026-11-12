@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>WWW Practice Lab with Champuter — Browser &amp; Web Storage</title>
+<meta name="description" content="Hands-on browser lab for HTML CSS JavaScript, cookies, localStorage, sessionStorage, HTTP requests, DOM events and developer tools."/>
+<style>
+:root{font:16px/1.6 system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#1d415e;background:#edf7ff}*{box-sizing:border-box}
+body{margin:0}header{padding:25px max(20px,calc((100vw - 990px)/2));background:#0e4c80;color:white}header h1{margin:0;font-size:clamp(25px,3vw,39px)}header p{margin:8px 0 0;color:#d1ebfd}
+main{max-width:1010px;margin:0 auto;padding:23px 17px 100px}section{background:white;border:1px solid #c0dfef;border-radius:15px;margin:16px 0;padding:20px;box-shadow:0 6px 20px #0a467910}
+h2{color:#145e91;margin:0 0 9px}p{margin:8px 0 13px}a{color:#145d94}
+input{font:inherit;padding:10px;border:1px solid #a4cee8;border-radius:8px;max-width:100%}
+button{background:#146ca5;color:white;border:0;border-radius:9px;padding:10px 13px;margin:5px 5px 5px 0;cursor:pointer;font-weight:750}
+button.alt{background:#edf7fd;color:#165c8a;border:1px solid #b0d5eb}
+button:focus-visible,input:focus-visible{outline:3px solid #e4a62c;outline-offset:3px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}.small{color:#638298;font-size:13px}
+pre{overflow:auto;background:#122c43;color:#eef8ff;border-radius:10px;padding:15px;white-space:pre-wrap;word-break:break-word;font:13px/1.6 ui-monospace,Consolas,monospace}
+.output{background:#edf9ff;border-left:4px solid #1682bf;padding:12px 14px;border-radius:0 8px 8px 0;min-height:42px;white-space:pre-wrap;overflow-wrap:anywhere}
+.warning{border-left:4px solid #c98624;padding:11px 15px;background:#fff7e8;border-radius:0 9px 9px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #c8dfef;padding:9px;text-align:left}th{background:#e8f5fd}footer{color:#557995;font-size:13px;margin-top:25px}
+</style>
+</head>
+<body>
+<header><h1>🌐 WWW Practice Lab — With Champuter</h1><p>Learn With Champak · Browser, DOM, storage, cookies and HTTP examples</p></header>
+<main><p><a href="./">← Read the detailed World Wide Web lesson</a></p>
+<div class="warning"><strong>Education only:</strong> This page uses sample non-sensitive values. It is a static page, not a real login service. A real server session cannot be created by localStorage or a fake sign-in button. Never enter a password here.</div>
+<section id="dom"><h2>Lab 1 — HTML + CSS + JavaScript = interactive page</h2>
+<p id="message">This paragraph is part of the DOM. Click a button to change it.</p>
+<button type="button" id="changeText">Change the text</button><button type="button" class="alt" id="changeStyle">Change the style</button><button type="button" class="alt" id="resetDom">Reset</button>
+<div class="output" id="domInfo">Inspect this paragraph using Chrome DevTools → Elements.</div>
+</section>
+<section id="storage"><h2>Lab 2 — Compare localStorage and sessionStorage</h2>
+<p>Write a harmless nickname. Save it in each browser storage system. Reload, open another tab, and close/reopen to investigate persistence.</p>
+<label for="nickname">Nickname: </label><input id="nickname" placeholder="Example: Asha" maxlength="80"/>
+<div><button type="button" id="localSet">Save to localStorage</button><button type="button" id="sessionSet">Save to sessionStorage</button><button type="button" class="alt" id="storageRead">Read both</button><button type="button" class="alt" id="storageClear">Remove demo keys</button></div>
+<div class="output" id="storageOut">No demo storage action yet.</div>
+<p class="small">These are browser-side, origin-scoped key/value stores. Neither sends stored values automatically with every HTTP request. sessionStorage is tied to a tab's page session; duplicated/opened tabs can initially receive a copy depending on how created.</p>
+</section>
+<section id="cookie"><h2>Lab 3 — Make and inspect a non-sensitive cookie</h2>
+<p>This lab sets only a sample JavaScript-readable preference cookie; it is <strong>not</strong> an authentication cookie.</p>
+<div><button type="button" id="cookieSet">Create demo cookie</button><button type="button" class="alt" id="cookieRead">Read document.cookie</button><button type="button" class="alt" id="cookieDelete">Delete demo cookie</button></div>
+<div class="output" id="cookieOut">No demo cookie action yet.</div>
+<p class="small">Inspect Chrome DevTools → Application → Cookies. A production login-session cookie should normally be issued by the server with HttpOnly, Secure and suitable SameSite settings. JavaScript cannot create an HttpOnly cookie.</p>
+</section>
+<section id="network"><h2>Lab 4 — Watch HTTP requests in Network</h2>
+<p>Open DevTools (F12) → Network → Fetch/XHR. Click the buttons, then inspect status, headers, response and timing.</p>
+<button type="button" id="fetchSuccess">Fetch existing JSON</button><button type="button" id="fetch404" class="alt">Request missing JSON (404)</button>
+<div class="output" id="networkOut">No request yet.</div>
+</section>
+<section id="url"><h2>Lab 5 — Inspect a URL without sending private data</h2>
+<p>Type a public search topic. This demo constructs a sample GET query string locally; it does not submit it to a search engine.</p>
+<input id="topic" maxlength="100" placeholder="HTML fundamentals"/><button type="button" id="buildUrl">Construct example URL</button>
+<div class="output" id="urlOut">URL appears here.</div>
+</section>
+<section id="session"><h2>Lab 6 — Understand a real server-side session</h2>
+<div class="grid"><div><strong>Browser</strong><pre>Cookie: session_id=opaque_random_id
+HTTPS request → Server</pre></div><div><strong>Server</strong><pre>session_id → user_id: 42
+           → authenticated: true
+Response → Browser</pre></div></div>
+<p>This is a diagram, not a working login. In a real app, the server validates credentials, generates a safe session ID, stores or cryptographically validates session information, sets a protected cookie, and checks the session on protected requests.</p>
+<p class="small">See the Node.js Express session example and security discussion in the main lesson.</p>
+</section>
+<section><h2>Lab 7 — DevTools observation checklist</h2>
+<table><thead><tr><th>Where</th><th>Observe</th></tr></thead><tbody>
+<tr><td>Elements</td><td>DOM changes from Lab 1</td></tr>
+<tr><td>Application → Local Storage</td><td>Nickname saved under this origin</td></tr>
+<tr><td>Application → Session Storage</td><td>Tab-scoped nickname</td></tr>
+<tr><td>Application → Cookies</td><td>Demo cookie attributes and expiry</td></tr>
+<tr><td>Network → Fetch/XHR</td><td>200 versus missing-file response</td></tr>
+<tr><td>Console</td><td>Try document.title and document.cookie on this practice page</td></tr>
+</tbody></table>
+</section>
+<footer>Programmers' Picnic · Learn With Champak · Only harmless demo keys with prefix <code>lwc_www_demo_</code> are changed by the storage buttons.</footer>
+</main>
+<script>
+"use strict";
+const byId=id=>document.getElementById(id);
+const keyLocal="lwc_www_demo_local";
+const keySession="lwc_www_demo_session";
+const cookieName="lwc_www_demo_preference";
+const path="/web/www-zero-to-infinity/";
+let changed=false;
+byId("changeText").addEventListener("click",()=>{
+  byId("message").textContent="JavaScript changed the DOM without reloading the page!";
+  byId("domInfo").textContent="Look at Elements → the paragraph now has new textContent.";
+});
+byId("changeStyle").addEventListener("click",()=>{
+  byId("message").style.color="#a34b1f";
+  byId("message").style.fontWeight="800";
+  changed=true;
+  byId("domInfo").textContent="JavaScript changed inline CSS styles. Observe the Styles pane.";
+});
+byId("resetDom").addEventListener("click",()=>{
+  byId("message").textContent="This paragraph is part of the DOM. Click a button to change it.";
+  byId("message").removeAttribute("style");
+  changed=false;
+  byId("domInfo").textContent="Demo restored.";
+});
+function readStorage(){
+ try{
+  byId("storageOut").textContent=
+   "localStorage: "+JSON.stringify(localStorage.getItem(keyLocal))+"\n"+
+   "sessionStorage: "+JSON.stringify(sessionStorage.getItem(keySession));
+ }catch(e){byId("storageOut").textContent="Storage is unavailable: "+e.message}
+}
+byId("localSet").addEventListener("click",()=>{try{localStorage.setItem(keyLocal,byId("nickname").value);readStorage()}catch(e){byId("storageOut").textContent=e.message}});
+byId("sessionSet").addEventListener("click",()=>{try{sessionStorage.setItem(keySession,byId("nickname").value);readStorage()}catch(e){byId("storageOut").textContent=e.message}});
+byId("storageRead").addEventListener("click",readStorage);
+byId("storageClear").addEventListener("click",()=>{try{localStorage.removeItem(keyLocal);sessionStorage.removeItem(keySession);readStorage()}catch(e){byId("storageOut").textContent=e.message}});
+function cookieStatus(){
+ const c=document.cookie.split("; ").find(x=>x.startsWith(cookieName+"="));
+ byId("cookieOut").textContent=c?"JavaScript-readable demo cookie: "+c:"Demo cookie not found in document.cookie.";
+}
+byId("cookieSet").addEventListener("click",()=>{
+ try{
+  document.cookie=cookieName+"=lightblue; Path="+path+"; SameSite=Lax; Max-Age=1800"+(location.protocol==="https:"?"; Secure":"");
+  cookieStatus();
+ }catch(e){byId("cookieOut").textContent=e.message}
+});
+byId("cookieRead").addEventListener("click",cookieStatus);
+byId("cookieDelete").addEventListener("click",()=>{
+ document.cookie=cookieName+"=; Path="+path+"; SameSite=Lax; Max-Age=0"+(location.protocol==="https:"?"; Secure":"");
+ cookieStatus();
+});
+async function fetchJson(filename){
+ try{
+   const response=await fetch("./"+filename,{cache:"no-store"});
+   const kind=response.headers.get("content-type")||"(not specified)";
+   let result="HTTP "+response.status+" "+response.statusText+"; Content-Type: "+kind;
+   if(response.ok && kind.includes("application/json")){
+      const data=await response.json();
+      result+="\n"+JSON.stringify(data,null,2);
+   }
+   byId("networkOut").textContent=result;
+ }catch(e){byId("networkOut").textContent="Network failure (no usable response): "+e.message}
+}
+byId("fetchSuccess").addEventListener("click",()=>fetchJson("sample-api.json"));
+byId("fetch404").addEventListener("click",()=>fetchJson("does-not-exist.json"));
+byId("buildUrl").addEventListener("click",()=>{
+ byId("urlOut").textContent="https://example.com/search?q="+encodeURIComponent(byId("topic").value);
+});
+readStorage();cookieStatus();
+</script>
+</body></html>
