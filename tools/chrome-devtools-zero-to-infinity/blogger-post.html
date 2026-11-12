@@ -1,0 +1,367 @@
+<div class="lwc-devtools" id="lwc-devtools">
+
+<style>
+.lwc-devtools{font:16px/1.8 Arial,Helvetica,sans-serif;color:#1c3f5a;max-width:1040px;margin:0 auto}
+.lwc-devtools *{box-sizing:border-box}.lwc-devtools h1,.lwc-devtools h2,.lwc-devtools h3{line-height:1.3;scroll-margin-top:80px}
+.lwc-devtools h1{font-size:clamp(29px,4vw,43px);color:#103f6a;letter-spacing:-.4px}
+.lwc-devtools h2{font-size:clamp(22px,3vw,30px);color:#0c5689;border-bottom:2px solid #cce7f7;margin:44px 0 16px;padding-bottom:9px}
+.lwc-devtools h3{font-size:20px;color:#195b88;margin:24px 0 8px}.lwc-devtools p{margin:12px 0}
+.lwc-devtools a{color:#146da7}.lwc-devtools a:focus-visible,.lwc-devtools summary:focus-visible{outline:3px solid #f1b33e;outline-offset:3px}
+.lwc-devtools .dt-hero{background:linear-gradient(120deg,#f1faff,#e7f3ff);padding:16px;border:1px solid #b0d8ef;border-radius:18px;margin:20px 0}
+.lwc-devtools img{max-width:100%;height:auto;border-radius:14px}.lwc-devtools .dt-lead{font-size:18px;color:#345f7d}
+.lwc-devtools .dt-card{background:#f2f9ff;border:1px solid #bfdff0;border-radius:13px;padding:17px 20px;margin:20px 0}
+.lwc-devtools .dt-champ{display:flex;gap:12px;background:#e9f6ff;border:1px solid #a5cee8;border-radius:12px;padding:15px;margin:20px 0}
+.lwc-devtools .dt-champ strong{color:#0c5e9c}.lwc-devtools .dt-champ .dt-face{font-size:29px;line-height:1.2}
+.lwc-devtools .dt-warning{background:#fff7ea;border-left:5px solid #d28a2b;padding:14px 18px;margin:18px 0;border-radius:0 10px 10px 0}
+.lwc-devtools .dt-lab{background:#f2faff;border:1px solid #a8d3eb;border-radius:13px;padding:18px;margin:24px 0}
+.lwc-devtools .dt-lab>strong:first-child{color:#115b89;display:block;font-size:18px}
+.lwc-devtools .dt-lab ol{margin:10px 0}.lwc-devtools .dt-result{background:#e6f7ee;border-left:4px solid #398f65;padding:10px 14px;border-radius:0 9px 9px 0}
+.lwc-devtools .dt-scroll{overflow-x:auto}.lwc-devtools table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+.lwc-devtools td,.lwc-devtools th{border:1px solid #bed9ea;padding:10px 12px;text-align:left;vertical-align:top}
+.lwc-devtools th{background:#e3f2fc;color:#134c77}.lwc-devtools pre{background:#122a43;color:#eef8ff;overflow-x:auto;padding:17px 18px;border-radius:11px;font:14px/1.6 Consolas,Monaco,monospace}
+.lwc-devtools code{font-family:Consolas,Monaco,monospace}.lwc-devtools :not(pre)>code{background:#ebf4fa;padding:2px 5px;border-radius:5px;color:#164d78}
+.lwc-devtools .dt-flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;background:#f2faff;border-radius:12px;border:1px solid #c1dfea;padding:16px}
+.lwc-devtools .dt-flow span{padding:10px 12px;border:1px solid #a8d2ec;border-radius:9px;background:#fff;font-weight:700;text-align:center}
+.lwc-devtools .dt-flow b{color:#1a85bc}.lwc-devtools .dt-buttons{display:flex;flex-wrap:wrap;gap:8px}
+.lwc-devtools .dt-btn{display:inline-block;background:#1575ae;color:#fff!important;padding:10px 15px;border-radius:9px;text-decoration:none;font-weight:700}
+.lwc-devtools .dt-btn.alt{background:#eef8ff;color:#165982!important;border:1px solid #bad9ec}
+.lwc-devtools .dt-toc{columns:2;column-gap:22px}.lwc-devtools .dt-toc li{break-inside:avoid;margin-bottom:5px}
+.lwc-devtools .dt-small{font-size:13px;color:#60829a}.lwc-devtools details{border:1px solid #c1dfea;border-radius:10px;padding:12px 15px;margin:9px 0;background:#f6fbff}
+.lwc-devtools details summary{font-weight:bold;cursor:pointer;color:#155b88}.lwc-devtools details[open]{background:#eef8ff}
+.lwc-devtools .dt-figure{margin:22px 0;text-align:center}.lwc-devtools .dt-figure figcaption{font-size:13px;color:#5a7a91}
+.lwc-devtools .dt-columns{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.lwc-devtools .dt-columns>div{background:#f5fbff;border:1px solid #c7e0f1;padding:13px;border-radius:11px}
+@media(max-width:620px){.lwc-devtools .dt-toc{columns:1}.lwc-devtools table{font-size:12px}.lwc-devtools pre{font-size:12px}.lwc-devtools .dt-champ{padding:12px}}
+@media print{.lwc-devtools .dt-btn{color:#164d78!important;background:none!important;border:1px solid #aaa}}
+</style>
+<p class="dt-small"><strong>Learn With Champak · Programmers' Picnic · Web Development · Zero to Infinity</strong></p>
+<h1>Chrome Developer Tools: From Absolute Zero to Infinity ∞</h1>
+<p class="dt-lead">The practical guide to inspecting websites, fixing HTML and CSS, debugging JavaScript, analysing HTTP requests, understanding APIs, testing mobile layouts, measuring performance and diagnosing real production problems — with Champuter.</p>
+<div class="dt-hero"><img src="https://dsa.learnwithchampak.live/tools/chrome-devtools-zero-to-infinity/champuter-devtools.svg" alt="Champuter teaches Chrome Developer Tools: Elements, Console, Sources, Network and Performance" width="1200" height="630" loading="eager"/></div>
+<div class="dt-champ"><span class="dt-face">🎓</span><div><strong>Hello! I am Champuter, your debugging companion.</strong><p>Developers do not repair software by guessing. We observe what the browser actually did, form a hypothesis, test it, and verify the result. Use the Champuter teaching controls on Learn With Champak to hear this article, follow highlighted sections or explain a selected passage.</p></div></div>
+<div class="dt-card"><strong>Learning outcomes:</strong> By the end, you will know which Chrome DevTools panel to open for a page layout defect, JavaScript error, failed API request, login/cookie problem, slow page, accessibility issue or mobile display problem. You will also practise each skill on a dedicated website that deliberately contains defects.</div>
+<div class="dt-buttons"><a class="dt-btn" href="https://dsa.learnwithchampak.live/tools/chrome-devtools-zero-to-infinity/playground.html" target="_blank" rel="noopener">Open practical DevTools playground</a><a class="dt-btn alt" href="https://developer.chrome.com/docs/devtools/overview/" target="_blank" rel="noopener">Official DevTools documentation</a></div>
+<p><strong>Requirements:</strong> Google Chrome on Windows, Linux or macOS, an internet connection for the hosted practice page, and curiosity. You do not need to install a Chrome extension. Menu names and positions may vary somewhat with your Chrome version.</p>
+<h2 id="dt-contents">Course roadmap</h2>
+<ol class="dt-toc">
+<li><a href="#dt-why">What DevTools really is</a></li><li><a href="#dt-open">Opening and arranging DevTools</a></li><li><a href="#dt-mental">How the browser works</a></li>
+<li><a href="#dt-elements">Elements: HTML and CSS</a></li><li><a href="#dt-console">Console: errors and experiments</a></li><li><a href="#dt-sources">Sources: JavaScript debugging</a></li><li><a href="#dt-network">Network: HTTP and APIs</a></li>
+<li><a href="#dt-storage">Application: storage and cookies</a></li><li><a href="#dt-mobile">Device Mode: mobile layouts</a></li><li><a href="#dt-performance">Performance and Core Web Vitals</a></li>
+<li><a href="#dt-lighthouse">Lighthouse: audit a website</a></li><li><a href="#dt-security">Security and privacy</a></li><li><a href="#dt-overrides">Overrides and Workspaces</a></li>
+<li><a href="#dt-otherpanels">More powerful tools</a></li><li><a href="#dt-node">Debug a Node.js application</a></li><li><a href="#dt-diagnosis">Find errors systematically</a></li>
+<li><a href="#dt-project">Final practical project</a></li><li><a href="#dt-quiz">Quiz with answers</a></li><li><a href="#dt-reference">Cheat sheet and references</a></li>
+</ol>
+<h2 id="dt-why">1. What are Chrome Developer Tools?</h2>
+<p>Chrome Developer Tools, usually shortened to <strong>DevTools</strong>, is a collection of diagnostic and experimentation tools built into Chrome. It lets you look <em>inside</em> the webpage, the browser's document structure, applied styles, JavaScript execution, network requests, site storage, accessibility information and performance recordings.</p>
+<p>Imagine a house: the webpage is the finished room you see, whereas DevTools lets you inspect the wiring, walls, dimensions and electrical signals. You can alter many things in your own browser to test an idea, but that does <strong>not</strong> normally change the live website for other people.</p>
+<div class="dt-flow"><span>Browser page</span><b>⇄</b><span>DOM + CSS</span><b>⇄</b><span>JavaScript</span><b>⇄</b><span>HTTP/network</span><b>⇄</b><span>Server/API</span></div>
+<p><strong>Example:</strong> A button is visible but does nothing. Does it lack a click handler? Is JavaScript throwing an exception? Did an API call return 500? Is the button disabled by CSS or covered by another element? DevTools helps you distinguish these causes.</p>
+<div class="dt-warning"><strong>Safety:</strong> The Console can execute JavaScript as part of a website. Never paste commands from strangers, especially when logged in to email, banking or administration sites. DevTools is powerful; use code you understand on websites you control or trust.</div>
+<h2 id="dt-open">2. Open DevTools and learn the layout</h2>
+<div class="dt-scroll"><table><thead><tr><th>Action</th><th>Windows / Linux</th><th>macOS</th></tr></thead><tbody>
+<tr><td>Open DevTools (last-used panel)</td><td>F12 or Ctrl + Shift + I</td><td>Cmd + Option + I</td></tr>
+<tr><td>Inspect an element</td><td>Ctrl + Shift + C</td><td>Cmd + Option + C</td></tr>
+<tr><td>Open Console</td><td>Ctrl + Shift + J</td><td>Cmd + Option + J</td></tr>
+<tr><td>Toggle mobile Device Toolbar</td><td>Ctrl + Shift + M</td><td>Cmd + Shift + M</td></tr>
+<tr><td>Open DevTools Command Menu</td><td>Ctrl + Shift + P</td><td>Cmd + Shift + P</td></tr>
+<tr><td>Search across loaded sources</td><td>Ctrl + Shift + F</td><td>Cmd + Option + F</td></tr>
+<tr><td>Hard reload</td><td>Ctrl + Shift + R</td><td>Cmd + Shift + R</td></tr>
+</tbody></table></div>
+<p>Alternatively, right-click anything on the webpage and choose <strong>Inspect</strong>. The Elements panel opens with that element selected. You can dock DevTools at the right, bottom or left, or use a separate window through the DevTools three-dot menu. If a panel is hidden, use the <strong>»</strong> overflow menu or the Command Menu (type <em>Show Network</em>, for example).</p>
+<div class="dt-lab"><strong>Lab 1 — First look (3 minutes)</strong><ol>
+<li>Open the <a href="https://dsa.learnwithchampak.live/tools/chrome-devtools-zero-to-infinity/playground.html" target="_blank" rel="noopener">playground</a> in Chrome.</li>
+<li>Press F12. Find the tabs <strong>Elements, Console, Sources, Network</strong>.</li>
+<li>Use Ctrl + Shift + C, then click the title on the page.</li>
+<li>Observe the highlighted HTML and the Styles pane.</li>
+<li>Press Esc to toggle the DevTools drawer; try docking DevTools to the right.</li>
+</ol><p class="dt-result"><strong>Expected:</strong> The selected page element is highlighted and its DOM node appears in Elements. No files on the server have changed.</p></div>
+<div class="dt-champ"><span class="dt-face">🎓</span><div><strong>Champuter:</strong> Inspect first; edit second. When you can locate a faulty element or request, you have already made debugging much easier.</div></div>
+<h2 id="dt-mental">3. Understand what DevTools is observing</h2>
+<p>HTML received from a server is parsed into a <strong>Document Object Model (DOM)</strong>. CSS determines layout and appearance. JavaScript can change the DOM and interact with server APIs. HTTP requests fetch the HTML, CSS, scripts, images and data. The browser combines these pieces to draw pixels on the screen.</p>
+<div class="dt-flow"><span>URL</span><b>→</b><span>DNS and network</span><b>→</b><span>HTTP response</span><b>→</b><span>DOM + CSS</span><b>→</b><span>Render</span></div>
+<p>The <strong>View Page Source</strong> command shows the original HTML response; <strong>Elements</strong> shows the current DOM, which JavaScript may have changed. These are not always identical. The <strong>Network</strong> panel shows requests. <strong>Sources</strong> shows loaded code and debug controls. <strong>Console</strong> shows messages and lets you evaluate JavaScript in the page's execution context.</p>
+
+
+<h2 id="dt-elements">4. Elements panel: repair HTML and CSS</h2>
+<p>Use <strong>Elements</strong> when a button is misplaced, text looks strange, a card overflows, a hidden element remains visible, or CSS rules seem to be ignored. On the left is the DOM tree; on the right or below are tabs such as <strong>Styles, Computed, Layout, Event Listeners</strong> and <strong>Accessibility</strong> (available views depend on Chrome's layout).</p>
+<h3>DOM, selectors and the Styles pane</h3>
+<pre><code>&lt;div class="product-card" id="product-17"&gt;
+  &lt;h2&gt;Apples&lt;/h2&gt;
+  &lt;button class="buy-button"&gt;Buy&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+<p>The selector <code>.product-card</code> matches the class, <code>#product-17</code> matches the ID, and <code>button</code> matches element names. A selector might appear several times in the Styles pane; CSS specificity, source order, cascade layers and <code>!important</code> can influence which value wins. Crossed-out declarations are not currently applied.</p>
+<h3>Computed styles, box model and layout</h3>
+<p><strong>Computed</strong> shows the resulting styles after the cascade. The <strong>box model</strong> describes content, padding, border and margin. The <strong>Layout</strong> view can highlight CSS Grid or Flexbox, helping you diagnose item spacing and alignment. Test pseudo-classes such as <code>:hover</code> or <code>:focus</code> using <code>:hov</code> controls in Styles.</p>
+<pre><code>/* Example box-model calculation */
+.card {
+  width: 240px;
+  padding: 20px;
+  border: 2px solid steelblue;
+}
+/* With content-box sizing:
+   overall width = 240 + 40 + 4 = 284px.
+   With border-box sizing:
+   total width remains 240px. */</code></pre>
+<div class="dt-lab"><strong>Lab 2 — Fix an unreadable heading (5 minutes)</strong><ol>
+<li>In the playground, find the <strong>Lab A</strong> heading and pale-coloured sample text.</li>
+<li>Right-click the pale heading and choose Inspect.</li>
+<li>In Styles, locate <code>.buggy-title</code> and change <code>color</code> to <code>#123b63</code>.</li>
+<li>Disable a rule by unchecking it; enable it again. Open Computed and inspect the final colour.</li>
+<li>Reload the page. Observe that the temporary change normally disappears.</li>
+</ol><p class="dt-result"><strong>Expected:</strong> You can test a readable colour without changing the original website files. Keep the correct CSS value for a later real source-code edit.</p></div>
+<h3>Editing the DOM: useful, but temporary</h3>
+<p>Double-click text or HTML attributes in Elements to experiment. Right-click an element to edit its HTML or add a class. The results affect your browser's in-memory DOM, not the server-side source. If JavaScript rerenders that section, your manual changes can be overwritten even without reloading.</p>
+<p><strong>Advanced exercises:</strong> Force <code>:hover</code> on a navigation menu; identify the nearest positioned ancestor of an absolutely positioned element; inspect a <code>z-index</code> stacking problem; and use the Accessibility pane to read an element's computed accessible name and role.</p>
+<h2 id="dt-console">5. Console: messages, errors and JavaScript experiments</h2>
+<p>The Console reports diagnostic messages, errors, warnings, some security warnings and the output of code you run manually. The Console is <strong>not</strong> the backend server's terminal; a Node.js <code>console.log()</code> executed on the server normally appears in server logs, not the website's browser Console.</p>
+<pre><code>2 + 3
+"5" + 1
+Number("5") + 1
+document.title
+document.querySelector("h1").textContent
+
+console.log("Hello from Champuter");
+console.warn("This is a warning");
+console.error("This is an error");
+console.table([{name:"Asha",marks:88},
+               {name:"Ravi",marks:72}]);</code></pre>
+<p>For selected DOM elements, the DevTools-specific shortcut <code>$0</code> usually refers to the currently inspected element. Try <code>$0.textContent</code> after inspecting a heading. The last evaluated result may be available as <code>$_</code> in DevTools. These are Console convenience features, not ordinary JavaScript variables in every environment.</p>
+<div class="dt-lab"><strong>Lab 3 — See and classify Console output (5 minutes)</strong><ol>
+<li>Open the playground's <strong>Lab B</strong> section and the DevTools Console.</li>
+<li>Click <em>Print log, warning, error and table</em>.</li>
+<li>Compare the log, warning, error and formatted table.</li>
+<li>Click <em>Cause a deliberate ReferenceError</em>. Find its source link and click it.</li>
+<li>Use the Console filter or log-level controls to show only errors, then restore the view.</li>
+</ol><p class="dt-result"><strong>Expected:</strong> A deliberate <code>ReferenceError</code> is reported with a source location, while <code>console.error()</code> is an error-level message rather than necessarily an exception.</p></div>
+<h3>Console utilities worth learning</h3>
+<pre><code>console.time("work");
+// do some work
+console.timeEnd("work");
+
+console.group("Student report");
+console.log("Asha", 88);
+console.log("Ravi", 72);
+console.groupEnd();
+
+console.clear();</code></pre>
+<p>Try <code>console.trace()</code> to see a call stack. <code>console.assert(condition, message)</code> can log when a condition fails. Be careful when copying page objects or cookies: they may contain confidential information. Never use self-XSS bypass instructions from someone else simply to paste their code.</p>
+<h2 id="dt-sources">6. Sources panel: debug JavaScript properly</h2>
+<p>Use <strong>Sources</strong> when a click produces the wrong result, an event handler never runs, variables contain unexpected types, or JavaScript throws an exception. Instead of adding endless logs, pause execution and inspect the program at the point where the problem occurs.</p>
+<figure class="dt-figure"><img src="https://developer.chrome.com/static/docs/devtools/javascript/image/the-3-parts-the-sources.png" loading="lazy" width="760" alt="Chrome DevTools Sources panel showing file navigator, code editor and debugger controls"/><figcaption>Official Chrome DevTools illustration of Sources: file navigation, editor and debugger.</figcaption></figure>
+<h3>Breakpoints and stepping controls</h3>
+<p>Open a JavaScript file from the left-hand file tree and click a line number to set a breakpoint. Run the action that reaches that line. The debugger pauses <em>before</em> executing the line. Inspect <strong>Scope</strong>, <strong>Watch</strong> and <strong>Call Stack</strong>; hover over variables. Use <strong>Resume</strong> (often F8), <strong>Step over</strong> (often F10), <strong>Step into</strong> (often F11) and <strong>Step out</strong> (often Shift + F11). Shortcuts may vary by OS or configuration.</p>
+<div class="dt-lab"><strong>Lab 4 — Find the string-addition bug (10 minutes)</strong><ol>
+<li>Open playground <strong>Lab C</strong>. The defaults are 5 and 1. Click <em>Add the numbers</em>; the page shows <strong>51</strong> instead of 6.</li>
+<li>Open <strong>Sources</strong>. Find <code>playground.html</code> and search for <code>function calculateSumBug</code>.</li>
+<li>Set a breakpoint on the statement <code>const sum=a+b;</code>, then click the button again.</li>
+<li>Inspect <code>a</code>, <code>b</code>, <code>typeof a</code> and <code>typeof b</code> in Scope or Watch.</li>
+<li>Predict the result of <code>Number(a)+Number(b)</code> in the Console while paused.</li>
+<li>Resume. Explain why string concatenation occurred.</li>
+</ol><p class="dt-result"><strong>Expected:</strong> HTML input <code>.value</code> returns strings. The operator <code>+</code> concatenates them. A suitable fix for valid numeric input is <code>const sum=Number(a)+Number(b);</code>, accompanied by input validation.</p></div>
+<pre><code>// Simplified corrected implementation
+const a = Number(firstNumber.value);
+const b = Number(secondNumber.value);
+if (!Number.isFinite(a) || !Number.isFinite(b)) {
+  throw new Error("Please enter valid numbers");
+}
+const sum = a + b;</code></pre>
+<h3>Choose the right breakpoint type</h3>
+<div class="dt-scroll"><table><thead><tr><th>Breakpoint</th><th>When it helps</th></tr></thead><tbody>
+<tr><td>Line-of-code</td><td>Pause on an exact statement.</td></tr><tr><td>Conditional</td><td>Pause only when a condition, such as <code>i===25</code>, becomes true.</td></tr>
+<tr><td>Logpoint</td><td>Print diagnostic values without pausing.</td></tr><tr><td>DOM breakpoint</td><td>Catch unexpected node removal or changes.</td></tr>
+<tr><td>Event listener breakpoint</td><td>Find which code handles clicks or keyboard events.</td></tr><tr><td>XHR/fetch breakpoint</td><td>Pause around outgoing network-request initiation matching a URL pattern.</td></tr><tr><td>Exception breakpoint</td><td>Pause when JavaScript throws an exception.</td></tr>
+</tbody></table></div>
+<div class="dt-lab"><strong>Lab 5 — Catch a DOM change (6 minutes)</strong><ol>
+<li>Inspect the playground's <code>#domTarget</code> element in Lab I.</li><li>Right-click it in Elements → <strong>Break on</strong> → <strong>Subtree modifications</strong>.</li><li>Click <em>Change this element's text</em>.</li><li>Observe Sources pause near the JavaScript statement that changes the element, then inspect Call Stack and resume.</li></ol><p class="dt-result"><strong>Expected:</strong> You locate the code responsible for changing the page without knowing its file in advance.</p></div>
+<p><strong>Advanced:</strong> The <code>debugger;</code> statement creates a programmatic breakpoint when DevTools is attached. The <strong>{}</strong> Pretty Print control can make compact/minified files readable. Source maps can map compiled or bundled code back to original sources, where provided. <strong>Snippets</strong> are saved debugging scripts; run only code you understand.</p>
+
+
+<h2 id="dt-network">7. Network panel: follow HTTP requests and API responses</h2>
+<p>The <strong>Network</strong> panel answers questions such as: Did the browser send the request? Which URL did it use? Did the server respond? What status code came back? What request headers or payload were sent? How long did DNS, connection, waiting and download take?</p>
+<p>Open Network and reload the page. Typical columns include <strong>Name, Status, Type, Initiator, Size, Time</strong> and a waterfall timeline. Click a request to inspect <strong>Headers, Payload, Preview, Response, Initiator</strong> and <strong>Timing</strong>. A page can request HTML, CSS, JS, images, fonts, JSON and other resources.</p>
+<h3>Understand an HTTP request</h3>
+<pre><code>GET /demo-data.json HTTP/1.1
+Host: dsa.learnwithchampak.live
+Accept: application/json</code></pre>
+<p>The response may resemble:</p>
+<pre><code>HTTP/1.1 200 OK
+Content-Type: application/json
+
+{"course":"Chrome DevTools","status":"ok"}</code></pre>
+<p>The examples illustrate HTTP semantics. HTTP/2 and HTTP/3 encode these messages differently on the wire.</p>
+<div class="dt-lab"><strong>Lab 6 — Compare success with failure (10 minutes)</strong><ol>
+<li>Open playground <strong>Lab D</strong>. Open DevTools → Network and click the <strong>Fetch/XHR</strong> filter.</li>
+<li>Click <em>Fetch a working JSON file (200)</em>. Select <code>demo-data.json</code>.</li>
+<li>Read <strong>Headers</strong> for the Request URL and status, then <strong>Response</strong> for the JSON. Look at <strong>Initiator</strong> and <strong>Timing</strong>.</li>
+<li>Click <em>Fetch a missing file (404)</em>; find <code>this-file-does-not-exist.json</code>.</li>
+<li>Compare the successful 200 request with the 404 error. Notice that the browser can receive a valid HTTP response even when the requested file is missing.</li>
+</ol><p class="dt-result"><strong>Expected:</strong> A successful JSON request and an intentionally missing resource appear as separate entries with different response statuses.</p></div>
+<h3>Request headers versus response headers</h3>
+<p><strong>Request headers</strong> describe what the browser sends (for example, <code>Accept</code> or <code>Authorization</code>). <strong>Response headers</strong> describe what the server returns (for example, <code>Content-Type</code>, <code>Cache-Control</code> and security-related headers). <strong>Payload</strong> helps inspect submitted query strings and form or JSON bodies when applicable.</p>
+<h3>Preserve log, Disable cache and throttling</h3>
+<ul>
+<li><strong>Preserve log:</strong> Keep records across navigation so you can investigate redirects, login flows and page transitions.</li>
+<li><strong>Disable cache:</strong> Usually prevents normal use of the browser cache while DevTools remains open. Turn it off after the experiment.</li>
+<li><strong>Throttling:</strong> Simulate slower connections or offline mode to test loading and failure behavior.</li>
+<li><strong>Request blocking:</strong> Block selected resources temporarily and watch the page react.</li>
+<li><strong>Waterfall:</strong> Study when resources began and how long their phases lasted.</li>
+</ul>
+<div class="dt-lab"><strong>Lab 7 — Investigate a slow connection (8 minutes)</strong><ol><li>Open Network and enable <strong>Preserve log</strong>.</li><li>Enable <strong>Disable cache</strong> and select a slower throttling preset such as Slow 3G if available.</li><li>Reload the playground; watch request timings and the waterfall.</li><li>Select Offline, click the working JSON button and observe the failure; restore <strong>No throttling</strong> or Online afterwards.</li><li>Turn off Disable cache to avoid affecting later measurements.</li></ol><p class="dt-result"><strong>Expected:</strong> A connection failure differs from an HTTP error: an HTTP 404 comes from a reached server, while offline mode may prevent any HTTP response.</p></div>
+<h3>HTTP errors are clues</h3>
+<div class="dt-scroll"><table><thead><tr><th>Observation</th><th>Likely area to inspect</th></tr></thead><tbody>
+<tr><td>200 / 201</td><td>Request succeeded; verify that returned content is correct.</td></tr>
+<tr><td>301 / 302 / 307 / 308</td><td>Redirect chain, Location header, request method behavior.</td></tr>
+<tr><td>304</td><td>Cache validation: the cached representation may be reused.</td></tr>
+<tr><td>400 / 422</td><td>Bad input, malformed data or validation failure.</td></tr>
+<tr><td>401 / 403</td><td>Authentication or authorization/configuration.</td></tr>
+<tr><td>404</td><td>Wrong route, missing file, wrong deployment path.</td></tr>
+<tr><td>429</td><td>Rate limit exceeded.</td></tr>
+<tr><td>500 / 502 / 503 / 504</td><td>Backend or intermediary/gateway failure; inspect server logs.</td></tr>
+<tr><td>(failed), CORS, DNS or TLS</td><td>Check the detailed browser error, security/network configuration or preflight request.</td></tr>
+</tbody></table></div>
+<p><strong>HAR files:</strong> DevTools can export an HTTP Archive containing request URLs, timings, headers and possibly sensitive data such as cookies, tokens, request bodies and query parameters. Sanitise before sharing. <strong>Copy as fetch</strong> is for your own authorized debugging, not a general method of reproducing someone else's authenticated request.</p>
+<h2 id="dt-storage">8. Application panel: cookies, Local Storage, IndexedDB and service workers</h2>
+<p>The <strong>Application</strong> panel helps investigate login state, saved preferences, shopping carts, offline content and Progressive Web Apps (PWAs). Open Application and explore the Storage category for the current origin.</p>
+<div class="dt-scroll"><table><thead><tr><th>Storage type</th><th>What it does</th><th>Typical debugging question</th></tr></thead><tbody>
+<tr><td>Cookies</td><td>Small browser-managed values which can be attached to suitable HTTP requests.</td><td>Was a session cookie set? Does SameSite/Secure/HttpOnly behave correctly?</td></tr>
+<tr><td>Local Storage</td><td>Origin-scoped key/value strings usually surviving restart.</td><td>Did a preference save? Is the key spelled correctly?</td></tr>
+<tr><td>Session Storage</td><td>Per-tab/session key/value storage.</td><td>Why did state disappear when this tab/session ended?</td></tr>
+<tr><td>IndexedDB</td><td>Structured client-side database.</td><td>Was an offline record or app object persisted?</td></tr>
+<tr><td>Cache Storage</td><td>Request/response caches often used with service workers.</td><td>Is an old offline response being served?</td></tr>
+<tr><td>Service Workers</td><td>Scripts controlling selected network and offline behavior.</td><td>Is a service worker registered and intercepting requests?</td></tr>
+</tbody></table></div>
+<div class="dt-lab"><strong>Lab 8 — Save and inspect a preference (7 minutes)</strong><ol><li>In playground Lab E, enter a harmless nickname (for example, Asha).</li><li>Click <em>Save in Local Storage</em>.</li><li>Open DevTools → <strong>Application → Local Storage</strong> and select the playground's origin.</li><li>Find <code>champuter-demo-nickname</code>. Reload and observe persistence.</li><li>Return to the page and use <em>Delete stored value</em>. Refresh the storage view to verify removal.</li></ol><p class="dt-result"><strong>Expected:</strong> You can identify the exact stored key and value, see how origin-scoped browser storage works and clear only the demonstration key.</p></div>
+<p>Cookies have attributes worth learning: <code>Secure</code> requests encrypted transport; <code>HttpOnly</code> prevents ordinary page JavaScript reading the cookie; <code>SameSite</code> affects cross-site cookie sending. These attributes do not replace secure backend authentication and authorization. Never store real passwords or access tokens in plain localStorage as a teaching shortcut.</p>
+<h2 id="dt-mobile">9. Device Mode: test narrow screens and responsive design</h2>
+<p>Click the phone/tablet icon in DevTools or press <strong>Ctrl + Shift + M</strong> (Mac: Cmd + Shift + M). You can choose an example device or set a responsive viewport width such as <strong>360 CSS pixels</strong>. Rotate the viewport to inspect landscape behavior.</p>
+<p>A CSS pixel is a layout unit; <strong>DPR</strong> (device pixel ratio) relates CSS pixels to device pixels. Responsive rules such as <code>@media (max-width:600px)</code> depend on viewport conditions, not the marketing name of a device.</p>
+<pre><code>@media (max-width: 600px) {
+  .columns { grid-template-columns: 1fr; }
+  .card { max-width: 100%; }
+}</code></pre>
+<div class="dt-lab"><strong>Lab 9 — Find horizontal overflow (7 minutes)</strong><ol><li>Open playground Lab F and toggle Device Mode.</li><li>Set the responsive viewport to <strong>360 × 800</strong> CSS pixels.</li><li>Notice the wide card extending beyond the viewport.</li><li>Inspect <code>.wide-card</code> and disable <code>min-width:680px</code> in Styles.</li><li>Observe the difference. Test 320, 375, 768 and 1024 CSS pixel widths.</li></ol><p class="dt-result"><strong>Expected:</strong> Removing a fixed minimum width helps the content fit narrow screens. Keep a record of the CSS fix for the source file.</p></div>
+<div class="dt-warning"><strong>Limitation:</strong> Device Mode is an approximation. Desktop Chrome does not become a physical Android phone. Verify important touch, keyboard, browser UI and device-specific issues on real devices.</div>
+<h2 id="dt-performance">10. Performance panel: why is my website slow?</h2>
+<p>The <strong>Performance</strong> panel records loading, scripting, style calculations, rendering and main-thread activity over time. It is useful for identifying slow JavaScript, excessive layout work and delays that affect visible page responsiveness. Use the recording controls for a page-load trace or a period of user interaction; then inspect the timeline, Main thread and <strong>Insights</strong> where available.</p>
+<h3>Three Core Web Vitals</h3>
+<div class="dt-scroll"><table><thead><tr><th>Metric</th><th>What it measures</th><th>Common good threshold</th></tr></thead><tbody>
+<tr><td>LCP — Largest Contentful Paint</td><td>When the main visible content is rendered.</td><td>At most 2.5 seconds.</td></tr>
+<tr><td>INP — Interaction to Next Paint</td><td>Responsiveness of interactions.</td><td>At most 200 milliseconds.</td></tr>
+<tr><td>CLS — Cumulative Layout Shift</td><td>Unexpected visual movement.</td><td>At most 0.1.</td></tr>
+</tbody></table></div>
+<p>These values are user-experience targets generally assessed at the 75th percentile of real visits. A single DevTools recording is <strong>lab data</strong>, not a guarantee that real-world users meet these thresholds. CPU, browser extensions, warm caches and network quality affect results.</p>
+<div class="dt-lab"><strong>Lab 10 — Record a deliberate long task (10 minutes)</strong><ol><li>Open playground Lab G and DevTools → <strong>Performance</strong>.</li><li>Start a recording, click <em>Simulate a ~180 ms main-thread task</em>, then stop recording.</li><li>Locate the scripting activity during the click. Zoom into the main-thread task and inspect the call tree.</li><li>Compare with a recording in which you do not click the button.</li><li>Write down one possible improvement: do less synchronous work on the main thread, or divide heavy work into smaller units.</li></ol><p class="dt-result"><strong>Expected:</strong> The intentionally busy JavaScript handler appears as a burst of main-thread work. Exact durations differ among devices.</p></div>
+<p><strong>Performance hints:</strong> Images can delay LCP; synchronous JavaScript can slow interactions; unexpected banners or missing reserved image dimensions can contribute to CLS. Analyse the evidence before choosing an optimisation.</p>
+<h2 id="dt-lighthouse">11. Lighthouse: a systematic website quality audit</h2>
+<p>The Lighthouse panel runs automated checks for <strong>Performance, Accessibility, Best Practices</strong> and <strong>SEO</strong>. Choose the relevant device and categories, generate the report and study individual findings. The panel can expose missing accessible names, low contrast, images without useful alternatives and avoidable performance problems.</p>
+<div class="dt-lab"><strong>Lab 11 — Audit the playground (10 minutes)</strong><ol><li>Open DevTools → <strong>Lighthouse</strong> (use the » menu if necessary).</li><li>Choose Mobile or Desktop and the categories you want to test.</li><li>Run the audit. Record the scores and at least three findings.</li><li>Use Elements/Styles to investigate the low-contrast examples.</li><li>Explain which findings need changes in code and which are test-environment observations.</li></ol><p class="dt-result"><strong>Expected:</strong> A report with actionable findings. Scores can vary between runs; do not treat a single score as a permanent property of your website.</p></div>
+<p><strong>Performance vs Lighthouse:</strong> Use the Performance panel for detailed traces and interaction debugging. Use Lighthouse for a broader automated audit. Automated checks cannot prove that a website is fully accessible or perfectly secure; manual testing remains essential.</p>
+<h2 id="dt-security">12. Security, privacy and the Security panel</h2>
+<p>The <strong>Security</strong> panel and Console can reveal connection-security issues such as certificate problems or mixed content. Inspect HTTPS connection information and relevant certificate details. The Network panel can also show sensitive request headers or cookie information, which must not be shared carelessly.</p>
+<ul><li><strong>Mixed content:</strong> An HTTPS page attempting to load some content via insecure HTTP may trigger blocking or warnings.</li>
+<li><strong>TLS:</strong> Protects traffic in transit when configured and authenticated correctly, but does not certify that a website is honest.</li>
+<li><strong>Cross-origin requests:</strong> Check Console and Network for CORS messages and possible preflight OPTIONS requests.</li>
+<li><strong>Permissions:</strong> Camera, microphone, clipboard and location depend on browser security rules and user permissions.</li></ul>
+<div class="dt-warning"><strong>Do not confuse visibility with authorization:</strong> Being able to see HTML, JavaScript, or a request in DevTools does not give permission to access someone else's account, change server data or test unauthorized endpoints. Browser-side validation does not replace server-side security.</div>
+<h2 id="dt-overrides">13. Local Overrides, Workspaces, Snippets and Changes</h2>
+<p>Most Elements edits vanish after reload. Chrome offers more persistent development workflows:</p>
+<div class="dt-scroll"><table><thead><tr><th>Feature</th><th>Use</th><th>Important limitation</th></tr></thead><tbody>
+<tr><td>Changes</td><td>Review a diff of modifications made through DevTools.</td><td>Changes view does not by itself publish edits to the website.</td></tr>
+<tr><td>Local Overrides</td><td>Keep locally overridden network resources or response headers across reloads.</td><td>Stored in a folder on your own machine; server remains unchanged. Caching is disabled.</td></tr>
+<tr><td>Workspaces</td><td>Associate served files with a local source folder so supported edits can save back to those files.</td><td>Requires correct mapping and filesystem permission.</td></tr>
+<tr><td>Snippets</td><td>Save and rerun small debugging scripts.</td><td>Code executes with page privileges; only run trusted code.</td></tr>
+</tbody></table></div>
+<div class="dt-lab"><strong>Lab 12 — Try a Local Override (advanced, 12 minutes)</strong><ol><li>On a practice page, open Network and select a suitable CSS/JS/HTML resource.</li><li>Use <strong>Override content</strong> where available, or open Sources → Overrides and choose a local folder.</li><li>Grant Chrome access to that folder and edit the response in Sources.</li><li>Reload and observe the local modified response.</li><li>Disable the override and verify the original resource returns.</li></ol><p class="dt-result"><strong>Expected:</strong> Your browser can use a temporary locally overridden resource. This is not a Git commit or a production deployment.</p></div>
+<p>Chrome does not automatically persist ordinary DOM edits made directly in Elements through Local Overrides. To make a permanent website change, update and deploy its actual source or use a correctly configured Workspace workflow.</p>
+<h2 id="dt-otherpanels">14. More powerful tools worth discovering</h2>
+<div class="dt-scroll"><table><thead><tr><th>Tool</th><th>When to use it</th></tr></thead><tbody>
+<tr><td>Accessibility pane</td><td>Inspect roles, names, keyboard focusability and related accessibility properties.</td></tr>
+<tr><td>Rendering</td><td>Use Paint flashing, layout-shift regions and other rendering diagnostics where available.</td></tr>
+<tr><td>Coverage</td><td>Investigate unused CSS and JavaScript in the recorded page load.</td></tr>
+<tr><td>Memory</td><td>Explore heap snapshots, allocation behaviour and suspected object retention.</td></tr>
+<tr><td>Recorder</td><td>Record and replay supported user journeys to reproduce behaviour.</td></tr>
+<tr><td>Issues</td><td>Review grouped browser issues such as certain cookie or cross-origin problems.</td></tr>
+<tr><td>Sensors</td><td>Emulate geolocation, orientation and related device conditions when supported.</td></tr>
+<tr><td>Animation Inspector</td><td>Observe timing and change playback of supported CSS animations.</td></tr>
+<tr><td>Command Menu</td><td>Find a tool without remembering the exact tab location.</td></tr>
+</tbody></table></div>
+<p>For example, to open Rendering, press <strong>Ctrl + Shift + P</strong> and search for <em>Show Rendering</em>. To inspect animations, open the relevant panel via More tools or Command Menu, depending on your version.</p>
+<h2 id="dt-node">15. Debug a Node.js + MySQL website end to end</h2>
+<p>Consider a practical application with a frontend on a static host, a Node.js/Express API on another host, and MySQL data. Suppose clicking <em>Load Students</em> produces a blank table. Do not assume the database is broken.</p>
+<div class="dt-flow"><span>Student browser</span><b>→</b><span>Frontend JavaScript</span><b>→</b><span>HTTPS API / Node.js</span><b>→</b><span>MySQL</span></div>
+<pre><code>async function loadStudents() {
+  const response = await fetch("/api/students");
+  if (!response.ok) {
+    throw new Error("HTTP " + response.status);
+  }
+  const students = await response.json();
+  console.table(students);
+}</code></pre>
+<p><strong>Diagnostic sequence:</strong> First inspect Console for JavaScript exceptions. Then open Network → Fetch/XHR and trigger the button. If no request appears, investigate the event handler. If the browser reports 404, verify the URL and route. If 401 or 403, inspect the authentication flow. If 500, inspect server-side Node.js logs. If 200 contains unexpected HTML rather than JSON, check whether a redirect or proxy returned a page. If Console reports CORS, inspect <code>Origin</code>, relevant response headers and any OPTIONS preflight.</p>
+<div class="dt-lab"><strong>Lab 13 — Write a real bug report (10 minutes)</strong><ol><li>On any application you control, reproduce a harmless UI problem.</li><li>Record the visible symptom, URL path and steps to reproduce.</li><li>Capture a relevant Console message or Network status, hiding personal tokens/cookies.</li><li>Explain whether the failure is client-side, network-layer, server-side or not yet determined.</li><li>Propose one targeted code change and one verification check.</li></ol><p class="dt-result"><strong>Expected:</strong> A bug report supported by evidence rather than guesses, suitable for a developer or administrator.</p></div>
+<h2 id="dt-diagnosis">16. Troubleshooting cookbook: which panel first?</h2>
+<div class="dt-scroll"><table><thead><tr><th>Problem</th><th>Start here</th><th>Typical clue</th></tr></thead><tbody>
+<tr><td>Text invisible or colour wrong</td><td>Elements → Styles / Computed</td><td>Inherited colour, overridden rule, low contrast</td></tr>
+<tr><td>Page horizontally scrolls on phone</td><td>Device Mode + Elements</td><td>min-width, fixed-width or overflowing child</td></tr>
+<tr><td>Button does nothing</td><td>Console → Sources</td><td>Exception, missing listener, disabled overlay</td></tr>
+<tr><td>Calculation is wrong</td><td>Sources → breakpoint / Scope</td><td>Unexpected type or value</td></tr>
+<tr><td>Picture or JS missing</td><td>Network</td><td>404, incorrect path, blocked request</td></tr>
+<tr><td>API displays no data</td><td>Network → Fetch/XHR</td><td>Bad status, unexpected JSON, CORS</td></tr>
+<tr><td>Login resets unexpectedly</td><td>Application + Network</td><td>Cookie missing/rejected/expired, wrong origin</td></tr>
+<tr><td>Outdated page content</td><td>Network + Application</td><td>Cache, service worker, deployment version</td></tr>
+<tr><td>Slow interaction</td><td>Performance</td><td>Long main-thread task</td></tr>
+<tr><td>Accessibility problem</td><td>Elements → Accessibility + Lighthouse</td><td>Missing name, contrast, keyboard issue</td></tr>
+<tr><td>Certificate/mixed-content issue</td><td>Security + Console</td><td>Insecure resource or TLS warning</td></tr>
+<tr><td>Memory increases indefinitely</td><td>Memory + Performance</td><td>Retained references or growing allocations</td></tr>
+</tbody></table></div>
+<h3>A systematic debugging method</h3>
+<ol><li><strong>Reproduce:</strong> Write the exact input and action that triggers the problem.</li><li><strong>Observe:</strong> Use the right panel to gather evidence, not assumptions.</li><li><strong>Hypothesise:</strong> Form a specific explanation that can be tested.</li><li><strong>Isolate:</strong> Change one thing, minimise variables and disable interfering extensions if relevant.</li><li><strong>Fix:</strong> Modify the real source or configuration in the correct place.</li><li><strong>Verify:</strong> Repeat the original actions and check for regressions.</li></ol>
+
+
+<h2 id="dt-project">17. Final practical project: become a browser detective</h2>
+<p>Spend 45–60 minutes on the <a href="https://dsa.learnwithchampak.live/tools/chrome-devtools-zero-to-infinity/playground.html" target="_blank" rel="noopener">Champuter DevTools playground</a>. Produce a short report with these eight investigations:</p>
+<ol>
+<li><strong>HTML:</strong> Find the ID and tag name of the title with bad contrast.</li>
+<li><strong>CSS:</strong> Identify the rule causing mobile overflow at 360px.</li>
+<li><strong>JavaScript:</strong> Explain why the sum of 5 and 1 displays 51.</li>
+<li><strong>Console:</strong> Locate the deliberate ReferenceError and its source.</li>
+<li><strong>Network:</strong> Record the names and statuses of the two JSON requests.</li>
+<li><strong>Storage:</strong> Identify the sample nickname's localStorage key.</li>
+<li><strong>Performance:</strong> Find the approximate 180ms synchronous task.</li>
+<li><strong>Audit:</strong> Note one Lighthouse or accessibility finding that needs attention.</li>
+</ol>
+<div class="dt-card"><strong>Success criterion:</strong> For each issue, report <em>symptom → evidence → suspected cause → fix → verification</em>. No guessing, and no need to damage or alter any production site.</div>
+<h2 id="dt-quiz">18. Knowledge test with answers</h2>
+<details><summary>1. How do you open DevTools on Windows?</summary><p>Usually F12 or Ctrl + Shift + I while Chrome is focused.</p></details>
+<details><summary>2. Which panel reveals the active CSS colour?</summary><p>Elements → Styles and Computed.</p></details>
+<details><summary>3. Do changes in Elements update your production server?</summary><p>No. They generally affect only the current browser document and may vanish on reload or rerender.</p></details>
+<details><summary>4. Why does 5 + 1 sometimes become 51 in JavaScript?</summary><p>If one or both operands are strings, + may concatenate. HTML input .value is a string.</p></details>
+<details><summary>5. Which panel diagnoses an HTTP 404?</summary><p>Network; select the request and inspect URL, status, headers and initiator.</p></details>
+<details><summary>6. What is the difference between HTTP 404 and offline?</summary><p>404 is an HTTP response from a server; an offline failure might prevent any response from arriving.</p></details>
+<details><summary>7. Which tab lets you inspect localStorage?</summary><p>Application → Local Storage → selected origin.</p></details>
+<details><summary>8. What is a breakpoint?</summary><p>A debugger control that pauses execution at a chosen statement, condition or event.</p></details>
+<details><summary>9. Does Device Mode perfectly simulate an Android phone?</summary><p>No. It approximates viewport and selected conditions. Real-device testing is still needed.</p></details>
+<details><summary>10. What is a long task?</summary><p>A main-thread task lasting over 50 milliseconds can interfere with timely input handling or rendering.</p></details>
+<details><summary>11. What do LCP, INP and CLS measure?</summary><p>Loading of main content, interaction responsiveness and unexpected layout movement.</p></details>
+<details><summary>12. Does a good Lighthouse score prove perfect accessibility?</summary><p>No. Automated tests have limits; manual keyboard, screen-reader and usability checks remain important.</p></details>
+<details><summary>13. What does Preserve log do?</summary><p>It retains Network entries across navigations to help inspect redirects and flows.</p></details>
+<details><summary>14. What is Local Overrides for?</summary><p>Keeping local copies of modified responses or headers for debugging across reloads, without changing the server.</p></details>
+<details><summary>15. Why must a HAR file be treated carefully?</summary><p>It can contain sensitive URLs, tokens, cookies and request/response data.</p></details>
+<h2 id="dt-reference">19. One-page shortcut and reference sheet</h2>
+<div class="dt-scroll"><table><thead><tr><th>Goal</th><th>Fast route</th></tr></thead><tbody>
+<tr><td>Inspect HTML/CSS</td><td>Right-click → Inspect</td></tr><tr><td>Run JS / see exceptions</td><td>Console</td></tr><tr><td>Step through JS</td><td>Sources → breakpoint</td></tr><tr><td>Inspect API/HTTP</td><td>Network → Fetch/XHR</td></tr><tr><td>Inspect cookies/storage</td><td>Application</td></tr><tr><td>Responsive layout</td><td>Device Toolbar</td></tr><tr><td>Slow rendering / interaction</td><td>Performance</td></tr><tr><td>Automated quality audit</td><td>Lighthouse</td></tr><tr><td>Certificates / mixed content</td><td>Security and Console</td></tr><tr><td>Find hidden panel</td><td>Command Menu → Show ...</td></tr>
+</tbody></table></div>
+<h3>Useful official documentation</h3>
+<ul>
+<li><a href="https://developer.chrome.com/docs/devtools/overview/" target="_blank" rel="noopener">Chrome DevTools overview</a></li>
+<li><a href="https://developer.chrome.com/docs/devtools/open/" target="_blank" rel="noopener">Open DevTools and shortcuts</a></li>
+<li><a href="https://developer.chrome.com/docs/devtools/network/overview/" target="_blank" rel="noopener">Network panel guide</a></li>
+<li><a href="https://developer.chrome.com/docs/devtools/javascript/breakpoints/" target="_blank" rel="noopener">JavaScript breakpoints</a></li>
+<li><a href="https://developer.chrome.com/docs/devtools/device-mode/" target="_blank" rel="noopener">Responsive Device Mode</a></li>
+<li><a href="https://developer.chrome.com/docs/devtools/lighthouse/" target="_blank" rel="noopener">Lighthouse audits</a></li>
+<li><a href="https://developer.chrome.com/docs/devtools/overrides/" target="_blank" rel="noopener">Local Overrides</a></li>
+<li><a href="https://web.dev/articles/vitals" target="_blank" rel="noopener">Core Web Vitals</a></li>
+</ul>
+<div class="dt-champ"><span class="dt-face">🎓</span><div><strong>Champuter's final lesson:</strong><p>A great developer does not just know JavaScript or CSS. A great developer knows how to <strong>see what the browser sees</strong>, test one theory at a time and verify a solution. Keep the playground open and practise with one panel each day.</p></div></div>
+<div class="dt-buttons"><a class="dt-btn" href="https://dsa.learnwithchampak.live/tools/chrome-devtools-zero-to-infinity/playground.html" target="_blank" rel="noopener">Practise with Champuter</a><a class="dt-btn alt" href="https://learnwithchampak.live/" target="_blank" rel="noopener">More lessons at Learn With Champak</a></div>
+<p class="dt-small"><strong>Programmers' Picnic · Learn With Champak.</strong> Chrome screenshots and UI conventions may change with Chrome versions. This lesson complements, rather than replaces, the official documentation and practical testing.</p>
+</div>
