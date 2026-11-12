@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HTTP Status Codes: DevTools Practice Lab with Champuter</title>
+<meta name="description" content="Explore real HTTP 200, 404 and more status codes with Chrome DevTools and Champuter. Includes optional local Node.js API tests."/>
+<style>
+:root{font:16px/1.55 system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#193e5b;background:#edf7ff}
+*{box-sizing:border-box}body{margin:0}header{background:#103f68;color:#fff;padding:24px max(calc((100vw - 1080px)/2),18px)}
+header h1{margin:0;font-size:clamp(27px,4vw,41px)}header p{margin:7px 0 0;color:#d0eaff}
+main{max-width:1090px;margin:0 auto;padding:20px 15px 100px}section{background:#fff;border:1px solid #c1deef;padding:22px;margin:17px 0;border-radius:16px;box-shadow:0 7px 24px #123c6210}
+h2{color:#155f91;margin-top:0}h3{color:#25587a}a{color:#116a9f}
+p,li{line-height:1.68}button{border:1px solid #a5cde4;border-radius:8px;background:#1673ac;color:#fff;font:700 14px/1.3 system-ui,sans-serif;padding:11px 14px;cursor:pointer;margin:4px}
+button:disabled{opacity:.42;cursor:not-allowed}button:hover:not(:disabled){filter:brightness(.9)}button:focus-visible{outline:3px solid #e7ae3d;outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:9px}
+.grid button{margin:0;min-height:55px;text-align:left}.success{background:#177e6c}.redirect{background:#366eae}.client{background:#aa7529}.server{background:#a54f58}
+pre{white-space:pre-wrap;overflow:auto;background:#132d45;color:#f2f8ff;border-radius:10px;padding:16px;font:14px/1.6 Consolas,monospace}
+code{background:#eff6ff;color:#134f7c;padding:2px 5px;border-radius:4px}
+pre code{color:inherit;background:none;padding:0}
+.output{white-space:pre-wrap;overflow-wrap:anywhere;background:#eef8ff;border-left:4px solid #1886be;padding:13px 15px;border-radius:0 8px 8px 0;min-height:90px}
+.note{background:#fff8e8;border-left:4px solid #d39b34;border-radius:0 9px 9px 0;padding:13px 16px}
+.ok{background:#e9f8f0;border-left-color:#3d966a}.muted{font-size:13px;color:#587895}
+.kbd{border:1px solid #b9cfe0;background:#f1f6fb;border-radius:5px;padding:1px 5px}
+footer{color:#597c94;font-size:13px;margin-top:30px}
+@media(max-width:550px){section{padding:15px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}button{font-size:12px}}
+</style></head>
+<body>
+<header><h1>HTTP Status Codes — DevTools Playground</h1><p>Learn With Champak · Network Panel Investigation · Guided by Champuter</p></header>
+<main>
+<p><a href="./">← Read the complete HTTP Status Codes lesson</a></p>
+<section><h2>How to use this page</h2>
+<p>Press <span class="kbd">F12</span> (or <span class="kbd">Ctrl + Shift + I</span>) in desktop Chrome → open <strong>Network</strong> → click <strong>Fetch/XHR</strong>. Keep the recording button enabled. Trigger each example below, and then inspect the request's <strong>Headers, Preview, Response, Initiator and Timing</strong> tabs.</p>
+<div class="note" id="modeIndicator">Detecting lab mode…</div>
+<p class="muted">This lab never asks for real credentials. All API failure codes returned by the local server are deliberately simulated teaching conditions, while the HTTP responses themselves carry real status codes.</p></section>
+<section><h2>Part A — Real responses on GitHub Pages</h2>
+<p>These two requests work directly on the published GitHub Pages playground without running a server on your computer.</p>
+<button type="button" id="get200" class="success">200 OK · Existing JSON</button>
+<button type="button" id="get404" class="client">404 Not Found · Missing JSON</button>
+<div class="output" id="result" role="status" aria-live="polite">Choose a test above to see details here.</div>
+<p class="muted">The text above summarises the result. <strong>The actual evidence is in Chrome DevTools → Network.</strong> A 404 is a valid HTTP response, not a network connection failure.</p></section>
+<section><h2>Part B — More real HTTP responses (run local server)</h2>
+<p>To use these controls, save <code>status-server.js</code>, <code>playground.html</code> and <code>sample-ok.json</code> in one directory, install Express and run the local server. You can also clone the DSA repository.</p>
+<pre><code>npm init -y
+npm install express
+node status-server.js
+# Open http://127.0.0.1:3000/ in Chrome.</code></pre>
+<div class="grid" id="statusButtons"></div>
+<p class="muted">The 2xx, 4xx and 5xx buttons return real numeric HTTP responses but simulated scenarios. The endpoint reporting “502” is not actually contacting an upstream server; it teaches the meaning of that status and where it would appear.</p></section>
+<section><h2>Part C — Redirects: find the hidden 3xx response</h2>
+<p>A browser usually follows redirects automatically. Therefore the JavaScript <code>fetch()</code> call may show a final <strong>200</strong> even though DevTools records a preceding <strong>302</strong>, <strong>303</strong>, <strong>307</strong> or <strong>308</strong>. Turn on <strong>Preserve log</strong> before testing.</p>
+<button type="button" data-redirect="302" class="redirect">GET → 302 Found</button>
+<button type="button" data-redirect="308" class="redirect">GET → 308 Permanent</button>
+<button type="button" data-post-redirect="303" class="redirect">POST → 303 → GET</button>
+<button type="button" data-post-redirect="307" class="redirect">POST → 307 → POST</button>
+<div class="output" id="redirectResult">Local Node.js server required for redirect experiments.</div></section>
+<section><h2>Part D — Cache validators and 304 Not Modified</h2>
+<p>The local server provides <code>/api/cache-demo</code> with the header <code>ETag: "champuter-lesson-v1"</code> and <code>Cache-Control: no-cache</code>. Make a normal request, then send the same ETag in <code>If-None-Match</code>. The latter can produce 304. Chrome may combine cached content with the 304 response, so also verify with the command shown below.</p>
+<button type="button" id="cache200" class="success">First cache request</button>
+<button type="button" id="cache304" class="redirect">Conditional request (304)</button>
+<div class="output" id="cacheResult">304 means cached content can be reused; it does not mean the resource was deleted.</div>
+<pre><code>curl -i http://127.0.0.1:3000/api/cache-demo
+curl -i -H 'If-None-Match: "champuter-lesson-v1"' \
+  http://127.0.0.1:3000/api/cache-demo</code></pre></section>
+<section><h2>Part E — Your Chrome DevTools investigation checklist</h2>
+<ol><li>Click a request and find <strong>Request URL, Request Method and Status Code</strong>.</li>
+<li>Look for <strong>Location</strong> on a redirect and <strong>WWW-Authenticate</strong> on the 401 demo.</li>
+<li>Find <strong>Allow</strong> on 405 and <strong>Retry-After</strong> on 429 or 503.</li>
+<li>Examine 204: there is <strong>no response body</strong>.</li>
+<li>Examine 206: find the <strong>Content-Range</strong> header.</li>
+<li>Use Network filter <code>status-code:404</code> or <code>status-code:500</code> to isolate errors.</li>
+<li>Check <strong>Initiator</strong> to find the code that sent the request.</li>
+<li>Use the <strong>Timing</strong> tab to inspect waiting/transfer time.</li>
+<li>Switch the network to Offline and compare a genuine network failure with an HTTP 404 response; restore normal connectivity.</li></ol></section>
+<section><h2>Champuter's challenge</h2>
+<p>Explain the difference between <strong>401 vs 403</strong>, <strong>400 vs 422</strong>, <strong>404 vs 410</strong>, <strong>429 vs 503</strong>, and <strong>502 vs 504</strong>. Then build a two-column bug report: <em>observed status and headers</em> versus <em>the proposed fix</em>.</p>
+<p><a href="https://developer.chrome.com/docs/devtools/network/overview/" target="_blank" rel="noopener">Chrome DevTools Network guide</a> · <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status" target="_blank" rel="noopener">HTTP status reference</a></p></section>
+<footer>Programmers' Picnic · Learn With Champak · Educational sandbox only. Do not send private credentials, cookies, access tokens or other users' data into your bug reports.</footer>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const local=["localhost","127.0.0.1","::1","[::1]"].includes(location.hostname);
+$("modeIndicator").textContent=local ?
+ "Local Node.js mode: all tests are available. If the server is not running, network errors will appear." :
+ "GitHub Pages mode: 200 and 404 tests are ready. For the other codes, run status-server.js locally and open http://127.0.0.1:3000/";
+const cases=[
+ [200,"OK"],[201,"Created"],[202,"Accepted"],[204,"No Content"],[206,"Partial Content"],
+ [400,"Bad Request"],[401,"Unauthorized"],[403,"Forbidden"],[404,"Not Found"],
+ [409,"Conflict"],[410,"Gone"],[412,"Precondition Failed"],[415,"Unsupported Media Type"],[422,"Unprocessable Content"],
+ [429,"Too Many Requests"],[500,"Internal Server Error"],[502,"Bad Gateway"],[503,"Service Unavailable"],[504,"Gateway Timeout"]
+];
+function classFor(code){return code<300?"success":code<400?"redirect":code<500?"client":"server"}
+cases.forEach(([code,name])=>{
+ const button=document.createElement("button");
+ button.type="button";button.className=classFor(code);
+ button.textContent=code+" · "+name;
+ button.disabled=!local;
+ button.addEventListener("click",()=>run("./api/status/"+code, {}, "result"));
+ $("statusButtons").appendChild(button);
+});
+document.querySelectorAll("[data-redirect],[data-post-redirect]").forEach(button=>{
+ button.disabled=!local;
+ button.addEventListener("click",()=>{
+   const postCode=button.getAttribute("data-post-redirect");
+   const code=postCode||button.getAttribute("data-redirect");
+   const options=postCode?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({example:"Champuter"})}:{};
+   run("./api/redirect/"+code,options,"redirectResult");
+ });
+});
+["cache200","cache304"].forEach(id=>$(id).disabled=!local);
+async function run(url,opts={},outputId="result"){
+ const output=$(outputId);
+ output.textContent="Requesting "+url+" ...";
+ try{
+  const res=await fetch(url,{cache:"no-store",...opts});
+  const body=await res.text();
+  const report=[
+   "Request: "+(opts.method||"GET")+" "+url,
+   "Final Response: "+res.status+" "+res.statusText,
+   "response.ok: "+res.ok,
+   "response.redirected: "+res.redirected,
+   "Final URL: "+res.url,
+   "Content-Type: "+(res.headers.get("Content-Type")||"(none)"),
+   "Body: "+(body||"(no response body)")
+  ];
+  output.textContent=report.join("\n");
+ }catch(e){output.textContent="No usable HTTP response (connection, browser or network error): "+e.message;}
+}
+$("get200").addEventListener("click",()=>run("./sample-ok.json",{cache:"no-store"},"result"));
+$("get404").addEventListener("click",()=>run("./not-a-real-file-champuter-status-lab.json",{cache:"no-store"},"result"));
+$("cache200").addEventListener("click",()=>run("./api/cache-demo",{cache:"no-store"},"cacheResult"));
+$("cache304").addEventListener("click",()=>run("./api/cache-demo",{cache:"no-store",headers:{"If-None-Match":'"champuter-lesson-v1"'}},"cacheResult"));
+</script></body></html>
