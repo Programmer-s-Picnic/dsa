@@ -113,7 +113,7 @@ cases.forEach(([code,name])=>{
  button.type="button";button.className=classFor(code);
  button.textContent=code+" · "+name;
  button.disabled=!local;
- button.addEventListener("click",()=>code===405 ? run("./api/only-get", {method:"POST"}, "result") : run("./api/status/"+code, {}, "result"));
+ button.addEventListener("click",()=>{const options=code===201||code===202?{method:"POST"}:code===204?{method:"DELETE"}:code===206?{headers:{"Range":"bytes=0-9"}}:{};return code===405 ? run("./api/only-get",{method:"POST"},"result") : run("./api/status/"+code,options,"result");});
  $("statusButtons").appendChild(button);
 });
 document.querySelectorAll("[data-redirect],[data-post-redirect]").forEach(button=>{
