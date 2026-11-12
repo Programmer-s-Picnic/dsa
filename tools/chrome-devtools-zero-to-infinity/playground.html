@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Chrome DevTools Practice Lab · Champuter</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#173d5e;background:#eef7fe}
+*{box-sizing:border-box}body{margin:0}header{background:#113d65;color:#fff;padding:24px max(20px,calc((100vw - 1000px)/2))}
+header h1{margin:0 0 5px;font-size:clamp(25px,3.5vw,38px)}header p{margin:0;color:#d0e8fa}main{max-width:1040px;margin:auto;padding:22px 18px 100px}
+nav{margin-bottom:18px}nav a{color:#125b93}
+section{background:white;border:1px solid #b7d9f0;border-radius:16px;padding:20px;margin:15px 0;box-shadow:0 6px 25px #103d6210}
+h2{color:#155e8f;margin-top:0}p,li{line-height:1.65}button{background:#126fa8;color:white;border:none;border-radius:8px;padding:11px 15px;margin:5px 5px 5px 0;cursor:pointer;font-weight:700}
+button:focus-visible,input:focus-visible{outline:3px solid #f1a92c;outline-offset:2px}input{padding:11px;border:1px solid #9fc3dd;border-radius:8px;font:inherit;max-width:100%}
+code{background:#eef6fe;padding:2px 5px;border-radius:4px}pre{white-space:pre-wrap;background:#112d47;color:#f4f9ff;padding:15px;border-radius:10px;overflow:auto}
+.status{font-weight:700;padding:12px;border:1px dashed #8bbddf;border-radius:9px;background:#eef8ff;min-height:44px;margin-top:9px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.buggy-title{color:#d1e5f0;background:#e2f0fc;padding:8px;border-radius:5px}
+.wide-card{padding:12px;background:#f3fbff;border:1px solid #c0d7e9;border-radius:10px}
+@media(max-width:600px){.wide-card{min-width:680px}}
+.small{font-size:13px;color:#607c91}.bad-contrast{color:#d5e3eb;background:#ecf5fc;padding:10px;border-radius:8px}
+body.dark-lab{background:#182d42;color:#eef8ff}body.dark-lab section{background:#203f5a;color:#ecf7ff}
+footer{font-size:13px;color:#587c94;padding-top:12px}
+</style>
+</head>
+<body>
+<header><h1>🔍 Chrome DevTools — Practice Playground</h1><p>Learn With Champak · Guided by Champuter · Intentionally imperfect demo</p></header>
+<main>
+<nav><a href="./">← Complete DevTools lesson</a></nav>
+<section><h2>Before you begin</h2><p>This practice page deliberately includes wrong CSS, a JavaScript calculation bug, a failing request, a console error and a mobile overflow. These are <strong>learning exercises</strong>, not production defects.</p><p>Open DevTools with <kbd>F12</kbd> or <kbd>Ctrl + Shift + I</kbd>. Keep DevTools open while trying the buttons.</p></section>
+<section id="elementsLab"><h2>Lab A — Elements &amp; Styles</h2><p class="buggy-title" id="poorContrastTitle">This title is difficult to read. Inspect and fix its color.</p><p class="bad-contrast">Low-contrast example: Can you fix this in Elements → Styles?</p><p class="small">Challenge: Inspect <code>#poorContrastTitle</code>; change its text color to <code>#123b63</code>. Edits in Elements are usually temporary.</p></section>
+<section id="consoleLab"><h2>Lab B — Console messages</h2><button id="consoleMessages" type="button">Print log, warning, error and table</button><button id="throwError" type="button">Cause a deliberate ReferenceError</button><p class="small">Expected: entries appear in the Console. The ReferenceError includes a clickable source location. You are not harming this page.</p></section>
+<section id="sourcesLab"><h2>Lab C — Find a real JavaScript bug</h2><label>First number <input id="firstNumber" inputmode="decimal" value="5"/></label> <label>Second number <input id="secondNumber" inputmode="decimal" value="1"/></label><button id="calculate" type="button">Add the numbers</button><div class="status" id="sumResult" role="status">Result appears here.</div><p class="small">Expected buggy result: <code>5 + 1 = 51</code>, not 6. In Sources, find <code>calculateSumBug</code> and inspect <code>typeof a</code>. Think about <code>Number()</code>.</p></section>
+<section id="networkLab"><h2>Lab D — Network requests, status and JSON</h2><button id="fetchGood" type="button">Fetch a working JSON file (200)</button><button id="fetchMissing" type="button">Fetch a missing file (404)</button><div class="status" id="networkResult" role="status">Use Network → Fetch/XHR to inspect the request.</div><p class="small">Click a request → Headers, Response, Timing, Initiator. If the 404 has a custom host response, the status is still visible in Network.</p></section>
+<section id="storageLab"><h2>Lab E — Application → Local Storage</h2><label for="nickname">Practice nickname</label> <input id="nickname" placeholder="Enter a harmless nickname"/><button id="saveNickname" type="button">Save in Local Storage</button><button id="readNickname" type="button">Read from Local Storage</button><button id="deleteNickname" type="button">Delete stored value</button><div class="status" id="storageResult">Inspect Application → Local Storage → this origin.</div><p class="small">Never store real passwords or secrets in localStorage.</p></section>
+<section id="mobileLab"><h2>Lab F — Mobile responsive overflow</h2><p>Toggle the Device Toolbar (<kbd>Ctrl + Shift + M</kbd>) and set viewport width to 360 CSS px.</p><div class="wide-card">This card uses <code>min-width:680px</code> on narrow screens. It causes horizontal overflow. Inspect <code>.wide-card</code>, disable that rule, and check whether the layout now fits.</div></section>
+<section id="performanceLab"><h2>Lab G — Performance and long tasks</h2><button id="busyTask" type="button">Simulate a ~180 ms main-thread task</button><div class="status" id="busyResult">Record in Performance before pressing.</div><p class="small">Start a Performance recording, click the button, stop recording, and inspect main-thread work. Timing depends on the computer and is approximate.</p></section>
+<section><h2>Lab H — Accessibility and Lighthouse</h2><p>Run Lighthouse for Accessibility, Performance, Best Practices and SEO. Also inspect the low-contrast labels and button names in Elements → Accessibility. Fix the issues one at a time and rerun.</p></section>
+<section><h2>Lab I — DOM change breakpoint</h2><button id="updateDOM" type="button">Change this element's text</button><div class="status" id="domTarget">Watch me change.</div><p class="small">In Elements, right-click <code>#domTarget</code> → Break on → Subtree modifications. Then click the button and inspect the call stack.</p></section>
+<footer>Programmers' Picnic · Learn With Champak · Demo is intentionally not production-ready. Exercises are for your own browser session.</footer>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+$("consoleMessages").addEventListener("click",()=>{
+ console.log("Champuter: ordinary log message");
+ console.warn("Champuter: a deliberate warning");
+ console.error("Champuter: a deliberate error log");
+ console.table([{name:"Asha",marks:88},{name:"Ravi",marks:72}]);
+});
+$("throwError").addEventListener("click",()=>{missingChamputerFunction()});
+function calculateSumBug(){
+ const a=$("firstNumber").value;
+ const b=$("secondNumber").value;
+ const sum=a+b; // INTENTIONAL BUG: strings are concatenated.
+ $("sumResult").textContent=a+" + "+b+" = "+sum;
+}
+$("calculate").addEventListener("click",calculateSumBug);
+async function loadDemoJson(path){
+ const response=await fetch(path,{cache:"no-store"});
+ if(!response.ok)throw new Error("HTTP "+response.status);
+ return response.json();
+}
+$("fetchGood").addEventListener("click",async()=>{
+ try{const data=await loadDemoJson("./demo-data.json");$("networkResult").textContent="Loaded: "+data.course+"; "+data.students.length+" sample students"}
+ catch(e){$("networkResult").textContent="Could not fetch JSON: "+e.message}
+});
+$("fetchMissing").addEventListener("click",async()=>{
+ try{await loadDemoJson("./this-file-does-not-exist.json");$("networkResult").textContent="Unexpected success"}
+ catch(e){$("networkResult").textContent="Expected missing-file result: "+e.message+"; inspect Network."}
+});
+$("saveNickname").addEventListener("click",()=>{
+ try{localStorage.setItem("champuter-demo-nickname",$("nickname").value);$("storageResult").textContent="Saved. Inspect Application → Local Storage."}
+ catch(e){$("storageResult").textContent="Local storage unavailable: "+e.message}
+});
+$("readNickname").addEventListener("click",()=>{
+ try{$("storageResult").textContent="Stored value: "+JSON.stringify(localStorage.getItem("champuter-demo-nickname"))}
+ catch(e){$("storageResult").textContent=e.message}
+});
+$("deleteNickname").addEventListener("click",()=>{
+ try{localStorage.removeItem("champuter-demo-nickname");$("storageResult").textContent="Removed only the demo nickname."}
+ catch(e){$("storageResult").textContent=e.message}
+});
+$("busyTask").addEventListener("click",()=>{
+ const start=performance.now();let x=0;
+ while(performance.now()-start<180){x+=Math.sqrt(x+1)}
+ $("busyResult").textContent="Simulated work completed in "+Math.round(performance.now()-start)+" ms. Review Performance flame chart.";
+});
+$("updateDOM").addEventListener("click",()=>{
+ $("domTarget").textContent="Changed at "+new Date().toLocaleTimeString();
+});
+</script>
+</body></html>
