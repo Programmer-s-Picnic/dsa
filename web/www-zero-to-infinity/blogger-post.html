@@ -1,0 +1,768 @@
+<div class="lwc-www" id="lwc-www">
+<style>
+.lwc-www{max-width:1040px;margin:0 auto;font:16px/1.82 Arial,Helvetica,sans-serif;color:#23415a}
+.lwc-www *{box-sizing:border-box}
+.lwc-www h1,.lwc-www h2,.lwc-www h3{line-height:1.31;scroll-margin-top:90px}
+.lwc-www h1{font-size:clamp(29px,4.3vw,45px);color:#113f68}
+.lwc-www h2{font-size:clamp(22px,3.1vw,30px);color:#135b91;margin:43px 0 14px;border-bottom:2px solid #d4e9f8;padding-bottom:8px}
+.lwc-www h3{font-size:20px;color:#17608e;margin:27px 0 11px}
+.lwc-www h4{font-size:17px;color:#205c85;margin:18px 0 8px}.lwc-www p{margin:11px 0}
+.lwc-www a{color:#1372ae}.lwc-www a:focus-visible,.lwc-www summary:focus-visible{outline:3px solid #f0aa37;outline-offset:3px}
+.lwc-www img{display:block;max-width:100%;height:auto;border-radius:17px}
+.lwc-www .hero{padding:15px;border:1px solid #b6d9ef;background:#eaf7ff;border-radius:19px;margin:19px 0}
+.lwc-www .lead{font-size:18px;color:#38627e}.lwc-www .small{font-size:13px;color:#6b859b}
+.lwc-www .card{border:1px solid #c6dfef;background:#f2f9ff;border-radius:13px;padding:17px 20px;margin:18px 0}
+.lwc-www .champuter{display:flex;gap:12px;background:#eaf6ff;border:1px solid #afcee8;border-radius:14px;padding:16px;margin:18px 0}
+.lwc-www .champuter strong{color:#0e6098}.lwc-www .face{font-size:29px;flex:none;line-height:1.2}
+.lwc-www .caution{background:#fff8eb;border-left:5px solid #d49436;border-radius:0 9px 9px 0;padding:13px 18px;margin:17px 0}
+.lwc-www .flow{display:flex;flex-wrap:wrap;gap:8px;padding:16px 8px;border:1px solid #c5e0f1;background:#f3faff;border-radius:11px;margin:18px 0;align-items:center;justify-content:center}
+.lwc-www .flow span{background:white;padding:10px 13px;border:1px solid #a9d3e9;border-radius:10px;color:#135980;font-weight:bold;text-align:center}
+.lwc-www .flow b{color:#247caa;font-size:23px}
+.lwc-www .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:12px;margin:17px 0}
+.lwc-www .cols>div{border:1px solid #c9e0ef;border-radius:11px;background:#f7fbff;padding:13px}
+.lwc-www .scroll{overflow-x:auto}.lwc-www table{border-collapse:collapse;width:100%;font-size:14px;margin:18px 0}
+.lwc-www td,.lwc-www th{padding:10px 12px;border:1px solid #c6ddec;text-align:left;vertical-align:top}
+.lwc-www th{background:#e7f3ff;color:#1a567c}
+.lwc-www pre{overflow-x:auto;white-space:pre;background:#132a40;color:#e9f4ff;border-radius:10px;padding:17px 18px;font:14px/1.6 Consolas,Monaco,monospace}
+.lwc-www code{font-family:Consolas,Monaco,monospace}.lwc-www :not(pre)>code{padding:2px 5px;background:#e9f3fa;color:#18567d;border-radius:4px}
+.lwc-www li{margin:5px 0}.lwc-www .toc{columns:2;column-gap:26px}.lwc-www .toc li{break-inside:avoid}
+.lwc-www .lab{background:#f2faff;border:1px solid #a7d1eb;border-radius:12px;padding:17px 20px;margin:22px 0}
+.lwc-www .lab>strong:first-child{font-size:18px;color:#105b90}.lwc-www .expect{border-left:4px solid #3d9f75;background:#ebf9f1;padding:9px 13px;border-radius:0 9px 9px 0}
+.lwc-www details{background:#f8fcff;border:1px solid #c4dfee;border-radius:10px;padding:12px 14px;margin:9px 0}
+.lwc-www details[open]{background:#f0f8ff}.lwc-www summary{font-weight:700;cursor:pointer;color:#125b90}
+.lwc-www .btn{display:inline-block;background:#157ab4!important;color:white!important;text-decoration:none;padding:11px 17px;border-radius:9px;font-weight:bold;margin:4px}
+.lwc-www .btn.alt{background:#eef7fd!important;color:#1a608d!important;border:1px solid #aacde3}
+@media(max-width:650px){.lwc-www .toc{columns:1}.lwc-www pre{font-size:12px}.lwc-www table{font-size:12px}.lwc-www .card{padding:13px}}
+@media print{.lwc-www .btn{color:#155b86!important;background:white!important;border:1px solid #aaa}}
+</style>
+<p class="small"><strong>Programmers' Picnic · Learn With Champak · Complete Web Fundamentals</strong></p>
+<h1>WWW — The World Wide Web: From Absolute Zero to Infinity ∞</h1>
+<p class="lead">The complete story of websites, browsers, URLs, HTML, CSS, JavaScript, clients, servers, HTTP, HTTPS, APIs, cookies, login sessions, local storage, databases, security and cloud hosting — with practical examples and Champuter.</p>
+<div class="hero"><img loading="eager" width="1200" height="630" src="https://dsa.learnwithchampak.live/web/www-zero-to-infinity/champuter-www.svg" alt="Champuter teaching World Wide Web fundamentals: HTML, CSS, HTTP, cookies, sessions and cloud"/></div>
+<div class="champuter"><span class="face">🎓</span><div><strong>Champuter says: What really happens when you open a website?</strong><p>A web page looks like a document, but behind it are many independent ideas: an address, a protocol, a server, a program running in the browser, and sometimes a database. We will build a complete mental model from scratch and then prove it using experiments. On supported Learn With Champak pages, use my teaching controls to hear the lesson and highlight or explain selected passages.</p></div></div>
+<div class="card"><strong>What you need:</strong> A desktop browser such as Chrome and, for the final programming project, Node.js with npm. You can complete the early lessons without programming experience. <strong>Our practical playground:</strong> <a href="https://dsa.learnwithchampak.live/web/www-zero-to-infinity/playground.html" target="_blank" rel="noopener">WWW with Champuter — Try browser storage and requests</a>.</div>
+<h2 id="www-contents">Course contents</h2>
+<ol class="toc">
+<li><a href="#www-meaning">WWW versus Internet</a></li>
+<li><a href="#www-history">A short history of the Web</a></li>
+<li><a href="#www-components">Web page, site, app, browser</a></li>
+<li><a href="#www-server">Client, server and hosting</a></li>
+<li><a href="#www-network">Packets, DNS, IP and ports</a></li>
+<li><a href="#www-url">Understand every part of a URL</a></li>
+<li><a href="#www-http">HTTP requests and responses</a></li>
+<li><a href="#www-https">HTTPS and TLS</a></li>
+<li><a href="#www-html">HTML structure and semantics</a></li>
+<li><a href="#www-css">CSS styling and layout</a></li>
+<li><a href="#www-js">JavaScript and the DOM</a></li>
+<li><a href="#www-render">How the browser renders a page</a></li>
+<li><a href="#www-form">Forms, GET and POST</a></li>
+<li><a href="#www-api">APIs, JSON and fetch</a></li>
+<li><a href="#www-backend">Backend programs and databases</a></li>
+<li><a href="#www-state">Why HTTP is stateless</a></li>
+<li><a href="#www-cookie">Cookies in depth</a></li>
+<li><a href="#www-session">Server-side login sessions</a></li>
+<li><a href="#www-storage">Local and session storage</a></li>
+<li><a href="#www-compare">Compare browser storage choices</a></li>
+<li><a href="#www-auth">Authentication and authorization</a></li>
+<li><a href="#www-security">Same-origin policy and web security</a></li>
+<li><a href="#www-cache">Caching, CDN and service workers</a></li>
+<li><a href="#www-architecture">Modern web architectures</a></li>
+<li><a href="#www-cloud">Cloud and deploying a website</a></li>
+<li><a href="#www-devtools">Practical DevTools investigation</a></li>
+<li><a href="#www-project">Complete Express project</a></li>
+<li><a href="#www-troubleshoot">Troubleshooting cookbook</a></li>
+<li><a href="#www-quiz">Questions and answers</a></li>
+<li><a href="#www-glossary">Glossary and further reading</a></li>
+</ol>
+
+<h2 id="www-meaning">1. What does WWW mean? Is WWW the Internet?</h2>
+<p><strong>WWW</strong> means <strong>World Wide Web</strong>, often called simply <strong>the Web</strong>. It is a system of linked documents and other resources identified by web addresses and accessed using technologies such as HTTP and HTTPS. The Web runs over the <strong>Internet</strong>, but the two are not the same.</p>
+<p>The Internet is a worldwide collection of interconnected networks that transport data. The Web is one important application that uses this network infrastructure. Email, SSH, internet calling and online gaming also use the Internet, but they are not necessarily part of the World Wide Web.</p>
+<div class="cols"><div><strong>Internet = infrastructure</strong><p>Routers, links, providers, networks, IP addressing and packet delivery. Think of the road system.</p></div><div><strong>Web = information/service system</strong><p>Webpages, websites, URLs, hyperlinks, browsers and HTTP(S). Think of the shops and buildings reached using the roads.</p></div></div>
+<p>Here is a subtle but important detail: <code>www</code> at the beginning of <code>www.example.com</code> is often just a <strong>subdomain name</strong>. Many websites work perfectly at <code>example.com</code> without the <code>www</code> prefix. The three letters are neither a required part of HTTPS nor a magical command.</p>
+<pre><code>https://www.example.com/
+        └─ subdomain: www
+
+https://example.com/
+        └─ domain without www
+
+Both may point to the same website,
+or the site may redirect one to the other.</code></pre>
+<div class="champuter"><span class="face">🎓</span><div><strong>Champuter's checkpoint:</strong><p>If your Wi-Fi router connects your phone and laptop but the Internet connection fails, those devices may still communicate on the local network. Wi-Fi, the Internet and the Web are three different concepts.</p></div></div>
+
+<h2 id="www-history">2. How did the Web begin?</h2>
+<p>Tim Berners-Lee proposed a hypertext information-sharing system at CERN in 1989. In 1990, he developed core pieces of the first Web system, including a browser/editor, a web server and webpages; in 1991, he publicly announced the project. The Web's central insight was to link resources so that people could move between documents simply by clicking <strong>hyperlinks</strong>.</p>
+<p>Three central Web building blocks emerged: <strong>URL</strong> to identify a resource, <strong>HTTP</strong> to request and transfer Web content, and <strong>HTML</strong> to describe hypertext documents. CSS and JavaScript later made pages richer, styled and interactive. The Web is now used for documents, multimedia, web applications and APIs.</p>
+<div class="flow"><span>URL: Where?</span><b>+</b><span>HTTP: How to communicate?</span><b>+</b><span>HTML: What is the document?</span></div>
+
+<h2 id="www-components">3. Web page, website, browser, search engine and web application</h2>
+<div class="scroll"><table><thead><tr><th>Word</th><th>What it actually means</th><th>Example</th></tr></thead><tbody>
+<tr><td>Web page</td><td>One document or view accessible in a web browser</td><td>An individual lesson</td></tr>
+<tr><td>Website</td><td>A collection of related pages/resources under a common identity</td><td>Learn With Champak</td></tr>
+<tr><td>Browser</td><td>Software that retrieves, renders and interacts with web resources</td><td>Chrome, Firefox, Safari</td></tr>
+<tr><td>Search engine</td><td>A service that indexes and helps find resources</td><td>A web search service</td></tr>
+<tr><td>Web app</td><td>An interactive application delivered through Web technologies</td><td>Online editor, quiz or task manager</td></tr>
+<tr><td>Web server</td><td>Software/computer that receives requests and serves resources</td><td>A server hosting HTML or API routes</td></tr>
+<tr><td>Domain name</td><td>A human-readable name used in addressing and DNS</td><td><code>learnwithchampak.live</code></td></tr>
+<tr><td>Hyperlink</td><td>A clickable connection between resources</td><td><code>&lt;a href="..."&gt;</code></td></tr>
+</tbody></table></div>
+<p>Entering an address directly is <strong>navigation</strong>. Typing words into a search engine is <strong>search</strong>. Your browser can perform both, but it does not make the search engine the browser.</p>
+
+<h2 id="www-server">4. Client and server: the Web's most useful mental model</h2>
+<p>A <strong>client</strong> is software that asks for a service; a <strong>server</strong> is software that provides one. Usually the browser acts as the client. Web server software listens for requests and returns responses. A single physical machine may run multiple servers; conversely, one website may use many machines.</p>
+<div class="flow"><span>Browser / client</span><b>→ Request →</b><span>Server</span><b>→ Response →</b><span>Browser / client</span></div>
+<p>Some resources are <strong>static</strong>: an HTML or image file can be returned without executing business logic. Other resources are <strong>dynamic</strong>: a backend program may check permissions, query a database, compute results and build a response. Static and dynamic content often coexist.</p>
+<h3>Web server versus application server versus database</h3>
+<p>A reverse proxy or web server can handle incoming HTTPS traffic. An application server runs your program (such as a Node.js Express app). A database stores organised data (such as MySQL or PostgreSQL). The roles can run on one computer for a small project or on separate systems for a larger service.</p>
+<div class="flow"><span>Browser</span><b>→</b><span>HTTPS / reverse proxy</span><b>→</b><span>Node.js application</span><b>↔</b><span>MySQL database</span></div>
+<p>A frontend stored on GitHub Pages and a backend hosted elsewhere can be part of one web app. Their distinct origins introduce cross-origin considerations later in this lesson.</p>
+
+<h2 id="www-network">5. How a browser reaches a distant server: IP, DNS, packets and ports</h2>
+<p>When you request a website, the browser needs a way to locate a reachable network endpoint. A <strong>DNS resolver</strong> can look up a hostname and return address records such as IPv4 (<code>A</code>) or IPv6 (<code>AAAA</code>). Routers forward network packets toward the destination. The client then establishes the applicable transport connection.</p>
+<h3>IP address and DNS</h3>
+<pre><code>Hostname:  www.example.com
+DNS:       resolves name to an address
+Example:   203.0.113.10  (documentation-only IP)
+
+Browser → network → destination endpoint</code></pre>
+<p>DNS lookup may be skipped if a usable cached answer exists. Real website infrastructure can use many addresses, load balancers, caches and CDNs, so a hostname does not necessarily correspond to one permanent server.</p>
+<h3>What is a port number?</h3>
+<p>An IP address helps reach a network endpoint; a <strong>port</strong> distinguishes a transport service or connection endpoint. Think <em>building address versus numbered office</em>. The numeric range for TCP and UDP ports is 0–65535 (port 0 has special/reserved meaning for ordinary service use). TCP 443 and UDP 443 are different endpoints.</p>
+<div class="scroll"><table><thead><tr><th>Example port</th><th>Common use</th></tr></thead><tbody>
+<tr><td>80/TCP</td><td>HTTP</td></tr><tr><td>443/TCP</td><td>HTTPS using HTTP/1.1 or HTTP/2</td></tr><tr><td>443/UDP</td><td>HTTP/3 over QUIC</td></tr><tr><td>53/UDP or TCP</td><td>Conventional DNS</td></tr><tr><td>22/TCP</td><td>SSH</td></tr><tr><td>3000/TCP</td><td>Frequently a local Node.js development server, not a required HTTP port</td></tr><tr><td>3306/TCP</td><td>Common default MySQL port</td></tr>
+</tbody></table></div>
+<p><code>http://localhost:3000</code> requests an HTTP service on port 3000 of your own computer; <code>/students</code> after that identifies an application route. A port is not a route, and a firewall allowing a port does not guarantee a program is listening there.</p>
+<h3>TCP versus QUIC</h3>
+<p>HTTP/1.1 and HTTP/2 commonly use TCP; secure use also involves TLS. HTTP/3 uses QUIC, which runs over UDP and includes secure, reliable stream transport. Therefore it is inaccurate to claim that every HTTP connection always uses TCP.</p>
+
+<h2 id="www-url">6. Understand every part of a web address (URL)</h2>
+<p>A <strong>URL</strong> (Uniform Resource Locator) identifies how to locate a resource. Study this <em>illustrative</em> address:</p>
+<pre><code>https://www.example.com:443/courses/web?level=0&amp;lang=en#cookies
+└https┘ └──hostname─────┘ └┘ └──path────┘ └query string┘ └fragment┘
+
+https      = scheme (secure HTTP)
+www        = subdomain / host label
+example.com= domain
+:443       = explicit port, normally implicit for HTTPS
+/courses/web = path
+?level=0&amp;lang=en = query parameters
+#cookies   = fragment handled on the client side</code></pre>
+<p>URL fragments are normally not sent as part of an HTTP request target to the server. Query parameters usually are. Avoid putting passwords, access tokens or other sensitive values into URLs because they can be recorded in logs, browsing history or shared links.</p>
+<p>Two URLs differing by scheme (<code>http</code> versus <code>https</code>), hostname or port usually represent different <strong>origins</strong>. Paths and query strings do not change the origin. We will use this important distinction for cookies, storage and CORS.</p>
+
+<h2 id="www-http">7. HTTP: the conversation between browser and server</h2>
+<p><strong>HTTP</strong> means Hypertext Transfer Protocol. It defines request/response semantics for webpages, images, JSON APIs and other resources. Usually a client sends a request and a server replies with a status, headers and optionally a body. Modern web pages often generate many requests, not just one.</p>
+<h3>HTTP/1.1 request example</h3>
+<pre><code>GET /courses/web HTTP/1.1
+Host: example.com
+Accept: text/html
+User-Agent: ExampleBrowser/1.0</code></pre>
+<h3>HTTP/1.1 response example</h3>
+<pre><code>HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Cache-Control: max-age=120
+
+&lt;!doctype html&gt;
+&lt;html&gt;&lt;body&gt;
+  &lt;h1&gt;Welcome!&lt;/h1&gt;
+&lt;/body&gt;&lt;/html&gt;</code></pre>
+<p>HTTP/2 and HTTP/3 have different underlying wire formats, but these request and response ideas remain. A <strong>header</strong> is metadata; a <strong>body</strong> carries content. The <code>Content-Type</code> header tells the client how to interpret the body.</p>
+<h3>Common HTTP methods</h3>
+<div class="scroll"><table><thead><tr><th>Method</th><th>Meaning</th><th>Typical operation</th></tr></thead><tbody>
+<tr><td>GET</td><td>Retrieve a resource representation</td><td>Open an article / fetch JSON</td></tr>
+<tr><td>HEAD</td><td>Request response metadata without a response body</td><td>Inspect headers</td></tr>
+<tr><td>POST</td><td>Submit data for processing</td><td>Register a user / add task</td></tr>
+<tr><td>PUT</td><td>Create or replace a resource representation</td><td>Replace task record</td></tr>
+<tr><td>PATCH</td><td>Apply a partial modification</td><td>Change one task field</td></tr>
+<tr><td>DELETE</td><td>Request removal of a resource</td><td>Delete task</td></tr>
+<tr><td>OPTIONS</td><td>Learn supported communication options</td><td>CORS preflight, capability information</td></tr>
+</tbody></table></div>
+<h3>HTTP status codes</h3>
+<div class="scroll"><table><thead><tr><th>Code</th><th>Meaning</th><th>Common observation</th></tr></thead><tbody>
+<tr><td>200</td><td>OK</td><td>Successful request</td></tr>
+<tr><td>201</td><td>Created</td><td>New item created</td></tr>
+<tr><td>301 / 308</td><td>Permanent redirection</td><td>New canonical URL</td></tr>
+<tr><td>302 / 307</td><td>Temporary redirection</td><td>Temporary target</td></tr>
+<tr><td>304</td><td>Not Modified</td><td>Cache validation</td></tr>
+<tr><td>400</td><td>Bad Request</td><td>Malformed request</td></tr>
+<tr><td>401</td><td>Unauthorized</td><td>Needs valid authentication</td></tr>
+<tr><td>403</td><td>Forbidden</td><td>Request not allowed</td></tr>
+<tr><td>404</td><td>Not Found</td><td>Missing route/resource</td></tr>
+<tr><td>429</td><td>Too Many Requests</td><td>Rate limiting</td></tr>
+<tr><td>500</td><td>Internal Server Error</td><td>Backend failure</td></tr>
+<tr><td>502 / 504</td><td>Gateway error / timeout</td><td>Intermediary could not obtain timely usable response</td></tr>
+</tbody></table></div>
+<div class="lab"><strong>Lab 1 — Watch real HTTP traffic</strong><ol><li>Open Chrome and visit the <a href="https://dsa.learnwithchampak.live/web/www-zero-to-infinity/playground.html" target="_blank" rel="noopener">WWW practice page</a>.</li><li>Open DevTools with <strong>F12</strong> → <strong>Network</strong>.</li><li>Reload; inspect the document request and the fetched resources.</li><li>Click <em>Fetch existing JSON</em>, then <em>Request missing JSON</em> in Lab 4.</li><li>Observe 200 versus 404, then inspect Headers, Response and Timing.</li></ol><p class="expect"><strong>Expected:</strong> A 404 is a completed HTTP exchange with an error status. Offline or DNS failure may prevent receiving any HTTP response.</p></div>
+
+<h2 id="www-https">8. HTTPS, encryption, TLS and certificates</h2>
+<p><strong>HTTPS</strong> is HTTP protected by <strong>TLS</strong> (Transport Layer Security). TLS helps ensure that data is encrypted in transit, resistant to undetected alteration, and exchanged with a server whose identity is authenticated through correctly validated certificates.</p>
+<div class="flow"><span>Browser</span><b>→</b><span>TLS handshake and keys</span><b>→</b><span>Encrypted HTTP</span><b>→</b><span>Server</span></div>
+<p>A certificate binds an identity (such as a hostname) to a public key through a certificate trust system. The browser checks relevant details such as domain name, validity and trust chain. Modern HTTPS uses TLS (not the obsolete SSL protocol), even though people sometimes say “SSL certificate.”</p>
+<div class="cols"><div><strong>HTTP</strong><p>Normally port 80, without built-in connection encryption. Unsafe for transmitting passwords over untrusted networks.</p></div><div><strong>HTTPS</strong><p>Normally port 443; HTTP messages are protected by TLS or QUIC's TLS-based security, depending on HTTP version.</p></div></div>
+<p>HTTPS protects the transport but does <strong>not</strong> guarantee that a website is honest, that its content is harmless, or that the server stores data securely. A phishing site may have a valid TLS certificate.</p>
+<div class="caution"><strong>Remember:</strong> Do not use live passwords or secrets in browser practice pages. Even on HTTPS sites, browser scripts or compromised servers can introduce separate risks.</div>
+
+<h2 id="www-html">9. HTML: structure and meaning of a web document</h2>
+<p><strong>HTML</strong> means HyperText Markup Language. It is the markup language of Web documents: elements express headings, paragraphs, links, forms, images, tables and meaningful document structure. HTML is <strong>not</strong> the same as a general-purpose programming language.</p>
+<pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport"
+        content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;My First Webpage&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Welcome to my website&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;p&gt;This is a paragraph.&lt;/p&gt;
+    &lt;a href="https://example.com"&gt;Visit example&lt;/a&gt;
+    &lt;button type="button"&gt;Click me&lt;/button&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3>Tags, elements and attributes</h3>
+<p><code>&lt;p&gt;</code> is an opening tag, <code>&lt;/p&gt;</code> a closing tag, and the complete paragraph is an element. Attributes such as <code>href</code>, <code>id</code>, <code>class</code>, <code>alt</code> and <code>lang</code> describe properties or relationships.</p>
+<h3>Semantic HTML and accessibility</h3>
+<p>Use <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code> and <code>&lt;footer&gt;</code> when they match the document's meaning. Choose headings in logical order. Use a real <code>&lt;button&gt;</code> for actions and an <code>&lt;a&gt;</code> for navigation. Give informative images appropriate alternative text.</p>
+<div class="lab"><strong>Lab 2 — Inspect HTML</strong><p>On the playground, right-click a paragraph → <strong>Inspect</strong>. Double-click its text in the Elements panel to modify it locally. Reload; note that the browser's temporary change is not a published server edit.</p></div>
+
+<h2 id="www-css">10. CSS: making HTML look beautiful</h2>
+<p><strong>CSS</strong> means Cascading Style Sheets. CSS controls colours, fonts, spacing, borders, position, alignment, responsive layouts and much of a page's visual presentation. HTML says <em>what an element is</em>; CSS says <em>how it looks and is laid out</em>.</p>
+<pre><code>&lt;style&gt;
+  body {
+    background: #f0f8ff;
+    color: #163e5c;
+    font-family: Arial, sans-serif;
+  }
+  .card {
+    padding: 20px;
+    border: 1px solid #b4d8ed;
+    border-radius: 12px;
+    background: white;
+  }
+  .card button:hover {
+    background: #155e96;
+    color: white;
+  }
+&lt;/style&gt;
+
+&lt;div class="card"&gt;
+  &lt;h2&gt;Hello!&lt;/h2&gt;
+  &lt;button type="button"&gt;Start&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+<p>The selector <code>body</code> selects the body element, <code>.card</code> selects a class, <code>#menu</code> selects an ID, and <code>:hover</code> matches a state. The cascade determines which declarations win when several rules apply, based on origins, importance, layers, specificity and order.</p>
+<h3>The box model</h3>
+<div class="flow"><span>Margin</span><b>→</b><span>Border</span><b>→</b><span>Padding</span><b>→</b><span>Content</span></div>
+<p>Every common layout box has a content area plus padding, border and margin. With <code>box-sizing:border-box</code>, the declared width includes padding and border, which often makes responsive layouts easier to reason about.</p>
+<h3>Flexbox, Grid and mobile responsiveness</h3>
+<pre><code>/* Flexbox: align items in one dimension */
+.menu { display: flex; gap: 12px; }
+
+/* Grid: build a responsive card layout */
+.products {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* Change layout on narrow screens */
+@media (max-width: 600px) {
+  .menu { flex-direction: column; }
+}</code></pre>
+<div class="champuter"><span class="face">🎓</span><div><strong>Champuter's exercise:</strong><p>Change <code>color</code>, <code>padding</code> and <code>border-radius</code> using Chrome DevTools → Elements → Styles. Inspect the Computed view and box model. Then change a narrow mobile viewport using Device Mode to watch media queries take effect.</p></div></div>
+
+<h2 id="www-js">11. JavaScript: behaviour and interactivity</h2>
+<p><strong>JavaScript</strong> is a programming language used by browsers for interactions and dynamic document updates. It also runs outside browsers, including on servers using Node.js. It can react to clicks, read forms, update content, fetch data and coordinate more complex web applications.</p>
+<h3>Understand the DOM</h3>
+<p>When the browser parses HTML, it creates a <strong>Document Object Model</strong> (DOM), representing the current document as connected nodes. JavaScript can read and change these nodes; CSS determines their appearance.</p>
+<pre><code>&lt;p id="greeting"&gt;Hello!&lt;/p&gt;
+&lt;button type="button" id="helloButton"&gt;
+  Say hello
+&lt;/button&gt;
+
+&lt;script&gt;
+  const button = document.getElementById("helloButton");
+  const greeting = document.getElementById("greeting");
+
+  button.addEventListener("click", () =&gt; {
+    greeting.textContent = "Hello from JavaScript!";
+  });
+&lt;/script&gt;</code></pre>
+<p>The event listener waits for a click. <code>textContent</code> updates the paragraph without reloading the page. It is generally safer than putting untrusted user input into <code>innerHTML</code>, which can create cross-site scripting vulnerabilities when misused.</p>
+<h3>Client-side versus server-side JavaScript</h3>
+<div class="cols"><div><strong>Browser JavaScript</strong><p>Handles UI, forms, DOM events, local storage, calling APIs and rendering. Its code can often be inspected by the user.</p></div><div><strong>Server-side Node.js</strong><p>Receives requests, applies trusted business rules, verifies permissions, works with databases and sends responses.</p></div></div>
+<p>A critical principle: <strong>Never rely on browser-side validation as your only security check.</strong> A user can change browser scripts or send requests without using your intended interface. Server logic must validate and authorise operations.</p>
+<div class="lab"><strong>Lab 3 — Change the DOM</strong><p>On the playground, click <em>Change the text</em> and <em>Change the style</em>. In DevTools, inspect the paragraph's current text and CSS. The browser updates its DOM, but no server-side file has changed.</p></div>
+
+<h2 id="www-render">12. How HTML, CSS and JavaScript become pixels</h2>
+<p>After a successful navigation, the browser may receive HTML, parse it into the DOM, discover additional CSS/JavaScript/image resources, compute styles, determine layout and paint pixels. JavaScript can modify elements and trigger further style or layout work. CSS and script loading rules affect when portions of the page become usable.</p>
+<div class="flow"><span>HTML bytes</span><b>→</b><span>DOM</span><b>+</b><span>CSS rules</span><b>→</b><span>Style + Layout</span><b>→</b><span>Paint + Compose</span></div>
+<p>JavaScript execution, font loading, images, animations, caching and different rendering engines influence the details. A page can become partially visible before all resources finish loading. A single website visit can involve dozens or hundreds of separate network requests.</p>
+<h3>Why pages sometimes jump or freeze</h3>
+<p>Large images without reserved dimensions can cause layout movement. Long-running synchronous JavaScript can delay user interaction and painting. Too many blocking resources can delay initial rendering. Chrome DevTools has Elements, Network, Performance and Lighthouse tools for investigating these problems.</p>
+
+<h2 id="www-form">13. Forms: how the browser collects information</h2>
+<p>HTML forms provide inputs, labels, select boxes, checkboxes and submission controls. A form's <code>action</code> identifies where information is submitted; <code>method</code> controls the HTTP request method. A backend must validate submissions regardless of browser validation.</p>
+<pre><code>&lt;form action="/search" method="get"&gt;
+  &lt;label for="q"&gt;Search&lt;/label&gt;
+  &lt;input id="q" name="q" required&gt;
+  &lt;button type="submit"&gt;Search&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<p>A GET form normally puts submitted values in the query string (such as <code>/search?q=html</code>). A POST form normally sends values in the request body. <strong>POST is not encryption</strong>: sensitive forms need HTTPS and server-side protection. Avoid placing passwords in URLs.</p>
+<h3>GET versus POST: deeper meaning</h3>
+<p>GET is intended for retrieval and is defined to be safe in HTTP semantics. POST submits content for processing and may change server state. If a GET endpoint deletes data, that is an unsafe application design even though a programmer could technically implement it.</p>
+
+<h2 id="www-api">14. APIs and JSON: when webpages talk to programs</h2>
+<p><strong>API</strong> means Application Programming Interface. Web APIs commonly expose HTTP endpoints from which a browser or another program can request or update data. <strong>JSON</strong> is a lightweight text format representing objects, arrays, strings, numbers, booleans and null values.</p>
+<pre><code>{
+  "student": "Asha",
+  "subject": "Web Development",
+  "marks": 92,
+  "passed": true
+}</code></pre>
+<h3>JavaScript fetch() example</h3>
+<pre><code>async function loadLessonData() {
+  const response = await fetch(
+    "https://dsa.learnwithchampak.live/web/www-zero-to-infinity/sample-api.json"
+  );
+
+  if (!response.ok) {
+    throw new Error("HTTP " + response.status);
+  }
+
+  const data = await response.json();
+  console.log(data);
+}
+
+loadLessonData().catch(console.error);</code></pre>
+<p>Note that <code>fetch()</code> does not automatically reject merely because a server returned HTTP 404 or 500. Check <code>response.ok</code> or <code>response.status</code>. A network failure can reject the Promise itself. Cross-origin reading also depends on the browser's CORS rules.</p>
+<div class="lab"><strong>Lab 4 — Inspect an API response</strong><ol><li>Open the playground and Chrome DevTools → Network → Fetch/XHR.</li><li>Click <em>Fetch existing JSON</em>.</li><li>Read the HTTP status, response headers and JSON body.</li><li>Try the intentionally missing JSON and compare the result.</li></ol><p class="expect"><strong>Expected:</strong> You can distinguish the transport result from the data format and application logic.</p></div>
+
+<h2 id="www-backend">15. Backend programs, databases and multi-tier applications</h2>
+<p>A dynamic application might have several stages: a browser displays a form; JavaScript sends an API request; a Node.js application checks input and permissions; a database stores or returns records; the application sends JSON; JavaScript updates the page.</p>
+<div class="flow"><span>UI / browser</span><b>→</b><span>HTTP API</span><b>→</b><span>Business logic</span><b>→</b><span>Database</span></div>
+<p>Database systems such as MySQL and PostgreSQL use tables and SQL queries; other databases have different models. Never send raw database credentials to the browser. Browser scripts are not a protected place for secrets.</p>
+<h3>Example API journey: task manager</h3>
+<pre><code>Browser sends:
+POST /api/tasks
+Content-Type: application/json
+
+{"title":"Study HTML"}
+
+Backend:
+1. Check session and permissions
+2. Validate title
+3. Insert into database
+4. Return new task ID
+
+Response:
+HTTP/1.1 201 Created
+Content-Type: application/json
+
+{"id":12,"title":"Study HTML"}</code></pre>
+<p>Real applications also need robust error handling, rate limiting where appropriate, safe database queries, permission checks and backups.</p>
+
+<h2 id="www-state">16. Why HTTP is called stateless</h2>
+<p>HTTP is <strong>stateless</strong> in the sense that each request does not automatically include the history of all previous requests in its protocol semantics. A browser can request <code>/home</code> and later <code>/profile</code>; without additional state management, the server does not automatically know that both requests belong to one logged-in user.</p>
+<div class="flow"><span>Request 1: /home</span><b>→</b><span>Response 1</span><b>·</b><span>Request 2: /profile</span><b>→</b><span>Response 2</span></div>
+<p>However, web applications <strong>can</strong> maintain user continuity. They use cookies, server-side sessions, tokens, database records and other state-management mechanisms. Stateless HTTP does not imply stateless applications.</p>
+<div class="champuter"><span class="face">🎓</span><div><strong>Champuter asks:</strong><p>You log into a website and click five different pages. How can it remember you? Usually the browser sends a suitable session identifier or credential with later requests, and the server validates it. Now we will distinguish the identifier from the account information it refers to.</p></div></div>
+
+<h2 id="www-cookie">17. Cookies: small pieces of browser-managed state</h2>
+<p>A <strong>cookie</strong> is a small name/value item associated with a website. A server can set a cookie using the <code>Set-Cookie</code> response header. Subject to browser policies and the cookie's attributes, the browser later includes matching cookies in HTTP requests using the <code>Cookie</code> request header.</p>
+<h3>The simplest cookie example</h3>
+<pre><code>Server response:
+HTTP/1.1 200 OK
+Set-Cookie: theme=blue; Path=/; SameSite=Lax
+
+Later browser request:
+GET /lessons HTTP/1.1
+Host: example.com
+Cookie: theme=blue</code></pre>
+<p>The browser manages when the cookie is attached. The server can read the <code>Cookie</code> header. JavaScript can access cookies without <code>HttpOnly</code> through <code>document.cookie</code>, but <code>HttpOnly</code> session cookies are intentionally hidden from page JavaScript.</p>
+<h3>Why websites use cookies</h3>
+<ul><li><strong>Sessions:</strong> hold an opaque login-session identifier so later requests can be associated with a server-side session.</li>
+<li><strong>Preferences:</strong> remember language, layout or theme settings.</li>
+<li><strong>Shopping carts:</strong> identify a visitor or related cart record.</li>
+<li><strong>Analytics and advertising:</strong> some cookies help recognize activity across visits, subject to laws and browser privacy controls.</li></ul>
+<h3>Cookie attributes explained individually</h3>
+<div class="scroll"><table><thead><tr><th>Attribute</th><th>Meaning</th><th>Why it matters</th></tr></thead><tbody>
+<tr><td>Name=value</td><td>Cookie's data</td><td>Use an opaque random identifier, not a password, for authentication session tracking</td></tr>
+<tr><td>Domain</td><td>Controls which hosts may receive the cookie</td><td>Omit unless subdomain sharing is needed; host-only is usually narrower</td></tr>
+<tr><td>Path</td><td>Limits request paths for sending cookie</td><td>Organisational scope, <em>not</em> a complete security boundary</td></tr>
+<tr><td>Expires</td><td>Absolute expiry time</td><td>Controls persistence</td></tr>
+<tr><td>Max-Age</td><td>Relative lifetime in seconds</td><td>Usually preferable when specifying duration</td></tr>
+<tr><td>Secure</td><td>Send only over secure transport such as HTTPS, with a localhost exception in some browsers</td><td>Reduces exposure on insecure connections</td></tr>
+<tr><td>HttpOnly</td><td>Disallows access through <code>document.cookie</code></td><td>Helps protect session IDs from JavaScript extraction</td></tr>
+<tr><td>SameSite=Strict</td><td>Restricts cross-site sending strongly</td><td>Can reduce CSRF risk; impacts navigation behavior</td></tr>
+<tr><td>SameSite=Lax</td><td>Allows some top-level cross-site navigations under defined conditions</td><td>Often practical default for session cookies</td></tr>
+<tr><td>SameSite=None</td><td>Allows cross-site sending when other policies permit</td><td>Requires Secure; browsers may restrict third-party cookies</td></tr>
+</tbody></table></div>
+<h3>Session cookies versus persistent cookies</h3>
+<p>A cookie without an explicit <code>Expires</code> or <code>Max-Age</code> is commonly called a <strong>session cookie</strong>. Its lifetime is controlled by browser session behaviour; session restoration may preserve it. A cookie with a specified lifetime is usually a <strong>persistent cookie</strong>. A browser cookie called a “session cookie” must not be confused with the server-side session record it may identify.</p>
+<h3>Example secure authentication cookie header</h3>
+<pre><code>Set-Cookie: __Host-sid=OPAQUE_RANDOM_SESSION_ID;
+            Path=/; Max-Age=1800;
+            Secure; HttpOnly; SameSite=Lax</code></pre>
+<p>The special <code>__Host-</code> prefix has browser-enforced restrictions in supporting browsers (including no Domain attribute and a <code>Path=/</code> requirement). Never copy this literal value as a production credential: a legitimate session identifier must be securely random and generated by a trusted session manager.</p>
+<div class="caution"><strong>Important:</strong> Do not store plaintext passwords or unprotected personal data inside cookies. Cookies can be modified by the user unless protected by appropriate server-side validation or cryptographic mechanisms. Cookie consent and privacy obligations depend on jurisdiction and use.</div>
+<div class="lab"><strong>Lab 5 — Create a harmless cookie</strong><ol><li>Open the playground's cookie lab.</li><li>Create a demo preference cookie; inspect DevTools → Application → Cookies.</li><li>Run <code>document.cookie</code> in the Console. Observe the demo preference (other cookies may also appear).</li><li>Delete the demo cookie. Compare this with a server-issued <code>HttpOnly</code> authentication cookie: it would <em>not</em> appear in <code>document.cookie</code>.</li></ol><p class="expect"><strong>Expected:</strong> Cookies are browser-managed state and have delivery/security attributes, unlike ordinary localStorage values.</p></div>
+
+<h2 id="www-session">18. Server-side login sessions — not the same as sessionStorage</h2>
+<p>A <strong>server-side session</strong> is a server-maintained association between an identifier and application state such as a logged-in user, expiry and selected session data. A common design places an opaque <strong>session ID</strong> in a browser cookie while keeping sensitive account/session information on the server or in a session store.</p>
+<h3>Login story, one request at a time</h3>
+<ol><li>The visitor submits credentials over HTTPS.</li><li>The server checks them using secure password verification or a trusted identity provider.</li><li>The server creates a new unpredictable session identifier, recording its association with the authenticated user.</li><li>The server sends an <code>HttpOnly</code>, <code>Secure</code>, appropriately scoped cookie containing the session ID.</li><li>For later requests, the browser automatically attaches this cookie when matching rules allow.</li><li>The server looks up/validates the session ID and determines who the visitor is and whether access is allowed.</li><li>At logout, the server invalidates the session and clears or expires the cookie.</li></ol>
+<div class="flow"><span>Login form</span><b>→</b><span>Server verifies</span><b>→</b><span>Session store</span><b>→</b><span>Cookie with session ID</span><b>→</b><span>Later protected request</span></div>
+<h3>Why not place the username and password in a cookie?</h3>
+<p>Every request would risk unnecessarily transmitting sensitive credentials; browser storage can be attacked or exposed. A random session ID is not a password and can be revoked centrally. It is still a highly sensitive credential in practice: whoever holds a valid session ID may be able to act as that user, so it needs protection.</p>
+<h3>Session fixation, expiration and logout</h3>
+<p>Regenerate the session ID when privilege level changes (especially after login), apply idle and absolute expiration policies, and invalidate sessions on logout. A session may also be invalidated when a user changes a password or an administrator revokes access. A user merely closing a browser tab does <strong>not</strong> guarantee that a server session has ended.</p>
+<h3>Sessions versus cookies in one line</h3>
+<p><strong>Cookie:</strong> browser-managed data (often just the opaque session ID). <strong>Server session:</strong> application state associated with that ID and verified by the backend.</p>
+
+<h2 id="www-storage">19. localStorage, sessionStorage, IndexedDB and in-memory state</h2>
+<p>The <strong>Web Storage API</strong> provides <code>localStorage</code> and <code>sessionStorage</code>. Both store string key/value pairs in the browser and are accessed by JavaScript. They do <strong>not</strong> automatically travel in ordinary HTTP request headers. Storage access is limited by browser origins and policies.</p>
+<h3>localStorage example</h3>
+<pre><code>// Set a harmless preference
+localStorage.setItem("theme", "lightblue");
+
+// Read it
+const theme = localStorage.getItem("theme");
+console.log(theme);
+
+// Remove just one key
+localStorage.removeItem("theme");</code></pre>
+<p>localStorage normally persists across page reloads, tabs and browser restarts for the same origin, until removed by the application, user, browser policy, quota management or private-browsing behaviour. Persistence is not guaranteed forever.</p>
+<h3>sessionStorage example</h3>
+<pre><code>sessionStorage.setItem("draftTitle", "My WWW lesson");
+console.log(sessionStorage.getItem("draftTitle"));
+sessionStorage.removeItem("draftTitle");</code></pre>
+<p>sessionStorage is partitioned by <strong>origin and page session (usually a tab)</strong>. It normally survives reloads in that tab but is cleared when the page session ends. A new tab created with an opener or duplicated tab may begin with a copied sessionStorage state; thereafter the stores are independent.</p>
+<h3>JSON requires serialization</h3>
+<pre><code>const preferences = {
+  language: "English",
+  fontSize: 18
+};
+
+// Store as a string
+localStorage.setItem(
+  "preferences",
+  JSON.stringify(preferences)
+);
+
+// Read back as an object
+const saved = JSON.parse(
+  localStorage.getItem("preferences") || "{}"
+);
+
+console.log(saved.language);</code></pre>
+<p>Since storage values are strings, storing an object directly without JSON serialization does not give you a recoverable nested JavaScript object.</p>
+<h3>What about IndexedDB?</h3>
+<p><strong>IndexedDB</strong> is a browser database for more substantial structured client-side data and transactional operations. It is useful for offline applications, larger data sets and more complex indexing. <strong>Cache Storage</strong> separately holds Request/Response pairs, often used by service workers.</p>
+<h3>What about ordinary JavaScript variables?</h3>
+<p>A variable such as <code>let cart=[]</code> exists in an execution environment while the page's scripts run. Reloading normally recreates that state unless the app restores it. Browser storage and server records are strategies for persistence beyond a single running script.</p>
+<div class="caution"><strong>Security rule:</strong> Do not store session IDs, access tokens or confidential personal information in localStorage as a casual shortcut. If malicious JavaScript executes on your origin, it can generally read these values. A secure server-issued HttpOnly cookie is often preferable for traditional website sessions, with other protections still required.</div>
+<div class="lab"><strong>Lab 6 — Compare reload, new tab and browser restart</strong><ol><li>Enter a harmless nickname in the playground.</li><li>Store the value in <code>localStorage</code> and <code>sessionStorage</code>.</li><li>Reload the page; observe both values.</li><li>Open a new independent tab to the same URL, and compare the two stores (be aware of duplicated/opener tab behaviour).</li><li>Close and reopen the tab/browser; observe which values persist under your browser settings.</li><li>Inspect both in DevTools → Application and remove the demo keys.</li></ol><p class="expect"><strong>Expected:</strong> You understand origin-scoped persistence and why sessionStorage is not a backend login-session manager.</p></div>
+
+<h2 id="www-compare">20. Cookie vs localStorage vs sessionStorage vs server session</h2>
+<div class="scroll"><table><thead><tr><th>Question</th><th>Cookie</th><th>localStorage</th><th>sessionStorage</th><th>Server session</th></tr></thead><tbody>
+<tr><td>Where is it stored?</td><td>Browser cookie store</td><td>Browser storage</td><td>Browser storage per origin/page session</td><td>Backend or session service</td></tr>
+<tr><td>Automatically sent on matching HTTP requests?</td><td>Yes, subject to cookie policies</td><td>No</td><td>No</td><td>No; session ID credential must be sent by client</td></tr>
+<tr><td>Readable by page JavaScript?</td><td>Usually, unless HttpOnly</td><td>Yes</td><td>Yes</td><td>Not directly</td></tr>
+<tr><td>Survives reload?</td><td>Usually, depending on expiry/policy</td><td>Usually</td><td>Usually in same page session</td><td>According to backend expiry policy</td></tr>
+<tr><td>Survives browser restart?</td><td>Persistent cookies usually; session cookie behavior varies</td><td>Usually</td><td>Not reliably after a page session ends; restoration may affect behaviour</td><td>Potentially, until revoked/expired</td></tr>
+<tr><td>Typical use</td><td>Session ID, limited preference</td><td>Harmless preference</td><td>Temporary form or UI state</td><td>Login/session state, server-side cart</td></tr>
+<tr><td>Main caution</td><td>Scope, CSRF, privacy and session hijacking</td><td>XSS can read it</td><td>XSS can read it</td><td>Correct expiry, revocation and storage security</td></tr>
+</tbody></table></div>
+<div class="champuter"><span class="face">🎓</span><div><strong>Champuter's memory trick:</strong><p><strong>Cookie</strong> travels with matching HTTP requests; <strong>localStorage</strong> stays in browser storage; <strong>sessionStorage</strong> stays with a page session; <strong>server session</strong> is the backend's record of an authenticated or otherwise stateful interaction. A browser cookie often ties the first and fourth together.</p></div></div>
+
+<h2 id="www-auth">21. Authentication, authorization and accounts</h2>
+<p><strong>Authentication</strong> asks: <em>Who are you?</em> <strong>Authorization</strong> asks: <em>What may you access or change?</em> A valid login alone does not permit a student to read another student's private marks.</p>
+<h3>Registration, login and logout</h3>
+<p>Registration creates an account record. Login checks identity and establishes an authenticated session (or other trusted credential). Logout invalidates that authenticated session. A password should never be stored directly in plaintext; production applications use a vetted, salted, password-hashing function such as Argon2id or another suitable industry-recognised method.</p>
+<h3>Roles and protected routes</h3>
+<pre><code>// Illustrative server-side checks
+if (!req.session.userId) {
+  return res.status(401).json({error:"Login required"});
+}
+
+if (req.session.role !== "admin") {
+  return res.status(403).json({error:"Forbidden"});
+}</code></pre>
+<p>Even if a browser hides an admin button, a malicious client can attempt the URL directly. The server must check permissions for every protected action.</p>
+<h3>OAuth and “Sign in with Google”</h3>
+<p>Federated sign-in delegates identity verification through an identity provider. Proper OAuth/OpenID Connect implementations validate tokens and protocol state, but your application must still decide how user accounts and permissions work. Never treat a URL parameter like <code>?username=admin</code> as proof of identity.</p>
+
+<h2 id="www-security">22. Same-origin policy, CORS, CSRF and XSS</h2>
+<p>A browser <strong>origin</strong> is the tuple <strong>scheme + hostname + port</strong>. Example:</p>
+<pre><code>https://example.com     origin A
+http://example.com      origin B (different scheme)
+https://example.com:8443 origin C (different port)
+https://api.example.com origin D (different host)</code></pre>
+<h3>Same-origin policy and CORS</h3>
+<p>Browsers restrict what scripts on one origin can read from another origin unless allowed by relevant policies. <strong>CORS</strong> (Cross-Origin Resource Sharing) is an HTTP-header mechanism that can permit authorised cross-origin reads by browser JavaScript. It is <strong>not</strong> a substitute for authentication or an API firewall.</p>
+<pre><code>Access-Control-Allow-Origin: https://example.com
+Access-Control-Allow-Methods: GET, POST
+Access-Control-Allow-Headers: Content-Type</code></pre>
+<p>Some non-simple cross-origin requests cause a browser <strong>OPTIONS preflight</strong>. When credentialed CORS requests are used, the server must apply additional restrictions; wildcard origins cannot be combined with credentialed responses. Cookies also obey their own SameSite and credential policy, independently of CORS.</p>
+<h3>CSRF: Cross-Site Request Forgery</h3>
+<p>CSRF occurs when an attacker tricks an authenticated browser into issuing an unwanted request to another site. Because cookies can be attached automatically, protected state-changing routes need CSRF defences, potentially including anti-CSRF tokens, SameSite cookies, Origin/Referer checks and fetch metadata checks. Relying on a POST method alone is not enough.</p>
+<h3>XSS: Cross-Site Scripting</h3>
+<p>XSS occurs when malicious input is interpreted as executable content in a trusted webpage. It can access non-HttpOnly data, modify UI or make requests in a user's session. Mitigations include contextual output encoding, safe DOM APIs such as <code>textContent</code>, input handling suited to context, a strong Content Security Policy (CSP) and careful review of third-party scripts.</p>
+<h3>Other essential protections</h3>
+<ul><li><strong>SQL injection:</strong> use parameterised SQL queries, never concatenate untrusted input into SQL commands.</li>
+<li><strong>Clickjacking:</strong> use suitable framing restrictions such as <code>frame-ancestors</code> CSP.</li>
+<li><strong>Mixed content:</strong> avoid insecure HTTP resources on an HTTPS page.</li>
+<li><strong>Rate limiting:</strong> constrain abuse of sensitive endpoints.</li>
+<li><strong>Least privilege:</strong> give each account and process only the permissions it needs.</li></ul>
+<div class="caution"><strong>Champuter's security principle:</strong> Nothing in the browser is a trustworthy secret or permission check. Protect it for user experience, but enforce real security on the server.</div>
+
+<h2 id="www-cache">23. Caching, CDNs, service workers and offline webpages</h2>
+<p><strong>Caching</strong> avoids fetching the same content unnecessarily. A browser cache, reverse proxy or <strong>CDN</strong> may store suitable responses. HTTP caching directives such as <code>Cache-Control</code>, <code>ETag</code> and <code>Last-Modified</code> help determine reuse and validation.</p>
+<pre><code>Cache-Control: public, max-age=3600
+ETag: "lesson-version-7"</code></pre>
+<p>A <strong>CDN</strong> (Content Delivery Network) distributes or caches content at geographically spread locations, potentially reducing latency. A <strong>service worker</strong> is a browser-controlled script that can intercept selected requests, support offline experiences and manage Cache Storage. A <strong>PWA</strong> (Progressive Web App) combines Web technologies with capabilities such as installability and potentially offline functionality, subject to platform support.</p>
+<p>Be cautious about caching personalised responses. A shared cache should not accidentally serve one user's private content to another. Use appropriate cache headers and authentication-aware design.</p>
+
+<h2 id="www-architecture">24. Modern website architectures: not every page works the same way</h2>
+<div class="scroll"><table><thead><tr><th>Architecture</th><th>What happens</th><th>Typical trade-off</th></tr></thead><tbody>
+<tr><td>Static site</td><td>Stored HTML/CSS/JS sent to browser</td><td>Simple and fast to host; dynamic work uses APIs or build-time generation</td></tr>
+<tr><td>Server-rendered page (SSR)</td><td>Backend generates HTML for each request or cached rendering</td><td>Server can deliver complete HTML, but must compute/render it</td></tr>
+<tr><td>Client-rendered app (CSR/SPA)</td><td>Browser JavaScript creates much of the UI using data</td><td>Flexible interactions; loading/SEO/accessibility need care</td></tr>
+<tr><td>Hybrid rendering</td><td>Static, server and client rendering combined</td><td>Flexible but has more moving parts</td></tr>
+<tr><td>Microservices</td><td>Multiple backend services cooperate</td><td>Independent deployment, more operational complexity</td></tr>
+</tbody></table></div>
+<p>For students, a sensible starting point is a static HTML frontend plus a small Node.js API. After that, add persistence, sessions, authentication, deployment, caching and monitoring incrementally.</p>
+
+<h2 id="www-cloud">25. What is cloud hosting? Where does a website live?</h2>
+<p>Websites are hosted on real computers and storage devices. <strong>Cloud computing</strong> describes a service model in which infrastructure, storage, databases or applications are made available on demand and managed through provider services. “Cloud” is not an invisible physical location.</p>
+<div class="cols"><div><strong>Shared hosting</strong><p>Multiple websites use provider-managed servers; limited infrastructure control.</p></div><div><strong>Virtual Private Server</strong><p>An isolated virtual server environment with more configuration responsibility.</p></div><div><strong>Cloud infrastructure</strong><p>Provisionable compute, storage, networks and managed services, often with elasticity.</p></div><div><strong>Static hosting</strong><p>Publishes static site assets, frequently backed by object storage/CDNs.</p></div></div>
+<h3>The domain-to-server journey</h3>
+<div class="flow"><span>Buy/configure domain</span><b>→</b><span>Publish DNS records</span><b>→</b><span>Host page/backend</span><b>→</b><span>Configure HTTPS</span><b>→</b><span>Test and monitor</span></div>
+<p>Hosting does not eliminate responsibility for access controls, secrets, backups, software updates or billing. Some public clouds are self-service and elastic; ordinary shared hosting may provide only a subset of cloud characteristics. A website does not have to use any particular cloud provider to belong to the World Wide Web.</p>
+
+<h2 id="www-devtools">26. Find the evidence in Chrome Developer Tools</h2>
+<p>Chrome DevTools is the most direct way to observe how a Web application actually behaves. Press <strong>F12</strong> (or <strong>Ctrl+Shift+I</strong>) on Windows/Linux and explore the following:</p>
+<div class="scroll"><table><thead><tr><th>Panel</th><th>What to investigate</th></tr></thead><tbody>
+<tr><td>Elements</td><td>DOM, HTML structure and applied CSS</td></tr>
+<tr><td>Console</td><td>JavaScript expressions, errors and warnings</td></tr>
+<tr><td>Sources</td><td>Scripts, breakpoints, call stack and variables</td></tr>
+<tr><td>Network</td><td>HTTP status, headers, payload, response and request timings</td></tr>
+<tr><td>Application → Cookies</td><td>Cookie values, scopes and expiry (subject to browser privacy controls)</td></tr>
+<tr><td>Application → Local Storage</td><td>Persistent origin-scoped key/value data</td></tr>
+<tr><td>Application → Session Storage</td><td>Page-session scoped key/value data</td></tr>
+<tr><td>Security</td><td>Connection-security observations and certificate information</td></tr>
+<tr><td>Lighthouse / Performance</td><td>Performance, accessibility and website-quality investigations</td></tr>
+</tbody></table></div>
+<div class="lab"><strong>Lab 7 — Trace a complete Web interaction</strong><ol><li>Open <a href="https://dsa.learnwithchampak.live/web/www-zero-to-infinity/playground.html" target="_blank" rel="noopener">WWW practice playground</a>.</li><li>Open DevTools → Network, click <em>Fetch existing JSON</em> and identify the request URL and 200 status.</li><li>Inspect the JSON body; then open Console and run <code>document.title</code>.</li><li>Save a harmless nickname in localStorage and sessionStorage; examine each in Application.</li><li>Create a demo cookie and inspect its Path, SameSite, Secure and expiration.</li><li>Explain why this static playground cannot create a genuine server-side login session on its own.</li></ol><p class="expect"><strong>Expected:</strong> You can locate each piece of browser state and separate it from server-side authentication state.</p></div>
+
+<h2 id="www-project">27. Practical Node.js project: HTTP, HTML, API, cookie and a real server session</h2>
+<p>Here is a small but genuine local example using Node.js, Express and <code>express-session</code>. It shows a GET route, a POST request, server session state, protected content and logout. For simplicity it uses a demo visitor identity rather than passwords. It is a <strong>teaching demonstration</strong>, not a ready-to-deploy public authentication system.</p>
+<h3>Step 1: create a project</h3>
+<pre><code>mkdir www-practice
+cd www-practice
+npm init -y
+npm install express express-session</code></pre>
+<h3>Step 2: create server.js</h3>
+<pre><code>"use strict";
+
+const express = require("express");
+const session = require("express-session");
+const crypto = require("node:crypto");
+
+const app = express();
+const PORT = Number(process.env.PORT) || 3000;
+
+// Set a secret through an environment variable.
+// Local ephemeral fallback is only for this demo:
+const secret = process.env.SESSION_SECRET ||
+  crypto.randomBytes(32).toString("hex");
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.use(session({
+  name: "www_demo_sid",
+  secret,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: false, // local HTTP only; true for HTTPS production
+    maxAge: 30 * 60 * 1000
+  }
+}));
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+app.get("/", (req, res) =&gt; {
+  const name = req.session.displayName;
+  res.type("html").send(`
+    &lt;h1&gt;WWW Demonstration&lt;/h1&gt;
+    &lt;p&gt;${name ?
+      "Hello, " + escapeHtml(name) :
+      "You are a guest."}&lt;/p&gt;
+
+    &lt;form action="/login" method="post"&gt;
+      &lt;label&gt;Demo name:
+        &lt;input name="displayName" maxlength="40"
+               required&gt;
+      &lt;/label&gt;
+      &lt;button&gt;Enter demonstration&lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;p&gt;&lt;a href="/api/status"&gt;JSON API&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;a href="/protected"&gt;Protected page&lt;/a&gt;&lt;/p&gt;
+    &lt;form action="/logout" method="post"&gt;
+      &lt;button&gt;Log out&lt;/button&gt;
+    &lt;/form&gt;
+  `);
+});
+
+// Demo-only identification: NOT secure authentication.
+app.post("/login", (req, res, next) =&gt; {
+  const name = String(req.body.displayName || "").trim();
+  if (!name || name.length &gt; 40) {
+    return res.status(400).send("Invalid demo name");
+  }
+  req.session.regenerate(err =&gt; {
+    if (err) return next(err);
+    req.session.displayName = name;
+    req.session.save(err =&gt; {
+      if (err) return next(err);
+      res.redirect("/");
+    });
+  });
+});
+
+app.get("/protected", (req, res) =&gt; {
+  if (!req.session.displayName) {
+    return res.status(401).send("Please enter the demo first");
+  }
+  res.send("Protected demonstration: hello " +
+           req.session.displayName);
+});
+
+app.get("/api/status", (req, res) =&gt; {
+  res.json({
+    hasDemoSession: Boolean(req.session.displayName),
+    displayName: req.session.displayName || null
+  });
+});
+
+app.post("/logout", (req, res, next) =&gt; {
+  req.session.destroy(err =&gt; {
+    if (err) return next(err);
+    res.clearCookie("www_demo_sid", { path: "/" });
+    res.redirect("/");
+  });
+});
+
+app.listen(PORT, "127.0.0.1", () =&gt; {
+  console.log("Open http://localhost:" + PORT);
+});</code></pre>
+<h3>Step 3: run and inspect</h3>
+<pre><code>node server.js
+
+# Then visit:
+http://localhost:3000/</code></pre>
+<ol><li>Before entering a demo name, open <code>/protected</code> and observe status 401.</li><li>Enter a harmless name. The session middleware creates a server-side session and issues a cookie.</li><li>Open <code>/protected</code> again. It now allows the demo session.</li><li>Inspect Chrome DevTools → Application → Cookies. Notice that a real <code>HttpOnly</code> session cookie is not readable through <code>document.cookie</code>.</li><li>Restart the server. The in-memory session store loses its data; the old browser cookie alone is not enough to restore server state.</li><li>Try logout and observe server session invalidation.</li></ol>
+<div class="caution"><strong>Do not publish this as a production login system.</strong> This sample deliberately lets anyone claim any display name, uses an in-memory session store, and uses <code>secure:false</code> only because the local demonstration is served via HTTP. A real application needs authenticated identity checking, HTTPS with secure cookies, persistent session storage, CSRF protection, proper secret management, rate limiting, access control and deployment-specific proxy configuration.</div>
+<div class="champuter"><span class="face">🎓</span><div><strong>Champuter's challenge:</strong><p>Explain why the browser still holds an old cookie after the Node server restarts, but the app no longer recognises the user. This demonstrates that a <em>session cookie</em> and a <em>server-side session record</em> are not the same thing.</p></div></div>
+
+<h2 id="www-troubleshoot">28. Web troubleshooting: symptoms, causes and tools</h2>
+<div class="scroll"><table><thead><tr><th>Symptom</th><th>What to inspect</th><th>Typical cause</th></tr></thead><tbody>
+<tr><td>Page not found</td><td>Network → 404, URL and route</td><td>Missing path, wrong deployment folder</td></tr>
+<tr><td>Website does not open at all</td><td>DNS, TLS, connection error, firewall</td><td>Bad DNS record, unreachable server or certificate error</td></tr>
+<tr><td>CSS not applied</td><td>Network and Elements → Styles</td><td>404 stylesheet, selector mismatch, cascade</td></tr>
+<tr><td>Button doesn't work</td><td>Console / Sources</td><td>JavaScript error or missing handler</td></tr>
+<tr><td>Login disappears on reload</td><td>Application → Cookies, Network, server logs</td><td>Rejected cookie, expired/invalidated session</td></tr>
+<tr><td>API blocked by browser</td><td>Console + Network OPTIONS/CORS headers</td><td>Cross-origin configuration mismatch</td></tr>
+<tr><td>localStorage seems lost</td><td>Origin, privacy mode, browser settings</td><td>Different origin or storage clearing</td></tr>
+<tr><td>Old page appears after deploy</td><td>Network cache and service worker</td><td>Stale response or offline cache</td></tr>
+<tr><td>Works on desktop, not mobile</td><td>Device Mode + real phone testing</td><td>Viewport, overflow, touch/input issues</td></tr>
+<tr><td>Wrong student data visible</td><td>Backend authorization and caching policy</td><td>Missing server-side ownership check or unsafe cache</td></tr>
+</tbody></table></div>
+<p><strong>Debugging process:</strong> reproduce the symptom → collect evidence → form a specific hypothesis → change one cause → verify the result → check for regressions. The browser shows part of the truth; backend logs and databases show other parts.</p>
+
+<h2 id="www-quiz">29. Test your understanding — 25 questions with explanations</h2>
+<p>Try each question before expanding its answer.</p>
+<details><summary>1. What does WWW stand for?</summary><p>World Wide Web: a system of linked web resources accessible using web technologies.</p></details>
+<details><summary>2. Are the Internet and the Web identical?</summary><p>No. The Internet is networking infrastructure; the Web is an information and application system built on it.</p></details>
+<details><summary>3. Must every website start with www?</summary><p>No. “www” is a conventional hostname label/subdomain, not a requirement of the Web.</p></details>
+<details><summary>4. Which three early concepts helped define the Web?</summary><p>URL/URI identification, HTTP communication and HTML hypertext documents.</p></details>
+<details><summary>5. What is a client?</summary><p>Software that requests a service, commonly the browser.</p></details>
+<details><summary>6. What does DNS do?</summary><p>Provides name resolution and associated records, including mappings to IP addresses.</p></details>
+<details><summary>7. What is the difference between port 443 and /profile?</summary><p>443 identifies a transport service endpoint; /profile is an application URL path.</p></details>
+<details><summary>8. What does HTML control?</summary><p>Document structure, content and semantic meaning.</p></details>
+<details><summary>9. What does CSS control?</summary><p>Visual presentation, styles and layout.</p></details>
+<details><summary>10. What does JavaScript commonly do in browsers?</summary><p>Handles interaction, DOM changes and API requests, among other tasks.</p></details>
+<details><summary>11. Is GET intended for deleting data?</summary><p>No. GET is intended to be safe and retrieve resources. Deletion should use an appropriate state-changing operation.</p></details>
+<details><summary>12. What is HTTP status 404?</summary><p>An HTTP response indicating the requested resource was not found.</p></details>
+<details><summary>13. Does HTTPS guarantee that a website is trustworthy?</summary><p>No. HTTPS protects the connection; a malicious website may still have a valid certificate.</p></details>
+<details><summary>14. What does HTTP statelessness mean?</summary><p>Each HTTP request does not automatically carry all preceding request history.</p></details>
+<details><summary>15. How does a server usually remember an authenticated user?</summary><p>It validates a protected session identifier or other credential sent with later requests.</p></details>
+<details><summary>16. Is a cookie the same as a server-side session?</summary><p>No. The cookie may carry an identifier; the backend maintains or validates the associated state.</p></details>
+<details><summary>17. Can JavaScript read an HttpOnly cookie with document.cookie?</summary><p>No. HttpOnly blocks that access.</p></details>
+<details><summary>18. Does localStorage automatically travel with HTTP requests?</summary><p>No. Application JavaScript must explicitly read and send data if required.</p></details>
+<details><summary>19. Is sessionStorage a login-session manager?</summary><p>No. It is browser storage associated with an origin/page session; authentication must be enforced independently.</p></details>
+<details><summary>20. What is SameSite intended to influence?</summary><p>Whether and when cookies are sent in cross-site contexts.</p></details>
+<details><summary>21. What is CSRF?</summary><p>An attack that tricks an authenticated browser into making unwanted state-changing requests.</p></details>
+<details><summary>22. What is XSS?</summary><p>Injection of executable script/content into a webpage's trusted context.</p></details>
+<details><summary>23. What does CORS control?</summary><p>Which cross-origin responses browser scripts may read under the policy; it is not an authentication system.</p></details>
+<details><summary>24. What is an API?</summary><p>An interface through which software communicates; Web APIs often expose HTTP endpoints.</p></details>
+<details><summary>25. Does cloud computing eliminate physical servers?</summary><p>No. Cloud services run on real infrastructure owned and operated by someone.</p></details>
+
+<h2 id="www-glossary">30. Essential Web glossary and trustworthy references</h2>
+<div class="scroll"><table><thead><tr><th>Term</th><th>Remember</th></tr></thead><tbody>
+<tr><td>WWW</td><td>World Wide Web: linked web resources/services</td></tr>
+<tr><td>Internet</td><td>Global interconnected networks</td></tr>
+<tr><td>URI/URL</td><td>Resource identification/addressing</td></tr>
+<tr><td>DNS</td><td>Distributed name resolution</td></tr>
+<tr><td>Client/server</td><td>Requester/provider roles</td></tr>
+<tr><td>HTTP</td><td>Web request/response protocol</td></tr>
+<tr><td>HTTPS</td><td>HTTP protected by TLS/QUIC-based security</td></tr>
+<tr><td>HTML/CSS/JS</td><td>Structure / styling / program behaviour</td></tr>
+<tr><td>DOM</td><td>Object model of a document</td></tr>
+<tr><td>API/JSON</td><td>Software interface / structured data format</td></tr>
+<tr><td>Cookie</td><td>Browser-managed value automatically attached to matching HTTP requests</td></tr>
+<tr><td>Session ID</td><td>Credential identifying an application session</td></tr>
+<tr><td>localStorage</td><td>Persistent origin-based browser key/value storage</td></tr>
+<tr><td>sessionStorage</td><td>Origin- and page-session-based browser key/value storage</td></tr>
+<tr><td>IndexedDB</td><td>Structured browser-side database</td></tr>
+<tr><td>Origin</td><td>Scheme + hostname + port</td></tr>
+<tr><td>CORS</td><td>Browser cross-origin response access mechanism</td></tr>
+<tr><td>CSRF / XSS</td><td>Cross-site request forgery / cross-site scripting</td></tr>
+<tr><td>CDN</td><td>Distributed content delivery infrastructure</td></tr>
+<tr><td>Cloud</td><td>On-demand provision of computing services/resources</td></tr>
+</tbody></table></div>
+<h3>Study from primary technical references</h3>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Glossary/World_Wide_Web" target="_blank" rel="noopener">MDN: World Wide Web</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/How_does_the_Internet_work" target="_blank" rel="noopener">MDN: How the Internet works</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview" target="_blank" rel="noopener">MDN: HTTP overview</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies" target="_blank" rel="noopener">MDN: HTTP cookies</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API" target="_blank" rel="noopener">MDN: Web Storage API</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Security/Authentication/Session_management" target="_blank" rel="noopener">MDN: Session management</a></li>
+<li><a href="https://developer.chrome.com/docs/devtools/overview/" target="_blank" rel="noopener">Chrome DevTools official guide</a></li>
+<li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html" target="_blank" rel="noopener">OWASP: Session management security</a></li>
+</ul>
+<div class="card"><strong>Continue learning:</strong>
+<p><a class="btn" href="https://dsa.learnwithchampak.live/web/www-zero-to-infinity/playground.html" target="_blank" rel="noopener">Open WWW Practical Playground</a>
+<a class="btn alt" href="https://dsa.learnwithchampak.live/tools/chrome-devtools-zero-to-infinity/" target="_blank" rel="noopener">Master Chrome DevTools</a>
+<a class="btn alt" href="https://editor.learnwithchampak.live/" target="_blank" rel="noopener">Open Programming Editor</a></p></div>
+<div class="champuter"><span class="face">🎓</span><div><strong>Champuter's closing challenge:</strong><p>Trace one complete event without skipping a step: you enter a URL → DNS resolves a destination → the browser connects using HTTPS → the server returns HTML → CSS styles it → JavaScript reacts to a click → an API reads a server session through a protected cookie → a database supplies records → the browser updates the DOM. Explain <em>where each piece of data lives</em>. You now understand the foundation of the modern Web.</p></div></div>
+<p class="small"><strong>Programmers' Picnic · Learn With Champak.</strong> This lesson is a general educational resource. Exact browser storage and cookie behaviour depends on browser settings, privacy controls and deployment configuration. Practise only with harmless demonstration data and systems you control.</p>
+</div>
