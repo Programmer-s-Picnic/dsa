@@ -101,7 +101,7 @@ $("modeIndicator").textContent=local ?
  "GitHub Pages mode: 200 and 404 tests are ready. For the other codes, run status-server.js locally and open http://127.0.0.1:3000/";
 const cases=[
  [200,"OK"],[201,"Created"],[202,"Accepted"],[204,"No Content"],[206,"Partial Content"],
- [400,"Bad Request"],[401,"Unauthorized"],[403,"Forbidden"],[404,"Not Found"],
+ [400,"Bad Request"],[401,"Unauthorized"],[403,"Forbidden"],[404,"Not Found"],[405,"Method Not Allowed"],
  [409,"Conflict"],[410,"Gone"],[412,"Precondition Failed"],[415,"Unsupported Media Type"],[422,"Unprocessable Content"],
  [429,"Too Many Requests"],[500,"Internal Server Error"],[502,"Bad Gateway"],[503,"Service Unavailable"],[504,"Gateway Timeout"]
 ];
@@ -111,7 +111,7 @@ cases.forEach(([code,name])=>{
  button.type="button";button.className=classFor(code);
  button.textContent=code+" · "+name;
  button.disabled=!local;
- button.addEventListener("click",()=>run("./api/status/"+code, {}, "result"));
+ button.addEventListener("click",()=>code===405 ? run("./api/only-get", {method:"POST"}, "result") : run("./api/status/"+code, {}, "result"));
  $("statusButtons").appendChild(button);
 });
 document.querySelectorAll("[data-redirect],[data-post-redirect]").forEach(button=>{
