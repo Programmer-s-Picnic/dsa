@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "code": "BCS603",
+  "subject": "Computer Networks",
+  "semester": 6,
+  "branch": "CSE",
+  "syllabusNote": "Topic grouping is a study aid; validate against the student's applicable AKTU regulation and syllabus.",
+  "analysisStatus": "syllabus_based_not_frequency_verified",
+  "sourcePapers": [],
+  "topics": [
+    {
+      "id": "BCS603-T01",
+      "unit": 1,
+      "name": "OSI and TCP/IP models",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS603-TH1",
+          "question": "Compare OSI and TCP/IP layers and identify encapsulation.",
+          "modelAnswerPoints": [
+            "Layering divides responsibilities",
+            "data gets protocol headers while descending the stack."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS603-MCQ1",
+          "question": "Which OSI layer routes packets across networks?",
+          "options": [
+            "Physical layer",
+            "Data-link layer",
+            "Network layer",
+            "Application layer"
+          ],
+          "correctIndex": 2,
+          "explanation": "IP routing is a network-layer responsibility.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS603-T02",
+      "unit": 2,
+      "name": "IP addressing and subnetting",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS603-TH2",
+          "question": "Explain CIDR prefix notation and compute network sizes.",
+          "modelAnswerPoints": [
+            "An IPv4 /24 has 8 host bits, 256 total addresses",
+            "traditional usable host count is 254 on a normal subnet."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS603-MCQ2",
+          "question": "How many IPv4 addresses are in a /24 block?",
+          "options": [
+            "24",
+            "128",
+            "256",
+            "512"
+          ],
+          "correctIndex": 2,
+          "explanation": "32−24=8 host bits, giving 2^8=256 addresses.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS603-T03",
+      "unit": 3,
+      "name": "Transport protocols",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS603-TH3",
+          "question": "Compare TCP and UDP, including reliability and congestion control.",
+          "modelAnswerPoints": [
+            "TCP provides connection-oriented ordered reliable byte stream",
+            "UDP provides connectionless datagrams without delivery guarantees."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS603-MCQ3",
+          "question": "Which protocol provides ordered reliable byte-stream delivery?",
+          "options": [
+            "UDP",
+            "IP",
+            "TCP",
+            "ICMP"
+          ],
+          "correctIndex": 2,
+          "explanation": "TCP uses acknowledgments, sequence numbers and retransmission.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS603-T04",
+      "unit": 4,
+      "name": "Routing algorithms",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS603-TH4",
+          "question": "Explain distance-vector and link-state routing.",
+          "modelAnswerPoints": [
+            "Distance vector exchanges distance estimates",
+            "link state floods network topology and computes shortest paths."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS603-MCQ4",
+          "question": "Which algorithm is commonly used by link-state routing?",
+          "options": [
+            "Bubble sort",
+            "Dijkstra shortest-path algorithm",
+            "Binary search",
+            "Huffman coding"
+          ],
+          "correctIndex": 1,
+          "explanation": "Link-state routing uses SPF calculations on a topology database.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS603-T05",
+      "unit": 5,
+      "name": "Application protocols",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS603-TH5",
+          "question": "Explain DNS resolution and HTTP request flow.",
+          "modelAnswerPoints": [
+            "DNS resolves domain names",
+            "HTTP transports application messages over a suitable transport connection."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS603-MCQ5",
+          "question": "DNS primarily maps domain names to",
+          "options": [
+            "CPU instructions",
+            "Resource records including IP addresses",
+            "User passwords",
+            "MAC tables only"
+          ],
+          "correctIndex": 1,
+          "explanation": "DNS answers resource-record queries such as A and AAAA.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS603-T06",
+      "unit": 6,
+      "name": "Error detection",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS603-TH6",
+          "question": "Explain checksum, parity and CRC with limitations.",
+          "modelAnswerPoints": [
+            "CRC treats bits as polynomials and detects many transmission errors using generator division."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS603-MCQ6",
+          "question": "CRC stands for",
+          "options": [
+            "Central routing code",
+            "Cyclic redundancy check",
+            "Connection retry count",
+            "Channel rate control"
+          ],
+          "correctIndex": 1,
+          "explanation": "CRC is an error-detection code based on polynomial arithmetic.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    }
+  ]
+}
