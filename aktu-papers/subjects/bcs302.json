@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "code": "BCS302",
+  "subject": "Computer Organization and Architecture",
+  "semester": 3,
+  "branch": "CSE",
+  "syllabusNote": "Topic grouping is a study aid; validate against the student's applicable AKTU regulation and syllabus.",
+  "analysisStatus": "syllabus_based_not_frequency_verified",
+  "sourcePapers": [],
+  "topics": [
+    {
+      "id": "BCS302-T01",
+      "unit": 1,
+      "name": "Register transfer and microoperations",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS302-TH1",
+          "question": "Explain register-transfer notation and the role of microoperations.",
+          "modelAnswerPoints": [
+            "RTL describes data transfers between registers",
+            "arithmetic, logic, and shift microoperations act on register contents."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS302-MCQ1",
+          "question": "R1 ← R2 denotes",
+          "options": [
+            "Copying contents of R2 into R1",
+            "Subtracting R2 from R1",
+            "Swapping memory banks",
+            "Clearing R2"
+          ],
+          "correctIndex": 0,
+          "explanation": "The arrow means the destination receives the source value.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS302-T02",
+      "unit": 2,
+      "name": "Instruction cycles",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS302-TH2",
+          "question": "Describe fetch, decode and execute phases of an instruction.",
+          "modelAnswerPoints": [
+            "Fetch instruction using PC",
+            "decode opcode/operands",
+            "execute operation, update state and PC as required."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS302-MCQ2",
+          "question": "Which register commonly holds the address of the next instruction?",
+          "options": [
+            "Accumulator",
+            "Program counter",
+            "Instruction register",
+            "Status register"
+          ],
+          "correctIndex": 1,
+          "explanation": "The PC tracks the next instruction address.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS302-T03",
+      "unit": 3,
+      "name": "Control unit",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS302-TH3",
+          "question": "Compare hardwired and microprogrammed control units.",
+          "modelAnswerPoints": [
+            "Hardwired uses dedicated logic and is often faster",
+            "microprogrammed uses stored microinstructions and is typically easier to modify."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS302-MCQ3",
+          "question": "Microprogrammed control stores control steps in",
+          "options": [
+            "Cache tags",
+            "General registers only",
+            "Control memory",
+            "Stack pointer"
+          ],
+          "correctIndex": 2,
+          "explanation": "A microprogram is a sequence of microinstructions in control memory.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS302-T04",
+      "unit": 4,
+      "name": "Memory hierarchy",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS302-TH4",
+          "question": "Explain locality and the need for a cache memory hierarchy.",
+          "modelAnswerPoints": [
+            "Temporal and spatial locality make recently/nearby accessed data useful",
+            "caches reduce average access latency."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS302-MCQ4",
+          "question": "Spatial locality means programs tend to access",
+          "options": [
+            "Only disk blocks",
+            "Nearby memory addresses",
+            "Only the same address",
+            "Only instruction opcodes"
+          ],
+          "correctIndex": 1,
+          "explanation": "Neighboring addresses are often used close together in time.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS302-T05",
+      "unit": 5,
+      "name": "I/O organization",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS302-TH5",
+          "question": "Describe programmed I/O, interrupt-driven I/O and DMA.",
+          "modelAnswerPoints": [
+            "Programmed I/O polls",
+            "interrupt I/O signals CPU on events",
+            "DMA transfers blocks with limited CPU involvement."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS302-MCQ5",
+          "question": "DMA is principally used to",
+          "options": [
+            "Increase clock speed",
+            "Transfer data between I/O and memory with limited CPU work",
+            "Compile device drivers",
+            "Replace secondary storage"
+          ],
+          "correctIndex": 1,
+          "explanation": "A DMA controller performs bulk transfers without CPU copying every byte.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    }
+  ]
+}
