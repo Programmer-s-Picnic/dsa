@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "code": "BCS401",
+  "subject": "Operating System",
+  "semester": 4,
+  "branch": "CSE",
+  "syllabusNote": "Topic grouping is a study aid; validate against the student's applicable AKTU regulation and syllabus.",
+  "analysisStatus": "syllabus_based_not_frequency_verified",
+  "sourcePapers": [],
+  "topics": [
+    {
+      "id": "BCS401-T01",
+      "unit": 1,
+      "name": "Processes and threads",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS401-TH1",
+          "question": "Differentiate process and thread, including address-space sharing.",
+          "modelAnswerPoints": [
+            "Processes generally have separate address spaces",
+            "threads of one process share address space and resources but maintain separate stacks/register state."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS401-MCQ1",
+          "question": "Threads within the same process commonly share",
+          "options": [
+            "Their call stacks",
+            "Their instruction pointer",
+            "Address space",
+            "Their registers"
+          ],
+          "correctIndex": 2,
+          "explanation": "Threads share process memory but keep individual execution context.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS401-T02",
+      "unit": 2,
+      "name": "CPU scheduling",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS401-TH2",
+          "question": "Explain FCFS, SJF and Round Robin scheduling with example waiting times.",
+          "modelAnswerPoints": [
+            "FCFS arrival order",
+            "SJF chooses shortest burst",
+            "RR uses finite time quantum",
+            "calculate waiting time from completion, arrival and burst."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS401-MCQ2",
+          "question": "Round Robin scheduling is based on a",
+          "options": [
+            "Time quantum",
+            "Disk cylinder",
+            "Page size",
+            "File descriptor"
+          ],
+          "correctIndex": 0,
+          "explanation": "A time quantum limits each CPU turn.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS401-T03",
+      "unit": 3,
+      "name": "Synchronization",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS401-TH3",
+          "question": "Explain the critical-section problem and semaphore-based mutual exclusion.",
+          "modelAnswerPoints": [
+            "Ensure mutual exclusion, progress and bounded waiting",
+            "binary semaphore can guard entry/exit around a critical section."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS401-MCQ3",
+          "question": "A binary semaphore has values",
+          "options": [
+            "0 and 1",
+            "Only 2",
+            "Any negative number",
+            "Only 0"
+          ],
+          "correctIndex": 0,
+          "explanation": "A binary semaphore is a two-state synchronization primitive.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS401-T04",
+      "unit": 4,
+      "name": "Deadlocks",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS401-TH4",
+          "question": "State the four Coffman conditions for deadlock and describe prevention.",
+          "modelAnswerPoints": [
+            "Mutual exclusion, hold and wait, no preemption, circular wait",
+            "breaking a necessary condition prevents deadlock."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS401-MCQ4",
+          "question": "Which is NOT a necessary deadlock condition?",
+          "options": [
+            "Circular wait",
+            "Hold and wait",
+            "Mutual exclusion",
+            "Preemptive release allowed"
+          ],
+          "correctIndex": 3,
+          "explanation": "Deadlock requires no preemption; permitting preemption can break it.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS401-T05",
+      "unit": 5,
+      "name": "Memory management",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS401-TH5",
+          "question": "Compare paging and segmentation, including fragmentation.",
+          "modelAnswerPoints": [
+            "Paging uses fixed-size pages/frames and may cause internal fragmentation",
+            "segmentation uses logical variable-sized segments and may cause external fragmentation."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS401-MCQ5",
+          "question": "Paging divides virtual memory into",
+          "options": [
+            "Variable-size programs",
+            "Fixed-size pages",
+            "Only stack frames",
+            "Only code segments"
+          ],
+          "correctIndex": 1,
+          "explanation": "Pages and frames have fixed sizes.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS401-T06",
+      "unit": 6,
+      "name": "File systems",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS401-TH6",
+          "question": "Explain inode-based file allocation and directory lookup.",
+          "modelAnswerPoints": [
+            "An inode holds file metadata and block references",
+            "directory entries map file names to inode identifiers."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS401-MCQ6",
+          "question": "An inode primarily stores",
+          "options": [
+            "Filename only",
+            "Metadata and block addresses",
+            "Process registers",
+            "CPU instructions"
+          ],
+          "correctIndex": 1,
+          "explanation": "A directory maps names to inodes; inodes describe files.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    }
+  ]
+}
