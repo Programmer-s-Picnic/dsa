@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "code": "BCS503",
+  "subject": "Design and Analysis of Algorithm",
+  "semester": 5,
+  "branch": "CSE",
+  "syllabusNote": "Topic grouping is a study aid; validate against the student's applicable AKTU regulation and syllabus.",
+  "analysisStatus": "syllabus_based_not_frequency_verified",
+  "sourcePapers": [],
+  "topics": [
+    {
+      "id": "BCS503-T01",
+      "unit": 1,
+      "name": "Asymptotic analysis",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS503-TH1",
+          "question": "Explain O, Ω and Θ notation and analyze a nested loop.",
+          "modelAnswerPoints": [
+            "O upper bound, Ω lower bound, Θ tight bound",
+            "nested independent n loops often Θ(n²)."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS503-MCQ1",
+          "question": "Two nested loops each iterating n times typically take",
+          "options": [
+            "Θ(1)",
+            "Θ(log n)",
+            "Θ(n)",
+            "Θ(n²)"
+          ],
+          "correctIndex": 3,
+          "explanation": "n × n basic iterations yield quadratic growth.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS503-T02",
+      "unit": 2,
+      "name": "Divide and conquer",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS503-TH2",
+          "question": "Derive the recurrence of merge sort and its time complexity.",
+          "modelAnswerPoints": [
+            "T(n)=2T(n/2)+Θ(n), giving Θ(n log n) by the master theorem."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS503-MCQ2",
+          "question": "Worst-case time complexity of merge sort is",
+          "options": [
+            "Θ(n²)",
+            "Θ(n log n)",
+            "Θ(log n)",
+            "Θ(1)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Each level costs Θ(n) and there are Θ(log n) levels.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS503-T03",
+      "unit": 3,
+      "name": "Greedy algorithms",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS503-TH3",
+          "question": "Describe when greedy choice works and compare activity selection with 0/1 knapsack.",
+          "modelAnswerPoints": [
+            "Greedy requires greedy-choice property and optimal substructure",
+            "earliest-finish-time solves activity selection, but 0/1 knapsack needs other strategies."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS503-MCQ3",
+          "question": "Which problem has the classic earliest-finish-time greedy solution?",
+          "options": [
+            "0/1 knapsack",
+            "Activity selection",
+            "Matrix-chain multiplication",
+            "Longest common subsequence"
+          ],
+          "correctIndex": 1,
+          "explanation": "Choosing the next compatible activity with earliest finish maximizes the count.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS503-T04",
+      "unit": 4,
+      "name": "Dynamic programming",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS503-TH4",
+          "question": "Explain overlapping subproblems and optimal substructure using 0/1 knapsack.",
+          "modelAnswerPoints": [
+            "DP stores subproblem results",
+            "0/1 knapsack recurrence compares taking versus excluding an item subject to capacity."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS503-MCQ4",
+          "question": "Dynamic programming is especially useful when problems have",
+          "options": [
+            "Only one possible solution",
+            "Overlapping subproblems and optimal substructure",
+            "No subproblems",
+            "Independent random decisions"
+          ],
+          "correctIndex": 1,
+          "explanation": "Memoization/tabulation exploit repeated subproblems.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS503-T05",
+      "unit": 5,
+      "name": "Graph algorithms",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS503-TH5",
+          "question": "Compare Dijkstra and Bellman–Ford, especially negative weights.",
+          "modelAnswerPoints": [
+            "Dijkstra requires nonnegative edge weights",
+            "Bellman–Ford supports negative edges and detects reachable negative cycles."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS503-MCQ5",
+          "question": "Which shortest path algorithm handles negative edges without negative cycles?",
+          "options": [
+            "Dijkstra",
+            "Bellman–Ford",
+            "Prim",
+            "Kruskal"
+          ],
+          "correctIndex": 1,
+          "explanation": "Bellman–Ford relaxes all edges repeatedly and works with negative weights.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS503-T06",
+      "unit": 6,
+      "name": "Complexity classes",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS503-TH6",
+          "question": "Explain P, NP and NP-completeness and polynomial-time reductions.",
+          "modelAnswerPoints": [
+            "P problems solvable in polynomial time",
+            "NP solutions verifiable in polynomial time",
+            "NP-complete problems are in NP and NP-hard."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS503-MCQ6",
+          "question": "An NP-complete problem must be",
+          "options": [
+            "Only in P",
+            "Both in NP and NP-hard",
+            "Undecidable",
+            "Solvable in O(1)"
+          ],
+          "correctIndex": 1,
+          "explanation": "NP-complete combines membership in NP with NP-hardness.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    }
+  ]
+}
