@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "code": "BCS501",
+  "subject": "Database Management System",
+  "semester": 5,
+  "branch": "CSE",
+  "syllabusNote": "Topic grouping is a study aid; validate against the student's applicable AKTU regulation and syllabus.",
+  "analysisStatus": "syllabus_based_not_frequency_verified",
+  "sourcePapers": [],
+  "topics": [
+    {
+      "id": "BCS501-T01",
+      "unit": 1,
+      "name": "ER modeling",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS501-TH1",
+          "question": "Explain entities, attributes, cardinality and conversion of ER diagrams to tables.",
+          "modelAnswerPoints": [
+            "Entities become relations",
+            "attributes become columns",
+            "keys identify rows",
+            "relationships map using foreign keys or junction tables."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS501-MCQ1",
+          "question": "A foreign key primarily enforces",
+          "options": [
+            "Sorting",
+            "Referential integrity",
+            "Physical encryption",
+            "Automatic normalization"
+          ],
+          "correctIndex": 1,
+          "explanation": "Foreign keys reference candidate/primary keys across tables.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS501-T02",
+      "unit": 2,
+      "name": "Relational algebra",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS501-TH2",
+          "question": "Explain selection, projection and join with examples.",
+          "modelAnswerPoints": [
+            "Selection filters tuples (σ)",
+            "projection selects attributes (π)",
+            "joins combine matching records."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS501-MCQ2",
+          "question": "Which relational algebra operator selects columns?",
+          "options": [
+            "Selection",
+            "Projection",
+            "Union",
+            "Difference"
+          ],
+          "correctIndex": 1,
+          "explanation": "Projection chooses attributes from relations.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS501-T03",
+      "unit": 3,
+      "name": "SQL queries",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS501-TH3",
+          "question": "Write a query to count employees per department and explain GROUP BY/HAVING.",
+          "modelAnswerPoints": [
+            "Use SELECT department_id, COUNT(*) FROM employees GROUP BY department_id",
+            "HAVING filters aggregate groups."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS501-MCQ3",
+          "question": "Which SQL clause filters grouped aggregate results?",
+          "options": [
+            "WHERE",
+            "ORDER BY",
+            "HAVING",
+            "LIMIT"
+          ],
+          "correctIndex": 2,
+          "explanation": "HAVING is applied to groups, whereas WHERE filters rows before grouping.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS501-T04",
+      "unit": 4,
+      "name": "Normalization",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS501-TH4",
+          "question": "Explain functional dependencies and how 2NF and 3NF reduce anomalies.",
+          "modelAnswerPoints": [
+            "2NF removes partial dependencies of nonprime attributes on candidate keys",
+            "3NF limits transitive dependencies under its formal rule."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS501-MCQ4",
+          "question": "2NF primarily eliminates",
+          "options": [
+            "All foreign keys",
+            "Partial dependency of nonprime attributes",
+            "Every join",
+            "Every null value"
+          ],
+          "correctIndex": 1,
+          "explanation": "2NF requires 1NF plus no partial dependence of nonprime attributes on candidate keys.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS501-T05",
+      "unit": 5,
+      "name": "Transactions",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS501-TH5",
+          "question": "Explain ACID properties with examples.",
+          "modelAnswerPoints": [
+            "Atomicity, consistency, isolation, durability protect transactions under failures/concurrency."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS501-MCQ5",
+          "question": "Which ACID property ensures committed changes persist?",
+          "options": [
+            "Atomicity",
+            "Isolation",
+            "Consistency",
+            "Durability"
+          ],
+          "correctIndex": 3,
+          "explanation": "Durability means committed results survive crashes.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS501-T06",
+      "unit": 6,
+      "name": "Concurrency control",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS501-TH6",
+          "question": "Discuss serializability and two-phase locking.",
+          "modelAnswerPoints": [
+            "Conflict serializability can be checked via an acyclic precedence graph",
+            "2PL separates growing and shrinking lock phases."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS501-MCQ6",
+          "question": "A precedence graph without cycles indicates",
+          "options": [
+            "Deadlock certainty",
+            "Conflict serializability",
+            "Lost updates",
+            "Dirty reads"
+          ],
+          "correctIndex": 1,
+          "explanation": "An acyclic precedence graph characterizes conflict-serializable schedules.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    }
+  ]
+}
