@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "code": "BCS301",
+  "subject": "Data Structure",
+  "semester": 3,
+  "branch": "CSE",
+  "syllabusNote": "Topic grouping is a study aid; validate against the student's applicable AKTU regulation and syllabus.",
+  "analysisStatus": "syllabus_based_not_frequency_verified",
+  "sourcePapers": [],
+  "topics": [
+    {
+      "id": "BCS301-T01",
+      "unit": 1,
+      "name": "Arrays and linked lists",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS301-TH1",
+          "question": "Compare arrays and linked lists in access, insertion and storage.",
+          "modelAnswerPoints": [
+            "Arrays offer O(1) indexed access and contiguous storage",
+            "linked lists require traversal but can insert in O(1) after a node is known."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS301-MCQ1",
+          "question": "Random indexed access in an array typically takes",
+          "options": [
+            "O(n)",
+            "O(log n)",
+            "O(1)",
+            "O(n²)"
+          ],
+          "correctIndex": 2,
+          "explanation": "An array computes element addresses using the base address and index.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS301-T02",
+      "unit": 2,
+      "name": "Stacks and queues",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS301-TH2",
+          "question": "Explain stack and queue operations with applications.",
+          "modelAnswerPoints": [
+            "Stack: LIFO, push/pop",
+            "queue: FIFO, enqueue/dequeue",
+            "stack supports DFS and function calls, queue supports BFS."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS301-MCQ2",
+          "question": "A queue typically follows",
+          "options": [
+            "LIFO",
+            "FIFO",
+            "Random order",
+            "Priority order always"
+          ],
+          "correctIndex": 1,
+          "explanation": "The first enqueued element is the first removed in a basic queue.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS301-T03",
+      "unit": 3,
+      "name": "Trees and traversals",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS301-TH3",
+          "question": "Explain preorder, inorder and postorder binary-tree traversal.",
+          "modelAnswerPoints": [
+            "Preorder root-left-right",
+            "inorder left-root-right",
+            "postorder left-right-root."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS301-MCQ3",
+          "question": "Inorder traversal of a binary search tree returns keys",
+          "options": [
+            "In reverse insertion order",
+            "In sorted nondecreasing order",
+            "In preorder",
+            "In level order"
+          ],
+          "correctIndex": 1,
+          "explanation": "A BST orders keys left < root < right (allowing an appropriate duplicate convention).",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS301-T04",
+      "unit": 4,
+      "name": "Hashing",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS301-TH4",
+          "question": "Discuss collisions and their resolution with examples.",
+          "modelAnswerPoints": [
+            "A collision maps two keys to the same slot",
+            "chaining stores multiple items per bucket",
+            "open addressing probes alternate locations."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS301-MCQ4",
+          "question": "Separate chaining resolves hash collisions using",
+          "options": [
+            "Sorting the entire table",
+            "Buckets containing lists or similar collections",
+            "Deleting duplicate keys",
+            "Changing all keys to integers"
+          ],
+          "correctIndex": 1,
+          "explanation": "Each hash bucket can hold multiple entries.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS301-T05",
+      "unit": 5,
+      "name": "Graphs",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS301-TH5",
+          "question": "Compare BFS and DFS traversal and describe their core data structures.",
+          "modelAnswerPoints": [
+            "BFS explores breadth-wise with a queue",
+            "DFS explores depth-wise using recursion or a stack."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS301-MCQ5",
+          "question": "Breadth-first search uses a",
+          "options": [
+            "Stack only",
+            "Heap",
+            "Queue",
+            "Hash function"
+          ],
+          "correctIndex": 2,
+          "explanation": "A FIFO queue processes earlier discovered vertices first.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    }
+  ]
+}
