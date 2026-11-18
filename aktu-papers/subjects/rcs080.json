@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "code": "RCS080",
+  "subject": "Machine Learning",
+  "semester": 8,
+  "branch": "CSE",
+  "syllabusNote": "Topic grouping is a study aid; validate against the student's applicable AKTU regulation and syllabus.",
+  "analysisStatus": "syllabus_based_not_frequency_verified",
+  "sourcePapers": [],
+  "topics": [
+    {
+      "id": "RCS080-T01",
+      "unit": 1,
+      "name": "Supervised and unsupervised learning",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "RCS080-TH1",
+          "question": "Compare classification, regression and clustering.",
+          "modelAnswerPoints": [
+            "Classification predicts categories, regression continuous values, clustering discovers groups without target labels."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "RCS080-MCQ1",
+          "question": "Which problem is typically unsupervised?",
+          "options": [
+            "Linear regression",
+            "Binary classification",
+            "Clustering",
+            "Spam classification"
+          ],
+          "correctIndex": 2,
+          "explanation": "Clustering groups unlabeled observations.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "RCS080-T02",
+      "unit": 2,
+      "name": "Train-test validation",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "RCS080-TH2",
+          "question": "Explain data leakage, cross-validation and overfitting.",
+          "modelAnswerPoints": [
+            "Leakage lets test information influence training",
+            "cross-validation estimates generalization",
+            "overfitting memorizes noise."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "RCS080-MCQ2",
+          "question": "Which practice risks data leakage?",
+          "options": [
+            "Fitting a scaler on training data",
+            "Fitting a scaler on the full dataset before splitting",
+            "Evaluating on held-out data",
+            "Using cross-validation"
+          ],
+          "correctIndex": 1,
+          "explanation": "Preprocessing fitted on test samples leaks information into the model.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "RCS080-T03",
+      "unit": 3,
+      "name": "Linear models",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "RCS080-TH3",
+          "question": "Explain linear regression loss and gradient descent.",
+          "modelAnswerPoints": [
+            "Minimize a loss such as mean squared error",
+            "gradient descent updates parameters opposite the gradient."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "RCS080-MCQ3",
+          "question": "Gradient descent updates parameters in direction",
+          "options": [
+            "Along the gradient",
+            "Opposite to the gradient",
+            "Random only",
+            "Always toward zero"
+          ],
+          "correctIndex": 1,
+          "explanation": "Subtracting a learning-rate-scaled gradient decreases loss locally under suitable conditions.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "RCS080-T04",
+      "unit": 4,
+      "name": "Decision trees",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "RCS080-TH4",
+          "question": "Explain information gain and split criteria in decision trees.",
+          "modelAnswerPoints": [
+            "Choose splits that reduce impurity, measured by entropy or Gini depending on classifier."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "RCS080-MCQ4",
+          "question": "A common classification-tree impurity criterion is",
+          "options": [
+            "Euclidean distance only",
+            "Gini impurity",
+            "Disk latency",
+            "Page rank"
+          ],
+          "correctIndex": 1,
+          "explanation": "Gini impurity measures class mixing within a node.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "RCS080-T05",
+      "unit": 5,
+      "name": "Evaluation metrics",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "RCS080-TH5",
+          "question": "Describe confusion matrix, precision, recall, F1 and class imbalance.",
+          "modelAnswerPoints": [
+            "Precision=TP/(TP+FP)",
+            "recall=TP/(TP+FN)",
+            "F1 harmonically combines them",
+            "use metrics fitting the objective."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "RCS080-MCQ5",
+          "question": "High accuracy can mislead on",
+          "options": [
+            "Only tiny datasets",
+            "Highly imbalanced datasets",
+            "Perfectly balanced datasets always",
+            "Only regression"
+          ],
+          "correctIndex": 1,
+          "explanation": "Always predicting the majority class may give high accuracy despite poor minority recall.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    }
+  ]
+}
