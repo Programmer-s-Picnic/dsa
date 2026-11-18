@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "code": "BCS402",
+  "subject": "Theory of Automata and Formal Languages",
+  "semester": 4,
+  "branch": "CSE",
+  "syllabusNote": "Topic grouping is a study aid; validate against the student's applicable AKTU regulation and syllabus.",
+  "analysisStatus": "syllabus_based_not_frequency_verified",
+  "sourcePapers": [],
+  "topics": [
+    {
+      "id": "BCS402-T01",
+      "unit": 1,
+      "name": "Finite automata",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS402-TH1",
+          "question": "Explain DFA and NFA and show why both recognize regular languages.",
+          "modelAnswerPoints": [
+            "A DFA has a unique next state per symbol",
+            "an NFA may have multiple possibilities",
+            "subset construction converts NFA to equivalent DFA."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS402-MCQ1",
+          "question": "A DFA has, for each state and symbol,",
+          "options": [
+            "At least two transitions",
+            "Exactly one transition",
+            "No transitions ever",
+            "Arbitrary stack actions"
+          ],
+          "correctIndex": 1,
+          "explanation": "The deterministic transition function selects one state.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS402-T02",
+      "unit": 2,
+      "name": "Regular expressions",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS402-TH2",
+          "question": "Explain correspondence between regular expressions and finite automata.",
+          "modelAnswerPoints": [
+            "Both describe regular languages",
+            "Thompson construction converts regex to ε-NFA and state elimination goes the other direction."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS402-MCQ2",
+          "question": "Which language class do regular expressions describe?",
+          "options": [
+            "Context-sensitive only",
+            "Recursively enumerable only",
+            "Regular languages",
+            "All context-free languages"
+          ],
+          "correctIndex": 2,
+          "explanation": "Classical regular expressions are equivalent in expressive power to finite automata.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS402-T03",
+      "unit": 3,
+      "name": "Context-free grammars",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS402-TH3",
+          "question": "Define derivation, parse tree and ambiguity in CFGs.",
+          "modelAnswerPoints": [
+            "A parse tree records derivation structure",
+            "ambiguity occurs when one string has two distinct parse trees/leftmost derivations."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS402-MCQ3",
+          "question": "A CFG is ambiguous if",
+          "options": [
+            "Its terminals are finite",
+            "One string has two distinct parse trees",
+            "It has no epsilon production",
+            "Its start symbol is unique"
+          ],
+          "correctIndex": 1,
+          "explanation": "Two parse trees for a string witness ambiguity.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS402-T04",
+      "unit": 4,
+      "name": "Pushdown automata",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS402-TH4",
+          "question": "Explain why a PDA can recognize some nonregular languages.",
+          "modelAnswerPoints": [
+            "A PDA has a stack, enabling counting/nesting patterns such as balanced parentheses."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS402-MCQ4",
+          "question": "What distinguishes a PDA from a finite automaton?",
+          "options": [
+            "A stack",
+            "A disk drive",
+            "A cache",
+            "A real-valued counter"
+          ],
+          "correctIndex": 0,
+          "explanation": "A pushdown automaton has stack memory.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "BCS402-T05",
+      "unit": 5,
+      "name": "Turing machines",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "BCS402-TH5",
+          "question": "Describe a Turing machine and distinguish decidable from recognizable languages.",
+          "modelAnswerPoints": [
+            "A TM has finite control, tape and read/write head",
+            "deciders halt on every input, recognizers may loop on rejected inputs."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "BCS402-MCQ5",
+          "question": "A language is decidable when a TM",
+          "options": [
+            "Accepts at least one string",
+            "Halts on all inputs and answers membership",
+            "Uses exactly two tape cells",
+            "Never rejects"
+          ],
+          "correctIndex": 1,
+          "explanation": "Deciders must terminate on every input.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    }
+  ]
+}
