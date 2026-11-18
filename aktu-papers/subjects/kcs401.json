@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "code": "KCS401",
+  "subject": "Operating Systems (Legacy Code)",
+  "semester": 4,
+  "branch": "CSE",
+  "syllabusNote": "Topic grouping is a study aid; validate against the student's applicable AKTU regulation and syllabus.",
+  "analysisStatus": "syllabus_based_not_frequency_verified",
+  "sourcePapers": [],
+  "topics": [
+    {
+      "id": "KCS401-T01",
+      "unit": 1,
+      "name": "Process scheduling",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "KCS401-TH1",
+          "question": "Explain preemptive versus non-preemptive scheduling.",
+          "modelAnswerPoints": [
+            "Preemptive scheduling can interrupt a running job",
+            "nonpreemptive scheduling waits until it yields or blocks."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "KCS401-MCQ1",
+          "question": "Round Robin is generally",
+          "options": [
+            "Nonpreemptive",
+            "Preemptive",
+            "A file-system algorithm",
+            "A memory allocator"
+          ],
+          "correctIndex": 1,
+          "explanation": "Time-slice expiry causes preemption.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "KCS401-T02",
+      "unit": 2,
+      "name": "Deadlocks",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "KCS401-TH2",
+          "question": "Explain avoidance using the Banker's algorithm.",
+          "modelAnswerPoints": [
+            "Banker's algorithm grants requests only if the resulting state remains safe."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "KCS401-MCQ2",
+          "question": "Banker's algorithm is used for",
+          "options": [
+            "Deadlock detection only",
+            "Deadlock avoidance",
+            "Memory compaction",
+            "Disk defragmentation"
+          ],
+          "correctIndex": 1,
+          "explanation": "It tests whether resource allocation maintains a safe sequence.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "KCS401-T03",
+      "unit": 3,
+      "name": "Virtual memory",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "KCS401-TH3",
+          "question": "Describe page faults and demand paging.",
+          "modelAnswerPoints": [
+            "A missing page triggers a trap",
+            "OS loads the page, updates tables and restarts the faulting access."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "KCS401-MCQ3",
+          "question": "A page fault occurs when",
+          "options": [
+            "A compiler fails",
+            "A referenced virtual page is not currently mapped to accessible physical memory",
+            "A file is deleted",
+            "A CPU overheats"
+          ],
+          "correctIndex": 1,
+          "explanation": "The fault transfers control to the OS to resolve missing or invalid mappings.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    },
+    {
+      "id": "KCS401-T04",
+      "unit": 4,
+      "name": "Synchronization",
+      "importance": {
+        "level": "review",
+        "basis": "syllabus coverage / editorial judgment",
+        "verifiedPastPaperOccurrences": null
+      },
+      "theory": [
+        {
+          "id": "KCS401-TH4",
+          "question": "Explain producer-consumer synchronization using semaphores.",
+          "modelAnswerPoints": [
+            "Use empty/full counters and mutex to prevent overflow, underflow and concurrent buffer races."
+          ],
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ],
+      "mcq": [
+        {
+          "id": "KCS401-MCQ4",
+          "question": "A mutex primarily provides",
+          "options": [
+            "Higher clock speed",
+            "Mutual exclusion",
+            "More disk space",
+            "Packet routing"
+          ],
+          "correctIndex": 1,
+          "explanation": "A mutex serializes access to a shared critical region.",
+          "origin": "original_practice",
+          "verifiedPastPaperOccurrences": null
+        }
+      ]
+    }
+  ]
+}
