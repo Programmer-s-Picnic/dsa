@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "paperId": "kcs713-2024",
+  "code": "KCS713",
+  "subject": "Cloud Computing",
+  "semester": 7,
+  "year": 2024,
+  "session": "2023-24",
+  "sourcePdf": "https://www.abesit.in/wp-content/uploads/2024/07/KCS713-CLOUD-COMPUTING.pdf",
+  "reviewStatus": "draft-instructor-review-pending",
+  "coverage": "all 25 printed questions and alternatives",
+  "verificationNote": "Based on actual AKTU cloud computing paper ID 310942. Definition of 'four levels of federation' may vary by prescribed textbook; presented a clearly described plausible taxonomy, not a fixed universal four-level NIST standard.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "Compare parallel and distributed computing.",
+      "answer": "Parallel computing executes subparts of a task simultaneously using multiple processing units, often tightly coupled/shared memory; objective is speedup. Distributed computing coordinates separate networked computers, usually each with its own memory and partial failures; objectives include scalability, service availability, data locality and throughput. Distributed systems may also do parallel computing.",
+      "marks": 2,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "Characteristics of cloud computing.",
+      "answer": "NIST identifies on-demand self-service, broad network access, resource pooling/multitenancy, rapid elasticity, and measured service. Common supporting properties include automation, API-driven control, pay-as-you-go billing, global access, redundancy and managed security controls.",
+      "marks": 2,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "Define disaster recovery.",
+      "answer": "Disaster recovery restores IT services and data after disruptions (site failure, cyberattack, natural disaster). A DR plan specifies recovery time objective (RTO: maximum tolerable downtime), recovery point objective (RPO: tolerated data loss measured in time), backups, replication, failover, communication, runbooks and periodic testing.",
+      "marks": 2,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Types of virtualization.",
+      "answer": "Hardware/server virtualization (full, para- and hardware-assisted), operating-system/container virtualization, storage virtualization, network virtualization (VLAN/SDN/overlay), desktop/VDI virtualization, application virtualization and memory virtualization. Types differ by which resource they abstract.",
+      "marks": 2,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "Community cloud with example.",
+      "answer": "A community cloud is infrastructure shared by organizations with common mission, security, compliance or policy requirements and possibly operated by one group, a third party or jointly. Example a consortium of hospitals uses a regulated common cloud to run shared medical research applications with contractual isolation and governance.",
+      "marks": 2,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "Cloud service models.",
+      "answer": "IaaS provides VMs/networks/storage; user controls guest OS and apps. PaaS provides managed application deployment/runtime; customer manages code and data. SaaS provides fully managed ready-to-use applications. Additional offerings include FaaS/serverless, DBaaS, storage-as-a-service, but three primary NIST models are IaaS/PaaS/SaaS.",
+      "marks": 2,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "Define virtual machine security.",
+      "answer": "VM security protects guest OS, virtual disks, hypervisor, management interfaces and guest-to-guest isolation. Use patched hypervisors and guest OS, hardened images, network segmentation, IAM/least privilege, encrypted disks and backups, snapshot controls, secure boot/vTPM, monitoring and restrictions on privileged hypervisor APIs.",
+      "marks": 2,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "1(h)",
+      "question": "Cloud security threats.",
+      "answer": "Exposed credentials and API keys, insecure public storage, incorrect IAM, vulnerable images, unpatched services, account hijack, insider threats, data breaches, denial-of-service, malicious workloads, insecure APIs, supply-chain compromise, shared-technology isolation failures and inadequate logging/backup. Mitigations: MFA, least privilege, encryption, patching, WAF, monitoring, incident response and audit.",
+      "marks": 2,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "1(i)",
+      "question": "List four levels of cloud federation.",
+      "answer": "A useful four-level federation taxonomy is (1) identity/trust federation (single identity and policy across domains); (2) service/application federation (cross-cloud service composition); (3) resource/infrastructure federation (shared compute, network, storage pools); (4) management/orchestration federation (cross-provider placement, monitoring, billing and policy). Different textbooks use alternative four-level labels, so cite the prescribed classification when available.",
+      "marks": 2,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "1(j)",
+      "question": "Define VirtualBox.",
+      "answer": "Oracle VM VirtualBox is a cross-platform type-2 hosted virtualization application that creates/manages virtual machines (guest operating systems) on a host PC, with configurable virtual CPU, RAM, disks, NICs, USB and snapshots. It relies on host OS and typically hardware virtualization support for modern guests.",
+      "marks": 2,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Need for cloud computing and its evolution with diagram.",
+      "answer": "Need: replace high upfront CAPEX and underutilized on-prem hardware with elastic, self-service compute/storage; reduce provisioning delay; improve geographic reach, resilience, deployment automation and managed operations. Evolution: time-sharing/mainframes → client-server → clusters → grid/distributed systems → virtualization/data centers → utility computing → public/private clouds → containers, microservices, serverless and edge/hybrid clouds. Diagram:\n1960s time-sharing → 1980s client/server → 1990s clusters/grid → 2000s virtualization/utility → 2010s cloud IaaS/PaaS/SaaS → modern hybrid/serverless/edge.\nData-center layer runs hardware and network; virtualization orchestrates resources; cloud control plane handles identity, scheduling, metering, automation; users consume services via APIs. Tradeoffs: vendor lock-in, costs of egress, security responsibilities and unreliable network paths.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "Hardware virtualization techniques with diagrams.",
+      "answer": "1. Full virtualization: unmodified guest OS sees emulated hardware; hypervisor traps/emulates sensitive operations, often using VT-x/AMD-V. 2. Para-virtualization: guest kernel cooperates with hypervisor via hypercalls/paravirtual drivers, reducing some emulation overhead but requiring modification/integration. 3. Hardware-assisted virtualization: CPU virtualization extensions and second-level address translation EPT/NPT allow efficient guest execution. 4. Emulation: software simulates a different ISA; flexible but slower. Architectures:\nType 1: Hardware → Bare-metal hypervisor → Guest VM 1 | Guest VM 2.\nType 2: Hardware → Host OS → Hosted hypervisor → Guest VMs.\nEach VM has virtual CPU/RAM/disks/network and isolation boundaries, while the hypervisor schedules host hardware. Not all para-virtual features require a modified guest kernel when specialized drivers exist.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Goals of NIST and layers of cloud computing.",
+      "answer": "NIST (National Institute of Standards and Technology) promotes consistent standards, interoperability, security recommendations, measurement, and shared definitions; NIST SP 800-145 defines five essential cloud characteristics, three service models and four deployment models. Typical layered cloud architecture:\nUsers/SaaS apps\nPaaS runtime and managed databases\nIaaS virtual machines, virtual networks and volumes\nVirtualization/hypervisor/container isolation\nPhysical servers, storage and networks\nCross-cutting IAM, metering, provisioning, SLA/security/monitoring span all layers. Service/deployment models answer *what is managed* and *who shares the infrastructure*, respectively.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Resource provisioning and methods.",
+      "answer": "Provisioning allocates compute, network, storage and permissions to workloads to meet demand and SLA at acceptable cost. Static/manual provisioning allocates predefined capacity; dynamic/on-demand adjusts automatically using telemetry; advance/scheduled provisioning scales before known peaks; predictive provisioning uses forecasts; reactive autoscaling uses CPU, queue length or response-time thresholds; vertical scaling adds vCPU/RAM to instances; horizontal adds/removes replicas; hybrid cloud bursting uses another provider for peaks. Typical loop: observe → evaluate policy → choose resources → allocate/configure → monitor → deprovision. Avoid thrashing with cooldown/hysteresis, quotas, placement constraints and IAM. Measure RTO for failure recovery separately from workload autoscaling.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Hadoop history and architecture.",
+      "answer": "Hadoop arose in mid-2000s from ideas in Google File System and MapReduce papers; the Apache Hadoop project evolved from Nutch, becoming an ecosystem for commodity-hardware distributed storage and batch processing. Core components: HDFS (NameNode manages metadata and namespace, DataNodes store blocks, replicas provide durability), YARN (ResourceManager allocates cluster resources, NodeManagers launch containers, per-application ApplicationMaster coordinates jobs), MapReduce processing (mapper emits key/value pairs, shuffle sorts/groups by key, reducer aggregates), Hadoop Common libraries. Diagram:\nClient submits job → YARN ResourceManager → NodeManagers/containers run mappers/reducers\nHDFS NameNode maintains file/block metadata ↔ DataNodes hold replicated blocks\nInput blocks → Map → Shuffle/Sort → Reduce → HDFS output.\nHDFS suits large sequential throughput, not fast tiny updates; Spark/Hive/HBase can integrate with this ecosystem.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Cloud delivery models with advantages/disadvantages.",
+      "answer": "IaaS: virtual CPUs, disks, networks; customer installs/manages OS and apps. + control and lift-and-shift; − patching/runtime maintenance and cost management. PaaS: platform/runtime, deployment tooling and managed scaling; + developer speed, less admin; − runtime limitations, lock-in and constrained tuning. SaaS: complete application; + rapid adoption, updates and no server management; − limited customization, compliance/data portability dependence. FaaS can be viewed as a form of managed platform where user uploads event-triggered functions; + pay per execution, − cold starts/duration and provider lock-in. Compare using shared-responsibility layers, SLA, scalability and cost model.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "Cloud computing reference model with neat diagram.",
+      "answer": "A cloud reference model separates actors, service layers and operations. A useful NIST-like view:\nCloud consumer ↔ Cloud service provider [SaaS / PaaS / IaaS]\nCloud broker (optional): aggregates/mediates services\nCloud carrier: network transports service\nCloud auditor: independent security/performance assessment.\nInside provider: service orchestration (service layer → resource abstraction/control → physical resource layer), cloud service management (business support/provisioning), security and privacy, portability/interoperability. SaaS invokes platform/infrastructure; PaaS invokes virtual and physical resources; IaaS exposes these to users. Management spans billing, SLA, lifecycle, identity, audit and monitoring.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Service-oriented architecture and SOAP building blocks.",
+      "answer": "SOA organizes distributed software as independently deployable network-accessible services described by well-defined contracts; favors loose coupling, reusability, discoverability and interoperability. Actors: provider publishes contract, consumer discovers and invokes, optional service registry. SOAP is XML envelope protocol for structured message exchange, usually over HTTP but transport-independent. SOAP message:\n<Envelope xmlns='http://www.w3.org/2003/05/soap-envelope'>\n  <Header>optional security/routing metadata</Header>\n  <Body><GetBalance>...</GetBalance></Body>\n</Envelope>\nOther SOAP elements: Fault for errors; WSDL defines service interfaces, messages, bindings and endpoints; UDDI historically supported discovery. WS-Security adds signing/encryption. Drawbacks: XML verbosity, complex WS-* profiles versus simpler REST APIs.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "Architectural constraints of RESTful web services.",
+      "answer": "REST constraints: (1) client-server separation, (2) stateless requests (each request carries necessary context), (3) cacheable responses, (4) uniform interface (resource identification, representations, self-descriptive messages, hypermedia/HATEOAS), (5) layered system, and (6) optional code-on-demand. Benefits: scalability, independent evolution and intermediary caching. Example GET /students/42 retrieves a representation; POST /students creates; PUT /students/42 replaces; DELETE removes; use HTTP status codes and content negotiation appropriately. REST is an architectural style, not synonymous with JSON over HTTP, and not all 'REST APIs' fully implement hypermedia.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "Cloud provider components and SaaS/PaaS/IaaS responsibility.",
+      "answer": "Provider components: hardware and data-center networking, virtualization and resource pools; compute/storage/network services; IAM/key management, service catalog/API gateway; scheduler/orchestrator/provisioning; monitoring/metering/billing; backup/disaster recovery, support and SLA management. Shared responsibility:\nIaaS: provider physical sites/hosts/hypervisor; customer guest OS patches, applications, most network rules, identities and data.\nPaaS: provider also manages OS/middleware/runtime; customer code, data, app-level IAM configuration.\nSaaS: provider manages application and underlying stack; customer manages user access, data classification, security settings and endpoint posture. Exact split depends on service contract; encryption/IAM can be shared. Diagram: Provider-owned layers increase from IaaS → PaaS → SaaS.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Amazon S3 and advantages of cloud storage.",
+      "answer": "Amazon Simple Storage Service (S3) is object storage organized into buckets containing versionable objects addressed by keys; accessible through API/SDK/HTTPS. Features: storage classes, lifecycle transitions, versioning, multipart upload, strong read-after-write consistency for ordinary object operations, server-side encryption, replication, access control using IAM/bucket policies and optional Object Lock. Use cases: backups, static web assets, data lakes, logs and media. Advantages: high durability, elastic capacity, managed availability, geographic access, programmable lifecycle, fine-grained access control and billing by storage/requests. Limitations: network latency/egress and per-request costs, eventual disaster recovery considerations, API/object semantics rather than POSIX files, and risks from public bucket policies.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "Intercloud resource management.",
+      "answer": "Intercloud management coordinates compute, storage, networking and services across multiple independent clouds. Components: discovery/provider catalog, identity federation/trust, SLA translation and monitoring, orchestration/scheduler, workload packaging and placement, cross-cloud network connectivity, data migration/replication, accounting/settlement and conflict resolution. Policies choose where to run based on cost, latency, availability, residency, CPU/GPU capacity, carbon footprint and compliance. Workflows: discover resources → negotiate SLA → provision credentials/network → deploy container/VM → monitor metrics → migrate/scale/failover → deprovision/settle. Challenges: heterogeneous APIs, data egress costs, inconsistent IAM, distributed consistency and jurisdiction.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Cloud security challenges and governance.",
+      "answer": "Challenges include multitenant isolation, credential theft, misconfigured IAM/buckets, insecure APIs, supply chain vulnerabilities, data residency/sovereignty, insider threats, key management, DDoS, audit gaps, recovery risks and shadow IT. Governance establishes accountable roles, policies and controls: risk inventory and data classification; least-privilege IAM/MFA; encryption/key rotation; secure baseline/image scanning and patch SLAs; network segmentation/zero trust; centralized logs/SIEM; change approval and infrastructure-as-code guardrails; continuous compliance review; backups and tested incident response; vendor contracts, SLA and audit rights. Map controls to ISO27001/NIST CSF or sector requirements; track evidence, exceptions and remediation owners.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "Cloud federation stack and detail.",
+      "answer": "Federation enables multiple autonomous clouds to cooperate while retaining local control. A practical stack (bottom→top): heterogeneous hardware/virtualization; resource abstraction (VM/container/storage/network APIs); cloud-provider service management and local scheduler; federation middleware (adapter/broker, discovery, common protocols, identity trust, policy/SLA negotiation); federation orchestration (cross-cloud workload scheduling, data placement, scale/failover, billing); federated applications and consumer portal. Orthogonal functions: authentication/authorization, encryption, telemetry, metering, audit and compliance. Sequence: member registers capability → broker discovers a matching resource → negotiate policy/cost → provision linked networks/identities → deploy workload → monitor/migrate/settle. Real implementations vary; no universal single vendor-neutral named 'four-level stack' standard exists.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Web services and differences between Web services and APIs.",
+      "answer": "An API is any defined interface through which software accesses functionality, potentially local/library/OS/hardware, not necessarily networked. Web service is a network-accessible machine-to-machine service typically exposed using HTTP/HTTPS and formats such as XML/SOAP or JSON/REST. SOAP services use WSDL and XML envelopes, can use WS-*; REST-oriented services expose resources with HTTP methods and status codes; gRPC uses HTTP/2 and protobuf. Web services are a subset of APIs, but not every API is a web service. Examples: local Python list.append API versus HTTPS GET /weather web service. Interoperability requires schemas/contracts, versioning, authentication, error conventions and careful backward compatibility.",
+      "marks": 10,
+      "origin": "AKTU KCS713 2023-24 Cloud Computing paper ID 310942"
+    }
+  ]
+}
