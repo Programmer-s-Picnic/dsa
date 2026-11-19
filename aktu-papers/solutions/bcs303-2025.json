@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "paperId": "bcs303-2025",
+  "code": "BCS303",
+  "subject": "Discrete Structures and Theory of Logic",
+  "semester": 3,
+  "year": 2025,
+  "session": "2024-25",
+  "sourcePdf": "https://www.abesit.in/wp-content/uploads/2025/05/BCS303-DISCRETE-STRUCTURES-THEORY-OF-LOGIC.pdf",
+  "reviewStatus": "draft-formulas-checked-instructor-review-pending",
+  "coverage": "all 22 printed questions and alternatives",
+  "verificationNote": "Answers checked against 4-page AKTU paper ID 311973. K-map minimizations verified symbolically; D6 lattice mapping and logic proofs shown. Instructor review pending.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "Find A∪B and A∩B if A is primes <20 and B odd numbers <20.",
+      "answer": "A={2,3,5,7,11,13,17,19}. B={1,3,5,7,9,11,13,15,17,19}. Union = {1,2,3,5,7,9,11,13,15,17,19}. Intersection = {3,5,7,11,13,17,19}. The only even prime is 2, so 2 is in union but not intersection.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "How many relations from A={1,2,3} to B={a,b}?",
+      "answer": "A×B contains 3×2=6 ordered pairs. A relation from A to B is any subset of A×B; the number of subsets is 2^6=64. This includes the empty and universal relations.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "Express 'there exists an even prime' and 'all primes greater than 2 are odd' using P(x): prime, Q(x): odd.",
+      "answer": "Quantify over integers or positive integers as appropriate. (a) ∃x [P(x) ∧ ¬Q(x)]. (b) ∀x[(P(x) ∧ x>2) → Q(x)]. Witness for (a) x=2. Restricting the domain to positive integers does not change these expressions.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Find g∘f if f(x)=e^x and g(x)=sin(x).",
+      "answer": "(g∘f)(x)=g(f(x))=sin(e^x). Do not confuse with f∘g=e^(sin x).",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "Define Abelian group.",
+      "answer": "An Abelian group (G,*) is a group with closure, associativity, identity e, inverse for every element, and additionally commutativity a*b=b*a for all a,b∈G. Example integers (Z,+) are Abelian; matrix multiplication of invertible n×n matrices for n≥2 is generally non-Abelian.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "Number of distinct permutations of DISCRETE.",
+      "answer": "DISCRETE has 8 letters with E repeated twice; all others occur once. Distinct arrangements =8!/2!=40320/2=20160.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "Adjacency matrix for undirected cycle edges AB, BC, CD, DA.",
+      "answer": "In vertex order A,B,C,D: matrix rows A:[0,1,0,1], B:[1,0,1,0], C:[0,1,0,1], D:[1,0,1,0]. Symmetric because edges are undirected; diagonal zero because there are no loops.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Show congruence modulo m is equivalence on Z, and is compatible with addition.",
+      "answer": "Define a≡b(mod m) iff m divides a−b (m>0). Reflexive: a−a=0 divisible by m. Symmetric: if m|(a−b), then m|(b−a). Transitive: if m|(a−b) and m|(b−c), then m|(a−c)=(a−b)+(b−c). For x1≡y1 and x2≡y2, m divides x1−y1 and x2−y2, hence divides (x1+x2)−(y1+y2); therefore x1+x2≡y1+y2 (mod m). The relation partitions Z into m residue classes.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "Minimize K-map F(A,B,C)=Σm(1,2,5,7), don't-cares d(0,4,6) in SOP.",
+      "answer": "Three-variable minterms in binary: 001,010,101,111; don't cares:000,100,110; only definite zero: 011. Choose implicants to cover all four required ones without covering 011: group A (minterms4,5,6,7 with d at4,6) → A; group B' (0,1,4,5 with d 0,4) → B'; group C' (0,2,4,6 with d0,4,6) → C'. Minimal form F=A+B'+C'. This function is zero exactly for A=0,B=1,C=1 (the only forced zero), and one for all other minterms. Other equivalent implicant cover possible.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Test argument happy→smile; John smiles; therefore John happy.",
+      "answer": "Invalid by affirming the consequent. Let H=John happy, S=John smiles. Premises H→S and S do not entail H: countermodel H=false,S=true satisfies both premises but makes conclusion false. People may smile for reasons besides happiness.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Distinct cosets of H={0,4,8} in (Z12,+).",
+      "answer": "Cosets are a+H modulo12. H0={0,4,8}; 1+H={1,5,9}; 2+H={2,6,10}; 3+H={3,7,11}. Repeating for a=4..11 gives one of those four. [Z12:H]=12/3=4, so precisely four disjoint cosets.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Are K3 and subdivision of one edge of K3 homeomorphic?",
+      "answer": "Yes. Graph homeomorphism identifies graphs obtainable from a common graph by subdividing edges or suppressing degree-2 vertices. Adding a new vertex X to replace one edge uv with u−X−v is a subdivision. X has degree 2; suppressing X restores K3. Thus they are homeomorphic though not isomorphic (different vertex counts).",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Use Warshall's algorithm for transitive closure R={(1,2),(2,3),(3,1)}.",
+      "answer": "Initial Boolean adjacency M0 rows [0,1,0], [0,0,1], [1,0,0]. Warshall sets reachability M[i][j]←M[i][j]∨(M[i][k]∧M[k][j]) for k=1,2,3. The 3-cycle connects every ordered pair; each vertex can reach itself via a positive-length 3-cycle. Hence transitive closure R+ = A×A and final reachability matrix rows [1,1,1], [1,1,1], [1,1,1] (all nine pairs).",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "Prove divisors of 42 under divides form a lattice; show D6 isomorphic to P({a,b}).",
+      "answer": "D42={1,2,3,6,7,14,21,42}; partial order x≤y iff x divides y. For any divisors x,y of 42, gcd(x,y) is their greatest lower bound (meet) and lcm(x,y) divides42 and is least upper bound (join). Thus D42 is a lattice with bottom1, top42.\nD6={1,2,3,6}, meet=gcd and join=lcm. Powerset of {a,b} under subset has four elements ∅,{a},{b},{a,b}. Mapping φ:1→∅,2→{a},3→{b},6→{a,b} is bijective. It preserves meet as intersection and join as union; therefore D6≅P({a,b}) as lattices.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Minimize two four-variable Boolean functions by K-maps.",
+      "answer": "(i) F(A,B,C,D)=Σm(0,1,2,4,5,6,8,9,12,13,14). A valid minimal SOP: F=C' + B D' + A' D'. Verify groups: C' covers 0,1,4,5,8,9,12,13; B D' covers 4,6,12,14; A' D' covers 0,2,4,6. No forbidden minterm covered.\n(ii) F=Σm(0,2,5,7,8,10,13,15). Minimal SOP F=B'D' + B D. This is XNOR(B,D): output 1 when B=D, independent of A,C. In K-map, groups 0,2,8,10 and 5,7,13,15.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "Compute f(3), classify f(x)=3x+5 and g(x)=x²−2x+1 as one-to-one/onto.",
+      "answer": "Assuming f,g:R→R: f(3)=3×3+5=14. f(x)=3x+5 has nonzero slope, injective; for any y∈R choose x=(y−5)/3, so surjective; f is bijective. g(x)=(x−1)² not injective since g(0)=g(2)=1, and not onto R since outputs are ≥0 (e.g. −1 unattainable). Hence g is neither one-to-one nor onto R. Codomain must be stated; if codomain were [0,∞), g would be onto but still not one-to-one.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "Show inconsistency of premises about Alex missing classes, failing, uneducated and reading books.",
+      "answer": "Let M: misses classes due to illness, F: fails, U: uneducated, R: reads many books. Premises M→F, F→U, R→¬U, M∧R. From M∧R infer M and R. M→F with M gives F; F→U yields U. R→¬U and R yield ¬U. Both U and ¬U hold, contradiction. Therefore premises jointly inconsistent.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Prove valid argument: not sunny, swimming only if sunny; if no swimming then canoe; canoe implies home by sunset.",
+      "answer": "Let S=sunny, W=swim, C=canoe, H=home by sunset. Premises ¬S∧colder, W→S, ¬W→C, C→H. From conjunction take ¬S. By contrapositive of W→S, ¬S→¬W; therefore ¬W. Then ¬W→C gives C. Then C→H yields H. The conclusion follows by modus ponens chain; colder is irrelevant.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "How many generators does a cyclic group of order 8 have?",
+      "answer": "A cyclic group of order n has φ(n) generators, where φ is Euler's totient. φ(8)=8(1−1/2)=4. For additive Z8, generators are residues relatively prime to8: {1,3,5,7}, each having order8.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Is H={0,1,5} a subgroup of (Z6,+)?",
+      "answer": "No. Though 0 belongs to H and 1+5=0 mod6, closure fails: 1+1=2 mod6, but 2∉H. Also Lagrange's theorem requires |H| to divide |Z6|=6; |H|=3 divides6, but this condition alone is not sufficient. Thus H is not a subgroup.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "Define Euler/Hamiltonian graphs, chromatic number, walk/path, bipartite graph.",
+      "answer": "Eulerian graph (connected ignoring isolated vertices) has an Euler circuit traversing each edge exactly once; for undirected connected graph, every vertex degree even. Hamiltonian graph has a cycle visiting every vertex exactly once (except returning to starting vertex). Chromatic number χ(G) is minimum colors needed for proper vertex coloring with adjacent vertices different. Walk may repeat vertices/edges; a path has no repeated vertices (in a simple graph). Bipartite graph admits a partition V=U∪W with every edge between U and W; equivalently has no odd cycle. Examples: C4 is Eulerian, Hamiltonian, bipartite and χ=2.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Prove any 13 people include two whose birthdays occur in same month.",
+      "answer": "Pigeonhole principle: 13 people are pigeons and 12 calendar months are holes. If each month held at most one person's birth month, at most 12 people could be assigned. Since 13>12, some month has at least ceiling(13/12)=2 birthdays. The result concerns birth MONTH, not exact date.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS303 paper ID 311973"
+    }
+  ]
+}
