@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "paperId": "bcs503-2025",
+  "subject": "Design and Analysis of Algorithm",
+  "code": "BCS503",
+  "semester": 5,
+  "year": 2025,
+  "session": "2024-25",
+  "sourcePdf": "https://www.abesit.in/wp-content/uploads/2025/05/BCS503-DESIGN-AND-ANALYSIS-OF-ALGORITHM.pdf",
+  "reviewStatus": "draft-numericals-and-algorithms-checked-instructor-review-pending",
+  "coverage": "all printed alternatives",
+  "verificationNote": "Based on 2-page paper ID 310680. 0/1 and fractional knapsack, binomial heap and KMP prefix array independently checked. Dijkstra graph arrows visually interpreted with source 1 because the printed question does not explicitly state it. Instructor review pending.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "Define algorithm with example; list design techniques.",
+      "answer": "An algorithm is a finite, unambiguous sequence of effective steps mapping valid inputs to outputs and terminating. Example Euclid gcd(a,b): repeat (a,b)←(b,a mod b) until b=0; return a. Common techniques: brute force, divide and conquer, greedy, dynamic programming, backtracking, branch and bound, randomized and approximation.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "Basic steps of algorithm design.",
+      "answer": "Specify problem/input/output and constraints; choose data structures; select approach; state correctness invariants; write pseudocode; analyze time/space; implement; test normal/edge/large cases; tune and document. Algorithm correctness and complexity should be evaluated separately.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "Derive heap-sort time complexity.",
+      "answer": "Build a binary max heap in O(n) by bottom-up heapify. Repeatedly swap root with last element and restore max-heap for remaining prefix; each of n−1 removals costs O(log n). Total O(n)+n O(log n)=Θ(n log n) worst/average/best; in-place Θ(1) auxiliary space and not stable in standard form.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Properties of binomial heaps.",
+      "answer": "A binomial heap is a forest of binomial trees B_k with at most one tree of each degree. B_0 is one node; B_k consists of two B_(k−1) trees linked, has 2^k nodes, root degree k and height k. Each tree satisfies heap order (min-heap parent≤children). Root degrees are unique corresponding to 1-bits in binary heap size; union uses binary-carry-like linking.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "Explain convex hull with example.",
+      "answer": "For a finite point set, convex hull is the smallest convex polygon containing all points. Example for points (0,0),(2,0),(2,2),(0,2),(1,1), hull consists of four square corners; (1,1) lies inside. Algorithms: monotone chain/Graham scan O(n log n), Jarvis march O(nh). Used in shape recognition, collision detection and GIS.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "Explain branch and bound with example.",
+      "answer": "Branch-and-bound is an exact optimization search tree. Branch splits a problem into subproblems; bound estimates the best objective achievable in a subtree. If bound cannot improve current feasible incumbent, prune that subtree. Example 0/1 knapsack: nodes fix items included/excluded; fractional-knapsack upper bound prunes nodes below incumbent. Contrast backtracking (mostly feasibility pruning) and greedy (local choices without exhaustive bound search).",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "Randomized algorithms and examples.",
+      "answer": "Randomized algorithm uses random bits to influence choices or running time. Las Vegas algorithms always give a correct result with random runtime (e.g. randomized quicksort always sorts; expected O(n log n) under uniform pivot). Monte Carlo algorithms use bounded time with controlled error probability (e.g. Miller–Rabin compositeness testing on specified witnesses). Randomized hashing and randomized selection are other examples.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Merge-sort A=(38,27,43,3,9,82,10), derive complexity.",
+      "answer": "Split: [38,27,43,3] and [9,82,10]. Split to singleton elements. Merge left: [27,38] + [3,43] → [3,27,38,43]; merge right: [9,82]+[10] → [9,10,82]; final merge [3,9,10,27,38,43,82]. Recurrence T(n)=2T(n/2)+Θ(n) (approximately equal halves) gives Θ(n log n); standard merge sort requires Θ(n) auxiliary buffer.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "Define binomial heap and algorithm for union of two binomial heaps.",
+      "answer": "A binomial heap is a root list of distinct-degree min-heap-ordered binomial trees. Union(H1,H2): (1) merge root lists ordered by degree; (2) walk adjacent roots; when degrees differ advance; when two equal degrees and not a third of same degree, link larger-key root below smaller-key root; (3) when three consecutive equal degrees, postpone linking first pair to avoid duplicate degree handling. Example B0 key 3 union B0 key 8 → B1 root 3 with child 8; inserting another singleton key 1 yields B0(root1) plus B1(root3). Binary carries ensure at most one tree per degree. O(log(n+m)) for meld after root-list merge.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Apply greedy single-source shortest paths to the four-node graph shown.",
+      "answer": "Interpret directed graph edges as illustrated: 1→4(weight 5); 1→2(weight 3); 2→1(weight 2); 2→4(weight 4); 4→3(weight 2); 3→2(weight 1). Taking 1 as source, Dijkstra initializes d1=0, d2=∞, d3=∞, d4=∞. Relax from 1: d2=3, d4=5; settle 2 (tentative 3), its path 2→4 would cost 7 so no improvement; settle 4(cost5), set d3=7; settle 3(cost7), back edge to 2 yields 8 so no improvement. Final distances: d1=0, d2=3, d4=5, d3=7; shortest-path tree edges 1→2,1→4,4→3.",
+      "explanation": "The question does not explicitly print the source vertex; this answer assumes source=1 and the directed arrows/weights seen in the PDF graphic. Verify arrow directions on the original image.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Write Floyd's and Warshall's algorithms and time complexity.",
+      "answer": "Floyd–Warshall all-pairs shortest path: initialize D[i][i]=0, D[i][j]=edge weight or ∞. For k=1..n, for i=1..n, for j=1..n: D[i][j]=min(D[i][j],D[i][k]+D[k][j]). Supports negative edges but not negative cycles (negative diagonal signals one). Warshall transitive closure: initialize Boolean R from adjacency plus identity; for k,i,j: R[i][j]=R[i][j] OR (R[i][k] AND R[k][j]). Both Θ(n³) time and Θ(n²) space; Warshall computes reachability, Floyd–Warshall computes shortest costs.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Explain vertex cover and its approximation algorithm.",
+      "answer": "A vertex cover C is a set of vertices touching every undirected edge. Minimum vertex cover is NP-hard. 2-approximation: start C=∅; while an uncovered edge (u,v) exists, add both u and v to C and delete/mark all edges incident to either. The chosen edges form a matching, and every vertex cover must contain at least one endpoint of each matched edge; therefore |C| ≤2OPT. Example path a–b–c, choosing edge (a,b) gives cover {a,b} size2 while optimal {b} size1, attaining ratio2.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Write quicksort partition and derive best/worst runtime.",
+      "answer": "Lomuto partition with pivot A[high]: i=low−1; for j=low..high−1, if A[j]≤pivot then i++ and swap A[i],A[j]; swap A[i+1],A[high]; return i+1. Recursively quicksort left/right partitions. Best balanced recurrence T(n)=2T(n/2)+Θ(n)=Θ(n log n). Worst skewed recurrence T(n)=T(n−1)+Θ(n)=Θ(n²) (sorted input with last-element pivot). Expected average Θ(n log n) for randomized pivots. In-place partition; expected stack O(log n), worst O(n).",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "Upper, lower and average asymptotic bounds for f(n)=3n+2.",
+      "answer": "For n≥1: 3n≤3n+2≤5n, hence f(n)=Ω(n) and f(n)=O(n), so f(n)=Θ(n). Constants do not affect asymptotic growth. 'Average-case' normally refers to averaging over an input distribution; for a deterministic scalar function f(n), absent such a distribution, its order remains linear for all n.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Construct ordinary and compressed tries for DOG,DONE,CAT,CAN,RIGHT,DO,JUG,DAA,CA,CAME.",
+      "answer": "Ordinary trie branches by one character. Words ending inside a branch need an end-of-word marker: DO and CA are prefixes of other words.\nOne compact trie edge layout (each edge labeled by a string):\nROOT\n├─ 'D' → [ 'AA'→DAA*, 'O'→DO* ( 'G'→DOG*, 'NE'→DONE* ) ]\n├─ 'CA'→CA* ( 'T'→CAT*, 'N'→CAN*, 'ME'→CAME* )\n├─ 'RIGHT'→RIGHT*\n└─ 'JUG'→JUG*\nAsterisk marks terminal node. Compressed/radix trie combines every nonbranching path into one edge; the uncompressed trie uses one letter per edge. Insert O(total length of strings) ignoring child-search implementation.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "Construct min-binomial heap from 7,2,4,17,1,11,6,8,15,10,20.",
+      "answer": "There are 11 inserted nodes, binary 1011=8+2+1. Hence final forest has B3, B1 and B0 with distinct degrees.\nOne valid min-heap forest under singleton insert-and-link with smaller-key-root-parent:\nB0: root[20].\nB1: root[10] → child[15].\nB3: root[1] with direct children [2],[6],[11]; child[2] has children [4],[7] with child[4]→[17]; child[6] has child[8].\nAll parent keys ≤ descendant keys, root degrees 0,1,3, and total nodes 1+2+8=11. Different tie/link conventions may yield a different but valid binomial-heap forest.",
+      "explanation": "Forest generated by independent min-binomial insertion simulation.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "Describe Kruskal's MST algorithm with example.",
+      "answer": "Given a connected weighted undirected graph, sort edges in nondecreasing weight. Initialize disjoint-set union (DSU), one set per vertex. For each edge(u,v), if find(u)≠find(v), add edge to MST and union sets. Stop at V−1 edges. Example edges AB(1),BC(2),AC(3),BD(4),CD(5): choose AB and BC, skip AC (cycle), choose BD; MST weight 1+2+4=7. Sorting O(E log E), DSU nearly linear amortized, total O(E log E).",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Fractional knapsack, capacity 15; profits 5,10,15,7,8,9,4 and weights 1,3,5,4,1,3,2.",
+      "answer": "Profit/weight: item1 5, item2 10/3≈3.333, item3 3, item4 7/4=1.75, item5 8, item6 3, item7 2. Greedily sort by ratio: 5,1,2,3/6,7,4. Take items 5(weight1 profit8),1(1,5),2(3,10),3(5,15),6(3,9),7(2,4). Total weight 1+1+3+5+3+2=15; profit=8+5+10+15+9+4=51. All chosen amounts happen to be entire items; no fractional item is required. Max profit = 51.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "Explain 4-Queens and show backtracking state-space tree.",
+      "answer": "Place one queen per row so no two share a column or diagonal; test each candidate column against previous rows. State-space tree root is empty placement; level i chooses a safe column in row i. For n=4, two solutions are row→column sequences [2,4,1,3] and [3,1,4,2]. Example branch: []→[2]→[2,4]→[2,4,1]→[2,4,1,3] (solution). Alternative: []→[3]→[3,1]→[3,1,4]→[3,1,4,2]. All invalid branches (same column/diagonal or no legal next position) are pruned. Worst-case backtracking exponential, substantially smaller than enumerating all 4^4 raw placements due to constraints.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "0/1 knapsack: capacity 8, profits (1,2,5,6), weights (2,3,4,5).",
+      "answer": "Feasible pairs: items2+4 weight3+5=8, profit2+6=8; items1+4 weight7 profit7; items2+3 weight7 profit7; items1+3 weight6 profit6. Items3+4 weight9 infeasible, and adding another positive-weight item to 2+4 exceeds capacity. Best feasible selection = items 2 and 4, total weight 8, maximum profit 8. For a formal DP: dp[i][w]=max(dp[i−1][w], pi+dp[i−1][w−wi]) when wi≤w.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "Define P, NP, NP-complete and NP-hard classes.",
+      "answer": "P: decision problems solvable in polynomial deterministic time. NP: decision problems with polynomial-time verifiable certificates (equivalently nondeterministic polynomial time). NP-hard: every NP problem polynomially reduces to the problem; need not itself be in NP or even decidable. NP-complete: problems both in NP and NP-hard, e.g. SAT, decision version of vertex cover. P⊆NP, NP-complete⊆NP; whether P=NP remains unsolved. If any NP-complete problem has a polynomial algorithm, then P=NP.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "KMP string matching and prefix function for ababbabbabbababbabb.",
+      "answer": "KMP preprocesses pattern P to prefix array π where π[i] is length of longest proper prefix of P[0..i] also a suffix. On mismatch, replace matched length j by π[j−1] instead of rescanning text. Prefix recurrence: j=π[i−1]; while j>0 and P[i]≠P[j], j=π[j−1]; if equal increment j; π[i]=j.\nPattern P=ababbabbabbababbabb (19 chars).\nπ (1-based positions 1..19) = [0,0,1,2,0,1,2,0,1,2,0,1,2,3,4,5,6,7,8].\nSearch scan with j matched characters, update j using π on mismatches, and report a match whenever j=m; then j=π[m−1] for overlapping matches. Complexity O(m) preprocessing plus O(n) search, O(m) extra space.",
+      "explanation": "Prefix array computed and checked separately.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS503 Paper ID 310680"
+    }
+  ]
+}
