@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "paperId": "bcs101-2025",
+  "subject": "Programming for Problem Solving",
+  "code": "BCS101",
+  "semester": 1,
+  "year": 2025,
+  "session": "2024-25",
+  "sourcePdf": "https://www.abesit.in/wp-content/uploads/2025/05/BCS101-PROGRAMMING-FOR-PROBLEM-SOLVING.pdf",
+  "reviewStatus": "draft-code-instructor-review-pending",
+  "coverage": "all printed questions and alternatives",
+  "verificationNote": "Transcribed against 3-page AKTU paper ID 311813. Code examples are educational C11-level samples; not individually compiled on every target compiler. The printed star pattern is approximated by a conventional hollow centered pyramid as exact dimensions are unclear.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "Define tokens and their use in programming.",
+      "answer": "A token is the smallest meaningful lexical unit of source code recognized by the compiler. C token categories include keywords (int), identifiers (count), constants (10), string literals (\"Hello\"), operators (+, <=), and punctuation/separators (;, parentheses, braces). Lexical analysis groups characters into tokens before syntax analysis.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "Differentiate low-level and high-level languages.",
+      "answer": "Low-level languages (machine/assembly) are close to hardware, often architecture-specific, and require detailed control of registers/addresses; execution is efficient but development is harder. High-level languages (C, Python, Java) offer abstractions, readable syntax and typically better portability, but require a compiler/interpreter and still vary in performance. C combines high-level constructs with low-level capabilities.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "Significance of operators in programming languages.",
+      "answer": "Operators express calculations, comparisons, assignment, logic and bit manipulation. C examples: arithmetic +,-,*,/,%; relational <,<=,==,!=; logical &&,||,!; assignment =,+=; increment ++; bitwise &,|,^,<<,>>; conditional ?:; address-of & and dereference *. Precedence/associativity determine grouping; parentheses clarify intent.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Show the structure of a nested if-else statement.",
+      "answer": "In C:\nif (condition1) {\n    if (condition2) {\n        /* both true */\n    } else {\n        /* condition1 true, condition2 false */\n    }\n} else {\n    /* condition1 false */\n}\nA nested if places another selection inside a branch. Braces eliminate ambiguity about which if an else belongs to.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "Find output of given while loop when z starts at 1, increments inside if(z==3), then prints z and increments again.",
+      "answer": "Exact program: int z=1; while(z<=5) {if(z==3){z++;} printf(\"%d \",z); z++;}\nTrace: z=1 prints 1; z=2 prints 2; z=3 increments to 4, prints 4; z=5 prints 5; z becomes 6 and loop exits.\nOutput: 1 2 4 5",
+      "explanation": "Note the number 3 is skipped, and 4 is printed only once.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "State time complexity of selection sort.",
+      "answer": "Selection sort finds the minimum among the remaining items in each pass. Comparisons: (n−1)+(n−2)+…+1=n(n−1)/2, so best/average/worst-case time is Θ(n²); swaps O(n); auxiliary space Θ(1) for in-place version.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "Define macros and their use in C.",
+      "answer": "A macro is a preprocessor text substitution defined with #define. Examples: #define LIMIT 100 and #define SQUARE(x) ((x)*(x)). Uses: compile-time constants, conditional compilation, simple generic substitutions. Macros are not type-checked and may evaluate arguments more than once; prefer const, enum or inline functions when appropriate.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Define object file and describe compilation process in C.",
+      "answer": "An object file (.o/.obj) contains machine code and metadata (symbols, relocation entries) produced from a translation unit, usually not yet a complete executable. Stages: (1) preprocess headers/macros (#include/#define), (2) compile tokens/parsing/type checks/optimizations into assembly or internal IR, (3) assemble into relocatable object file, (4) link object files and libraries resolving external references, (5) loader maps executable into memory at runtime. GCC demo: gcc -E hello.c -o hello.i; gcc -S hello.c -o hello.s; gcc -c hello.c -o hello.o; gcc hello.o -o hello.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "C program to check if year is leap year using conditional operator.",
+      "answer": "Leap year iff divisible by 400 OR divisible by 4 but not by 100. Complete C program:\n#include <stdio.h>\nint main(void) {\n  int year;\n  if (scanf(\"%d\", &year) != 1) return 1;\n  const char *result = (year%400==0 || (year%4==0 && year%100!=0)) ? \"Leap year\" : \"Not a leap year\";\n  puts(result);\n  return 0;\n}\nExamples: 2000 leap, 1900 not leap, 2024 leap.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Explain array importance; write a C program adding two numbers by passing an array to a function.",
+      "answer": "An array stores homogeneous elements contiguously, supports O(1) indexed access, and is useful for tabular/sequence data. Program:\n#include <stdio.h>\nint sum(const int a[], size_t n) {\n  int result=0;\n  for(size_t i=0;i<n;i++) result+=a[i];\n  return result;\n}\nint main(void) {\n  int a[2];\n  if(scanf(\"%d%d\",&a[0],&a[1])!=2)return 1;\n  printf(\"Sum = %d\\n\",sum(a,2));\n  return 0;\n}\nThe function receives a pointer to the array's first element; n carries its length.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Describe searching and write a C linear-search program to find a number in an array.",
+      "answer": "Searching locates an item or reports absence. Linear search checks items from start to end, works with unsorted arrays, and costs O(n) worst case (O(1) best). Complete program:\n#include <stdio.h>\nint linear_search(const int a[], int n, int target) {\n  for(int i=0;i<n;i++) if(a[i]==target) return i;\n  return -1;\n}\nint main(void){\n  int a[100],n,target;\n  if(scanf(\"%d\",&n)!=1||n<1||n>100)return 1;\n  for(int i=0;i<n;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n  if(scanf(\"%d\",&target)!=1)return 1;\n  int pos=linear_search(a,n,target);\n  if(pos<0) puts(\"Not found\");\n  else printf(\"Found at index %d\\n\",pos);\n  return 0;\n}",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Explain the use and importance of linked lists in programming.",
+      "answer": "A linked list is a dynamic collection of nodes, each storing a value and a link to its successor (and optionally predecessor). Nodes need not be contiguous. Benefits: dynamic growth and O(1) insertion/deletion when node/preceding pointer known; useful for adjacency lists, chained hashes, queues and polynomial terms. Drawbacks: extra pointer memory, O(n) indexed access and poor cache locality. Types: singly, doubly and circular linked lists.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Draw and discuss digital computer system architecture and use in programming.",
+      "answer": "Logical organization:\nInput devices → I/O controller ↔ System bus ↔ CPU (control unit + ALU + registers)\n                                      ↕\n                                Main memory (RAM)\n                                      ↕\n                              Secondary storage\nThe control unit fetches/decodes instructions; ALU performs arithmetic and logic; registers store immediate operands/state; memory stores code/data; I/O controllers connect devices, and buses carry addresses/data/control. A program is compiled/loaded into memory, CPU executes the instruction cycle, and the OS mediates devices and storage. Registers and cache provide faster access than RAM, which is faster than disk.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "List the four storage classes in C with examples.",
+      "answer": "Classic C storage-class specifiers taught here: auto, register, static, extern.\nauto int x=5; // block-local automatic lifetime (auto normally implicit).\nregister int i; // hints fast access; address-of on such an object is not allowed in standard C.\nstatic int calls=0; // static-duration local retains its value between calls; file-scope static restricts linkage.\nextern int total; // declares variable defined elsewhere with external linkage.\nLifetime, scope and linkage are distinct concepts; storage-class keywords influence these properties.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Explain different operators in C with examples.",
+      "answer": "Arithmetic + - * / % (7/2=3 for integer division); relational < <= > >= == != (producing 0/1); logical && || ! (short-circuit for &&/||); assignment = += -= *= /=; ++/--; bitwise & | ^ ~ << >> on integers; conditional expression condition ? yes : no; sizeof; pointer/address operators * and &; indexing []; member access . and ->. Operators have precedence/associativity; use parentheses for clear expressions.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "C program to find largest of four given numbers.",
+      "answer": "#include <stdio.h>\nint main(void) {\n  int a,b,c,d;\n  if(scanf(\"%d%d%d%d\",&a,&b,&c,&d)!=4)return 1;\n  int max=a;\n  if(b>max)max=b;\n  if(c>max)max=c;\n  if(d>max)max=d;\n  printf(\"Largest = %d\\n\",max);\n  return 0;\n}\nFour constant-time comparisons/updates: O(1) time and space.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "C program to print the hollow pyramid/triangle star pattern shown.",
+      "answer": "The figure has a centered apex, two boundary stars on each inner row, and a solid base. Print a general hollow isosceles pyramid of height n:\n#include <stdio.h>\nint main(void) {\n  int n=5;\n  for(int row=1;row<=n;row++) {\n    for(int s=0;s<n-row;s++)putchar(' ');\n    for(int col=1;col<=2*row-1;col++) {\n      if(row==n||col==1||col==2*row-1)putchar('*');\n      else putchar(' ');\n    }\n    putchar('\\n');\n  }\n  return 0;\n}\nOutput for n=5:\n    *\n   * *\n  *   *\n *     *\n*********\nIncrease n to match the dimensions of the printed figure exactly.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "C program to multiply two n×n matrices.",
+      "answer": "#include <stdio.h>\n#define MAX 20\nint main(void) {\n  int n,a[MAX][MAX],b[MAX][MAX],c[MAX][MAX]={0};\n  if(scanf(\"%d\",&n)!=1||n<1||n>MAX)return 1;\n  for(int i=0;i<n;i++)for(int j=0;j<n;j++)if(scanf(\"%d\",&a[i][j])!=1)return 1;\n  for(int i=0;i<n;i++)for(int j=0;j<n;j++)if(scanf(\"%d\",&b[i][j])!=1)return 1;\n  for(int i=0;i<n;i++)for(int j=0;j<n;j++)for(int k=0;k<n;k++)c[i][j]+=a[i][k]*b[k][j];\n  for(int i=0;i<n;i++){for(int j=0;j<n;j++)printf(\"%d \",c[i][j]);putchar('\\n');}\n  return 0;\n}\nFormula C[i][j]=Σ(k=0..n−1) A[i][k]×B[k][j]. Classical runtime Θ(n³), auxiliary result Θ(n²).",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "Bubble-sort 7,3,8,5,9,2,4,6 and compare complexity with insertion sort.",
+      "answer": "Bubble sort compares adjacent elements and swaps out-of-order ones. After successive passes, largest remaining value moves to the end. Sorted output: 2,3,4,5,6,7,8,9.\nComplete C:\n#include <stdio.h>\nint main(void){\n  int a[]={7,3,8,5,9,2,4,6};int n=8;\n  for(int i=0;i<n-1;i++){\n    int swapped=0;\n    for(int j=0;j<n-i-1;j++)if(a[j]>a[j+1]){\n      int t=a[j];a[j]=a[j+1];a[j+1]=t;swapped=1;\n    }\n    if(!swapped)break;\n  }\n  for(int i=0;i<n;i++)printf(\"%d \",a[i]);\n  return 0;\n}\nBubble sort: best Θ(n) with swap flag; average/worst Θ(n²). Insertion sort: best Θ(n) on sorted input, average/worst Θ(n²), often fewer swaps and good on nearly sorted data. Both use Θ(1) extra space and are stable with strict comparison.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Define call by reference and write C program to swap two integers.",
+      "answer": "C formally passes all arguments by value; passing pointer values provides reference-like access to caller objects. Use pointer parameters to modify originals:\n#include <stdio.h>\nvoid swap(int *a,int *b){int t=*a;*a=*b;*b=t;}\nint main(void){\n  int x=10,y=20;\n  swap(&x,&y);\n  printf(\"x=%d y=%d\\n\",x,y);\n  return 0;\n}\nOutput: x=20 y=10. The caller supplies addresses with &; the function dereferences them with *.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "Define dynamic memory allocation and write C program to allocate runtime memory and sum user-entered numbers.",
+      "answer": "Dynamic memory allocation (DMA here, not Direct Memory Access) obtains storage from the heap at runtime with malloc/calloc/realloc, released by free. Complete program:\n#include <stdio.h>\n#include <stdlib.h>\nint main(void){\n  size_t n; long long sum=0;\n  if(scanf(\"%zu\",&n)!=1||n==0||n>1000000)return 1;\n  if(n>SIZE_MAX/sizeof(int))return 1;\n  int *a=malloc(n*sizeof *a);\n  if(!a){perror(\"malloc\");return 1;}\n  for(size_t i=0;i<n;i++){\n    if(scanf(\"%d\",&a[i])!=1){free(a);return 1;}\n    sum+=a[i];\n  }\n  printf(\"Sum = %lld\\n\",sum);\n  free(a);return 0;\n}\nAdd #include <stdint.h> to make SIZE_MAX available in portable C99/C11. Alternatively omit the overflow check when n is already bounded. The program validates allocation and frees memory.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Define pointer and explain self-referential pointer with example.",
+      "answer": "A pointer is a typed variable holding the memory address of another object/function. Example: int x=5; int *p=&x; printf(\"%d\",*p); displays 5. Self-referential structures contain pointers to another instance of their own type, enabling linked lists and trees:\nstruct Node { int data; struct Node *next; };\nstruct Node a={10,NULL},b={20,NULL};\na.next=&b;\nTraversal: for(struct Node *p=&a;p;p=p->next)printf(\"%d \",p->data); // 10 20\nThe pointer is to the same *structure type*, not a structure embedded by value (which would have infinite size).",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS101 paper ID 311813"
+    }
+  ]
+}
