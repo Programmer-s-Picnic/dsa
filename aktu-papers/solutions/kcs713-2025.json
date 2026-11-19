@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "paperId": "kcs713-2025",
+  "code": "KCS713",
+  "subject": "Cloud Computing",
+  "semester": 7,
+  "year": 2025,
+  "session": "2024-25",
+  "sourcePdf": "https://www.aktuonline.com/papers/btech-cs-7-sem-cloud-computing-kcs713-jan-2025.pdf",
+  "reviewStatus": "draft-assumptions-disclosed-instructor-review-pending",
+  "coverage": "all 25 printed questions and alternatives",
+  "verificationNote": "Checked against university paper ID 310232. Many case-study numerical questions give only demand size, not worker throughput, costs or latency. All worked examples state their own assumed figures and are illustrative rather than uniquely determined AKTU answers. Instructor review pending. Printed Section B shows inconsistent marks 10×3=20; treat values as 10-mark questions.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "Define cloud computing and trace its evolution.",
+      "answer": "Cloud computing offers on-demand network access to a shared pool of configurable compute, storage and services, rapidly provisioned/released with limited human involvement. Evolution: mainframe time-sharing → client/server and clusters → distributed/grid computing → virtualization and utility computing → elastic IaaS/PaaS/SaaS → container-based services, serverless and hybrid/edge cloud.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "Challenges in evolution of cloud computing.",
+      "answer": "Challenges moved from unreliable networks and high hardware costs to virtualized multitenant isolation, interoperability and vendor lock-in, large-scale automation, elasticity/cost control, availability/disaster recovery, compliance/data sovereignty, identity/key management, latency and energy use. Technology improved scalability while increasing distributed-system failure modes and shared responsibility.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "Explain virtualization.",
+      "answer": "Virtualization abstracts physical compute, memory, network and storage into multiple isolated logical resources managed by a hypervisor or operating-system isolation layer. A hypervisor exposes VMs each with virtual CPUs/RAM/disks and its own guest OS; containers share a host kernel. Benefits: consolidation, portability, faster provisioning, isolation, snapshots/migration and better utilization; limits include overhead and shared-layer vulnerabilities.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Implementation levels of virtualization.",
+      "answer": "Instruction-set architecture level: emulate or translate CPU instructions (cross-platform but costly). Hardware/system level: Type-1/Type-2 hypervisor virtualizes machine interfaces; guests can be unmodified with CPU extensions. OS level: containers virtualize processes/network/filesystem namespaces on same kernel; lightweight but kernel-shared. Library/API level: replace/translate system interfaces to run applications; application/process level: JVM, .NET runtime or language VM. Tradeoffs are portability, compatibility, isolation and overhead.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "Features and benefits of IaaS, PaaS, SaaS.",
+      "answer": "IaaS provides VMs, volumes and virtual networks via APIs: user manages guest OS and application; flexible but patching work remains. PaaS provides managed language runtime, databases and deployment tools: faster development and less operational work but less configuration control. SaaS delivers ready application (email/CRM) through browser/API: no application maintenance but limited customization. All may use elastic capacity and measured billing; data/IAM responsibilities vary.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "Storage as a Service.",
+      "answer": "STaaS provides on-demand storage through network interfaces, typically object, block or file storage with elastic scaling, access controls, encryption, replication and metering. Examples: S3-like object buckets for assets/backups, managed block volumes for VMs, managed shared file systems for apps. Benefits: offsite durability and reduced infrastructure work; concerns: egress fees, latency, consistency semantics, access misconfiguration and data residency.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "Identity and Access Management (IAM).",
+      "answer": "IAM governs who (human/service identities) can do what (actions) to which resources under which conditions. Core controls: authentication (MFA, federated SSO), authorization (RBAC/ABAC, policies), least privilege, short-lived credentials/roles, service identities, access reviews, lifecycle management and audit logging. Example a web app receives only 'read objects in bucket/course-materials' permission and no billing/admin role.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "1(h)",
+      "question": "Encryption techniques for cloud security.",
+      "answer": "Encryption in transit: TLS 1.2/1.3 for HTTPS and mutual TLS when needed. At rest: AES-256 volume/object/database encryption and enveloped data keys in a KMS/HSM; regularly rotate/restrict keys. End-to-end/client-side encryption lets customer encrypt before upload, but complicates server-side processing and recovery. Hashing/MAС/digital signatures protect integrity/authenticity rather than confidentiality; store passwords with salted slow hashes rather than reversible encryption. Encryption does not fix overbroad IAM.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "1(i)",
+      "question": "Describe cloud federation.",
+      "answer": "Federation coordinates multiple autonomous cloud providers, sharing services, identities, capacity or placement while each retains local control. Elements: trust/identity federation, provider discovery, resource abstraction/adapters, broker/SLA negotiation, workload/data orchestration and metering. Benefits: resilience, multi-region capacity, latency or policy choices; challenges include heterogeneous APIs, pricing/egress, security, data consistency and legal jurisdictions.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "1(j)",
+      "question": "Role of federated services and applications.",
+      "answer": "Federated apps compose or migrate resources across separate providers: a global learning platform may use identity federation for unified login, regional storage for residency, elastic exam scoring in secondary provider and replicated media delivery. Federation adds burst capacity, fault tolerance, interoperability and avoidance of single-vendor dependency, but introduces cross-cloud authentication, observability, networking, billing and data-transfer complexity.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Parallel-computing principles and numerical load-balancing model for 10,000 cloud tasks.",
+      "answer": "Define N=10,000 equal independent tasks, m worker nodes, each task requires t seconds of CPU. Ideal balanced assignment n_i=N/m if divisible; expected compute time T_ideal≈ceil(N/m)×t, ignoring communication; utilization U=useful CPU work/(m×wall_time). For heterogeneous node rates r_i tasks/s, assign n_i≈N r_i/(Σr_j); predicted makespan T≈N/(Σr_j)+communication/scheduling. Example assume m=20 equal nodes, t=0.1s/task and negligible overhead: n_i=500, T≈50s; serial T=1000s, speedup20, efficiency E=20/20=100%. With 5s overhead T=55s, speedup≈18.18, efficiency≈90.9%. If five nodes each 100 tasks/s and five nodes each 50 tasks/s, total750 tasks/s and ideal T=10,000/750≈13.33s; distribute ≈1333 to fast and 667 to slow, handling integer remainder. Real load balancers use work stealing, partitioning, retries, affinity and straggler mitigation.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "SOA and its relevance to application scalability.",
+      "answer": "Service-oriented architecture separates business capabilities behind interoperable contracts: service provider publishes endpoint/schema, consumers invoke it through messages/APIs, and optional registry/broker handles discovery. Loose coupling and independent deployment enable scaling only bottleneck services (e.g. video transcoding workers), rolling updates and reuse; synchronous request chains can create latency/availability dependencies, so use idempotent operations, queues/event-driven workflows, circuit breakers, timeouts and caching. Example: user service 20 requests/s and transcoding 200 jobs/s run as separate pools instead of doubling entire monolith. Throughput bounded by slowest service: λ_system≤min_i μ_i unless buffered; horizontal scaling μ_i grows approximately with worker count until shared DB/network saturates.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Architectural design challenges; performance versus security with numerical examples.",
+      "answer": "Challenges: fluctuating demand, multi-tenancy isolation, cross-region consistency, latency, availability, observability, cost and compliance. Tradeoff example (explicit assumptions, not printed data): a request path without encryption/authn takes 80ms; TLS processing adds 7ms and authz checks add 8ms, producing 95ms (+18.75% latency), but provides confidentiality and access control. A local cache reduces average from 95ms to 35ms with a 70% hit rate and hit latency9.3ms if miss path ~95ms: E[T]=0.7×9.3+0.3×95=35.01ms (in reality cache access overhead applies to misses too). A second example: one VM processes 100 req/s; a security agent consumes 10% CPU → effective capacity90 req/s; three replicas yield270 req/s but share a vulnerable database if IAM isn't segmented. Assess security controls as nonoptional requirements and optimize with hardware TLS, connection reuse, async policy evaluation and caching with secure invalidation.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Intercloud resource management; simulate load sharing across providers.",
+      "answer": "Strategies: cloud broker discovers providers and available capacity; orchestration schedules containers/VMs according to CPU, latency, price, data residency and SLA; burst scaling and failover shift load during demand spikes; cross-cloud identity, encrypted connectivity, metrics and metering enforce governance. Example assumption: demand 12,000 requests/s; provider A capacity 7,000, B capacity 4,000, C capacity 3,000. Schedule A=6,000, B=3,500, C=2,500 req/s (total12,000); utilizations A85.7%, B87.5%, C83.3%. No provider overloaded. If A fails, B+C capacity only7,000, so 5,000 req/s remain unserved unless capacity is autoscaled or request rates are throttled; resilience needs spare headroom and tested failover. Optimize assignment min Σ_i(c_i x_i + latency penalty), subject to Σx_i=D and 0≤x_i≤capacity_i.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Cloud disaster recovery; simulate critical application downtime costs.",
+      "answer": "Cloud DR uses versioned backups, cross-zone/region replication, warm standbys, infrastructure-as-code rebuilds, snapshots and automated DNS/traffic failover. DR plan defines RPO (max tolerable time of lost updates) and RTO (recovery time), drills and business-validated failover criteria. Example assumptions: revenue lost ₹15,000/minute; detection 3min, promote replicated DB 5min, start app instances 4min, reroute/validate 3min. If phases are serial, RTO=3+5+4+3=15min, direct downtime loss=15×₹15,000=₹225,000. If a cold rebuild needs 120min, loss ₹1,800,000. Savings ₹1,575,000 per such incident, before standby fees and reputational effects. With asynchronous replication lag 2min, RPO≈2min. If tasks overlap, compute the critical path rather than sum.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Traditional IT versus cloud provisioning and small-business migration cost analysis.",
+      "answer": "Traditional: buy servers/software licenses, install networking/security, power/cooling, maintenance and depreciate over years; slower provisioning, high CAPEX, possible idle capacity. Cloud: APIs provision in minutes, operating expense based on usage, autoscaling and managed services; variable ongoing fees/egress and provider dependency. Example for 3 years: on-prem 2 servers at ₹150,000 each + UPS/network ₹100,000 + power/support ₹10,000/month → TCO=₹400,000+36×₹10,000=₹760,000 (exclude staff for both). Cloud 2 VMs+storage/network ₹16,000/month + migration ₹40,000 → 36×₹16,000+₹40,000=₹616,000. Estimated 3y saving ₹144,000=18.95% of on-prem TCO. Add downtime, network egress, backup, discounts and staffing for production decision; example amounts are assumptions, not prescribed by the question.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "Elasticity model for streaming traffic from 10,000 to 1,000,000 users.",
+      "answer": "Assume per concurrently active user mean stream is 2 Mbps and each edge server sustains 4 Gbps of delivered media throughput (with CDN origin/cache effects ignored). Required aggregate egress for U active users is B(U)=2U Mbps. At U=10,000, B=20,000 Mbps=20Gbps and servers=ceil(20/4)=5. At U=1,000,000, B=2,000Gbps=2Tbps, servers=ceil(2000/4)=500. Autoscaling factor 100x (5→500). With 30% headroom, plan ceil(1.3×500)=650 servers at peak (and 7 at low demand). If each server costs ₹50/hour, direct peak compute cost≈₹25,000/hour for 500 servers versus ₹250/hour for5, excluding CDN/egress, storage and licensing. If users represent daily users rather than simultaneous viewers, apply concurrency fraction c (e.g., 10%→50 servers, not500) to avoid 10x overestimate. Use rate limits, CDN edge caches and warm-up/cooldown to meet QoE.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Virtualization-based DR for finance, simulate restoration time.",
+      "answer": "Mechanisms: hypervisor snapshots/replication, gold VM images, infrastructure-as-code templates, VM mobility/backup and orchestrated cold/warm/hot failover. Financial app DB consistency demands database-aware backups or coordinated snapshots plus transaction logs, not only disk snapshots. Example critical path with assumptions: detect incident 2min → choose clean replica 3min → start standby app VMs 4min → replay DB log/check consistency 6min → switch VIP/DNS 2min → validation 3min =20min RTO when serial. With prewarmed VMs run simultaneously during 6min DB replay, critical path shrinks to 2+3+max(4,6)+2+3=16min. If async replication lags 30sec, RPO~30sec. Test restoration, integrity, audit trails and regulated rollback/access controls.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "Publish–subscribe stock trading app; compute latency for one million events.",
+      "answer": "Pub-sub decouples publishers (market feeds/trades) from subscribers (risk, order book, display) via topic partitions, broker retention, consumer offsets and acknowledgments. Preserve symbol-keyed order (not global total order), partition by instrument, use deduplication/exactly-once business logic, backpressure and replay. Example assumption: 1,000,000 events of 1KB each and broker aggregate throughput 100,000 events/s. Ingestion time≈1,000,000/100,000=10s; payload≈1GB, needing ≥100MB/s effective sustained bandwidth. Per-event latency is distinct from total throughput: if queue starts empty, service=100,000/s and arrivals=80,000/s, average backlog need not grow; assume broker handling 5ms, network 3ms, consumer processing 7ms → unloaded end-to-end ≈15ms, before queueing. If all 1,000,000 arrive as an instantaneous burst to one 100k/s queue, last event sees ~10s wait and mean queue wait ~5s. Latency cannot be uniquely determined from count alone; throughput and arrival process are necessary.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "Public/private/hybrid cloud comparison and cost analysis of hybrid adoption.",
+      "answer": "Public cloud provider-shared infrastructure with measured billing/elasticity, lower CAPEX but data residency/egress and vendor constraints. Private cloud dedicated organizational environment, greater control and potentially predictable long-term cost, but high operations and hardware cost. Hybrid integrates two with identity/network/workload orchestration; sensitive database may remain private while web traffic bursts publicly, trading complexity for flexibility. Example assumptions per month: original all-private 4 servers+maintenance costs ₹90,000; cloud-only workload ₹100,000. Hybrid uses private core ₹55,000 plus cloud surge baseline ₹20,000 and cross-link/security ₹8,000 → ₹83,000/month, saving ₹7,000 vs private and ₹17,000 vs public. Yearly savings ₹84,000 vs private before one-time migration ₹100,000 (payback ≈14.3 months). Compute total cost=T_private+T_public+T_network+T_operations+T_egress+amortized migration, include SLAs and regulatory needs.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Layered cloud architecture for online education platform.",
+      "answer": "Layer diagram:\nLearners/mobile/browser + CDN/edge cache\nAPI gateway + identity/OAuth + rate limiting/WAF\nSaaS/application services: courses, content delivery, assessments, grades, notifications\nPaaS: managed web runtime, queues, cache, databases, analytics jobs\nIaaS: containers/VMs, load balancers, object storage and virtual networks\nResource abstraction: container orchestration and hypervisor\nPhysical infrastructure: racks, CPU/storage/network.\nCross-cutting: IAM, encryption, audit logs, observability, backups, autoscale, cost controls and multi-zone recovery. Example flow: student loads cached video from CDN, authenticates, submits quiz to API, asynchronous grading queue feeds scoring workers, result persisted in transactional DB. Use storage signed URLs; keep question answers server-side; separate exam time limit/security. Scale video and grading workloads independently, version course objects and enforce FERPA/Indian data privacy requirements as applicable.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "Cloud security challenges and hypothetical SaaS data-breach case study.",
+      "answer": "Threats: overbroad IAM, token theft, public storage, insecure APIs, vulnerable dependencies, multi-tenant access-control failures, insufficient encryption/key hygiene, insider misuse and poor logging. Hypothetical case: SaaS tenant A accesses tenant B's invoices because a query filters by invoice ID but not tenant ID (broken object-level authorization). Steps: suspicious access detected by audit log → revoke tokens and isolate endpoint → scope affected tenants/records → patch server-side authorization to enforce (tenant_id,user_id) relation with policy enforcement at DB/API → rotate compromised keys and restore exposure settings → notify affected users/regulators per applicable law → validate with cross-tenant tests, pen test and immutable logging. Estimate risk: if 50,000 records leak and incident cost is ₹200 per record, impact≈₹10,000,000 before regulatory/legal/reputation; numbers are illustrative. Encryption at rest does not stop an authenticated API returning another tenant's decrypted data.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Model global cloud resource exchange and calculate efficiency improvement.",
+      "answer": "A global broker accepts provider capacity/rates, client demand, location, latency SLA and residency constraints; it assigns workloads minimizing weighted cost+latency+carbon while meeting Σ_i x_i=demand and each 0≤x_i≤capacity_i. Example assumptions: workload 15,000 jobs; provider A=6000 jobs/hour, B=5000, C=4000. Before federation, each provider's clients cannot use idle remote capacity: A has 8000 job requests and can only complete6000 during an hour, despite B+C idle 2000 slots. Across all providers demand total15,000 fits aggregate15,000: federation redirects excess A demand to idle pools and completes15,000 vs13,000 jobs/hour. Throughput improvement=(15000−13000)/13000×100%=15.38%; overall capacity utilization rises 86.67%→100%. This assumes B and C have spare slots sufficient for reassignment, no data-residency restriction, negligible transfer overhead and compatible apps. Real brokers account for link latency and egress; no such quantitative values are given in exam.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "Google App Engine programming environment, model 100,000 daily users.",
+      "answer": "Google App Engine is Google's managed PaaS supporting supported language runtimes, code deploys, service versions, traffic splitting, autoscaling, managed logging and IAM. Standard environment favors quick startup and sandboxed supported runtimes; flexible environment uses container-based VMs with more customization, different scaling behavior. Deploy: create Google Cloud project/billing/IAM, enable APIs, write web service app.yaml with runtime and scaling settings, test locally, gcloud app deploy, configure HTTPS/domain, observe metrics and quotas. Example daily users 100,000 each issue 10 app requests → 1,000,000 requests/day. Mean λ≈1e6/86400=11.57 req/s; assume peak=10×mean≈116 req/s. If a healthy instance handles 40 req/s at desired latency, require ceil(116/40)=3 instances, plus headroom 1→4 at peak. Add CDN for static lessons, managed database with connection pooling, async task queues for grading and load tests for exam peaks. Pricing depends on instance-hours, requests, DB/egress; daily active does not imply concurrent request volume.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Hadoop MapReduce framework and 1 TB processing-time calculation.",
+      "answer": "HDFS stores blocks over DataNodes with NameNode metadata; YARN schedules containers; Map reads split records and emits key/value pairs, shuffle/sort groups by key and Reduce aggregates/output; fault tolerance reruns failed tasks. In a word-count example map(line) emits (word,1), reducer sums counts. Generic time ≈max(map input bytes / aggregate effective read-and-map bandwidth, per-wave task overhead)+shuffle/sort+reduce compute+output write (a staged approximation). Example assumptions: decimal 1TB=1000GB, 100 map tasks each process 10GB at 100MB/s effective → per-map time100s; 20 concurrent slots→5 waves, map stage500s. Suppose shuffle200s and 20 reducers each 50GB at100MB/s with 10 parallel reduce slots→2 waves×500s=1000s; overlap ignored ⇒ total≈500+200+1000=1700s≈28.3min. If full 1000GB is not actually shuffled or reduced, time is less. Without per-task byte volumes, map slots and throughput, the exam has no unique numeric time; state every assumed parameter.",
+      "marks": 10,
+      "origin": "AKTU 2024-25 KCS713 paper ID 310232"
+    }
+  ]
+}
