@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "paperId": "bcs501-2025",
+  "code": "BCS501",
+  "subject": "Database Management System",
+  "semester": 5,
+  "year": 2025,
+  "session": "2024-25",
+  "sourcePdf": "https://www.abesit.in/wp-content/uploads/2025/05/BCS501-DATABASE-MANAGEMENT-SYSTEM.pdf",
+  "reviewStatus": "draft-logic-checked-instructor-review-pending",
+  "coverage": "all printed questions and alternatives",
+  "verificationNote": "Question wording checked against PDF ID 310120. FDs, keys, normal forms, SQL, relational algebra and serializability worked independently. Verify dialect-specific SQL syntax with deployment DBMS; instructor review pending.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "Define candidate and superkeys with example.",
+      "answer": "A superkey is any attribute set uniquely identifying every tuple in a relation; it can include unnecessary attributes. A candidate key is a minimal superkey. Example Student(StudentID,Email,Name) with unique StudentID and Email: {StudentID} and {Email} are candidate keys; {StudentID,Name} is a nonminimal superkey.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "Differentiate DELETE and TRUNCATE.",
+      "answer": "DELETE is DML and can remove selected rows using WHERE, commonly logging per-row changes and firing DELETE triggers depending on DBMS. TRUNCATE removes all rows with no WHERE, usually via faster bulk/page deallocation and may reset identity sequences; transaction/rollback, trigger and foreign-key behavior depend on DBMS. Do not assert TRUNCATE is never rollback-able: implementations differ.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "Define triggers and types.",
+      "answer": "A trigger is stored database code automatically invoked by a data event. Common triggers fire BEFORE/AFTER/INSTEAD OF INSERT, UPDATE or DELETE, either FOR EACH ROW or FOR EACH STATEMENT, depending on DBMS. Used for auditing, derived data and enforcing business rules; avoid hidden side effects and recursive triggers.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Find functional dependencies shown by instance S(X,Y,Z): (1,4,2), (2,5,3), (1,4,2), (3,2,2).",
+      "answer": "Within the displayed rows, X→Y and X→Z hold: repeated X=1 always has Y=4,Z=2. Y→X and Y→Z also hold for the instance. Z→X and Z→Y do not: Z=2 occurs with (X,Y)=(1,4) and (3,2). Thus X↔Y and both determine Z in this sample. A finite instance can *suggest* FDs but does not by itself prove business-rule dependencies for all possible database states.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "Prime and nonprime attributes of R(A,B,C,D,E), FDs {AB→C, B→E, C→D}.",
+      "answer": "Compute (AB)+: AB→C, C→D, B→E ⇒ (AB)+=ABCDE, so AB is a key. Neither A nor B appears on any RHS, so both are required in every key. Only candidate key is AB. Prime attributes: A,B. Non-prime: C,D,E.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "Explain ACID transaction properties.",
+      "answer": "Atomicity: all operations of transaction commit or none (undo after failure). Consistency: declared constraints/invariants remain valid. Isolation: concurrent transactions behave according to chosen isolation guarantee, ideally serializable. Durability: once committed, results survive crashes via logs/replication/persistent storage.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "What is multiple-granularity locking?",
+      "answer": "Hierarchical locking allows table/page/row locks at differing granularity, using intention locks IS/IX/SIX at ancestors to signal intended locks on descendants. Coarse locks reduce bookkeeping, fine locks enable concurrency; protocol obtains intention locks top-down and releases bottom-up. Compatibility rules prevent conflicting access.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Explain DBMS architecture with diagram.",
+      "answer": "Three-schema architecture: external views (user-specific representations) → conceptual logical schema (entities/constraints/relations) → internal physical schema (files/pages/indexes). Within DBMS, query processor has parser, validator, optimizer and executor; storage manager has buffer pool, file/index manager and transaction manager (concurrency control, logging/recovery), catalog holds metadata. Flow: SQL client → parser/optimizer/executor → buffer manager/record/index access → persistent tables; transaction manager controls consistency/recovery. Separation enables data independence.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "Explain joins and their types with examples.",
+      "answer": "An INNER JOIN keeps matched rows (SELECT ... FROM Employee e JOIN Worksfor w ON e.ename=w.ename). LEFT JOIN retains every left row with NULL on absent right; RIGHT JOIN symmetrically retains right; FULL OUTER JOIN retains both sides (DBMS support varies); CROSS JOIN is Cartesian product; SELF JOIN joins table to itself with aliases; NATURAL JOIN uses same-named columns automatically (use cautiously). Equi-join uses '=' predicate; theta join uses <,>,etc. Anti-join uses NOT EXISTS; semi-join filters existence without duplicating rows.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Determine lossless/lossy decomposition D1 [(P,Q,S,T),(P,T,X),(Q,Y),(Y,Z,W)] and D2 [(P,Q,S),(T,X),(Q,Y),(Y,Z,W)] under PQ→X, P→YX, Q→Y, Y→ZW.",
+      "answer": "D1 is lossless: (P,Q,S,T) ⋈ (P,T,X) share (P,T) and P→X, so (P,T) determines the second component; next join (Q,Y) on Q where Q→Y; final join (Y,Z,W) on Y where Y→ZW. Each join is lossless.\nD2 is lossy in general: its (T,X) component has no common attribute with (P,Q,S); joining them produces Cartesian combinations, and no dependency ties a particular T to the originating P/Q/S. Example rows with different T values lead to spurious joined tuples. Therefore D1 is lossless, D2 lossy.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Transaction failures and log-based recovery with example.",
+      "answer": "Failures: logical/application error (constraint violation), transaction abort/deadlock, system crash/power loss, disk/media corruption, catastrophic failure. Write-ahead logging (WAL) forces log records to durable storage before associated data-page writes. Typical records BEGIN(T), UPDATE(T, page, old, new), COMMIT(T)/ABORT(T). On restart, REDO committed updates not durable on disk; UNDO uncommitted changes (policy depends on recovery algorithm). Checkpoints bound the work; ARIES uses analysis/redo/undo with log sequence numbers and compensation records. Example transfer debit 100 and credit 100: if crash before COMMIT, undo debit; after COMMIT, redo missing credit.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Explain concurrency control and timestamp ordering.",
+      "answer": "Concurrency control prevents lost updates, dirty reads and inconsistent analysis while preserving a serializable/defined isolation level. Techniques include two-phase locking, timestamp ordering, optimistic validation and MVCC. Basic timestamp ordering gives each transaction TS(T); a data item X stores readTS(X),writeTS(X). Read(T,X) is rejected/restarted if TS(T)<writeTS(X); otherwise update readTS. Write(T,X) is rejected if TS(T)<readTS(X) or TS(T)<writeTS(X) (Thomas's write rule can ignore obsolete writes under particular assumptions). Prevents cyclic precedence, but can cause restarts/starvation.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Explain physical and logical data independence and importance.",
+      "answer": "Physical independence: changing indexes, file layouts or storage location need not change conceptual schema or application queries. Logical independence: modifying conceptual schema (e.g., adding a new attribute or splitting a relation while preserving views) need not require changes to external views/applications. Logical is often harder. Benefits: evolving data design, performance tuning, modularity, reduced maintenance and multiple user views.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "Map Student, Course and Enrollment ER model into relations with keys.",
+      "answer": "Student(StudentID PRIMARY KEY, Name, Email); Course(CourseID PRIMARY KEY, CourseName, Credits); Enrollment(EnrollmentID PRIMARY KEY, StudentID FOREIGN KEY REFERENCES Student(StudentID), CourseID FOREIGN KEY REFERENCES Course(CourseID), DateEnrolled). Enrollment is associative entity implementing the many-to-many relationship. Optionally UNIQUE(StudentID,CourseID) if a student should enroll only once in a course (term/semester may instead be part of unique key). ER mapping: entity→table; attribute→column; 1:M FK on many side; M:N link entity/table with both FK.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Employee/Worksfor/Company schema: create SQL and answer six queries.",
+      "answer": "Assume ename uniquely identifies an employee and one Worksfor row per employee; use stable EmployeeID in real databases.\nCREATE TABLE Employee(ename VARCHAR(80) PRIMARY KEY, street VARCHAR(120), city VARCHAR(80));\nCREATE TABLE Company(company_name VARCHAR(100) PRIMARY KEY, city VARCHAR(80));\nCREATE TABLE Worksfor(ename VARCHAR(80) PRIMARY KEY REFERENCES Employee(ename), company_name VARCHAR(100) REFERENCES Company(company_name), salary DECIMAL(12,2));\n(ii) SELECT e.ename FROM Employee e JOIN Worksfor w ON e.ename=w.ename JOIN Company c ON w.company_name=c.company_name WHERE e.city=c.city;\n(iii) SELECT ename FROM Worksfor WHERE salary>50000;\n(iv) SELECT e.ename FROM Employee e WHERE NOT EXISTS (SELECT 1 FROM Worksfor w WHERE w.ename=e.ename AND LOWER(w.company_name)='tcs');\n(v) SELECT ename FROM Employee WHERE UPPER(ename) LIKE '_A%';\n(vi) SELECT ename FROM Worksfor WHERE salary=(SELECT MAX(salary) FROM Worksfor WHERE salary<(SELECT MAX(salary) FROM Worksfor));\nThe last query retrieves all employees tied at the second-highest *distinct* salary, if one exists.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "Write relational-algebra expressions for five supplier/part queries.",
+      "answer": "Let S(S#,SNAME,SCITY,TURNOVER), P(P#,WEIGHT,COLOR,COST,SELLING_PRICE), SP(S#,P#,QTY). Selection σ, projection π.\n(i) σ_(SCITY='CALCUTTA' ∧ TURNOVER=80)(S)\n(ii) π_(P#)(σ_(WEIGHT>=25 ∧ WEIGHT<=55)(P))\n(iii) π_(P#)(σ_(COST>SELLING_PRICE)(P))\n(iv) π_(P#)(σ_(COLOR='red' ∨ COLOR='black')(P))\n(v) π_(SNAME)(σ_(S#=101)(S))\nAll five queries can be answered from S or P alone; SP is not required for these predicates.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "Highest normal form of Book(Title,Author,Catalog_no,Publisher,Year,Price) and Collection(Title,Author,Catalog_no) with stated FDs.",
+      "answer": "From Title,Author→Catalog_no and Catalog_no→Title,Author,Publisher,Year, plus Publisher,Title,Year→Price, candidate keys of Book include {Title,Author} and {Catalog_no}. Price is nonprime. No partial dependency on proper subsets of composite key {Title,Author} follows from the stated FDs, so Book satisfies 2NF. It violates 3NF since Publisher,Title,Year→Price has determinant not a superkey and Price nonprime; likewise Catalog_no→other fields is fine because Catalog_no is a key. Highest for Book: 2NF.\nCollection has keys {Title,Author} and {Catalog_no}; the projected FDs Title,Author→Catalog_no and Catalog_no→Title,Author both have superkey determinants, so Collection is in BCNF.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Find key of R(A,B,C,D,E,F,G,H,I,J) with AB→C, A→DE, B→F, F→GH, D→IJ; define MVD.",
+      "answer": "AB determines C, A determines D/E then D determines I/J, B determines F then F determines G/H. (AB)+=ABCDEFGHIJ, so AB is a superkey. A and B do not occur on any RHS and both must be in every key; neither alone determines all attributes. Only candidate key: AB.\nMultivalued dependency X↠Y means each X value has an independent set of Y values regardless of remaining attributes. Example Student(Student,Phone,Skill): for each student, phones and skills vary independently; Student↠Phone and Student↠Skill. A cross-product of combinations appears unless decomposed.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "Is schedule R1(X),R2(X),R2(Y),W2(Y),R1(Y),W1(X) conflict/view serializable?",
+      "answer": "Conflict pairs: R2(X) precedes W1(X) → edge T2→T1; W2(Y) precedes R1(Y) → edge T2→T1. No conflicting edge T1→T2, so precedence graph has one edge T2→T1 and is acyclic. It is conflict serializable, equivalent to serial order T2 then T1. Every conflict-serializable schedule is also view-serializable, so answer is YES to both. Neither transaction commit nor recovery constraints are shown.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Define schedule, transaction, recoverable/cascadeless/strict schedules.",
+      "answer": "Transaction: logically atomic sequence of reads/writes finishing with commit or abort. Schedule: a legal interleaving that preserves each transaction's program order. Recoverable: if Tj reads a value written by Ti, Tj must not commit before Ti commits; Tj may still have to roll back if Ti aborts. Cascadeless: read a value only after its writer commits; avoids cascading aborts. Strict: do not read OR write a data item last written by an uncommitted transaction; simplifies undo. Strict ⇒ cascadeless ⇒ recoverable; reverse implications do not necessarily hold.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "Explain multiversion and validation-based concurrency protocols.",
+      "answer": "MVCC keeps multiple committed versions tagged with transaction timestamps/IDs. Readers access a consistent visible version (often without blocking writers), while conflicting writers are checked by isolation policy; version cleanup is required. Basic optimistic/validation-based concurrency executes three phases: read/compute in private workspace, validate overlapping read/write sets against concurrent transactions, then commit/write if valid or restart on conflict. Good when conflicts are rare; can waste work under heavy contention.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Define deadlock, Coffman conditions, detection and recovery.",
+      "answer": "Deadlock occurs when a group of transactions waits indefinitely for locks/resources held by one another. Necessary conditions: mutual exclusion, hold-and-wait, no preemption, circular wait. In a DBMS, a wait-for graph has transaction nodes and Ti→Tj when Ti waits for a lock held by Tj; a cycle indicates deadlock for ordinary single-instance locks. Periodically detect cycles; recover by choosing a victim, aborting/rolling back it, releasing locks and restarting with aging/backoff to avoid repeated victimization. Timeouts are a crude alternative, potentially aborting nondeadlocked transactions.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU BCS501 2024-25 paper ID 310120"
+    }
+  ]
+}
