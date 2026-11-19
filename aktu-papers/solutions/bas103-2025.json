@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "paperId": "bas103-2025",
+  "code": "BAS103",
+  "subject": "Engineering Mathematics I",
+  "semester": 1,
+  "year": 2025,
+  "session": "2024-25",
+  "sourcePdf": "https://www.abesit.in/wp-content/uploads/2025/05/BAS103-ENGINEERING-MATHEMATICS-I.pdf",
+  "reviewStatus": "draft-symbolic-calculations-checked-instructor-review-pending",
+  "coverage": "all 22 printed questions and alternatives",
+  "verificationNote": "Verified against two page 2025 AKTU paper ID 311667. Eigenvalues, rank normal form, Jacobians, singular K, polar area, Laplacian and Stokes calculations checked independently. Question 6(b) printed bound x^4/(4a) is dimensionally suspect and may reverse order only after case restriction; signed integral and ambiguity explicitly disclosed. Liouville refers to multiple-integration extension of Dirichlet theorem.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "Find eigenvalues of [[cosθ,−sinθ],[−sinθ,−cosθ]].",
+      "answer": "Let c=cosθ,s=sinθ and A=[[c,−s],[−s,−c]]. Trace(A)=c−c=0; determinant(A)=−c²−s²=−1. Characteristic equation λ²−tr(A)λ+det(A)=λ²−1=0. Therefore eigenvalues are λ=+1 and λ=−1 for every real θ.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "If u=(x²+y²)/(x+y), evaluate x u_x + y u_y.",
+      "answer": "u is homogeneous degree1 because u(tx,ty)=t u(x,y). Euler's theorem yields x u_x+y u_y=1·u=(x²+y²)/(x+y), provided x+y≠0. Direct check u_x=[2x(x+y)−(x²+y²)]/(x+y)²; u_y=[2y(x+y)−(x²+y²)]/(x+y)². Multiply by x,y and add to get (x²+y²)/(x+y).",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "Difference between total and partial derivatives.",
+      "answer": "A partial derivative ∂f/∂x varies x holding independent other variables constant. A total derivative includes dependence of other variables on x. Example z=f(x,y(x)): dz/dx=∂f/∂x+(∂f/∂y)(dy/dx). For independent x,y, total differential dz=f_x dx+f_y dy. In multivariable optimization and physical models, partial derivatives measure isolated local sensitivity whereas totals describe change along a trajectory.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Applications of Jacobians.",
+      "answer": "The Jacobian matrix ∂(u1,…,um)/∂(x1,…,xn) records first derivatives of multivariate mappings; square determinant gives local scaling/orientation and change-of-variables factor |det J| in double/triple integrals, e.g. polar coordinates dxdy=r drdθ. Other uses: inverse function theorem (local invertibility when det≠0), Newton's method for nonlinear systems, mapping coordinate velocities and sensitivity analysis in robotics/control, finite element mappings, probability density transformations.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "State Liouville's extension of Dirichlet's theorem.",
+      "answer": "In the multiple-integration unit, the intended statement is Liouville's extension of Dirichlet's integral (not the unrelated theorem about bounded entire complex functions). Let l,m,n>0 and f suitably integrable on [h1,h2] with 0≤h1<h2. Over the region x,y,z≥0, h1≤x+y+z≤h2:\n∭ x^(l−1) y^(m−1) z^(n−1) f(x+y+z) dx dy dz\n= Γ(l)Γ(m)Γ(n)/Γ(l+m+n) × ∫_(h1)^(h2) t^(l+m+n−1) f(t) dt.\nFor h1=0,h2=1 and f=1, the integral becomes Γ(l)Γ(m)Γ(n)/Γ(l+m+n+1), the standard Dirichlet simplex integral.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "Evaluate ∫(y=1..2)∫(x=1..3) x² y² dx dy.",
+      "answer": "Integral separates over rectangle: (∫_1^3 x² dx)(∫_1^2 y² dy)=[x³/3]_1^3·[y³/3]_1^2=(27−1)/3 × (8−1)/3 = (26×7)/9 = 182/9.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "Show curl r-vector=0.",
+      "answer": "Position vector r⃗=x î+y ĵ+z k̂. Curl r⃗=∇×(x,y,z)=(∂z/∂y−∂y/∂z,∂x/∂z−∂z/∂x,∂y/∂x−∂x/∂y)=(0,0,0). Alternatively r⃗=∇[(x²+y²+z²)/2] so curl(grad φ)=0 wherever φ twice continuously differentiable.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Find invertible matrices P,Q such that PAQ is normal for A=[[1,3,6,−1],[1,4,5,1],[1,5,4,3]].",
+      "answer": "Rank A=2 since R3=2R2−R1. Choose\nP=[[4,−3,0],[−1,1,0],[1,−2,1]], det(P)=1;\nQ=[[1,0,−9,7],[0,1,1,−2],[0,0,1,0],[0,0,0,1]], det(Q)=1.\nCompute P A =[[1,0,9,−7],[0,1,−1,2],[0,0,0,0]]. Multiplying by Q subtracts 9col1/adds col2 from col3 and adds7col1/subtracts2col2 from col4. Result PAQ=[[1,0,0,0],[0,1,0,0],[0,0,0,0]], the rank normal form diag(I2,0). Both P and Q nonsingular.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "Find nth derivative of tan⁻¹(x/a), a≠0.",
+      "answer": "For a>0 and n≥1, d/dx arctan(x/a)=a/(x²+a²)=1/(2i)[1/(x−ia)−1/(x+ia)]. Differentiate n−1 more times to get:\n(d^n/dx^n) arctan(x/a)=(-1)^(n−1)(n−1)!/(2i) [(x−ia)^(−n) − (x+ia)^(−n)]. This is real for real x, because bracket is purely imaginary. n=1 reproduces a/(x²+a²); n=2 gives −2ax/(x²+a²)². A trigonometric equivalent may be obtained using x±ia in polar form.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Largest rectangular parallelepiped inscribed in ellipsoid x²/a²+y²/b²+z²/c²=1.",
+      "answer": "Assume a,b,c>0 and a centered axis-aligned box with vertices (±x,±y,±z). Volume V=8xyz under x²/a²+y²/b²+z²/c²=1. Let X=x/a,Y=y/b,Z=z/c. By AM–GM, (X²+Y²+Z²)/3≥(X²Y²Z²)^(1/3), hence XYZ≤1/(3√3), equality when X=Y=Z=1/√3. Therefore x=a/√3,y=b/√3,z=c/√3 and V_max=8abc/(3√3).",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Use Dirichlet's theorem to evaluate ∭xyz dV over complete ellipsoid x²/a²+y²/b²+z²/c²≤1.",
+      "answer": "Because the domain is centered and symmetric about x=0 and integrand xyz is odd under x→−x, the integral over the FULL ellipsoid is exactly 0. Substitution x=aX,y=bY,z=cZ multiplies integrand by a²b²c² XYZ over the unit ball, still odd, so 0. Dirichlet gamma integral could evaluate the positive-octant part, but full signed ellipsoid has canceling octants. If a positive-octant region was intended, it must be stated explicitly.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Show vector field F⃗=f(r) r⃗ is irrotational, r⃗=(x,y,z).",
+      "answer": "For r=√(x²+y²+z²), ∇×[f(r) r⃗]=[∇f(r)]×r⃗+f(r)(∇×r⃗). Here ∇f(r)=f'(r)r⃗/r, parallel to r⃗, so its cross product vanishes. And ∇×r⃗=0. Thus curl F⃗=0 for r≠0 wherever f differentiable (and at origin if field extends differentiably). Equivalently F⃗ is gradient of a radial potential Φ(r) satisfying Φ'(r)=r f(r).",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Find eigenvalues/eigenvectors of [[2,−1,1],[−1,2,−1],[1,−1,2]].",
+      "answer": "Characteristic polynomial det(A−λI)=(1−λ)²(4−λ) (up to the conventional determinant sign), so eigenvalues are 1 (multiplicity 2) and 4 (multiplicity1). For λ=1 solve (A−I)v=0: eigenspace consists of vectors with x−y+z=0; basis v1=(1,1,0), v2=(−1,0,1). For λ=4, eigenvector v3=(1,−1,1). Check A v1=v1, A v2=v2, A v3=4v3. These form three independent eigenvectors (matrix symmetric, diagonalizable).",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "For what K is system x+y+4z=6, x+2y−2z=6, Kx+y+z=6 consistent, and solve?",
+      "answer": "Coefficient matrix M=[[1,1,4],[1,2,−2],[K,1,1]]. det M=7−10K. If K≠7/10, determinant nonzero and unique solution:\nx=18/(10K−7), y=36(K−1)/(10K−7), z=6(K−1)/(10K−7).\nIf K=7/10, rank(M)=2 but rank([M|b])=3, so system is INCONSISTENT with no solution. There is no parameter yielding infinitely many solutions.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Trace y²(a+x)=x²(3a−x) for a>0.",
+      "answer": "Solve y²=x²(3a−x)/(a+x). Curve symmetric about x-axis (only y²). Real y requires (3a−x)/(a+x)≥0 with x≠−a, giving −a<x≤3a. Intercepts: (0,0), (3a,0). Near origin y²a≈3a x² gives tangents y=±√3 x: origin is double point (node). As x→−a from right, y²→+∞, so vertical asymptote x=−a. At x=3a, y=0 and the two branches meet with vertical tangent (3a−x)∝y². For x in (−a,3a), upper and lower branches y=±|x|√[(3a−x)/(a+x)]; the branches form symmetric shapes with a loop between x=0 and x=3a and unbounded arms on (−a,0).",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "Prove polar Laplacian of radial u=f(r), r²=x²+y², is f''(r)+f'(r)/r.",
+      "answer": "With r=√(x²+y²) and r>0, u_x=f'(r)x/r, u_y=f'(r)y/r. Differentiate:\nu_xx=f''(r)x²/r²+f'(r)(1/r−x²/r³),\nu_yy=f''(r)y²/r²+f'(r)(1/r−y²/r³).\nSum: f''(r)(x²+y²)/r² + f'(r)[2/r−(x²+y²)/r³]=f''(r)+f'(r)/r. At r=0 use limiting smooth extension if it exists.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "Given u=xyz, v=x²+y²+z², w=x+y+z, find ∂(x,y,z)/∂(u,v,w).",
+      "answer": "Compute forward Jacobian J=det ∂(u,v,w)/∂(x,y,z) = det [[yz,xz,xy],[2x,2y,2z],[1,1,1]] = 2(x−y)(x−z)(y−z). By inverse function theorem the requested inverse Jacobian ∂(x,y,z)/∂(u,v,w)=1/[2(x−y)(x−z)(y−z)] whenever x,y,z pairwise distinct and J≠0. At coincident coordinates the local inverse Jacobian is undefined because forward map is singular.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Maxima/minima of sin x+sin y+sin(x+y).",
+      "answer": "Let F=sin x+sin y+sin(x+y). Stationary conditions F_x=cos x+cos(x+y)=0 and F_y=cos y+cos(x+y)=0. Symmetric candidates x=y=π/3 (mod2π) and x=y=−π/3 (mod2π) yield F=±3√3/2. The Hessian at x=y=π/3 has negative eigenvalues (F_xx=−sin x−sin(x+y)=−√3 and F_xy=−sin(x+y)=−√3/2), hence local maximum; at −π/3 Hessian positive, minimum. These are global extrema because F=2 sin((x+y)/2)[cos((x−y)/2)+cos((x+y)/2)], whose maximum absolute value over all angles is 3√3/2. Therefore maximum 3√3/2 and minimum −3√3/2.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "Area inside r=2a cosθ and outside r=a for a>0.",
+      "answer": "Circle r=2a cosθ is (x−a)²+y²=a² and circle r=a is centered at origin radius a. Intersection when 2a cosθ=a ⇒ cosθ=1/2 ⇒ θ=±π/3. Desired region has −π/3≤θ≤π/3 and a≤r≤2a cosθ.\nArea=∫_{−π/3}^{π/3}∫_a^{2a cosθ} r dr dθ = (a²/2)∫_{−π/3}^{π/3}(4cos²θ−1)dθ = a²(π/3+√3/2).",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Change order and evaluate ∫_(x=0)^(2a)∫_(y=x^4/(4a))^(3a−x) (x²+y²) dy dx.",
+      "answer": "Read *literally* from the printed page: the inner lower bound is x^4/(4a) (NOT x²/(4a)). The formal iterated integral can be integrated algebraically without reinterpretation:\nI = ∫_0^(2a) [x²((3a−x)−x^4/(4a)) + ((3a−x)^3−(x^4/(4a))^3)/3] dx\n= (32 a^4/273)(91−39 a²−28 a^6).\nImportant paper ambiguity: lower and upper limits cross for some positive a (at x=2a, lower=4a³ and upper=a). For 0<a≤1/2, they do not cross and the genuine reversed order is:\nI = ∫_(y=0)^(4a³) ∫_(x=0)^((4a y)^(1/4)) (x²+y²) dx dy\n  +∫_(y=4a³)^a ∫_(x=0)^(2a) (x²+y²) dx dy\n  +∫_(y=a)^(3a) ∫_(x=0)^(3a−y) (x²+y²) dx dy.\nFor a>1/2, the expression as printed is a signed iterated integral in the x region where y_lower>y_upper, so the usual positive-region reversal cannot be used unchanged; split positive and negative oriented regions at the crossing. The strange dimensional power x^4/(4a) suggests a possible printing error; verify whether the intended lower bound was x²/(4a) before using this as a geometrical change-of-order example.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "Show div grad(r^n)=n(n+1)r^(n−2), r=√(x²+y²+z²).",
+      "answer": "For r>0, ∇r^n=n r^(n−2)(x,y,z). Therefore ∇·∇r^n = n∇·[r^(n−2) r⃗] = n[(n−2)r^(n−4)(r⃗·r⃗)+3r^(n−2)]=n[(n−2)+3]r^(n−2)=n(n+1)r^(n−2). At r=0 some powers are singular or require distributional treatment (notably ∇²(1/r)=−4πδ in 3D).",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Verify Stokes theorem for F⃗=(x²+y²)î−2xy ĵ around rectangle 0≤x≤a,0≤y≤b.",
+      "answer": "Take the rectangle in xy-plane with upward normal k̂, positive boundary orientation counterclockwise viewed from +z. Curl F: (∇×F)·k=∂Q/∂x−∂P/∂y=−2y−2y=−4y. Surface integral ∫_0^a∫_0^b(−4y)dy dx=−2ab².\nLine integral traverse (0,0)→(a,0): ∫_0^a x² dx=a³/3. (a,0)→(a,b): ∫_0^b(−2ay)dy=−ab². (a,b)→(0,b): ∫_a^0(x²+b²)dx=−a³/3−ab². (0,b)→(0,0): Q=0, contribution0. Sum=a³/3−ab²−a³/3−ab²=−2ab². Both sides agree, proving Stokes for this orientation.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BAS103 Engineering Mathematics I, paper ID 311667"
+    }
+  ]
+}
