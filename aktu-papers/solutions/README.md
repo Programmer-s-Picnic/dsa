@@ -2,7 +2,7 @@
 
 The question-paper library shows a **Solution** button beside every PDF. Each button opens `/aktu-papers/solution.html?paper=<id>` with the correct year, semester, course code, PDF, solution availability, and related **original theory practice answers**.
 
-No question-by-question solution is currently represented as verified. The practice answers are independent revision material and must not be described as a solution to that specific paper.
+**Updated 2026-11-19:** All 16 paper entries have dedicated solution JSON files, containing 364 question-by-question draft responses in total. These answer sets cover the printed alternatives and are linked as `available` for access, but all currently carry `reviewStatus` values stating **instructor review pending**. `available` here means the file is published and covers the known paper questions; it is not a claim of official approval, guaranteed correctness, or complete external PDF verification. Revision practice answers are separate and must not be misrepresented as paper-specific answers.
 
 ## Publish an actual paper solution
 
