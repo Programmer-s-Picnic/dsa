@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "paperId": "bcs301-2025",
+  "subject": "Data Structure",
+  "code": "BCS301",
+  "semester": 3,
+  "year": 2025,
+  "session": "2024-25",
+  "sourcePdf": "https://www.aktuonline.com/papers/btech-cs-3-sem-data-structure-bcs301-mar-2025.pdf",
+  "reviewStatus": "draft-computations-checked-instructor-review-pending",
+  "coverage": "all printed questions and alternatives",
+  "verificationNote": "Answers written against paper ID 311623; tree and addressing/hash calculations independently simulated. Some code questions use function-level C algorithms rather than standalone compilable full programs and should be expanded for a complete exam-length model answer.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "Why are pointers required to maintain a linked-list structure?",
+      "answer": "A linked-list node stores data and an address/reference to another node. The pointer (next, and sometimes prev) connects separately allocated nodes without requiring contiguous memory, enabling dynamic insertion, deletion and traversal. Example: struct Node { int data; struct Node *next; };",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "An integer array starts at address 2000; each integer occupies four bytes. Find address of arr[5].",
+      "answer": "Assume normal C zero-based indexing and base=&arr[0]=2000. Address(arr[5])=2000+5×4=2020. If base were arr[1] the answer would differ, but C convention is zero-based.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "Explain priority queue and its significance.",
+      "answer": "A priority queue removes the highest-priority (or lowest-key) element first, not simply the earliest arrival. Typical binary heap gives O(log n) insert/extract and O(1) peek. Applications: OS job scheduling, Dijkstra's algorithm, event simulation, emergency triage and best-first search.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Stack operations PUSH(10), PUSH(20), POP, PUSH(10), PUSH(20), POP, POP, POP, PUSH(20), POP: list popped values.",
+      "answer": "Stack states (bottom→top): [10], [10,20], POP→20 leaving [10], PUSH10→[10,10], PUSH20→[10,10,20], POP→20, POP→10, POP→10, PUSH20→[20], POP→20. Popped sequence: 20, 20, 10, 10, 20.",
+      "explanation": "A stack uses last-in-first-out (LIFO) order.",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "Illustrate indexed sequential search.",
+      "answer": "Store sorted data divided into blocks, with an index recording each block's key range or first/maximum key. Search index (binary search possible), then sequentially scan only the selected block. Example records [10,15,18 | 25,27,29 | 40,45] and index of block maximums [18,29,45]: search 27 → block 2 → scan 25,27. Index overhead trades extra memory for faster search.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "Explain nonlinear data structures with an example.",
+      "answer": "In a nonlinear structure, relationships are not a single predecessor/successor chain; a node may connect to several others. A tree has hierarchical parent/child links (e.g. binary search tree); a graph allows arbitrary vertices and edges (e.g. road network). Typical operations: tree traversal DFS/BFS and graph connectivity or shortest paths.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "Significance of threaded binary trees.",
+      "answer": "A threaded binary tree replaces otherwise null left/right child pointers with inorder predecessor/successor links, marked by tag bits to distinguish threads from children. It enables efficient inorder traversal without recursion or an explicit stack and uses unused pointer slots. Insertion/deletion must maintain thread consistency.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Row-major array ARR[-5..15,10..20], element size 2, base address 2500. Find address of ARR[10][15].",
+      "answer": "Number of columns N2=20−10+1=11. Row-major offset in elements = (i−L1)×N2+(j−L2)=(10−(−5))×11+(15−10)=15×11+5=170. Byte offset=170×2=340. Address=2500+340=2840.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "Illustrate a stack implemented using singly linked list, with PUSH/POP.",
+      "answer": "Representation: TOP→[30|next]→[20|next]→[10|null]. PUSH(x): allocate node n; n.data=x; n.next=top; top=n. POP(): if top==NULL report underflow; else x=top->data; old=top; top=top->next; free(old); return x. Both operations O(1) time; space O(n). No fixed capacity except available memory.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Construct binary tree from inorder B C A E G D H F I J and preorder A B C D E G F H I J.",
+      "answer": "Use first preorder element as root and split inorder at that element, recursively.\nResult:\nA\n├─L: B\n│   └─R: C\n└─R: D\n    ├─L: E\n    │   └─R: G\n    └─R: F\n        ├─L: H\n        └─R: I\n            └─R: J\nVerify: inorder B,C,A,E,G,D,H,F,I,J and preorder A,B,C,D,E,G,F,H,I,J match the paper.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Construct AVL tree by inserting 71,41,91,56,60,30,40,80,50,55.",
+      "answer": "One correct final AVL tree after standard rotations:\n56\n├─L: 40\n│  ├─L: 30\n│  └─R: 50\n│     ├─L: 41\n│     └─R: 55\n└─R: 71\n   ├─L: 60\n   └─R: 91\n      └─L: 80\nKey rotations include LR at 71 after insertion 60; LL at 71 after insertion 30; LR at 41 after insertion 40; RL balancing inside the left subtree after inserting 55. For every node, |height(left)−height(right)| ≤1.",
+      "explanation": "Tree derived by a separate AVL insertion simulation.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Explain DFS algorithm with example and name data structures used for DFS and BFS.",
+      "answer": "Depth-first search starts at a vertex, marks it visited, and repeatedly visits an unvisited neighbor (recursion or explicit stack). For graph A→B,C; B→D; C→E, one DFS traversal is A,B,D,C,E; actual order depends on adjacency ordering. Algorithm: DFS(u): visited[u]=true; for each v adjacent to u, if not visited[v], DFS(v). DFS uses a stack/recursion; BFS uses a FIFO queue. Both run O(V+E) with adjacency lists.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Explain asymptotic notations, time–space tradeoff and abstract data type (ADT).",
+      "answer": "Asymptotic notation: O(g(n)) bounds runtime from above up to a constant; Ω(g(n)) bounds it below; Θ(g(n)) provides a tight asymptotic bound. Example insertion into unsorted array can be O(1) at end; binary search on sorted array is Θ(log n), sequential scan worst case Θ(n).\nTime–space tradeoff: using extra memory can save time, e.g. a hash table consumes O(n) extra space for expected O(1) lookup versus repeated linear scans O(n).\nADT: a logical interface specifying operations/behavior independently of representation, e.g. Stack ADT supports push, pop, peek and isEmpty; implementations may use arrays or linked nodes.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "Represent a polynomial with a linked list and give a C program to add two polynomials.",
+      "answer": "Represent each nonzero term by (coefficient, exponent, next) in descending order of exponents, e.g., 4x^3+2x+5 ↔ (4,3)→(2,1)→(5,0).\nCore merge algorithm for two descending ordered lists:\nwhile (a && b) {\n  if (a->exp == b->exp) { int c=a->coef+b->coef; if(c) append(&result,c,a->exp); a=a->next;b=b->next; }\n  else if(a->exp > b->exp) { append(&result,a->coef,a->exp); a=a->next; }\n  else { append(&result,b->coef,b->exp); b=b->next; }\n}\nwhile(a) { append(&result,a->coef,a->exp); a=a->next; }\nwhile(b) { append(&result,b->coef,b->exp); b=b->next; }\nHere append allocates a node with fields coef/exp and joins it to the output tail; zero-sum coefficients are skipped. Runtime O(m+n), assuming sorted exponents.",
+      "explanation": "Code is a clear C algorithm fragment with append helper specified; a complete program needs struct definition, memory allocation, input and printing functions.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Implement queue using linked list with insert(), delete(), print(); how does circular queue help?",
+      "answer": "Maintain head/front and tail/rear pointers. Linked queue:\ninsert(x): n=malloc(sizeof(Node)); n->data=x; n->next=NULL; if(rear)rear->next=n; else front=n; rear=n.\ndelete(): if(!front) underflow; old=front; value=old->data; front=front->next; if(!front)rear=NULL; free(old); return value.\nprint(): for(Node *p=front;p;p=p->next) printf(\"%d \",p->data);\nInsertion/deletion are O(1), traversal O(n).\nA simple *array* queue can falsely report overflow after rear reaches the last slot even when earlier slots were freed. A circular array queue wraps indices modulo capacity and reuses freed cells. A linked-list queue is dynamically allocated and doesn't have that particular false-overflow issue.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "C program to check whether parentheses are balanced in an expression.",
+      "answer": "Use a stack to push opening delimiters '(','[','{'. On every closing delimiter, require a nonempty stack whose top matches; pop it; reject mismatches. At end accept only if stack empty.\nC algorithm (using char st[1000], int top=-1):\nfor (int i=0; expr[i]; ++i) {\n char c=expr[i];\n if(c=='('||c=='['||c=='{') st[++top]=c;\n else if(c==')'||c==']'||c=='}') {\n   if(top<0) return 0;\n   char o=st[top--];\n   if(!((o=='('&&c==')')||(o=='['&&c==']')||(o=='{'&&c=='}'))) return 0;\n }\n}\nreturn top==-1;\nFor production code, check stack capacity before push. Time O(n), space O(n) in worst case.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "Hash 43,165,62,123,142 into ten buckets with h(key)=key%10 and linear probing. Locate 142.",
+      "answer": "Buckets indexed 0..9. Insert 43→3; 165→5; 62→2; 123 hashes to 3 (occupied), so placed at 4; 142 hashes to 2 (occupied), probes 3(43),4(123),5(165), and inserts at 6. Final table: index 2:62, 3:43, 4:123, 5:165, 6:142; all others empty. Location of 142 = bucket index 6 (zero-based).",
+      "explanation": "Linear probing uses h_i(k)=(h(k)+i) mod 10.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Merge-sort 11,16,13,11,4,12,6,7. Give time and space complexity.",
+      "answer": "Divide into [11,16,13,11] and [4,12,6,7]. Sort halves: [11,11,13,16] and [4,6,7,12]. Merge: [4,6,7,11,11,12,13,16]. Recurrence T(n)=2T(n/2)+Θ(n) yields Θ(n log n) time in best/average/worst cases. Standard array merge sort uses Θ(n) auxiliary space and Θ(log n) recursion stack.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "Build an order-4 B-tree inserting a,g,f,b,k,d,h,m,j,e,s,i,r,x,c,l,n,t,u,p.",
+      "answer": "Assume order 4 means at most 4 children / 3 keys per node (2-3-4 B-tree), with standard split-full-before-descent insertion. Final tree:\nRoot [f | k]\n├─ child0 [b]\n│  ├─ [a]\n│  └─ [c d e]\n├─ child1 [h]\n│  ├─ [g]\n│  └─ [i j]\n└─ child2 [m | r | t]\n   ├─ [l]\n   ├─ [n p]\n   ├─ [s]\n   └─ [u x]\nEvery leaf is at the same depth; all nodes have 1–3 keys (except transient splits).",
+      "explanation": "Computed by top-down order-4 B-tree insertion; other equivalent insertion conventions can yield a structurally different valid tree.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Construct BST with 50,30,70,20,40,60,80,35,45 and perform inorder traversal.",
+      "answer": "BST:\n50\n├─L:30\n│  ├─L:20\n│  └─R:40\n│     ├─L:35\n│     └─R:45\n└─R:70\n   ├─L:60\n   └─R:80\nInorder (left-root-right): 20, 30, 35, 40, 45, 50, 60, 70, 80.",
+      "explanation": "An inorder traversal of a BST gives keys in nondecreasing order.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "Compare adjacency matrix and adjacency list representations of a graph.",
+      "answer": "Adjacency matrix is a V×V array A where A[u][v] records an edge/weight. Space Θ(V²), O(1) adjacency test, and O(V) neighbor scan; good for dense graphs. Adjacency list stores a list of neighbors for each vertex: space Θ(V+E), O(deg(v)) neighbor traversal, slower arbitrary adjacency check unless hashed; good for sparse graphs. For undirected graphs, matrix is symmetric and adjacency-list edges occur in both endpoint lists.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Explain graph, weighted graph, vertex degree, connected/disconnected graph, cycle, directed/undirected graph and MST.",
+      "answer": "Graph G=(V,E) consists of vertices and edges. Weighted graph assigns a cost/length to edges. In an undirected graph, degree(v) counts incident edge ends; in a digraph use indegree and outdegree. Connected undirected graph has a path between every pair of vertices; disconnected has multiple components. A cycle is a closed walk with no repeated internal vertices (in a simple cycle). Directed edges are ordered pairs u→v; undirected edges have no orientation. A minimum spanning tree (MST) of a connected weighted undirected graph is an acyclic set of V−1 edges connecting every vertex with minimum total edge weight; Kruskal and Prim find an MST.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS301 Paper ID 311623"
+    }
+  ]
+}
