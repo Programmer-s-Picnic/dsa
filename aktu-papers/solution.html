@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AKTU Question Paper Solutions | Programmer's Picnic</title>
+<meta name="description" content="Find paper-specific AKTU B.Tech question paper solution availability and related subject-wise theory answer guides.">
+<link rel="icon" href="/assets/icons/icon-192.png">
+<style>
+:root{color-scheme:light;--blue:#125c9f;--ink:#193851;--muted:#556b80;--line:#cbddec;--soft:#ecf6ff}
+*{box-sizing:border-box}
+body{margin:0;background:#f6fbff;color:var(--ink);font:16px/1.62 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+a{color:#095da6}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #e8b54f;outline-offset:3px}
+.wrap{max-width:1000px;margin:auto;padding:0 19px}
+header{background:white;border-bottom:1px solid var(--line)}
+header .nav{min-height:70px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.brand{color:#154b80;font-size:1.1rem;font-weight:800;text-decoration:none;line-height:1.25}
+.brand small{display:block;font-weight:500;font-size:.76rem;color:var(--muted)}
+.hero{padding:39px 0;background:linear-gradient(115deg,#e2f2ff,#fff);border-bottom:1px solid var(--line)}
+h1{margin:5px 0 10px;font-size:clamp(1.8rem,4vw,2.65rem);line-height:1.23}
+h2{font-size:1.38rem;margin:0 0 10px}
+p{margin:8px 0 13px}
+.meta{color:var(--muted)}
+.tag{display:inline-block;padding:4px 9px;border-radius:7px;background:#d9efff;color:#1a5484;font-size:.81rem;margin:0 6px 6px 0;font-weight:650}
+.tag.pending{background:#f2f0e9;color:#6a6049}
+.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:22px;margin:21px 0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.btn{display:inline-block;padding:10px 16px;border:1px solid var(--blue);border-radius:9px;background:var(--blue);color:#fff;font:inherit;text-decoration:none;font-weight:700;cursor:pointer}
+.btn.alt{background:white;color:var(--blue)}
+.notice{padding:15px 17px;border:1px solid #b7d2e7;background:#eef7ff;border-radius:10px;margin:17px 0}
+.details{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:#fff}
+.details summary{padding:14px 16px;cursor:pointer;font-weight:700}
+.details .inside{padding:0 16px 15px}
+.details p{margin-bottom:8px}
+.solution{white-space:pre-line;padding:13px;background:#eef6fd;border-radius:9px;margin-top:8px}
+.small{font-size:.86rem;color:var(--muted)}
+.hidden{display:none!important}
+footer{padding:29px 0;background:#133e69;color:white;margin-top:35px}
+footer a{color:#fff}
+@media(max-width:560px){.hero{padding:27px 0}.panel{padding:15px}}
+@media print{header,.actions,footer,.study-cta{display:none!important}body{background:#fff}.panel{break-inside:avoid}}
+</style>
+</head><body>
+<header><div class="wrap nav"><a class="brand" href="/">Programmer's Picnic<small>Learn With Champak</small></a><nav><a href="/aktu-papers/">All question papers</a> · <a href="/aktu-papers/practice.html">Practice tests</a></nav></div></header>
+<section class="hero"><div class="wrap"><div class="small" style="color:#115894;font-weight:800;letter-spacing:.06em">AKTU B.TECH · QUESTION PAPER SOLUTIONS</div><h1 id="heading">Loading paper details…</h1><div id="paperMeta" class="meta" aria-live="polite"></div></div></section>
+<main class="wrap"><div id="error" class="notice hidden" role="alert"></div>
+<div id="content" class="hidden">
+<section class="panel"><h2>Question paper and solution</h2>
+<div class="actions"><a id="openPdf" class="btn" target="_blank" rel="noopener noreferrer">Open question paper PDF</a><a id="backToList" href="/aktu-papers/" class="btn alt">Browse all papers</a><button id="print" class="btn alt" type="button">Print answer guide</button></div>
+<div id="status" class="notice" role="status"></div>
+<div id="paperSolution" class="hidden"><h2>Paper-specific answers</h2><div id="exactQuestions"></div></div>
+</section>
+<section class="panel" id="related"><h2>Related theory practice and answer guidance</h2>
+<p class="small">The answers below come from the independent subject study bank. They are <strong>not</strong> necessarily questions from this particular exam paper. Use them for revision while a verified paper-specific solution is unavailable.</p>
+<div id="practiceAnswers" aria-live="polite">Loading related study questions…</div>
+<div class="actions study-cta"><a id="practiceLink" href="/aktu-papers/practice.html" class="btn alt">Practice theory and MCQs for this subject</a><a id="plannerLink" href="/aktu-papers/planner.html" class="btn alt">Topic coverage planner</a></div>
+</section></div></main>
+<footer><div class="wrap">Programmer's Picnic · Learn With Champak · Unofficial study resources. Question-paper rights remain with their respective owners.</div></footer>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+function element(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=String(text);if(cls)e.className=cls;return e}
+function alertError(message){$('error').textContent=message;$('error').classList.remove('hidden')}
+function appendSolution(container,item){
+const wrapper=element('details',undefined,'details');
+const summary=element('summary',item.question||item.title||'Question');
+wrapper.append(summary);
+const body=element('div',undefined,'inside');
+if(item.questionNumber||item.marks){body.append(element('p',[item.questionNumber?'Question '+item.questionNumber:'',item.marks?item.marks+' marks':''].filter(Boolean).join(' · '),'small'))}
+const points=Array.isArray(item.modelAnswerPoints)?item.modelAnswerPoints:item.answerPoints;
+if(Array.isArray(points)&&points.length){const ul=document.createElement('ul');for(const p of points)ul.append(element('li',p));body.append(ul)}
+if(item.answer)body.append(element('div',item.answer,'solution'));
+if(item.explanation)body.append(element('p',item.explanation));
+if(item.origin)body.append(element('p','Origin: '+item.origin,'small'));
+wrapper.append(body);container.append(wrapper);
+}
+async function loadRelated(p){
+const root=$('practiceAnswers');
+$('practiceLink').href='/aktu-papers/practice.html?subject='+encodeURIComponent(p.code)+'&kind=theory';
+$('plannerLink').href='/aktu-papers/planner.html?subject='+encodeURIComponent(p.code);
+try{
+const manifestResult=await fetch('./subjects/index.json');
+if(!manifestResult.ok)throw Error('Study index unavailable');
+const manifest=await manifestResult.json();
+const entry=manifest.subjects.find(s=>s.code===p.code);
+if(!entry){root.textContent='No subject answer guide is indexed yet for '+p.code+'.';return}
+const r=await fetch('./'+entry.path);if(!r.ok)throw Error('Study guide unavailable');
+const data=await r.json();root.replaceChildren();let total=0;
+for(const topic of data.topics||[]){
+const questions=topic.theory||[];
+if(!questions.length)continue;
+root.append(element('h3',topic.name));
+for(const q of questions){appendSolution(root,q);total++}
+}
+if(!total)root.textContent='No topic-wise theory answers have been added for this subject yet.';
+}catch(e){root.textContent='Related practice answers could not be loaded. Use the Practice Tests link instead.'}
+}
+async function loadExact(p){
+const status=p.solution?.status||'pending';
+const note=$('status'),block=$('paperSolution'),root=$('exactQuestions');
+if(status!=='available'&&status!=='partial'){note.innerHTML='<strong>Paper-specific solution not yet published.</strong> The Solution button is available for this paper, but no reviewed question-by-question answer set has been added. The separate study answers below are for topic revision, not for this exact paper.';return}
+if(!p.solution?.file){note.textContent='Solution metadata is incomplete. No verified answer file is available.';return}
+try{
+const path=p.solution.file;
+if(!/^solutions\/[a-zA-Z0-9_./-]+\.json$/.test(path)||path.includes('..'))throw Error('Invalid solution file path');
+const r=await fetch('./'+path);if(!r.ok)throw Error('Answer file unavailable');
+const data=await r.json();
+if(data.paperId!==p.id||!Array.isArray(data.questions))throw Error('Mismatched answer file');
+root.replaceChildren();
+for(const q of data.questions)appendSolution(root,q);
+if(!data.questions.length)throw Error('No answers in this file');
+block.classList.remove('hidden');
+note.textContent=(status==='partial'?'Partial':'Available')+' paper-specific solutions: '+data.questions.length+' answer(s). Review status: '+(data.reviewStatus||'not specified')+'. Cross-check against the original PDF.';
+}catch(e){block.classList.add('hidden');note.textContent='The paper-specific solution file is not usable yet. '+e.message+'. See related study answers below.'}
+}
+async function init(){
+try{
+const id=new URLSearchParams(location.search).get('paper');
+const r=await fetch('./papers.json',{cache:'no-store'});if(!r.ok)throw Error('Paper catalog unavailable');
+const catalog=await r.json();const paper=catalog.papers.find(x=>x.id===id);
+if(!paper){$('heading').textContent='Paper not found';alertError('This question paper was not found. Please return to the paper library and choose a paper.');return}
+document.title=paper.code+' '+paper.year+' Solutions | Learn With Champak';
+$('heading').textContent=paper.subject;
+const meta=$('paperMeta');
+for(const tag of [paper.code,'Semester '+paper.semester,'Exam year '+paper.year,paper.branch]){
+meta.append(element('span',tag,'tag'))}
+meta.append(element('span',paper.solution?.status==='available'?'Answers available':paper.solution?.status==='partial'?'Partially solved':'Solutions pending','tag pending'));
+$('openPdf').href=paper.url;
+$('content').classList.remove('hidden');
+$('print').addEventListener('click',()=>window.print());
+await Promise.all([loadExact(paper),loadRelated(paper)]);
+}catch(e){$('heading').textContent='Unable to open solution';alertError('Could not load question paper details: '+e.message)}
+}
+init();
+</script></body></html>
