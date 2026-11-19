@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "paperId": "rcs080-2022",
+  "code": "RCS080",
+  "subject": "Machine Learning",
+  "semester": 8,
+  "year": 2022,
+  "session": "2021-22",
+  "sourcePdf": "https://www.aktuonline.com/papers/btech-cs-8-sem-machine-learning-rcs080-2022.pdf",
+  "reviewStatus": "draft-instructor-review-pending",
+  "coverage": "all 22 questions and alternatives",
+  "verificationNote": "Based on accessible extracted text of university 2021-22 Machine Learning paper. Provider denied PDF screenshot, so wording should be visually checked when a PDF copy is downloaded. Explanations independently written and not formally instructor-reviewed.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "What is decision-tree learning?",
+      "answer": "A decision tree recursively partitions examples using attribute tests; internal nodes test features/thresholds, edges represent outcomes, and leaves predict classes or numerical targets. Learning selects splits minimizing impurity (entropy, Gini for classification) or squared error for regression, then prunes or limits growth to reduce overfitting. Example 'humidity>80?' then 'temperature>30?' to classify rain risk.",
+      "marks": 2,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "Define machine learning.",
+      "answer": "Machine learning is the study of algorithms that improve a task's performance through experience/data rather than explicit task-by-task programming. In Mitchell's description, a program learns from experience E with respect to task T and performance P if its performance at T as measured by P improves with E. Types: supervised, unsupervised, reinforcement and self-supervised.",
+      "marks": 2,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "What is a perceptron in an ANN?",
+      "answer": "A perceptron is a simple linear-threshold artificial neuron with weights w_i, bias b and activation y=1 if w·x+b≥0 else0. It learns linearly separable Boolean classification boundaries using perceptron weight updates w←w+η(t−y)x. A single perceptron cannot represent XOR, which requires nonlinear hidden units.",
+      "marks": 2,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Explain learning problems.",
+      "answer": "A learning problem specifies the target task, observations/experience, prediction or control objective and evaluation measure. Example email spam detection: input message attributes X, target y∈{spam,ham}, labeled experience E, accuracy/precision/recall P. Key decisions are representation, hypothesis class, training objective, distribution assumptions, labeling, train/test split and operational constraints.",
+      "marks": 2,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "What is hypothesis evaluation?",
+      "answer": "Hypothesis evaluation estimates how well a learned model generalizes to unseen data: use held-out test data or cross-validation, avoid training-test leakage, select task-appropriate metrics (classification confusion matrix, accuracy/precision/recall/F1/AUC; regression MAE/MSE/RMSE/R²), and quantify uncertainty with confidence intervals or repeated splits. Evaluate both aggregate and subgroup behavior.",
+      "marks": 2,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "Define genetic algorithm.",
+      "answer": "A genetic algorithm is a stochastic population-based optimization process inspired by evolution: encode candidate solutions as chromosomes; score fitness; select parents; produce offspring by crossover/mutation; replace part/all of population; iterate until stop criterion. Useful for combinatorial optimization and nonconvex spaces, with no guarantee of global optimum.",
+      "marks": 2,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "Define computational learning theory.",
+      "answer": "Computational learning theory studies the mathematical conditions and resources required to learn reliably from samples—sample complexity, generalization error, learnability classes such as PAC learning, VC dimension, hypothesis complexity, noise and computational feasibility. It provides upper/lower bounds and explains bias/variance and overfitting.",
+      "marks": 2,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Explain crossover and mutation in genetic algorithms.",
+      "answer": "Crossover combines segments/genes of selected parent chromosomes to produce offspring. One-point crossover: 1100|11 and 0011|00 → 1100|00,0011|11; two-point and uniform crossover are variants. Mutation randomly changes an allele (bit flip, swap, Gaussian perturbation), preserving genetic diversity and allowing exploration beyond current gene combinations. Typical cycle: initialize population→evaluate fitness→select parents→crossover→mutate→repair invalid solutions if needed→evaluate offspring→survivor selection→repeat. High crossover exploits parents; too-high mutation destroys useful building blocks. Use elitism to preserve best solutions.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "How to evaluate models generated from data.",
+      "answer": "Specify business objective and target distribution; separate training/validation/test (stratified, group- or time-aware splits). Fit preprocessing only on training folds. Use cross-validation and suitable metrics. Classification: confusion matrix, accuracy, balanced accuracy, precision, recall, F1, ROC-AUC or PR-AUC depending on imbalance and costs; regression: MAE, RMSE, R² and residual diagnostics. Assess calibration, class and group fairness, robustness to distribution shift, complexity, inference latency and data leakage. Compare with naïve baseline and simple models, quantify uncertainty and monitor deployed drift; keep final test set untouched during tuning.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Radial basis function networks and instance-based learning.",
+      "answer": "An RBF network has input layer, hidden units φ_j(x)=exp(−||x−c_j||²/(2σ_j²)) around centers c_j, and typically linear output y=Σw_j φ_j(x)+b. Train centers by clustering or optimization, choose widths and fit output weights; local nonlinear responses approximate complex functions. Instance-based learning (e.g., k-NN, locally weighted regression) stores examples and predicts by similarities at query time, avoiding an explicit global parametric equation. RBFs summarize local patterns through centers; k-NN directly consults neighboring training points. Risks: scaling, high-dimensional distances, memory and sensitivity to noise.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Plan a deep-learning smart speaker.",
+      "answer": "Pipeline: far-field microphone → audio capture/beamforming/noise suppression → wake-word spotting (compact neural network) → automatic speech recognition (Transformer/CTC/Conformer model) → intent and slot extraction or LLM dialogue → secure action router/API → text-to-speech synthesis → speaker audio output. Training: collect consented multilingual speech, label wake-words, transcripts/intents; augment with noise; split by speaker/location; train ASR/wake and evaluate word error rate, false accept/reject rates, latency and intent accuracy. Runtime: edge wake word for privacy and speed; optional cloud ASR/LLM only with user consent; support offline commands. Security: authenticated device actions, encrypted connections, rate limiting, voice-data retention controls, microphone mute and explicit recording indicators. Accessibility and bias: accent, background noise and diverse voices.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Issues in machine learning science and data.",
+      "answer": "Core issues: inconsistent labels/missing data, sampling bias, class imbalance, small/noisy datasets, leakage and distribution shift, overfitting/underfitting, curse of dimensionality, nonstationarity, spurious correlations versus causation, concept drift, noninterpretable predictions, privacy/security/fairness, model reproducibility and compute/energy costs. Mitigations: robust validation and uncertainty estimates, representative sampling, regularization and feature selection, transparent documentation, monitoring, constrained deployment and human oversight.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Reinforcement learning and Markov decision processes.",
+      "answer": "Reinforcement learning learns actions through interactions to maximize cumulative discounted reward. An MDP is (S,A,P,R,γ) where S states, A actions, P(s'|s,a) transition probabilities, R(s,a,s') reward and γ∈[0,1) discounts future rewards. Policy π(a|s) chooses actions; state-value Vπ(s)=Eπ[Σγ^t r_{t+1}|s0=s], and action value Qπ(s,a) similarly. Bellman expectation: Vπ(s)=Σ_a π(a|s) Σ_s' P(s'|s,a)[R(s,a,s')+γ Vπ(s')]. For optimal values, replace policy-average with max_a. Exploration versus exploitation is central; Q-learning updates Q(s,a)←Q(s,a)+α[r+γ max_a'Q(s',a')−Q(s,a)]. Example a robot selects routes with collision penalties and arrival rewards.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "K-nearest-neighbor instance-based learning.",
+      "answer": "Store labeled training points and choose k neighbors closest to a query under a suitable metric (Euclidean, Manhattan, cosine etc., after feature scaling). Classification predicts majority (or distance-weighted) class; regression predicts average/weighted target. Example query x=5 with training x=2(A),4(B),6(B),9(A), k=3 → neighbors 4B,6B,2A, predict B. Training cost low, prediction typically O(nd) per query without index; scales poorly in high dimensions and memory, sensitive to k, metric, noisy features and imbalance. Choose k by cross-validation, typically odd k to reduce ties in binary classification.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Historical progress of ML and concept of clustering.",
+      "answer": "Foundations: statistical regression/probability, 1940s–50s perceptrons and early computational learning; 1980s backpropagation revival; 1990s SVM, ensembles and probabilistic methods; 2000s large-scale web data and random forests; 2010s GPU deep CNN/RNN; 2017 onward Transformers and large self-supervised foundation models. Clustering is unsupervised grouping where items inside a cluster are more similar than items across clusters. K-means minimizes within-cluster squared distances using mean centroids, DBSCAN groups dense regions and marks noise, hierarchical clustering produces nested partitions. Select metrics/features/scale, k or density threshold and assess stability/silhouette or domain utility.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "Machine learning trends and application fields with examples.",
+      "answer": "Major trends include transfer/self-supervised learning, transformers and multimodal foundation models; efficient fine-tuning/quantization/edge AI; privacy-aware federated learning; causal/robust/uncertainty-aware prediction; explainability and governance; streaming/MLOps monitoring; and generative modeling. Applications: medical imaging triage (CNN), speech recognition (Transformers), fraud/anomaly detection (trees/graph models), agriculture crop monitoring (satellite models), recommendation systems (collaborative filtering), autonomous systems (vision+control), finance forecasting (time-series), and industrial predictive maintenance (sensor ML). Evaluate effectiveness using held-out real-world cohorts, safety, fairness and latency.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "Design appropriate ML algorithm for a real-world application.",
+      "answer": "Example predicting student examination failure. Define intervention objective, ethically collect historical attendance/practice/midterm features and labels; avoid sensitive/unnecessary data, leakage from post-exam fields and confounding. Split by academic term/student to test future deployment, build baseline logistic regression and compare gradient-boosted trees; impute training-only, encode categoricals, handle imbalance via threshold/cost-sensitive training. Train with cross-validation, tune on validation; report PR-AUC, recall at a manageable counselor workload, precision and calibration; assess differences across groups, obtain consent/access controls. Deploy only as decision support with explanation and override, monitor drift/outcomes, retrain only with evaluation and change control. Alternative choices: KNN for small similarity-based tasks, CNN for images, RNN/Transformer for text, reinforcement learning for sequential decisions; match method to data/task/resources.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Components of genetic algorithm and reproduction cycle.",
+      "answer": "Elements: chromosome/encoding (binary, permutation, real-valued genes); population; fitness/objective; selection strategy (tournament/roulette/rank); crossover; mutation; replacement/survivor selection; elitism; constraints/repair; termination rule (generations or convergence). Cycle: randomly/heuristically initialize N candidates→evaluate fitness→select parents weighted by fitness/selection pressure→recombine genetic material→mutate at controlled rate→repair infeasible offspring→score offspring→replace worst or entire old population, optionally keep elite→repeat. Example maximize binary f(x)=number of 1 bits on 8-bit chromosome; fitter chromosomes have more ones but mutation maintains diversity.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "Explain regression; differentiate linear and logistic regression.",
+      "answer": "Regression models a target/response from predictors. Linear regression ŷ=β0+Σβj xj predicts continuous outcome and commonly minimizes squared error; it assumes mean-linear relation and benefits from independent errors/homoscedasticity for classical inference, though prediction remains possible without perfect assumptions. Logistic regression models binary class probability p(y=1|x)=σ(β0+β·x)=1/(1+e^(−z)); trains by Bernoulli log loss and uses threshold to classify. Logistic is a *classification algorithm* despite name; outputs bounded probability, whereas linear predictions are unbounded continuous numbers. Evaluate linear with RMSE/MAE, logistic with log loss/AUC/precision/recall; both can use L1/L2 regularization.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Why Bayesian networks? Issues in machine learning.",
+      "answer": "Bayesian networks represent probabilistic dependencies via a directed acyclic graph (DAG) of random variables. Joint factorization: P(X1,...,Xn)=∏_i P(Xi|Parents(Xi)). They support reasoning with incomplete observations, causal *hypotheses* and uncertainty, diagnosis/fault detection, and compact conditional structure where dependencies are sparse. Example Rain→WetGrass←Sprinkler; observing grass updates beliefs about rain/sprinkler (explaining away). Learn structure and conditional distributions from expert knowledge/data; inference may be computationally difficult, and observational edges do not automatically establish causation. ML issues: missing/noisy data, confounding, overfitting, distribution shifts, complex inference, parameter uncertainty, fairness, privacy and model interpretability.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "Inductive bias and information gain in decision-tree learning.",
+      "answer": "Inductive bias is a learner's preference/assumption guiding generalization beyond finite training examples. Decision trees prefer simple short trees, high-information splits and axis-aligned rules, and will not naturally represent all smooth oblique boundaries efficiently. Entropy H(S)=−Σ_c p_c log2 p_c; InformationGain(S,A)=H(S)−Σ_v (|S_v|/|S|)H(S_v). Example 10 cases with five each class: H(S)=1 bit; if feature A splits into two pure groups, conditional entropy=0 and gain=1 bit. ID3 greedily chooses maximum gain, C4.5 may use gain ratio and CART uses Gini. Prune/max-depth/min-leaf to avoid memorizing noise; information gain favors attributes with many values without correction.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Deep learning and convolutional neural networks (CNNs).",
+      "answer": "Deep learning trains multiple nonlinear representation layers using backpropagation/optimization, often on large datasets. A CNN uses convolutional filters shared across spatial positions to extract local patterns (edges→textures→object parts); typical layers: input image → Conv(kernels,stride,padding) → ReLU → pooling/downsample → more Conv blocks → global average pooling/dense classifier → softmax. Weight sharing reduces parameters and provides translation-equivariant feature maps; pooling introduces some invariance. For image classification, cross-entropy loss with SGD/Adam updates filters; batch normalization, augmentation and dropout may improve training/generalization. Applications: medical imaging, defect detection, OCR, face/scene classification, video analysis and satellite-image segmentation. Risks: adversarial robustness, dataset bias, compute needs and explainability.",
+      "marks": 7,
+      "origin": "AKTU 2021-22 RCS080 Machine Learning exam"
+    }
+  ]
+}
