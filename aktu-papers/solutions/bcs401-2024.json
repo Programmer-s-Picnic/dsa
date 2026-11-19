@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "paperId": "bcs401-2024",
+  "code": "BCS401",
+  "subject": "Operating System",
+  "semester": 4,
+  "year": 2024,
+  "session": "2023-24",
+  "sourcePdf": "https://www.abesit.in/wp-content/uploads/2024/11/BCS401-OPERATING-SYSTEM.pdf",
+  "reviewStatus": "draft-instructor-review-pending",
+  "coverage": "all 22 printed questions and alternatives",
+  "verificationNote": "Based on one-page AKTU 2023-24 BCS401 theory examination document; OCR/HTML extraction has overlapping watermark artifacts but main printed question prompts were recovered. Browser screenshot timed out; check original PDF while reviewing.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "What is the primary function of an operating system?",
+      "answer": "An OS is the resource manager and execution platform between hardware and applications: allocates CPU, memory, storage and devices, controls access, supplies system calls, manages errors and presents a user/application interface. The objective is reliable, efficient and fair use of the computer.",
+      "marks": 2,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "Define a batch processing system.",
+      "answer": "A batch processing system collects jobs and executes them without interactive user input, often sequentially or in managed batches with spooling. Example overnight payroll processing. It improves utilization/automation but turnaround and interactive response may be poor.",
+      "marks": 2,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "Define the principle of concurrency.",
+      "answer": "Concurrent processes/threads have overlapping progress in time: on a single CPU they interleave, on several cores they can run simultaneously. When sharing mutable data, synchronization preserves correctness under scheduling nondeterminism. Concurrency need not imply parallel execution.",
+      "marks": 2,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Define a process state.",
+      "answer": "A process state is the scheduler-visible stage in its execution life cycle: new, ready, running, waiting/blocked, terminated (sometimes suspended). Transitions include admission (new→ready), dispatch (ready→running), preemption (running→ready), wait on I/O (running→blocked), wakeup (blocked→ready), exit (running→terminated).",
+      "marks": 2,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "Name one piece of process identification information.",
+      "answer": "Process identifier (PID) is an OS-assigned integer uniquely identifying a process among active processes. Other identity fields include parent PID, user ID, group ID and process credentials.",
+      "marks": 2,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "Define resident monitor.",
+      "answer": "A resident monitor was an early batch-OS supervisor kept permanently in memory to control automatic loading, scheduling and execution of successive jobs and basic I/O/error handling, replacing manual operator intervention. It reserves some RAM and provides primitive job-control/dispatch routines.",
+      "marks": 2,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "Define I/O subsystem.",
+      "answer": "The I/O subsystem coordinates peripheral controllers, device drivers, interrupt handlers, buffers, caches, DMA and device-independent system-call interfaces to transfer data between processes and hardware, hiding device-specific details while controlling sharing and errors.",
+      "marks": 2,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Compare time-sharing and multiprogramming operating systems.",
+      "answer": "Multiprogramming keeps multiple jobs in memory and switches CPU when one waits (e.g. I/O), primarily maximizing utilization and throughput; it may use noninteractive batch workloads. Time-sharing extends multiprogramming with preemptive short time slices for many interactive users/tasks, primarily improving response time and fairness. Time-sharing needs context switching, protection, fast scheduling and interactive terminals. Both share CPU and memory; time-sharing implies frequent voluntary/involuntary preemption, multiprogramming alone need not.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "Challenges of mutual exclusion in concurrent programming.",
+      "answer": "Critical-section entry must ensure mutual exclusion, progress and bounded waiting while avoiding data races and starvation. Challenges: arbitrary interleavings, preemption between read/write steps, multicore memory ordering/caches, deadlocks due inconsistent lock order, priority inversion, long critical sections, lock granularity and performance. Example unsynchronized counter++ can lose updates. Solutions: hardware atomic instructions (test-and-set/CAS), mutexes, semaphores, monitors, condition variables, well-ordered locks and appropriate memory barriers. Peterson/Dekker illustrate 2-process synchronization but require sequential-consistency assumptions/atomics on modern systems.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Structure and contents of Process Control Block (PCB).",
+      "answer": "PCB records PID and parent ID, scheduling state/priority/queue links, program counter, saved CPU registers and stack pointers, accounting/CPU time, memory mappings/page tables, open files/file descriptors, I/O context, pending signals, permissions/credentials and execution limits. Context switch: save running CPU state to old PCB → choose next ready PCB → restore registers/PC and MMU state from next PCB → resume. Distinguish process (resources/address space) and thread (individual execution state).",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Fixed versus variable partition multiprogramming.",
+      "answer": "Fixed partitions divide RAM into preset sizes; allocate one process per partition, simple bookkeeping, little external fragmentation but internal fragmentation (allocated partition larger than process) and number of concurrent jobs bounded by partitions. Variable partitions create allocations sized for processes as they arrive; better initial utilization, but free holes fragment externally; placement strategies first-fit/best-fit/worst-fit and compaction/coalescing may be needed. Paging instead allocates fixed physical frames and noncontiguous virtual pages to reduce external fragmentation.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Compare HDD and SSD storage technologies.",
+      "answer": "HDD stores magnetic blocks on rotating platters with moving heads; seeks and rotational latency dominate random I/O, high capacity and low cost/GB. SSD stores data in flash chips via controller; no moving heads, much lower random latency and better shock resistance, but finite write endurance, wear-leveling/garbage collection and potentially higher cost/GB. HDD performance depends strongly on sequential access; SSD uses FTL, TRIM and parallel NAND channels. Both need backups, and power-loss protection varies by model.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Multiuser versus multiprocessing operating system.",
+      "answer": "Multiuser system supports several distinct users concurrently using separate accounts, authentication, permissions, isolation and resource quotas, even on one CPU. Multiprocessing system uses two or more CPUs/cores to run tasks simultaneously, even for one user; needs parallel scheduling, synchronization and possibly cache coherence/NUMA awareness. A cloud host can be both. Multiuser describes access and security policy, multiprocessing hardware/parallel execution.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "Explain layered operating-system architecture.",
+      "answer": "Layered OS divides responsibilities: 0 physical hardware; low levels interrupts, CPU scheduling/context switching, low-level memory/devices; middle levels virtual memory, process management, file systems, IPC and security; higher levels system-call interface, utilities and user applications. Higher layer calls only lower services through clear interfaces. Benefits: abstraction, modular testing, maintainability and fault isolation where boundaries are enforced; limitations: difficult strict layering and cross-layer performance overhead. Diagram top↓:\nUsers/apps\nSystem-call API\nProcess/file/network services\nMemory/I/O drivers\nKernel CPU scheduling/interrupts\nHardware.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Explain deadlock and prevention/avoidance methods.",
+      "answer": "Deadlock is a set of processes each blocked waiting for another to release resources. Four Coffman conditions: mutual exclusion, hold-and-wait, no preemption, circular wait. Prevention breaks at least one condition, e.g. impose total resource ordering to avoid circular wait or require all resources upfront to avoid hold-and-wait. Avoidance grants only requests that leave a safe state using Banker algorithm with Max, Allocation, Need and Available matrices. Draw resource allocation graph P→R request, R→P assignment. Prevention may lower utilization; avoidance needs declared maximum claims and runtime checks.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "Compare Dekker's and Peterson's two-process mutual exclusion algorithms.",
+      "answer": "Both software algorithms use shared memory to provide mutual exclusion, progress and bounded waiting for two processes under appropriate sequential-consistency/atomic memory assumptions. Dekker uses two want-to-enter flags and turn variable with a more involved yield/retry procedure; it was historically among first correct solutions. Peterson sets flag[i]=true; turn=j; while(flag[j] && turn==j) spin; critical section; flag[i]=false; shorter/easier proof. Both busy-wait, don't scale naturally to many threads, are fragile without modern atomic operations/memory fences, and don't guarantee fairness under arbitrary OS scheduling. Use language-supported mutexes or atomic primitives in real software.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "Evaluate deadlock prevention, avoidance, detection and recovery.",
+      "answer": "Prevention: impose noncircular lock ordering, forbid hold-and-wait, allow preemption where possible; simple guarantee but low utilization/reduced concurrency. Avoidance: Banker's safety check compares outstanding needs against available resources, grants only safe allocations; better utilization but needs maximum demands and computation. Detection: allow allocation, periodically search wait-for graph for cycles (single-instance locks) or run resource detection algorithm for multi-instance resources; overhead and possible blocking. Recovery: abort victim transactions/processes, roll back checkpoint/state, preempt reclaimable resources; risk lost work/starvation. Practical DBMS typically detect deadlocks then abort and retry one transaction.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Deadlock system model and necessary conditions.",
+      "answer": "Processes P_i acquire/release instances of resources R_j (CPU/device/file/locks). When blocked processes form a circular wait and all four conditions hold—(1) mutual exclusion, (2) hold-and-wait, (3) no forced preemption, (4) circular wait—deadlock can occur. Example P1 holds lock A and requests B; P2 holds B and requests A. If each resource type has one instance, resource-allocation graph cycle implies deadlock. With multiple instances, cycle is necessary but not sufficient. Distinguish deadlock (no progress) from starvation (progress by others prevents particular process's turn).",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "Compare paging and segmentation memory management.",
+      "answer": "Paging splits virtual memory into equal-sized pages and RAM into equal-sized frames; page tables map VPN to PFN, avoiding external fragmentation, but permitting page-end internal fragmentation and translation overhead. Segmentation divides program into meaningful variable-sized code/data/stack segments; each segment has base, limit and protection, supports logical sharing but suffers external fragmentation and sometimes needs compaction. Combined segmentation-paging maps each logical segment through page tables, useful for protection and flexible placement. Diagram virtual address (page#,offset) → page table → (frame#,offset) vs (segment#,offset)→segment table(base,limit)→physical address.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Discuss virtual memory, translation, page tables and demand paging.",
+      "answer": "Virtual memory gives each process a logical address space larger/different from physical memory. CPU issues virtual page number VPN+offset; TLB caches mappings. On TLB hit, translate VPN→PFN rapidly; on miss, page table walk; if valid resident page, refill TLB; if not resident, trigger page fault. OS checks access validity, selects free frame or replacement victim, writes dirty page if necessary, loads requested page from backing storage, updates tables and restarts faulting instruction. Locality makes caching effective; insufficient frames cause thrashing. Protection uses page permissions/ASIDs and copy-on-write; page replacement FIFO/LRU/clock/OPT theoretical benchmark.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "File allocation: contiguous, linked, indexed methods.",
+      "answer": "Contiguous allocates consecutive blocks; directory stores start block and length, excellent sequential/random access, but external fragmentation and difficult file growth. Linked allocation chains arbitrary blocks; directory stores head pointer, easy expansion/no external fragmentation, but random access O(n) and pointer corruption risk; FAT stores links in a table. Indexed allocation stores pointers in an index block/inode; permits direct access via indexed block address, consumes index metadata and may require multilevel indirect blocks for large files. Extent-based allocation combines ranges with metadata to reduce overhead.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Structure and management of file directories, hierarchical versus flat.",
+      "answer": "Directory maps human-readable names to file identifiers/inodes and stores/accesses metadata such as permissions and timestamps. Single-level/flat directory keeps all files in one namespace: easy implementation but name collision, poor organization and access control. Two-level directories isolate per-user names; tree/hierarchical directories provide nested paths (/home/student/notes), scalable organization, ACLs and relative/absolute navigation; links can form DAGs and complicate deletion. Operations: create/delete/rename/move/list/search, access check, path resolution, mount, concurrent updates and consistency/recovery.",
+      "marks": 7,
+      "origin": "AKTU 2023-24 BCS401 Operating System paper"
+    }
+  ]
+}
