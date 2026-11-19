@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "paperId": "bcs302-2025",
+  "code": "BCS302",
+  "subject": "Computer Organization and Architecture",
+  "semester": 3,
+  "year": 2025,
+  "session": "2024-25",
+  "sourcePdf": "https://www.abesit.in/wp-content/uploads/2025/05/BCS302-COMPUTER-ORGANIZATION-AND-ARCHITECTURE.pdf",
+  "reviewStatus": "draft-instructor-review-pending",
+  "coverage": "all printed alternatives",
+  "verificationNote": "Transcribed from 2-page university paper ID 312052; independently written conceptual solutions, not formally instructor-reviewed.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "List basic functional units of a digital computer.",
+      "answer": "Input, output, memory/storage, arithmetic and logic unit (ALU), control unit, and registers. The CPU includes ALU, control logic and registers; buses interconnect components.",
+      "marks": 2,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "What are general-purpose registers?",
+      "answer": "Fast on-chip CPU registers used to hold temporary operands, addresses and intermediate results without a single dedicated role. Architectures expose a limited register set, such as R0…R15, subject to calling conventions and special uses.",
+      "marks": 2,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "Explain floating-point representation.",
+      "answer": "A real number is represented approximately as sign × significand × base^exponent. IEEE-754 binary32 has 1 sign bit, 8 biased-exponent bits (bias 127), and 23 fraction bits; ordinary normalized numbers have an implicit leading 1. This gives large dynamic range but rounding error; special encodings represent zero, infinity and NaN.",
+      "marks": 2,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Role of ALU in processor.",
+      "answer": "The ALU performs arithmetic (add, subtract, shifts), Boolean/bitwise operations (AND, OR, XOR, NOT) and comparisons. It consumes operands from registers, outputs results to registers, and may update status flags (zero, carry, sign, overflow).",
+      "marks": 2,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "Discuss microoperations.",
+      "answer": "Microoperations are elementary operations on data held in registers during a clock or control step: register transfer (R1←R2), arithmetic (R1←R1+R2), logic (R1←R1 AND R2), and shifting/rotating. A control unit orchestrates them to implement machine instructions.",
+      "marks": 2,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "Purpose of ROM.",
+      "answer": "Read-only memory stores information retained without power: boot firmware, microcode or device constants. Typical ROM/flash is nonvolatile, with slower and limited rewriting compared with RAM. Firmware executes startup checks and starts the operating-system loader.",
+      "marks": 2,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "List peripheral devices.",
+      "answer": "Keyboard, mouse, scanner, webcam, microphone, monitor, printer, external disks/USB storage, network adapters, speakers and industrial sensors/actuators. They exchange data with the CPU over I/O controllers/interfaces.",
+      "marks": 2,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Explain data transfers among registers, buses and memory, with read/write.",
+      "answer": "The CPU places a memory address in the Memory Address Register (MAR) and drives address lines. Read: assert memory-read control; memory returns the addressed word on the data bus into Memory Data Register (MDR); CPU transfers MDR to destination register. Write: load MAR with destination address and MDR with data; assert memory-write; memory stores MDR at MAR. Transfers are synchronized by clocks/handshaking and are mediated by the memory controller. Conceptual diagram: CPU registers ↔ internal bus ↔ MDR ↔ data bus ↔ Memory; MAR → address bus → Memory; control unit → Read/Write lines.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "Describe Booth's signed binary multiplication, advantages.",
+      "answer": "For n-bit two's-complement multiplicand M and multiplier Q, initialize A=0 and Q-1=0. Repeat n cycles: examine (Q0,Q-1). 01 → A=A+M; 10 → A=A−M; 00/11 → no add/subtract; then arithmetic-right-shift concatenation [A,Q,Q-1]. After n cycles [A,Q] is 2n-bit signed product. A run of 1 bits is represented by boundary operations, reducing partial additions for clustered 1s. Works directly with two's-complement signs; standard Booth may do as many operations for alternating bit patterns. Example M=3, Q=−2 yields product −6.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Explain horizontal and vertical microprogramming.",
+      "answer": "Horizontal microcode uses wide control words with many direct control bits; potentially triggers multiple compatible microoperations in parallel, fast decoding but high control memory cost. Vertical microcode uses compact encoded control fields requiring decoding; saves ROM size, but reduces immediate parallelism and adds decoder latency. Hardware designs may use hybrids.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Compare magnetic disks, tapes and optical disks as auxiliary memory.",
+      "answer": "Magnetic disk (HDD): rotating random-access, large capacity and good cost/GB; mechanical seek/rotation latency, vulnerable to shocks. Magnetic tape: sequential access, very high capacity and low archival cost but slow searching; used in backups and cold storage. Optical disc (CD/DVD/Blu-ray): laser reading/writing, removable media, relatively modest capacity and transfer speed; useful for distribution/archives. All are nonvolatile, unlike RAM.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Explain I/O ports, characteristics and significance.",
+      "answer": "An I/O port is an addressable interface/register or physical connection between host and a device controller. Controller status, data and command registers expose device state. CPU may use memory-mapped I/O or dedicated I/O instructions; handshaking, interrupts, buffering and DMA manage different speeds. Interfaces such as USB/PCIe add protocol, bus width, timing and power characteristics, letting OS drivers exchange data reliably.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Explain CPU organization, fetch/decode/execute, pipeline and parallelism.",
+      "answer": "Processor components: control unit, instruction decoder, PC, instruction register, general registers, ALU, status registers, cache and internal buses. Fetch: IR←Memory[PC]; PC advances. Decode instruction, identify operands/addressing mode. Execute through ALU, memory read/write or branch; write result and update flags/PC. A pipeline overlaps stages (e.g., IF, ID, EX, MEM, WB) for higher throughput; data, control and structural hazards require forwarding, stalls, branch prediction or resource duplication. Parallel techniques include superscalar issue, SIMD/vector units, multiple cores and simultaneous multithreading. More parallelism needs hazard checks, synchronization and coherent memory.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "Compare address bus, data bus and control bus.",
+      "answer": "Address bus identifies memory/I/O location; CPU typically drives it outward, width n supports up to 2^n byte addresses under a byte-addressed model. Data bus transfers instructions and data, usually bidirectional, its width affects how many bits transfer per beat. Control bus conveys signals such as read/write, clock/ready, interrupt requests, bus arbitration and reset. Example CPU fetch: address bus carries PC address, read signal travels on control bus, instruction word returns via data bus.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Explain carry lookahead adder (CLA) vs ripple carry adder.",
+      "answer": "For bit i: generate G_i=A_i B_i, propagate P_i=A_i xor B_i. Carry C_(i+1)=G_i+P_i C_i. A CLA expands this relation, e.g. C2=G1+P1 G0+P1 P0 C0; many carries can be computed in parallel with logic networks. Ripple carry computes each carry after the previous one, resulting in O(n) carry delay and small area; CLA reduces delay (group lookahead often logarithmic with hierarchical designs) at cost of extra gates, wiring and fan-in.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "Explain signed operand multiplication.",
+      "answer": "Signed binary multiplication uses two's complement or sign-magnitude representation. For two's-complement n-bit operands, product needs up to 2n bits, with correct sign extension on partial products. Booth recoding examines adjacent multiplier bits and performs ±multiplicand followed by arithmetic shifts; it handles negative operands directly. Example 4-bit −3 is 1101, +5 is 0101, product −15 represented in 8-bit two's complement as 11110001. Preserve arithmetic right shift and enough result bits to avoid overflow.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "Describe horizontal and vertical microprogramming in control-unit design.",
+      "answer": "Microinstructions reside in control store; sequencer selects next address. Horizontal format allocates separate bits/groups to assert control signals directly: wide words, low decoding overhead, high parallelism and high ROM area. Vertical format encodes mutually exclusive microoperation choices in shorter fields requiring decoder logic: narrow words, lower ROM area but added decode delay. Compare along word width, control-store size, speed, parallel microoperations, ease of modification and hardware complexity; hybrid formats balance them.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Explain microprogram sequencing for complex instructions.",
+      "answer": "A control-store address register (µPC/CAR) points to microinstruction in control memory. The control word activates datapath microoperations and includes next-address/branch information. Sequencer selects µPC+1, dispatch address from opcode, conditional branch based on flags or return address from micro-subroutine. For a memory ADD instruction, possible steps: fetch IR, decode/dispatch, compute effective address, memory-read operand, add to accumulator, store result, dispatch to next fetch. This makes complex ISA instructions implementable through reusable, testable sequences.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "Design and explain memory hierarchy.",
+      "answer": "From smallest/fastest/most expensive per bit to largest/slower/cheapest: CPU registers → L1 cache → L2/L3 cache → DRAM → SSD/HDD → archival tape/cloud. Locality drives efficiency: temporal locality reuses recent data, spatial locality accesses nearby addresses. Cache is block-based with tags and replacement policy; levels trade latency, capacity and bandwidth. Miss penalty grows with lower levels. Virtual memory uses pages and disk as backing store but is much slower than RAM.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Describe DRAM and SRAM architecture and operation.",
+      "answer": "SRAM usually uses cross-coupled transistors (e.g. 6T cell) storing a stable bit while powered; very fast, no periodic refresh, larger cell/cost; used for cache. DRAM stores a bit as capacitor charge accessed by a transistor (1T1C); charge leaks, so rows require refresh; reading is destructive and needs sense-amplifier restore; denser and cheaper per bit but slower; used as main memory. Both use row/column decoders, sense/data circuitry and read/write control.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "Role of peripheral devices and their interaction through I/O interfaces.",
+      "answer": "Peripherals provide data input, output, storage and communications. Device controllers bridge device protocols to CPU/system bus; driver software programs command registers, transfers data through data ports or DMA, and examines status. Programmed I/O uses polling, interrupt-driven I/O lets CPU run other tasks until an event, DMA transfers large blocks with minimal per-byte CPU work. Interrupt controllers, bus arbitration, buffering and access protection enable reliable integration.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Explain DMA techniques for data transfer.",
+      "answer": "DMA controller copies data directly between device controller and main memory. CPU programs device address, memory address, direction and count, then DMA arbitrates for the bus and transfers; completion usually triggers an interrupt. Modes: burst/block transfer occupies bus for a block; cycle stealing transfers one word at a time interleaved with CPU; transparent/idle-cycle DMA uses otherwise unused bus cycles. Supports scatter-gather descriptors and bus-mastering. CPU still handles setup/cache coherency and error conditions; DMA improves throughput and reduces interrupt/copy overhead.",
+      "marks": 7,
+      "origin": "AKTU BCS302 paper ID 312052"
+    }
+  ]
+}
