@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "paperId": "bcs603-2025",
+  "code": "BCS603",
+  "subject": "Computer Networks",
+  "semester": 6,
+  "year": 2025,
+  "session": "2024-25",
+  "sourcePdf": "https://www.abesit.in/wp-content/uploads/2025/10/BCS603-COMPUTER-NETWORKS.pdf",
+  "reviewStatus": "draft-numerical-verified-instructor-review-pending",
+  "coverage": "all printed questions and alternatives",
+  "verificationNote": "Solutions checked against AKTU 2024-25 paper ID 250777. CRC/distance-vector/subnetting/numerical assumptions explicitly shown. Ambiguous frame latency acknowledges both store-and-forward and one-transmission interpretations. Instructor review pending.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "Links in fully connected mesh with 10 nodes.",
+      "answer": "Each unordered pair needs one bidirectional link: n(n−1)/2=10×9/2=45 links. If directed unidirectional connections are separately counted, 90 directed arcs would be needed.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "Received power if initial 2 W experiences −3 dB attenuation.",
+      "answer": "Power ratio = 10^(−3/10)≈0.501187; Pr=2×0.501187≈1.0024 W (approximately 1 W).",
+      "explanation": "dB power formula: dB=10 log10(Pr/Pt).",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "When are contention-based MAC protocols suitable?",
+      "answer": "CSMA/ALOHA-like contention is suitable for bursty, asynchronous, relatively light or moderate traffic, when centralized scheduling is costly and collisions can be tolerated/retried. Performance degrades at high load; deterministic access (TDMA/reservation) is often preferable for hard real-time or very heavy traffic.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Illustrate piggybacking.",
+      "answer": "In bidirectional data-link communication, a station embeds an acknowledgment number for received frames in its next outgoing data frame instead of sending a separate ACK. Example A→B frame 5; B→A data frame 9 includes ACK=6, confirming A's frames through 5. Reduces overhead but may delay ACK when no reverse traffic arrives; timer eventually sends standalone acknowledgment.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "Functions of all OSI layers.",
+      "answer": "L1 Physical: signals/bits/connectors. L2 Data Link: frames, MAC, link error detection and media access. L3 Network: routing and logical addressing. L4 Transport: end-to-end delivery, ports, reliability/flow/congestion control as appropriate. L5 Session: dialog/session establishment/control. L6 Presentation: data representation, compression, encryption. L7 Application: network services to applications such as HTTP, SMTP, DNS. TCP/IP stacks often merge upper OSI layers.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "List congestion-control policies.",
+      "answer": "Open-loop prevention: retransmission policy, window policy, acknowledgment policy, admission control and traffic shaping. Closed-loop/reactive: backpressure, choke packets, explicit/implicit congestion signaling, active queue management (RED/ECN), TCP slow start, additive-increase/multiplicative-decrease, congestion avoidance and fast recovery. Distinguish congestion from receiver flow control.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "Role of RPC stub.",
+      "answer": "An RPC client stub exposes a procedure-like API, marshals arguments into request messages and unmarshals returned results; server stub unmarshals requests, calls local procedure and marshals response. Stubs hide transport/serialization details but cannot eliminate network failures, latency and partial-failure semantics.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "CRC for message polynomial x^8+x^6+x^3+x^2+x+1 and generator x^4+x^2+x+1. Show transmitted word and error from third bit inversion.",
+      "answer": "Message bits from x^8…x^0: 101001111 (9 bits). Generator: 10111 (5 bits), degree 4. Append 4 zeros: 1010011110000. XOR-divide by 10111 to obtain 4-bit remainder 0101. Transmitted codeword: 1010011110101. Dividing this codeword by 10111 yields syndrome 0000 (no detected error).\nFlip third bit from left: 1000011110101. Its CRC remainder/syndrome = 1000, nonzero; receiver detects the error.",
+      "explanation": "Remainders checked by independent modulo-2 long division.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "Divide IPv4 192.168.10.0/24 into four equal subnets.",
+      "answer": "Borrow two host bits: /26 mask 255.255.255.192; each subnet has 64 addresses and generally 62 usable hosts.\n1: network 192.168.10.0/26, hosts .1–.62, broadcast .63.\n2: network 192.168.10.64/26, hosts .65–.126, broadcast .127.\n3: network 192.168.10.128/26, hosts .129–.190, broadcast .191.\n4: network 192.168.10.192/26, hosts .193–.254, broadcast .255.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Explain leaky bucket and why token bucket improves traffic shaping.",
+      "answer": "Leaky bucket feeds arrivals into a finite queue and drains at approximately constant rate, smoothing bursts but dropping excess when full. Token bucket adds tokens at rate r up to capacity B; sending a packet consumes tokens proportional to its size. Allows bursts up to bucket credit while bounding long-term rate to r. Token bucket is thus more flexible for bursty legitimate traffic; both can be combined.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Explain public-key cryptography and RSA with example.",
+      "answer": "Asymmetric cryptography uses a public key for encryption/verification and a private key for decryption/signing. RSA: select primes p=61,q=53; n=pq=3233; φ(n)=3120; choose e=17 with gcd(e,φ)=1; find d=2753 satisfying ed≡1 mod 3120. Public key (3233,17), private (3233,2753). For textbook integer message m=65, ciphertext c=m^17 mod 3233=2790; decrypt c^2753 mod 3233=65. Advantages: solves public-key distribution and enables signatures; disadvantages: costly computation, needs trusted key validation and secure randomized padding. Textbook raw RSA is insecure; real encryption uses RSA-OAEP or hybrid encryption.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Explain SNMP, DNS and data compression.",
+      "answer": "SNMP monitors/manages network devices using managers, agents, MIB objects, GET/SET and notifications/traps, commonly UDP 161/162; use SNMPv3 for authenticated/encrypted management. DNS is hierarchical distributed naming mapping names to records (A/AAAA/MX/NS/TXT, etc.) via recursive/authoritative resolvers and caching. Compression reduces bits by finding redundancy: lossless (DEFLATE, Huffman) recovers exact original; lossy codecs (JPEG/MP3) discard perceptually less significant information.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Describe slotted ALOHA; 10% of slots idle, calculate load and throughput.",
+      "answer": "In slotted ALOHA, transmission begins only at slot boundaries; exactly one attempt in a slot succeeds, simultaneous transmissions collide. Under Poisson load G, P(idle)=e^(−G)=0.10. Hence G=−ln(0.10)=ln10≈2.302585 attempts per slot. Throughput S=G e^(−G)=2.302585×0.10≈0.230259 successful frames per slot (≈23.0%). The theoretical peak is 1/e≈0.368 at G=1.",
+      "explanation": "The result assumes independent Poisson transmission attempts; G need not be below 1.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "4 MB frame, 1000 km link, 2 Mbps, propagation speed 2×10^8 m/s, five routers each 1 μs processing and 2 μs queuing. Find latency.",
+      "answer": "Assuming MB means 10^6 bytes and the 1000 km represents *total* path length: frame bits = 4×10^6×8=32×10^6 bits; transmission delay per link=32e6/2e6=16 s; propagation delay=1e6/(2e8)=0.005 s; router processing+queue=5×(1+2) μs=15 μs=0.000015 s. If only one serialization of the frame is counted, total=16.005015 s.\nIf FIVE routers are store-and-forward and the frame is fully retransmitted across six 2-Mbps links, serialization is 6×16=96 s, so total ≈96.005015 s. The exam does not specify cut-through vs store-and-forward or each hop's link rate; state your assumption.",
+      "explanation": "2 Mbps is bits/s, not bytes/s. If 4 MiB is intended, use 4×2^20 bytes instead.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Explain distance-vector count-to-infinity and a mitigation.",
+      "answer": "Distance-vector routers exchange estimated path costs with neighbors (Bellman–Ford). If a route fails, two neighbors can mistakenly advertise each other's outdated route as an alternative, increasing metrics iteratively (e.g. 2→3→4→…). This converges slowly until the metric reaches defined infinity. Remedies include split horizon, poison reverse/route poisoning, triggered updates and hold-down timers; none solves every possible loop alone.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "At router C, neighbors B,D,E report vectors (5,0,8,12,6,2), (16,12,6,0,9,10), (7,6,3,9,0,4), and link costs 6,3,5. Compute new routes.",
+      "answer": "Assume vectors are for destinations (A,B,C,D,E,F). Candidate delay via neighbor = cost(C,neighbor)+neighbor's advertised delay. Thus:\nA: via B 6+5=11, D 3+16=19, E 5+7=12 → B,11.\nB: B 6+0=6, D 3+12=15, E 5+6=11 → B,6.\nC: self,0.\nD: B 6+12=18, D 3+0=3, E 5+9=14 → D,3.\nE: B 6+6=12, D 3+9=12, E 5+0=5 → E,5.\nF: B 6+2=8, D 3+10=13, E 5+4=9 → B,8.\nNew table: A→B/11, B→B/6, C→local/0, D→D/3, E→E/5, F→B/8.",
+      "explanation": "Use the explicitly printed measured neighbor delays (6,3,5); an illustrative graph in the paper labels some links differently.",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "New features of IPv6, purpose and handling of multiple headers.",
+      "answer": "IPv6 uses 128-bit addressing, fixed 40-byte base header, streamlined routing fields, no header checksum, flow label, auto-configuration support, mandatory support for ICMPv6 neighbor discovery and improved extension handling. Optional functions live in chained extension headers identified by Next Header: Hop-by-Hop Options, Routing, Fragment, Destination Options, AH and ESP. Only source hosts fragment; routers do not. Extension header ordering is constrained by specifications, not arbitrary; excessive/unknown headers can face deployment filtering.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Explain RARP, DHCP and VPN.",
+      "answer": "RARP historically mapped a host MAC address to an IP address on a LAN, largely replaced by BOOTP/DHCP. DHCP dynamically assigns IP configuration (address, mask, gateway, DNS, lease) using Discover→Offer→Request→Acknowledge (DORA). VPN establishes a logical tunnel across an untrusted network, often with authentication, encryption and integrity protection (e.g. IPsec, TLS-based VPN, WireGuard). A VPN does not automatically make the endpoint or destination trustworthy.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "What is Silly Window Syndrome, and how do Nagle/Clark prevent it?",
+      "answer": "Silly Window Syndrome results in many tiny TCP segments or advertised tiny receive windows, wasting header/bandwidth overhead. Nagle's sender-side algorithm coalesces small writes: if unacknowledged data is in flight, buffer additional small writes until ACK or a full-sized segment is available (exceptions apply); this can increase latency for interactive traffic. Clark's receiver-side solution avoids advertising very small window increments, waiting until enough buffer is free (e.g., ≥MSS or half receive buffer). Delayed ACK and Nagle interaction can worsen latency unless tuned.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Explain TCP header and connection management.",
+      "answer": "TCP segment contains source/destination ports (16 bits each), sequence number, acknowledgment number, data offset, flags (SYN, ACK, FIN, RST, PSH, URG and ECN-related flags), window size, checksum, urgent pointer, options (MSS, window scale, timestamps, SACK) and payload. Open: client sends SYN(seq=x), server SYN+ACK(seq=y,ack=x+1), client ACK(ack=y+1). Close often uses FIN/ACK handshakes per direction, with TIME_WAIT on active closer; RST aborts. Sliding windows, retransmissions, congestion control and state machine provide reliable ordered byte stream.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "How can SMTP transfer images/videos; advantages of IMAP4 over POP3.",
+      "answer": "SMTP carries RFC 5322 messages. MIME encodes binary attachments as content parts with Content-Type and Content-Transfer-Encoding such as base64; message is sent via SMTP, constrained by server attachment-size limits. IMAP4 stores/manages mailbox folders server-side, synchronizes flags/read states across devices, supports selective fetching and server searching. POP3 is simpler and often downloads messages to one device, with fewer synchronization/remote-folder capabilities.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Explain FTP, HTTP and Telnet.",
+      "answer": "FTP transfers files via separate control (usually TCP21) and data connections; plain FTP transmits credentials/data without encryption (prefer SFTP or FTPS as appropriate). HTTP is stateless request-response application protocol (methods GET/POST, status codes), typically over TCP for HTTP/1.1 or HTTP/2; HTTPS secures HTTP with TLS and HTTP/3 uses QUIC. Telnet (TCP23) offers plaintext remote terminals and is unsafe on untrusted networks; use SSH for encrypted remote administration.",
+      "explanation": "",
+      "marks": 7,
+      "origin": "AKTU 2024-25 BCS603 paper ID 250777"
+    }
+  ]
+}
