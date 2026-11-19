@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "paperId": "kcs401-2022",
+  "subject": "Operating Systems",
+  "code": "KCS401",
+  "semester": 4,
+  "year": 2022,
+  "session": "2021-22",
+  "sourcePdf": "https://www.aktuonline.com/papers/btech-cs-4-sem-operating-systems-kcs401-2022.pdf",
+  "reviewStatus": "draft-computations-checked-instructor-review-pending",
+  "coverage": "all printed alternatives",
+  "verificationNote": "Question wording checked against the accessible university paper; explanations are independently written, and numeric exercises were computationally checked. Not formally instructor-reviewed.",
+  "questions": [
+    {
+      "questionNumber": "1(a)",
+      "question": "Define operating system and mention its major functions.",
+      "answer": "An operating system (OS) is system software that provides services to applications and manages computer resources. Its principal functions are process/CPU scheduling, memory management, file and storage management, device/I/O management, security/protection, resource allocation, and a user/application interface.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "1(b)",
+      "question": "Define real-time operating system.",
+      "answer": "An RTOS schedules computations so required responses meet timing deadlines. Correctness depends on both result and timing. Hard real-time systems cannot tolerate a missed critical deadline (e.g., safety controller); soft real-time systems allow occasional deadline misses with degraded quality.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "1(c)",
+      "question": "What are concurrent processes?",
+      "answer": "Two or more processes are concurrent when their execution lifetimes overlap. They can make progress by interleaved execution on one CPU or simultaneous execution on different cores; they may need synchronization when accessing shared resources.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "1(d)",
+      "question": "Define seek time and latency time.",
+      "answer": "Seek time is the time to move a hard disk's read/write head to the required cylinder/track. Rotational latency is the time waiting for the desired sector to rotate beneath the head; mean latency is about half a rotation. Access time also includes transfer and controller overhead.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "1(e)",
+      "question": "Why is scheduling needed?",
+      "answer": "CPU scheduling selects a ready process to run next, improving CPU utilization and throughput, sharing the CPU fairly, limiting response and waiting time, and respecting priorities/deadlines.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "1(f)",
+      "question": "What are performance criteria for CPU scheduling?",
+      "answer": "CPU utilization and throughput should be maximized; average waiting time, turnaround time, and response time should generally be minimized; fairness, predictability and deadline satisfaction may also matter.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "1(g)",
+      "question": "Explain logical and physical address space diagrammatically.",
+      "answer": "A process produces virtual/logical addresses; the MMU translates them using a page table/TLB (or base/limit registers) into physical RAM addresses. Conceptual flow: CPU virtual address → MMU/TLB/page table → physical memory address. Logical address space is the set of addresses visible to the process; physical address space is the corresponding actual RAM addresses.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "1(h)",
+      "question": "Explain multiprogramming with fixed partitions.",
+      "answer": "Main memory is divided in advance into a fixed number of regions; one process occupies each region at a time. Several jobs can reside concurrently, permitting CPU work while another waits for I/O. It is simple but suffers internal fragmentation and limits resident process count to partition count.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "1(i)",
+      "question": "What are safe and unsafe states?",
+      "answer": "A state is safe if there exists at least one order of process completions in which each process can obtain remaining resources and finish. An unsafe state has no known safe sequence; it can lead to deadlock but is not necessarily deadlocked. Banker's algorithm avoids unsafe allocations.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "1(j)",
+      "question": "What is I/O buffering?",
+      "answer": "Buffering temporarily holds data in memory while devices and processes transfer at different rates or granularities. Single, double and circular buffers help overlap CPU and I/O, smooth bursts and reduce blocking.",
+      "explanation": "",
+      "marks": 2,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "2(a)",
+      "question": "Explain file-system protection and security.",
+      "answer": "Protection specifies which principals can perform operations on files (read, write, execute, delete). Security defends confidentiality, integrity and availability against unauthorized access or attack. Mechanisms: authenticated user identities; file ownership and UNIX permission bits (rwx for owner/group/others); ACLs/capabilities for finer policies; least privilege; encryption at rest/in transit; checksums/integrity controls; access logging, backups and recovery; access control on directories; secure deletion where appropriate. For example 0640 permits owner read/write, group read, others no access. Permissions prevent accidental or unauthorized access but backups are needed against failures.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "2(b)",
+      "question": "Explain mutual exclusion and the critical-section problem.",
+      "answer": "A critical section is code accessing shared mutable resources. A correct solution provides (1) mutual exclusion: at most one participating process enters, (2) progress: if CS is empty, eligible contenders can decide entry, and (3) bounded waiting: no process is postponed forever (under standard assumptions). Race example: two threads increment a shared counter, both read 5 and write 6. Protect using mutex: lock(m); counter++; unlock(m). Binary semaphores, monitors, atomic test-and-set or compare-and-swap are alternatives. Avoid holding a lock while blocking indefinitely; locks alone do not guarantee freedom from deadlock or starvation.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "2(c)",
+      "question": "Explain process control block (PCB) and role in CPU scheduling.",
+      "answer": "The PCB is a kernel data structure recording each process's PID, state (new/ready/running/waiting/terminated), program counter, CPU registers and stack state, priority, CPU accounting, scheduling queue pointers, address-space/page-table information, open files, I/O state and credentials. During a context switch the OS saves the outgoing CPU state to its PCB, selects the next ready PCB, restores registers/PC and resumes execution. Scheduler queues organize PCBs by readiness and waiting events.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "2(d)",
+      "question": "Explain disk storage and disk scheduling.",
+      "answer": "Hard disks store blocks on rotating platters in tracks and sectors; seek time and rotation delay dominate mechanical access. A scheduling algorithm orders pending head requests. FCFS serves arrival order (fair/simple but may seek far); SSTF serves the nearest cylinder (reduces local movement but may starve distant requests); SCAN moves in one direction to an end then reverses; LOOK reverses at last pending request; C-SCAN returns to the beginning after sweeping one way for more uniform waits. Consider both head movement and workload fairness; SSDs don't have mechanical seeks and use different optimization concerns.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "2(e)",
+      "question": "Explain multiuser and multithreaded systems.",
+      "answer": "A multiuser OS supports several users with separate identities, permission boundaries, accounting, concurrent interactive sessions and resource sharing. A multithreaded process contains multiple threads sharing the same address space and resources but with their own program counters, registers and stacks. Benefits include responsiveness, I/O overlap and parallel execution; hazards include data races, deadlocks and memory visibility issues. These are independent concepts: a system can be multiuser and each user's processes can be multithreaded.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "3(a)",
+      "question": "Write notes on file-system protection/security and linked file allocation.",
+      "answer": "Protection/security: authenticated users, read/write/execute rights, ACLs, encryption, audit, backup and integrity checking protect files and directories. Linked allocation: each file is a linked chain of disk blocks; the directory contains its first block (and often last). Blocks need not be contiguous, so external fragmentation is avoided and file growth is easy. Drawback: random access is O(n) in chain length; pointers consume space; corrupted pointer can lose remaining chain; FAT improves locating links by storing pointers in a table.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "3(b)",
+      "question": "Explain the dining philosophers problem.",
+      "answer": "Five philosophers alternate thinking and eating, sharing one fork between adjacent seats; eating requires both forks. If each philosopher picks up the left fork then waits for the right, circular wait can deadlock. Solutions: impose a strict global fork acquisition order (always take lower-numbered first), let at most N−1 philosophers compete with a counting semaphore, use a waiter/monitor that grants both forks atomically, or make one philosopher pick up forks in reverse order. Illustrative semaphore pattern: wait(room=4); wait(left); wait(right); eat; signal(right); signal(left); signal(room). A scheme may need fair semaphores/queues to avoid starvation.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "4(a)",
+      "question": "Explain operating system services.",
+      "answer": "Services include program execution and termination; process creation and management; I/O operations; file-system manipulation; interprocess communication; error detection/handling; resource allocation and accounting; protection/security; user interfaces (CLI, GUI, system-call API). For example open/read/write expose protected file access while the OS checks permissions and maps the request to device drivers.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "4(b)",
+      "question": "Explain threads and their management.",
+      "answer": "A thread is a schedulable execution path within a process; threads share code/data/open files but retain separate stacks, registers and program counters. Management includes create/join/exit, scheduling, blocking/waking, cancellation, thread-local storage and synchronization via mutexes, semaphores or condition variables. User-level threads may be fast to manage but depend on the runtime; kernel threads are independently scheduled by the OS. Risks: races, deadlocks, resource leaks; thread pools reduce repeated creation cost.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "5(a)",
+      "question": "Define file, file organization and access mechanisms.",
+      "answer": "A file is a named collection of stored data with metadata (size, type, owners, timestamps, permissions). Organization describes record/block placement: sequential records, indexed records and hashed/direct access; disk block allocation may be contiguous, linked or indexed (inode). Access methods include sequential (read next in order), direct/random (seek to a known byte/block), and indexed access (lookup an index then read records). Tradeoffs: sequential is efficient for scanning; direct/indexed support faster point queries but may use extra metadata.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "5(b)",
+      "question": "Disk requests 86,1470,913,1774,948,1509,1022,1750,130, head 143, compute SSTF and FCFS head travel.",
+      "answer": "SSTF visits 143 → 130 → 86 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774. Distances: 13+44+827+35+74+448+39+241+24 = 1745 cylinders.\nFCFS visits 143 → 86 → 1470 → 913 → 1774 → 948 → 1509 → 1022 → 1750 → 130. Distances: 57+1384+557+861+826+561+487+728+1620 = 7081 cylinders.",
+      "explanation": "SSTF repeatedly picks the nearest outstanding request; FCFS follows the queue exactly.",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "6(a)",
+      "question": "Explain interprocess communication (IPC) models and schemes.",
+      "answer": "Two main models: (1) shared memory, where processes map a common region and coordinate with semaphores, mutexes or condition variables; (2) message passing, where send/receive operations exchange messages through the kernel or a runtime. Message channels may be direct/indirect (mailboxes), synchronous blocking/asynchronous nonblocking, buffered/unbuffered. Mechanisms include anonymous and named pipes, sockets, message queues, shared-memory segments, signals and RPC. Shared memory minimizes copying but requires strict synchronization; message passing provides clearer ownership but can add serialization/copy overhead.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "6(b)",
+      "question": "Compare monolithic and microkernel systems.",
+      "answer": "Monolithic kernel places core OS services (device drivers, file systems, scheduler, memory management) largely in kernel address space, enabling efficient direct calls but expanding the trusted computing base and impact of faulty code. Microkernels keep a small kernel for scheduling/address spaces/IPC and run many services as user-space servers, improving fault isolation and modularity but involving IPC/context-switch overhead. Modern designs often blend approaches; Linux is primarily monolithic with loadable modules, whereas MINIX 3 is a microkernel-style system.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "7(a)",
+      "question": "Explain deadlock system model and characterization.",
+      "answer": "Model a set of processes competing for resource types with finite instances. Deadlock occurs when each process in a set waits for an event/resource that another process in the set can release, and none can progress. Four necessary Coffman conditions: mutual exclusion, hold-and-wait, no preemption, circular wait. Resource-allocation graph uses process circles, resource boxes, request edges P→R and assignment edges R→P. A directed cycle implies deadlock if every resource type has one instance; with multiple instances a cycle is necessary but not sufficient. Handle via prevention, avoidance (Banker's), detection and recovery.",
+      "explanation": "",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    },
+    {
+      "questionNumber": "7(b)",
+      "question": "Illustrate FIFO and Optimal page replacement for reference string 7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1 with three frames.",
+      "answer": "Reference string: 7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1.\nFIFO page-fault pattern (F=fault,H=hit): F F F F H F F F F F F H H F F H H F F F → 15 faults.\nOptimal page-fault pattern: F F F F H F H F H H F H H F H H H F H H → 9 faults.\nFIFO evicts the page loaded earliest; OPT evicts the page whose next use lies furthest in the future (or is never used again). OPT minimizes misses but requires knowledge of future references.",
+      "explanation": "Computed by explicit simulation with three initially empty page frames.",
+      "marks": 10,
+      "origin": "AKTU 2021-22 KCS401 paper"
+    }
+  ]
+}
